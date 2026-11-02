@@ -192,7 +192,7 @@ Repository substitutions for benchmark starting states. Each entry requires `sou
 ### `secrets`
 
 **Optional.**
-Names of [managed secrets](/platform/secrets/) granted to every agent, in addition to secrets declared by an agent.
+Names of [managed secrets](/factories/secrets/) granted to every agent, in addition to secrets declared by an agent.
 
 ### `mcpServers`
 
@@ -203,7 +203,7 @@ Names of [managed secrets](/platform/secrets/) granted to every agent, in additi
 * `command` - A stdio command. Optional `args` is a list of strings, and optional `env` maps names to string values.
 * `url` - An absolute HTTP or HTTPS URL. Optional `headers` maps header names to string values.
 
-Don't put credentials in `env` or `headers`. Reference a [managed secret](/platform/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
+Don't put credentials in `env` or `headers`. Reference a [managed secret](/factories/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
 
 ```yaml
 mcpServers:
@@ -738,7 +738,7 @@ One to 20 classifications. Each label requires a unique `value` and a `score` fr
 ## `webhooks/<name>.yaml`
 
 **Optional resource.**
-Webhook files define [authenticated URLs](/factories/webhooks/) for JSON POST requests. Automation `webhook` triggers subscribe to them; the file name identifies the webhook. `secretName` references an existing [managed secret](/platform/secrets/), not secret material.
+Webhook files define [authenticated URLs](/factories/webhooks/) for JSON POST requests. Automation `webhook` triggers subscribe to them; the file name identifies the webhook. `secretName` references an existing [managed secret](/factories/secrets/), not secret material.
 
 ```yaml title="webhooks/internal-ci.yaml"
 authMode: token

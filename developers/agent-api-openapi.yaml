@@ -1,32 +1,3 @@
-openapi: 3.2.0
-info:
-  title: Warp Platform API
-  version: 1.0.0
-  description: |
-    API for creating, managing, and querying factory and cloud agent runs.
-
-    Send work to factories, start standalone agents, list runs, and retrieve
-    detailed run information.
-  contact:
-    name: Warp Support
-    url: 'https://docs.warp.dev'
-    email: support@warp.dev
-  license:
-    name: Proprietary
-servers:
-  - url: 'https://app.warp.dev/api/v1'
-    description: Warp Server
-tags:
-  - name: agent
-    description: Operations for running and managing cloud agents
-  - name: schedules
-    description: Operations for creating and managing scheduled agents
-  - name: factory
-    description: Operations for creating and managing factories
-  - name: benchmark
-    description: 'Operations for managing benchmark suites, tasks, runs, trials, and results'
-  - name: networking
-    description: Networking information for Warp-hosted agents
 paths:
   /networking/egress-ranges:
     get:
@@ -183,7 +154,7 @@ paths:
         scope, including when filtering by recipient.
       operationId: listFactoryInbox
       tags:
-        - factory
+        - factory-notifications
       security:
         - bearerAuth: []
       parameters:
@@ -271,7 +242,7 @@ paths:
         successful no-ops. Outcomes are returned in request order.
       operationId: markFactoryInboxNotificationsRead
       tags:
-        - factory
+        - factory-notifications
       security:
         - bearerAuth: []
       requestBody:
@@ -322,7 +293,7 @@ paths:
         successful no-ops. Outcomes are returned in request order.
       operationId: markFactoryInboxNotificationsUnread
       tags:
-        - factory
+        - factory-notifications
       security:
         - bearerAuth: []
       requestBody:
@@ -725,9 +696,11 @@ paths:
     post:
       summary: Apply a Factory Branch sync
       description: |
-        Requires Factory view, source.apply, and complete projection
-        authorization. Synchronizes to the current registered head with
-        bounded freshness admission. Duplicate requests converge.
+        Requires Factory view and source.apply. Queues a Temporal
+        reconciliation to the current registered head and returns before
+        synchronization completes. Publication requires complete projection
+        authorization. Duplicate requests converge. Read branch status to
+        observe completion or source errors.
         Does not accept a target SHA or repository, create tracking, revive
         retired identity, or replace settings on existing runs.
         Requires factory_branches.
@@ -748,14 +721,12 @@ paths:
           schema:
             type: string
       responses:
-        '200':
-          $ref: '#/components/responses/FactoryBranchStatusResponse'
-        '400':
-          description: Invalid source content
+        '202':
+          description: 'Synchronization accepted; the returned state is SYNCING, not a verified source observation.'
           content:
-            application/problem+json:
+            application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/FactoryBranchStatus'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
@@ -1135,7 +1106,7 @@ paths:
         receive per-period series aligned to period_list.
       operationId: getFactoryMetrics
       tags:
-        - factory
+        - factory-metrics
       security:
         - bearerAuth: []
       parameters:
@@ -1213,7 +1184,7 @@ paths:
         additionally receive per-period series aligned to period_list.
       operationId: getFactoryCostPerPR
       tags:
-        - factory
+        - factory-metrics
       security:
         - bearerAuth: []
       parameters:
@@ -1291,7 +1262,7 @@ paths:
         additionally receive per-period series aligned to period_list.
       operationId: getFactoryCostBreakdown
       tags:
-        - factory
+        - factory-metrics
       security:
         - bearerAuth: []
       parameters:
@@ -1374,7 +1345,7 @@ paths:
         detail fields.
       operationId: getFactoryTopPRs
       tags:
-        - factory
+        - factory-metrics
       security:
         - bearerAuth: []
       parameters:
@@ -1579,7 +1550,7 @@ paths:
         series aligned to period_list.
       operationId: getFactoryRunBreakdown
       tags:
-        - factory
+        - factory-metrics
       security:
         - bearerAuth: []
       parameters:
@@ -1661,7 +1632,7 @@ paths:
         period_list.
       operationId: getFactoryCostByPRSize
       tags:
-        - factory
+        - factory-metrics
       security:
         - bearerAuth: []
       parameters:
@@ -3679,7 +3650,7 @@ paths:
         scope in full.
       operationId: updateScorer
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -3743,7 +3714,7 @@ paths:
         both are gone.
       operationId: deleteScorer
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -3910,6 +3881,15 @@ paths:
             linked to that factory are returned.
           schema:
             type: string
+        - name: branch_uid
+          in: query
+          required: false
+          description: |
+            Optional Factory branch UID. Requires factory_uid and access to that
+            factory. Returns only active agents in that branch; when omitted,
+            only production agents are returned.
+          schema:
+            type: string
       responses:
         '200':
           description: List of agents
@@ -3918,7 +3898,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ListAgentIdentitiesResponse'
         '400':
-          description: 'User on multiple teams, or on no team'
+          description: 'Invalid branch filter, user on multiple teams, or on no team'
           content:
             application/json:
               schema:
@@ -3931,6 +3911,12 @@ paths:
                 $ref: '#/components/schemas/Error'
         '403':
           description: Only human users can list agents
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: 'Factory or branch not found, inaccessible, or branches unavailable'
           content:
             application/json:
               schema:
@@ -3958,7 +3944,7 @@ paths:
         request; the scorer and its self-improvement config are created atomically.
       operationId: createScorer
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       requestBody:
@@ -4011,7 +3997,7 @@ paths:
         and aggregate scoring stats.
       operationId: listScorers
       tags:
-        - agent
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -4090,7 +4076,7 @@ paths:
         Reasons are read from object storage only when include_reasons is true.
       operationId: listScorerResults
       tags:
-        - agent
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -4188,7 +4174,7 @@ paths:
         `GET /factory/{uid}/metrics`.
       operationId: getScorerMetrics
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -4280,7 +4266,7 @@ paths:
         individual failures; inspect each result's `status` and `error`.
       operationId: dispatchRunScorers
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -4362,7 +4348,7 @@ paths:
         individual failures; inspect each result's `status` and `error`.
       operationId: dispatchScorer
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -4432,7 +4418,7 @@ paths:
         the run.
       operationId: listRunScores
       tags:
-        - factory
+        - factory-scorers
       security:
         - bearerAuth: []
       parameters:
@@ -4706,8 +4692,7 @@ paths:
       summary: Create a benchmark suite
       operationId: createBenchmarkSuite
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -4755,8 +4740,7 @@ paths:
       summary: List benchmark suites
       operationId: listBenchmarkSuites
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -4800,8 +4784,7 @@ paths:
       summary: Get a benchmark suite with its tasks and configurations
       operationId: getBenchmarkSuite
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -4832,8 +4815,7 @@ paths:
       summary: Edit a benchmark suite
       operationId: patchBenchmarkSuite
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -4876,8 +4858,7 @@ paths:
       summary: Soft-delete a benchmark suite
       operationId: deleteBenchmarkSuite
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -4914,8 +4895,7 @@ paths:
         is saved as a file and returned from that file.
       operationId: createBenchmarkSuiteTask
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -4965,8 +4945,7 @@ paths:
       summary: Get one benchmark suite task
       operationId: getBenchmarkSuiteTask
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5015,8 +4994,7 @@ paths:
         starting_repo_refs or tags clears that field.
       operationId: patchBenchmarkSuiteTask
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5071,8 +5049,7 @@ paths:
       summary: Delete one benchmark suite task
       operationId: deleteBenchmarkSuiteTask
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5126,8 +5103,7 @@ paths:
         These options do not change execution retries within the benchmark run.
       operationId: launchBenchmarkRun
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5189,8 +5165,7 @@ paths:
         information in `page_info`. Retained runs remain readable after the
         suite is deleted; an unknown suite returns an empty list.
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5250,8 +5225,7 @@ paths:
         Use `include` to add these fields or the creator's display name.
         Retrieve trials separately for individual scores and execution history.
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5285,8 +5259,7 @@ paths:
       summary: Cancel an in-flight benchmark run
       operationId: cancelBenchmarkRun
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5333,8 +5306,7 @@ paths:
         changing the summary or comparison populations. Results cover the whole
         selected dataset, independently of trial-list pages, and are not paginated.
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5384,8 +5356,7 @@ paths:
         This lookup accepts `include` and an omitted `limit` or `limit=1`, but
         no cursor or other filters. Filtering by scorer is not supported.
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5463,8 +5434,7 @@ paths:
         execution attempts and judge history. Each requested expansion is
         complete. Selection and pagination parameters are not supported.
       tags:
-        - factory
-        - benchmark
+        - factory-benchmarks
       security:
         - bearerAuth: []
       parameters:
@@ -5632,231 +5602,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: |
-        Authentication via a Warp API key or a supported Warp-issued user token.
-  parameters:
-    PresignedDownloadRedirect:
-      name: redirect
-      in: query
-      required: false
-      description: Set to false to return a signed storage URL as JSON rather than redirecting.
-      schema:
-        type: boolean
-        default: true
-    BenchmarkFactoryPath:
-      name: factory_uid
-      in: path
-      description: UID of the factory that owns the benchmark suite.
-      required: true
-      schema:
-        type: string
-    BenchmarkSuitePath:
-      name: suite_uid
-      in: path
-      description: UID of the benchmark suite within this factory.
-      required: true
-      schema:
-        type: string
-    BenchmarkRunPath:
-      name: run_uid
-      in: path
-      description: UID of the benchmark run within this suite.
-      required: true
-      schema:
-        type: string
-    BenchmarkRunInclude:
-      name: include
-      in: query
-      description: |
-        Controls additional fields in each returned run object. `details` adds
-        launch settings, including tasks, configurations, repetitions, and scorers.
-        `summary_results` adds aggregate results for the entire run.
-        `creator_display_name` adds `creator.display_name` when the creator is
-        known; the name is null if unavailable. Unrequested fields are omitted.
-        Repeat this parameter to include multiple fields, for example
-        `include=details&include=summary_results`. Values are case-sensitive;
-        empty, comma-separated, and unknown values are invalid.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-            - details
-            - summary_results
-            - creator_display_name
-    BenchmarkTrialInclude:
-      name: include
-      in: query
-      description: |
-        Controls additional fields in each returned trial object. `results` adds
-        scores, metrics, and spend. `details` adds retained execution attempts and
-        judge-run history. Request either or both; unrequested fields are omitted.
-        Each requested field contains all available entries, not a separate page.
-        Repeat this parameter to request both, for example
-        `include=results&include=details`. Values are case-sensitive;
-        empty, comma-separated, and unknown values are invalid.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-            - results
-            - details
-    BenchmarkResultsInclude:
-      name: include
-      in: query
-      description: |
-        Controls which detailed metric arrays appear alongside the result summary.
-        Each value adds the response field with the same name; unrequested arrays
-        are omitted. Requested arrays contain every matching entry and are empty,
-        never null, when there are no entries. This response is not paginated.
-        Repeat this parameter to request multiple arrays, for example
-        `include=configuration_metrics&include=agent_metrics`. Values are
-        case-sensitive; empty, comma-separated, and unknown values are invalid.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-            - configuration_metrics
-            - scorer_configuration_metrics
-            - task_scorer_configuration_metrics
-            - agent_metrics
-    BenchmarkTaskSelection:
-      name: task_uid
-      in: query
-      description: |
-        Select trials or result aggregates for these task UIDs, using the tasks
-        recorded when the run was launched. Repeat to match any specified task.
-        Result summaries and metrics are calculated only from the selected tasks.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    BenchmarkTagSelection:
-      name: tag
-      in: query
-      description: |
-        Select trials or result aggregates by task tags recorded when the run was
-        launched. Repeat to match any specified tag; matching is case-sensitive.
-        Result summaries and metrics are calculated only from the selected tasks.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    BenchmarkConfigurationProjection:
-      name: configuration_uid
-      in: query
-      description: |
-        Return detailed metric rows only for these configuration UIDs. Summary
-        counts and comparison populations still cover all configurations in the
-        selected dataset. Repeat to return multiple configurations.
-        Requires at least one metric array requested through `include`.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    BenchmarkScorerProjection:
-      name: scorer_uid
-      in: query
-      description: |
-        Return scorer-specific metric rows only for these scorer UIDs. Overall
-        results and comparison populations still cover all applicable scorers.
-        Repeat to return multiple scorers. Requires
-        `include=scorer_configuration_metrics` or
-        `include=task_scorer_configuration_metrics`.
-      style: form
-      explode: true
-      schema:
-        type: array
-        items:
-          type: string
-    TeamUidHeaderParam:
-      name: X-Warp-Team-Uid
-      in: header
-      required: false
-      description: |
-        UID of the team to use as the request's active team. Ignored for
-        service-account callers, which always act as their bound team.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication required
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    FactoryBranchStatusResponse:
-      description: Current observation of the tracked Branch
-      headers:
-        Cache-Control:
-          schema:
-            type: string
-            enum:
-              - no-store
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FactoryBranchStatus'
-    FactoryBranchNotFound:
-      description: 'Hidden Factory, unknown or cross-Factory tracking, or disabled Branch surface'
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    FactoryBranchConflict:
-      description: |
-        Classified conflict with reason branch_sync_pending, branch_head_moved,
-        factory_source_changed, branch_deleted, or factory_scope_unavailable.
-        Pending synchronization, moving heads, and source changes are retryable;
-        deleted or unavailable identity is not.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    FactoryBranchUnavailable:
-      description: 'Retryable resource_unavailable for source, synchronization, or database failure'
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    FactoryAccessDenied:
-      description: Factory access is not enabled for the authenticated principal
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    FactoryMetricsRateLimited:
-      description: |
-        The caller has used up the request budget shared by the factory
-        metrics endpoints. Wait the number of seconds in Retry-After, then
-        retry.
-      headers:
-        Retry-After:
-          description: Seconds to wait before retrying.
-          schema:
-            type: integer
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     EgressRangesResponse:
       type: object
@@ -6140,6 +5885,16 @@ components:
     FactorySelfImprovementConfig:
       type: object
       properties:
+        default_runner_uid:
+          type: string
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+        mcp_servers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerConfig'
         reviewer_type:
           type: string
           enum:
@@ -8008,6 +7763,11 @@ components:
       required:
         - prompt
       properties:
+        attachments:
+          type: array
+          maxItems: 5
+          items:
+            $ref: '#/components/schemas/AttachmentInput'
         branch:
           type: string
           nullable: true
@@ -13437,7 +13197,7 @@ components:
           description: latest retained judge execution ID by dispatch order; no full judge history is implied.
     BenchmarkTrialMetrics:
       type: object
-      description: Metrics for a benchmark trial. A run is a persisted platform agent task instance; an execution is one session of that run with a recorded agent start. Resuming a run can add an execution without adding a run. Run/execution counts cover the final trial attempt's root and recursively spawned agents. Scorer runs and all their descendants are excluded.
+      description: 'Metrics for a benchmark trial. A run is a persisted platform agent task instance; an execution is one session of that run with a recorded agent start. Resuming a run can add an execution without adding a run. Run/execution counts cover the final trial attempt''s root and recursively spawned agents. Scorer runs and all their descendants are excluded. Token and tool counts use that same retained tree, including failed or unsettled agents, without superseded-attempt fallback. Conversation usage is lifetime evidence: attempts sharing a conversation cannot be separated. Native Claude usage includes its native subagents; Codex reports its root rollout scope. Billing estimates are not exact usage counts.'
       required:
         - agent_runs
         - agent_executions
@@ -13496,12 +13256,29 @@ components:
         provider_cost_estimate:
           $ref: '#/components/schemas/BenchmarkProviderCostEstimate'
           description: 'existing provider estimate/attribution, omitted when unavailable; never an invented zero estimate.'
+        input_tokens:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Total input tokens including cache reads and writes once. Oz and Claude add ordinary input plus read/write buckets; Codex input already includes cache. Omitted when any eligible conversation lacks enough retained evidence; measured zero is present.
+        cached_input_tokens:
+          type: integer
+          format: int64
+          minimum: 0
+          description: 'Cache-read input tokens in the final retained attempt tree. Availability is independent of other usage fields; omitted when unknown, while measured zero is present.'
+        cache_write_input_tokens:
+          type: integer
+          format: int64
+          minimum: 0
+          description: 'Cache-write input tokens in the final retained attempt tree. Claude uses the aggregate or a complete consistent TTL partition, never both. Omitted when unknown, independently of other usage fields; measured zero is present.'
         output_tokens:
           type: integer
-          description: 'sum of reported retained output-token counts; omitted when unreported, but reported zero remains present.'
+          minimum: 0
+          description: 'output tokens in the final retained attempt tree, excluding superseded attempts and scorer branches; omitted when any eligible conversation lacks output evidence, but reported zero remains present.'
         tool_calls:
           type: integer
-          description: 'sum of reported retained tool-call counts; omitted when unreported, but reported zero remains present.'
+          minimum: 0
+          description: 'tool calls in the final retained attempt tree, excluding superseded attempts and scorer branches; omitted when any eligible conversation lacks tool evidence, but reported zero remains present.'
     BenchmarkSpend:
       type: object
       required:
@@ -14013,7 +13790,7 @@ components:
           description: 'unweighted mean of available comparable scorer means, null when none exists.'
     BenchmarkConfigurationMetrics:
       type: object
-      description: Configuration totals and averages. Run/execution averages use the platform definitions and scorer-branch exclusions of BenchmarkTrialMetrics.
+      description: 'Configuration totals and averages. Run/execution and usage averages use final retained attempts of succeeded trials, including failed or unsettled descendants and excluding scorer branches. Scorer quality passing is not required. Missing measurements are skipped independently for each mean; spend remains retry-inclusive.'
       required:
         - avg_agent_runs
         - avg_agent_executions
@@ -14069,14 +13846,31 @@ components:
           type: number
           format: double
           description: 'final successful attempt cost average, not retry-chain cost average.'
+        avg_input_tokens:
+          type: number
+          format: double
+          minimum: 0
+          description: Mean available final-attempt input_tokens over succeeded logical trials. Omitted if no values qualify; measured zero is included.
+        avg_cached_input_tokens:
+          type: number
+          format: double
+          minimum: 0
+          description: 'Mean available final-attempt cached_input_tokens over succeeded logical trials, independently skipping missing cache reads. Omitted if none qualify.'
+        avg_cache_write_input_tokens:
+          type: number
+          format: double
+          minimum: 0
+          description: 'Mean available final-attempt cache_write_input_tokens over succeeded logical trials, independently skipping missing cache writes. Omitted if none qualify.'
         avg_output_tokens:
           type: number
           format: double
-          description: average of available retained per-Trial reported token values; omitted if none reports the field.
+          minimum: 0
+          description: 'mean available final-attempt output_tokens over succeeded logical trials; omitted if none qualify, with measured zero included.'
         avg_tool_calls:
           type: number
           format: double
-          description: average of available retained per-Trial reported tool values; omitted if none reports the field.
+          minimum: 0
+          description: 'mean available final-attempt tool_calls over succeeded logical trials; omitted if none qualify, independently skipping missing tool evidence.'
     BenchmarkScorerConfigurationAggregate:
       type: object
       required:
@@ -14314,3 +14108,277 @@ components:
             $ref: '#/components/schemas/BenchmarkSuite'
         page_info:
           $ref: '#/components/schemas/BenchmarkPageInfo'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: |
+        Authentication via a Warp API key or a supported Warp-issued user token.
+  parameters:
+    PresignedDownloadRedirect:
+      name: redirect
+      in: query
+      required: false
+      description: Set to false to return a signed storage URL as JSON rather than redirecting.
+      schema:
+        type: boolean
+        default: true
+    BenchmarkFactoryPath:
+      name: factory_uid
+      in: path
+      description: UID of the factory that owns the benchmark suite.
+      required: true
+      schema:
+        type: string
+    BenchmarkSuitePath:
+      name: suite_uid
+      in: path
+      description: UID of the benchmark suite within this factory.
+      required: true
+      schema:
+        type: string
+    BenchmarkRunPath:
+      name: run_uid
+      in: path
+      description: UID of the benchmark run within this suite.
+      required: true
+      schema:
+        type: string
+    BenchmarkRunInclude:
+      name: include
+      in: query
+      description: |
+        Controls additional fields in each returned run object. `details` adds
+        launch settings, including tasks, configurations, repetitions, and scorers.
+        `summary_results` adds aggregate results for the entire run.
+        `creator_display_name` adds `creator.display_name` when the creator is
+        known; the name is null if unavailable. Unrequested fields are omitted.
+        Repeat this parameter to include multiple fields, for example
+        `include=details&include=summary_results`. Values are case-sensitive;
+        empty, comma-separated, and unknown values are invalid.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - details
+            - summary_results
+            - creator_display_name
+    BenchmarkTrialInclude:
+      name: include
+      in: query
+      description: |
+        Controls additional fields in each returned trial object. `results` adds
+        scores, metrics, and spend. `details` adds retained execution attempts and
+        judge-run history. Request either or both; unrequested fields are omitted.
+        Each requested field contains all available entries, not a separate page.
+        Repeat this parameter to request both, for example
+        `include=results&include=details`. Values are case-sensitive;
+        empty, comma-separated, and unknown values are invalid.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - results
+            - details
+    BenchmarkResultsInclude:
+      name: include
+      in: query
+      description: |
+        Controls which detailed metric arrays appear alongside the result summary.
+        Each value adds the response field with the same name; unrequested arrays
+        are omitted. Requested arrays contain every matching entry and are empty,
+        never null, when there are no entries. This response is not paginated.
+        Repeat this parameter to request multiple arrays, for example
+        `include=configuration_metrics&include=agent_metrics`. Values are
+        case-sensitive; empty, comma-separated, and unknown values are invalid.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - configuration_metrics
+            - scorer_configuration_metrics
+            - task_scorer_configuration_metrics
+            - agent_metrics
+    BenchmarkTaskSelection:
+      name: task_uid
+      in: query
+      description: |
+        Select trials or result aggregates for these task UIDs, using the tasks
+        recorded when the run was launched. Repeat to match any specified task.
+        Result summaries and metrics are calculated only from the selected tasks.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    BenchmarkTagSelection:
+      name: tag
+      in: query
+      description: |
+        Select trials or result aggregates by task tags recorded when the run was
+        launched. Repeat to match any specified tag; matching is case-sensitive.
+        Result summaries and metrics are calculated only from the selected tasks.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    BenchmarkConfigurationProjection:
+      name: configuration_uid
+      in: query
+      description: |
+        Return detailed metric rows only for these configuration UIDs. Summary
+        counts and comparison populations still cover all configurations in the
+        selected dataset. Repeat to return multiple configurations.
+        Requires at least one metric array requested through `include`.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    BenchmarkScorerProjection:
+      name: scorer_uid
+      in: query
+      description: |
+        Return scorer-specific metric rows only for these scorer UIDs. Overall
+        results and comparison populations still cover all applicable scorers.
+        Repeat to return multiple scorers. Requires
+        `include=scorer_configuration_metrics` or
+        `include=task_scorer_configuration_metrics`.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+    TeamUidHeaderParam:
+      name: X-Warp-Team-Uid
+      in: header
+      required: false
+      description: |
+        UID of the team to use as the request's active team. Ignored for
+        service-account callers, which always act as their bound team.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryBranchStatusResponse:
+      description: Current observation of the tracked Branch
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            enum:
+              - no-store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FactoryBranchStatus'
+    FactoryBranchNotFound:
+      description: 'Hidden Factory, unknown or cross-Factory tracking, or disabled Branch surface'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryBranchConflict:
+      description: |
+        Classified conflict with reason branch_sync_pending, branch_head_moved,
+        factory_source_changed, branch_deleted, or factory_scope_unavailable.
+        Pending synchronization, moving heads, and source changes are retryable;
+        deleted or unavailable identity is not.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryBranchUnavailable:
+      description: 'Retryable resource_unavailable for source, synchronization, or database failure'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryAccessDenied:
+      description: Factory access is not enabled for the authenticated principal
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryMetricsRateLimited:
+      description: |
+        The caller has used up the request budget shared by the factory
+        metrics endpoints. Wait the number of seconds in Retry-After, then
+        retry.
+      headers:
+        Retry-After:
+          description: Seconds to wait before retrying.
+          schema:
+            type: integer
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+openapi: 3.2.0
+info:
+  title: Warp Platform API
+  version: 1.0.0
+  description: |
+    API for creating, managing, and querying factory and cloud agent runs.
+
+    Send work to factories, start standalone agents, list runs, and retrieve
+    detailed run information.
+  contact:
+    name: Warp Support
+    url: 'https://docs.warp.dev'
+    email: support@warp.dev
+  license:
+    name: Proprietary
+servers:
+  - url: 'https://app.warp.dev/api/v1'
+    description: Warp Server
+tags:
+  - name: agent
+    summary: Agents
+    description: Operations for running and managing cloud agents
+  - name: schedules
+    summary: Scheduled Agents
+    parent: agent
+    description: Operations for creating and managing scheduled agents
+  - name: factory
+    summary: Factories
+    description: Operations for creating and managing factories
+  - name: factory-notifications
+    summary: Inbox Notifications
+    parent: factory
+    description: Operations for viewing and managing factory inbox notifications
+  - name: factory-metrics
+    summary: Metrics
+    parent: factory
+    description: Operations for querying factory cost and productivity metrics
+  - name: factory-scorers
+    summary: Scorers
+    parent: factory
+    description: Operations for creating and managing scorers
+  - name: factory-benchmarks
+    summary: Benchmarks
+    parent: factory
+    description: 'Operations for managing benchmark suites, tasks, runs, trials, and results'
+  - name: networking
+    summary: Networking
+    parent: agent
+    description: Networking information for Warp-hosted agents

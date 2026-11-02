@@ -52,9 +52,12 @@ jobs:
                the low-risk allowlist. A risk misclassification is an important finding.
             2. Verify technical claims against cited source files when the PR is
                engineering-review-required.
-            3. Do not use `gh` or attempt to publish a GitHub review. The GitHub Actions runner
+            3. Apply Gate 0 to server-backed claims (review-docs-pr v1 item 5). A warp-server field,
+               endpoint, default, or behavior needs recorded evidence that it is live in production;
+               a published schema, a parser, a merged PR, or staging behavior is not enough.
+            4. Do not use `gh` or attempt to publish a GitHub review. The GitHub Actions runner
                publishes the review using its short-lived token after this run completes.
-            4. Emit one [SIGNAL:pr-review] JSON record with this head SHA, verdict, severity
+            5. Emit one [SIGNAL:pr-review] JSON record with this head SHA, verdict, severity
                counts, and top categories. For every critical, important, suggestion, or nit,
                include one actionable `actionable_findings` string. Each string must name the
                changed file and line or quoted text, explain the problem, and state the requested
