@@ -61,7 +61,9 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 
 Warp hosts the control plane. The worker opens an outbound connection, so task assignment requires no inbound firewall port. The diagram shows customer-configured inference and run-data storage alongside self-hosted execution.
 
-![Managed self-hosting architecture showing the Warp control plane, outbound worker connection, agent backends, inference routes, and customer-configured run-data storage.](../../../../assets/agent-platform/factories-self-hosted-architecture.png)
+![Managed self-hosting architecture showing the Warp control plane, outbound worker connection, agent backends, inference routes, and customer-configured run-data storage.](../../../../assets/agent-platform/warp-factories-architecture-diagrams.png)
+
+You can manage [factory and agent configuration as code](/factories/factory-as-code/) in a repository you control.
 
 Execution, inference, and storage are separate choices.
 
