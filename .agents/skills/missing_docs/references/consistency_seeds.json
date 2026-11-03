@@ -381,10 +381,12 @@
       ],
       "affected_surfaces": [
         "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "src/content/docs/platform/faqs.mdx",
         "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
       ],
       "surface_dispositions": {
         "src/content/docs/agents/cli/oz-cli/index.mdx": "fixed",
+        "src/content/docs/platform/faqs.mdx": "fixed",
         "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx": "fixed"
       },
       "recheck_condition": "Legacy CLI attachment validation or interactive image input paths change.",
@@ -400,6 +402,7 @@
           "type": "forbidden_text",
           "patterns": ["Cloud agent conversations do not currently support image attachments"],
           "paths": [
+            "src/content/docs/platform/faqs.mdx",
             "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
           ]
         }
