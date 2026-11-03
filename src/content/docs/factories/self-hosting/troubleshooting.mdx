@@ -179,22 +179,21 @@ Exit code `143` generally indicates `SIGTERM`; it does not by itself prove an ou
 
 1. Verify the {VARS.WARP_AGENT_CLI} is accessible.
 2. Verify the workspace root directory has write permissions for the user running the worker.
-3. If a Claude Code or Codex run fails at startup with `claude-code-acp` or `codex-acp` not found, the worker advertised ACP support but the adapter is no longer on the task `PATH`. Reinstall the adapter or set `acp_harnesses: []` under `backend.direct`, then restart the worker.
 
 ---
 
 ## Claude Code or Codex runs use a PTY instead of ACP
 
-**Cause:** The worker did not advertise ACP support for the harness when it connected, so the run fell back to a PTY. Follow-ups on such runs lack native streaming and file attachments.
+**Cause:** The worker did not advertise that it mounts sidecar images when it connected, so the {VARS.WARP_AUTOMATION_PLATFORM} drove the run over a PTY. Follow-ups on such runs lack native streaming and file attachments. The Direct backend never mounts sidecars, so its runs always use a PTY.
 
 **Fix:**
 
-1. Check the worker's startup log for `Advertising ACP support for harnesses:`. It names the harnesses advertised and whether the list was auto-detected or configured.
-2. On Kubernetes, remove the harness from the legacy `coding_cli_sidecars` option and mirror the `warpdotdev/warp-<harness>-acp-sidecar` image with `sidecar_image_mappings` instead.
-3. On the Direct backend, install the `claude-code-acp` or `codex-acp` adapter on the task `PATH`.
-4. If `acp_harnesses` is set, confirm it lists the harness.
-5. Upgrade the worker if it predates `acp_harnesses`; older workers never advertise ACP.
-6. Restart the worker. The list is computed once at startup.
+1. Check the worker's startup log for `Advertising acp-sidecars-v1` or `Not advertising acp-sidecars-v1`; the second line names the reason.
+2. Confirm the worker's `acp_sidecars` value in the `GET /api/v1/agent/connected-self-hosted-workers` response of the Factory API. It is `true` only when every active connection for the host advertises support, so a pool mid-upgrade reports `false` until every worker is on the new release.
+3. On Kubernetes with the legacy `coding_cli_sidecars` option, add a `<harness>_acp` entry for every listed harness, or switch to `sidecar_image_mappings` and mirror the `warpdotdev/warp-<harness>-acp-sidecar` image.
+4. On the Command backend, set `backend.command.materializes_sidecars: true` once your runtime mounts the payload's `sidecars`.
+5. Upgrade the worker if it predates release `<WORKER_RELEASE>`; older workers never advertise ACP.
+6. Restart the worker. The decision is made once at startup.
 
 ---
 

@@ -159,9 +159,9 @@ Pass it with `--config-file config.yaml`. See the [Self-hosted worker reference]
 
 ## Harness transport
 
-Claude Code and Codex runs on a Docker worker use the Agent Client Protocol (ACP), which gives follow-ups native streaming and file attachments. The worker advertises this when it connects, and the {VARS.WARP_AUTOMATION_PLATFORM} falls back to a PTY on any worker that does not. Workers older than release `<WORKER_RELEASE>` always run these harnesses over a PTY.
+Claude Code and Codex runs on a Docker worker use the Agent Client Protocol (ACP), which gives follow-ups native streaming and file attachments. The worker advertises that it mounts sidecar images when it connects, and the {VARS.WARP_AUTOMATION_PLATFORM} falls back to a PTY on any worker that does not. Workers older than release `<WORKER_RELEASE>` always run these harnesses over a PTY. Each run records which transport it got, and the Factory API's `GET /api/v1/agent/connected-self-hosted-workers` response reports `acp_sidecars` per worker host.
 
-To keep a worker on a PTY, set `acp_harnesses: []` under `backend.docker` in the config file and restart the worker. See [`acp_harnesses`](/factories/self-hosting/reference/#config-file-fields) and, for mirrored registries, [Images to mirror](/factories/self-hosting/private-container-registry/#images-to-mirror).
+An ACP run pulls the `warpdotdev/warp-<harness>-acp-sidecar` image. For mirrored registries, see [Images to mirror](/factories/self-hosting/private-container-registry/#images-to-mirror).
 
 ---
 

@@ -30,7 +30,7 @@ These steps cover Warp Agent runs without Computer Use. Computer Use uses an add
 :::
 
 :::caution
-Claude Code and Codex runs use the `-acp-sidecar` image by default. Mirror it and map it with `sidecar_image_mappings`. If you map only the `-cli-sidecar` repository, or use the legacy Kubernetes `coding_cli_sidecars` option, the worker runs that harness over a PTY instead, and follow-ups lose native streaming and file attachments. See [`acp_harnesses`](/factories/self-hosting/reference/#config-file-fields).
+Claude Code and Codex runs use the `-acp-sidecar` image by default. Mirror it and map it with `sidecar_image_mappings`; if you map only the `-cli-sidecar` repository, ACP runs try to pull the adapter image from Docker Hub. With the legacy Kubernetes `coding_cli_sidecars` option, give every harness a `<harness>_acp` entry; a harness without one leaves its ACP image unmapped, and the worker then runs Claude Code and Codex over a PTY, where follow-ups lose native streaming and file attachments. See [`coding_cli_sidecars`](/factories/self-hosting/reference/#config-file-fields).
 :::
 
 ## Copying images into the registry

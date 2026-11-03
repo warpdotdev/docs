@@ -164,7 +164,6 @@ backend:
 * `image_pull_policy` — Pull policy for task and sidecar images. One of `Always`, `Never`, or `IfNotPresent`. Defaults to `Always`. Requires worker release `v2026-08-20-16-38-31` or newer.
 * `sidecar_image` — Image reference for the Warp Agent sidecar mounted at `/agent`. It does not affect additional sidecars. Requires worker release `v2026-08-28-21-43-14` or newer.
 * `sidecar_image_mappings` — Map of Warp sidecar repositories (without a tag or digest) to mirrored image references, for example `docker.io/warpdotdev/warp-claude-acp-sidecar: "registry.internal/claude-acp"`. Applies to every assigned sidecar. Cannot be combined with `sidecar_image`. See [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
-* `acp_harnesses` — Harnesses the worker advertises as runnable over the Agent Client Protocol (ACP) instead of a PTY: `claude`, `codex`, or both. Omit it to advertise every harness, or set `[]` to run every harness over a PTY. Requires worker release `<WORKER_RELEASE>` or newer; older workers run these harnesses over a PTY.
 * `environment` — List of environment variables with `name` and optional `value`. If `value` is omitted, the variable is inherited from the host.
 
 **`backend.kubernetes`:**
@@ -178,8 +177,7 @@ backend:
 * `preflight_resources` — CPU and memory requests and limits for startup preflight containers.
 * `sidecar_image` — Image reference that replaces the Warp Agent sidecar mounted at `/agent`.
 * `sidecar_image_mappings` — Map of Warp sidecar repositories (without a tag or digest) to mirrored image references. Applies to every assigned sidecar. Cannot be combined with `sidecar_image` or `coding_cli_sidecars`. See [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
-* `coding_cli_sidecars` — Map of harness names such as `claude` or `codex` to coding CLI sidecar images. A harness listed here runs over a PTY on this worker, because its image replaces the ACP sidecar too. Mirror the ACP sidecar with `sidecar_image_mappings` instead to keep ACP.
-* `acp_harnesses` — Harnesses the worker advertises as runnable over ACP instead of a PTY: `claude`, `codex`, or both. Omit it to advertise every harness not listed in `coding_cli_sidecars`, or set `[]` to run every harness over a PTY. Requires worker release `<WORKER_RELEASE>` or newer.
+* `coding_cli_sidecars` — Legacy map of harness names such as `claude` or `codex` to coding CLI sidecar images, plus `<harness>_acp` keys such as `claude_acp` for the matching Agent Client Protocol (ACP) sidecar images. A bare harness key maps only the `warp-<harness>-cli-sidecar` repository. If any listed harness has no `<harness>_acp` entry, the worker stops advertising ACP support and runs Claude Code and Codex over a PTY (worker release `<WORKER_RELEASE>` or newer; older workers mapped both repositories to the CLI image). Prefer `sidecar_image_mappings` for new configurations.
 * `setup_command` — Shell command to run before each task.
 * `teardown_command` — Shell command to run after each task completes.
 * `extra_labels` — Map of additional labels to add to task Jobs and Pods.
@@ -198,7 +196,6 @@ backend:
 * `setup_command` — Shell command to run before each task. Receives `OZ_WORKSPACE_ROOT`, `OZ_RUN_ID`, `OZ_ENVIRONMENT_FILE`, and `OZ_WORKER_BACKEND` as environment variables.
 * `teardown_command` — Shell command to run after each task completes.
 * `environment` — List of environment variables (same format as the Docker backend).
-* `acp_harnesses` — Harnesses the worker advertises as runnable over ACP instead of a PTY: `claude`, `codex`, or both. Omit it to advertise each harness whose ACP adapter (`claude-code-acp`, `codex-acp`) is on the task `PATH`, or set `[]` to run every harness over a PTY. Requires worker release `<WORKER_RELEASE>` or newer. See [Managed: Direct backend](/factories/self-hosting/managed-direct/#prerequisites).
 
 **`backend.command`:**
 
@@ -206,7 +203,7 @@ backend:
 * `cancel_command` — Optional shell command invoked when a dispatched task is cancelled.
 * `dispatch_timeout` — Maximum runtime for the dispatch command. Defaults to `60s`.
 * `environment` — Environment variables for the dispatch and cancellation commands. Task credentials remain in the standard-input payload.
-* `acp_harnesses` — Harnesses the worker advertises as runnable over ACP instead of a PTY: `claude`, `codex`, or both. The Command backend advertises none unless this is set, because the worker cannot tell whether your runtime mounts the payload's `sidecars`. Requires worker release `<WORKER_RELEASE>` or newer.
+* `materializes_sidecars` — Set to `true` when your dispatch runtime mounts every entry of the payload's `sidecars` at its `mount_path`. The worker then advertises that it can run Claude Code and Codex over the Agent Client Protocol (ACP); otherwise those harnesses run over a PTY, because the worker cannot tell whether your runtime mounts sidecars. Requires worker release `<WORKER_RELEASE>` or newer.
 
 Only one backend can be configured at a time. Specifying more than one of `docker`, `kubernetes`, `direct`, and `command` in the same config file is an error.
 
