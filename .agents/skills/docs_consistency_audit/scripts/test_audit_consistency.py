@@ -450,6 +450,50 @@ class ContextVerificationTests(unittest.TestCase):
             self.assertIsNone(result)
 
 
+class RedirectTests(unittest.TestCase):
+    def load(self, entries):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "vercel.json"
+            path.write_text(json.dumps({"redirects": [
+                {"source": source, "destination": destination}
+                for source, destination in entries
+            ]}))
+            return audit.load_verified_redirects(path)
+
+    def test_slash_canonicalization_is_not_a_cycle_in_either_direction(self):
+        for source, destination in (("/agents", "/agents/"), ("/agents/", "/agents")):
+            with self.subTest(source=source):
+                redirects = self.load([
+                    ("/old", "/older/"), ("/older", "/agents/"),
+                    (source, destination),
+                ])
+                self.assertNotIn("/agents", redirects)
+                self.assertEqual(audit.canonical_redirect_route("/old", redirects), "/agents")
+                old, new = claim(path="old.mdx"), claim(path="agents.mdx")
+                old["source"]["route"], new["source"]["route"] = "/old/", "/agents/"
+                self.assertEqual(
+                    audit.normalize_claim(audit.apply_redirect_identity(old, redirects))["claim_id"],
+                    audit.normalize_claim(audit.apply_redirect_identity(new, redirects))["claim_id"],
+                )
+
+    def test_genuine_self_and_multi_route_cycles_still_fail(self):
+        for entries in (
+            [("/agents", "/agents")],
+            [("/agents/", "/agents/")],
+            [("/a", "/b/"), ("/b", "/a/")],
+        ):
+            with self.subTest(entries=entries):
+                redirects = self.load(entries)
+                with self.assertRaisesRegex(audit.AuditError, "Redirect cycle"):
+                    audit.canonical_redirect_route(entries[0][0], redirects)
+
+    def test_repository_redirects_do_not_create_false_cycles(self):
+        redirects = audit.load_verified_redirects(SCRIPT.parents[4] / "vercel.json")
+        self.assertTrue(redirects)
+        for route in sorted(set(redirects) | set(redirects.values())):
+            audit.canonical_redirect_route(route, redirects)
+
+
 class FingerprintAndLifecycleTests(unittest.TestCase):
     def setUp(self):
         self.left = claim()
@@ -1141,6 +1185,192 @@ class NotificationTests(unittest.TestCase):
         })
         self.assertTrue(result["should_post"])
         self.assertEqual(result["reason"], "blocked")
+        self.assertIn("could not check docs", result["message"])
+        self.assertIn("no failure reason was recorded", result["message"])
+        self.assertIn("count is unknown", result["message"])
+        self.assertNotIn("0 new", result["message"])
+
+    def test_blocked_run_explains_coverage_history_and_next_action(self):
+        result = self.render({
+            "run_id": "do-not-put-this-in-the-headline",
+            "coverage": "blocked",
+            "failure": {"stage": "redirect-normalization", "code": "redirect-cycle"},
+            "summary": {"active": 2},
+            "report_context": {
+                "pages_extracted": 0, "total_pages": 390,
+                "prior_state_available": True, "last_completed_run": None,
+            },
+            "lifecycle_changes": [],
+        })
+        message = result["message"]
+        for expected in (
+            "conflicting or stale claims", "redirect checker detected a loop",
+            "0/390 pages extracted", "No new results", "2 previously active",
+            "did not verify their current status", "Next action",
+            "no completed full audit", "<https://example.test/run|Run details>",
+            "<https://example.test/pr|Saved findings and audit history>",
+            "no documentation fixes",
+        ):
+            self.assertIn(expected, message)
+        self.assertNotIn("do-not-put-this-in-the-headline", message)
+
+    def artifact(self, coverage="complete", **changes):
+        item = finding(claim(path="one.mdx"), claim(path="two.mdx", value=3000))
+        item.update({
+            "lifecycle": "new",
+            "rationale": "The overview and reference give different file limits.",
+            "suggested_resolution": "Confirm the limit, then align the overview.",
+            **changes,
+        })
+        return {
+            "coverage": coverage,
+            "summary": {"new": 1, "changed": 0, "resolved": 0, "existing": 2, "active": 3},
+            "report_context": {"pages_extracted": 8, "total_pages": 390, "carried_forward": 2},
+            "lifecycle_changes": [item],
+        }
+
+    def test_complete_message_has_conflict_pages_and_action(self):
+        message = self.render(self.artifact())["message"]
+        for expected in (
+            "audit completed", "New · medium severity", "overview and reference",
+            "<https://docs.warp.dev/one.mdx|/one.mdx>", "Confirm the limit",
+            "2 unchanged active",
+        ):
+            self.assertIn(expected, message)
+
+    def test_partial_message_does_not_imply_complete_verification(self):
+        message = self.render(self.artifact("partial"))["message"]
+        self.assertIn("partial audit", message)
+        self.assertIn("8/390 pages extracted", message)
+        self.assertIn("2 active findings were carried forward without rechecking", message)
+        self.assertNotIn("audit completed", message)
+
+    def test_resolved_finding_does_not_request_an_edit(self):
+        message = self.render(self.artifact(lifecycle="resolved", reopened=True))["message"]
+        self.assertIn("Resolved · medium severity", message)
+        self.assertIn("No edits requested", message)
+        self.assertNotIn("Confirm the limit", message)
+
+    def test_partial_or_blocked_never_announces_resolution(self):
+        for coverage in ("partial", "blocked"):
+            artifact = self.artifact(coverage, lifecycle="resolved")
+            result = self.render(artifact)
+            self.assertEqual(result["actionable_finding_ids"], [])
+            if coverage == "partial":
+                self.assertFalse(result["should_post"])
+
+    def test_policy_findings_require_human_review(self):
+        message = self.render(self.artifact(requires_human_review=True))["message"]
+        self.assertIn("Human policy review required", message)
+        self.assertNotIn("Confirm the limit", message)
+        message = self.render(self.artifact(category="privacy"))["message"]
+        self.assertIn("Human policy review required", message)
+
+    def test_reopened_findings_are_named(self):
+        message = self.render(self.artifact(lifecycle="changed", reopened=True))["message"]
+        self.assertIn("Reopened ·", message)
+
+    def test_changes_are_severity_ordered_and_limited_to_three(self):
+        artifact = self.artifact()
+        artifact["lifecycle_changes"] = [
+            {**artifact["lifecycle_changes"][0], "finding_id": str(i),
+             "severity": severity, "title": f"Finding {i}"}
+            for i, severity in enumerate(("low", "high", "medium", "high"))
+        ]
+        message = self.render(artifact)["message"]
+        self.assertLess(message.index("Finding 1"), message.index("Finding 3"))
+        self.assertLess(message.index("Finding 3"), message.index("Finding 2"))
+        self.assertNotIn("Finding 0", message)
+        self.assertIn("1 more change is", message)
+
+    def test_low_confidence_and_existing_findings_remain_silent(self):
+        for changes in ({"confidence": "low"}, {"lifecycle": "existing"}):
+            result = self.render(self.artifact(**changes))
+            self.assertFalse(result["should_post"])
+            self.assertIsNone(result["message"])
+
+    def test_high_severity_medium_confidence_still_posts(self):
+        result = self.render(self.artifact(severity="high", confidence="medium"))
+        self.assertTrue(result["should_post"])
+
+    def test_private_evidence_is_rejected(self):
+        artifact = self.artifact()
+        artifact["lifecycle_changes"][0]["rationale"] = "warpdotdev/warp-server"
+        with self.assertRaises(audit.AuditError):
+            self.render(artifact)
+        artifact = self.artifact()
+        artifact["lifecycle_changes"][0]["claims"][0]["source"]["visibility"] = "private"
+        with self.assertRaises(audit.AuditError):
+            self.render(artifact)
+
+    def test_slack_markup_is_escaped_and_urls_are_validated(self):
+        message = self.render(self.artifact(title="<!channel> <https://evil.test|click>"))["message"]
+        self.assertNotIn("<!channel>", message)
+        self.assertIn("&lt;!channel&gt;", message)
+        for url in ("http://example.test", "https://user:password@example.test", "https://x|bad"):
+            with self.assertRaises(audit.AuditError):
+                audit.slack_link(url, "Run details")
+
+
+class BlockedReportTests(unittest.TestCase):
+    def test_early_failure_without_state_records_unknown_counts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "blocked.json"
+            self.assertEqual(audit.main([
+                "blocked-report", "--run-id", "run-1", "--stage", "preflight",
+                "--code", "state-unavailable", "--output", str(output),
+            ]), 0)
+            artifact = json.loads(output.read_text())
+            message = audit.render_notification(artifact)["message"]
+            self.assertIn("Saved audit history could not be loaded safely", message)
+            self.assertIn("Page coverage was not recorded", message)
+            self.assertNotIn("0/0", message)
+
+    def test_blocked_report_reads_but_does_not_modify_prior_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = root / "state"
+            state.mkdir()
+            audit.write_json(state / "manifest.json", {"last_completed_run": None})
+            audit.write_json(state / "findings.json", {"findings": {
+                "active": {"status": "active"}, "resolved": {"status": "resolved"},
+            }})
+            before = {path: path.read_bytes() for path in state.iterdir()}
+            output = root / "blocked.json"
+            self.assertEqual(audit.main([
+                "blocked-report", "--run-id", "run-1", "--stage", "comparison",
+                "--code", "comparison-failed", "--state-dir", str(state),
+                "--pages", "8", "--total-pages", "390", "--output", str(output),
+            ]), 0)
+            artifact = json.loads(output.read_text())
+            self.assertEqual(artifact["summary"]["active"], 1)
+            self.assertEqual(artifact["lifecycle_changes"], [])
+            self.assertEqual(before, {path: path.read_bytes() for path in state.iterdir()})
+
+    def test_invalid_counts_fail_without_writing_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "blocked.json"
+            for pages, total in (("-1", "390"), ("391", "390")):
+                self.assertEqual(audit.main([
+                    "blocked-report", "--run-id", "run-1", "--stage", "inventory",
+                    "--code", "unknown", "--pages", pages, "--total-pages", total,
+                    "--output", str(output),
+                ]), 2)
+                self.assertFalse(output.exists())
+
+
+    def test_report_cannot_overwrite_saved_state(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory)
+            target = state / "manifest.json"
+            target.write_text('{"last_completed_run": null}')
+            before = target.read_bytes()
+            self.assertEqual(audit.main([
+                "blocked-report", "--run-id", "run-1", "--stage", "comparison",
+                "--code", "comparison-failed", "--state-dir", str(state),
+                "--output", str(target),
+            ]), 2)
+            self.assertEqual(target.read_bytes(), before)
 
 
 if __name__ == "__main__":
