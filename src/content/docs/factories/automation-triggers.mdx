@@ -1,0 +1,370 @@
+---
+title: Automation triggers
+description: >-
+  Look up exact automation event names, accepted filter keys, value formats,
+  and definition examples for each provider.
+---
+
+Automation triggers select events that start or continue factory work. Each entry in an automation's `triggers` list names a `provider`, an `event`, and any event-specific `filter`.
+
+## Syntax and value types
+
+Put triggers in the YAML frontmatter of [`automations/<name>/automation.md`](/factories/factory-as-code/#automationsnameautomationmd). The Markdown body supplies the agent's prompt:
+
+```markdown title="automations/ready-issue/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: linear
+    event: issue_labeled
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+---
+Read the issue and begin the work. Ask for any missing requirements.
+```
+
+The examples below replace the `triggers` list in that file. Use your own repository names, provider IDs, and connected workspace names. Validate the complete definition with [`warp/factory-config`](/factories/factory-as-code/#pull-request-checks); the [validator script](/factories/factory-as-code/#validate-locally-or-in-ci) checks syntax without resolving workspace resources.
+
+| Value type | Accepted form |
+| --- | --- |
+| String matcher | A list of strings, such as `[factory-ready]`, or an object with `in` and `not_in` string lists |
+| Integer matcher | A list of integers, such as `[42]`, or an object with `in` and `not_in` integer lists |
+| Alias | A plain list of the specified element type, not a matcher object |
+| Scalar | One value, not a list or matcher object |
+| Payload pattern | A JSON-shaped object; see [webhook payload filters](/factories/automations/#payload-filters-for-webhook-triggers) |
+
+Different filter keys combine with AND. Within `in`, any value can match; `not_in` excludes any matching value. Empty optional lists add no restriction. Unknown keys are rejected, including keys supported by another event from the same provider.
+
+An alias is accepted only when its canonical target appears in the event's row. Don't set an alias and its target together. Name-based aliases resolve through the connected provider when the definition is applied; missing or ambiguous names fail validation.
+
+## Azure DevOps
+
+Provider: `azure_devops`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `pull_request_closed`, `pull_request_commented`, `pull_request_created`, `pull_request_merged`, `pull_request_updated` | `repos`, `base_branches` |
+| `pull_request_mentioned` | `repos`, `mentioned` |
+| `work_item_assigned`, `work_item_created`, `work_item_labeled` | `work_item_types`, `labels`, `assignees`, `authors` |
+| `work_item_mentioned` | `mentioned` |
+
+| Key | Type and format |
+| --- | --- |
+| `assignees`, `authors` | String matcher of work item identity values, such as email addresses |
+| `base_branches` | String matcher of target branch names without `refs/heads/`, such as `main` |
+| `labels` | String matcher of work item tag names |
+| `mentioned` | String matcher of Azure DevOps identity IDs |
+| `repos` | String matcher of repository UUIDs, not repository names |
+| `work_item_types` | String matcher of names such as `Bug` or `User Story` |
+
+`source_repos` is server-managed, not an authored filter. `push` isn't available for factory automation authoring.
+
+```yaml
+triggers:
+  - provider: azure_devops
+    event: pull_request_created
+    filter:
+      repos: ["11111111-1111-4111-8111-111111111111"]
+      base_branches: [main]
+```
+
+## Factory
+
+Provider: `factory`. Events are scoped to the factory containing the automation.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `work_item_stage_changed` | `stages` |
+
+| Key | Type and format |
+| --- | --- |
+| `stages` | String matcher of destination stages: `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, `COMPLETE`, or `CANCELLED` |
+
+```yaml
+triggers:
+  - provider: factory
+    event: work_item_stage_changed
+    filter:
+      stages: [COMPLETE]
+```
+
+## GitHub
+
+Provider: `github`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `check_run_rerequested`, `check_suite_rerequested` | `repos`, `skip_bots` |
+| `check_suite_completed` | `repos`, `conclusions`, `branches`, `labels`, `authors`, `skip_bots` |
+| `commit_status` | `repos`, `states`, `contexts`, `skip_bots` |
+| `issue_assigned`, `pull_request_assigned` | `repos`, `assignees`, `labels`, `authors`, `skip_bots` |
+| `issue_commented`, `pull_request_commented` | `repos`, `labels`, `authors`, `keywords`, `skip_bots` |
+| `issue_created` | `repos`, `labels`, `assignees`, `authors`, `keywords`, `skip_bots` |
+| `issue_labeled` | `repos`, `labels`, `assignees`, `authors`, `skip_bots` |
+| `issue_mentioned`, `pull_request_mentioned` | `repos`, `mentioned`, `labels`, `authors`, `keywords`, `skip_bots` |
+| `pull_request_closed`, `pull_request_dequeued`, `pull_request_enqueued`, `pull_request_labeled`, `pull_request_merged`, `pull_request_synchronized` | `repos`, `base_branches`, `pr_numbers`, `paths`, `assignees`, `authors`, `labels`, `skip_bots` |
+| `pull_request_opened`, `pull_request_ready`, `pull_request_reopened` | `repos`, `base_branches`, `pr_numbers`, `paths`, `assignees`, `authors`, `labels`, `keywords`, `skip_bots` |
+| `pull_request_review_requested` | `repos`, `reviewers`, `reviewer_teams`, `authors`, `skip_bots` |
+| `pull_request_review_submitted` | `repos`, `mentioned`, `labels`, `review_states`, `authors`, `keywords`, `skip_bots` |
+| `push` | `repos`, `branches`, `paths`, `skip_bots` |
+| `workflow_run_completed` | `repos`, `conclusions`, `branches`, `workflows`, `labels`, `authors`, `skip_bots` |
+
+| Key | Type and format |
+| --- | --- |
+| `assignees`, `authors`, `reviewers` | String matcher of GitHub logins, without `@` |
+| `base_branches`, `branches` | String matcher of branch names; `refs/heads/main` also matches `main` |
+| `conclusions` | String matcher of GitHub conclusion names, such as `success`, `failure`, or `cancelled` |
+| `contexts` | String matcher of commit status context names, such as `ci/build` |
+| `keywords` | String matcher of case-insensitive text substrings |
+| `labels` | String matcher of label names, case-sensitive |
+| `mentioned` | String matcher of user logins, `ORG/TEAM` slugs, or the Warp GitHub App slug |
+| `paths` | String matcher of changed-file globs: `*` stays within a path segment; `**` spans segments |
+| `pr_numbers` | Integer matcher of pull request numbers |
+| `repos` | String matcher of `OWNER/REPOSITORY` names |
+| `review_states` | String matcher of review states, such as `approved`, `changes_requested`, or `commented` |
+| `reviewer_teams` | String matcher of requested team slugs |
+| `skip_bots` | Scalar string: `all` (default), `self`, or `none`; see [bot events](/factories/integrations/github/#events-from-bots-dont-start-work) |
+| `states` | String matcher of terminal commit status values: `success`, `failure`, or `error` |
+| `workflows` | String matcher of workflow names, not file paths |
+| `baseBranches` | String-list alias for `base_branches` |
+| `prNumbers` | Integer-list alias for `pr_numbers` |
+
+On labeled events, `labels.in` matches newly added labels; `labels.not_in` checks all current labels. On other events, labels match the current set. CI filters on `labels` or `authors` require exactly one linked pull request. Re-request events reach Warp only for checks owned by the receiving GitHub App.
+
+```yaml
+triggers:
+  - provider: github
+    event: pull_request_opened
+    filter:
+      repos: [acme/api-service]
+      base_branches: [main]
+      labels:
+        not_in: [wip]
+```
+
+## GitLab
+
+Provider: `gitlab`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `bot_mentioned` | `repos` |
+| `merge_request` | `repos`, `actions`, `base_branches` |
+| `push` | `repos`, `branches` |
+
+| Key | Type and format |
+| --- | --- |
+| `actions` | String matcher of merge request actions, such as `open`, `reopen`, `update`, or `merge` |
+| `base_branches` | String matcher of target branch names |
+| `branches` | String matcher of pushed branch names |
+| `repos` | String matcher of project paths such as `GROUP/SUBGROUP/PROJECT` |
+
+`bot_mentioned` selects mentions of the factory's own service-account bot. Its `mentioned` filter is server-managed; don't author it.
+
+```yaml
+triggers:
+  - provider: gitlab
+    event: merge_request
+    filter:
+      repos: [acme/platform/api-service]
+      actions: [open]
+      base_branches: [main]
+```
+
+## Jira
+
+Provider: `jira`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `agent_session_created` | `project_keys`, `labels`, `keywords` |
+| `issue_created`, `issue_labeled` | `project_keys`, `labels` |
+| `status_changed` | `project_keys`, `status_ids` |
+
+| Key | Type and format |
+| --- | --- |
+| `keywords` | String matcher accepted for compatibility on agent sessions, but not applied during matching; don't use it to restrict sessions |
+| `labels` | String matcher of label names, case-sensitive |
+| `project_keys` | String matcher of project keys, such as `ENG` |
+| `status_ids` | String matcher of Jira status ID strings, such as `"10001"` |
+
+```yaml
+triggers:
+  - provider: jira
+    event: issue_labeled
+    filter:
+      project_keys: [ENG]
+      labels: [factory-ready]
+```
+
+## Linear
+
+Provider: `linear`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `agent_session_created` | `team_ids`, `project_ids`, `labels`, `creator_ids`, `keywords` |
+| `comment_created` | `team_ids`, `project_ids`, `labels`, `state_ids`, `issue_ids`, `mentioned_user_ids`, `creator_ids` |
+| `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed` | `team_ids`, `project_ids`, `labels`, `state_ids`, `assignee_ids`, `mentioned_user_ids`, `creator_ids` |
+
+| Key | Type and format |
+| --- | --- |
+| `assignee_ids` | String matcher of Linear user UUIDs; newly assigned user on `issue_assigned`, current assignee otherwise |
+| `creator_ids` | String matcher of Linear user UUIDs: issue creator, comment author, or session creator, depending on the event |
+| `issue_ids` | String matcher of issue UUIDs, not identifiers such as `ENG-42` |
+| `keywords` | String matcher of case-insensitive substrings in the session's triggering content |
+| `labels` | String matcher of label **names**, not IDs; case-insensitive |
+| `mentioned_user_ids` | String matcher of Linear user UUIDs mentioned in the issue description or new comment |
+| `project_ids`, `state_ids`, `team_ids` | String matcher of Linear project, workflow state, or team UUIDs |
+| `issues` | Positive-integer-list alias for `issue_ids`, such as `[42]`, not `[ENG-42]`; select a team to disambiguate issue numbers |
+| `projects`, `states`, `teams` | String-list aliases for `project_ids`, `state_ids`, and `team_ids`, using names from the connected workspace; scope workflow state names by team |
+
+On `issue_labeled`, `labels.in` matches newly added names, while `labels.not_in` checks all current labels. Other Linear events match current labels. `agent_session_created` doesn't accept `state_ids`, `issue_ids`, `assignee_ids`, or `mentioned_user_ids`, or their aliases.
+
+For a label-started issue:
+
+```yaml
+triggers:
+  - provider: linear
+    event: issue_labeled
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+```
+
+To receive comments on issues carrying that label:
+
+```yaml
+triggers:
+  - provider: linear
+    event: comment_created
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+```
+
+A matching comment isn't enough to identify a label-started run. Read [Replying to a waiting run](/factories/integrations/linear/#replying-to-a-waiting-run) before using comments as answers.
+
+For requests that start a Linear agent session:
+
+```yaml
+triggers:
+  - provider: linear
+    event: agent_session_created
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+```
+
+## Schedule
+
+Provider: `schedule`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `cron_fired` | None |
+
+Omit `filter`. `schedule_ids` is server-managed. Supply an inline `schedule` with a required string `cron` expression and optional string `name`; schedules use UTC. See [schedule syntax](/factories/factory-as-code/#triggersschedule).
+
+```yaml
+triggers:
+  - provider: schedule
+    event: cron_fired
+    schedule:
+      cron: "0 9 * * 1-5"
+```
+
+## Slack
+
+Provider: `slack`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `app_mention`, `message_dm`, `message_im`, `message_mpim`, `message_posted` | `channel_ids`, `user_ids`, `keywords` |
+| `member_joined_channel` | `channel_ids`, `user_ids` |
+| `reaction_added` | `channel_ids`, `user_ids`, `keywords`, `emojis`, `item_user_ids` |
+
+| Key | Type and format |
+| --- | --- |
+| `channel_ids` | String matcher of Slack conversation IDs, such as `C0123456789` |
+| `emojis` | String matcher of emoji names, such as `thumbsup`; surrounding colons and skin-tone suffixes are ignored |
+| `item_user_ids` | String matcher of Slack user IDs for the reacted-to message's author |
+| `keywords` | String matcher of case-insensitive substrings in visible message text, including blocks and attachments; for reactions, the reacted-to message |
+| `user_ids` | String matcher of Slack user IDs, such as `U0123456789`; for reactions, the reacting user |
+| `channels` | String-list alias for `channel_ids`, using channel names such as `[engineering]` or `["#engineering"]` |
+| `itemUsers`, `users` | String-list aliases for `item_user_ids` and `user_ids`, using Slack usernames or email addresses |
+
+`channels` trims whitespace and a leading `#`, then resolves each name to one non-archived conversation visible to the connected Slack app. It doesn't interpret a channel ID as an ID; use `channel_ids` for IDs.
+
+`message_dm` covers one-to-one and multi-party DMs; `message_im` and `message_mpim` select those separately. A channel message mentioning the app also emits `app_mention`; subscribing to both can duplicate work.
+
+```yaml
+triggers:
+  - provider: slack
+    event: message_posted
+    filter:
+      channels: [engineering]
+      keywords: [factory-ready]
+```
+
+## Microsoft Teams
+
+Provider: `teams`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `app_mention`, `message_posted` | `team_ids`, `channel_ids`, `user_ids`, `keywords` |
+
+| Key | Type and format |
+| --- | --- |
+| `channel_ids` | Required string list or `in` matcher with at least one Teams channel ID; `not_in` isn't accepted |
+| `keywords` | String matcher of case-insensitive text substrings |
+| `team_ids` | Required string list or `in` matcher containing exactly one Microsoft Graph team UUID, not a Bot Framework team ID; `not_in` isn't accepted |
+| `user_ids` | String matcher of Microsoft user object UUIDs within the installation's tenant |
+
+A mention also emits `message_posted`; choose one path for the same request.
+
+```yaml
+triggers:
+  - provider: teams
+    event: app_mention
+    filter:
+      team_ids: ["11111111-1111-4111-8111-111111111111"]
+      channel_ids: ["19:CHANNEL_ID@thread.tacv2"]
+```
+
+Replace `19:CHANNEL_ID@thread.tacv2` with the channel's full ID.
+
+## Webhook
+
+Provider: `webhook`.
+
+| Event | Accepted filter keys |
+| --- | --- |
+| `received` | `webhook_ids`, `payload` |
+
+| Key | Type and format |
+| --- | --- |
+| `payload` | Optional payload pattern object; supports nested fields, `in`, `not_in`, and `exists` |
+| `webhook_ids` | Required string list or `in` matcher containing exactly one webhook UID, not its definition filename; `not_in` isn't accepted |
+
+Add one trigger per webhook UID. See [custom webhooks](/factories/webhooks/) to create the webhook and obtain its UID.
+
+```yaml
+triggers:
+  - provider: webhook
+    event: received
+    filter:
+      webhook_ids: [WEBHOOK_UID]
+      payload:
+        status: [failed]
+```
+
+Replace `WEBHOOK_UID` with the UID of your webhook.
+
+## Related pages
+
+* [Factory automations](/factories/automations/) - Set up matching and edit filters
+* [Factory definition syntax](/factories/factory-as-code/) - Validate and apply definition files
+* [Connect Linear to your factory](/factories/integrations/linear/) - Route requests and resume waiting runs

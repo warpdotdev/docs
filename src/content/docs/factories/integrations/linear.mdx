@@ -7,9 +7,9 @@ sidebar:
   label: "Linear"
 ---
 
-Connect Linear to your factory so your team can send issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks it up with the issue's full context, then keeps the issue updated as the work moves through [its stages](/factories/how-factories-work/).
+Connect Linear to send issues to your factory and track progress through [its stages](/factories/how-factories-work/).
 
-When the factory needs an answer, reply in Linear, or open the live run to steer the agent directly.
+[Answer in the Linear agent session or send a run follow-up](#replying-to-a-waiting-run). Plain issue comments don't always resume runs.
 
 ## Prerequisites
 
@@ -44,47 +44,110 @@ You connect Linear either while creating a factory, at the **Connect your issue 
 1. **Authorize Warp for your Linear workspace.** This is Linear's own OAuth flow, and it's only needed once per workspace.
 2. **Choose which Linear teams trigger this factory.**
 
-Warp then adds a default automation that routes new [agent sessions](#route-agent-sessions) from those teams to your factory. Issue and comment activity doesn't start work until you [add triggers](#configure-linear-triggers) for it.
+Warp adds an `agent_session_created` automation for those teams, not `comment_created` or `issue_labeled`. For other issue activity, [add triggers](#configure-linear-triggers).
 
 ## Route agent sessions
 
 If Warp can't identify the session creator, Linear shows an authentication prompt instead of starting work.
 
-When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. If a session doesn't match any automation, the [Linear integration](/platform/integrations/linear/) handles it with its default behavior.
+Mention, assign, or delegate the Warp app on an issue to start a Linear agent session. The default automation routes sessions from your selected teams to the factory.
 
 <figure style={{ maxWidth: "563px" }}>
 ![A Linear issue with a comment mentioning the Warp app to request a tech spec, which starts an agent session.](../../../../assets/factories/linear-agent-session.png)
 <figcaption>Mentioning the Warp app in an issue comment starts an agent session.</figcaption>
 </figure>
 
-Replies in an existing session continue that run rather than starting a new one. To narrow which sessions reach the factory, such as by creator or keyword, edit the `agent_session_created` trigger in the factory's [definition files](/factories/factory-as-code/); session routing isn't editable from the automation editor.
+To filter sessions by creator or keyword, edit `agent_session_created` in the [definition files](/factories/factory-as-code/); session routing isn't editable from the automation editor.
 
 ## Configure Linear triggers
 
-Agent sessions cover explicit requests. To start work automatically from issue and comment activity too, add an automation with a **Linear** trigger for one of these events: **Issue created**, **Issue labeled**, **Issue state changed**, **Issue assigned**, or **Comment created**. To learn how to edit those filters, see [Automations](/factories/automations/#edit-filters-on-an-automation).
+To start work from issue activity, [add an automation](/factories/automations/#edit-filters-on-an-automation) with a **Linear** trigger: **Issue created**, **Issue labeled**, **Issue state changed**, **Issue assigned**, or **Comment created**.
 
-Every Linear trigger filters on teams and labels, and **More filters** adds project, workflow state, assignee, mentioned user, and, for comment events, a specific issue. For example, a trigger can require that an issue belongs to one team, enters a chosen workflow state, and carries a release label.
+Filters depend on the event. Issue events support assignees; comments support specific issues but not assignees. Agent sessions accept only team, project, label, creator, and keyword filters.
 
-For the exact `event` value each of these triggers uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
+Use the [Linear trigger reference](/factories/automation-triggers/#linear) for exact event names, keys, types, and examples. `labels` takes label names, not IDs.
 
 ## Supported events and outputs
 
-Each event determines the context the agent receives and the updates the factory sends back.
-
 | Linear event | What the agent receives | What the factory sends back |
 | --- | --- | --- |
-| Issue created, labeled, state changed, or assigned | The issue's title, description, team, project, labels, workflow state, and assignee | Work item progress, issue state or delegate changes, and links to results |
-| Comment created | The new comment and its issue's context | An acknowledgment, progress updates, and responses |
-| Agent session created | The request that mentioned, assigned, or delegated the Warp app | Live progress in the session, plus links to the run and any pull request |
-| Reply in an agent session | The new message and the session history | Continued work in the same session, not a separate work item |
+| Issue created, labeled, state changed, or assigned | Issue content and metadata | Progress, issue updates, and result links |
+| Comment created | New comment and issue context | Acknowledgment and responses |
+| Agent session created | The request to the Warp app | Live progress and run and pull request links |
+| Reply in an agent session | New message and session history | Continued work in that session |
 
-## Follow-up events on the same issue
+## Replying to a waiting run
 
-Once a Linear issue is linked to a factory work item, later matching events on that issue continue the same work item instead of creating a new one.
+Reply delivery depends on how the run started:
 
-:::caution
-One comment can match two routes: a comment that creates an agent session can also match a **Comment created** trigger. If both point at your factory, a single action starts two runs. Scope your automations so one path owns each kind of request.
-:::
+| How the run started | How to answer |
+| --- | --- |
+| A Linear agent session routed to this factory | Reply in that session. No `comment_created` trigger is required. |
+| A label or another issue-data trigger | Use the [follow-up API](#resume-a-run-that-missed-a-reply) or live conversation to address the waiting run. |
+| An issue associated with an active run through a routed agent session | A matching `comment_created` automation sends the comment to that factory's associated run, subject to access checks. |
+
+A label-started run doesn't establish the issue association used by comment routing. Adding `comment_created` without that association can start separate work. A work item link or a question on the issue isn't sufficient.
+
+If the factory restricts follow-ups to the starter, a different teammate's comment doesn't bypass that restriction.
+
+### Start from a factory-ready label
+
+Add this to a [factory definition](/factories/factory-as-code/) with a `foreman` agent and Linear connection:
+
+```markdown title="automations/linear-ready/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: linear
+    event: issue_labeled
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+---
+Read the issue. If requirements are missing, post the question on the
+issue with a link to this run, then wait for an answer. Continue when
+the answer arrives as a follow-up.
+```
+
+Replace `Engineering` with your team name. `factory-ready` is a Linear label name.
+
+1. Apply `factory-ready` to an issue. Open the resulting run in the factory dashboard.
+2. When the run asks a question and waits, have a teammate answer on the issue.
+3. Forward the answer to that run using the procedure below. Reapplying the label or mentioning the app can start other work.
+
+For automatic replies, start future work through the [agent-session path](#route-agent-sessions) and reply in that session. Avoid overlapping comment and session triggers: one comment can emit both events.
+
+### Resume a run that missed a reply
+
+Use `POST /agent/runs/{id}/followups` with a [Warp API key](/agents/cli/oz-cli/api-keys/) authorized to follow up on the waiting run.
+
+1. Open the waiting conversation from the factory dashboard or issue's run link. Copy its run ID, not the issue, session, or work item ID.
+2. Set `RUN_ID` to that ID. With `WARP_API_KEY` exported, inspect the destination:
+
+   ```bash
+   RUN_ID=WAITING_RUN_ID
+   curl --fail-with-body \
+     "https://app.warp.dev/api/v1/agent/runs/${RUN_ID}" \
+     --header "Authorization: Bearer ${WARP_API_KEY}"
+   ```
+
+   Replace `WAITING_RUN_ID` with the copied run ID. Confirm the destination conversation.
+
+3. Send the answer in `message`, including the issue identifier and comment link:
+
+   ```bash
+   curl --fail-with-body --request POST \
+     "https://app.warp.dev/api/v1/agent/runs/${RUN_ID}/followups" \
+     --header "Authorization: Bearer ${WARP_API_KEY}" \
+     --header "Content-Type: application/json" \
+     --data '{"message":"Answer for ENG-42: use the existing API, not a new endpoint. Source: https://linear.app/YOUR_WORKSPACE/issue/ENG-42#COMMENT_ID. Continue from the question you asked."}'
+   ```
+
+   Replace the message and placeholder comment URL. The URL's run ID selects the destination, not `ENG-42` in the message.
+
+4. Reopen the same conversation and confirm the answer appears and work continues. HTTP `200` means accepted, not acted on. The response's `outcome` describes delivery, such as `live_session` or `queued_prompt`. Warp resumes in a new sandbox when needed.
+
+If denied, check the key's run access and factory follow-up restrictions. See the [API reference](/api) for request and response fields.
 
 ## What the factory can do in Linear
 
@@ -100,9 +163,11 @@ Connecting Linear doesn't grant repository access. Branches and pull requests us
 * **Teams or filters don't load** - Reconnect Linear by following the [Linear integration setup guide](/platform/integrations/linear/), then confirm the connection can access the workspace and team you expect.
 * **An event doesn't start work** - Confirm the automation is enabled, the event type matches, and every filter matches the issue's current values or the state change.
 * **One action starts multiple runs** - Look for overlapping agent-session and comment triggers, then narrow or remove one.
+* **A reply doesn't resume a waiting run** - Check how the run started, then [send a follow-up to its run ID](#resume-a-run-that-missed-a-reply). A comment trigger doesn't associate a label-started run with the issue.
 * **No pull request appears** - Check the factory's code-host credentials and repository access. Linear authorization alone doesn't allow code changes.
 
 ## Related pages
 
 * [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Linear integration](/platform/integrations/linear/) - Install or remove the workspace app
+* [Automation triggers](/factories/automation-triggers/) - Look up exact event and filter syntax

@@ -486,54 +486,20 @@ unresolved product questions to a human.
 **Required.**
 One or more events that start runs. Each trigger declares `provider` and `event`, and can include `filter` or, for scheduled runs, `schedule`.
 
-The providers and their events:
-
-| Provider | Events |
-| --- | --- |
-| `azure_devops` (pull requests and pushes) | `pull_request_closed`, `pull_request_commented`, `pull_request_created`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_updated`, `push` |
-| `azure_devops` (work items) | `work_item_assigned`, `work_item_created`, `work_item_labeled`, `work_item_mentioned` |
-| `factory` | `work_item_stage_changed` |
-| `github` (issues) | `issue_assigned`, `issue_commented`, `issue_created`, `issue_labeled`, `issue_mentioned` |
-| `github` (pull requests) | `pull_request_assigned`, `pull_request_closed`, `pull_request_commented`, `pull_request_dequeued`, `pull_request_enqueued`, `pull_request_labeled`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_opened`, `pull_request_ready`, `pull_request_reopened`, `pull_request_synchronized` |
-| `github` (reviews) | `pull_request_review_requested`, `pull_request_review_submitted` |
-| `github` (code and CI) | `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `commit_status`, `push`, `workflow_run_completed` |
-| `gitlab` | `bot_mentioned`, `merge_request`, `push` |
-| `jira` | `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed` |
-| `linear` | `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed` |
-| `schedule` | `cron_fired` |
-| `slack` | `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added` |
-| `teams` | `app_mention`, `message_posted` |
-| `webhook` | `received` |
+Use [Automation triggers](/factories/automation-triggers/) for the exact event names, accepted filter keys, value types, and examples for each provider.
 
 Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
-**Conditionally required.** Required for `webhook` / `received`; optional for other triggers.
+**Conditionally required.** Required for `webhook` / `received` and Microsoft Teams triggers. Scheduled triggers accept no authored filters.
 Narrows which events start runs. Available keys depend on the provider and event. Keys combine with AND; within an inclusion list, any value can match. Omitting an optional list filter adds no restriction, but provider defaults still apply. For example, GitHub's [`skip_bots` defaults to `all`](/factories/integrations/github/#events-from-bots-dont-start-work).
 
 A `webhook` trigger for `received` requires `webhook_ids`: a one-item list with one webhook UID. It supports `in` only and doesn't accept a file name. To listen to multiple webhooks, add one trigger per UID. The optional `payload` pattern matches against the delivery's JSON body. See [webhook payload filters](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern syntax.
 
-Filter keys by provider:
-
-* Factory: `stages`.
-* Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
-* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `contexts`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, `skip_bots`, `states`, and `workflows`.
-* GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
-* Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
-* Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
-* Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
-* Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
-* Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
-* Webhook: `payload` and `webhook_ids`.
+Most canonical keys accept matcher objects: `in` includes values and `not_in` excludes them. Name-based aliases take plain lists and resolve through the connected provider. Look up each event's keys, operators, and alias formats in [Automation triggers](/factories/automation-triggers/#syntax-and-value-types); keys aren't interchangeable across events.
 
 GitHub `commit_status` triggers fire for `success`, `failure`, and `error` statuses, not `pending`. They accept only `repos`, `states`, `contexts`, and `skip_bots`. `states` matches the status result, and `contexts` matches the status name, such as `ci/build`; both match case-insensitively.
-
-Most canonical keys accept matcher objects: `in` includes values and `not_in` excludes them. Webhook `payload` also accepts `exists`. Microsoft Teams `team_ids` and `channel_ids` support only `in`.
-
-For Microsoft Teams, `team_ids` contains exactly one Microsoft Graph team UUID, and `channel_ids` contains at least one channel ID.
-
-`baseBranches` and `prNumbers` alias `base_branches` and `pr_numbers`. The name-based aliases `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` take plain lists; Warp resolves their values to their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
 
 ```yaml
 triggers:
