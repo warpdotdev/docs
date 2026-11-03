@@ -4,7 +4,7 @@ paths:
       summary: List built-in network policies
       description: |
         Return Warp-managed network policies grouped by name, with every published
-        version and its included allowed hosts. Use a name and version in networkPolicy.extends.
+        version and its included allowed hosts. Use a name and version in network_policy.extends.
         Policies do not include the platform's system-required egress rules.
       operationId: listNetworkPolicies
       tags:
