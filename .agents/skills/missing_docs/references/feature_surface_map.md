@@ -439,6 +439,9 @@ GET /agent/previews -> internal
 GET /agent/previews/{previewId} -> internal
 POST /agent/runs/batch-get -> internal
 GET /agent/runs/{runId}/diagnostics -> internal
+# Run-scoped preview listing is x-internal upstream and absent from the
+# released export at warp-server b3186896ec. Recheck public publication and GA.
+GET /agent/runs/{runId}/previews -> internal
 DELETE /agent/runs/{runId}/previews/{previewId} -> internal
 PATCH /agent/runs/{runId}/previews/{previewId} -> internal
 POST /agent/runs/{runId}/scores -> internal
@@ -522,6 +525,9 @@ GET /factory-files/schemas/{schema_version}/{document} -> internal
 POST /factory-files/validate -> internal
 # Factory review (AI review of a factory definition) and its refine loop.
 GET /factory/{uid}/review -> internal
+# Branch-review publication is x-internal and absent from the released export
+# at warp-server b3186896ec. A published sibling operation does not release it.
+POST /factory/{uid}/review -> internal
 POST /factory/{uid}/review/refine -> internal
 # Conflict/lint recovery uses the same Early Access gate and x-internal marker.
 POST /factory/{uid}/review/autofix -> internal
@@ -602,6 +608,9 @@ POST /factory-setup/connect-on-slack -> internal
 GET /factory/automations -> internal
 POST /factory/automations -> internal
 GET /factory/automations/events/{provider} -> internal
+# Trigger comparison is x-internal upstream and absent from the released
+# export at warp-server b3186896ec. Recheck through the server publisher.
+POST /factory/automations/matching-triggers -> internal
 GET /factory/automations/{id} -> internal
 PUT /factory/automations/{id} -> internal
 DELETE /factory/automations/{id} -> internal
