@@ -1,8 +1,7 @@
 ---
 title: "{{WARP_AUTOMATION_PLATFORM}} overview"
 description: >-
-  Configure agents with Warp Factories, or run and manage cloud agents without
-  a factory. Both use the {{WARP_AUTOMATION_PLATFORM}}.
+  Start with Warp Factories, or use the {{WARP_AUTOMATION_PLATFORM}}'s shared execution, configuration, and APIs for standalone cloud agents.
 sidebar:
   label: "{{WARP_AUTOMATION_PLATFORM}}"
 ---
@@ -18,7 +17,9 @@ Already using the {VARS.WEB_APP}, {VARS.WARP_AGENT_CLI}, or SDKs? Use [transitio
 
 ## How a run works
 
-A request or event supplies the task and its context. The agent executes on its configured host and produces results such as a pull request, report, or transcript. For the factory task lifecycle and review points, see [how Warp Factories work](/factories/how-factories-work/).
+A trigger starts work: a schedule, a message in a connected tool, or a request from the app, CLI, or API. Its context tells the agent what to investigate or change, such as an issue description, pull request diff, or failed-build logs.
+
+The agent executes on its configured host using the available repositories, tools, and credentials. A run records its progress and produces results such as a pull request, report, or transcript. For example, send failed-build logs with a request for the agent to investigate and propose a fix for review. See [how Warp Factories work](/factories/how-factories-work/) for the factory task lifecycle and human review points.
 
 <figure style={{ maxWidth: "736px" }}>
 ![A trigger starts an agent, which runs in a configured environment and produces artifacts such as plans, pull requests, and conversation records.](../../../assets/agent-platform/cloud-agent-run-flow.png)
@@ -27,37 +28,41 @@ A request or event supplies the task and its context. The agent executes on its 
 
 ## Integrations and triggers
 
-[Factory automations](/factories/automations/) route events from [connected tools](/factories/connect-your-factory/) to factory agents. They also start runs on a schedule. For custom intake, use [webhooks](/factories/webhooks/) and [factory endpoints](/factories/factory-api/).
+Integrations supply work and context from tools your team already uses. For example, a message or issue can become a task for an agent. [Factory automations](/factories/automations/) route those events from [connected tools](/factories/connect-your-factory/) to factory agents, or start recurring work on a schedule. For custom intake, use [webhooks](/factories/webhooks/) and [factory endpoints](/factories/factory-api/).
 
 Standalone workflows have separate [integrations](/platform/integrations/) and [scheduled runs](/platform/triggers/scheduled-agents/). The [CLI integration setup guide](/agents/cli/oz-cli/integration-setup/) covers their configuration.
 
 ## Inspecting results
 
-Inspect factory work from the [factory dashboard](/factories/factory-dashboard/). For standalone management, sharing, and steering, use the [cloud-agent inspection paths](/platform/#monitor-inspect-and-share-cloud-agent-runs).
+Run records let you see what the agent attempted, inspect its transcript and outputs, and decide whether the result needs more work. Inspect factory tasks from the [factory dashboard](/factories/factory-dashboard/). For standalone management, sharing, and steering, use the [cloud-agent inspection paths](/platform/#monitor-inspect-and-share-cloud-agent-runs).
 
 ## Environments
 
-Factories manage their workspace by default. [Environments for factory agents](/factories/environments/) cover the optional existing-environment path and standalone setup; [runners](/factories/runners/) cover compute configuration.
+An environment groups a container image, repositories, and setup commands, such as installing the dependencies an agent needs to run tests. Reusing that setup gives recurring tasks a configured toolchain rather than requiring each task to recreate it.
+
+Factories manage their workspace by default, so selecting an existing environment is optional. See [Environments for factory agents](/factories/environments/) for that option and standalone setup, and [runners](/factories/runners/) for compute configuration.
 
 ## Hosts
 
-For factory hosting choices and requirements, compare [Warp-hosted execution](/factories/warp-hosting/) with [managed self-hosting](/factories/self-hosting/). [Unmanaged execution](/platform/unmanaged-execution/) covers standalone CLI workflows on infrastructure you operate.
+A host is where the agent executes commands and accesses its workspace. Warp-hosted execution uses compute provisioned by Warp. Managed self-hosting uses a worker on your infrastructure, where your team manages capacity and network access.
+
+For factory hosting choices and requirements, compare [Warp-hosted execution](/factories/warp-hosting/) with [managed self-hosting](/factories/self-hosting/). [Unmanaged execution](/platform/unmanaged-execution/) covers standalone CLI workflows in an existing checkout or CI runner you operate.
 
 ## The CLI
 
-Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for existing `oz` workflows and the [{VARS.WARP_CLI}](/agents/cli/) for `warp` commands. Check the owning reference before changing a script.
+The CLI lets you work from a terminal or incorporate agents into scripts and CI without requiring the Warp desktop app. Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for existing `oz` workflows and the [{VARS.WARP_CLI}](/agents/cli/) for `warp` commands. Check the owning reference before changing a script.
 
 ## API and SDKs
 
-Use [factory endpoints](/factories/factory-api/) to send work to a factory, and [agent and run endpoints](/factories/api-and-sdk/) for standalone runs and run inspection. [Developer tools](/factories/developer-tools/) links to the SDKs and full API reference.
+The API and SDKs let an internal service submit work and inspect results programmatically. Use [factory endpoints](/factories/factory-api/) to send work to a factory, and [agent and run endpoints](/factories/api-and-sdk/) for standalone runs and run inspection. [Developer tools](/factories/developer-tools/) links to the SDKs and full API reference.
 
 ## Secrets
 
-Use [factory secrets](/factories/secrets/) for credentials granted to factory agents and [harness authentication](/factories/harnesses/authentication/) for third-party provider credentials. The [legacy secrets reference](/platform/secrets/) preserves standalone CLI and personal-secret workflows.
+Secrets give agents credentials for resources such as package registries, APIs, or databases. Grant only the access needed for the task. Use [factory secrets](/factories/secrets/) for credentials granted to factory agents and [harness authentication](/factories/harnesses/authentication/) for third-party provider credentials. The [legacy secrets reference](/platform/secrets/) preserves standalone CLI and personal-secret workflows.
 
 ## Shared configuration
 
-Factory-wide and per-agent settings live in the [factory definition](/factories/factory-as-code/). The shared [harness](/factories/harnesses/), [environment](/factories/environments/), and [MCP-server](/factories/mcp/) references explain factory and standalone configuration separately.
+Configuration determines which agent runs, which tools it can use, and what setup its work needs. A harness runs the coding agent; MCP servers connect it to external tools and data. Factory-wide and per-agent settings live in the [factory definition](/factories/factory-as-code/). The shared [harness](/factories/harnesses/), [environment](/factories/environments/), and [MCP-server](/factories/mcp/) references explain factory and standalone configuration separately.
 
 For instructions and reusable context, see [factory skills](/factories/factory-skills/), [Rules](/agents/capabilities/rules/), [saved prompts](/knowledge-and-collaboration/warp-drive/prompts/), and [environment variables](/knowledge-and-collaboration/warp-drive/environment-variables/). These have different scopes; follow the relevant reference.
 

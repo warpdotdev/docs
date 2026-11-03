@@ -102,6 +102,17 @@ const guides = article('/guides/').body;
 assert.ok(!guides.querySelector(`a[href="${fixture.pages[2].oldPath}"]`));
 assert.ok(guides.querySelector(`a[href="${fixture.pages[2].newPath}"]`));
 assert.ok(read('agents/capabilities/skills.md').includes('WARP_SKILL_DIRS'));
+const skills = article('/agents/capabilities/skills/').body;
+const features = [...skills.querySelectorAll('li strong')].map((node) => node.textContent);
+for (const feature of ['Reusable instructions', 'Project and global scopes', 'Automatic discovery', 'Simple markdown format', 'Supporting files', 'Slash command invocation', 'Parameterized skills']) {
+	assert.ok(features.includes(feature), `lost Skills feature summary: ${feature}`);
+}
+const examples = [...skills.querySelectorAll('pre')].map((node) => node.textContent);
+assert.ok(examples.some((text) => ['name: add-feature-flag', 'config/feature_flags.yaml', 'src/utils/flags.ts', 'docs/FEATURE_FLAGS.md', 'default: false', 'owner:'].every((part) => text.includes(part))),
+	'missing complete worked feature-flag skill');
+for (const name of ['explain-topic', 'greet']) {
+	assert.ok(examples.some((text) => text.includes(`name: ${name}`)), `missing complete argument example: ${name}`);
+}
 assert.ok(read('factories/api-and-sdk.md').includes('"skill_spec"'));
 assert.ok(read('platform/triggers/scheduled-agents.md').includes('--skill'));
 console.log('Article retirements OK: 2 redirects, 1 topic bridge, 54 original fragments, 34 FAQ destinations.');

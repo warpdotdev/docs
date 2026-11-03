@@ -14,9 +14,13 @@ Skills are reusable instructions for tasks such as deployment, code review, or d
 
 ## Key features
 
-* **Project and global scopes** - Keep project skills in a repository or global skills in your home directory
-* **Slash command invocation** - Ask for a task in natural language or invoke `/{skill-name}` with arguments
-* **Supporting files** - Include scripts, templates, and configuration alongside `SKILL.md`
+* **Reusable instructions** - Define a task once and reuse its instructions across conversations
+* **Project and global scopes** - Keep team workflows in a repository or personal skills in your home directory
+* **Automatic discovery** - The agent sees available skill names and descriptions and loads instructions when relevant
+* **Simple markdown format** - Write each skill in a `SKILL.md` file with YAML frontmatter
+* **Supporting files** - Include scripts, templates, and configuration alongside the skill
+* **Slash command invocation** - Invoke `/{skill-name}` directly instead of asking the agent to choose a skill
+* **Parameterized skills** - Pass arguments to adapt a skill's instructions to the current task
 
 ## How Skills work
 
@@ -34,7 +38,13 @@ Same-name skills resolve differently by invocation:
 
 ### Example interactions
 
-Ask “Check the docs for broken links” to let the agent choose a relevant skill, or invoke `/deploy` or `/add-feature-flag` directly.
+Describe the task in natural language to let the agent choose an available skill:
+
+* "Use the deploy skill to push to staging."
+* "Check the docs for broken links."
+* "Draft documentation for the new API endpoint based on this PR."
+
+If you know the skill name, invoke `/deploy` or `/add-feature-flag` directly.
 
 ### Identify skill sources in conversation data
 
@@ -71,7 +81,38 @@ Show concrete examples of using this skill.
 
 ### Example skill file
 
-An `add-feature-flag` skill can request the flag name and default, then update the repository's configuration, helper, tests, and documentation.
+This example assumes a project with flags in `config/feature_flags.yaml`, helpers in `src/utils/flags.ts`, and flag documentation in `docs/FEATURE_FLAGS.md`. Adapt those paths to your repository.
+
+````markdown title=".agents/skills/add-feature-flag/SKILL.md"
+---
+name: add-feature-flag
+description: Add a feature flag to the codebase with configuration, a helper, and documentation
+---
+
+# Add a feature flag
+
+## Instructions
+1. Ask the user for the feature flag name and default value.
+2. Add the flag definition to `config/feature_flags.yaml`.
+3. Create a helper function in `src/utils/flags.ts`.
+4. Update `docs/FEATURE_FLAGS.md`.
+
+## Configuration format
+Use this shape for each flag, replacing the name, description, and owner:
+
+```yaml
+feature_name:
+  default: false
+  description: "What this flag controls"
+  owner: "team-name"
+```
+
+## Examples
+* "Add a feature flag for the new checkout flow."
+* "Create a flag to enable dark mode for beta users."
+````
+
+For example, `/add-feature-flag add a checkout flag, disabled by default` invokes the skill and supplies context for the new flag. The agent follows the repository paths and format specified in the skill rather than inferring them.
 
 ## Skill arguments
 
@@ -95,9 +136,16 @@ If a placeholder references an argument index that wasn't provided (e.g. `$2` wh
 
 ### Example: Skill with arguments
 
-For a skill named `explain-topic`, use this body:
+This complete skill uses indexed arguments for the topic, audience, and tone:
 
 ```markdown
+---
+name: explain-topic
+description: Explain a topic for a specific audience in a given tone
+---
+
+# Explain a topic
+
 Explain $0 for an audience of $1 professionals.
 Use a $2 tone.
 Full request: $ARGUMENTS
@@ -105,15 +153,34 @@ Full request: $ARGUMENTS
 
 Invoking this skill with:
 
-```
+```bash
 /explain-topic bears engineering fun
 ```
 
-Substitutes `bears`, `engineering`, and `fun` for `$0`, `$1`, and `$2`; `$ARGUMENTS` becomes `bears engineering fun`.
+Warp substitutes the arguments before sending these instructions to the agent:
+
+```text
+Explain bears for an audience of engineering professionals.
+Use a fun tone.
+Full request: bears engineering fun
+```
 
 ### Example: Skill without arguments
 
-If `greet` contains only “Greet the user warmly in an Australian style,” `/greet say it in French` sends the skill followed by “say it in French” as a separate message.
+This skill has no argument placeholders:
+
+```markdown
+---
+name: greet
+description: Greet the user warmly in an Australian style
+---
+
+# Greet
+
+Greet the user warmly in an Australian style.
+```
+
+Invoking `/greet say it in French` sends the skill instructions followed by “say it in French” as a separate user message. You can add context without changing the skill file, even when it has no placeholders.
 
 <span id="how-skills-become-available" />
 

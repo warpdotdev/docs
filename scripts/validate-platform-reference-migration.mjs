@@ -195,7 +195,16 @@ check('reviewed titles and harness discovery', () => {
 		.find((group) => group.querySelector(':scope > summary')?.textContent.trim() === 'Harnesses');
 	assert.ok(harnessGroup?.hasAttribute('open'), 'Harnesses should be expanded by default');
 	assert.equal(content('/platform/overview/').document.querySelector('meta[name="description"]')?.getAttribute('content'),
-		'Configure agents with Warp Factories, or run and manage cloud agents without a factory. Both use the Automation Platform.');
+		"Start with Warp Factories, or use the Automation Platform's shared execution, configuration, and APIs for standalone cloud agents.");
+	const overview = content('/platform/overview/').body;
+	for (const explanation of ['An environment groups a container image', 'A host is where the agent executes', 'issue description, pull request diff']) {
+		assert.ok(overview.textContent.includes(explanation), `lost baseline explanation: ${explanation}`);
+	}
+	for (const harness of ['claude-code', 'codex']) {
+		const intro = content(`/agents/cli-agents/${harness}/`).body;
+		assert.ok(intro.textContent.includes('used by factory agents and standalone workflows'),
+			`missing shared cloud-harness scope: ${harness}`);
+	}
 });
 check('original guide retirement', () => {
 	const old = '/guides/agent-workflows/run-a-software-factory-in-the-cloud';
