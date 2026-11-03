@@ -1,5 +1,48 @@
 # AFDocs audit run log
 
+## 2026-10-30 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score (afdocs 0.22.2)
+- **Score**: 90/100 (A-)
+- **Reliability**: complete sampled scan at 18:25:49 UTC; 50 of 410 discovered pages, zero reported fetch errors, rate limiting, or discovery warnings. Bot protection passed across 531 native requests. Sanitized trace contains 532 requests including preflight: 481 HTTP 200 and 51 expected discovery/nonexistent-path HTTP 404 responses.
+- **Checks**: 28 total — 23 pass, 2 fail, 1 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 2 checks (intentional OpenAPI YAML/JSON links; Vercel static content negotiation). The parity warning includes one verified bracket-escaping false-positive page, but remains genuine because another page loses content.
+- **Oz run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a18bd2-a7f7-75f6-8696-cbaadf4198f4
+- **Comparison**: No regression against the most recent complete comparable entry, the first 2026-10-23 entry on this standing branch: 90/100, same spec, score method, and failing IDs. The morning's partial result and all partial, blocked, legacy, or compatibility entries are excluded from native-score comparisons.
+- **Findings**: markdown-content-parity warns on two pages (6% each). `/factories/infrastructure-and-security/` retains all five flagged Mermaid segments after bracket unescaping. `/agents/capabilities/rules/` genuinely omits the project file tree and all three AGENTS.md example comments: the Markdown sanitizer removes Starlight's search-excluded file-tree component. No diagnostic interaction effects.
+- **Fixes**: [Draft AFDocs fixes PR #972](https://github.com/warpdotdev/docs/pull/972), on the sole standing `afdocs-fixes` branch, preserves the file tree and original check diagnostics and marks reported fetch/discovery errors as partial without changing scoring. Captured production HTML reconversion and built Markdown retain all three examples. No public prose, WAF/CDN policy, page splitting, deployment, merge, or standalone schedule changes.
+- **Validation**: 20 targeted tests passed; three new regression tests failed before the fix. Ordered repository checks passed: typecheck (zero errors, seven hints), heading vars, build, heading TOCs, homepage JSON-LD. Internal links: 4,624 checked, zero broken. `git diff --check` passed. `npm run lint` and `npm run fmt` could not run because Trunk is absent. Install warned about Babel's newer Node requirement and an existing patch-version mismatch; build warned about large chunks, empty i18n, and the /404 route conflict. No lint success or post-deployment audit score is claimed.
+- **Notes**: Repo-local audit exited 0; native CLI exited 1 for its two expected failing checks. Wrapper report, full native JSON, sanitized request trace, and locally reprocessed diagnostic report retained as run artifacts. A temporary preload captured diagnostics without changing requests or scoring. Node 24, npm 11, GitHub, and connected Slack MCP verified. The morning's failed-fetch URL and five warning-page identities were discarded by the old wrapper and cannot be reconstructed; this different sample did not reproduce those warnings and does not prove them fixed. Prior log entries remain unchanged. Follow-up belongs in the [existing Slack thread](https://app.slack.com/archives/C09BVK0PL3Y/p1793347474837599), not a second same-day top-level summary. Trunk verification and review of the draft fix remain owner actions.
+
+## 2026-10-30 — partial
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 83/100 (B) — partial-sample observation only; excluded from regression comparisons and future baselines.
+- **Reliability**: partial operational assessment. The wrapper reports scan_reliability=complete and no bot-protection interference across 532 requests, but llms-txt-directive-html and markdown-content-parity each disclose one failed fetch.
+- **Checks**: 28 total — 19 pass, 2 fail, 5 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 2 (llms-txt-links-markdown, content-negotiation)
+- **Oz run**: https://staging.warp.dev/conversation/9fbf36f3-2de6-4bde-bff6-94f64c87f0a6
+- **Notes**: Audit command exited 0; afdocs-report.json retained as a run artifact. Most recent comparable complete baseline is the first 2026-10-23 entry on this standing branch (native v0.6.0); this partial run is not compared against it. Partial, blocked, legacy, and compatibility results cannot establish a native-score regression baseline. Both failures match known exceptions: intentional OpenAPI YAML/JSON links and Vercel static content negotiation. Five remaining warning observations: llms-txt-directive-md (49/50 directives); page-size-markdown (1/50, max 60K characters); page-size-html (2/50, max 258K HTML converting to 66K markdown); markdown-link-portability (1/50 with a root-relative link); embedded-data-serialization (1/50, a 634-row table occupying 84% of 66K converted characters). Affected URLs and fetch error details are absent from the wrapper report, so long-page exceptions cannot be confirmed and these warnings remain observations pending reliable diagnosis. Diagnostic interaction dynamic-content-rendered-statically groups the size and serialization warnings; it is not an additional scored failure. Owner action: identify the failed HTML fetch and affected warning pages, then obtain a complete scan before remediation. No afdocs-fix invocation, automatic fixes, page splitting, CDN/WAF changes, or standalone schedule changes. Node.js 24, npm 11, GitHub access, and connected Slack MCP channel access verified. Existing log history preserved in an isolated worktree. Public-doc validation suite not run because this is a log-only change; Trunk is not installed.
+
+## 2026-10-23 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 90/100 (A-)
+- **Reliability**: complete; no bot-protection interference across 531 requests.
+- **Checks**: 28 total — 23 pass, 2 fail, 1 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 3 (llms-txt-links-markdown, content-negotiation, markdown-content-parity)
+- **Oz run**: https://staging.warp.dev/conversation/2e199e33-8236-4eeb-8f4e-1f9db5b02cbc
+- **Notes**: Audit command exited 0; report retained as a run artifact (afdocs-report.json). Comparable baseline is the earlier complete 2026-10-23 entry on this standing branch, 92/100 with the same spec and native score method. Score decreased by 2 points, meeting the score-drop regression rule; no newly failing check IDs. The additional warning is minor markdown/HTML parity differences on 1/50 sampled pages, matching the documented escaping/sampling exception; the wrapper does not retain the affected page details. Both failures match known exceptions: intentional OpenAPI YAML/JSON links and Vercel static content negotiation. No remaining repo-fixable findings; afdocs-fix not invoked. No diagnostic interaction effects. Partial, blocked, legacy, and compatibility entries excluded from this native-score comparison. Node.js 24, npm, GitHub access, and connected Slack MCP channel access verified. Earlier unmerged entry preserved; no CDN/WAF changes, public-doc edits, or standalone schedule changes.
+
+## 2026-10-23 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 92/100 (A-)
+- **Checks**: 28 total — 24 pass, 2 fail, 0 warn
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 2
+- **Oz run**: https://platform.warp.dev/runs/01a167c6-317a-74b9-a39f-efdd414f1efa
+- **Notes**: Complete scan. Both failures allowlisted (OpenAPI YAML/JSON links in llms.txt; Vercel static hosting cannot honor Accept: text/markdown). No remaining fixable issues; afdocs-fix skipped. Score up from 83/100 on 2026-10-09 (page-size-html no longer failing). No regression.
+
 Written by the `afdocs-audit` skill on every scheduled run — clean, regressed, or blocked.
 
 This log serves two purposes:
