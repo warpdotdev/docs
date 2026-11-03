@@ -44,11 +44,6 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
-			PUBLIC_KAPA_PROJECT_ID: envField.string({
-				context: 'client',
-				access: 'public',
-				optional: true,
-			}),
 			PUBLIC_RUDDERSTACK_WRITE_KEY: envField.string({
 				context: 'client',
 				access: 'public',
@@ -62,16 +57,6 @@ export default defineConfig({
 			PUBLIC_RUDDERSTACK_DATA_PLANE_URL: envField.string({
 				context: 'client',
 				access: 'public',
-				optional: true,
-			}),
-			SUPPORT_HANDOFF_ENDPOINT_URL: envField.string({
-				context: 'server',
-				access: 'secret',
-				optional: true,
-			}),
-			SUPPORT_HANDOFF_SHARED_SECRET: envField.string({
-				context: 'server',
-				access: 'secret',
 				optional: true,
 			}),
 		},

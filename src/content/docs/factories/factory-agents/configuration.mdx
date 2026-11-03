@@ -33,7 +33,7 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
    <figcaption>The Settings tab contains the agent's description and resources.</figcaption>
    </figure>
 
-3. Edit the agent description, harness, model, runner, host, [MCP servers](/platform/mcp/), or [secrets](/platform/secrets/).
+3. Edit the agent description, harness, model, runner, host, [MCP servers](/platform/mcp/), or [secrets](/factories/secrets/).
 
 4. To change the agent's instructions, click **Prompt** and edit the prompt.
 
@@ -56,6 +56,8 @@ Default model IDs change over time, so choose based on what each agent has to do
 | Review | A different model or harness from the implement agent, so the two don't share blind spots |
 
 The model picker also includes custom routers from factories you can access. See [Agent model choice](/agents/inference/model-choice/), [Custom routers](/agents/inference/custom-routers/), and [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) for available options.
+
+For team-managed inference in definition files, see [custom endpoint and BYOK model values](/factories/factory-as-code/#custom-inference-endpoints-and-byok), including factory defaults and per-agent overrides.
 
 ### Configuring a third-party harness
 

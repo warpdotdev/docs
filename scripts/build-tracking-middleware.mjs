@@ -1,4 +1,5 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { STRIPPED_PARAMS } from '../src/lib/tracking-redirect.js';
 
 // Astro's Vercel adapter serves prerendered pages before its own middleware.
 // Emit a native routing middleware before the filesystem phase instead:
@@ -16,10 +17,11 @@ await writeFile(new URL('.vc-config.json', functionPath), JSON.stringify({
 	runtime: 'edge',
 	entrypoint: 'index.js',
 }));
-config.routes.unshift({
+// Entries in `has` are AND-ed, so each stripped parameter gets its own route.
+config.routes.unshift(...STRIPPED_PARAMS.map((key) => ({
 	src: '/(.*)',
-	has: [{ type: 'query', key: 'trk' }],
+	has: [{ type: 'query', key }],
 	middlewarePath: 'tracking-redirect',
 	continue: true,
-});
+})));
 await writeFile(configPath, JSON.stringify(config, null, 2));

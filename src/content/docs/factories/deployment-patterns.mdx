@@ -10,20 +10,12 @@ import { VARS } from '@data/vars';
 
 Choose an execution model for your factory based on where its code must run and who operates the compute. Warp-hosted execution is the default. Managed self-hosting keeps checkout and command execution in your network while Warp coordinates the work.
 
-The comparison below also shows unmanaged execution for standalone agents, which is not a factory execution host.
-
-<figure style={{ maxWidth: "736px" }}>
-![Deployment models diagram comparing Warp-hosted, managed self-hosted, and unmanaged self-hosted patterns by what runs on Warp versus customer infrastructure](../../../assets/agent-platform/deployment-models.png)
-<figcaption>Deployment models divide responsibilities between Warp and your infrastructure.</figcaption>
-</figure>
-
 ## Choose an execution model
 
 | If your factory needs to... | Choose |
 | --- | --- |
 | Run public repositories and services without operating workers | [Warp-hosted execution](#warp-hosted-execution) |
 | Reach private repositories or services behind your network boundary | [Managed self-hosting](#managed-self-hosting) |
-| Run standalone agents from CI or developer infrastructure, without a factory | [Unmanaged execution](/platform/unmanaged-execution/) |
 
 Both factory options use the same [factory definition](/factories/factory-as-code/), [runners](/factories/runners/), and [factory dashboard](/factories/factory-dashboard/). The execution host changes the location of checkout, command execution, and the sandbox filesystem.
 
@@ -57,11 +49,10 @@ For standalone cloud-agent triggers, see [cloud agents](/platform/).
 
 Use this when a factory must run checkout and execution on your infrastructure while the {VARS.WARP_AUTOMATION_PLATFORM} coordinates the work and records its results. Managed workers support Docker, Kubernetes, Direct, and external command backends. See [managed self-hosting](/factories/self-hosting/) for requirements and setup.
 
-For standalone agents that you orchestrate directly from CI, Kubernetes, or developer infrastructure, use [unmanaged execution](/platform/unmanaged-execution/). See [execution security](/platform/execution-security/) for the data and network boundaries shared by both architectures.
+See [execution security](/platform/execution-security/) for self-hosted data and network boundaries.
 
 ## Related pages
 
 * [Infrastructure and security](/factories/infrastructure-and-security/) - Choose execution, inference, storage, and credential boundaries for a factory.
 * [Warp-hosted execution](/factories/warp-hosting/) - Review hosted execution capacity, networking, and supported environments.
 * [Managed self-hosting](/factories/self-hosting/) - Install and operate a factory worker on your infrastructure.
-* [Unmanaged execution](/platform/unmanaged-execution/) - Run standalone agents outside a factory.
