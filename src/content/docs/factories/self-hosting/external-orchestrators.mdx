@@ -108,7 +108,7 @@ Your dispatch implementation must handle the task payload as follows:
 
 * **Start command** - Run the supplied `base_args` with `env`.
 * **Runtime configuration** - Use `docker_image` and `sidecars` to prepare the runtime.
-* **Harness transport** - Claude Code and Codex run over a PTY unless `backend.command.materializes_sidecars` is `true`. Set it only when your runtime mounts every entry of the payload's `sidecars` at its `mount_path`, which for these harnesses includes the `warpdotdev/warp-<harness>-acp-sidecar` image. Requires worker release `<WORKER_RELEASE>` or newer.
+* **Harness transport** - Claude Code and Codex runs are dispatched over the Agent Client Protocol (ACP) with the `warpdotdev/warp-<harness>-acp-sidecar` image in `sidecars`. Mount every entry of `sidecars` at its `mount_path` to run them over ACP; if your runtime does not, the agent falls back to a terminal (PTY) by itself and the platform records that.
 * **Task payload** - Keep it out of logs because it contains task credentials. See the example's [task payload reference](https://github.com/warpdotdev/oz-agent-worker/tree/main/examples/command-backend#what-the-worker-hands-the-script-stdin) for each field.
 * **Shutdown report** - After the CLI exits, run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state. Set `RUN_ID` to the `run_id` field from the dispatch payload.
 
