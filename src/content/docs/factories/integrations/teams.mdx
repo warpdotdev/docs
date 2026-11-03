@@ -12,8 +12,8 @@ Connect a factory to Microsoft Teams so mentions in standard and shared channels
 
 ## Who completes each part
 
-* **Warp workspace admin** - Starts the connection and connects the installed team to the workspace.
-* **Teams admin or team owner** - Downloads and adds the Warp app. A Teams admin uploads and approves it.
+* **Warp workspace admin** - Starts the connection or sends a setup request.
+* **Teams approver** - Uploads, approves, and installs the Warp app under your organization's Teams policies, then connects the installation to Warp. Different people can handle app approval and adding the app to a team.
 * **Factory editor** - Selects the connected teams and channels for the factory.
 
 :::caution
@@ -22,15 +22,17 @@ The integration supports standard and shared channels. Private channels and dire
 
 ## Set up Microsoft Teams
 
-1. **Enable Microsoft Teams for the Warp workspace.** A workspace admin opens **Integrations** in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. If **Microsoft Teams** is unavailable, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
-2. **Choose who completes setup.** A workspace admin opens **Microsoft Teams** and clicks **Connect**. If they also administer Teams, continue. Otherwise, choose **Someone else** and email the setup request or copy its approval link for a Teams admin or team owner. Links expire after seven days.
+1. **Open Microsoft Teams setup.** In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, choose **Microsoft Teams** during factory creation or from the factory's **Settings**. If it isn't available, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
+2. **Choose who completes setup.** Continue yourself if your Teams permissions allow it. Otherwise, [send a setup request](/factories/connect-your-factory/#request-setup-from-an-administrator) to someone who can approve and install the app under your organization's policies.
 3. **Download the Warp app package.** Sign in with Microsoft and download `warp-microsoft-teams-app.zip`. It contains the app manifest and icons, with no executable files. A delegated recipient uses the approval link without your Warp session.
 4. **Upload and approve the app.** In the [Teams admin center](https://admin.teams.microsoft.com), go to **Teams apps** > **Manage apps**, click **Upload new app**, then upload and approve the package.
 5. **Add Warp to each team.** In Microsoft Teams, open **Apps** > **Built for your org** > **Warp**, then add Warp to each team the factory should use.
-6. **Connect the installed team to the Warp workspace.** Back in setup, select and connect the team. A delegated recipient uses the approval link; direct setup requires a workspace admin to select the team under **Integrations** and click **Enable**.
+6. **Connect the installed team to the Warp workspace.** Back in setup, select and connect the team. A delegated recipient completes this step from the approval link.
 7. **Select teams and channels for the factory.** During factory creation or in the factory's **Settings**, an editor chooses **Microsoft Teams**, selects the connected teams and at least one standard channel in each, then clicks **Enable**.
 
 Warp creates an enabled **teams-app-mentions** automation for the teams and channels selected in the last step.
+
+The app installation connects Teams to the workspace; the requester still selects teams and channels for the factory. Teams app policies determine who can upload, approve, or add the app. This setup isn't the Microsoft Entra consent flow used for Azure DevOps.
 
 ## Test the connection
 
@@ -122,8 +124,8 @@ See the [Factory definition syntax](/factories/factory-as-code/#integrations) fo
 ## Troubleshooting
 
 * **Microsoft Teams is missing in Warp** - Ask a workspace admin to confirm the integration is enabled. If it isn't available, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
-* **An installed team is missing in Warp** - Confirm the app is approved, then click **Add** for that team from **Apps** > **Built for your org** in Teams. A Warp workspace admin must then select the team on the top-level **Integrations** page to connect it to the workspace. For delegated setup, confirm that the admin or team owner's setup link is still active.
-* **Warp says, "This Microsoft Teams channel isn't connected to a Warp Factory. Connect this team to a Factory, then mention this bot again."** - Ask a Warp workspace admin to connect the team on the top-level **Integrations** page, then mention **@Warp** again.
+* **An installed team is missing in Warp** - Confirm the app is approved and added to that team in Microsoft Teams, then return to setup to connect the installation to Warp. For an inactive approval link, see [managing pending requests](/factories/connect-your-factory/#manage-pending-requests).
+* **Warp says, "This Microsoft Teams channel isn't connected to a Warp Factory. Connect this team to a Factory, then mention this bot again."** - Finish connecting the installation to Warp, then select the team and channel in the factory's **Settings** and click **Enable**. Mention **@Warp** again.
 * **Warp doesn't acknowledge a mention** - Confirm the team and channel are selected, mention **@Warp**, and follow any private account-linking prompt. For a shared channel, check the [shared-channel rules](#use-shared-channels).
 * **A channel is missing from the picker** - The picker lists standard channels only. Add a shared channel through the [factory definition](#configure-microsoft-teams-as-code).
 * **One mention starts two runs** - Narrow or remove overlapping **App mentioned** and **Message posted in channel** triggers.
@@ -131,7 +133,7 @@ See the [Factory definition syntax](/factories/factory-as-code/#integrations) fo
 
 ### Disconnect Microsoft Teams
 
-Remove Microsoft Teams from the factory's **Settings** or definition to stop that factory from using the integration. A workspace admin can remove Microsoft Teams from the top-level **Integrations** page to disconnect the Teams installations from every factory in the workspace. Uninstalling the Warp app from a Teams team stops new activity from that team.
+Remove Microsoft Teams from the factory's **Settings** or definition to stop that factory from using the integration. Uninstalling the Warp app from a Teams team stops new activity from that team.
 
 ## Privacy
 

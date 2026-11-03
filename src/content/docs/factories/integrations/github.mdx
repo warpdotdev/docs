@@ -8,34 +8,37 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-When you connect a factory to GitHub, repository activity starts work in your factory. Issues, pull requests, reviews, and CI events can all trigger automations, and the factory posts results back to GitHub as comments, branches, and pull requests.
+GitHub issues, pull requests, reviews, and CI events trigger factory work. The factory posts results back as comments, branches, and pull requests.
 
 ## Prerequisites
 
-* The Warp GitHub App installed. See [GitHub integration setup](/platform/integrations/github/).
-* At least one GitHub repository for the factory that the app can access.
+* A GitHub repository for the factory.
+* Someone who can authorize the Warp GitHub App installation for the intended account or organization. If that isn't you, [request setup from an administrator](/factories/connect-your-factory/#request-setup-from-an-administrator).
 
 ## Connect GitHub to a factory
 
-One GitHub App installation serves both the platform integration and factories.
+One GitHub App installation serves standalone runs and factories.
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitHub** under **Connect your code host**.
-2. Under **Select your repos**, choose the repositories to provide code and context for the factory.
+2. Authorize GitHub and select an existing Warp GitHub App installation, or install the app. For delegated setup, the recipient does this from the approval link.
+3. Under **Select your repos**, choose the repositories to provide code and context for the factory.
 
-New factories have default automations enabled for GitHub activity:
+If GitHub submits an installation request for an owner to approve, Warp setup remains pending. After approval, reopen the original Warp approval link to finish. The requester then selects repositories.
+
+Factory setup adds these default automations:
 
 * **Mentions and assignments** - Start work by mentioning **@warp** or assigning the factory. See [Mention the factory](#mention-the-factory) below.
 * **Pull request closed or merged** - Completes linked work when a pull request with your factory's label merges (which can move linked tracker issues to their completed state). An unmerged close is a no-op.
 * **Issue labeled** and **Pull request labeled** - Start work when the factory's label is applied to an issue or pull request.
 * **Pull request review submitted** - Start work when a review is submitted on a pull request that carries the factory's label.
 
-To confirm the connection works, mention **@warp** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
+Mention **@warp** on a test issue and confirm a work item starts in the [factory dashboard](/factories/factory-dashboard/).
 
 ## Add a custom automation
 
-For events without a default automation, add a GitHub trigger and narrow it with the filters below. See [editing automation filters](/factories/automations/#edit-filters-on-an-automation).
+For other events, [add a GitHub trigger and filters](/factories/automations/#edit-filters-on-an-automation).
 
-For failed CI on the default branch, adapt this automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations):
+For failed CI, adapt this automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations):
 
 ```markdown title="automations/ci-failure-triage/automation.md"
 ---
