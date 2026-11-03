@@ -663,10 +663,23 @@ function scanReliability(results) {
 			message: 'Sustained automated fetching was interrupted, so multi-page findings may not represent the complete site.',
 		};
 	}
+	const interruptedChecks = results.filter((result) =>
+		result.details?.fetchErrors > 0 ||
+		result.details?.rateLimited > 0 ||
+		result.details?.discoveryWarnings?.length > 0
+	);
+	if (interruptedChecks.length > 0) {
+		return {
+			status: 'partial',
+			reason: 'fetch-or-discovery-errors',
+			affected_checks: interruptedChecks.map((result) => result.id),
+			message: 'Fetch failures, rate limiting, or discovery warnings interrupted this scan; exclude it from regression comparisons and baselines.',
+		};
+	}
 	return {
 		status: 'complete',
 		reason: null,
-		message: 'No bot-protection interference was observed during this scan.',
+		message: 'No bot-protection interference, fetch failures, rate limiting, or discovery warnings were reported during this scan.',
 	};
 }
 
@@ -716,6 +729,7 @@ export function buildReport(raw, supplementalResults = []) {
 			status: r.status,
 			message: r.message,
 			fix: r.details?.fix || r.fix || null,
+			details: r.details ?? null,
 		}));
 
 	return {
@@ -738,7 +752,13 @@ export function buildReport(raw, supplementalResults = []) {
 			])
 		),
 		issues,
-		all_results: results.map((r) => ({ id: r.id, category: r.category, status: r.status, message: r.message })),
+		all_results: results.map((r) => ({
+			id: r.id,
+			category: r.category,
+			status: r.status,
+			message: r.message,
+			details: r.details ?? null,
+		})),
 		scan_reliability: scanReliability(results),
 		interaction_effects: interactionEffects(results),
 	};
