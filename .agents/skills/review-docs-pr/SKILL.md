@@ -77,8 +77,22 @@ Review this documentation PR for the docs repository.
 Focus on:
 1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
-3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers/lists.
-4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
+3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers and lists. For setup instructions, check each requirement:
+   * The task is stated before fields or example names.
+   * Each selection explains what the agent, environment, or credential is used for, not only its name.
+   * Readers can find the supported path to edit or select an existing resource instead of creating a duplicate.
+   * Configuration, access setup, skill or prompt instructions, and testing are separate steps or groups of related steps.
+   * Safety limits appear beside the relevant action and inside prompts that can be copied separately.
+   * Tests use explained sample inputs, require credentials only when needed, follow applied configuration changes, and check observed behavior rather than only run completion.
+   * Proposed sentence edits still make sense when read with the whole paragraph and surrounding steps.
+4. **Code snippets**: Verify that examples, commands, and configuration work as documented. When procedures connect, read their examples together and check:
+   * Which event starts each task, which agent receives it, and what information passes to the next stage.
+   * Whether several rules can match the same input, whether that is intended, and how the conditions prevent unwanted matches.
+   * Whether adding a new condition preserves existing filters and exclusions.
+   * What happens when an input matches none of the specialized rules.
+   * Whether changing a rule affects new tasks, existing conversations, or both; verify any claim that existing work moves to another agent.
+   * Where each stage stops, which decisions require a person, and whether tests cover matching, overlapping, unmatched, and continued work.
+   Use [Check connected procedures](../../../AGENTS.md#check-connected-procedures) for the full checks. If a technical detail is uncertain, use `answer_question` to verify against the docs or search the source code.
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to the `redirects` array in `vercel.json` when needed.
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
 7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
@@ -117,9 +131,9 @@ Use the `answer_question` skill to search the documentation and source code for 
 ### AEO review guidance
 
 For AEO-driven docs PRs, review the diff through these questions:
-- **Source rationale** - Is it clear which Peec prompt, search-query cluster, recommendation, or content gap motivated the change? If not, ask for the source signal or suggest narrowing the scope.
+- **Source rationale** - Does the brief or PR rationale name the exact query or recommendation and what was measured? For each proposed topic, does it distinguish direct supporting data from the author's recommendation? Data about a broad topic does not prove demand for every narrower topic. If evidence is missing, ask for it or narrow the claim; do not invent demand.
 - **Vocabulary translation** - Does the draft preserve high-intent search terms where useful while translating awkward source-data language into natural docs language?
-- **Reader value** - Would the page help a developer complete or understand a real workflow, or is it collecting loosely related keywords?
+- **Reader value** - Does the page help a developer complete or understand its intended task? Read the opening and description without the title or navigation: both must identify the relevant product and make sense on their own. Do not require the product name in every heading or add unrelated topics to include more search terms.
 - **Terminology and UI surfaces** - Are product names, settings paths, panel names, and navigation labels consistent with `AGENTS.md`, `.agents/references/terminology.md`, and the actual UI?
 - **Scannability** - Are dense procedures broken into numbered steps, bullets, or concise subsections with expected outcomes?
 - **Duplication risk** - Should the content update an existing page, link to an existing page, or be merged with related content instead of living as a new standalone doc?

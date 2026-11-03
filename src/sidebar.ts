@@ -405,6 +405,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					label: 'Factory use cases',
+					items: [
+						{ slug: 'factories/use-cases', label: 'Overview' },
+						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
+						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
+						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
+						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
+						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
+						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
+					],
+				},
+				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
 					// and where it runs.
@@ -424,6 +436,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// agents and Factory skills, not just a filters reference.
 						{ slug: 'factories/automations', label: 'Factory automations' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{ slug: 'factories/permissions', label: 'Factory permissions' },
 						{
 							label: 'Infrastructure',
 							items: [
@@ -496,6 +509,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{ slug: 'factories/integrations/permissions' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
 						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
