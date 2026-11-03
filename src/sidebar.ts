@@ -647,7 +647,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
-						{ slug: 'platform/faqs', label: 'Cloud agent topics' },
+						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 					],
 				},

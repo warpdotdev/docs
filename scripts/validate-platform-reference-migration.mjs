@@ -160,6 +160,20 @@ check('incoming aliases', () => {
 	assert.ok(!redirects.some(({ destination }) => oldTargets.has(destination)), 'incoming alias still chains through a moved page');
 });
 check('bare Platform entry', () => expectRedirect('/platform', '/platform/'));
+check('restored cloud-overview teaching', () => {
+	const cloudOverview = content('/platform/').body;
+	for (const explanation of ['A trigger supplies the request and its context', 'A harness runs the coding agent', 'An environment groups repositories']) {
+		assert.ok(cloudOverview.textContent.includes(explanation), `lost cloud-overview context: ${explanation}`);
+	}
+	const relatedHeading = cloudOverview.querySelector('#related-pages');
+	assert.ok(relatedHeading, 'missing Related pages section');
+	const relatedBlock = relatedHeading.closest('.sl-heading-wrapper') ?? relatedHeading;
+	let relatedLinks = 0;
+	for (let node = relatedBlock.nextElementSibling; node; node = node.nextElementSibling) {
+		if (node.tagName === 'UL') relatedLinks += node.querySelectorAll('a[href]').length;
+	}
+	assert.ok(relatedLinks >= 14, 'lost restored related-page discovery');
+});
 check('self-hosting security discovery', () => {
 	const route = '/factories/self-hosting/security-and-networking/';
 	const { document, body } = content(route);

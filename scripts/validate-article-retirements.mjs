@@ -72,12 +72,28 @@ for (const page of fixture.pages) {
 	} else {
 		assert.equal(redirects.filter((rule) => matches(rule, oldPath)).length, 0);
 		assert.equal(Object.keys(page.destinations).length, 34);
+		assert.equal(page.treatment, 'retained_faq');
+		assert.equal(page.answerCount, 32);
+		assert.equal(page.legacyRouteIds.length, 2);
+		assert.equal(document.querySelector('h1')?.textContent.trim(), 'Cloud agent FAQs');
+		assert.equal(body.querySelectorAll('h3').length, page.answerCount);
 		for (const [id, href] of Object.entries(page.destinations)) {
-			const item = body.querySelector(`[id="${id}"]`)?.closest('li');
-			assert.ok(item?.querySelector(`a[href="${href}"]`), `wrong FAQ successor: ${id}`);
+			const anchor = body.querySelector(`[id="${id}"]`);
+			if (page.legacyRouteIds.includes(id)) {
+				assert.ok(anchor?.closest('li')?.querySelector(`a[href="${href}"]`), `wrong legacy topic route: ${id}`);
+			} else {
+				assert.equal(anchor?.tagName, 'H3', `missing question heading: ${id}`);
+				const headingBlock = anchor.closest('.sl-heading-wrapper') ?? anchor;
+				const sections = [];
+				for (let node = headingBlock.nextElementSibling; node && !node.matches('h2, h3, .sl-heading-wrapper'); node = node.nextElementSibling) sections.push(node);
+				assert.ok(sections.some((node) => node.tagName === 'P' && node.textContent.trim().length > 40 && !node.textContent.startsWith('See ')),
+					`missing direct FAQ answer: ${id}`);
+				assert.ok(sections.some((node) => node.querySelector(`a[href="${href}"]`)), `wrong FAQ successor: ${id}`);
+			}
 			linkedTarget(href, newPath);
 		}
 		assert.ok(!body.textContent.includes('still being finalized'));
+		assert.ok(!body.textContent.includes('encrypted .env'));
 	}
 }
 for (const alias of [
@@ -115,4 +131,4 @@ for (const name of ['explain-topic', 'greet']) {
 }
 assert.ok(read('factories/api-and-sdk.md').includes('"skill_spec"'));
 assert.ok(read('platform/triggers/scheduled-agents.md').includes('--skill'));
-console.log('Article retirements OK: 2 redirects, 1 topic bridge, 54 original fragments, 34 FAQ destinations.');
+console.log('Article preservation OK: 2 retirements, 1 retained FAQ, 54 original fragments, 32 answers and 34 owner links.');

@@ -30,21 +30,31 @@ Already using the {VARS.WEB_APP}, {VARS.WARP_AGENT_CLI}, or SDKs? See [transitio
 
 For factory work, open the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). For standalone workflows, use the [Agent Management Panel](/platform/managing-cloud-agents/) in Warp or the [{VARS.WEB_APP} Runs page](/platform/oz-web-app/#runs).
 
+Run records show the task's status, conversation, and outputs so you can check what the agent actually did. Share a session with authorized teammates or send follow-up instructions when the workflow supports continuation.
+
 See [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) to inspect a transcript, share a session, or continue a standalone run.
 
 ## What cloud agents are designed for
+
+* **Event-driven tasks** - Investigate an issue, review a pull request, or examine failed-build logs when an integration or API request starts work.
+* **Parallel work** - Divide a larger task into bounded changes, give agents separate working copies, and coordinate their results for review.
+* **Recurring maintenance** - Check dependencies, generate tests, or propose documentation updates on a schedule.
 
 Use [factory automations](/factories/automations/) for event-driven work and recurring maintenance in a factory. Standalone workflows have separate [integrations](/platform/integrations/) and [schedules](/platform/triggers/scheduled-agents/). [Multi-agent orchestration](/platform/orchestration/) explains how parent and child agents divide work.
 
 ## How cloud agents work
 
-The [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) explains the shared execution model. For factory hosting choices, see [deployment patterns](/factories/deployment-patterns/). For standalone CLI execution in your own CI or development environment, see [unmanaged execution](/platform/unmanaged-execution/).
+A trigger supplies the request and its context, such as an issue description or pull request diff. The agent works on its configured host with the repositories, tools, and credentials available to it, then produces results such as a branch, pull request, report, or transcript. Define the task's scope and validation commands before starting; a completed run alone doesn't prove the result is correct.
+
+The [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) explains the shared execution model in more detail. For factory hosting choices, see [deployment patterns](/factories/deployment-patterns/). For standalone CLI execution in your own CI or development environment, see [unmanaged execution](/platform/unmanaged-execution/).
 
 <span id="what-you-get-by-default" />
 
 ## Configure the runtime and tools
 
-Shared cloud-agent references now live in the Factories tab:
+A harness runs the coding agent and determines its runtime-specific configuration. An environment groups repositories, a container image, and setup commands; factories manage their workspace by default, with an existing environment available as an option. MCP servers connect the agent to external tools and data.
+
+The shared references cover factory and standalone setup:
 
 * [Cloud agent harnesses](/factories/harnesses/) - Choose a runtime and configure its authentication
 * [Environments for factory agents](/factories/environments/) - Reuse an environment when the run needs one
@@ -52,17 +62,17 @@ Shared cloud-agent references now live in the Factories tab:
 
 ### Codebase Context
 
-For indexing requirements and availability, see [Codebase Context in cloud agent runs](/agents/capabilities/codebase-context/#codebase-context-in-cloud-agent-runs).
+Codebase Context provides indexed repository search to help an agent locate relevant code. Its scope depends on indexing settings and the run's harness. See [Codebase Context in cloud agent runs](/agents/capabilities/codebase-context/#codebase-context-in-cloud-agent-runs) for requirements and availability.
 
 ### Centralized configuration
 
-For factory-wide and per-agent settings, use [definitions as code](/factories/factory-as-code/) and [factory secrets](/factories/secrets/). The [legacy secrets reference](/platform/secrets/) retains standalone CLI and personal-secret workflows.
+Reusable configuration keeps instructions, tools, and access settings with the workflow instead of repeating them in each request. For factory-wide and per-agent settings, use [definitions as code](/factories/factory-as-code/) and [factory secrets](/factories/secrets/). Standalone resources have their own scopes; the [legacy secrets reference](/platform/secrets/) retains CLI and personal-secret workflows.
 
 <span id="api-access-to-tasks" />
 
 ### API access to runs
 
-Use [factory endpoints](/factories/factory-api/) to send work to a factory. Use [agent and run endpoints](/factories/api-and-sdk/) to inspect run status, transcripts, and results.
+The API lets scripts, CI jobs, and internal services submit work and inspect its results without the desktop app. Use [factory endpoints](/factories/factory-api/) to send work to a factory. Use [agent and run endpoints](/factories/api-and-sdk/) for standalone runs and to inspect run status, transcripts, and results.
 
 ## Using cloud agents with or without the Warp app
 
@@ -81,8 +91,24 @@ Check [access, billing, and identity requirements](/platform/team-access-billing
 
 ## Related pages
 
+### Setup and configuration
+
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
 * [Transitioning from Oz to Warp Factories](/platform/transitioning-from-oz/) - Assess an existing workflow before adopting a factory
 * [Cloud agents quickstart](/platform/quickstart/) - Start a standalone cloud run
 * [Cloud agent accounts](/platform/agents/) - Configure who owns and executes standalone runs
 * [Skills for agents](/agents/capabilities/skills/#running-agents-from-skills) - Run a standalone workflow from a reusable skill
+* [Agent harnesses](/factories/harnesses/) - Choose a coding-agent runtime
+* [Environments for factory agents](/factories/environments/) - Configure repositories and dependencies
+* [Connecting MCP servers to agents](/factories/mcp/) - Give agents access to external tools
+
+### Runs, interfaces, and access
+
+* [Multi-agent orchestration](/platform/orchestration/) - Divide work between parent and child agents
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Monitor activity and run status
+* [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) - Inspect, share, and steer a session
+* [{VARS.WEB_APP} for cloud agents](/platform/oz-web-app/) - Manage standalone workflows in the browser
+* [{VARS.WARP_AGENT_CLI} reference](/agents/cli/oz-cli/) - Run agents from scripts or CI
+* [Agent & run endpoints](/factories/api-and-sdk/) - Submit work and retrieve results programmatically
+* [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) - Check access and the account billed for a run
+* [Legacy cloud agent secrets](/platform/secrets/) - Manage standalone credentials

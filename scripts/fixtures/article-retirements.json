@@ -251,7 +251,13 @@
         "do-kubernetes-pods-provide-enough-sandboxing-for-self-hosted-agents": "/factories/self-hosting/security-and-networking/#kubernetes-backend",
         "do-cloud-agents-support-image-attachments": "/agents/local-agents/agent-context/images-as-context/"
       },
-      "newPath": "/platform/faqs/"
+      "newPath": "/platform/faqs/",
+      "treatment": "retained_faq",
+      "answerCount": 32,
+      "legacyRouteIds": [
+        "will-cloud-agents-support-agent-to-agent-protocols-a2a",
+        "why-focus-on-orchestration-primitives-instead-of-immediately-adopting-new-agent-standards"
+      ]
     },
     {
       "oldPath": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
