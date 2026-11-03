@@ -22,7 +22,7 @@ Pick where the parent will run. Every orchestration starts with a single parent 
 
 Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
 
-To use different setup profiles with one configured factory agent, [send each profile in run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task).
+When a factory foreman starts a configured agent, it can [change the runner, environment, and other settings for that dispatch](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#change-settings-for-one-dispatch). To use different setup profiles with one configured factory agent, [send each profile in run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task).
 
 ## Starting an orchestrated run from Warp
 
