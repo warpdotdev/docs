@@ -59,6 +59,16 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 
 `oz-agent-worker` connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks addressed to its worker ID, and handles each task with the configured backend. Docker, Kubernetes, and Direct run the agent on worker infrastructure. Command hands the task to an external runtime.
 
+Warp hosts the control plane. The worker opens an outbound connection, so task assignment requires no inbound firewall port. The diagram shows customer-configured inference and run-data storage alongside self-hosted execution.
+
+![Managed self-hosting architecture showing the Warp control plane, outbound worker connection, agent backends, inference routes, and customer-configured run-data storage.](../../../../assets/agent-platform/warp-factories-architecture-diagrams.png)
+
+You can manage [factory and agent configuration as code](/factories/factory-as-code/) in a repository you control.
+
+Execution, inference, and storage are separate choices.
+
+Transcripts, artifacts, and prompt attachments use Warp-managed storage by default. Configure [self-hosted agent data storage](/factories/self-hosting/data-storage/) separately to keep selected categories in your own bucket. Warp still retains control-plane data such as configuration, run metadata, operational logs, and billing records.
+
 Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
 
 Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [Self-hosted worker reference](/factories/self-hosting/reference/).
@@ -147,7 +157,7 @@ Use unmanaged execution for an existing CI pipeline, Kubernetes Job, VM, or deve
 
 ## Security and observability
 
-Repository clones and execution workspaces stay on your infrastructure. Agent context and model requests still travel through Warp's services. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture and [Security and networking](/factories/self-hosting/security-and-networking/) for data boundaries, ZDR, and BYOLLM.
+Repository clones and execution workspaces stay on your infrastructure, but prompts, transcripts, and artifacts can contain code context. The Warp Agent sends model requests through Warp; Claude Code and Codex call their providers directly from the execution environment. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture, [Security and networking](/factories/self-hosting/security-and-networking/) for data boundaries, and [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs) for provider support.
 
 For a factory using a team-managed inference gateway, see [Networking for BYO inference endpoints](/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway ingress requirements, source IPs, and private connectivity options.
 
