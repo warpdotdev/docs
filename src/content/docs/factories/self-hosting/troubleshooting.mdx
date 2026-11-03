@@ -179,6 +179,22 @@ Exit code `143` generally indicates `SIGTERM`; it does not by itself prove an ou
 
 1. Verify the {VARS.WARP_AGENT_CLI} is accessible.
 2. Verify the workspace root directory has write permissions for the user running the worker.
+3. If a Claude Code or Codex run fails at startup with `claude-code-acp` or `codex-acp` not found, the worker advertised ACP support but the adapter is no longer on the task `PATH`. Reinstall the adapter or set `acp_harnesses: []` under `backend.direct`, then restart the worker.
+
+---
+
+## Claude Code or Codex runs use a PTY instead of ACP
+
+**Cause:** The worker did not advertise ACP support for the harness when it connected, so the run fell back to a PTY. Follow-ups on such runs lack native streaming and file attachments.
+
+**Fix:**
+
+1. Check the worker's startup log for `Advertising ACP support for harnesses:`. It names the harnesses advertised and whether the list was auto-detected or configured.
+2. On Kubernetes, remove the harness from the legacy `coding_cli_sidecars` option and mirror the `warpdotdev/warp-<harness>-acp-sidecar` image with `sidecar_image_mappings` instead.
+3. On the Direct backend, install the `claude-code-acp` or `codex-acp` adapter on the task `PATH`.
+4. If `acp_harnesses` is set, confirm it lists the harness.
+5. Upgrade the worker if it predates `acp_harnesses`; older workers never advertise ACP.
+6. Restart the worker. The list is computed once at startup.
 
 ---
 

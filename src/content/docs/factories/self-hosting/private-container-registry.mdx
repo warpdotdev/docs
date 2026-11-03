@@ -18,11 +18,19 @@ Inventory the images used by each worker pool before blocking public-registry eg
 | Environment or default image | Main task filesystem and toolchain | Warp environment image or Kubernetes `defaultImage` |
 | `warpdotdev/warp-agent:latest` | Warp Agent runtime mounted at `/agent` | `sidecar_image` or Helm `kubernetesBackend.sidecarImage` |
 | `busybox:1.36` | Kubernetes startup preflight | `preflight_image` or Helm `kubernetesBackend.preflightImage` |
+| `warpdotdev/warp-claude-cli-sidecar:latest` | Claude Code CLI (PTY runs) | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
+| `warpdotdev/warp-claude-acp-sidecar:latest` | Claude Code over ACP | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
+| `warpdotdev/warp-codex-cli-sidecar:latest` | Codex CLI (PTY runs) | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
+| `warpdotdev/warp-codex-acp-sidecar:latest` | Codex over ACP | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
 
 Pin the worker image to the immutable timestamp tag or digest from the [worker release](https://github.com/warpdotdev/oz-agent-worker/releases). The supported self-hosted sidecar reference is `warpdotdev/warp-agent:latest`, listed on the [Warp Agent tags page](https://hub.docker.com/r/warpdotdev/warp-agent/tags). Refresh the mirror regularly. To pin the sidecar, set its private-registry override to a mirrored digest and update that digest when Warp publishes a new sidecar.
 
 :::caution
-These steps cover Warp Agent runs without Computer Use. Computer Use and third-party harnesses use additional images. Contact your Warp account team before enabling them in a worker pool that blocks public-registry access.
+These steps cover Warp Agent runs without Computer Use. Computer Use uses an additional image. Contact your Warp account team before enabling it in a worker pool that blocks public-registry access.
+:::
+
+:::caution
+Claude Code and Codex runs use the `-acp-sidecar` image by default. Mirror it and map it with `sidecar_image_mappings`. If you map only the `-cli-sidecar` repository, or use the legacy Kubernetes `coding_cli_sidecars` option, the worker runs that harness over a PTY instead, and follow-ups lose native streaming and file attachments. See [`acp_harnesses`](/factories/self-hosting/reference/#config-file-fields).
 :::
 
 ## Copying images into the registry
