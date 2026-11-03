@@ -313,6 +313,37 @@ harness:
 
 `model` and `harness` are mutually exclusive everywhere they appear.
 
+#### Custom inference endpoints and BYOK
+
+Factory runs can use [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) with the Warp Agent harness (`type: oz`). Configure the provider credentials in the Admin Panel, not in the definition files. Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) and [custom endpoints](/agents/inference/custom-inference-endpoint/) saved on your device aren't available to factory cloud runs.
+
+| Inference source | `model` value |
+| --- | --- |
+| Team custom inference endpoint | `custom:<model-name>`, using the exact, case-sensitive model name configured on the endpoint, not its display alias or endpoint name. It must match exactly one configured model in the factory's team, and both the endpoint and model must be enabled. |
+| Team provider API key (BYOK) | The standard Warp `model_id` from [Agent model choice](/agents/inference/model-choice/), such as `claude-4-6-sonnet-high`. Don't add `custom:`. Warp uses the configured key for that provider. |
+
+For example, select a configured Fireworks AI endpoint model as the factory default:
+
+```yaml title="factory.yaml"
+agentDefaults:
+  model: "custom:accounts/fireworks/models/glm-5p3"
+```
+
+Other endpoint model names use the same prefix, such as `custom:firerouter/opus` or `custom:accounts/fireworks/models/kimi-k3`.
+
+To select a different model for one agent, edit the YAML frontmatter in its existing `agents/<name>/agent.md` file. An explicit agent model overrides the factory default:
+
+```markdown title="agents/reviewer/agent.md"
+---
+model: "custom:accounts/fireworks/models/kimi-k3"
+---
+Review pull requests against the repository's standards.
+```
+
+If the same block already has `harness`, replace it with `model` rather than keeping both. A top-level `model` selects the Warp Agent even when the inherited default uses Claude Code or Codex; those harnesses use their own [model and authentication settings](#agentdefaultsharness).
+
+For a GitHub-backed factory, merge the change into its connected production branch and wait for a successful definition sync before starting a new run. Existing runs keep their selected model. See [definition validation](#validate-a-definition) if the change isn't applied.
+
 #### `agentDefaults.harness`
 
 **Conditionally required.** Set exactly one of `model` or `harness`.
