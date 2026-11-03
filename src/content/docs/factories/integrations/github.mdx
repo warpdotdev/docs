@@ -70,7 +70,7 @@ This example admits third-party bots but skips Warp-owned bots. See [bot event t
 <tr><td>Issues</td><td>Created, labeled, assigned, or agent mentioned</td></tr>
 <tr><td>Pull requests</td><td>Opened, marked ready, reopened, updated with commits, added to or removed from a merge queue, assigned, labeled, mentioned, closed, or merged</td></tr>
 <tr><td>Reviews</td><td>Review requested or review submitted</td></tr>
-<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run</td></tr>
+<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run, or a commit status of success, failure, or error</td></tr>
 </tbody>
 </table>
 
@@ -83,20 +83,24 @@ Every trigger names the repository it watches. The remaining filters appear only
 
 | Filter | Matches | Appears on |
 | --- | --- | --- |
-| **Branches** | The pushed branch, or a CI run's head branch | Push and CI triggers |
+| **Branches** | The pushed branch, or a CI run's head branch | Push, check suite, and workflow run triggers |
 | **Base branches** | The branch the pull request targets | Pull request triggers |
 | **Paths** | The files the change touches | Push and pull request triggers |
-| **Labels** | Labels on the issue or pull request | Issue, pull request, review submitted, and CI triggers |
-| **Authors** | Who opened the issue or pull request | Issue, pull request, and CI triggers |
+| **Labels** | Labels on the issue or pull request | Issue, pull request, review submitted, check suite, and workflow run triggers |
+| **Authors** | Who opened the issue or pull request | Issue, pull request, check suite, and workflow run triggers |
 | **Assignees** | Who the issue or pull request is assigned to | Issue and pull request triggers |
 | **Mentioned users or teams** | Which user or team is @mentioned | Mention and review submitted triggers |
 | **Reviewers** and **Reviewer teams** | Who review was requested from | Review requested triggers |
 | **Review states** | Whether the review approved, requested changes, or commented | Review submitted triggers |
 | **Workflows** | The GitHub Actions workflow, by name | Workflow run triggers |
 | **Conclusions** | The run's result: success, failure, cancelled, and so on | Check suite and workflow run triggers |
+| **Result** | The commit status result: success, failure, or error | Commit status triggers |
+| **Contexts** | The commit status name, such as `ci/build` | Commit status triggers |
 | **Skip bot events** | Which bot senders to ignore; defaults to **All bots** | All GitHub triggers |
 
 On check suite and workflow run triggers, **Labels** and **Authors** match the pull request linked to the run rather than the run itself.
+
+Commit status triggers don't fire for pending statuses. In a definition file, use `event: commit_status` and filter with `repos`, `states`, `contexts`, and `skip_bots`. Branch, label, and author filters aren't supported for this event. See the [trigger filter reference](/factories/factory-as-code/#triggersfilter) for matching rules.
 
 ## Mention the factory
 
@@ -134,6 +138,8 @@ If the factory's [definition is managed as code](/factories/factory-as-code/) in
 
 These checks validate configuration files only and don't create work items. Unchanged definitions pass immediately, so requiring the check doesn't block unrelated work. To check a definition before opening a pull request, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
 
+By default, checks run only for pull requests targeting the factory's production branch, regardless of that branch's name. To check pull requests targeting other branches, set `github.factoryConfigChecks: all` in `factory.yaml` on the production branch. This doesn't change which branch deploys the factory. See [GitHub settings in the definition reference](/factories/factory-as-code/#github) for the accepted values and when checks refresh.
+
 ## Troubleshooting
 
 ### A mention doesn't start work
@@ -166,7 +172,7 @@ Check that the installation still covers the target repository and grants the re
 
 ### A factory-definition check doesn't appear
 
-The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from and that the GitHub App covers the repository.
+The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the GitHub App covers the repository. Unless [`github.factoryConfigChecks` is `all`](/factories/factory-as-code/#github), the pull request must target the factory's production branch.
 
 ## Related pages
 
