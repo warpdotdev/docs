@@ -96,9 +96,7 @@ GitLab setup uses your OAuth authorization to provision service accounts. Factor
 
 Warp requires `api` and `read_user` on your setup authorization. The service-account scopes and roles below are assigned during provisioning. Review GitLab's consent screen for the complete set requested by the setup application.
 
-{/* VERIFY: Confirm whether the production GitLab OAuth authorization requests scopes beyond the required api and read_user; the persisted provider scope list and authorization parameters are not available in this checkout. */}
-
-| Permission or scope | Granted access | Function in Warp | Boundary |
+| Required setup scope or provisioned access | Granted access | Function in Warp | Boundary |
 | --- | --- | --- | --- |
 | `api` on the connecting user's OAuth grant | Full API read and write access within that user's GitLab authority | Discover groups and projects, and provision the manager account | Not limited to the projects later selected for a factory |
 | `read_user` on the OAuth grant | Read the authenticated user's profile | Identify the connected GitLab user | A profile scope, not a project role |

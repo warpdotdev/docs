@@ -60,9 +60,32 @@ These scopes authorize app management, not factory access to your personal messa
 | `app_configurations:write` | Create apps and change their configuration | Create and update factory apps | Limited by Slack to that manager's apps |
 | `managed_apps:install` | Install managed child apps | Install each factory's Slack app | Subject to your workspace's app policy |
 
-The workspace manager app also has its own bot grant, separate from the factory apps and the setup user's grant. Its bot scope inventory hasn't been confirmed here; the factory bot table doesn't describe that grant.
+### Workspace manager bot configuration
 
-{/* VERIFY: Confirm the production Slack workspace manager app's bot scope list from its registration or persisted base provider; factory bot scopes and manager user scopes are independently established. */}
+The workspace manager app requests bot authorization separately from the factory apps and the setup user's grant. The table records its saved bot request scopes in Warp's staging configuration on 2026-10-29, not a production installation or an issued token. Slack's token-type rules and your workspace's approval determine effective access.
+
+| Configured bot scope | Access category |
+| --- | --- |
+| `app_configurations:read` | Read configurations of apps created by the manager |
+| `app_configurations:write` | Create apps and change their configuration |
+| `app_mentions:read` | Read messages that mention the manager app |
+| `channels:history` | Read messages in public channels the manager app has joined |
+| `channels:read` | Read public-channel metadata |
+| `chat:write` | Send messages as the manager app |
+| `files:read` | Read files accessible to the manager app |
+| `files:write` | Upload, edit, and delete files as the manager app |
+| `groups:history` | Read messages in private channels the manager app has joined |
+| `groups:read` | Read metadata for joined private channels |
+| `im:history` | Read direct messages involving the manager app |
+| `im:read` | Read metadata for the manager app's direct messages |
+| `mpim:history` | Read group direct messages the manager app has joined |
+| `mpim:read` | Read metadata for accessible group direct messages |
+| `reactions:read` | Read reactions and associated content in accessible conversations |
+| `reactions:write` | Add and edit reactions as the manager app |
+| `users:read` | Read workspace member profiles |
+| `users:read.email` | Read workspace member email addresses |
+
+The manager bot scopes are separate from the user scopes above, even where names overlap. Review the manager app's consent and installed permissions independently of each factory app.
 
 Channel invitations constrain bot access. Automation filters constrain which events start work, not what an authorized bot token can read. For example, a keyword filter doesn't remove the app's history access to other messages in a joined channel. See [disconnecting Slack](#troubleshooting-and-reconnection) to remove the factory app; review the manager authorization separately when withdrawing setup permissions.
 
