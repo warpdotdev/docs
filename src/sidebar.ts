@@ -509,6 +509,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{ slug: 'factories/integrations/permissions' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
 						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
