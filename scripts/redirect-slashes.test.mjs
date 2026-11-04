@@ -38,11 +38,16 @@ function step(path) {
 		const match = route.re.exec(path);
 		if (!match) continue;
 		if (!route.status) return null; // e.g. /.well-known passthrough
-		return route.location.replace(/\$(\d+|[A-Za-z_]\w*)/g, (_, key) =>
-			(/^\d+$/.test(key) ? match[Number(key)] : match.groups?.[key]) ?? '',
-		);
+		return substitute(route.location, match);
 	}
 	return null;
+}
+
+/** Fill `$1` / `$name` placeholders from a regex match, as Vercel does. */
+function substitute(template, match) {
+	return template.replace(/\$(\d+|[A-Za-z_]\w*)/g, (_, key) =>
+		(/^\d+$/.test(key) ? match[Number(key)] : match.groups?.[key]) ?? '',
+	);
 }
 
 /** Follow redirects; returns the final path (or URL) and the hop count. */
@@ -70,9 +75,11 @@ async function contentFiles(dir) {
 
 const docsRoot = repoFile('src/content/docs/');
 const pages = new Set(['/api/']);
+const contentSources = [];
 for (const file of await contentFiles(docsRoot)) {
 	const rel = file.href.slice(docsRoot.href.length);
 	if (!/\.mdx?$/.test(rel)) continue;
+	contentSources.push([rel, await readFile(file, 'utf8')]);
 	const slug = rel.replace(/\.mdx?$/, '').replace(/(^|\/)index$/, '').toLowerCase();
 	pages.add(slug ? `/${slug}/` : '/');
 }
@@ -189,16 +196,53 @@ test('internal page destinations use the canonical slash form', () => {
 	expectNone(failures, 'destinations without a trailing slash');
 });
 
-test('Accept: text/markdown rewrites never produce /page/.md', () => {
+test('no redirect or rewrite turns a page URL into a /.md path', () => {
+	// Rewrites are replayed as if their `has` conditions (such as an Accept
+	// header) match. This guards the path shape only; it does not check what
+	// any rewrite serves.
 	const rewrites = getTransformedRoutes({ rewrites: config.rewrites ?? [] }).routes
-		.filter((route) => route.dest?.includes('.md'));
-	for (const route of rewrites) {
-		const re = new RegExp(route.src);
-		for (const page of ['/factories/', '/agents/capabilities/skills/']) {
-			const match = re.exec(page);
-			if (!match) continue;
-			const dest = route.dest.replace(/\$(\d+)/g, (_, n) => match[Number(n)] ?? '');
-			assert.ok(!dest.includes('/.md'), `${page} rewrites to ${dest}`);
+		.filter((route) => route.dest)
+		.map((route) => ({ re: new RegExp(route.src), dest: route.dest }));
+	const failures = [];
+	for (const page of pages) {
+		for (const form of new Set([page, page.replace(/\/$/, '') || '/'])) {
+			const seen = [form];
+			let current = form;
+			for (let hop = 0; hop < 6; hop += 1) {
+				const next = step(current);
+				if (next === null) break;
+				seen.push(next);
+				current = next.split(/[?#]/)[0];
+			}
+			const rewritten = [];
+			for (const path of seen) {
+				for (const { re, dest } of rewrites) {
+					const match = re.exec(path.split(/[?#]/)[0]);
+					if (match) rewritten.push(substitute(dest, match));
+				}
+			}
+			const bad = [...seen, ...rewritten].filter((path) => path.split(/[?#]/)[0].endsWith('/.md'));
+			if (bad.length) failures.push(`${form} -> ${bad.join(', ')}`);
 		}
 	}
+	expectNone(failures, 'page URLs that reach a /.md path');
+});
+
+test('internal links in docs content use the canonical slash URL', () => {
+	// A link to /page instead of /page/ costs every reader and crawler a 308.
+	// Fenced code blocks and inline code are skipped.
+	const link = /(\]\(|href=["'])(\/[^)\s"'#?]*[^)\s"'#?/])(?=[)\s"'#?])/g;
+	const failures = [];
+	for (const [file, text] of contentSources) {
+		const prose = text
+			.replace(/^\s*(```|~~~)[\s\S]*?^\s*\1.*$/gm, '')
+			.replace(/`[^`\n]*`/g, '');
+		for (const match of prose.matchAll(link)) {
+			const path = match[2];
+			if (!EXTENSION.test(lastSegment(path)) && pages.has(`${path}/`)) {
+				failures.push(`${file}: ${path} -> ${path}/`);
+			}
+		}
+	}
+	expectNone(failures, 'no-slash internal links');
 });

@@ -26,7 +26,7 @@ Agent & run endpoints let you create and inspect [cloud agent](/platform/) runs 
 * Monitor execution by listing runs and tracking state transitions over time (queued → in progress → succeeded/failed)
 * Inspect results and provenance by fetching a run's full details, including the original prompt, source/creator metadata, session link, and resolved agent configuration
 
-For endpoint details, use the [**{VARS.WARP_PLATFORM_API} reference**](/api). For SDK schemas, use the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repositories.
+For endpoint details, use the [**{VARS.WARP_PLATFORM_API} reference**](/api/). For SDK schemas, use the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repositories.
 
 To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/runs` with a foreman's `agent_identity_uid`. The follow-up, cancellation, and status endpoints still apply after a factory run is dispatched.
 
@@ -69,7 +69,7 @@ An agent run represents a single execution of a cloud agent, created with a prom
 * Optional session information (`session_id`, `session_link`)
 * Optional resolved configuration (`agent_config`)
 
-See the [**{VARS.WARP_PLATFORM_API} reference**](/api) for details on how runs are created and listed.
+See the [**{VARS.WARP_PLATFORM_API} reference**](/api/) for details on how runs are created and listed.
 
 ## Agent configuration
 
@@ -149,7 +149,7 @@ Agent & run endpoints include:
 
     Cancel a run that is currently queued or in progress. Returns the ID of the cancelled run.
 
-All endpoint semantics, query parameters, and [error codes](/factories/api-and-sdk/troubleshooting/errors/) are documented in the [{VARS.WARP_PLATFORM_API} reference](/api).
+All endpoint semantics, query parameters, and [error codes](/factories/api-and-sdk/troubleshooting/errors/) are documented in the [{VARS.WARP_PLATFORM_API} reference](/api/).
 
 ## SDKs
 
@@ -190,4 +190,4 @@ Import `WarpClient` from `@warp-dot-dev/warp-platform-sdk`. See the [**TypeScrip
 * [{VARS.WARP_PLATFORM_API} quickstart](/factories/api-and-sdk/quickstart/) - Create and monitor your first run in about five minutes.
 * [Factory endpoints](/factories/factory-api/) - Find a factory and dispatch work to it by UID.
 * [API errors](/factories/api-and-sdk/troubleshooting/errors/) - Error codes, response format, and how to resolve each one.
-* [{VARS.WARP_PLATFORM_API} reference](/api) - Every endpoint, parameter, and schema.
+* [{VARS.WARP_PLATFORM_API} reference](/api/) - Every endpoint, parameter, and schema.
