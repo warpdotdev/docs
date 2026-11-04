@@ -5,7 +5,7 @@ Scheduled and manual runs prepend one compact entry through the standing state b
 - Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1a885-518a-79d2-81b1-d2ae8ab83dfb
 - Source commits: docs 90535b6cf719a2b32843ca75a65bc06583353645; public client 974ad511596c4099b8dab743cb33b3ce63a947b8; private authority revision retained transiently
 - Coverage: partial; 8/402 pages extracted, not fully audited; 76 unchanged pages reused; 318 deferred; 38 candidate pairs across 30 pages freshly compared
-- Findings: 2 new; 1 changed; 0 resolved; 5 active; 2 saved privacy findings carried forward, not freshly confirmed (retention exception and training-policy wording)
+- Findings: 2 new; 0 changed; 0 resolved; 3 existing active (CLI reverified; 2 saved privacy findings carried forward, not freshly confirmed: retention exception and training-policy wording); 5 active total
 - Suppressed: 0 rules; expired: 0; 31 agreeing pairs, 3 intentional exceptions, 1 insufficient-evidence training-policy pair; 0 missing adjudications
 - Cost: 95569 extraction characters; 38 candidates; 2 model JSON generations
 - Sources unavailable / blocker: no blocker; generated CLI help not collected (public source fallback); preserved 302 deferred shards and all deferred manifest absences; 11 receipts unchanged, no scheduled receipt created

@@ -338,7 +338,11 @@
     "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2": {
       "audit_run_id": "manual-20261104T224556Z",
       "authority_reason": "The same public cloud-command reference explicitly excludes Agent Profiles and scopes its troubleshooting to cloud runs. Generated CLI help was unavailable; this is a documentation-only contradiction, not proof of deployed permission behavior.",
-      "canonical_source": "src/content/docs/agents/cli/oz-cli/index.mdx#running-agents-remotely-oz-agent-run-cloud",
+      "canonical_source": {
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs"
+      },
       "category": "permissions",
       "claims": [
         {
@@ -435,15 +439,15 @@
       "confidence": "high",
       "context_complete": true,
       "entity": "oz-agent-run-cloud",
-      "finding_content_fingerprint": "sha256:89c19b6ab675677198f500ae054576062d49ccb7e7878afe6e85ff842c401bb2",
+      "finding_content_fingerprint": "sha256:2b81bd25f5698ca2e0fc9483ebbe6cc0dbe0f3b0142f312afce445d58ec0cf22",
       "finding_id": "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2",
       "first_seen_run": "01a18dc1-0a96-7631-bee5-cc1e5dee9535",
       "last_seen_run": "manual-20261104T224556Z",
-      "lifecycle": "changed",
+      "lifecycle": "existing",
       "predicate": "requires-agent-profile-permissions",
       "qualifier_status": "complete",
       "rationale": "The cloud-run section explicitly says cloud runs do not use Agent Profiles, but its failure checklist instructs readers to check profile command and MCP permissions. Both statements concern the same legacy cloud command; neither section supplies a configuration exception.",
-      "rationale_class": "cloud-profile-scope-conflict",
+      "rationale_class": "cloud-run-profile-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
@@ -483,7 +487,7 @@
       "source_commit": "90535b6cf719a2b32843ca75a65bc06583353645",
       "status": "active",
       "suggested_resolution": "Have the CLI permissions owner replace the cloud troubleshooting instruction with verified cloud configuration guidance. Do not infer that local Agent Profiles apply to cloud runs. Human review required.",
-      "suggested_resolution_class": "human-review-cloud-permission-guidance",
+      "suggested_resolution_class": "human-permission-guidance-review",
       "title": "Cloud-run troubleshooting requires an unsupported Agent Profile",
       "topic": "cli",
       "verdict": "contradiction"
