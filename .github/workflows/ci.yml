@@ -161,6 +161,11 @@ jobs:
       - name: Test redirect invariants
         run: python3 scripts/test_check_redirects.py
 
+      # Replays vercel.json through @vercel/routing-utils: one URL per page
+      # (trailing slash), slash-agnostic legacy redirects, at most 2 hops.
+      - name: Test trailing-slash redirects
+        run: npm run test:redirect-slashes
+
       # Stdlib-only tests for the missing_docs skill scripts. The reviewer-resolver
       # unit tests run fully here; the audit integration tests skip gracefully
       # because the warp/warp-server code repos aren't checked out in docs CI.
