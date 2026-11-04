@@ -1,5 +1,51 @@
 # Weekly 404 monitor run log
 
+## 2026-11-02 — No data (blocked)
+- **Total 404s this week**: unavailable
+- **Total 404s last week**: unavailable
+- **Trend**: unavailable; no query completed and no baseline inferred
+- **Significant gaps (≥5 hits)**: unavailable
+- **Redirect candidates processed**: not run (automation threshold: hits ≥ 5)
+- **HIGH-confidence redirects**: not evaluated
+- **PR**: none for redirects; standing log PR https://github.com/warpdotdev/docs/pull/939
+- **Oz run**: https://staging.warp.dev/conversation/8bf5f4fb-bf49-4ccd-ba52-1050441b713e
+- **Validation**: Historical entries byte-preserved; `git diff --check` exit 0; internal-link check exit 0 (408 files, 4625 links, 0 broken). Ordered checks: typecheck exit 127 (`astro` unavailable), heading-vars exit 0 (5 tests), build exit 1 (`yaml` unavailable), heading-tocs and homepage-json-ld each exit 1 (`linkedom` unavailable; build output not produced). Trunk unavailable. No tooling repairs attempted; no public docs or redirects changed.
+- **Notes**: Scheduled cron-event guard exit 0: nominal fire time 2026-11-02T17:00:00Z is Monday 09:00 America/Los_Angeles. Python 3.13.5 and GitHub/connected Slack access verified; current main has 1373 redirects (sanity passed). `METABASE_API_KEY` is missing. Unchanged report script exited 1 before any Metabase request; stderr retained in run output. Audit incomplete, not zero 404s. No CSV fabricated or uploaded; Phase 2 skipped because data and required artifacts are unavailable. Reporting threshold remains 5 and automation threshold remains 5. No docs, redirects, secrets, deployments, or schedules changed. Owner action: provision `METABASE_API_KEY` for this automation's execution environment, verify Metabase read access, and rerun. Main merged into the standing log branch without rebasing or resetting; all prior entries, including the unmerged controlled manual test, preserved. Final Slack delivery follows durable logging and a full Pacific-Monday history dedupe check; its receipt or delivery failure remains in run output.
+
+## 2026-10-20 — No PR (controlled manual test)
+- **Total 404s this week**: 263
+- **Total 404s last week**: 268
+- **Trend**: ▼ 5 (-1.9%)
+- **Significant gaps (≥5 hits)**: 2 (2 new)
+- **Redirect candidates processed**: 2  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://staging.warp.dev/conversation/ee739e34-eeed-4626-8600-6e783779a9e9
+- **Validation**: Log structure and byte-preserved historical entries passed; `git diff --check` passed; `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` exited 0 (398 files, 4482 internal links, 0 broken). Ordered public-site typecheck/build/render checks not exercised because no public docs or redirects changed. Trunk not exercised (not installed); no tooling repairs attempted.
+- **Notes**: Controlled manual test; not a scheduled weekly baseline. Required config commit `55cf09f3aeded3e8311a96492f763aac6bd946f0` verified; API-verified manual guard exit 0 (CLI source, user creator, service-account executor, matching run identity). Unchanged report script exit 0. Current/prior UTC windows are October 13–19 and October 6–12; all 263/268 events have usable captures, with 190/151 normalized paths below the top-500 cap. Current main `569b20c6f6582cba7d87000b8a80509e3956a4c2` has 1373 redirects (sanity passed). Phase 2: 0 HIGH, 1 MEDIUM suggestion reserved for human review in the final report, 1 LOW embedded-URL capture artifact rejected. No redirect edits or redirect PR warranted. 163 long-tail uncovered, 0 colon-segment malformed paths, 104 resolved. CSV attached only as run artifact `01a15b39-817c-7562-9945-613cbabfa023` (190 rows; query/fragment stripping and two additional identifier-like path redactions; SHA-256 `99f2751fd0b03b637494af9ba6d69c19a5d946dbd44c786dfc78aba9a689dc1c`). Historical entries preserved; absent standing log branch recreated from current main in an isolated worktree. Final Slack test delivery follows durable logging; its receipt is retained in run output. Native cron dispatch was not exercised. No merges, deployments, secret changes, or schedule changes.
+
+## 2026-10-19 — No PR
+- **Total 404s this week**: 241
+- **Total 404s last week**: 284
+- **Trend**: ▼ 43 (-15.1%)
+- **Significant gaps (≥5 hits)**: 1 (1 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/ecb8cf70-6ee1-493d-a508-d8cd031e17b4
+- **Notes**: Volume down 15.1% week-over-week. Sole significant gap is a URL-smash capture artifact: `/agents/cli/https:/docs.warp.dev/agents/cli/quickstarthttps:/formulae.brew.sh` (7 hits, new). Contains embedded `https:` hosts (docs.warp.dev + formulae.brew.sh) glued into a docs path — not a real page and not safe/useful as a vercel.json source. No HIGH/MEDIUM redirects. 147 long-tail uncovered; 0 unroutable by `:`-segment rule; 110 resolved since last week. vercel.json redirects count 1371 (sanity OK). Posted summary to #growth-docs.
+
+## 2026-10-12 — PR opened
+- **Total 404s this week**: 284
+- **Total 404s last week**: 313
+- **Trend**: ▼ 29 (-9.3%)
+- **Significant gaps (≥5 hits)**: 4 (4 new)
+- **Redirect candidates processed**: 4  (hits ≥ 5)
+- **HIGH-confidence redirects**: 4
+- **PR**: https://github.com/warpdotdev/docs/pull/906
+- **Oz run**: https://app.warp.dev/conversation/b7967894-caa5-4d3e-a8a2-e312027509da
+- **Notes**: Volume down 9.3% week-over-week. Significant gaps: `/reference/cli/api-keys` (11), `/reference/api-and-sdk/troubleshooting/errors/invalid-request` (9), `/reference/cli/skills` (7), `/performance/terminal-features` (5) — all new. Live checks: `/reference/cli/:path*` and `/reference/api-and-sdk/:path*` splats 308 the no-slash form, but trailing-slash variants still 404; `/performance/terminal-features` had no redirect. Added explicit `(/?)` HIGH redirects for all four. 128 long-tail uncovered; 0 unroutable; 113 resolved since last week. No MEDIUM suggestions. vercel.json redirects count 1370 pre-edit / 1374 post-edit (sanity OK).
+
 ## 2026-10-05 — PR opened
 - **Total 404s this week**: 313
 - **Total 404s last week**: 231

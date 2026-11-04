@@ -40,6 +40,7 @@ For a complete list of issues and feature requests, visit our [GitHub issues pag
 ## Related pages
 
 [Cross-links. Use descriptive link text that names the destination.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation. Keep this section last.]
 
 * [Feature documentation](path/to/page.md)
-* [Related troubleshooting](path/to/page.md)
+* [Related troubleshooting](path/to/page.md) - Diagnose issues in a related workflow

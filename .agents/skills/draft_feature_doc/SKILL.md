@@ -25,8 +25,8 @@ These rules are specific to feature documentation pages (from the "Drafting by c
 
 - Apply the **conceptual** rules to the explanatory sections (explain what and why, define terms, no procedures in the overview).
 - Apply the **procedural** rules to the step-by-step sections (motivate steps, expected outcomes, focused steps).
-- **Keep the conceptual and procedural sections clearly separated with distinct headers.** Don't let explanation creep into procedures or vice versa.
-- Title convention: feature name as noun
+- **Keep overview explanation and procedures distinct.** Retain necessary teaching beside a step using AGENTS.md → Procedural → Reader-understanding test.
+- Title convention: a task-based gerund when the page contains a procedure, agnostic about which option the reader chooses.
 - Apply the tone rules in AGENTS.md → Voice & tone: no marketing buzzwords or meta-openers, and no internal architecture the reader can't act on. Run a deletion-only "Cut again" pass before presenting the draft — a short page is a finished page.
 
 ## Heading case
@@ -49,5 +49,5 @@ For any product name in `src/data/vars.ts`, use the variable — never hardcode 
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `src/content/docs/agent-platform/capabilities/skills.md`
-- `src/content/docs/platform/environments.md`
+- `src/content/docs/agents/capabilities/skills.mdx`
+- `src/content/docs/platform/environments.mdx`
