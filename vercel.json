@@ -76,6 +76,7 @@
       "destination": "/:path+.md"
     }
   ],
+  "trailingSlash": true,
   "redirects": [
     {
       "source": "/platform/data-storage(/?)",
@@ -98,7 +99,7 @@
       "statusCode": 308
     },
     {
-      "source": "/cli/",
+      "source": "/cli(/?)",
       "destination": "/agents/cli/",
       "statusCode": 308
     },
@@ -108,32 +109,32 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/",
+      "source": "/agent-platform(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent-memory/",
+      "source": "/agent-platform/agent-memory(/?)",
       "destination": "/agents/agent-memory/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/",
+      "source": "/agent-platform/capabilities(/?)",
       "destination": "/agents/capabilities/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/agent-notifications/",
+      "source": "/agent-platform/capabilities/agent-notifications(/?)",
       "destination": "/agents/capabilities/agent-notifications/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/agent-profiles-permissions/",
+      "source": "/agent-platform/capabilities/agent-profiles-permissions(/?)",
       "destination": "/agents/capabilities/agent-profiles-permissions/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/codebase-context/",
+      "source": "/agent-platform/capabilities/codebase-context(/?)",
       "destination": "/agents/capabilities/codebase-context/",
       "statusCode": 308
     },
@@ -143,102 +144,102 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/computer-use/artifacts-in-prs/",
+      "source": "/agent-platform/capabilities/computer-use/artifacts-in-prs(/?)",
       "destination": "/agents/capabilities/computer-use/artifacts-in-prs/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/computer-use/browser-use/",
+      "source": "/agent-platform/capabilities/computer-use/browser-use(/?)",
       "destination": "/agents/capabilities/computer-use/browser-use/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/computer-use/testing-and-recordings/",
+      "source": "/agent-platform/capabilities/computer-use/testing-and-recordings(/?)",
       "destination": "/agents/capabilities/computer-use/testing-and-recordings/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/full-terminal-use/",
+      "source": "/agent-platform/capabilities/full-terminal-use(/?)",
       "destination": "/agents/capabilities/full-terminal-use/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/mcp/",
+      "source": "/agent-platform/capabilities/mcp(/?)",
       "destination": "/agents/capabilities/mcp/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/planning/",
+      "source": "/agent-platform/capabilities/planning(/?)",
       "destination": "/agents/capabilities/planning/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/rules/",
+      "source": "/agent-platform/capabilities/rules(/?)",
       "destination": "/agents/capabilities/rules/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/skills/",
+      "source": "/agent-platform/capabilities/skills(/?)",
       "destination": "/agents/capabilities/skills/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/slash-commands/",
+      "source": "/agent-platform/capabilities/slash-commands(/?)",
       "destination": "/agents/capabilities/slash-commands/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/task-lists/",
+      "source": "/agent-platform/capabilities/task-lists(/?)",
       "destination": "/agents/capabilities/task-lists/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/web-search/",
+      "source": "/agent-platform/capabilities/web-search(/?)",
       "destination": "/agents/capabilities/web-search/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cli-agents/claude-code/",
+      "source": "/agent-platform/cli-agents/claude-code(/?)",
       "destination": "/agents/cli-agents/claude-code/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cli-agents/codex/",
+      "source": "/agent-platform/cli-agents/codex(/?)",
       "destination": "/agents/cli-agents/codex/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cli-agents/opencode/",
+      "source": "/agent-platform/cli-agents/opencode(/?)",
       "destination": "/agents/cli-agents/opencode/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cli-agents/overview/",
+      "source": "/agent-platform/cli-agents/overview(/?)",
       "destination": "/agents/cli-agents/overview/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cli-agents/remote-control/",
+      "source": "/agent-platform/cli-agents/remote-control(/?)",
       "destination": "/agents/cli-agents/remote-control/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cli-agents/rich-input/",
+      "source": "/agent-platform/cli-agents/rich-input(/?)",
       "destination": "/agents/cli-agents/rich-input/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/getting-started/agents-in-warp/",
+      "source": "/agent-platform/getting-started/agents-in-warp(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/getting-started/faqs/",
+      "source": "/agent-platform/getting-started/faqs(/?)",
       "destination": "/agents/getting-started/faqs/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/inference/bring-your-own-api-key/",
+      "source": "/agent-platform/inference/bring-your-own-api-key(/?)",
       "destination": "/agents/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
@@ -248,117 +249,117 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/inference/custom-inference-endpoint/",
+      "source": "/agent-platform/inference/custom-inference-endpoint(/?)",
       "destination": "/agents/inference/custom-inference-endpoint/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/inference/custom-routers/",
+      "source": "/agent-platform/inference/custom-routers(/?)",
       "destination": "/agents/inference/custom-routers/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/inference/grok-subscription/",
+      "source": "/agent-platform/inference/grok-subscription(/?)",
       "destination": "/agents/inference/grok-subscription/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/inference/model-choice/",
+      "source": "/agent-platform/inference/model-choice(/?)",
       "destination": "/agents/inference/model-choice/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/active-ai/",
+      "source": "/agent-platform/local-agents/active-ai(/?)",
       "destination": "/agents/local-agents/active-ai/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/agent-context/",
+      "source": "/agent-platform/local-agents/agent-context(/?)",
       "destination": "/agents/local-agents/agent-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/agent-context/blocks-as-context/",
+      "source": "/agent-platform/local-agents/agent-context/blocks-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/blocks-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/agent-context/images-as-context/",
+      "source": "/agent-platform/local-agents/agent-context/images-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/images-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/agent-context/selection-as-context/",
+      "source": "/agent-platform/local-agents/agent-context/selection-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/selection-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/agent-context/urls-as-context/",
+      "source": "/agent-platform/local-agents/agent-context/urls-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/urls-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/agent-context/using-to-add-context/",
+      "source": "/agent-platform/local-agents/agent-context/using-to-add-context(/?)",
       "destination": "/agents/local-agents/agent-context/using-to-add-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/cloud-conversations/",
+      "source": "/agent-platform/local-agents/cloud-conversations(/?)",
       "destination": "/agents/local-agents/cloud-conversations/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/code-diffs/",
+      "source": "/agent-platform/local-agents/code-diffs(/?)",
       "destination": "/agents/local-agents/code-diffs/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/generate/",
+      "source": "/agent-platform/local-agents/generate(/?)",
       "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/",
+      "source": "/agent-platform/local-agents/interacting-with-agents(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/agent-questions/",
+      "source": "/agent-platform/local-agents/interacting-with-agents/agent-questions(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/agent-questions/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/conversation-forking/",
+      "source": "/agent-platform/local-agents/interacting-with-agents/conversation-forking(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/conversation-forking/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/prompt-queueing/",
+      "source": "/agent-platform/local-agents/interacting-with-agents/prompt-queueing(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/prompt-queueing/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+      "source": "/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/voice/",
+      "source": "/agent-platform/local-agents/interacting-with-agents/voice(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/voice/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interactive-code-review/",
+      "source": "/agent-platform/local-agents/interactive-code-review(/?)",
       "destination": "/agents/local-agents/interactive-code-review/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/overview/",
+      "source": "/agent-platform/local-agents/overview(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/session-sharing/",
+      "source": "/agent-platform/local-agents/session-sharing(/?)",
       "destination": "/agents/local-agents/session-sharing/",
       "statusCode": 308
     },
@@ -368,17 +369,17 @@
       "statusCode": 308
     },
     {
-      "source": "/~/revisions/pyklxx5pdxve9wvizjl3/features/entry",
+      "source": "/~/revisions/pyklxx5pdxve9wvizjl3/features/entry(/?)",
       "destination": "/terminal/entry/",
       "statusCode": 308
     },
     {
-      "source": "/platform/api-sdk",
+      "source": "/platform/api-sdk(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
-      "source": "/agents/warp-ai/agent-mode",
+      "source": "/agents/warp-ai/agent-mode(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
@@ -388,17 +389,17 @@
       "statusCode": 308
     },
     {
-      "source": "/features/ai/warp-ai/external-ai-providers",
+      "source": "/features/ai/warp-ai/external-ai-providers(/?)",
       "destination": "/agents/cli-agents/overview/",
       "statusCode": 308
     },
     {
-      "source": "/guides/devops-and-infrastructure",
+      "source": "/guides/devops-and-infrastructure(/?)",
       "destination": "/guides/devops/how-to-analyze-cloud-run-logs-gcloud/",
       "statusCode": 308
     },
     {
-      "source": "/knowledge-and-collaboration/session-sharingentials1",
+      "source": "/knowledge-and-collaboration/session-sharingentials1(/?)",
       "destination": "/knowledge-and-collaboration/session-sharing/",
       "statusCode": 308
     },
@@ -1538,11 +1539,6 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/generate",
-      "destination": "/agents/local-agents/generate/",
-      "statusCode": 308
-    },
-    {
       "source": "/agent-platform/local-agents/interacting-with-agents/agent-modality(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
@@ -1709,7 +1705,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/computer-use(/?)",
-      "destination": "/agent-platform/capabilities/computer-use/",
+      "destination": "/agents/capabilities/computer-use/",
       "statusCode": 308
     },
     {
@@ -1938,7 +1934,7 @@
       "statusCode": 308
     },
     {
-      "source": "/errors",
+      "source": "/errors(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/",
       "statusCode": 308
     },
@@ -2488,6 +2484,11 @@
       "statusCode": 308
     },
     {
+      "source": "/features/windows/hotkey-window(/?)",
+      "destination": "/terminal/windows/global-hotkey/",
+      "statusCode": 308
+    },
+    {
       "source": "/features/windows/hotkey-window#dedicated-window",
       "destination": "/terminal/windows/global-hotkey/",
       "statusCode": 308
@@ -2528,7 +2529,7 @@
       "statusCode": 308
     },
     {
-      "source": "/getting-started",
+      "source": "/getting-started(/?)",
       "destination": "/quickstart/",
       "statusCode": 308
     },
@@ -2718,7 +2719,7 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/agent-workflows/running-multiple-agents-at-once-with-warp",
+      "source": "/guides/agent-workflows/running-multiple-agents-at-once-with-warp(/?)",
       "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
       "statusCode": 308
     },
@@ -2784,17 +2785,17 @@
     },
     {
       "source": "/reference/api-and-sdk/agent(/?)",
-      "destination": "/api#tag/agent",
+      "destination": "/api/#tag/agent",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/agent-1(/?)",
-      "destination": "/api",
+      "destination": "/api/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/schedules(/?)",
-      "destination": "/api#tag/schedules",
+      "destination": "/api/#tag/schedules",
       "statusCode": 308
     },
     {
@@ -2883,172 +2884,87 @@
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/authentication_required",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/authentication_required(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/authentication_required/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/budget_exceeded",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/budget_exceeded(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/budget_exceeded/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/content_policy_violation",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/content_policy_violation(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/content_policy_violation/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/environment_setup_failed",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/environment_setup_failed(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/environment_setup_failed/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/external_authentication_required",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/external_authentication_required(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/external_authentication_required/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/agent_process_failed",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/agent_process_failed(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/agent_process_failed/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/feature_not_available",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/feature_not_available(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/feature_not_available/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/infrastructure_timeout",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/infrastructure_timeout(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/infrastructure_timeout/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_disabled",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_disabled(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_disabled/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_not_configured",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_not_configured(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_not_configured/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/internal_error",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/internal_error(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/internal-error/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/internal_error/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/internal-error/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/invalid_request",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/invalid_request(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/invalid_request/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/not_authorized",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/not_authorized(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/not-authorized/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/not_authorized/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/not-authorized/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/operation_not_supported",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/operation_not_supported(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/operation_not_supported/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_not_found",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_not_found(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-not-found/",
       "statusCode": 308
     },
     {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_not_found/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-not-found/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_unavailable",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-unavailable/",
-      "statusCode": 308
-    },
-    {
-      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_unavailable/",
+      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_unavailable(/?)",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-unavailable/",
       "statusCode": 308
     },
@@ -3060,6 +2976,11 @@
     {
       "source": "/reference/cli#quickstart-guide",
       "destination": "/agents/cli/oz-cli/quickstart/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/README.md",
+      "destination": "/agents/cli/oz-cli/api-keys/",
       "statusCode": 308
     },
     {
@@ -3529,6 +3450,11 @@
     },
     {
       "source": "/support-and-community/plans-and-billing/bring-your-own-api-key/:path*",
+      "destination": "/agents/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
+      "source": "/support-and-community/plans-and-billing/bring-your-own-api-key/:path*/",
       "destination": "/agents/inference/bring-your-own-api-key/",
       "statusCode": 308
     },
@@ -4183,332 +4109,332 @@
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/welcome-to-warp",
+      "source": "/university/developer-workflows/beginner/welcome-to-warp(/?)",
       "destination": "/guides/getting-started/welcome-to-warp/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/10-coding-features-you-should-know",
+      "source": "/university/developer-workflows/beginner/10-coding-features-you-should-know(/?)",
       "destination": "/guides/getting-started/10-coding-features-you-should-know/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/how-to-customize-warps-appearance",
+      "source": "/university/developer-workflows/beginner/how-to-customize-warps-appearance(/?)",
       "destination": "/guides/getting-started/how-to-customize-warps-appearance/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/how-to-make-warps-ui-more-minimal",
+      "source": "/university/developer-workflows/beginner/how-to-make-warps-ui-more-minimal(/?)",
       "destination": "/guides/getting-started/how-to-make-warps-ui-more-minimal/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/how-to-master-warps-code-review-panel",
+      "source": "/university/developer-workflows/beginner/how-to-master-warps-code-review-panel(/?)",
       "destination": "/guides/getting-started/how-to-master-warps-code-review-panel/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/how-to-review-ai-generated-code",
+      "source": "/university/developer-workflows/how-to-review-ai-generated-code(/?)",
       "destination": "/guides/agent-workflows/how-to-review-ai-generated-code/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/how-to-run-multiple-ai-coding-agents",
+      "source": "/university/developer-workflows/how-to-run-multiple-ai-coding-agents(/?)",
       "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents",
+      "source": "/university/developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents(/?)",
       "destination": "/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase",
+      "source": "/university/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase(/?)",
       "destination": "/guides/agent-workflows/how-to-explain-your-codebase-using-warp-rust-codebase/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui",
+      "source": "/university/developer-workflows/power-user/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui(/?)",
       "destination": "/guides/agent-workflows/how-to-run-3-agents-in-parallel-summarize-logs-analyze-pr-modify-ui/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-edit-agent-code-in-warp",
+      "source": "/university/developer-workflows/power-user/how-to-edit-agent-code-in-warp(/?)",
       "destination": "/guides/agent-workflows/how-to-edit-agent-code-in-warp/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-review-prs-like-a-senior-dev",
+      "source": "/university/developer-workflows/power-user/how-to-review-prs-like-a-senior-dev(/?)",
       "destination": "/guides/agent-workflows/how-to-review-prs-like-a-senior-dev/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp/using-images-as-context-with-warp",
+      "source": "/university/how-warp-uses-warp/using-images-as-context-with-warp(/?)",
       "destination": "/guides/agent-workflows/using-images-as-context-with-warp/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp/understanding-your-codebase",
+      "source": "/university/how-warp-uses-warp/understanding-your-codebase(/?)",
       "destination": "/guides/agent-workflows/understanding-your-codebase/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp/running-multiple-agents-at-once-with-warp",
+      "source": "/university/how-warp-uses-warp/running-multiple-agents-at-once-with-warp(/?)",
       "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/warp-vs-claude-code",
+      "source": "/university/developer-workflows/power-user/warp-vs-claude-code(/?)",
       "destination": "/guides/agent-workflows/warp-vs-claude-code/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind",
+      "source": "/university/developer-workflows/beginner/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind(/?)",
       "destination": "/guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-set-coding-best-practices",
+      "source": "/university/developer-workflows/power-user/how-to-set-coding-best-practices(/?)",
       "destination": "/guides/configuration/how-to-set-coding-best-practices/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules",
+      "source": "/university/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules(/?)",
       "destination": "/guides/configuration/how-to-set-tech-stack-preferences-with-rules/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-set-coding-preferences-with-rules",
+      "source": "/university/developer-workflows/power-user/how-to-set-coding-preferences-with-rules(/?)",
       "destination": "/guides/configuration/how-to-set-coding-preferences-with-rules/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles",
+      "source": "/university/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles(/?)",
       "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-use-agent-profiles-efficiently",
+      "source": "/university/developer-workflows/power-user/how-to-use-agent-profiles-efficiently(/?)",
       "destination": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp/creating-rules-for-agents",
+      "source": "/university/how-warp-uses-warp/creating-rules-for-agents(/?)",
       "destination": "/guides/configuration/creating-rules-for-agents/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts",
+      "source": "/university/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts(/?)",
       "destination": "/guides/configuration/trigger-reusable-actions-with-saved-prompts/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-sync-your-monorepos",
+      "source": "/university/developer-workflows/power-user/how-to-sync-your-monorepos(/?)",
       "destination": "/guides/configuration/how-to-sync-your-monorepos/",
       "statusCode": 308
     },
     {
-      "source": "/university/integrations/how-to-set-up-claude-code",
+      "source": "/university/integrations/how-to-set-up-claude-code(/?)",
       "destination": "/guides/external-tools/how-to-set-up-claude-code/",
       "statusCode": 308
     },
     {
-      "source": "/university/integrations/how-to-set-up-codex-cli",
+      "source": "/university/integrations/how-to-set-up-codex-cli(/?)",
       "destination": "/guides/external-tools/how-to-set-up-codex-cli/",
       "statusCode": 308
     },
     {
-      "source": "/university/integrations/how-to-set-up-opencode",
+      "source": "/university/integrations/how-to-set-up-opencode(/?)",
       "destination": "/guides/external-tools/how-to-set-up-opencode/",
       "statusCode": 308
     },
     {
-      "source": "/university/integrations/how-to-set-up-gemini-cli",
+      "source": "/university/integrations/how-to-set-up-gemini-cli(/?)",
       "destination": "/guides/external-tools/how-to-set-up-gemini-cli/",
       "statusCode": 308
     },
     {
-      "source": "/university/integrations/how-to-set-up-ollama",
+      "source": "/university/integrations/how-to-set-up-ollama(/?)",
       "destination": "/guides/external-tools/how-to-set-up-ollama/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website",
+      "source": "/university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website(/?)",
       "destination": "/guides/external-tools/sentry-mcp-fix-sentry-error-in-empower-website/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch",
+      "source": "/university/mcp-servers/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch(/?)",
       "destination": "/guides/external-tools/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/linear-mcp-retrieve-issue-data",
+      "source": "/university/mcp-servers/linear-mcp-retrieve-issue-data(/?)",
       "destination": "/guides/external-tools/linear-mcp-retrieve-issue-data/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/linear-mcp-updating-tickets-with-a-lean-build-approach",
+      "source": "/university/mcp-servers/linear-mcp-updating-tickets-with-a-lean-build-approach(/?)",
       "destination": "/guides/external-tools/linear-mcp-updating-tickets-with-a-lean-build-approach/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues",
+      "source": "/university/mcp-servers/github-mcp-summarizing-open-prs-and-creating-gh-issues(/?)",
       "destination": "/guides/external-tools/github-mcp-summarizing-open-prs-and-creating-gh-issues/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews",
+      "source": "/university/mcp-servers/puppeteer-mcp-scraping-amazon-web-reviews(/?)",
       "destination": "/guides/external-tools/puppeteer-mcp-scraping-amazon-web-reviews/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/context7-mcp-update-astro-project-with-best-practices",
+      "source": "/university/mcp-servers/context7-mcp-update-astro-project-with-best-practices(/?)",
       "destination": "/guides/external-tools/context7-mcp-update-astro-project-with-best-practices/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up",
+      "source": "/university/mcp-servers/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up(/?)",
       "destination": "/guides/external-tools/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp/using-mcp-servers-with-warp",
+      "source": "/university/how-warp-uses-warp/using-mcp-servers-with-warp(/?)",
       "destination": "/guides/external-tools/using-mcp-servers-with-warp/",
       "statusCode": 308
     },
     {
-      "source": "/university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-railway",
+      "source": "/university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-railway(/?)",
       "destination": "/guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway/",
       "statusCode": 308
     },
     {
-      "source": "/university/end-to-end-builds/building-a-chrome-extension-d3js-javascript-html-css",
+      "source": "/university/end-to-end-builds/building-a-chrome-extension-d3js-javascript-html-css(/?)",
       "destination": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css/",
       "statusCode": 308
     },
     {
-      "source": "/university/warp-runtime/building-a-slackbot",
+      "source": "/university/warp-runtime/building-a-slackbot(/?)",
       "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp/building-warps-input-with-warp",
+      "source": "/university/how-warp-uses-warp/building-warps-input-with-warp(/?)",
       "destination": "/guides/build-an-app-in-warp/building-warps-input-with-warp/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/devops/how-to-analyze-cloud-run-logs-gcloud",
+      "source": "/university/developer-workflows/devops/how-to-analyze-cloud-run-logs-gcloud(/?)",
       "destination": "/guides/devops/how-to-analyze-cloud-run-logs-gcloud/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/devops/how-to-create-a-production-ready-docker-setup",
+      "source": "/university/developer-workflows/devops/how-to-create-a-production-ready-docker-setup(/?)",
       "destination": "/guides/devops/how-to-create-a-production-ready-docker-setup/",
       "statusCode": 308
     },
     {
-      "source": "/university/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-helm",
+      "source": "/university/terminal-command-line-tips/improve-your-kubernetes-workflow-kubectl-helm(/?)",
       "destination": "/guides/devops/improve-your-kubernetes-workflow-kubectl-helm/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/testing-and-security/how-to-prevent-secrets-from-leaking",
+      "source": "/university/developer-workflows/testing-and-security/how-to-prevent-secrets-from-leaking(/?)",
       "destination": "/guides/devops/how-to-prevent-secrets-from-leaking/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster",
+      "source": "/university/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster(/?)",
       "destination": "/guides/devops/how-to-generate-unit-and-security-tests-to-debug-faster/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/backend/how-to-write-sql-commands-inside-a-postgres-repl",
+      "source": "/university/developer-workflows/backend/how-to-write-sql-commands-inside-a-postgres-repl(/?)",
       "destination": "/guides/devops/how-to-write-sql-commands-inside-a-postgres-repl/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization",
+      "source": "/university/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization(/?)",
       "destination": "/guides/devops/how-to-create-priority-matrix-for-database-optimization/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase",
+      "source": "/university/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase(/?)",
       "destination": "/guides/frontend/how-to-replace-a-ui-element-in-warp-rust-codebase/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind",
+      "source": "/university/developer-workflows/frontend-ui/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind(/?)",
       "destination": "/guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows",
+      "source": "/university/developer-workflows(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/beginner",
+      "source": "/university/developer-workflows/beginner(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user",
+      "source": "/university/developer-workflows/power-user(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/devops",
+      "source": "/university/developer-workflows/devops(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/backend",
+      "source": "/university/developer-workflows/backend(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/frontend-ui",
+      "source": "/university/developer-workflows/frontend-ui(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/testing-and-security",
+      "source": "/university/developer-workflows/testing-and-security(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/how-warp-uses-warp",
+      "source": "/university/how-warp-uses-warp(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/integrations",
+      "source": "/university/integrations(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/mcp-servers",
+      "source": "/university/mcp-servers(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/end-to-end-builds",
+      "source": "/university/end-to-end-builds(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/terminal-command-line-tips",
+      "source": "/university/terminal-command-line-tips(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/warp-runtime",
+      "source": "/university/warp-runtime(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/university/",
+      "source": "/university(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
@@ -4554,7 +4480,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/capabilities-overview/computer-use(/?)",
-      "destination": "/agent-platform/capabilities/computer-use/",
+      "destination": "/agents/capabilities/computer-use/",
       "statusCode": 308
     },
     {
@@ -4628,7 +4554,7 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3.js-\\+-javascript-\\+-html-\\+-css",
+      "source": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3.js-\\+-javascript-\\+-html-\\+-css(/?)",
       "destination": "/guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css/",
       "statusCode": 308
     },
@@ -4968,32 +4894,27 @@
       "statusCode": 308
     },
     {
-      "source": "/errors/",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/",
-      "statusCode": 308
-    },
-    {
       "source": "/errors/:code/",
       "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/about-warps-ai/",
+      "source": "/getting-started/about-warps-ai(/?)",
       "destination": "/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/introduction/",
+      "source": "/getting-started/introduction(/?)",
       "destination": "/",
       "statusCode": 308
     },
     {
-      "source": "/what-is-warp/",
+      "source": "/what-is-warp(/?)",
       "destination": "/",
       "statusCode": 308
     },
     {
-      "source": "/warp/getting-started/what-is-warp/",
+      "source": "/warp/getting-started/what-is-warp(/?)",
       "destination": "/",
       "statusCode": 308
     },
@@ -5003,477 +4924,457 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/cli",
+      "source": "/platform/cli(/?)",
       "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
-      "source": "/support-and-community/plans-and-billing/plans-and-pricing",
+      "source": "/support-and-community/plans-and-billing/plans-and-pricing(/?)",
       "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
       "statusCode": 308
     },
     {
-      "source": "/knowledge-and-collaboration/mcp",
+      "source": "/knowledge-and-collaboration/mcp(/?)",
       "destination": "/agents/capabilities/mcp/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/readme-1",
+      "source": "/getting-started/readme-1(/?)",
       "destination": "/quickstart/",
       "statusCode": 308
     },
     {
-      "source": "/support-and-billing/plans-and-pricing/ai-credits",
+      "source": "/support-and-billing/plans-and-pricing/ai-credits(/?)",
       "destination": "/support-and-community/plans-and-billing/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/changelog",
+      "source": "/getting-started/changelog(/?)",
       "destination": "/changelog/",
       "statusCode": 308
     },
     {
-      "source": "/university",
-      "destination": "/guides/",
-      "statusCode": 308
-    },
-    {
-      "source": "/code/codebase-context",
+      "source": "/code/codebase-context(/?)",
       "destination": "/agents/capabilities/codebase-context/",
       "statusCode": 308
     },
     {
-      "source": "/platform/environments",
-      "destination": "/platform/environments/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agents/using-agents/model-choice",
+      "source": "/agents/using-agents/model-choice(/?)",
       "destination": "/agents/inference/model-choice/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/readme/agents-in-warp",
+      "source": "/getting-started/readme/agents-in-warp(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/privacy/privacy",
+      "source": "/privacy/privacy(/?)",
       "destination": "/support-and-community/privacy-and-security/privacy/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/third-party-cli-agents",
+      "source": "/agents/using-agents/third-party-cli-agents(/?)",
       "destination": "/agents/cli-agents/overview/",
       "statusCode": 308
     },
     {
-      "source": "/knowledge-and-collaboration/rules",
+      "source": "/knowledge-and-collaboration/rules(/?)",
       "destination": "/agents/capabilities/rules/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/skills",
+      "source": "/agent-platform/agent/skills(/?)",
       "destination": "/agents/capabilities/skills/",
       "statusCode": 308
     },
     {
-      "source": "/community/refer-a-friend",
+      "source": "/community/refer-a-friend(/?)",
       "destination": "/support-and-community/community/refer-a-friend/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/model-choice",
+      "source": "/agent-platform/agent/using-agents/model-choice(/?)",
       "destination": "/agents/inference/model-choice/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents",
+      "source": "/agent-platform/agent/using-agents(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/planning",
+      "source": "/agents/using-agents/planning(/?)",
       "destination": "/agents/capabilities/planning/",
       "statusCode": 308
     },
     {
-      "source": "/support-and-community/plans-and-billing/ai-credits",
+      "source": "/support-and-community/plans-and-billing/ai-credits(/?)",
       "destination": "/support-and-community/plans-and-billing/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/agent-conversations",
+      "source": "/agent-platform/agent/using-agents/agent-conversations(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/community/warp-preview-and-alpha-program",
+      "source": "/community/warp-preview-and-alpha-program(/?)",
       "destination": "/support-and-community/community/warp-preview-and-alpha-program/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/skills",
+      "source": "/agent-platform/warps-agent/capabilities-overview/skills(/?)",
       "destination": "/agents/capabilities/skills/",
       "statusCode": 308
     },
     {
-      "source": "/guides/integrations/how-to-set-up-claude-code",
+      "source": "/guides/integrations/how-to-set-up-claude-code(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/agent-conversations",
+      "source": "/agents/using-agents/agent-conversations(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/agent-profiles-permissions",
+      "source": "/agents/using-agents/agent-profiles-permissions(/?)",
       "destination": "/agents/capabilities/agent-profiles-permissions/",
       "statusCode": 308
     },
     {
-      "source": "/integrations/integrations-overview",
+      "source": "/integrations/integrations-overview(/?)",
       "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents",
+      "source": "/agents/using-agents(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/model-choice",
+      "source": "/agent-platform/warps-agent/capabilities-overview/model-choice(/?)",
       "destination": "/agents/inference/model-choice/",
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk",
+      "source": "/platform/agent-api-and-sdk(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
-      "source": "/support-and-billing/using-warp-offline",
+      "source": "/support-and-billing/using-warp-offline(/?)",
       "destination": "/support-and-community/troubleshooting-and-support/using-warp-offline/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/interacting-with-agents/terminal-and-agent-modes",
+      "source": "/agent-platform/warps-agent/interacting-with-agents/terminal-and-agent-modes(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/third-party-agents",
+      "source": "/agent-platform/third-party-agents(/?)",
       "destination": "/agents/cli-agents/overview/",
       "statusCode": 308
     },
     {
-      "source": "/agents/full-terminal-use",
+      "source": "/agents/full-terminal-use(/?)",
       "destination": "/agents/capabilities/full-terminal-use/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/ai-faqs",
+      "source": "/agent-platform/agent/ai-faqs(/?)",
       "destination": "/agents/getting-started/faqs/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/managing-agents",
+      "source": "/agent-platform/agent/using-agents/managing-agents(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/agent-context/mcp",
+      "source": "/agent-platform/warps-agent/agent-context/mcp(/?)",
       "destination": "/agents/capabilities/mcp/",
       "statusCode": 308
     },
     {
-      "source": "/agents/slash-commands",
+      "source": "/agents/slash-commands(/?)",
       "destination": "/agents/capabilities/slash-commands/",
       "statusCode": 308
     },
     {
-      "source": "/privacy/secret-redaction",
+      "source": "/privacy/secret-redaction(/?)",
       "destination": "/support-and-community/privacy-and-security/secret-redaction/",
       "statusCode": 308
     },
     {
-      "source": "/support-and-billing/licenses",
+      "source": "/support-and-billing/licenses(/?)",
       "destination": "/support-and-community/privacy-and-security/privacy/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/slash-commands",
+      "source": "/agent-platform/agent/slash-commands(/?)",
       "destination": "/agents/capabilities/slash-commands/",
       "statusCode": 308
     },
     {
-      "source": "/ambient-agents/agent-secrets",
+      "source": "/ambient-agents/agent-secrets(/?)",
       "destination": "/platform/secrets/",
       "statusCode": 308
     },
     {
-      "source": "/integrations/slack",
+      "source": "/integrations/slack(/?)",
       "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/agent-tasklists",
+      "source": "/agents/using-agents/agent-tasklists(/?)",
       "destination": "/agents/capabilities/task-lists/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/agent-context/images-as-context",
+      "source": "/agent-platform/agent/using-agents/agent-context/images-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/images-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/getting-started",
+      "source": "/agent-platform/getting-started(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/integrations/github-actions",
+      "source": "/integrations/github-actions(/?)",
       "destination": "/platform/integrations/github-actions/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/agent-conversations/conversation-forking",
+      "source": "/agent-platform/agent/using-agents/agent-conversations/conversation-forking(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/conversation-forking/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/agent-profiles-permissions",
+      "source": "/agent-platform/agent/using-agents/agent-profiles-permissions(/?)",
       "destination": "/agents/capabilities/agent-profiles-permissions/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/rules",
+      "source": "/agent-platform/warps-agent/capabilities-overview/rules(/?)",
       "destination": "/agents/capabilities/rules/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/session-sharing",
+      "source": "/agent-platform/warps-agent/capabilities-overview/session-sharing(/?)",
       "destination": "/agents/local-agents/session-sharing/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/interacting-with-agents/voice",
+      "source": "/agent-platform/warps-agent/interacting-with-agents/voice(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/voice/",
       "statusCode": 308
     },
     {
-      "source": "/agents/active-ai",
+      "source": "/agents/active-ai(/?)",
       "destination": "/agents/local-agents/active-ai/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/code-diffs",
+      "source": "/agent-platform/local-agents/interacting-with-agents/code-diffs(/?)",
       "destination": "/agents/local-agents/code-diffs/",
       "statusCode": 308
     },
     {
-      "source": "/integrations/linear",
+      "source": "/integrations/linear(/?)",
       "destination": "/platform/integrations/linear/",
       "statusCode": 308
     },
     {
-      "source": "/platform/cli/integrations-and-environments",
+      "source": "/platform/cli/integrations-and-environments(/?)",
       "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
-      "source": "/privacy/network-log",
+      "source": "/privacy/network-log(/?)",
       "destination": "/support-and-community/privacy-and-security/network-log/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/agent-context",
+      "source": "/agent-platform/agent/using-agents/agent-context(/?)",
       "destination": "/agents/local-agents/agent-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/local-agents/interacting-with-agents/code-diffs-in-agent-conversations",
+      "source": "/agent-platform/local-agents/interacting-with-agents/code-diffs-in-agent-conversations(/?)",
       "destination": "/agents/local-agents/code-diffs/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/interacting-with-agents",
+      "source": "/agent-platform/warps-agent/interacting-with-agents(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/ambient-agents/mcp-servers-for-agents",
+      "source": "/ambient-agents/mcp-servers-for-agents(/?)",
       "destination": "/platform/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/agents-overview",
+      "source": "/agent-platform/agent/agents-overview(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/voice",
+      "source": "/agent-platform/agent/voice(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/voice/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/full-terminal-use",
+      "source": "/agent-platform/warps-agent/capabilities-overview/full-terminal-use(/?)",
       "destination": "/agents/capabilities/full-terminal-use/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/interacting-with-agents/code-diffs",
+      "source": "/agent-platform/warps-agent/interacting-with-agents/code-diffs(/?)",
       "destination": "/agents/local-agents/code-diffs/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/agent-context",
+      "source": "/agents/using-agents/agent-context(/?)",
       "destination": "/agents/local-agents/agent-context/",
       "statusCode": 308
     },
     {
-      "source": "/knowledge-and-collaboration/session-sharing/agent-session-sharing",
+      "source": "/knowledge-and-collaboration/session-sharing/agent-session-sharing(/?)",
       "destination": "/knowledge-and-collaboration/session-sharing/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/warp-agents",
+      "source": "/agent-platform/warps-agent/warp-agents(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/web-search",
+      "source": "/agents/using-agents/web-search(/?)",
       "destination": "/agents/capabilities/web-search/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/agent-context/images-as-context",
+      "source": "/agent-platform/warps-agent/agent-context/images-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/images-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/agent-profiles-permissions",
+      "source": "/agent-platform/warps-agent/capabilities-overview/agent-profiles-permissions(/?)",
       "destination": "/agents/capabilities/agent-profiles-permissions/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/slash-commands",
+      "source": "/agent-platform/warps-agent/capabilities-overview/slash-commands(/?)",
       "destination": "/agents/capabilities/slash-commands/",
       "statusCode": 308
     },
     {
-      "source": "/agents",
+      "source": "/agents/agent-modality-beta(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agents/agent-modality-beta",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/integrations/how-to-set-up-opencode",
+      "source": "/guides/integrations/how-to-set-up-opencode(/?)",
       "destination": "/guides/",
       "statusCode": 308
     },
     {
-      "source": "/help/troubleshooting-login-issues",
+      "source": "/help/troubleshooting-login-issues(/?)",
       "destination": "/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/",
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk/agent-1",
+      "source": "/platform/agent-api-and-sdk/agent-1(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/agent-modality-beta",
+      "source": "/agent-platform/agent/agent-modality-beta(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cloud-agents/self-hosting/managed-worker-reference",
+      "source": "/agent-platform/cloud-agents/self-hosting/managed-worker-reference(/?)",
       "destination": "/factories/self-hosting/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/codebase-context",
+      "source": "/agent-platform/warps-agent/capabilities-overview/codebase-context(/?)",
       "destination": "/agents/capabilities/codebase-context/",
       "statusCode": 308
     },
     {
-      "source": "/agents/generate",
+      "source": "/agents/generate(/?)",
       "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
-      "source": "/agents/using-agents/agent-context/selection-as-context",
+      "source": "/agents/using-agents/agent-context/selection-as-context(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
     {
-      "source": "/ambient-agents/managing-ambient-agents/scheduled-agents",
+      "source": "/ambient-agents/managing-ambient-agents/scheduled-agents(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/features/warp-ai",
+      "source": "/features/warp-ai(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/integrations/github-actions/demo-issue-triage-bot",
+      "source": "/integrations/github-actions/demo-issue-triage-bot(/?)",
       "destination": "/platform/integrations/",
       "statusCode": 308
     },
     {
-      "source": "/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing",
+      "source": "/knowledge-and-collaboration/session-sharing/ambient-agents-session-sharing(/?)",
       "destination": "/knowledge-and-collaboration/session-sharing/",
       "statusCode": 308
     },
     {
-      "source": "/platform",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/platform/cli/troubleshooting",
+      "source": "/platform/cli/troubleshooting(/?)",
       "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/generate",
+      "source": "/agent-platform/agent/generate(/?)",
       "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/agent/using-agents/planning",
+      "source": "/agent-platform/agent/using-agents/planning(/?)",
       "destination": "/agents/capabilities/planning/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/capabilities",
+      "source": "/agent-platform/capabilities/capabilities(/?)",
       "destination": "/agents/capabilities/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/active-ai",
+      "source": "/agent-platform/warps-agent/active-ai(/?)",
       "destination": "/agents/local-agents/active-ai/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/agent-context/selection-as-context",
+      "source": "/agent-platform/warps-agent/agent-context/selection-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/selection-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/computer-use",
+      "source": "/agent-platform/warps-agent/capabilities-overview/computer-use(/?)",
       "destination": "/agents/capabilities/computer-use/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/planning",
+      "source": "/agent-platform/warps-agent/capabilities-overview/planning(/?)",
       "destination": "/agents/capabilities/planning/",
       "statusCode": 308
     },
@@ -5488,12 +5389,12 @@
       "statusCode": 308
     },
     {
-      "source": "/guides/agent-workflows",
+      "source": "/guides/agent-workflows(/?)",
       "destination": "/guides/agent-workflows/how-to-review-ai-generated-code/",
       "statusCode": 308
     },
     {
-      "source": "/support-and-billing/plans-and-pricing/usage-overages",
+      "source": "/support-and-billing/plans-and-pricing/usage-overages(/?)",
       "destination": "/support-and-community/plans-and-billing/",
       "statusCode": 308
     },
@@ -5618,12 +5519,12 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cloud-agents-and-orchestration/team-access-billing-and-identity",
+      "source": "/agent-platform/cloud-agents-and-orchestration/team-access-billing-and-identity(/?)",
       "destination": "/platform/team-access-billing-and-identity/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/agent-context/blocks-as-context",
+      "source": "/agent-platform/warps-agent/agent-context/blocks-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/blocks-as-context/",
       "statusCode": 308
     },
@@ -5668,12 +5569,12 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/agent-context/urls-as-context",
+      "source": "/agent-platform/warps-agent/agent-context/urls-as-context(/?)",
       "destination": "/agents/local-agents/agent-context/urls-as-context/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/agent-context/using-to-add-context",
+      "source": "/agent-platform/warps-agent/agent-context/using-to-add-context(/?)",
       "destination": "/agents/local-agents/agent-context/using-to-add-context/",
       "statusCode": 308
     },
@@ -5838,7 +5739,7 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/capabilities-overview/web-search",
+      "source": "/agent-platform/warps-agent/capabilities-overview/web-search(/?)",
       "destination": "/agents/capabilities/web-search/",
       "statusCode": 308
     },
@@ -5863,7 +5764,7 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/interacting-with-agents/conversation-forking",
+      "source": "/agent-platform/warps-agent/interacting-with-agents/conversation-forking(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/conversation-forking/",
       "statusCode": 308
     },
@@ -5883,7 +5784,7 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warps-agent/interactive-code-review",
+      "source": "/agent-platform/warps-agent/interactive-code-review(/?)",
       "destination": "/agents/local-agents/interactive-code-review/",
       "statusCode": 308
     },
@@ -6048,32 +5949,32 @@
       "statusCode": 308
     },
     {
-      "source": "/developers/cli",
+      "source": "/developers/cli(/?)",
       "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
-      "source": "/enterprise/enterprise-features",
+      "source": "/enterprise/enterprise-features(/?)",
       "destination": "/enterprise/enterprise-features/architecture-and-deployment/",
       "statusCode": 308
     },
     {
-      "source": "/features/ai",
+      "source": "/features/ai(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/features/warp-ai/agent-mode",
+      "source": "/features/warp-ai/agent-mode(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/privacy",
+      "source": "/getting-started/privacy(/?)",
       "destination": "/support-and-community/privacy-and-security/privacy/",
       "statusCode": 308
     },
     {
-      "source": "/help/known-issues",
+      "source": "/help/known-issues(/?)",
       "destination": "/support-and-community/troubleshooting-and-support/known-issues/",
       "statusCode": 308
     },
@@ -6133,7 +6034,7 @@
       "statusCode": 308
     },
     {
-      "source": "/integrations/integrations-and-plugins",
+      "source": "/integrations/integrations-and-plugins(/?)",
       "destination": "/platform/integrations/",
       "statusCode": 308
     },
@@ -6238,12 +6139,12 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk/agent",
+      "source": "/platform/agent-api-and-sdk/agent(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk",
+      "source": "/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
@@ -6373,7 +6274,7 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/team-access-billing-and-identity-permissions",
+      "source": "/platform/team-access-billing-and-identity-permissions(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
@@ -6398,92 +6299,92 @@
       "statusCode": 308
     },
     {
-      "source": "/support-and-community/troubleshooting-and-support",
+      "source": "/support-and-community/troubleshooting-and-support(/?)",
       "destination": "/support-and-community/troubleshooting-and-support/sending-us-feedback/",
       "statusCode": 308
     },
     {
-      "source": "/warp/terminal/editor",
+      "source": "/warp/terminal/editor(/?)",
       "destination": "/terminal/editor/",
       "statusCode": 308
     },
     {
-      "source": "/features/ai-command-search",
+      "source": "/features/ai-command-search(/?)",
       "destination": "/terminal/entry/command-search/",
       "statusCode": 308
     },
     {
-      "source": "/features/entry/ai-command-search",
+      "source": "/features/entry/ai-command-search(/?)",
       "destination": "/terminal/entry/command-search/",
       "statusCode": 308
     },
     {
-      "source": "/features/network-log",
+      "source": "/features/network-log(/?)",
       "destination": "/support-and-community/privacy-and-security/network-log/",
       "statusCode": 308
     },
     {
-      "source": "/features/warp-ai/ai-command-suggestions",
+      "source": "/features/warp-ai/ai-command-suggestions(/?)",
       "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
-      "source": "/help/plans-subscriptions-and-pricing",
+      "source": "/help/plans-subscriptions-and-pricing(/?)",
       "destination": "/support-and-community/plans-and-billing/plans-pricing-refunds/",
       "statusCode": 308
     },
     {
-      "source": "/integrations/integrations-overview/integrations-and-environments",
+      "source": "/integrations/integrations-overview/integrations-and-environments(/?)",
       "destination": "/agents/cli/oz-cli/integration-setup/",
       "statusCode": 308
     },
     {
-      "source": "/features/editor/autosuggestions",
+      "source": "/features/editor/autosuggestions(/?)",
       "destination": "/terminal/command-completions/autosuggestions/",
       "statusCode": 308
     },
     {
-      "source": "/code/code-permissions",
+      "source": "/code/code-permissions(/?)",
       "destination": "/agents/capabilities/agent-profiles-permissions/",
       "statusCode": 308
     },
     {
-      "source": "/getting-started/refer-a-friend",
+      "source": "/getting-started/refer-a-friend(/?)",
       "destination": "/support-and-community/community/refer-a-friend/",
       "statusCode": 308
     },
     {
-      "source": "/help/using-warp-offline",
+      "source": "/help/using-warp-offline(/?)",
       "destination": "/support-and-community/troubleshooting-and-support/using-warp-offline/",
       "statusCode": 308
     },
     {
-      "source": "/features/secret-redaction",
+      "source": "/features/secret-redaction(/?)",
       "destination": "/support-and-community/privacy-and-security/secret-redaction/",
       "statusCode": 308
     },
     {
-      "source": "/features/warp-ai/active-ai",
+      "source": "/features/warp-ai/active-ai(/?)",
       "destination": "/agents/local-agents/active-ai/",
       "statusCode": 308
     },
     {
-      "source": "/oz",
+      "source": "/oz(/?)",
       "destination": "/platform/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/agent-memory",
+      "source": "/agent-platform/capabilities/agent-memory(/?)",
       "destination": "/agents/agent-memory/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/model-choice",
+      "source": "/agent-platform/capabilities/model-choice(/?)",
       "destination": "/agents/inference/model-choice/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/capabilities/computer-use-testing-and-recordings",
+      "source": "/agent-platform/capabilities/computer-use-testing-and-recordings(/?)",
       "destination": "/agents/capabilities/computer-use/testing-and-recordings/",
       "statusCode": 308
     },
@@ -6493,177 +6394,182 @@
       "statusCode": 308
     },
     {
-      "source": "/support-and-community/plans-and-billing/custom-inference-endpoint",
+      "source": "/support-and-community/plans-and-billing/custom-inference-endpoint(/?)",
       "destination": "/agents/inference/custom-inference-endpoint/",
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warp-agents",
+      "source": "/agent-platform/warp-agents(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization",
+      "source": "/guides/developer-workflows/backend/how-to-create-priority-matrix-for-database-optimization(/?)",
       "destination": "/guides/devops/how-to-create-priority-matrix-for-database-optimization/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/backend/how-to-write-sql-commands-inside-a-postgres-repl",
+      "source": "/guides/developer-workflows/backend/how-to-write-sql-commands-inside-a-postgres-repl(/?)",
       "destination": "/guides/devops/how-to-write-sql-commands-inside-a-postgres-repl/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/10-coding-features-you-should-know",
+      "source": "/guides/developer-workflows/beginner/10-coding-features-you-should-know(/?)",
       "destination": "/guides/getting-started/10-coding-features-you-should-know/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/how-to-customize-warps-appearance",
+      "source": "/guides/developer-workflows/beginner/how-to-customize-warps-appearance(/?)",
       "destination": "/guides/getting-started/how-to-customize-warps-appearance/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase",
+      "source": "/guides/developer-workflows/beginner/how-to-explain-your-codebase-using-warp-rust-codebase(/?)",
       "destination": "/guides/agent-workflows/how-to-explain-your-codebase-using-warp-rust-codebase/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/how-to-make-warps-ui-more-minimal",
+      "source": "/guides/developer-workflows/beginner/how-to-make-warps-ui-more-minimal(/?)",
       "destination": "/guides/getting-started/how-to-make-warps-ui-more-minimal/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/how-to-master-warps-code-review-panel",
+      "source": "/guides/developer-workflows/beginner/how-to-master-warps-code-review-panel(/?)",
       "destination": "/guides/getting-started/how-to-master-warps-code-review-panel/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts",
+      "source": "/guides/developer-workflows/beginner/trigger-reusable-actions-with-saved-prompts(/?)",
       "destination": "/guides/configuration/trigger-reusable-actions-with-saved-prompts/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/beginner/welcome-to-warp",
+      "source": "/guides/developer-workflows/beginner/welcome-to-warp(/?)",
       "destination": "/guides/getting-started/welcome-to-warp/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase",
+      "source": "/guides/developer-workflows/frontend-ui/how-to-replace-a-ui-element-in-warp-rust-codebase(/?)",
       "destination": "/guides/frontend/how-to-replace-a-ui-element-in-warp-rust-codebase/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/how-to-review-ai-generated-code",
+      "source": "/guides/developer-workflows/how-to-review-ai-generated-code(/?)",
       "destination": "/guides/agent-workflows/how-to-review-ai-generated-code/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/how-to-run-multiple-ai-coding-agents",
+      "source": "/guides/developer-workflows/how-to-run-multiple-ai-coding-agents(/?)",
       "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents",
+      "source": "/guides/developer-workflows/how-to-use-voice-and-images-to-prompt-coding-agents(/?)",
       "destination": "/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/warp-for-product-managers",
+      "source": "/guides/developer-workflows/warp-for-product-managers(/?)",
       "destination": "/guides/agent-workflows/warp-for-product-managers/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles",
+      "source": "/guides/developer-workflows/power-user/how-to-configure-yolo-and-strategic-agent-profiles(/?)",
       "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-edit-agent-code-in-warp",
+      "source": "/guides/developer-workflows/power-user/how-to-edit-agent-code-in-warp(/?)",
       "destination": "/guides/agent-workflows/how-to-edit-agent-code-in-warp/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-review-prs-like-a-senior-dev",
+      "source": "/guides/developer-workflows/power-user/how-to-review-prs-like-a-senior-dev(/?)",
       "destination": "/guides/agent-workflows/how-to-review-prs-like-a-senior-dev/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-set-coding-best-practices",
+      "source": "/guides/developer-workflows/power-user/how-to-set-coding-best-practices(/?)",
       "destination": "/guides/configuration/how-to-set-coding-best-practices/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-set-coding-preferences-with-rules",
+      "source": "/guides/developer-workflows/power-user/how-to-set-coding-preferences-with-rules(/?)",
       "destination": "/guides/configuration/how-to-set-coding-preferences-with-rules/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules",
+      "source": "/guides/developer-workflows/power-user/how-to-set-tech-stack-preferences-with-rules(/?)",
       "destination": "/guides/configuration/how-to-set-tech-stack-preferences-with-rules/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-set-up-self-serve-data-analytics-with-skills",
+      "source": "/guides/developer-workflows/power-user/how-to-set-up-self-serve-data-analytics-with-skills(/?)",
       "destination": "/guides/configuration/how-to-set-up-self-serve-data-analytics-with-skills/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-sync-your-monorepos",
+      "source": "/guides/developer-workflows/power-user/how-to-sync-your-monorepos(/?)",
       "destination": "/guides/configuration/how-to-sync-your-monorepos/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/power-user/how-to-use-agent-profiles-efficiently",
+      "source": "/guides/developer-workflows/power-user/how-to-use-agent-profiles-efficiently(/?)",
       "destination": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster",
+      "source": "/guides/developer-workflows/testing-and-security/how-to-generate-unit-and-security-tests-to-debug-faster(/?)",
       "destination": "/guides/devops/how-to-generate-unit-and-security-tests-to-debug-faster/",
       "statusCode": 308
     },
     {
-      "source": "/guides/developer-workflows/testing-and-security/how-to-prevent-secrets-from-leaking",
+      "source": "/guides/developer-workflows/testing-and-security/how-to-prevent-secrets-from-leaking(/?)",
       "destination": "/guides/devops/how-to-prevent-secrets-from-leaking/",
       "statusCode": 308
     },
     {
-      "source": "/guides/how-warp-uses-warp/building-warps-input-with-warp",
+      "source": "/guides/how-warp-uses-warp/building-warps-input-with-warp(/?)",
       "destination": "/guides/build-an-app-in-warp/building-warps-input-with-warp/",
       "statusCode": 308
     },
     {
-      "source": "/guides/how-warp-uses-warp/creating-rules-for-agents",
+      "source": "/guides/how-warp-uses-warp/creating-rules-for-agents(/?)",
       "destination": "/guides/configuration/creating-rules-for-agents/",
       "statusCode": 308
     },
     {
-      "source": "/guides/how-warp-uses-warp/running-multiple-agents-at-once-with-warp",
+      "source": "/guides/how-warp-uses-warp/running-multiple-agents-at-once-with-warp(/?)",
       "destination": "/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/",
       "statusCode": 308
     },
     {
-      "source": "/guides/how-warp-uses-warp/understanding-your-codebase",
+      "source": "/guides/how-warp-uses-warp/understanding-your-codebase(/?)",
       "destination": "/guides/agent-workflows/understanding-your-codebase/",
       "statusCode": 308
     },
     {
-      "source": "/guides/how-warp-uses-warp/using-images-as-context-with-warp",
+      "source": "/guides/how-warp-uses-warp/using-images-as-context-with-warp(/?)",
       "destination": "/guides/agent-workflows/using-images-as-context-with-warp/",
       "statusCode": 308
     },
     {
-      "source": "/guides/how-warp-uses-warp/using-mcp-servers-with-warp",
+      "source": "/guides/how-warp-uses-warp/using-mcp-servers-with-warp(/?)",
       "destination": "/guides/external-tools/using-mcp-servers-with-warp/",
       "statusCode": 308
     },
     {
-      "source": "/guides/warp-runtime/building-a-slackbot",
-      "destination": "/guides/",
+      "source": "/guides/warp-runtime/building-a-slackbot(/?)",
+      "destination": "/platform/integrations/slack/",
       "statusCode": 308
     },
     {
       "source": "/guides/integrations/:slug*",
+      "destination": "/guides/external-tools/:slug*/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/integrations/:slug*/",
       "destination": "/guides/external-tools/:slug*/",
       "statusCode": 308
     },
@@ -6673,7 +6579,17 @@
       "statusCode": 308
     },
     {
+      "source": "/guides/mcp-servers/:slug*/",
+      "destination": "/guides/external-tools/:slug*/",
+      "statusCode": 308
+    },
+    {
       "source": "/guides/developer-workflows/devops/:slug*",
+      "destination": "/guides/devops/:slug*/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/devops/:slug*/",
       "destination": "/guides/devops/:slug*/",
       "statusCode": 308
     },
@@ -6793,22 +6709,12 @@
       "statusCode": 308
     },
     {
-      "source": "/agents/local-agents/overview",
+      "source": "/agents/local-agents/overview(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
     {
-      "source": "/agents/local-agents/overview/",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agents/getting-started/agents-in-warp",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agents/getting-started/agents-in-warp/",
+      "source": "/agents/getting-started/agents-in-warp(/?)",
       "destination": "/agents/",
       "statusCode": 308
     },
