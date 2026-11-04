@@ -128,6 +128,14 @@ Use source code to verify technical behavior, understand feature implementation,
 
 When the draft names UI labels, Settings paths, CLI flags, default permissions, plan eligibility, or platform support, treat source (or a live build) as required verification, not optional color. A PRD or spec is not verification: labels and flag names routinely change between spec and ship.
 
+**Server-backed claims also need a production rollout check.** Source proves a field or behavior exists, not that customers have it: warp-server ships code with flags off in production, and the Factory file schemas publish fields regardless of flag state. Before naming a field, endpoint, default, or behavior that warp-server implements, run:
+
+```bash
+python3 .agents/skills/doc_quality_policy/server_rollout.py check NAME [NAME ...]
+```
+
+Replace `NAME` with the user-facing names you are about to write, such as a schema field or an endpoint path segment. If a related flag is off in production, the claim fails Gate 0: leave it out of the page, and record the deferral in the PR as "a server flag is off in production." Do not paste the script output or flag names into the PR; this repo is public. If no warp-server checkout is available, treat the claim as unverified (option 1 or 2 below).
+
 If you cannot verify a claim (for example, the source repos are not available in this environment), do not guess and do not silently drop it. Choose one of these, and record the claim either way:
 
 1. **Omit the claim** - Write around it when the page still works without it. Describe the action without naming the exact flag, or link to the reference page that will carry the detail.
@@ -175,6 +183,28 @@ These rules are frequently violated by agents. Apply them carefully during draft
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
 
 During the deletion pass, apply AGENTS.md → Procedural → Reader-understanding test. A concept explained elsewhere may still be necessary beside a step for a direct-arrival reader. Omit optional scaffold sections rather than filling them with repetition.
+
+For each setup procedure:
+
+* State what the reader is configuring before listing fields or example names. For example, say "Create an automation that checks broken links" before giving the automation's name.
+* Explain what each selected agent, environment, or credential is used for. Give the field, command, or file to change and the value to use.
+* Show how to edit or select an existing agent or resource when the task supports reuse. For file-based setup, identify the existing file or agent directory instead of assuming the example name matches every factory.
+* Separate configuration choices, tool and credential access, skill or prompt instructions, and test execution into distinct steps or groups of related steps. Do not imply that writing a skill installs tools or grants access.
+* Put safety limits beside the action they restrict and inside any prompt that readers can copy separately.
+* Explain the sample test input. Require test credentials only if that test needs authentication. Apply configuration changes before testing, and name the behavior and evidence to check; do not treat a completed run as proof.
+* After editing a sentence, reread the whole paragraph and the surrounding steps. Check that the purpose is still clear, references are unambiguous, and actions remain in the correct order.
+
+When readers can combine this procedure with another:
+
+* Identify which event starts each task and which agent receives it.
+* Check whether one input can match several rules. Say whether that is intended. If only one rule should act, give conditions that prevent the other rules from matching.
+* Preserve existing filters and exclusions when adding new ones. Do not replace an existing exclusion list with only the new value.
+* Explain what happens to inputs that match none of the specialized rules.
+* Verify whether the changes affect new tasks, existing conversations, or both. Do not claim that changing a rule transfers work to another agent without verifying that behavior.
+* State what passes to the next stage, what result it returns, where it stops, and which decisions require human approval.
+* Test matching, overlapping, and unmatched inputs, plus an existing conversation when continuation is supported. Give the expected result for each case and record tests that could not be run.
+
+These checks follow [Order from intent to technical detail](../../../AGENTS.md#order-from-intent-to-technical-detail), [Procedural](../../../AGENTS.md#procedural), and [Check connected procedures](../../../AGENTS.md#check-connected-procedures) in `AGENTS.md`.
 
 Record an editorial verdict in the PR rationale: reader task, concept ownership across siblings, repetition and unnecessary scaffolds removed, unsupported assurances corrected, and useful understanding preserved. Link or relocate necessary facts rather than deleting them for length. Removing a page or changing its purpose requires human approval; identify each unsupported claim and its narrow correction instead.
 

@@ -6,7 +6,7 @@ description: >-
 import { VARS } from '@data/vars';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Self-hosted agent data storage lets your team keep cloud agent run data — conversation transcripts, artifacts, and prompt attachments — in a storage bucket you own, instead of Warp-managed storage. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates every run and routes model inference.
+Self-hosted agent data storage lets your team keep cloud agent run data — conversation transcripts, artifacts, and prompt attachments — in cloud storage you own, instead of Warp-managed storage. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates every run and routes model inference.
 
 :::note
 Self-hosted agent data storage is only available on Enterprise plans. [Contact sales](https://www.warp.dev/contact-sales) to learn more.
@@ -14,7 +14,7 @@ Self-hosted agent data storage is only available on Enterprise plans. [Contact s
 
 ## Supported storage providers
 
-Only **AWS S3** is available today. Google Cloud Storage and Azure Blob Storage support is planned.
+**AWS S3** and **Azure Blob Storage** are available. [Contact sales](https://www.warp.dev/contact-sales) to enable Azure Blob Storage for your team or workspace. Google Cloud Storage support is planned.
 
 ## What data can be self-hosted
 
@@ -36,8 +36,8 @@ Data is not migrated when changing storage mappings. It stays in its original lo
 
 Mapping a category to your bucket changes where that category's objects are written and read. Everything else about a run stays the same.
 
-Warp's control plane accesses self-hosted storage through a provider-specific IAM role that you provide, ensuring that all access is auditable and that Warp's
-permissions may be revoked at any time. The control plane writes to the bucket over the course of a run, such as by updating the conversation transcript after
+Warp's control plane accesses self-hosted storage through provider-specific permissions that you grant and can revoke at any time.
+The control plane writes to your storage over the course of a run, such as by updating the conversation transcript after
 each turn. It also reads from the bucket to provide run data, including conversation history and the display of computer use screenshots. Warp periodically
 accesses persisted data for background maintenance such as to run [scorers](/factories/measure-and-improve/scorers/).
 
@@ -260,7 +260,7 @@ Storage mappings can be changed at any time from **Manage connected storage**, u
 * **Disconnect a bucket** - Remove the connection from the manage-storage drawer. A bucket must be unmapped from every category before it can be disconnected.
 
 :::caution
-Neither remapping nor disconnecting migrates or deletes existing data. If you disconnect a bucket, objects already written there remain in your AWS account — Warp simply stops referencing them.
+Neither remapping nor disconnecting migrates or deletes existing data. If you disconnect storage, objects already written there remain in your cloud storage account — Warp simply stops referencing them.
 :::
 
 ## Troubleshooting

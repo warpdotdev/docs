@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-A factory is a team of cloud agents attached to a set of repositories. It takes work from Slack, GitHub, Linear, or Jira through triage, spec, implementation, and review, and returns the result, usually a pull request, where the work started.
+A factory is a team of cloud agents connected to your repositories. It routes work from Slack, GitHub, Linear, or Jira through triage, planning, implementation, and review. The output, usually a pull request, is returned to the thread or issue where the work started.
 
 <CardGrid>
   <LinkCard
@@ -21,36 +21,40 @@ A factory is a team of cloud agents attached to a set of repositories. It takes 
   <LinkCard
     title="Read the Warp Factories quickstart"
     href="/factories/quickstart/"
-    description="Follow the setup instructions to connect repositories and send your first request."
+    description="Follow setup instructions to connect repositories and send your first request."
   />
 </CardGrid>
 
 ## What a factory does
 
-A factory can work through a backlog of issues, fix defects reported in a support channel, or review incoming pull requests across several repositories.
-
+A factory can work through a backlog of tasks, fix defects reported in a support channel, or review incoming pull requests across several repositories.
+<figure style={{ maxWidth: "736px" }}>
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
-
-<figure style={{ maxWidth: "563px" }}>
-![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)
-<figcaption>The software factory loop. The default agents cover triage through review.</figcaption>
+<figcaption>An introduction to Warp Factories.</figcaption>
 </figure>
 
 ## The parts of a factory
 
 ### Work items
 
-A work item is one request the factory acts on: an issue, a support thread, a pull request, or a scheduled job. It keeps its source context from intake to handoff, however many agents contribute along the way.
+A work item is one request the factory acts on. This can be an issue, a support thread, a pull request, or a scheduled job. It keeps its source context from intake to handoff, however many agents contribute along the way.
 
 ### Foreman and factory agents
 
-The foreman is the agent that coordinates a factory's work and communicates with you. See [factory agents](/factories/factory-agents/) for agent roles, models, harnesses, and configuration.
+The foreman is the agent that coordinates a factory's work and communicates with you. See [About factory agents](/factories/factory-agents/) for their roles, and [Configuring factory agents](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
 ### Stages and checkpoints
 
-Work moves through Triage, Planning, Building, and Reviewing. The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [how Warp Factories work](/factories/how-factories-work/).
+Factory agents handle different stages of the software development lifecycle. The default agents cover triage, planning, implementation, and review.
+
+<figure style={{ maxWidth: "563px" }}>
+![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)
+<figcaption>The software factory loop.</figcaption>
+</figure>
+
+The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [How Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
@@ -84,13 +88,15 @@ Group the repositories that ship together into one factory, and keep separate pr
 * One factory for your marketing site
 * One factory for your data pipelines
 
-Don't split the same repositories across factories by team or task, such as frontend and platform. Add [agents](/factories/factory-agents/) and [skills](/factories/factory-skills/) to specialize instead.
+Don't split the same repositories across factories by team or task, such as frontend and platform. Add [custom agents](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) to specialize instead.
 
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
-* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure its model and harness.
+* [About factory agents](/factories/factory-agents/) - Understand default agent roles
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions
+* [Multi-agent orchestration](/platform/orchestration/) - Fan out ad-hoc parent and child agents outside a standing factory
 * [Definitions as code](/factories/factory-as-code/) - The definition file format, with working examples in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 * [Transitioning from Oz](/platform/transitioning-from-oz/) - Assess an existing web app, CLI, SDK, or API workflow.
 * <a href={VARS.GET_STARTED_URL}>Get started with the Warp team</a> - Get help choosing and setting up a workflow.
