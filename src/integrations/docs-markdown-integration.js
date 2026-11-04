@@ -76,8 +76,8 @@ function isDocHtmlFile(relativeHtmlPath) {
 
 // The HTML page a twin was generated from: `factories/index.html` ->
 // https://docs.warp.dev/factories/, `index.html` -> https://docs.warp.dev/.
-// vercel.json sends the same URL as a `Link: <...>; rel="canonical"` header on
-// every `.md` response (see scripts/markdown-canonical-headers.test.mjs).
+// scripts/build-markdown-canonical-routes.mjs sends the same URL as a
+// `Link: <...>; rel="canonical"` header on each twin's response.
 function getCanonicalUrl(relativeHtmlPath) {
 	const htmlDir = path.dirname(relativeHtmlPath).split(path.sep).join('/');
 	return htmlDir === '.' ? `${DOCS_ORIGIN}/` : `${DOCS_ORIGIN}/${htmlDir}/`;
