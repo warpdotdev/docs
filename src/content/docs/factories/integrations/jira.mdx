@@ -108,7 +108,7 @@ That person must link their Atlassian account in Jira under **profile** > **Pers
 
 The automation creator must still have access to the team and factory and a linked Jira account for the site. Unlinking, losing access, or deleting the automation stops access on the next request. Pausing or disabling the automation doesn't revoke access for runs already started.
 
-Automations created by a service account don't get this fallback. Neither do runs outside factory automations, including standalone schedules and API, CLI, or CI runs created with a service account or API key. For those runs, add the Atlassian MCP server as a [managed MCP install](/platform/mcp/).
+Automations created by a service account don't get this fallback. Neither do runs outside factory automations, including standalone schedules and API, CLI, or CI runs created with a service account or API key. For those runs, add the Atlassian MCP server as a [managed MCP install](/factories/mcp/).
 
 To withdraw the app's site access, a site admin manages or uninstalls it in [Atlassian's connected-app administration](https://support.atlassian.com/organization-administration/docs/managing-an-installed-app/). Removing a factory automation or unlinking a personal account is not the same as uninstalling the Jira app.
 

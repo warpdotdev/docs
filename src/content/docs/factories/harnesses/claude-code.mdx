@@ -1,0 +1,54 @@
+---
+title: Claude Code harness
+description: >-
+  Run Claude Code as a factory agent or standalone cloud harness with
+  Anthropic or Amazon Bedrock credentials.
+sidebar:
+  label: "Claude Code"
+---
+import { VARS } from '@data/vars';
+
+Claude Code is Anthropic's coding agent. Use it as a factory agent's harness to work on tasks such as code review, bug investigation, or feature implementation. Select its harness, model, and team-owned auth secret in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
+
+Claude Code also runs as a standalone cloud agent without a factory. To run the CLI locally in Warp, follow [Claude Code in Warp](/agents/cli-agents/claude-code/); local authentication is separate from the cloud setup below.
+
+## Key features
+
+* **Cloud orchestration** - Launch Claude Code from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, [schedules](/platform/triggers/scheduled-agents/), [Slack](/platform/integrations/slack/) mentions, [Linear](/platform/integrations/linear/) issues, or [GitHub Actions](/platform/integrations/github-actions/).
+* **Claude model picker** - Choose from the Claude Code models available in the model picker.
+* **Parent and child roles** - A Warp Agent parent can dispatch Claude Code children in [ad hoc orchestration](/platform/orchestration/). A factory foreman using Claude Code can dispatch named factory agents; those agents keep their configured harnesses and resources.
+
+## Available models
+
+Choose a model from the factory agent's "Model" dropdown. For standalone runs, use the model picker in the Warp app's Cloud Mode or the "Model" field on the {VARS.WEB_APP}'s new-run pane. Available model IDs and aliases can change; use the picker for the current catalog instead of assuming a pinned release is available to every account. See [Agent model choice](/agents/inference/model-choice/) for model-selection guidance.
+
+## Credentials and billing
+
+For cloud authentication with a managed secret, Claude Code accepts these credential types:
+
+* **Anthropic API key** - For direct Anthropic API access.
+* **Anthropic Bedrock API key** - For Bedrock-routed inference using an API key.
+* **Anthropic Bedrock access key** - For Bedrock-routed inference using AWS access credentials.
+
+Direct API credentials use Anthropic; Bedrock credentials route inference through Amazon Bedrock. Your inference provider bills the corresponding account. Warp charges for [hosted compute](/support-and-community/plans-and-billing/credits/#compute-usage) and [platform usage](/support-and-community/plans-and-billing/platform-credits/) according to your plan or contract. See [harness billing](/factories/harnesses/#billing) for cost-reporting limitations.
+
+Factory agents select team-scoped secrets. Standalone ad hoc runs can use personal or team-scoped secrets. For setup steps and credential scope, see [Connecting Claude Code credentials](/factories/harnesses/authentication/#connecting-claude-code-credentials).
+
+## Starting a Claude Code run
+
+For a factory agent, follow [Configuring factory agents](/factories/factory-agents/configuration/). For a standalone cloud run:
+
+* **Warp app** - In the Warp app's Cloud Mode, open the "Agent harness" dropdown above the input and choose **Claude Code**.
+* **{VARS.WEB_APP}** - On the new run or new schedule pane, in the "Harness" dropdown, choose **Claude Code**. In the "Claude Code auth secret" field, select a stored Anthropic secret.
+* **{VARS.WARP_AGENT_CLI}** - Use `oz agent run-cloud --harness claude --claude-auth-secret KEY_NAME` with your prompt and environment options. Replace `KEY_NAME` with the stored secret's name.
+* **API and SDK** - Set the agent config's `harness.type` to `claude` and select the Anthropic secret in the matching auth-secret field. See [harness identifiers](/factories/harnesses/#harness-identifiers) and the [API reference](/factories/api-and-sdk/) for the object schema.
+
+## Related pages
+
+* [Agent harnesses](/factories/harnesses/)
+* [Configuring harness authentication](/factories/harnesses/authentication/) - Store Anthropic credentials as Warp-managed secrets
+* [Warp Agent harness](/factories/harnesses/warp-agent/)
+* [Multi-agent orchestration](/platform/orchestration/) - Coordinate a Warp Agent parent with Claude Code children across local and cloud runs
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Inspect Claude Code cloud runs in the Agent Management Panel and the Runs page
+* [Codex harness](/factories/harnesses/codex/)
+* [Claude Code in Warp](/agents/cli-agents/claude-code/) - Claude Code in your local Warp terminal

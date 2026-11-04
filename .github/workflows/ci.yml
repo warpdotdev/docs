@@ -156,6 +156,11 @@ jobs:
       - name: Validate page title order
         run: npm run test:page-title-order
 
+      - name: Validate migrated references and retired articles
+        run: |
+          npm run test:platform-reference-migration
+          npm run test:article-retirements
+
       - name: Check internal links
         run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
       - name: Test redirect invariants

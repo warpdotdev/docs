@@ -1,253 +1,221 @@
 ---
-title: Cloud Agent FAQs
-description: >-
-  Frequently asked questions about cloud agents, including where agents run,
-  how runs work, supported models, security, and common workflows.
+title: Cloud agent FAQs
+description: Answers about cloud agent execution, models, access, billing, workflows, and self-hosting, with links to setup and reference details.
 sidebar:
   label: "Cloud agent FAQs"
 ---
 
-This page answers common questions about cloud agents, including where they run, how they're configured, and how teams use cloud agents for day-to-day engineering work.
+Cloud agents support factory workflows and standalone tasks. These short answers summarize common questions; the linked references own setup steps, compatibility details, and policy requirements.
 
 ## Architecture and execution
 
 ### Where do cloud agents run? What's the architecture?
 
-Agents run either **locally** (inside your Warp session) or **in the cloud** as a **cloud agent run**, inside an **environment** (see [Environments](/platform/environments/)).
+Cloud runs execute on Warp-hosted compute or your infrastructure. Warp coordinates the run and tracks its results; execution location and inference routing are separate choices.
 
-The cloud agents platform is built around modular, observable execution:
-
-- A **trigger** starts work (manual, schedule/cron, webhook, or an integration like Slack/GitHub).
-- The **agent** executes inside an **environment** (either a Warp-hosted cloud sandbox, or a **self-hosted sandbox** on your infrastructure, depending on plan/support).
-- Every step is recorded: **transcripts, tool calls, logs, and outputs**, so work is auditable and debuggable instead of a black box.
-
-The same agent can be invoked consistently across entry points (Warp conversation, cloud agent web app, the CLI, API/SDK, Slack/GitHub triggers) without rewriting the underlying instructions.
+See [Execution architecture](/platform/architecture/).
 
 ### What exactly are cloud agents in Warp?
 
-A **cloud agent** is a packaged automation unit made up of:
+A cloud agent performs a task away from your laptop using instructions, tools, and runtime configuration. Run it as part of a factory workflow or start a standalone run without creating a factory.
 
-- **Instructions** — A reusable skill/prompt (what it should do).
-- **Profile** — Model selection + tools + permissions (how it operates).
-- **Trigger** — Manual, cron/schedule, webhook, or integration event (when it starts).
-- **Environment** — Repo access, dependencies (Docker image), secrets, setup commands, and runtime config (where it runs).
-- **Host** — Local (interactive) or cloud (run), and optionally self-hosted execution (where supported).
-
-Because the agent definition is modular, the same cloud agent can be started from different surfaces (terminal, web app, CLI, integrations) with a consistent interface.
+See [Cloud agents overview](/platform/).
 
 ### Can we intervene mid-run?
 
-Yes. For **cloud agent runs**, you can:
+Yes. Authorized users can inspect a run's transcript and outputs and send instructions to steer work. Continuing a finished run or handing it off has separate requirements.
 
-- Inspect **run state**, tool calls, and logs.
-- **Steer** the agent while it's running.
-- Unblock it with additional instructions or context.
-
-If you're not happy with where it landed, you can take over to finish the task. That human handoff is a core part of making agents reliable beyond demos.
+See [Inspecting and steering runs](/platform/viewing-cloud-agent-runs/).
 
 ### Do cloud agents have access to Codebase Context and indexing?
 
-Yes. [Codebase Context](/agents/capabilities/codebase-context/) is enabled for all cloud agent runs, as long as Codebase Context is enabled for your account. This includes runs triggered from the CLI, API/SDK, integrations (Slack, Linear, GitHub Actions), and schedules. No additional configuration is needed — if Codebase Context is enabled, cloud agents use it automatically.
+Indexing settings and the selected harness determine what indexed context is available. Check the requirements before relying on semantic repository search; agents can also inspect files with their runtime's tools.
+
+See [Codebase Context for cloud runs](/agents/capabilities/codebase-context/).
 
 ### Can I access a shell inside a cloud agent environment? Are there limitations (Docker, Playwright, etc.)?
 
-Yes. Cloud agent runs execute in a full Linux environment and behave like a local development session. You can install dependencies, run Docker, and use headless tools like Playwright, subject to standard sandbox resource limits.
+Agents use the tools available in their execution environment. Add dependencies through the image or setup commands. Docker privileges, browser dependencies, and resource limits depend on the runtime, not just the prompt.
+
+See [Environment tools and dependencies](/factories/environments/configuring-environments/).
 
 ### Do cloud agents run as root inside the container?
 
-No. By default, cloud agents run as a dedicated non-root `agent` user (UID/GID 1000 where available) with passwordless sudo. If your environment's image sets a non-root `USER`, Warp runs the agent as that user instead, unchanged. For images that start as root, commands that need root access, like `apt-get install`, work with a `sudo` prefix. See [configuring container users](/platform/environments/configuring-environments/#configure-container-users) for details on home directory location, file ownership, and fallback behavior.
+Linux container runs use a non-root user by default, but an image's existing user and startup fallback can change the selected identity. Check user, home-directory, and sudo requirements for your image.
+
+See [Container users and permissions](/factories/environments/configuring-environments/#configure-container-users).
 
 ### Do cloud agents support a fully self-hosted, on-prem, or offline mode?
 
-The cloud agents platform supports self-hosting the **agent sandbox** (the execution environment) on your own infrastructure. The **control plane**—which handles orchestration, tracking, and auditability—remains Warp-managed and is not self-hosted.
+Self-hosting moves execution to your infrastructure; it doesn't make Warp's coordination services offline. The worker and task runtime still need the required outbound network access.
 
-Self-hosted execution is available on **Enterprise** plans. See [Self-hosting](/factories/self-hosting/) and [Deployment patterns](/factories/deployment-patterns/) for details.
-
-:::note
-Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) are stored on your device and are not available to cloud runs. Cloud runs use Warp-provided inference unless your team configures its own inference.
-
-Business and Enterprise admins can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents. Bringing your own inference does not remove [platform charges](/support-and-community/plans-and-billing/platform-credits/) or charges for Warp-hosted compute.
-:::
+See [Self-hosting and required network access](/factories/self-hosting/security-and-networking/#network-requirements).
 
 ## Models
 
 ### Which models are supported?
 
-Cloud agents are **multi-model by design**. You can choose models based on cost, latency, and capability, and teams commonly mix models by workflow:
+The available model selection depends on the harness and account. Use the current picker and model reference rather than assuming every harness exposes the same catalog.
 
-- Faster/cheaper models for triage and routine tasks.
-- Stronger models for complex changes (refactors, multi-file work, deeper reasoning).
-
-Model choice is configurable per **agent** (and often per environment/workflow), depending on how you set up your profiles.
+See [Model choice](/agents/inference/model-choice/).
 
 ### Can I choose which model cloud agents use?
 
-Yes. Cloud agents support the same set of models available in Warp. Model selection is configurable per agent or environment.
+Yes. Select a model for the agent or run using the relevant interface or configuration. Keep model selection separate from environment setup and check the chosen harness's available models.
+
+See [Selecting a model for a run](/factories/api-and-sdk/#agent-configuration).
 
 ### Can I authenticate cloud agents with my own ChatGPT or Claude Pro / Max plan?
 
-No. A [connected ChatGPT subscription](/agents/inference/chatgpt-subscription/) applies to Warp Agent conversations in the Warp app, not cloud agent runs. Warp also doesn't support connecting a Claude consumer subscription.
+A [connected ChatGPT subscription](/agents/inference/chatgpt-subscription/#use-your-chatgpt-subscription) doesn't fund cloud runs. Managed-secret setup uses funded Anthropic or Bedrock credentials for Claude Code and funded OpenAI API access for Codex, not local subscription sign-in. Worker-supplied self-hosted credentials follow a separate setup path.
 
-Business and Enterprise admins can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents.
+See [Harness authentication](/factories/harnesses/authentication/).
 
 ### Do you support local or private LLMs for compliance or air-gapped environments?
 
-Enterprise plans can route inference through your own cloud-provider account via [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), so prompts stay within your cloud environment.
+Team-managed endpoints and cloud-provider BYOLLM offer customer-configured inference paths. Plan requirements and cloud support vary by option; private inference doesn't make the entire platform air-gapped.
 
-Fully local, offline LLM execution is difficult given the current cloud agents orchestration and runtime architecture, but private-model support via enterprise cloud providers is available through BYOLLM.
-
-### Will cloud agents support Agent-to-Agent Protocols (A2A)?
-
-It’s something we’re actively exploring. Our focus is on building durable orchestration primitives—runs, environments, observability, steering, and coordination—that can support A2A and other emerging standards over time.
+See [Private inference options](/enterprise/enterprise-features/bring-your-own-llm/).
 
 ## Security and billing
 
 ### Will cloud storage for agent definitions, runs, and conversations be secure and encrypted?
 
-Yes. All cloud agent data stored in the cloud is encrypted at rest and in transit, and protected by Warp account–level access controls.
+Run data is access-controlled and stored separately from the execution workspace. The security reference documents encryption; retention and provider agreements are separate questions and depend on the configured path.
 
-Cloud agent environments are sandboxed by default, with scoped access to repos, secrets, and compute. Security and isolation are first-class design constraints for the cloud agent runtime.
+See [Security and encryption](/enterprise/security-and-compliance/security-overview/).
 
 ### Are cloud agents included in the Build plan, or is it a separate add-on?
 
-Build supports cloud agents. Runs incur inference, Warp-hosted compute, and [platform charges](/support-and-community/plans-and-billing/platform-credits/), funded from available usage. See [usage and billing](/support-and-community/plans-and-billing/credits/) for charge components and billing units.
+Access and funding depend on the plan and run identity. Runs use eligible included or purchased usage for applicable inference, hosted-compute, and platform charges; check the billed user's or team's requirements.
 
-Concurrency limits and credit allocation details are still being finalized.
+See [Cloud access and usage billing](/platform/team-access-billing-and-identity/#usage-requirements).
 
 ### How do cloud agents handle API keys and secrets for agents?
 
-Secrets are managed via the cloud agents CLI. Secrets are encrypted at rest, scoped to your Warp account, and injected into the agent environment at runtime. They are never hard-coded into agent instructions or logs.
+Grant only the credentials the task needs. Standalone managed secrets have team and personal scopes; factories have their own grants. Don't put credentials in prompts or print them; redaction is a backstop.
 
-To learn more about how secrets work in practice, see [Cloud Agent Secrets](/platform/secrets/).
+See [Standalone cloud secrets](/platform/secrets/).
 
 ## Workflows
 
 ### How do agents handle branching, merge conflicts, and multi-agent coordination with cloud agents?
 
-The cloud agents platform is intentionally flexible. As the developer, you decide how agents should branch, coordinate, and resolve conflicts.
+Choose branch ownership, file isolation, and integration responsibility before parallel editing. Agents sharing a host need separate worktrees or working copies; review the combined diff and resolve conflicts before merging.
 
-Interactive agents can plan work and spawn subagents to parallelize tasks. Cloud agents provide the building blocks for [running and coordinating multiple concurrent agents](/platform/orchestration/), rather than enforcing a fixed workflow.
-
-### Why focus on orchestration primitives instead of immediately adopting new agent standards?
-
-We believe durable infrastructure matters more than transient standards. The cloud agents platform provides stable building blocks—agent runs, environments, auditability, steering, and coordination—that orchestration frameworks and emerging standards can use over time.
+See [Branching and coordination](/platform/orchestration/#repository-isolation-and-review).
 
 ### Can cloud agents integrate with external tools, APIs, or services (like n8n connectors)?
 
-Yes, and cloud agents do not rely on rigid, predefined workflows. Agents can install CLIs, call external APIs, use MCP servers, and access the internet directly.
+Yes, through configured MCP servers and tools available to the runtime. Install dependencies, provide permissions and credentials, and check network access separately; instructions alone don't connect or authorize a service.
 
-The intent is to delegate flexibility to agents rather than constrain them with fixed connectors.
+See [Connecting external tools with MCP](/factories/mcp/).
 
 ### Can I export agent conversations and runs from cloud agents?
 
-Yes. Conversations can be copied directly from the UI. The cloud agent CLI and API also provide access to full conversation text, logs, and outputs programmatically.
+Yes. Authorized callers can retrieve run details, normalized conversations, artifacts, and raw transcripts through the run interfaces. Use the documented retrieval paths rather than assuming every output is embedded in one response.
+
+See [Retrieving conversations and artifacts](/platform/orchestration/multi-agent-runs/#retrieving-conversations-and-artifacts).
 
 ### How do cloud agents handle environment access, files, and security compared to SSH-based setups?
 
-Access is handled through Warp session sharing rather than SSH keys. Authentication is tied to Warp accounts and access controls, enabling secure person-to-person sharing.
+Sharing a conversation doesn't grant repository, SSH, or service access. Configure repository identity, runtime credentials, and network permissions separately, and review which transcripts and outputs leave the execution workspace.
 
-Configuration files and credentials can be managed using encrypted .env workflows (for example, dotenv-style encryption), avoiding repeated manual decrypt/encrypt cycles.
+See [Environment access and credential boundaries](/factories/self-hosting/security-and-networking/#data-boundaries).
 
 ### Can cloud agents review PRs like a teammate?
 
-Yes. Common patterns for a **cloud agent** in PR review:
+Yes. Give the agent the changes and review criteria, such as correctness risks, missing tests, or maintainability. Configure the access needed to return comments or changes, and retain human merge review.
 
-- Summarize changes and intent.
-- Flag risky diffs and edge cases.
-- Suggest tests and missing coverage.
-- Propose refactors for maintainability.
-
-A typical workflow is: the agent leaves structured review comments and optionally opens a follow-up PR for mechanical fixes (or commits to the branch, if you choose to allow that).
+See [PR review in GitHub Actions](/platform/integrations/github-actions/).
 
 ### Can cloud agents write unit tests?
 
-Yes, especially when:
+Yes. Provide the repository's test command and dependencies, ask the agent to generate and run tests, and review coverage and assumptions. Passing generated tests doesn't prove that the software has no defects.
 
-- The repo has a consistent test framework.
-- The **environment** is reproducible (dependencies and setup are reliable).
-
-The strongest loop is: a cloud agent generates tests, runs them in the environment, iterates until green, then opens a PR with the tests plus a short explanation of coverage and assumptions.
+See [Test-generation instructions for recurring runs](/platform/triggers/scheduled-agents/#scheduling-a-skill).
 
 ### Can cloud agents do big refactors?
 
-It can help, but the best practice is to scope into smaller, reviewable chunks.
+Break the refactor into reviewable changes with validation checkpoints. Assign file ownership and isolated working copies, then integrate and test the combined result rather than treating parallel completion as proof of correctness.
 
-Agents are strongest when they can continuously validate progress (tests, lint, typecheck). For large refactors, a staged approach with checkpoints (and possibly [multiple child agents](/platform/orchestration/) for parallel exploration) tends to work better than one giant prompt.
+See [Splitting large refactors across agents](/platform/orchestration/#repository-isolation-and-review).
 
 ### Can cloud agents triage issues / tickets automatically?
 
-Yes. A common cloud agent workflow:
+Yes. Define a triage skill, connect a supported trigger, and specify what context to gather and which labels or responses to propose. Trigger setup and write permissions differ between factory and standalone workflows.
 
-- When a ticket/issue is created (via integration trigger), a cloud agent gathers context (recent changes, logs/metrics links, ownership).
-- Proposes labels/priority and likely causes.
-- Drafts next steps or a response.
-- Asks clarifying questions back to the reporter when needed.
+See [Building an issue-triage workflow](/guides/agent-workflows/build-a-triage-agent/).
 
 ### Can cloud agents do dependency upgrades?
 
-Yes. Scheduled dependency bumps are a classic cloud agent use case:
+Yes. A scheduled skill can propose upgrades, run repository checks, and open a PR with a risk summary. Require review of conflicts, test results, and dependency changes instead of assuming unattended merging.
 
-- Open a PR.
-- Run tests.
-- Resolve simple conflicts.
-- Attach a risk summary (optional).
-
-This is usually implemented as a [scheduled agent](/platform/triggers/scheduled-agents/) producing recurring **runs**.
+See [Scheduled dependency maintenance](/platform/triggers/scheduled-agents/#scheduling-a-skill).
 
 ### Can cloud agents keep docs up to date?
 
-Yes. With cloud agents, agents can:
+Yes. A scheduled skill can check for drift, run link and build validation, and propose documentation changes through a PR. Keep review and publishing requirements explicit.
 
-- Scan for drift (commands that no longer work, onboarding steps that changed).
-- Run validations in a docs/test environment.
-- Propose doc updates as PRs.
-
-This is most successful with “docs as code” workflows (GitBook/Mintlify/Docusaurus style), where updates go through normal review.
+See [Scheduled documentation checks](/platform/triggers/scheduled-agents/#scheduling-a-skill).
 
 ## Self-hosting
 
 ### Where does my source code go with self-hosted agents?
 
-With self-hosting, repositories are cloned and stored only on your infrastructure — Warp never hosts your codebase. Warp uses a split architecture:
+Repository checkouts and execution workspaces stay on your infrastructure. Code content can still appear in prompts, transcripts, and artifacts stored or transmitted as run data; review those boundaries separately.
 
-* **Execution plane (your infrastructure)** — Repository clones, build artifacts, runtime secrets, and container filesystem state stay on the machines you control.
-* **Control plane (Warp-hosted)** — Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's backend under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Warp does not persistently store your source code or use it for model training.
-
-See [Self-hosting](/factories/self-hosting/) for deployment options and [Security Overview](/enterprise/security-and-compliance/security-overview/) for full details.
+See [Source code, transcripts, and storage](/factories/self-hosting/security-and-networking/#data-boundaries).
 
 ### Can I use `oz agent run` in CI or existing runners?
 
-Yes. The [unmanaged architecture](/platform/unmanaged-execution/) is designed exactly for this. Run `oz agent run` in any environment where you can execute a CLI command — GitHub Actions, Jenkins, Buildkite, Kubernetes pods, or custom orchestrators. This is how the [`warpdotdev/oz-agent-action`](https://github.com/warpdotdev/oz-agent-action) GitHub Action works. The agent runs locally on the runner and its session is tracked on Warp's backend for observability.
+Yes. With unmanaged execution, your CI job or host invokes the CLI directly and provides its tools, checkout, and credentials. Warp tracks the session, while your system owns process lifecycle and isolation.
+
+See [Running agents in CI or existing hosts](/platform/unmanaged-execution/).
 
 ### Can self-hosted agents access services behind a VPN?
 
-Yes. Since self-hosted agents run on your infrastructure, they inherit your network access. This means agents can reach self-hosted GitLab/Bitbucket instances, internal APIs, databases, and any other services behind your VPN. This is one of the primary reasons teams choose self-hosting.
+Yes, when the task's execution environment has the necessary access. A connected worker doesn't establish that its container or Pod can reach the same VPN services, private repositories, or databases.
+
+See [VPN and private-service access](/factories/self-hosting/security-and-networking/#vpn-and-on-premises-access).
 
 ### Does self-hosting work with GitLab or other non-GitHub SCMs?
 
-Self-hosted agents can use any SCM accessible from your infrastructure. With the [unmanaged architecture](/platform/unmanaged-execution/), agents run directly on your host and use whatever Git configuration and SCM access is already available. With the [managed architecture](/factories/self-hosting/#managed-architecture), automatic environment setup currently focuses on GitHub, but you can configure access to other SCMs via volume mounts, environment variables, setup commands, or Kubernetes Secrets (when using the [Kubernetes backend](/factories/self-hosting/managed-kubernetes/)). See the [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrations/bitbucket/) setup guides for step-by-step instructions.
+Use the provider-specific integration or configure repository access in your execution environment. Factory connections and standalone host-based workflows have different setup paths; verify the credentials and network access for your SCM.
+
+See [Source-control integrations](/platform/integrations/).
 
 ### Do LLM requests still go through Warp with self-hosting?
 
-Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements with all contracted model providers. Enterprise teams that need full control over inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts. AWS Bedrock BYOLLM supports both interactive agents and cloud agent runs; [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) BYOLLM currently applies to interactive agents, with cloud agent support coming.
+It depends on the harness and inference configuration. The Warp Agent routes requests through Warp; Claude Code and Codex call their providers directly. Self-hosted execution doesn't, by itself, choose the inference route.
+
+See [Inference routing with self-hosting](/factories/self-hosting/security-and-networking/#llm-inference-and-byollm).
 
 ### What about large monorepos with long environment setup times?
 
-The [unmanaged architecture](/platform/unmanaged-execution/) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](/factories/self-hosting/#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
+Unmanaged execution can reuse a pre-provisioned checkout and toolchain. Managed backends have separate mount, storage, and worktree options. Keep concurrent edits isolated rather than sharing one writable checkout.
 
-:::note
-The managed architecture supports four backends: Docker (default), Kubernetes, Direct, and Command. Use one-shot Direct when an external scheduler starts a worker for each job, or Command when a connected worker dispatches tasks to an external runtime. See [choosing a managed backend](/factories/self-hosting/#choosing-a-managed-backend).
-:::
+See [Pre-provisioned monorepos and managed storage](/platform/unmanaged-execution/#large-repositories).
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?
 
-This depends on your cluster configuration and risk profile. Evaluate your pod security policies, network policies, and RBAC settings based on your organization's security requirements.
+That depends on your cluster configuration and risk profile. Evaluate pod security, network policies, and RBAC; a Pod alone is not a guarantee that the isolation meets your organization's requirements.
 
-## Current limitations
+See [Kubernetes security boundaries](/factories/self-hosting/security-and-networking/#kubernetes-backend).
+
+<span id="current-limitations" />
+
+## Image attachments
 
 ### Do cloud agents support image attachments?
 
-Yes. In an interactive cloud conversation, attach an image with the file button in the input footer, paste an image from your clipboard, or drag and drop an image into the input.
+Yes. Interactive cloud conversations support image upload, clipboard paste, and drag-and-drop. Legacy CLI task-file attachments are a separate surface with their own limits.
 
-See [Images as Context](/agents/local-agents/agent-context/images-as-context/) for supported formats and the separate legacy CLI file-attachment guidance.
+See [Interactive image attachments and CLI files](/agents/local-agents/agent-context/images-as-context/).
 
+## Related pages
+
+* <span id="will-cloud-agents-support-agent-to-agent-protocols-a2a" />[Multi-agent orchestration](/platform/orchestration/)
+* <span id="why-focus-on-orchestration-primitives-instead-of-immediately-adopting-new-agent-standards" />[Orchestration patterns](/platform/orchestration/#common-patterns)
+* [Cloud agents overview](/platform/) - Choose a factory or standalone workflow
+* [Cloud agents quickstart](/platform/quickstart/) - Start a standalone run
