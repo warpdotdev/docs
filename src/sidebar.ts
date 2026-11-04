@@ -487,6 +487,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								},
 								{
 									label: 'Secrets',
+									collapsed: true,
 									items: [
 										{ slug: 'factories/secrets', label: 'Managing factory secrets' },
 										{ slug: 'factories/secrets/aws-ecr', label: 'AWS ECR credentials' },
