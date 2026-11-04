@@ -591,7 +591,7 @@ Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integrat
 
 ### `triggers[].filter`
 
-**Conditionally required.** Required for `webhook` / `received`; optional for other triggers.
+**Conditionally required.** Required for `webhook` / `received` and Microsoft Teams triggers; optional for other providers except `schedule`, which accepts no authored filters.
 Narrows which events start runs. Available keys depend on the provider and event. Keys combine with AND; within an inclusion list, any value can match. Omitting an optional list filter adds no restriction, but provider defaults still apply. For example, GitHub's [`skip_bots` defaults to `all`](/factories/integrations/github/#events-from-bots-dont-start-work).
 
 A `webhook` trigger for `received` requires `webhook_ids`: a one-item list with one webhook UID. It supports `in` only and doesn't accept a file name. To listen to multiple webhooks, add one trigger per UID. The optional `payload` pattern matches against the delivery's JSON body. See [webhook payload filters](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern syntax.
