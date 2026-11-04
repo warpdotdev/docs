@@ -8,19 +8,18 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run your first cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
-
-:::note
-This quickstart sets up the [managed architecture](/factories/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) to run `oz agent run` directly on any host.
-:::
+Start a self-hosted worker with the default Docker backend and route a test run to it. The {VARS.WARP_AUTOMATION_PLATFORM} routes the run, and your worker provides the compute.
 
 ---
 
 ## Prerequisites
 
-* **Managed self-hosting access and credentials** - Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then create an [Agent API key associated with the Default Service Account](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended). This key authenticates both the worker and the `oz agent run-cloud` command in this quickstart. A self-hosted worker key authenticates the worker only.
-* **A Linux machine with a rootful Docker daemon and GNU `stat`** - This quickstart does not cover macOS or Windows. On those hosts, follow the [Homebrew](/factories/self-hosting/managed-docker/#option-2-homebrew) or [release binary](/factories/self-hosting/managed-docker/#option-3-github-releases-binary) setup instead.
-* **The {VARS.WARP_AGENT_CLI}** - Install it on the machine that will route the test run. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+* Managed self-hosting access and network connectivity. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
+* An [Agent API key associated with the Default Service Account](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended).
+* A Linux machine with a rootful Docker daemon and GNU `stat`.
+* The {VARS.WARP_AGENT_CLI} on the machine that will route the test run. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+
+For macOS or Windows, use the [Homebrew](/factories/self-hosting/managed-docker/#option-2-homebrew) or [release binary](/factories/self-hosting/managed-docker/#option-3-github-releases-binary) setup instead.
 
 ---
 
@@ -30,7 +29,7 @@ _~10 minutes_
 
 ### 1. Export your API key
 
-Export the Agent API key so the worker container and the {VARS.WARP_AGENT_CLI} can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
+Use the Agent API key for both the worker container and `oz agent run-cloud`. A self-hosted worker key authenticates the worker only. Export the key so both tools can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
 export WARP_API_KEY="YOUR_AGENT_API_KEY"
@@ -87,6 +86,6 @@ For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).
 
 ## Next steps
 
-* [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
+* [Self-hosting overview](/factories/self-hosting/) - Review worker requirements and choose a backend
 * [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
 * [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.

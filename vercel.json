@@ -78,6 +78,16 @@
   ],
   "redirects": [
     {
+      "source": "/platform/data-storage(/?)",
+      "destination": "/factories/self-hosting/data-storage/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/data-storage.md",
+      "destination": "/factories/self-hosting/data-storage.md",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/software-factory(/?)",
       "destination": "/factories/",
       "statusCode": 308

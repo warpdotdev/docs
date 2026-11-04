@@ -30,3 +30,17 @@ test('does not change URLs without trk', () => {
 	assert.equal(response.headers.has('location'), false);
 	assert.equal(response.headers.get('x-middleware-next'), '1');
 });
+
+test('redirects fallback and slug copies to the clean URL', () => {
+	for (const query of ['fallback=true', 'slug=university', 'fallback=true&slug=university']) {
+		assert.equal(redirect(query, '').headers.get('location'), 'https://docs.warp.dev/');
+		assert.equal(redirect(query, '').status, 301);
+	}
+	assert.equal(redirect('slug=x', 'agents/').headers.get('location'), 'https://docs.warp.dev/agents/');
+});
+
+test('strips every listed parameter in one hop and keeps utm parameters', () => {
+	const response = redirect('fallback=true&utm_source=x&slug=university&trk=post', '');
+	assert.equal(response.headers.get('location'), 'https://docs.warp.dev/?utm_source=x');
+	assert.equal(redirect('utm_source=x', '').headers.get('x-middleware-next'), '1');
+});

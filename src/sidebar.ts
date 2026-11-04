@@ -405,22 +405,43 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					label: 'Factory use cases',
+					items: [
+						{ slug: 'factories/use-cases', label: 'Overview' },
+						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
+						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
+						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
+						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
+						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
+						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
+					],
+				},
+				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
 					// and where it runs.
 				label: 'Factory configuration',
 				items: [
-						{ slug: 'factories/factory-agents', label: 'Factory agents' },
+						{
+							label: 'Factory agents',
+							items: [
+								{ slug: 'factories/factory-agents', label: 'About factory agents' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+							],
+						},
 						{ slug: 'factories/factory-skills', label: 'Factory skills' },
 						// Moved from 'Integrations' (was 'Automation filters'): this page is
 						// now the Automations primitive's conceptual home, parallel to Factory
 						// agents and Factory skills, not just a filters reference.
 						{ slug: 'factories/automations', label: 'Factory automations' },
+						{ slug: 'factories/automation-triggers' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{ slug: 'factories/permissions', label: 'Factory permissions' },
 						{
 							label: 'Infrastructure',
 							items: [
-								{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
 								{ slug: 'factories/runners', label: 'Runners' },
@@ -437,8 +458,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/external-orchestrators', label: 'External orchestrators' },
 										{ slug: 'factories/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 										'factories/self-hosting/monitoring',
+										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
 										'factories/self-hosting/troubleshooting',
+									],
+								},
+								{
+									label: 'Secrets',
+									items: [
+										{ slug: 'factories/secrets', label: 'Managing factory secrets' },
+										{ slug: 'factories/secrets/aws-ecr', label: 'AWS ECR credentials' },
 									],
 								},
 								],
@@ -481,6 +510,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{ slug: 'factories/integrations/permissions' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
 						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
@@ -622,7 +652,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 						{ slug: 'platform/execution-security', label: 'Execution security' },
-						{ slug: 'platform/data-storage', label: 'Self-hosted agent data storage' },
 					],
 				},
 				{
