@@ -1,0 +1,204 @@
+{
+  "schema_version": 2,
+  "snapshot_fingerprint": "79d6027537be854ea0ca16fb0a2037538279924fba275dbeb0af039eeffe5c38",
+  "dispositions": [
+    {
+      "change": "api_routes_added",
+      "surface": "DELETE /api/v1/factory/{uid}/benchmarks/{suite_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: deleteBenchmarkSuite in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "DELETE /api/v1/factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: deleteBenchmarkSuiteTask in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks",
+      "disposition": "internal",
+      "evidence": "Gate 0: listBenchmarkSuites in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/{suite_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: getBenchmarkSuite in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/{suite_uid}/runs",
+      "disposition": "internal",
+      "evidence": "Gate 0: listBenchmarkRuns in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: getBenchmarkRun in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/results",
+      "disposition": "internal",
+      "evidence": "Gate 0: getBenchmarkRunResults in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: getBenchmarkSuiteTask in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "PATCH /api/v1/factory/{uid}/benchmarks/{suite_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: patchBenchmarkSuite in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "PATCH /api/v1/factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid}",
+      "disposition": "internal",
+      "evidence": "Gate 0: patchBenchmarkSuiteTask in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/agent/runs/{runId}/previews",
+      "disposition": "internal",
+      "evidence": "Gate 0: createRunPreview in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/agent_webhooks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory-setup/connect-on-slack",
+      "disposition": "internal",
+      "evidence": "Gate 0: connectFactoryOnSlack in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/factories.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks",
+      "disposition": "internal",
+      "evidence": "Gate 0: createBenchmarkSuite in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/{suite_uid}/runs",
+      "disposition": "internal",
+      "evidence": "Gate 0: launchBenchmarkRun in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/cancel",
+      "disposition": "internal",
+      "evidence": "Gate 0: cancelBenchmarkRun in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/rescore",
+      "disposition": "internal",
+      "evidence": "Gate 0: rescoreBenchmarkRun in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/{suite_uid}/tasks",
+      "disposition": "internal",
+      "evidence": "Gate 0: createBenchmarkSuiteTask in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/{suite_uid}/tasks/from-run",
+      "disposition": "internal",
+      "evidence": "Gate 0: createBenchmarkSuiteTaskFromRun in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/benchmarks.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_added",
+      "surface": "POST /api/v1/factory/{uid}/review/autofix",
+      "disposition": "internal",
+      "evidence": "Gate 0: autofixFactoryReview in warp-server/public_api/openapi.yaml@aa2daf7723 is x-internal and absent from released developers/agent-api-openapi.yaml; router/handlers/public_api/factory_review.go registers it. Exact surface mapped internal; revisit only on verified public GA release via sync-openapi-spec."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "DELETE /api/v1/factory/{uid}/benchmarks/suites/{suite_uid}",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/runs",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/runs/{run_uid}",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/runs/{run_uid}/results",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/suites",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "GET /api/v1/factory/{uid}/benchmarks/suites/{suite_uid}",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "PATCH /api/v1/factory/{uid}/benchmarks/suites/{suite_uid}",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/runs/{run_uid}/cancel",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/runs/{run_uid}/rescore",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/suites",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/suites/{suite_uid}/runs",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "api_routes_removed",
+      "surface": "POST /api/v1/factory/{uid}/benchmarks/suites/{suite_uid}/tasks",
+      "disposition": "removed",
+      "evidence": "warp-server/router/handlers/public_api/benchmarks.go@aa2daf7723:279-317 replaces the old suites/runs hierarchy with suite-scoped routes. This exact old registration is gone and never appeared in released developers/agent-api-openapi.yaml. Dead mapping pruned; no public docs change."
+    },
+    {
+      "change": "slash_commands_added",
+      "surface": "/orchestrate",
+      "disposition": "no_docs_needed",
+      "evidence": "Extractor repair, not a newly launched surface: commands.rs local PLAN_NAME/ORCHESTRATE_NAME constants were omitted by literal-only extraction. Both commands are already documented in agents/capabilities/slash-commands.mdx and agents/cli/reference.mdx; regression test added."
+    },
+    {
+      "change": "slash_commands_added",
+      "surface": "/plan",
+      "disposition": "no_docs_needed",
+      "evidence": "Extractor repair, not a newly launched surface: commands.rs local PLAN_NAME/ORCHESTRATE_NAME constants were omitted by literal-only extraction. Both commands are already documented in agents/capabilities/slash-commands.mdx and agents/cli/reference.mdx; regression test added."
+    }
+  ]
+}

@@ -10,8 +10,6 @@ import { VARS } from '@data/vars';
 
 When the {VARS.WARP_PLATFORM_API} encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, HTTP status, human-readable message, and resolution details.
 
----
-
 ## Response format
 
 All error responses share this structure:
@@ -44,8 +42,6 @@ Error responses use the `application/problem+json` content type per RFC 7807.
 
 Some errors include additional metadata fields (for example, `auth_url`, `provider`, or `inaccessible_repos`). These are documented on each error's page.
 
----
-
 ## Error categories
 
 Errors are split into two categories based on what caused the failure:
@@ -54,7 +50,7 @@ Errors are split into two categories based on what caused the failure:
 
 These indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.
 
-* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) — Team has no remaining add-on credits
+* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) — The billed account has insufficient eligible usage
 * [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) — Feature not included in your current plan
 * [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) — External service authorization needed
 * [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) — Insufficient permissions for the operation
@@ -78,16 +74,12 @@ These indicate a Warp-side issue. When a cloud agent task encounters a platform 
 * [`infrastructure_timeout`](/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/) — Task terminated after exceeding the maximum allowed runtime
 * [`agent_process_failed`](/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/) — Agent process exited unexpectedly during task execution
 
----
-
 ## Using the `trace_id`
 
 When an error response includes a `trace_id`, you can include it when [contacting Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) to help the team locate the specific request in internal logs. This is especially useful for `internal_error` and `resource_unavailable` errors.
 
----
-
-## Related
+## Related pages
 
 * [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) — API reference for creating and managing agent tasks
-* [Cloud Agents Overview](/platform/) — How cloud agents work
-* [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) — Plan requirements and billing details
+* [Cloud agents overview](/platform/) — How cloud agents work
+* [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) — Plan requirements and billing details

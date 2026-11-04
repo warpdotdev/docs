@@ -29,6 +29,13 @@ spec.loader.exec_module(style_lint)
 
 CASES = [
     # (text, should_flag, description)
+    ("title: Transitioning from Oz to Warp Factories", False, "historical title"),
+    ("Review existing Oz workflows.", False, "historical workflow assessment"),
+    ("See [transitioning from Oz](/platform/transitioning-from-oz/).", False, "historical link"),
+    ("Transitioning from Oz. Ask Oz to run this.", True, "unrelated stale name on same line"),
+    ("Transitioning from Oz to Automation Platform", True, "new product name still needs variable"),
+    ("Use `oz environment list`.", False, "supported legacy command"),
+    ("Use `oz-sdk-python`.", False, "repository identifier"),
     ("Click **Oz Cloud API Keys**.", False, "exempt literal Settings label"),
     (
         "**Settings** > **Cloud platform** > **Oz Cloud API Keys**.",

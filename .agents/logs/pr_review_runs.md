@@ -45,6 +45,30 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 
 ---
 
+## 2026-11-01 — authorized November human-edit correction (source recovery complete; attribution partial)
+
+- Same frozen window and task: `[2026-10-02T15:00:00Z, 2026-11-01T15:00:00Z)`. Initial collection 1 + authorized corrective collection 1 = 2 total; this is not another monthly catch-up.
+- Reconciled all 1,519 original unique edit identities: 1,459 multi-parent merge projections excluded, 2 explicitly agent-assisted, and 58 unresolved human origin. No original identity is missing. These exclusions no longer mean the patches were unavailable.
+- The expanded first-agent-baseline scan recovered 96 actual parent-to-commit file diffs across 50 ordinary commits and 15 PRs: 86 complete, 10 truncated. All retain immutable links and blob/patch hashes; 9 are agent-assisted and 87 have unresolved authorship. The remaining 2,472 projections belong to 59 merge commits.
+- Inspected 13 real before/after samples, including task-title changes, a narrower encryption claim, removed reference prose, and explicit agent-coauthored changes. A signed suggestion proves matching content, not human origin. All are retained as candidate observations, not confirmed human corrections or quality improvements.
+- Appended zero human-edit rows; all 2,531 prior feedback rows and the initial dated snapshots remain byte-identical. The provisional suggestion-based classification was removed during offline review, with collection and analysis versions recorded separately.
+- No safely actionable targeted patterns meet the existing requirements. No editorial improvement PR or baseline/identical-input editorial evaluation was manufactured. Thresholds and the three-file improvement cap remain unchanged.
+- Coverage remains partial: 13 candidate PRs lack an identifiable agent baseline, 10 patches are truncated, independent human origin is unresolved, and production-history/other-environment access was not restored. The production 401 and staging lookup 404 remain separate from GitHub source recovery.
+- Evidence: `drafting/2026-11-01-correction-v2-{coverage,outcome}.json`, `drafting/2026-11-01-correction-v2-human-edit-evidence.jsonl`, `drafting/2026-11-01-correction-v2-merge-commits.jsonl`, and `drafting/2026-11-01-correction-v2-source-reconciliation.jsonl`. The initial entry below is preserved as history, not the current analysis.
+- No Slack message, merge, deployment, factory apply, schedule activation, or legacy-schedule retirement occurred.
+
+## 2026-11-01 — November catch-up (blocked partial; no editorial change)
+
+- Frozen window: `[2026-10-02T15:00:00Z, 2026-11-01T15:00:00Z)`; exactly one collection invocation, exit 2. No retry or recollection.
+- GitHub: 134 merged PRs scanned, 125 agent-related candidates. Appended 157 retained human reviews/comments on 23 PRs; all untagged/general. Excluded 1,519 human-edit projections because merge-parent provenance was not retained.
+- Selected environment: 453 runs; 447 conversation retrievals and 6 unavailable. Other environments and historical production runs remain uncovered; production access returned 401, not zero findings.
+- Automated observations: 85 projected records (55 GitHub review, 30 run), all excluded from analysis because collection predates provenance hardening. Preserved as excluded data, not actionable findings. Missing timestamps may have been silently excluded by that collector version.
+- Offline attribution correction: quarantined 12 agent-authored human-account rows (10 explicit implementation updates and 2 generated review signals); none count as human or trusted automated evidence.
+- Decision: zero safely actionable targeted patterns; no improvement PR and no editorial skill/template changes. Thresholds were not lowered. This is a blocked-partial outcome, not evidence that drafting needs no improvements.
+- Evidence: `drafting/2026-11-01-coverage.json`, `drafting/2026-11-01-automated-observations.jsonl`, and `drafting/2026-11-01-outcome.json`. Prior log bytes preserved; duplicates excluded by source ID.
+- No Slack notification, live schedule change, factory apply, or scorer-based self-improvement. The standalone schedule remains unchanged; next attempt 2026-12-01 at 15:00 UTC. Human activation and later retirement are separate gates.
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1986a-2045-732c-96e6-21a8d7a09104
+
 ## 2026-10-01 — collector scan (improve-drafting-skills monthly)
 
 - Source: GitHub API human reviews/comments/edits on agent-authored merged PRs (warpy-factory / warp-agent / warp-factories), past ~30 days through 2026-10-01; Oz `[SIGNAL:pr-review]` markers from 24 succeeded review-docs-pr runs

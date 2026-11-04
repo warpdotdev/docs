@@ -1,60 +1,58 @@
 ---
 title: "{{WARP_AUTOMATION_PLATFORM}} overview"
 description: >-
-  How cloud agent runs work on the {{WARP_AUTOMATION_PLATFORM}}: triggers start
-  tasks, tasks run in environments on a host, and every run leaves a record.
+  The {{WARP_AUTOMATION_PLATFORM}} provides shared execution, configuration,
+  and APIs for Warp Factories and standalone cloud agents.
 sidebar:
   label: "{{WARP_AUTOMATION_PLATFORM}}"
 ---
-import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-[Cloud agents](/platform/) run on the {VARS.WARP_AUTOMATION_PLATFORM}. You define a task and its trigger. The {VARS.WARP_AUTOMATION_PLATFORM} runs the agent and records the results. For example, an agent can triage each new issue as it's filed, or start fixing a build the moment CI fails.
+[Warp Factories](/factories/) and [standalone cloud agents](/platform/) run on the {VARS.WARP_AUTOMATION_PLATFORM}. It provides the execution, configuration, and APIs they share.
 
-If you're new to cloud agents, the [Cloud agents quickstart](/platform/quickstart/) gets you to your first run in about ten minutes.
-
-<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title={`${VARS.WARP_AUTOMATION_PLATFORM} cloud agents overview video`} />
+For a team workflow with planning, implementation, and review, start with the [Warp Factories quickstart](/factories/quickstart/). To run cloud agents directly from Warp, use the [cloud agents quickstart](/platform/quickstart/). See [transitioning from Oz](/platform/transitioning-from-oz/) if you already use the {VARS.WEB_APP}, {VARS.WARP_AGENT_CLI}, or SDKs.
 
 ## How a run works
 
-Every run follows the same path, whatever starts it:
+A run starts with a request or event and ends with a result you can inspect:
 
-1. A **trigger** fires: a schedule, an integration event like a Slack mention or a CI failure, an API call, or a manual start.
-2. Warp creates a **task**, the tracked record of the run. The trigger's context travels with it: the Slack thread, the PR metadata, the CI logs.
-3. The agent executes on a **host**, optionally inside an [environment](/platform/environments/) that defines its image, repos, and setup.
-4. The task produces **outputs**: a pull request, a Slack reply, a report, or just a transcript and summary.
+1. A **trigger** fires. This could be a schedule, an integration event like a Slack mention or a CI failure, an API call, or a manual start.
+2. The agent receives the request and its context, such as a Slack thread, PR metadata, or CI logs.
+3. The agent executes on a **host**. If an [environment](/platform/environments/) is configured, it defines the image, repositories, and setup commands.
+4. The run produces **outputs**, like a pull request, Slack reply, report, or transcript and summary.
 
-![Flow diagram: a trigger kicks off an agent, which runs in an environment and creates artifacts, on either Warp-hosted or self-hosted infrastructure](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
+<figure style={{ maxWidth: "736px" }}>
+![A trigger starts an agent, which runs in a configured environment and produces artifacts such as plans, pull requests, and conversation records.](../../../assets/agent-platform/cloud-agent-run-flow.png)
+<figcaption>A trigger starts a run that produces reviewable artifacts.</figcaption>
+</figure>
 
 ## Integrations and triggers
 
-Every run starts with a trigger. [Integrations](/platform/integrations/) turn events in other tools into runs: mention @warp in [Slack](/platform/integrations/slack/) and the agent gets the message and its thread, or run agents inside your [GitHub Actions](/platform/integrations/github-actions/) workflows with your CI context. [Scheduled agents](/platform/triggers/scheduled-agents/) start runs on a cron schedule. For event sources Warp doesn't cover, receive the event in your own system and start the run through the [API](/factories/api-and-sdk/); it becomes a normal, fully tracked task.
+[Factory automations](/factories/automations/) route events from [connected tools](/factories/connect-your-factory/) to factory agents. They also start runs on a schedule. For custom intake, use [webhooks](/factories/webhooks/) and [factory endpoints](/factories/factory-api/).
 
-Set up a first-party integration with `oz integration create` on the {VARS.WARP_AGENT_CLI}; the [integration setup guide](/agents/cli/oz-cli/integration-setup/) covers it end to end.
+Standalone cloud-agent workflows also have [integrations](/platform/integrations/) and [scheduled runs](/platform/triggers/scheduled-agents/). For CLI setup, use `oz integration create` on the {VARS.WARP_AGENT_CLI}. See the [integration setup guide](/agents/cli/oz-cli/integration-setup/).
 
-## Tasks and tracking
+## Inspecting results
 
-Warp tracks every run as a task: its status, transcript, and outputs stay available after the run finishes. Watch or steer a live run with [session sharing](/agents/local-agents/session-sharing/), browse history in the [management UI](/platform/managing-cloud-agents/), or query it from the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) and the [API](/factories/api-and-sdk/). Access control decides who can run, view, or intervene in tasks.
-
-To fan work out across parent and child agents, see [multi-agent orchestration](/platform/orchestration/).
+Runs retain their status, transcript, and outputs for later review. For inspection, sharing, and steering, see [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/). Factory work and standalone work have different inspection paths; the [cloud agents overview](/platform/#monitor-inspect-and-share-cloud-agent-runs) links to each.
 
 ## Environments
 
-An [environment](/platform/environments/) defines what a run needs: a Docker image with your toolchain, the repositories to clone, and setup commands. Automated runs (integrations, schedules, API calls) use an environment so every run starts from the same setup; interactive local runs use your machine as-is and don't need one. Define one environment per codebase and reuse it across triggers.
+An [environment](/platform/environments/) defines a Docker image with your toolchain, repositories, and setup commands. Use the [environment setup reference](/platform/environments/configuring-environments/) for standalone runs and [factory runners](/factories/runners/) for factory execution.
 
 ## Hosts
 
-A host is where the agent executes. By default runs execute on [Warp-hosted infrastructure](/factories/warp-hosting/), with nothing to set up. On Enterprise plans, [self-hosted runners](/factories/self-hosting/) keep code and execution inside your own network while Warp still tracks the runs.
-
-![Architecture diagram: Warp-designed and customer-defined triggers create an agent task, which is routed to agent runners on Warp or customer infrastructure](../../../assets/agent-platform/platform-architecture.png)
+A host is where the agent executes. By default, runs execute on [Warp-hosted infrastructure](/factories/warp-hosting/), with nothing to set up. On Enterprise plans, [self-hosted runners](/factories/self-hosting/) keep code and execution inside your own network while Warp still tracks the runs.
 
 ## The CLI
 
-The [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) starts and manages runs where there's no UI: CI jobs, scripts, and remote servers. Start a run with `oz agent run`, and it reports progress to Warp like any other task, so work that starts on a CI runner shows up alongside everything else your team runs. For interactive sessions, use [agents in the Warp app](/agents/).
+Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for `oz` workflows in CI, scripts, and remote servers. The [{VARS.WARP_CLI}](/agents/cli/) runs the Warp Agent with `warp`.
 
 ## API and SDKs
 
-The [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) creates and inspects tasks over HTTP: submit a prompt with optional configuration, poll status, and fetch results with full provenance. Teams use it to start agents from incident tooling and internal systems, build dashboards over run history, and coordinate large batches of runs. The official [`warp-platform-sdk` Python package](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` TypeScript package](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk) add typed requests and responses, built-in retries, and consistent errors. Start with an SDK unless you need full control over your HTTP client.
+Use the [{VARS.WARP_PLATFORM_API} and SDKs](/factories/developer-tools/) to send work from your own services. [Factory endpoints](/factories/factory-api/) dispatch by factory UID; [agent and run endpoints](/factories/api-and-sdk/) start standalone runs and inspect, continue, or cancel runs.
+
+The official [`warp-platform-sdk` Python package](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` TypeScript package](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk) provide typed requests, retries, and error handling.
 
 ## Secrets
 
@@ -62,16 +60,18 @@ Agents often need credentials for APIs, cloud providers, databases, and MCP serv
 
 ## Shared configuration
 
-Runs pick up your team's shared setup no matter what triggered them: [MCP servers](/platform/mcp/), [rules](/agents/capabilities/rules/), [saved prompts](/knowledge-and-collaboration/warp-drive/prompts/), and [environment variables](/knowledge-and-collaboration/warp-drive/environment-variables/). Configure these once and every trigger uses them.
+For factories, declare shared [skills](/factories/factory-skills/), MCP servers, and execution defaults in the [factory definition](/factories/factory-as-code/). Standalone workflows also use [MCP servers](/platform/mcp/), [rules](/agents/capabilities/rules/), [saved prompts](/knowledge-and-collaboration/warp-drive/prompts/), and [environment variables](/knowledge-and-collaboration/warp-drive/environment-variables/); follow each reference for its scope and setup.
 
-## Warp Factories
+## Measuring factory work
 
-[Warp Factories](/factories/) builds on these pieces to run persistent, multi-agent development workflows: specialized cloud agents move each work item through triage, specification, implementation, and review.
+Use [Scorers](/factories/measure-and-improve/scorers/), [Benchmarks](/factories/benchmarks/), and [Self-improvement](/factories/measure-and-improve/self-improvement/) to evaluate factory work and propose changes to its configuration. See [measure and improve](/factories/measure-and-improve/) for metric definitions and limitations.
 
-## Where to go next
+## Related pages
 
+* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
 * [Architecture](/platform/architecture/) - reference diagrams of the stack, the run lifecycle, and data boundaries.
 * [Cloud agents](/platform/) - what cloud agents are, how they get triggered, and how to run them with or without the Warp app.
-* [Cloud agents quickstart](/platform/quickstart/) - run your first cloud agent in about ten minutes.
+* [Cloud agents quickstart](/platform/quickstart/) - run a cloud agent from Warp.
 * [Environments](/platform/environments/) - define the toolchain and repos a run executes against.
+* [Multi-agent orchestration](/platform/orchestration/) - divide work among parent and child agents.
 * [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) - drive the platform programmatically.
