@@ -23,7 +23,7 @@ The [published schema catalogue](https://app.warp.dev/api/v1/factory-files/schem
 
 Definition files accept the authoring aliases listed below. Native API subscription filters use canonical keys, not those aliases. Some schema fields are server-managed or reserved; the provider notes identify them.
 
-The [state-independent validator](factory-as-code.mdx#validate-locally-or-in-ci) checks syntax, event/key combinations, and matcher types without an existing factory. Linear and Slack name lookups can be deferred until apply time. A validation pass doesn't prove that a name exists, resolves uniquely, or is accessible through your team's active provider connection. Check `deferred_resolutions` and the checks the validator reports as not run.
+The [state-independent validator](factory-as-code.mdx#validate-locally-or-in-ci) checks syntax, event/key combinations, and matcher types without an existing factory. Linear and Slack name lookups can be deferred until apply time. A validation pass doesn't prove that a name exists, resolves uniquely, or is accessible through your team's active provider connection. Review the response's `deferred_resolutions` and list of checks not run.
 
 ## Matchers and defaults
 
