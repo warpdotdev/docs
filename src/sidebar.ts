@@ -435,6 +435,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// now the Automations primitive's conceptual home, parallel to Factory
 						// agents and Factory skills, not just a filters reference.
 						{ slug: 'factories/automations', label: 'Factory automations' },
+						{ slug: 'factories/automation-triggers' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 						{ slug: 'factories/permissions', label: 'Factory permissions' },
 						{
@@ -509,6 +510,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{ slug: 'factories/integrations/permissions' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
 						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
