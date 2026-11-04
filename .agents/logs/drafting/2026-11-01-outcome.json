@@ -1,0 +1,73 @@
+{
+  "activation": {
+    "collector_pr": "https://github.com/warpdotdev/docs/pull/975",
+    "config_pr": "https://github.com/warpdotdev/docs-factory-config/pull/29",
+    "deployed": false,
+    "gates": [
+      "Human review and merge of collector and config drafts.",
+      "Human-approved factory sync/apply after merges and restored/validated production-history access.",
+      "Validate the recurring replacement before separately retiring the standalone schedule; this run changed no live schedule."
+    ],
+    "legacy_schedule_id": "LziMazxr8KQWQGL4lz14NC",
+    "legacy_schedule_unchanged": true,
+    "next_legacy_attempt": "2026-12-01T15:00:00Z"
+  },
+  "collection_invocations": 1,
+  "date": "2026-11-01",
+  "durable_paths": [
+    ".agents/logs/human_review_feedback.jsonl",
+    ".agents/logs/pr_review_runs.md",
+    ".agents/logs/drafting/2026-11-01-coverage.json",
+    ".agents/logs/drafting/2026-11-01-automated-observations.jsonl",
+    ".agents/logs/drafting/2026-11-01-outcome.json",
+    ".agents/logs/drafting/2026-11-01-excluded-agent-attribution.jsonl"
+  ],
+  "existing_instruction_coverage": [
+    {
+      "criteria": "Security boundary and Factory execution exclude unverified evidence and general-only categories; workflow preserves per-source thresholds and requires at least two actionable patterns before editorial edits. Explicit agent attribution is excluded even under a human account.",
+      "source": ".agents/skills/improve-drafting-skills/SKILL.md"
+    }
+  ],
+  "feedback_counts": {
+    "accepted_automated_records": 0,
+    "accepted_human_prs": 23,
+    "accepted_human_records": 157,
+    "actionable_targeted_patterns": 0,
+    "appended_human_records": 157,
+    "excluded_agent_attributed_records": 12,
+    "excluded_automated_records": 85,
+    "excluded_human_edit_records": 1519,
+    "observed_automated_records": 85,
+    "tagged_verified_human_records": 0
+  },
+  "improvement_decision": {
+    "actionable_patterns": 0,
+    "editorial_files_changed": 0,
+    "identical_input_evaluation": "Not run: no editorial instruction change was proposed. Collector regressions separately prove provenance and coverage handling.",
+    "improvement_pr_created": false,
+    "reason": "Insufficient admissible targeted evidence; excluded automated counts and generic comments do not establish two actionable patterns. Collection access is partial, not a clean no-change success.",
+    "standing_improvement_branch": "docs/improve-drafting-skills"
+  },
+  "notifications": {
+    "catchup_slack_messages": 0,
+    "reason": "Requester routing remains with the foreman; this catch-up sent no Slack notifications.",
+    "task_slack_messages": 0
+  },
+  "patterns_reviewed": [
+    {
+      "category": "general",
+      "decision": "Needs structured classification; generic feedback cannot alone justify a targeted edit.",
+      "human_records": 157,
+      "prs": 23
+    }
+  ],
+  "run_id": "01a1986a-2045-732c-96e6-21a8d7a09104",
+  "run_link": "https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1986a-2045-732c-96e6-21a8d7a09104",
+  "session_link": "https://staging.warp.dev/conversation/9f705867-5a2f-409c-bd27-e2ab2f91d1c6",
+  "status": "blocked-partial-no-editorial-change",
+  "window": {
+    "end": "2026-11-01T15:00:00Z",
+    "semantics": "[start,end) UTC",
+    "start": "2026-10-02T15:00:00Z"
+  }
+}

@@ -54,6 +54,21 @@ review focus areas, this pass is the human-review-blocking gate defined in
    approval is not itself a contract violation. Any reported contract
    violation (missing section, unlisted marker, listed marker at `low` risk)
    is `🚨 [CRITICAL]`.
+5. **Check Gate 0 for server-backed claims.** Apply the server-flag check in
+   `.agents/references/docs-worthiness-criteria.md` → Gate 0 to every new or
+   changed claim about a warp-server field, endpoint, default, error, or
+   behavior, including Factory file fields. The PR must record evidence that
+   the feature is live in production: a stable changelog entry, the released
+   OpenAPI spec, a `server_rollout.py` check at a named `warp-server`
+   revision, or an engineer's confirmation. A published schema, a parser that
+   accepts the field, a merged PR, or staging behavior does not count. When a
+   `warp-server` checkout is available, run
+   `.agents/skills/doc_quality_policy/server_rollout.py check` with the
+   claim's user-facing names yourself. A claim whose related flag is off in
+   production is `🚨 [CRITICAL]`; a server-backed claim with no rollout
+   evidence is `⚠️ [IMPORTANT]`. Reviews are public: describe the problem as
+   "a server flag is off in production" without naming the flag or quoting
+   the script output.
 
 ## Review Instructions
 
@@ -62,13 +77,28 @@ Review this documentation PR for the docs repository.
 Focus on:
 1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
-3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers/lists.
-4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
+3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers and lists. For setup instructions, check each requirement:
+   * The task is stated before fields or example names.
+   * Each selection explains what the agent, environment, or credential is used for, not only its name.
+   * Readers can find the supported path to edit or select an existing resource instead of creating a duplicate.
+   * Configuration, access setup, skill or prompt instructions, and testing are separate steps or groups of related steps.
+   * Safety limits appear beside the relevant action and inside prompts that can be copied separately.
+   * Tests use explained sample inputs, require credentials only when needed, follow applied configuration changes, and check observed behavior rather than only run completion.
+   * Proposed sentence edits still make sense when read with the whole paragraph and surrounding steps.
+4. **Code snippets**: Verify that examples, commands, and configuration work as documented. When procedures connect, read their examples together and check:
+   * Which event starts each task, which agent receives it, and what information passes to the next stage.
+   * Whether several rules can match the same input, whether that is intended, and how the conditions prevent unwanted matches.
+   * Whether adding a new condition preserves existing filters and exclusions.
+   * What happens when an input matches none of the specialized rules.
+   * Whether changing a rule affects new tasks, existing conversations, or both; verify any claim that existing work moves to another agent.
+   * Where each stage stops, which decisions require a person, and whether tests cover matching, overlapping, unmatched, and continued work.
+   Use [Check connected procedures](../../../AGENTS.md#check-connected-procedures) for the full checks. If a technical detail is uncertain, use `answer_question` to verify against the docs or search the source code.
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to the `redirects` array in `vercel.json` when needed.
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
 7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
 8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
-9. **AEO/source-data fit**:
+9. **Unreleased features**: For any PR, agent-marked or not, apply item 5 of the v1 contract above to server-backed claims. A launch PR is not exempt; Gate 0 applies to launches too.
+10. **AEO/source-data fit**:
 
 Provide actionable, constructive feedback. Focus on documentation quality issues, not code bugs.
 
@@ -79,7 +109,7 @@ Use `.agents/rules/oz-style-guidelines.md` for framing and the canonical glossar
 ### Severity Labels (Required)
 
 Every comment body MUST begin with one of:
-- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users, or a v1 contract violation (missing/invalid `## Documentation risk`, an unlisted `VERIFY` marker)
+- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users, a feature whose server flag is off in production, or a v1 contract violation (missing/invalid `## Documentation risk`, an unlisted `VERIFY` marker)
 - `⚠️ [IMPORTANT]` — Style guide violations, missing redirects, structural issues, a documentation-risk misclassification, or an unjustified compression-contract violation
 - `💡 [SUGGESTION]` — Improvements to clarity, wording, or structure
 - `🧹 [NIT]` — Typos, minor formatting (ONLY if providing a suggestion block)
@@ -101,9 +131,9 @@ Use the `answer_question` skill to search the documentation and source code for 
 ### AEO review guidance
 
 For AEO-driven docs PRs, review the diff through these questions:
-- **Source rationale** - Is it clear which Peec prompt, search-query cluster, recommendation, or content gap motivated the change? If not, ask for the source signal or suggest narrowing the scope.
+- **Source rationale** - Does the brief or PR rationale name the exact query or recommendation and what was measured? For each proposed topic, does it distinguish direct supporting data from the author's recommendation? Data about a broad topic does not prove demand for every narrower topic. If evidence is missing, ask for it or narrow the claim; do not invent demand.
 - **Vocabulary translation** - Does the draft preserve high-intent search terms where useful while translating awkward source-data language into natural docs language?
-- **Reader value** - Would the page help a developer complete or understand a real workflow, or is it collecting loosely related keywords?
+- **Reader value** - Does the page help a developer complete or understand its intended task? Read the opening and description without the title or navigation: both must identify the relevant product and make sense on their own. Do not require the product name in every heading or add unrelated topics to include more search terms.
 - **Terminology and UI surfaces** - Are product names, settings paths, panel names, and navigation labels consistent with `AGENTS.md`, `.agents/references/terminology.md`, and the actual UI?
 - **Scannability** - Are dense procedures broken into numbered steps, bullets, or concise subsections with expected outcomes?
 - **Duplication risk** - Should the content update an existing page, link to an existing page, or be merged with related content instead of living as a new standalone doc?

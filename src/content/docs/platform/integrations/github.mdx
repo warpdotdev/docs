@@ -65,7 +65,8 @@ When a run for that thread is already in flight, a new mention is delivered to t
 ## Requirements
 
 * **Team membership** - The GitHub integration requires a [Warp team](/knowledge-and-collaboration/teams/). Configuration is team-scoped, and runs are owned by the team associated with the GitHub App installation.
-* **Plan and usage** - Your team must have cloud agents enabled and sufficient eligible usage. Enterprise billing follows your contract. See [cloud agent access and billing](/platform/team-access-billing-and-identity/).
+* **Plan access** - A Warp team with cloud agents enabled and a plan that supports [integrations](/platform/team-access-billing-and-identity/#requirements-for-integrations).
+* **Usage balance** - Available usage for integration-triggered runs. Add usage if needed. Enterprise billing follows your contract. See [cloud agent billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs).
 * **Warp Factories GitHub App** - A GitHub organization owner installs the [Warp Factories](https://github.com/apps/warp-factories) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
 * **An enabled GitHub organization** - A Warp team admin adds the organization under **Enabled GitHub Orgs** in the Admin Panel so the installation maps to your Warp team.
 * **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run and which team to bill. The connection identifies the requester; it doesn't determine what the agent can reach on GitHub.

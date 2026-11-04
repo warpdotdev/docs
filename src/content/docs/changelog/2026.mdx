@@ -6,6 +6,58 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.10.22 (v0.2026.10.21.08.25)
+
+**Improvements**
+
+* Preserve the explicit order of agent request inputs across tasks. ([#16328](https://github.com/warpdotdev/warp/pull/16328))
+* Support structured notifications and delayed-enter input for Antigravity CLI (agy) ([#16373](https://github.com/warpdotdev/warp/pull/16373)) — [@jgfurlan](https://github.com/jgfurlan) ✨
+* ChatGPT Business users can copy the admin-request message shown after a usage limit. ([#16522](https://github.com/warpdotdev/warp/pull/16522))
+
+**Bug fixes**
+
+* Agent patch deletions now remove files, and file moves save to their requested destination, including remote sessions. ([#16444](https://github.com/warpdotdev/warp/pull/16444))
+* Billing usage totals now include fractional credits and cents before rounding the displayed amounts. ([#16474](https://github.com/warpdotdev/warp/pull/16474))
+* Fixed Pi and other ACP-driven parent agent runs failing at exit with "Tried to add messages to non-existent task" when a child agent sent them a message. ([#16507](https://github.com/warpdotdev/warp/pull/16507))
+* ACP follow-up prompts no longer briefly show a cancelled status. ([#16513](https://github.com/warpdotdev/warp/pull/16513))
+* Use the selected Bash executable when starting shell sessions. ([#16520](https://github.com/warpdotdev/warp/pull/16520)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Match cloud-agent command exits to the block where each command started. ([#16548](https://github.com/warpdotdev/warp/pull/16548))
+* Fixed a race that could leave completed agent command details expanded. ([#16564](https://github.com/warpdotdev/warp/pull/16564))
+* Fixed agent-run lists failing to load when the server returns an empty list as null. ([#16568](https://github.com/warpdotdev/warp/pull/16568))
+* Fix MCP startup compatibility by negotiating supported protocol revisions instead of initializing every server at the latest revision. ([#16574](https://github.com/warpdotdev/warp/pull/16574))
+* Pre-warmed cloud agents replace standby Git credentials and use the assigned run's author identity while preserving setup overrides. ([#16601](https://github.com/warpdotdev/warp/pull/16601))
+* Fixed connections to legacy MCP servers that reject newer protocol revisions with a transport-level version error. ([#16620](https://github.com/warpdotdev/warp/pull/16620))
+* Reject connections authenticated by compromised eMudhra intermediate certificates when using bundled certificate verification. ([#16622](https://github.com/warpdotdev/warp/pull/16622))
+
+**Oz updates**
+
+* Initial file attachments are sent as resource links to ACP agents, matching follow-ups. ([#16486](https://github.com/warpdotdev/warp/pull/16486))
+* A failed Git authentication no longer clears managed credentials needed by other cloud-agent checkouts. ([#16559](https://github.com/warpdotdev/warp/pull/16559))
+* Resumed runs can reuse pre-warmed sandboxes while preserving conversation history and queued follow-ups. ([#16598](https://github.com/warpdotdev/warp/pull/16598))
+
+### 2026.10.15 (v0.2026.10.14.08.27)
+
+**Improvements**
+
+* Added a keyboard shortcut (`⌘+E` on macOS or `Ctrl+E` on Windows/Linux, rebindable) to toggle Markdown files between rendered and raw view. ([#16413](https://github.com/warpdotdev/warp/pull/16413)) — [@arihanv](https://github.com/arihanv) ✨
+* Warp now recognizes Muse Code as a first-class CLI agent, with branded session icons and rich-input support. ([#15999](https://github.com/warpdotdev/warp/pull/15999)) — [@nwp](https://github.com/nwp) ✨
+
+**Bug fixes**
+
+* Fixed conversation transcript downloads with self-hosted storage. ([#16445](https://github.com/warpdotdev/warp/pull/16445))
+* Fixed Claude transcript capture and resume paths on Windows and for project directories containing special characters or long names. ([#16428](https://github.com/warpdotdev/warp/pull/16428))
+* Recover cloud Oz sessions when an agent command exits the persistent shell. ([#16148](https://github.com/warpdotdev/warp/pull/16148))
+* Prevent session sharing from reconnecting indefinitely when a message cannot be delivered. ([#16071](https://github.com/warpdotdev/warp/pull/16071))
+* Claude Code harness runs no longer report completion and re-open on every assistant turn while background tasks, subagents, or scheduled wakeups are still running; completion is reported once the session is actually idle, or immediately on finish-task. ([#16367](https://github.com/warpdotdev/warp/pull/16367))
+* Fixed agents hanging when an unfinished shell command waits at a continuation prompt. ([#12934](https://github.com/warpdotdev/warp/pull/12934))
+
+**Oz updates**
+
+* Cloud agents retry startup metadata requests for up to 30 seconds to allow execution claims to finish. ([#16438](https://github.com/warpdotdev/warp/pull/16438))
+* Orchestrators can attach batch and per-child run metadata for grouping and setup workflows. ([#16396](https://github.com/warpdotdev/warp/pull/16396))
+* Fixed cloud agents waiting for path approval when editing MCP configuration files. ([#16402](https://github.com/warpdotdev/warp/pull/16402))
+* Cloud agents periodically save workspace handoff checkpoints during a run. ([#16391](https://github.com/warpdotdev/warp/pull/16391))
+
 ### 2026.10.07 (v0.2026.10.07.08.29)
 
 **Improvements**
@@ -458,7 +510,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Add native oh-my-pi (`omp`) CLI-agent integration with Rich Input. ([#13766](https://github.com/warpdotdev/warp/pull/13766))
+* Add native oh-my-pi (`omp`) CLI-agent integration with Rich Input. ([#13766](https://github.com/warpdotdev/warp/commit/8a30a37ff2f266ac1f264b9a9a0a19ac5a216117))
 * Pin individual tabs and tab groups to keep them at the front of the tab bar. ([#13767](https://github.com/warpdotdev/warp/pull/13767))
 
 **Improvements**

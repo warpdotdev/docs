@@ -8,6 +8,45 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-11-02 — No change
+
+- **Run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a19cc6-40de-72d2-b1b6-4719ae917f8c
+- **Source signals**: Peec unavailable (DOCS_FACTORY_PEEC_PAT missing), GSC unavailable (GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON missing); 2026-10-03–2026-11-01 signals unverified; docs-only fallback completed
+- **PR**: N/A (no content PR)
+- **Links proposed / added**: 0 proposed, 0 added; 5 candidate journeys already linked across 9 inspected pages
+- **Pages touched**: N/A
+- **Themes**: Factory skills, configured-agent dispatch, unattended triggers, and orchestration are already connected; factory schedule setup placement remains an open question
+- **No-change reason**: No new qualifying links; below the 3-link docs-only threshold; restore both source credentials and verify factory-runtime access
+
+## 2026-10-20 — No change (controlled manual test)
+
+- **Run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a15a70-a8d4-766d-9862-f3a5d90b9add
+- **Source signals**: Peec available (native MCP), GSC available (read-only, in-memory); bounded 2026-09-20–2026-10-20 samples
+- **PR**: N/A (no content PR)
+- **Links proposed / added**: 0 proposed, 0 added; 5 existing journeys checked across 9 inspected pages
+- **Pages touched**: N/A
+- **Themes**: Factory skills, configured-agent dispatch, orchestration, and factory versus standalone automation; factory schedule setup placement remains an open question
+- **No-change reason**: All 5 candidate journeys already linked on current main; below the 2-link threshold; manual test only, not a scheduled run or replacement baseline; native cron not exercised
+## 2026-10-19 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a154ad-3d56-7289-87f0-fc185ecf4e4c
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/930
+- **Links proposed / added**: 7 proposed, 7 added
+- **Pages touched**: guides/agent-workflows/how-to-run-unattended-agents.mdx, agents/capabilities/skills.mdx, platform/agents.mdx, factories/index.mdx, factories/automations.mdx, guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx
+- **Themes**: factories ↔ unattended triggers/skills/orchestration; standalone schedules vs factory automations
+- **No-change reason**: N/A
+
+## 2026-10-12 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/71b5b0c9-bfc8-4415-b938-9c44d5125ffe
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/904
+- **Links proposed / added**: 17 proposed, 17 added
+- **Pages touched**: src/content/docs/platform/harnesses/claude-code.mdx, src/content/docs/platform/harnesses/codex.mdx, src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx, src/content/docs/agents/cli/cloud-and-orchestration.mdx, src/content/docs/platform/data-storage.mdx, src/content/docs/factories/factory-as-code.mdx, src/content/docs/agents/capabilities/computer-use/index.mdx, src/content/docs/platform/integrations/github.mdx, src/content/docs/platform/integrations/github-actions.mdx, src/content/docs/agents/cli/oz-cli/integration-setup.mdx, src/content/docs/agents/cli-agents/opencode.mdx
+- **Themes**: cloud harness trigger destinations; multi-agent → schedules/factories; Computer Use artifacts ↔ storage/factories; scheduled agents from GitHub automation paths
+- **No-change reason**: N/A
+
 ## 2026-10-05 — PR opened
 
 - **Run**: https://app.warp.dev/conversation/319938e2-4420-4319-b40a-64f54fae74a2
