@@ -1,0 +1,65 @@
+{
+  "skill_name": "draft_docs",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Edit the two short procedures below for publication. Return only the revised numbered procedures, labeled A and B. Use the supplied facts as the complete authority for this editing exercise; do not research, edit repository files, create a content design plan, or add capabilities. Fixed facts: in the factory dashboard, Automations > New automation creates an automation. Name is a text-field label. Agent selects the agent that receives each scheduled request. Environment selects the repository and toolchain used for that request. Schedule controls when it starts. These are distinct selections, not merely names. Procedure A must create a weekly broken-link check; use example name 'Link patrol', agent 'Docs maintainer', environment 'Docs repository', schedule 'Every Monday'. Procedure B must create a daily dependency-update check; use example name 'Package watch', agent 'Dependency maintainer', environment 'Application repository', schedule 'Every day'. Both produce proposed changes for human review, never merge automatically. Rough text A: 'In the factory dashboard, click Automations, then New automation. Enter Link patrol in Name. Choose Docs maintainer in Agent and Docs repository in Environment. Select Every Monday in Schedule. Save. This configures the values.' Rough text B: 'Open Automations > New automation. Set Name to Package watch, Agent to Dependency maintainer, Environment to Application repository, and Schedule to Every day. Save. This configures the values.' Keep each procedure concise, group related form actions coherently, preserve the task as well as the example values, and keep the human-review boundary with the relevant action.",
+      "expected_output": "Two task-first numbered procedures that retain distinct purposes despite alternate example names, explain the agent and environment selections, group form actions coherently, and preserve human review without repetitive framing.",
+      "files": [],
+      "assertions": [
+        "Procedure A states that the automation checks broken documentation links before giving its Name value; Procedure B states that it checks dependency updates before giving its Name value.",
+        "A retains Link patrol, Docs maintainer, Docs repository, and Every Monday; B retains Package watch, Dependency maintainer, Application repository, and Every day.",
+        "Both procedures explain that the selected agent receives the request and that the environment provides its repository and toolchain.",
+        "Both procedures retain Save and the human-review requirement without claiming automatic merging.",
+        "Name, Agent, Environment, and Schedule appear as quoted field labels rather than bold field labels.",
+        "Neither procedure retains the redundant sentence 'This configures the values.'"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Rewrite the rough verifier setup excerpt into a concise procedure and short skill-content list. Return only the revised excerpt. Treat all facts below as fixed for this editing exercise; do not research, edit repository files, create a content design plan, or invent controls. Fixed facts: in the factory dashboard, Agents > New agent creates an agent; Agents > an existing agent > Edit edits it. Name is a text field. Environment selects a repository/toolchain configuration; the example environment 'Web application' includes browser tools but does not grant website access. Skills > Add skill attaches instructions. For a new agent, use example name 'Release verifier'; an existing verifier can be edited instead. Use the agent's access configuration to supply a staging URL. Only an authenticated staging application needs a test-account credential, supplied through the agent's access configuration, never pasted into a skill or conversation. The skill must instruct the verifier to open the preview, exercise the changed user flow, record results with evidence, and return failures to the implementation agent. Never submit real payments or modify production data. A manual test uses an ordinary sample change: 'Change the sign-in button text from Log in to Sign in.' Success means the verifier checks the changed flow and reports evidence; a run completing by itself is not proof. Rough excerpt: 'Create Release verifier. Add a verification skill that configures Web application, sets the staging URL and password, exercises fixture WFV_42, and reports results. Enable it and test with WFV_42. You need a staging password.' Keep agent definition and environment selection, access setup, skill instructions, and test execution distinct without turning every form click into its own step. Explain the sample change rather than retaining the unexplained fixture.",
+      "expected_output": "A grouped procedure with explicit create and existing-agent paths, environment selection explained, access separate from skill instructions, conditional secure test credentials, and a plain-language manual test with an observable success criterion.",
+      "files": [],
+      "assertions": [
+        "The excerpt includes both Agents > New agent and Agents > an existing agent > Edit paths, with UI controls formatted appropriately.",
+        "The excerpt preserves Release verifier and explains that Web application supplies the repository/toolchain and browser tools, not website access.",
+        "The staging URL is configured as access setup rather than assigned as a skill responsibility.",
+        "A test-account credential is required only for authenticated staging, is supplied through access configuration, and is not pasted into the skill or conversation.",
+        "The skill-content list includes opening the preview, exercising the changed flow, recording evidence, and returning failures to the implementation agent.",
+        "The no-real-payments and no-production-data limits appear with the verification instructions rather than only in an unrelated closing note.",
+        "The test uses the Log in to Sign in button-text change and contains no WFV_42 fixture reference.",
+        "The success criterion requires checking the changed flow and reporting evidence, not merely a completed run."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Correct this composed Jira intake excerpt and provide a compact test matrix. Return only revised documentation plus the matrix. This is a fixed-fact editing exercise, not live product verification: do not research, edit repository files, create a content design plan, invent filter syntax, or claim migration support. Fixed facts: Jira handler conditions inspect the issue's current labels, not only the label newly added by an event. Multiple matching handlers can act; order is not an exclusivity mechanism. Once a conversation exists, continuation keeps the original agent configuration; changing a handler target does not transfer that conversation. Foreman can delegate triage only, relay clarification and the result, then stop. It can delegate implementation after human promotion. New triage and implementation intake must both target Foreman. Desired routing: triage only -> triage; implement only -> implementation; both labels -> implementation only; neither -> ordinary intake. Existing configuration already has a security-specific handler, so ordinary intake must continue excluding security as well as excluding triage and implement. Human promotion removes triage and adds implement after reviewing triage results. Existing conversations originally owned by Triage agent cannot be transferred by relabeling or retargeting; tell readers to inspect and handle them separately, not delete or reset them. Rough excerpt: 'Route triage-labeled issues directly to Triage agent and implement-labeled issues to Foreman. Put implementation first to prevent overlap. Exclude triage from ordinary intake. Add implement after triage to move the existing conversation to Foreman. Test one issue with each label.' Explain the routing conditions in plain language, preserve cumulative exclusions and the human gate, and include new-intake and existing-conversation checks.",
+      "expected_output": "Mutually exclusive current-label routing via Foreman, preserved security/triage/implement catch-all exclusions, explicit triage-only delegation and stopping point, human promotion, honest continuation limits, and a matrix for four label combinations plus continued conversation ownership.",
+      "files": [],
+      "assertions": [
+        "New triage and implementation intake both target Foreman.",
+        "Triage matches triage present and implement absent; implementation matches implement present even when triage is also present.",
+        "Ordinary intake excludes security, triage, and implement cumulatively; it does not replace the existing security exclusion.",
+        "The excerpt says triage delegation relays clarification and results and then stops without beginning implementation.",
+        "Human promotion requires reviewing the triage result, removing triage, and adding implement.",
+        "The excerpt does not claim handler order prevents overlap or that the event's newly added label is the only label inspected.",
+        "The matrix covers triage only, implement only, both, and neither with expected routes triage, implementation, implementation, and ordinary intake respectively for non-security issues.",
+        "The existing-conversation check states that the original Triage agent configuration persists and calls for separate inspection/handling without claiming transfer, deletion, or reset."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Revise the metadata, opening, and two overview cards below for an existing Warp Factories recipes page, then give a two-sentence editorial rationale. Return only those revised elements. Fixed facts are complete; do not research, edit repository files, create a content design plan, or add sections. The page's approved purpose is an index of bounded development recipes with outputs and stopping points, not a deployment or monitoring guide. Umbrella search signals include 'software factory workflows' and 'automate development tasks'. There is no measured per-topic demand for triage, pull-request review, deployment, or monitoring. Editorially, the existing recipes are useful examples, not individually validated demand opportunities. Warp Factories is the product name; use it naturally so extracted opening text has attribution. Triage recipe: summarize an issue, ask for missing details, propose labels, and stop for human review before implementation. Pull-request review recipe: return review findings and stop without merging; the standalone reviewer is an intentional alternative for teams not using an SDLC workflow's internal review. Preserve that choice, not a claim that both reviewers must always run. Rough metadata: description: 'Software factory workflows automate all development, deployment, monitoring, issue triage, and PR review.' Rough opening: 'These recipes streamline everything. Each topic has strong search demand, and factories automatically take your work from issue to production.' Rough card 1: 'Triage: Automate triage.' Rough card 2: 'PR review: Add another reviewer to every workflow.' Use a standalone 50-160-character description, a short opening, and concrete card outputs and stopping points. Do not invent search metrics, completion times, guarantees, an FAQ, or new workflow coverage.",
+      "expected_output": "Self-contained, naturally attributed metadata/opening and concrete bounded recipe cards, with an editorial rationale distinguishing umbrella search evidence from unmeasured topic-level recommendations and preserving the standalone/internal review choice.",
+      "files": [],
+      "assertions": [
+        "The description is 50-160 characters and does not promise deployment, monitoring, automatic merging, or end-to-end production delivery.",
+        "The opening names Warp Factories naturally and describes bounded development recipes rather than using an unattributed 'these recipes' opening.",
+        "The triage card includes an issue summary, missing-detail clarification, proposed labels, and a human stop before implementation.",
+        "The pull-request review card returns findings, stops without merging, and preserves standalone review as an alternative to SDLC internal review rather than requiring both.",
+        "The rationale identifies the two provided umbrella signals and explicitly distinguishes them from unmeasured per-topic demand.",
+        "No invented metric, completion time, claim of strong demand for every topic, FAQ, or new deployment/monitoring recipe is added."
+      ]
+    }
+  ]
+}

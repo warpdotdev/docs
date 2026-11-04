@@ -7,7 +7,7 @@ sidebar:
   label: "ChatGPT subscription"
 ---
 
-Connect a ChatGPT subscription to use eligible OpenAI models with the Warp Agent in the Warp app. Requests made through the connection count toward your ChatGPT usage limits instead of consuming Warp credits for inference.
+Connect a ChatGPT subscription to use eligible OpenAI models with the Warp Agent in the Warp app. Connected requests count toward your ChatGPT limits instead of consuming Warp-provided inference usage.
 
 You can connect during Warp sign-up or sign-in, or link ChatGPT to an existing Warp account from Settings.
 
@@ -42,18 +42,18 @@ Choose a specific OpenAI model from the model picker. OpenAI determines which mo
 
 * Requests made through the connection count toward your ChatGPT usage limits. Review your usage in [ChatGPT settings](https://chatgpt.com/settings/usage).
 * A saved OpenAI API key takes precedence over the ChatGPT connection.
-* **Auto** models use Warp-managed inference and consume Warp credits.
+* **Auto** models use Warp-provided inference and consume your available Warp usage.
 * A ChatGPT subscription doesn't fund cloud agent runs.
 
-On Business and Enterprise plans, local agent runs that use a ChatGPT subscription also consume [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+On Business and Enterprise, local runs that use a ChatGPT subscription also incur [platform charges](/support-and-community/plans-and-billing/platform-credits/).
 
-If OpenAI rejects a request, Warp may offer **Try again**, **Manage ChatGPT usage**, or **Continue with Warp credits**. Choosing **Continue with Warp credits** uses Warp-managed inference for the rest of that conversation.
+If OpenAI rejects a request, Warp may offer **Try again**, **Manage ChatGPT usage**, or **Continue with Warp credits**. Choosing **Continue with Warp credits** uses Warp-provided inference and consumes Warp usage for the rest of that conversation.
 
 ## Disconnect your subscription
 
 In the Warp app, go to **Settings** > **Agents** > **Warp Agent**. In the "OpenAI ChatGPT plan" row, click **Disconnect**.
 
-After you disconnect, eligible OpenAI requests use your saved OpenAI API key, if you have one. Otherwise, they use Warp-managed inference and consume Warp credits.
+After you disconnect, eligible OpenAI requests use your saved OpenAI API key, if you have one. Otherwise, they use Warp-provided inference and consume your available Warp usage.
 
 ## Troubleshoot the connection
 
@@ -73,4 +73,4 @@ Disconnect the ChatGPT subscription, then connect it again.
 
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Use your own Anthropic, OpenAI, or Google API key.
 * [Model choice](/agents/inference/model-choice/) — Review the models available in Warp.
-* [Warp credits and billing](/support-and-community/plans-and-billing/credits/) — See when Warp credits are consumed.
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - See when Warp usage is consumed.

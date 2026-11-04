@@ -1046,8 +1046,17 @@ def parse_slash_commands(warp_repo: Path) -> list[str]:
     for rs_file in sorted(registry_dir.glob("*.rs")):
         if rs_file.name.endswith("_tests.rs"):
             continue
-        for match in re.finditer(r'name:\s*"(/[a-z0-9][a-z0-9-]*)"', rs_file.read_text()):
+        content = rs_file.read_text()
+        constants = dict(re.findall(
+            r'\bconst\s+([A-Z][A-Z0-9_]*)\s*:\s*&(?:\'static\s+)?str\s*'
+            r'=\s*"(/[a-z0-9][a-z0-9-]*)"\s*;',
+            content,
+        ))
+        for match in re.finditer(r'name:\s*"(/[a-z0-9][a-z0-9-]*)"', content):
             names.add(match.group(1))
+        for match in re.finditer(r'\bname:\s*([A-Z][A-Z0-9_]*)\b', content):
+            if match.group(1) in constants:
+                names.add(constants[match.group(1)])
     return sorted(names)
 
 # ---------------------------------------------------------------------------
@@ -1548,8 +1557,6 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
     The public docs API reference (docs.warp.dev/api) renders
     developers/agent-api-openapi.yaml, so a route missing from the spec is a
     docs gap. Spec matching is param-name-insensitive ({runId} == {run_id}).
-    Use the warp-server `update-open-api-spec` skill / docs `sync-openapi-spec`
-    skill to fix spec drift rather than hand-editing.
     """
     routes = api_routes if api_routes is not None else parse_public_api_routes(warp_server)
     api_to_doc = surface_map.get("api_to_doc", {})
@@ -1632,8 +1639,9 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
                 "severity": "medium",
                 "reason": (
                     f"Public API endpoint '{rel_route_str}' is missing from the "
-                    "OpenAPI spec (developers/agent-api-openapi.yaml) — run the "
-                    "sync-openapi-spec skill, or map it as internal in the "
+                    "OpenAPI spec (developers/agent-api-openapi.yaml) — report "
+                    "publication drift to warp-server's sync_public_openapi_to_docs "
+                    "workflow owner, or map it as internal in the "
                     "surface map"
                 ),
             })
@@ -2275,8 +2283,8 @@ def diff_snapshots(old: dict, new: dict) -> list[dict]:
 
     _diff_sets(
         findings, old, new, "api_routes", "public API routes",
-        "New public API route '{item}' — add it to the OpenAPI spec "
-        "(sync-openapi-spec skill) or map it as internal",
+        "New public API route '{item}' — report publication drift to warp-server's "
+        "sync_public_openapi_to_docs workflow owner or map it as internal",
         "Public API route '{item}' was removed — verify the OpenAPI spec and "
         "API docs no longer document it",
     )
