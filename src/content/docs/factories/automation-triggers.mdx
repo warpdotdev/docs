@@ -1,0 +1,245 @@
+---
+title: Events and filters for factory automations
+description: >-
+  Look up factory automation event names, per-event filter keys, value formats,
+  and definition-file aliases for Linear, Slack, and other providers.
+---
+
+Factory automation triggers select which events reach an agent. In `automations/<name>/automation.md`, set `provider` and `event` separately, then add only the filters supported by that pair.
+
+```yaml
+triggers:
+  - provider: linear
+    event: issue_labeled
+    filter:
+      labels: [factory-ready]
+```
+
+`linear.issue_labeled` means `provider: linear` with `event: issue_labeled`, not a dotted `event` value. The tables below list native filter keys and show a YAML mapping to put under `filter`.
+
+## Schemas and validation
+
+The [published schema catalogue](https://app.warp.dev/api/v1/factory-files/schemas) identifies the current definition format. The [automation schema](https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1/automation.schema.json) defines each provider/event pair, accepted keys, aliases, and matcher shapes. The authenticated [native event catalogue](https://app.warp.dev/api/v1/factory/automations/events/linear) uses `GET /api/v1/factory/automations/events/<provider>` and returns `event`, `filter_fields`, and `filter_field_specs` for a provider.
+
+Definition files accept the authoring aliases listed below. Native API subscription filters use canonical keys, not those aliases. Some schema fields are server-managed or reserved; the provider notes identify them.
+
+The [state-independent validator](factory-as-code.mdx#validate-locally-or-in-ci) checks syntax, event/key combinations, and matcher types without an existing factory. Linear and Slack name lookups can be deferred until apply time. A validation pass doesn't prove that a name exists, resolves uniquely, or is accessible through your team's active provider connection. Check `deferred_resolutions` and the checks the validator reports as not run.
+
+## Matchers and defaults
+
+Filter keys combine with AND. Within a field, `in` matches any listed value and `not_in` excludes any listed value. A plain list is shorthand for `in`:
+
+```yaml
+labels:
+  in: [factory-ready, urgent]
+  not_in: [blocked]
+```
+
+Omitted optional matchers, `null`, empty lists, and empty matcher objects add no restriction. Provider access requirements and defaults still apply. A value can't appear in both `in` and `not_in`. Unknown event names, keys, and operators are rejected.
+
+Most native keys accept lists or matcher objects. Exceptions:
+
+* **Linear and Slack name aliases** - Plain lists only; don't combine an alias with its native key.
+* **GitHub `skip_bots`** - A scalar: `all` (default), `self`, or `none`.
+* **Microsoft Teams `team_ids` and `channel_ids`** - `in` only, with required scope described below.
+* **Webhook `webhook_ids`** - Exactly one included UID; `payload` uses a [JSON pattern](automations.mdx#payload-filters-for-webhook-triggers).
+* **Schedules** - Declare `schedule`, not a `schedule_ids` matcher.
+
+Lists aren't glob patterns unless a field explicitly supports globs. Keyword filters match case-insensitive substrings, not regular expressions.
+
+## Linear
+
+Use `provider: linear`. Connect the [Linear integration](integrations/linear.mdx) and grant the app access to the relevant teams. Labels are **names**, not label IDs, and match case-insensitively.
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `issue_labeled` | `team_ids`, `project_ids`, `labels`, `state_ids`, `assignee_ids`, `mentioned_user_ids`, `creator_ids` | `{labels: [factory-ready]}` |
+| `comment_created` | `team_ids`, `project_ids`, `labels`, `state_ids`, `issue_ids`, `mentioned_user_ids`, `creator_ids` | `{labels: [factory-ready], issues: [42], teams: [Engineering]}` |
+| `agent_session_created` | `team_ids`, `project_ids`, `labels`, `creator_ids`, `keywords` | `{projects: [Payments], labels: [factory-ready], keywords: [review]}` |
+| `issue_created`, `issue_assigned`, `issue_state_changed` | `team_ids`, `project_ids`, `labels`, `state_ids`, `assignee_ids`, `mentioned_user_ids`, `creator_ids` | `{teams: [Engineering], labels: [factory-ready]}` |
+
+`team_ids`, `project_ids`, `state_ids`, and `issue_ids` contain Linear UUID strings. `assignee_ids` and `creator_ids` contain Linear user UUIDs. `creator_ids` selects the issue creator, comment author, or agent-session creator according to the event. `mentioned_user_ids` matches user UUIDs from mention markup or profile slugs from Linear profile URLs, not display names; it examines the issue description or new comment body.
+
+The definition-file aliases are `teams` → `team_ids`, `projects` → `project_ids`, `states` → `state_ids`, and `issues` → `issue_ids`. Use exact team, project, and workflow-state names. `issues` takes positive integers such as `[42]`, not `ENG-42`; include `teams` or `team_ids` to disambiguate issue numbers and workflow-state names across teams. Resolution must find exactly one accessible object. An alias is available only on events that accept its native key.
+
+For `issue_labeled`, `labels.in` matches newly added labels, including labels present at issue creation; `labels.not_in` checks the current label set. On `comment_created` and `agent_session_created`, labels refer to the issue's current labels. `issue_state_changed` and `issue_assigned` match transitions into the selected state or assignee. Other issue events check current values.
+
+For `agent_session_created`, keywords match the content that started the session.
+
+### Label intake and comment handling
+
+Subscribing to `issue_labeled` does **not** subscribe to comments. These separate automations route new label intake and subsequent comments to the existing `foreman` agent:
+
+```markdown title="automations/linear-intake/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: linear
+    event: issue_labeled
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+---
+Assess the labeled issue and identify the next action. Ask a human about
+unresolved requirements. Do not merge changes.
+```
+
+```markdown title="automations/linear-comments/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: linear
+    event: comment_created
+    filter:
+      teams: [Engineering]
+      labels: [factory-ready]
+---
+Handle the new comment in the issue's context. Do not assume a previous
+run exists. Do not merge changes.
+```
+
+Replace `Engineering` and `factory-ready` with your team and label names, and `foreman` with the receiving agent's name. A comment without the selected current label doesn't match this comment trigger; adding the label doesn't replay earlier comments.
+
+Connecting Linear seeds an `agent_session_created` automation, not a general `comment_created` listener. Replies in a native Linear agent session use its follow-up path. Ordinary issue comments need a matching comment automation.
+
+A matching comment can continue an existing work item associated with the same factory and issue. Without that association, fallback routing can start separate work. A label alone doesn't establish which run owns an issue, and a comment trigger doesn't guarantee that every comment resumes the original run. Follow-up access restrictions still apply.
+
+A comment mentioning the app can also create an agent session. If comment and agent-session automations both match, the action can reach both routes. Check existing triggers before adding these examples; don't rely on trigger order to prevent overlap.
+
+## Slack
+
+Use `provider: slack`. Connect [Slack](integrations/slack.mdx); the app must be a member of channels it listens to, including private channels.
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `app_mention` | `channel_ids`, `user_ids`, `keywords` | `{channels: [engineering], keywords: [review]}` |
+| `message_dm`, `message_im`, `message_mpim` | `channel_ids`, `user_ids`, `keywords` | `{users: [alex@example.com], keywords: [help]}` |
+| `message_posted` | `channel_ids`, `user_ids`, `keywords` | `{channels: ["#incidents"], keywords: [outage]}` |
+| `reaction_added` | `channel_ids`, `user_ids`, `keywords`, `emojis`, `item_user_ids` | `{channels: [engineering], emojis: [eyes]}` |
+| `member_joined_channel` | `channel_ids`, `user_ids` | `{channel_ids: [C0123456789]}` |
+
+`channel_ids` takes Slack conversation IDs such as `C0123456789` or a DM conversation ID, not channel names. `user_ids` takes Slack user IDs such as `U0123456789`; for reactions it selects the reacting user, and `item_user_ids` selects the original message's author. Emoji names such as `eyes` ignore surrounding colons and skin-tone suffixes. Reaction keywords examine the reacted-to message's visible text; message keywords include text in blocks and attachments.
+
+Definition-file aliases:
+
+* **`channels` → `channel_ids`** - Exact channel names, with or without a leading `#`. Warp trims surrounding whitespace and resolves names through the team's Slack connection.
+* **`users` → `user_ids`** - Exact Slack usernames or email addresses, not display names.
+* **`itemUsers` → `item_user_ids`** - The same user-name formats, only for `reaction_added`.
+
+Names must resolve to exactly one active object visible to the connection. To exclude a channel, use a native matcher such as `channel_ids: {not_in: [C0123456789]}`, not `channels: {not_in: [...]}`.
+
+`message_dm` covers one-to-one and group DMs; `message_im` and `message_mpim` select those separately. Channel messages that mention the app also emit `app_mention`, so subscribing to both can overlap. Message events cover new messages, not edits or deletions. Posts by the receiving app are ignored; other apps' posts can match.
+
+## GitHub
+
+Use `provider: github`. Events are scoped to repositories available through the factory's [GitHub connection](integrations/github.mdx).
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `issue_created` | `repos`, `labels`, `assignees`, `authors`, `keywords`, `skip_bots` | `{repos: [acme/api], labels: [bug]}` |
+| `issue_labeled`, `issue_assigned`, `pull_request_assigned` | `repos`, `labels`, `assignees`, `authors`, `skip_bots` | `{repos: [acme/api], labels: [factory-ready]}` |
+| `issue_commented`, `pull_request_commented` | `repos`, `labels`, `authors`, `keywords`, `skip_bots` | `{repos: [acme/api], keywords: [retest]}` |
+| `issue_mentioned`, `pull_request_mentioned` | `repos`, `mentioned`, `labels`, `authors`, `keywords`, `skip_bots` | `{repos: [acme/api], mentioned: [alex]}` |
+| `pull_request_opened`, `pull_request_ready`, `pull_request_reopened` | `repos`, `base_branches`, `pr_numbers`, `paths`, `assignees`, `authors`, `labels`, `keywords`, `skip_bots` | `{repos: [acme/api], base_branches: [main]}` |
+| `pull_request_closed`, `pull_request_dequeued`, `pull_request_enqueued`, `pull_request_labeled`, `pull_request_merged`, `pull_request_synchronized` | `repos`, `base_branches`, `pr_numbers`, `paths`, `assignees`, `authors`, `labels`, `skip_bots` | `{repos: [acme/api], pr_numbers: [42]}` |
+| `pull_request_review_requested` | `repos`, `reviewers`, `reviewer_teams`, `authors`, `skip_bots` | `{repos: [acme/api], reviewers: [alex]}` |
+| `pull_request_review_submitted` | `repos`, `mentioned`, `labels`, `review_states`, `authors`, `keywords`, `skip_bots` | `{repos: [acme/api], review_states: [changes_requested]}` |
+| `push` | `repos`, `branches`, `paths`, `skip_bots` | `{repos: [acme/api], branches: [main]}` |
+| `check_suite_completed` | `repos`, `conclusions`, `branches`, `labels`, `authors`, `skip_bots` | `{repos: [acme/api], conclusions: [failure]}` |
+| `workflow_run_completed` | `repos`, `conclusions`, `branches`, `workflows`, `labels`, `authors`, `skip_bots` | `{repos: [acme/api], workflows: [CI], conclusions: [failure]}` |
+| `commit_status` | `repos`, `states`, `contexts`, `skip_bots` | `{repos: [acme/api], states: [failure], contexts: [ci/build]}` |
+| `check_run_rerequested`, `check_suite_rerequested` | `repos`, `skip_bots` | `{repos: [acme/api]}` |
+
+`repos` uses `owner/repository` strings. `branches` and `base_branches` use branch names such as `main`; `paths` uses repository-relative globs such as `src/**`. `pr_numbers` takes integers, not strings. Definition-file aliases `baseBranches` and `prNumbers` rename the native keys without provider lookups and support the same matchers.
+
+`authors`, `assignees`, and `reviewers` take GitHub logins. `reviewer_teams` takes team slugs; `mentioned` takes a login, `org/team` slug, or Warp GitHub App slug. Labels are names. `review_states` uses `approved`, `changes_requested`, or `commented`. `conclusions` uses GitHub result strings such as `success`, `failure`, or `cancelled`; `workflows` uses workflow names.
+
+`commit_status` fires only for `success`, `failure`, or `error`, not `pending`. `contexts` contains status names such as `ci/build`. Both status fields compare case-insensitively. Check re-request events are delivered only for checks owned by the receiving GitHub App. CI label and author constraints require exactly one linked pull request.
+
+`skip_bots: all` skips all bot-authored events; `self` skips Warp-owned bots; `none` removes that exclusion. See [bot-event limits](integrations/github.mdx#events-from-bots-dont-start-work).
+
+## GitLab
+
+Use `provider: gitlab` with the factory's [GitLab connection](integrations/gitlab.mdx).
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `bot_mentioned` | `repos`; `mentioned` is server-managed | `{repos: [acme/platform/api]}` |
+| `merge_request` | `repos`, `actions`, `base_branches` | `{repos: [acme/platform/api], actions: [open], base_branches: [main]}` |
+| `push` | `repos`, `branches` | `{repos: [acme/platform/api], branches: [main]}` |
+
+`repos` uses project paths, including subgroups. `actions` uses GitLab merge-request action strings such as `open`, `update`, or `merge`; branches use names without `refs/heads/`. `mentioned` is bound to the factory's own service-account bot; don't set it. GitLab has no authoring aliases.
+
+## Azure DevOps
+
+Use `provider: azure_devops` with the factory's [Azure DevOps connection](integrations/azure-devops.mdx).
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `pull_request_created`, `pull_request_updated`, `pull_request_commented`, `pull_request_closed`, `pull_request_merged` | `repos`, `base_branches`; `source_repos` is server-managed | `{repos: ["11111111-1111-4111-8111-111111111111"], base_branches: [main]}` |
+| `pull_request_mentioned` | `repos`, `mentioned` | `{repos: ["11111111-1111-4111-8111-111111111111"], mentioned: ["22222222-2222-4222-8222-222222222222"]}` |
+| `work_item_created`, `work_item_assigned`, `work_item_labeled` | `work_item_types`, `labels`, `assignees`, `authors` | `{work_item_types: [Bug], labels: [factory-ready]}` |
+| `work_item_mentioned` | `mentioned` | `{mentioned: ["22222222-2222-4222-8222-222222222222"]}` |
+
+`repos` requires one repository UUID, not a repository name. `base_branches` uses names such as `main`. Don't set `source_repos`. `mentioned` requires Azure DevOps identity UUIDs, not display names. Work-item types and labels are strings; `assignees` and `authors` match the identity's unique-name value, such as its email address. Replace the example UUIDs with your repository and identity IDs. No authoring aliases are supported.
+
+The catalogue also contains `push` with `repos` and `branches`, but `azure_devops.push` isn't available for authoring factory automations.
+
+## Jira
+
+Use `provider: jira` with the [Jira integration](integrations/jira.mdx).
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `issue_created`, `issue_labeled` | `project_keys`, `labels` | `{project_keys: [ENG], labels: [factory-ready]}` |
+| `status_changed` | `project_keys`, `status_ids` | `{project_keys: [ENG], status_ids: ["10001"]}` |
+| `agent_session_created` | `project_keys`, `labels`, `keywords` | `{project_keys: [ENG], labels: [factory-ready]}` |
+
+`project_keys` uses keys such as `ENG`; `status_ids` uses string IDs, not status names. Labels are case-sensitive names. `issue_labeled` matches newly added included labels and checks excluded labels against the current set. Session labels refer to the issue's current labels. `keywords` is accepted for compatibility on agent sessions but doesn't restrict matching. Jira has no authoring aliases.
+
+## Microsoft Teams
+
+Use `provider: teams`, not the integration identifier `microsoft-teams`. Connect [Microsoft Teams](integrations/teams.mdx) and select channels the app can access.
+
+| Event | Native filter keys | Example `filter` |
+| --- | --- | --- |
+| `app_mention`, `message_posted` | `team_ids`, `channel_ids`, `user_ids`, `keywords` | `{team_ids: ["11111111-1111-4111-8111-111111111111"], channel_ids: ["19:example@thread.tacv2"], keywords: [review]}` |
+
+`team_ids` requires exactly one Microsoft Graph team UUID, not a Bot Framework team ID. `channel_ids` requires at least one channel ID. Both support only `in`. `user_ids` takes Microsoft object UUIDs in the installation's tenant. Replace the example team and channel IDs with your own. There are no name aliases.
+
+## Factory work items
+
+Use `provider: factory`. Events are scoped to the factory that owns the work item.
+
+| Event | Native filter keys and values | Example `filter` |
+| --- | --- | --- |
+| `work_item_stage_changed` | `stages`: `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, `COMPLETE`, `CANCELLED` | `{stages: [COMPLETE]}` |
+
+Values are case-sensitive API stage names, not the dashboard's display labels. There are no aliases.
+
+## Schedules
+
+Use `provider: schedule`.
+
+| Event | Filter keys | Example trigger |
+| --- | --- | --- |
+| `cron_fired` | No authored filter; `schedule_ids` is server-managed | `{provider: schedule, event: cron_fired, schedule: {cron: "0 9 * * 1-5"}}` |
+
+The required `schedule.cron` uses five-field UTC cron or a descriptor such as `@daily` or `@every 1h`. Don't set `schedule_ids`. For optional schedule names and update semantics, see [inline schedules](factory-as-code.mdx#triggersschedule).
+
+## Custom webhooks
+
+Use `provider: webhook`.
+
+| Event | Native filter keys and values | Example `filter` |
+| --- | --- | --- |
+| `received` | `webhook_ids`: exactly one webhook UID, `in` only; `payload`: optional JSON pattern | `{webhook_ids: [WEBHOOK_UID], payload: {status: [failed]}}` |
+
+Replace `WEBHOOK_UID` with the UID of a [configured webhook](webhooks.mdx), not its file name. Use one trigger per webhook. Authentication applies before filtering. See [payload patterns](automations.mdx#payload-filters-for-webhook-triggers) for `in`, `not_in`, `exists`, and nested objects.
+
+## Related pages
+
+* [Factory automations](automations.mdx) - Edit automations and diagnose matching
+* [Factory definition syntax](factory-as-code.mdx) - Define the surrounding factory and agent files
+* [Connect Linear to your factory](integrations/linear.mdx)
+* [Connect Slack to your factory](integrations/slack.mdx)

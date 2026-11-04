@@ -27,7 +27,7 @@ Provider account requirements still apply. See [who can start work in Slack](/fa
 
 ## What each source can filter on
 
-The table summarizes filter categories. Each linked integration guide lists the filters available for each event type.
+The table summarizes filter categories. For exact provider and event strings, per-event keys, value formats, and examples, use [Events and filters for factory automations](automation-triggers.mdx).
 
 | Source | Filters |
 | --- | --- |
@@ -59,7 +59,7 @@ To edit an existing automation's filters:
 
 ## Filters in definitions as code
 
-In a factory definition, an automation's `triggers` entries declare the provider, event, and filters. Start with the [labeled-issue example](/factories/factory-as-code/#automationsnameautomationmd), then look up supported keys in the [trigger filter reference](/factories/factory-as-code/#triggersfilter).
+In a factory definition, an automation's `triggers` entries declare the provider, event, and filters. Start with the [labeled-issue example](/factories/factory-as-code/#automationsnameautomationmd), then look up supported keys in [Events and filters for factory automations](automation-triggers.mdx).
 
 This example reviews pull requests in `acme/api-service` targeting `main`, excluding those labeled `wip`:
 
