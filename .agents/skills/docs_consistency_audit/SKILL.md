@@ -221,6 +221,24 @@ rationale, authority reason, and suggested resolution class. A candidate without
 matching valid adjudication remains unverified and cannot enter findings or notifications.
 The script rejects unsupported quotes and schema-incomplete adjudications.
 
+When consulting saved finding metadata, use the candidate's `candidate_id` from the
+prepass output, not its array index or category:
+
+```bash
+python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py prior-finding \
+  --candidates /tmp/docs-consistency-candidates.json \
+  --candidate-id CANDIDATE_ID \
+  --state-dir STATE_WORKTREE/.agents/state/docs_consistency_audit
+```
+
+Replace `CANDIDATE_ID` with the selected candidate's ID. This read-only command prints
+JSON with `finding` set to the saved finding for the same stable claim pair, or `null`
+when none exists. Categories describe findings, not identities; a `cli` topic can have
+a `permissions` category. A missing match is normal: write a fresh adjudication without
+saved metadata. Multiple matches or an unknown candidate block comparison. Treat saved
+metadata as history only; recheck current public scope, verdict, severity, and confidence
+before submitting an adjudication. Do not copy a prior decision as current evidence.
+
 Two narrower claims with disjoint qualifiers do not conflict. A universal claim can
 conflict with a narrower counterexample unless the universal claim contains matching
 exception language.
