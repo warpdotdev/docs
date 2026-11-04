@@ -175,6 +175,9 @@ jobs:
           python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
           python3 .agents/skills/missing_docs/scripts/test_check_new_release.py
 
+      - name: Test docs consistency audit
+        run: python3 .agents/skills/docs_consistency_audit/scripts/test_audit_consistency.py
+
       # Stdlib-only tests for the PR body integrity checker, including the
       # feature-summary lead section that drafting PRs must open with.
       - name: Test create_pr body checker
