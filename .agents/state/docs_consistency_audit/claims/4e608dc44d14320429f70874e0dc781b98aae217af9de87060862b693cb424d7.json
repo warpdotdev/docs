@@ -1,0 +1,314 @@
+{
+  "claims": [
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:b810029606d948cb6855063fbb8a38bbee9d142de589e10e56e5a2260e9ba6c9",
+      "claim_id": "sha256:4f05665bed8021e9d894503395ea415a2e1701972ae6398e9de48bce3a2d1bf6",
+      "entity": "private-networking",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "setup-requires-warp-coordination",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Private networking setup is manual and coordinated with Warp.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:6529a573f66e1ba16c2f1b0309f51afdb261f392f536701bc3c5af1a6527e46b",
+      "claim_id": "sha256:14cb90f169a4185ad4626733b9f51463ec03f46876d2cd62c5bf6da549d51365",
+      "entity": "private-networking",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-service-types",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Private networking applies to services that Warp calls from its hosted services:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "Supported service connections",
+        "heading_anchor": "supported-service-connections",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": [
+          "team-managed-llm-endpoint",
+          "managed-mcp-installation"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:3fa601f64efa0d77bd237330064c0fe333c0297e8ca5c518e58e692f8baf46ad",
+      "claim_id": "sha256:236c2914a9235fc0f1170f28a0af542747b296ef6eb1683dec791c13c9f7f1d8",
+      "entity": "personal-custom-inference-endpoints",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-public-url",
+      "qualifiers": {
+        "actors": [
+          "personal-device-endpoint"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Self-serve [custom inference endpoints](/agents/inference/custom-inference-endpoint/#network-requirements) remain device-level settings and require a public URL.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "Supported service connections",
+        "heading_anchor": "supported-service-connections",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:ed7d7ac6577e69f1509c0b4e6985cf93a0d33f9aa85bc3f64594353ac63f1c33",
+      "claim_id": "sha256:896dc6be93325e2aca94ce50b2a9b18660a28d68d9217d6d76c457748f5a2992",
+      "entity": "private-services",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-https",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Serve the endpoint over HTTPS.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "Requirements",
+        "heading_anchor": "requirements",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:308d5e8946c662314fe03006fd5fe6bbab99a08668fd20a17ceb44f8121fd5d9",
+      "claim_id": "sha256:9fe20206f07c8637d13a490ffc650737c794309914917020da38fa8b17638920",
+      "entity": "private-networking",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-methods",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Google Cloud | Private Service Connect |\n| AWS | AWS PrivateLink |\n| Azure | Azure Private Link |\n| On-premises or colocation network | On-premises interconnect |\n| Network with a public VPN gateway | Route-based IPsec VPN |",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "Choose a connection method",
+        "heading_anchor": "choose-a-connection-method",
+        "line_end": 43,
+        "line_start": 39,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": [
+          "private-service-connect",
+          "aws-privatelink",
+          "azure-private-link",
+          "on-premises-interconnect",
+          "route-based-ipsec-vpn"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:59b01f8e78a2bb26e7b77609a82b645fc2e023c974822311574dfd734e7859e1",
+      "claim_id": "sha256:2e9db637e407539d7f9227f76462a2568a22e2dfdbd654b73170c49f3f075869",
+      "entity": "private-networking",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "private-oauth-endpoints-in-scope",
+      "qualifiers": {
+        "actors": [
+          "oauth-protected-mcp"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Include private OAuth or identity provider endpoints in the onboarding scope when the MCP server depends on them.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "Supported service connections",
+        "heading_anchor": "supported-service-connections",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:efe91a278021923cd2016f81b13a199e079414d8df23c13047ff2cdceffa9b41",
+      "claim_id": "sha256:5ded04fca131ad109ec098b329447d0e8fbb359dafb70b13841776ca5c425167",
+      "entity": "private-ipsec-vpn",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "routing-protocol",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Configure a route-based IPsec VPN whose gateway and routing use BGP.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "heading": "Set up a route-based IPsec VPN",
+        "heading_anchor": "set-up-a-route-based-ipsec-vpn",
+        "line_end": 86,
+        "line_start": 86,
+        "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/private-networking/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": "bgp",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+  "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+  "schema_version": 1
+}

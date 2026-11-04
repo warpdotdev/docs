@@ -1,6 +1,803 @@
 {
-  "claims": [],
-  "page_sha256": "bec98d8af22a176cdbf20dfe4d79a4fd978f1e520f60932e20b73bd487d210a9",
+  "claims": [
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:ba2081ff2773d26d81bf270b07f3d022db4dd0fbb163f2a16a819842a266ec50",
+      "claim_id": "sha256:fa396563f929dbd583031a08ca515cdcc1847e2769065ea637b71f03615edba4",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "minimum-plan",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "BYOLLM is only available on Warp's Enterprise plan.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": "ENTERPRISE",
+        "type": "plan"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:ed2e54eef78df1306b2e887cd9e35bd558e8c0fa3d9da83ee615b693078bce89",
+      "claim_id": "sha256:793e92aec7e3fe21e689cd8428ae5ec871f59992958e4778eb5233357503abf8",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-agents-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "cloud agent runs assume an IAM role in your AWS account via OIDC.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:a77dd48680c8b794a21b783fa67857f307ae82ffe17d1625bfddc0e22fcd0b1e",
+      "claim_id": "sha256:717804e5897565b1ff46e6c208b99de89e58eb45e89de13fdb0e11eacc78da58",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-providers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On AWS Bedrock, Warp supports Anthropic (Claude) and OpenAI models.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Model availability",
+        "heading_anchor": "model-availability",
+        "line_end": 59,
+        "line_start": 59,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "anthropic",
+          "openai"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:de38fb3e088a148f35a979187f0d834ae97e38272a3e10afd3ae51ccc280cb61",
+      "claim_id": "sha256:fcfd0a86211d844b6d85748d6e607966aab6c98bb34343dca1b0cf1d1d786958",
+      "entity": "bedrock-interactive-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "authentication",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Interactive terminal sessions use each user's AWS CLI session credentials",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "local-aws-cli-session",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:81cb08680a507eeed961ada9182854ea5ab6b3f448d5090ce477d95fb847e7d0",
+      "claim_id": "sha256:96151952cd8c2f887b9910598af9717b2b0de97148ff48a0ec4e689bedadfb49",
+      "entity": "bedrock-cloud-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "authentication",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp mints an OIDC token and assumes the configured IAM role in your AWS account to obtain temporary credentials.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "oidc-role-assumption",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:a42c5d5914ce3c5f0bb0348d2f537ad28a9c0421d48bf01127932b7443f98953",
+      "claim_id": "sha256:70c3a6495b388557e4afeaea4be571e0f29b1dca4339fa6b28bde293c228fdd8",
+      "entity": "bedrock-interactive-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "refresh-period",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [
+          "requires-auto-refresh-enabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Session tokens refresh automatically every ~15 minutes.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Credential lifecycle",
+        "heading_anchor": "credential-lifecycle",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 900,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:507892f497adaaf57f30bd203076ac208d5aa37cefafad6633b3a285d4c19d1e",
+      "claim_id": "sha256:3ee4cbb5bfb9f2d8ac3fbdfc43efd97a4066c8ccb53f729bfed8211988343d24",
+      "entity": "bedrock-interactive-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-session-duration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [
+          "auto-refresh-enabled",
+          "aws-admin-configuration"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "With auto-refresh enabled, sessions can run uninterrupted for up to 12 hours (depending on your AWS admin configuration).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Credential lifecycle",
+        "heading_anchor": "credential-lifecycle",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 43200,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:25b565d5099c4caf07491480dc671392d1140d481bd923a872caaf5f50b7652a",
+      "claim_id": "sha256:7399000f2265fb30f96b65f45182c996bb4737b326b8edaf900587bafee12436",
+      "entity": "byollm-cloud-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp never stores or logs your cloud session tokens on its servers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Credential lifecycle",
+        "heading_anchor": "credential-lifecycle",
+        "line_end": 53,
+        "line_start": 53,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:5af2d291995d8ad47a788c7c8e076ca049a6b1775ba5d76c1837b5a9759378c4",
+      "claim_id": "sha256:f9f8f928c3fc0ab3e0cd145fca71a0fdb7d5022c4b72608e598f0d926566d44c",
+      "entity": "bedrock-cloud-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-after-run",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Temporary AWS credentials are used only for the duration of the run and are not retained after it ends.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "What data does Warp store? Do you store our cloud credentials?",
+        "heading_anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
+        "line_end": 363,
+        "line_start": 363,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c7e083904dc85e2dcf2c6bef8609f52dcea43200d8228bf6c7b7c9c45069d963",
+      "claim_id": "sha256:64b04746b5eca5546c13c903a3bf14d9da3dc984b74835913b30a84c3c69c40b",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "disabling-any-direct-model-disables-auto",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Auto model selection is disabled if an admin disables **any** Direct API model, regardless of AWS Bedrock configuration.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Auto model selection",
+        "heading_anchor": "auto-model-selection",
+        "line_end": 286,
+        "line_start": 286,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:3bcfc40cc39ad8001679e64784b7659a155cecbbab1f66000513414396ca11bf",
+      "claim_id": "sha256:4eab91c07f16bf409d9986758a7b26f511517f6511242200da768b6b7e9f6702",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "direct-api-fallback-allowed",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "direct-api-enabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "if Claude Opus 4.7 on Bedrock fails but your admin also enabled it via direct API, Warp falls back to the direct API to avoid disruption.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Failover behavior",
+        "heading_anchor": "failover-behavior",
+        "line_end": 280,
+        "line_start": 280,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:bdba9aca6a3eb0d5a3a518d20b1ee95256be8f99673f7b5b5f093cee76d50805",
+      "claim_id": "sha256:ff937234bca23a994703f208777f681bb5e1806780ae63f414295514da77a776",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Inference** - AWS bills your account.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 294,
+        "line_start": 294,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:9a0db0c94a7ca7faf474f98015c30dd51542c20d82473f102520e5c65b26de49",
+      "claim_id": "sha256:7b25f5225ea72c4ab5d6468b8670ada852c2a2d9b568cc1f0d978ca78ea9894b",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "platform-charges-apply",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "[Platform charges](/support-and-community/plans-and-billing/platform-credits/) apply to local BYOLLM and cloud runs.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 295,
+        "line_start": 295,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:39e0b93939a3d95513152654ffa3d9513277028969dde65e69abd28bbf97f717",
+      "claim_id": "sha256:d8916506020e90972043d173ed9cc5091e5bfd08bc24c60a352a95de6bb39ff8",
+      "entity": "byollm-direct-api-fallback",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If a fallback uses a direct API model, that request consumes Warp credits.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Failover behavior",
+        "heading_anchor": "failover-behavior",
+        "line_end": 280,
+        "line_start": 280,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:95024469bc0a09bc48b717a34ad914d9159c75ab916cfea89278997640bf8387",
+      "claim_id": "sha256:ff9e18e1ea73729ecc302b441ef2122231b83326099db5318bd483402c073006",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "warp-enforces-provider-zdr",
+      "qualifiers": {
+        "actors": [
+          "aws-bedrock"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp cannot enforce ZDR for requests routed through your infrastructure.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 314,
+        "line_start": 314,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:b6c1a5ca78e7692409de5f9d41642f84c66345c2273ed85fe3ebc6c1b7e29f81",
+      "claim_id": "sha256:43dce2890c6e290fb66024dd7ac73ac16edf3a7851fec01ca542eaf54a0af747",
+      "entity": "personal-byok",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "credential-storage",
+      "qualifiers": {
+        "actors": [
+          "personal-device-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp stores keys locally on the user's device.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "How is BYOLLM different from BYOK?",
+        "heading_anchor": "how-is-byollm-different-from-byok",
+        "line_end": 345,
+        "line_start": 345,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": "on-user-device",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:462e3dbd3f172ac6ec2f9dd2ea8b7933bb844831ae9d3a24b32bb493284a6893",
+      "claim_id": "sha256:2cb3934aae1adabc841b85ee9f8643a4256b2a0070ba03f4600cdbdb11e9349f",
+      "entity": "team-managed-providers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "credential-storage",
+      "qualifiers": {
+        "actors": [
+          "team-managed-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "How is BYOLLM different from BYOK?",
+        "heading_anchor": "how-is-byollm-different-from-byok",
+        "line_end": 349,
+        "line_start": 349,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": "server-side",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:704616facef64abe6122c81fbd415797230a705d99144f27350a257e693d9839",
+      "claim_id": "sha256:f752a95acada8e924ee005a7353eb222225a2926e1318fa5b7194844ddba3735",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-inference-profile",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "content_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+        "heading": "2. Provision IAM roles (cloud admin)",
+        "heading_anchor": "2-provision-iam-roles-cloud-admin",
+        "line_end": 115,
+        "line_start": 115,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "global-when-available",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
   "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
   "schema_version": 1
 }

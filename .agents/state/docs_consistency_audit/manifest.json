@@ -1,13 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/agents/inference/model-choice.mdx",
-    "src/content/docs/agents/local-agents/session-sharing.mdx",
-    "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
-    "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-    "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
-    "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
-    "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
     "src/content/docs/enterprise/getting-started/faq.mdx",
     "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
@@ -46,6 +39,7 @@
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/operation-not-supported.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/resource-not-found.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/resource-unavailable.mdx",
+    "src/content/docs/factories/automation-triggers.mdx",
     "src/content/docs/factories/automations.mdx",
     "src/content/docs/factories/benchmarks.mdx",
     "src/content/docs/factories/code-forges/other-code-forges.mdx",
@@ -69,6 +63,7 @@
     "src/content/docs/factories/integrations/gitlab.mdx",
     "src/content/docs/factories/integrations/jira.mdx",
     "src/content/docs/factories/integrations/linear.mdx",
+    "src/content/docs/factories/integrations/permissions.mdx",
     "src/content/docs/factories/integrations/slack.mdx",
     "src/content/docs/factories/integrations/teams.mdx",
     "src/content/docs/factories/measure-and-improve.mdx",
@@ -415,6 +410,7 @@
     "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx": "claims/d220a541830a0ebac1d1009f5522b7eedc461bb03f8e2e3263777fc7d2707244.json",
     "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx": "claims/2958aa0aa2a657951f43b6ca52c9fc82c0c03e69ba5a3426868cd4cd0b140ad9.json",
     "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx": "claims/c680977b1eceedc20924a89fec40748fa805fb3a0a0528c7c58322e8c20cf907.json",
+    "src/content/docs/enterprise/enterprise-features/private-networking.mdx": "claims/4e608dc44d14320429f70874e0dc781b98aae217af9de87060862b693cb424d7.json",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx": "claims/a073a242f58aa668453297d2230f1d840b8625dd6bbc702793bdfc22169ff0ae.json",
     "src/content/docs/enterprise/getting-started/faq.mdx": "claims/5cc1ce086633ed12e5ae67da1f8d3b4b18f1233832b6e84505e061089622232f.json",
     "src/content/docs/enterprise/getting-started/getting-started-developers.mdx": "claims/68bacb1de97b4bb72f8afde55662c1c30530c5c4fc661f2fffa6117ea783584e.json",
@@ -3409,7 +3405,7 @@
         },
         {
           "anchor": "supported-agents",
-          "character_count": 1365,
+          "character_count": 1382,
           "heading": "Supported agents",
           "line_end": 48,
           "line_start": 21
@@ -3423,35 +3419,35 @@
         },
         {
           "anchor": "feature-support",
-          "character_count": 1471,
+          "character_count": 1652,
           "heading": "Feature support",
-          "line_end": 77,
+          "line_end": 79,
           "line_start": 60
         },
         {
           "anchor": "customizing-the-toolbelt",
           "character_count": 505,
           "heading": "Customizing the toolbelt",
-          "line_end": 86,
-          "line_start": 78
+          "line_end": 88,
+          "line_start": 80
         },
         {
           "anchor": "getting-started",
-          "character_count": 436,
+          "character_count": 392,
           "heading": "Getting started",
-          "line_end": 98,
-          "line_start": 87
+          "line_end": 100,
+          "line_start": 89
         },
         {
           "anchor": "related-pages",
           "character_count": 646,
           "heading": "Related pages",
-          "line_end": 106,
-          "line_start": 99
+          "line_end": 108,
+          "line_start": 101
         }
       ],
-      "character_count": 6507,
-      "extraction_status": "unchanged",
+      "character_count": 6661,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3475,24 +3471,24 @@
         },
         {
           "anchor": "customizing-the-toolbelt",
-          "line_start": 78,
+          "line_start": 80,
           "text": "Customizing the toolbelt"
         },
         {
           "anchor": "getting-started",
-          "line_start": 87,
+          "line_start": 89,
           "text": "Getting started"
         },
         {
           "anchor": "related-pages",
-          "line_start": 99,
+          "line_start": 101,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli-agents/overview.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/overview/",
-      "source_sha256": "dafaad6231d03fb8d832bf4791aae5b33e75c8c346c65b6bf6c3f6f2bf5c45ff",
+      "source_sha256": "f9dfe3a330274299f278d16b38b0877c7599bb7f3a23c0a5ea2834d11dbc73be",
       "title": "Third-party CLI agents overview"
     },
     "src/content/docs/agents/cli-agents/remote-control.mdx": {
@@ -6582,7 +6578,7 @@
         }
       ],
       "character_count": 6571,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7002,7 +6998,7 @@
         }
       ],
       "character_count": 6332,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7136,7 +7132,7 @@
         }
       ],
       "character_count": 6043,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7266,7 +7262,7 @@
         }
       ],
       "character_count": 9794,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7376,7 +7372,7 @@
         }
       ],
       "character_count": 3807,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7530,7 +7526,7 @@
         }
       ],
       "character_count": 10125,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7692,7 +7688,7 @@
         }
       ],
       "character_count": 9013,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7838,7 +7834,7 @@
         }
       ],
       "character_count": 7300,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7930,7 +7926,7 @@
         },
         {
           "anchor": "auto-models",
-          "character_count": 809,
+          "character_count": 807,
           "heading": "Auto models",
           "line_end": 31,
           "line_start": 21
@@ -7944,70 +7940,70 @@
         },
         {
           "anchor": "anthropic",
-          "character_count": 2687,
+          "character_count": 2946,
           "heading": "Anthropic",
-          "line_end": 73,
+          "line_end": 76,
           "line_start": 50
         },
         {
           "anchor": "google",
           "character_count": 256,
           "heading": "Google",
-          "line_end": 83,
-          "line_start": 74
+          "line_end": 86,
+          "line_start": 77
         },
         {
           "anchor": "xai",
-          "character_count": 856,
+          "character_count": 870,
           "heading": "xAI",
-          "line_end": 105,
-          "line_start": 84
+          "line_end": 108,
+          "line_start": 87
         },
         {
           "anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
           "character_count": 517,
           "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
-          "line_end": 118,
-          "line_start": 106
+          "line_end": 121,
+          "line_start": 109
         },
         {
           "anchor": "how-to-change-models",
           "character_count": 605,
           "heading": "How to change models",
-          "line_end": 129,
-          "line_start": 119
+          "line_end": 132,
+          "line_start": 122
         },
         {
           "anchor": "custom-routers",
           "character_count": 456,
           "heading": "Custom routers",
-          "line_end": 135,
-          "line_start": 130
+          "line_end": 138,
+          "line_start": 133
         },
         {
           "anchor": "model-fallback",
           "character_count": 572,
           "heading": "Model fallback",
-          "line_end": 145,
-          "line_start": 136
+          "line_end": 148,
+          "line_start": 139
         },
         {
           "anchor": "configuring-models-per-agent-profile",
           "character_count": 397,
           "heading": "Configuring models per Agent Profile",
-          "line_end": 151,
-          "line_start": 146
+          "line_end": 154,
+          "line_start": 149
         },
         {
           "anchor": "zero-data-retention-policies",
           "character_count": 893,
           "heading": "Zero data retention policies",
-          "line_end": 171,
-          "line_start": 152
+          "line_end": 174,
+          "line_start": 155
         }
       ],
-      "character_count": 10289,
-      "extraction_status": "invalidated",
+      "character_count": 10560,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -8036,49 +8032,49 @@
         },
         {
           "anchor": "google",
-          "line_start": 74,
+          "line_start": 77,
           "text": "Google"
         },
         {
           "anchor": "xai",
-          "line_start": 84,
+          "line_start": 87,
           "text": "xAI"
         },
         {
           "anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
-          "line_start": 106,
+          "line_start": 109,
           "text": "Hosted models (via [Fireworks AI](https://fireworks.ai))"
         },
         {
           "anchor": "how-to-change-models",
-          "line_start": 119,
+          "line_start": 122,
           "text": "How to change models"
         },
         {
           "anchor": "custom-routers",
-          "line_start": 130,
+          "line_start": 133,
           "text": "Custom routers"
         },
         {
           "anchor": "model-fallback",
-          "line_start": 136,
+          "line_start": 139,
           "text": "Model fallback"
         },
         {
           "anchor": "configuring-models-per-agent-profile",
-          "line_start": 146,
+          "line_start": 149,
           "text": "Configuring models per Agent Profile"
         },
         {
           "anchor": "zero-data-retention-policies",
-          "line_start": 152,
+          "line_start": 155,
           "text": "Zero data retention policies"
         }
       ],
       "path": "src/content/docs/agents/inference/model-choice.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/model-choice/",
-      "source_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+      "source_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
       "title": "Agent model choice"
     },
     "src/content/docs/agents/local-agents/active-ai.mdx": {
@@ -9971,7 +9967,7 @@
         },
         {
           "anchor": "key-capabilities",
-          "character_count": 857,
+          "character_count": 849,
           "heading": "Key capabilities",
           "line_end": 23,
           "line_start": 16
@@ -10020,7 +10016,7 @@
         },
         {
           "anchor": "watching-agent-activity",
-          "character_count": 352,
+          "character_count": 360,
           "heading": "Watching Agent activity",
           "line_end": 120,
           "line_start": 112
@@ -10034,7 +10030,7 @@
         }
       ],
       "character_count": 9486,
-      "extraction_status": "invalidated",
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -10125,7 +10121,7 @@
       "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
       "role": "docs-prose",
       "route": "/agents/local-agents/session-sharing/",
-      "source_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+      "source_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
       "title": "Agent Session Sharing"
     },
     "src/content/docs/code/code-editor/code-editor-vim-keybindings.mdx": {
@@ -11471,14 +11467,14 @@
         },
         {
           "anchor": "related-resources",
-          "character_count": 788,
+          "character_count": 935,
           "heading": "Related resources",
-          "line_end": 164,
+          "line_end": 165,
           "line_start": 157
         }
       ],
-      "character_count": 9017,
-      "extraction_status": "invalidated",
+      "character_count": 9164,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -11584,12 +11580,1098 @@
       "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
       "role": "docs-prose",
       "route": "/enterprise/enterprise-features/architecture-and-deployment/",
-      "source_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+      "source_sha256": "49a89792a39ba229f05c54700cfa91721cb36afc2a3fae0580011e6d61148df9",
       "title": "Architecture and deployment"
+    },
+    "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 758,
+          "heading": "",
+          "line_end": 15,
+          "line_start": 7
+        },
+        {
+          "anchor": "supported-providers",
+          "character_count": 1434,
+          "heading": "Supported providers",
+          "line_end": 35,
+          "line_start": 16
+        },
+        {
+          "anchor": "key-features",
+          "character_count": 513,
+          "heading": "Key features",
+          "line_end": 41,
+          "line_start": 36
+        },
+        {
+          "anchor": "how-byollm-works",
+          "character_count": 620,
+          "heading": "How BYOLLM works",
+          "line_end": 47,
+          "line_start": 42
+        },
+        {
+          "anchor": "billing-behavior",
+          "character_count": 724,
+          "heading": "Billing behavior",
+          "line_end": 53,
+          "line_start": 48
+        },
+        {
+          "anchor": "how-is-byollm-different-from-byok",
+          "character_count": 1220,
+          "heading": "How is BYOLLM different from BYOK?",
+          "line_end": 70,
+          "line_start": 56
+        },
+        {
+          "anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
+          "character_count": 537,
+          "heading": "What data does Warp store? Do you store our cloud credentials?",
+          "line_end": 78,
+          "line_start": 75
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 814,
+          "heading": "Related pages",
+          "line_end": 93,
+          "line_start": 85
+        }
+      ],
+      "character_count": 7475,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "supported-providers",
+          "line_start": 16,
+          "text": "Supported providers"
+        },
+        {
+          "anchor": "key-features",
+          "line_start": 36,
+          "text": "Key features"
+        },
+        {
+          "anchor": "how-byollm-works",
+          "line_start": 42,
+          "text": "How BYOLLM works"
+        },
+        {
+          "anchor": "billing-behavior",
+          "line_start": 48,
+          "text": "Billing behavior"
+        },
+        {
+          "anchor": "faq",
+          "line_start": 54,
+          "text": "FAQ"
+        },
+        {
+          "anchor": "how-is-byollm-different-from-byok",
+          "line_start": 56,
+          "text": "How is BYOLLM different from BYOK?"
+        },
+        {
+          "anchor": "does-byollm-work-with-auto",
+          "line_start": 71,
+          "text": "Does BYOLLM work with Auto?"
+        },
+        {
+          "anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
+          "line_start": 75,
+          "text": "What data does Warp store? Do you store our cloud credentials?"
+        },
+        {
+          "anchor": "can-admins-enforce-provider-only-routing",
+          "line_start": 79,
+          "text": "Can admins enforce provider-only routing?"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 85,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+      "source_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+      "title": "Bring Your Own LLM"
+    },
+    "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 770,
+          "heading": "",
+          "line_end": 18,
+          "line_start": 9
+        },
+        {
+          "anchor": "key-features",
+          "character_count": 546,
+          "heading": "Key features",
+          "line_end": 24,
+          "line_start": 19
+        },
+        {
+          "anchor": "how-it-works",
+          "character_count": 1672,
+          "heading": "How it works",
+          "line_end": 46,
+          "line_start": 25
+        },
+        {
+          "anchor": "credential-lifecycle",
+          "character_count": 848,
+          "heading": "Credential lifecycle",
+          "line_end": 56,
+          "line_start": 47
+        },
+        {
+          "anchor": "model-availability",
+          "character_count": 742,
+          "heading": "Model availability",
+          "line_end": 67,
+          "line_start": 57
+        },
+        {
+          "anchor": "prerequisites",
+          "character_count": 310,
+          "heading": "Prerequisites",
+          "line_end": 77,
+          "line_start": 70
+        },
+        {
+          "anchor": "1-configure-routing-policies-admin",
+          "character_count": 439,
+          "heading": "1. Configure routing policies (admin)",
+          "line_end": 85,
+          "line_start": 78
+        },
+        {
+          "anchor": "2-provision-iam-roles-cloud-admin",
+          "character_count": 1011,
+          "heading": "2. Provision IAM roles (cloud admin)",
+          "line_end": 117,
+          "line_start": 86
+        },
+        {
+          "anchor": "3-authenticate-locally-team-member",
+          "character_count": 208,
+          "heading": "3. Authenticate locally (team member)",
+          "line_end": 127,
+          "line_start": 118
+        },
+        {
+          "anchor": "4-validate",
+          "character_count": 168,
+          "heading": "4. Validate",
+          "line_end": 134,
+          "line_start": 128
+        },
+        {
+          "anchor": "prerequisites",
+          "character_count": 209,
+          "heading": "Prerequisites",
+          "line_end": 144,
+          "line_start": 139
+        },
+        {
+          "anchor": "1-set-up-warp-as-an-oidc-identity-provider-in-aws-cloud-admin",
+          "character_count": 927,
+          "heading": "1. Set up Warp as an OIDC identity provider in AWS (cloud admin)",
+          "line_end": 159,
+          "line_start": 145
+        },
+        {
+          "anchor": "2-provision-an-assumable-iam-role-cloud-admin",
+          "character_count": 401,
+          "heading": "2. Provision an assumable IAM role (cloud admin)",
+          "line_end": 168,
+          "line_start": 160
+        },
+        {
+          "anchor": "trust-policy-requirements",
+          "character_count": 1288,
+          "heading": "Trust policy requirements",
+          "line_end": 201,
+          "line_start": 169
+        },
+        {
+          "anchor": "permissions-policy",
+          "character_count": 1024,
+          "heading": "Permissions policy",
+          "line_end": 233,
+          "line_start": 202
+        },
+        {
+          "anchor": "3-configure-routing-policies-admin",
+          "character_count": 118,
+          "heading": "3. Configure routing policies (admin)",
+          "line_end": 237,
+          "line_start": 234
+        },
+        {
+          "anchor": "option-a-team-wide",
+          "character_count": 361,
+          "heading": "Option A: Team-wide",
+          "line_end": 245,
+          "line_start": 238
+        },
+        {
+          "anchor": "option-b-per-named-agent",
+          "character_count": 697,
+          "heading": "Option B: Per named agent",
+          "line_end": 262,
+          "line_start": 246
+        },
+        {
+          "anchor": "4-validate-the-configuration",
+          "character_count": 189,
+          "heading": "4. Validate the configuration",
+          "line_end": 269,
+          "line_start": 263
+        },
+        {
+          "anchor": "failover-behavior",
+          "character_count": 563,
+          "heading": "Failover behavior",
+          "line_end": 283,
+          "line_start": 276
+        },
+        {
+          "anchor": "billing-behavior",
+          "character_count": 383,
+          "heading": "Billing behavior",
+          "line_end": 298,
+          "line_start": 290
+        },
+        {
+          "anchor": "security-and-data-handling",
+          "character_count": 30,
+          "heading": "Security and data handling",
+          "line_end": 300,
+          "line_start": 299
+        },
+        {
+          "anchor": "credential-security",
+          "character_count": 321,
+          "heading": "Credential security",
+          "line_end": 306,
+          "line_start": 301
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "character_count": 432,
+          "heading": "Zero Data Retention (ZDR)",
+          "line_end": 316,
+          "line_start": 307
+        },
+        {
+          "anchor": "common-errors",
+          "character_count": 936,
+          "heading": "Common errors",
+          "line_end": 332,
+          "line_start": 324
+        },
+        {
+          "anchor": "debugging-steps",
+          "character_count": 413,
+          "heading": "Debugging steps",
+          "line_end": 340,
+          "line_start": 333
+        },
+        {
+          "anchor": "how-is-byollm-different-from-byok",
+          "character_count": 1477,
+          "heading": "How is BYOLLM different from BYOK?",
+          "line_end": 357,
+          "line_start": 343
+        },
+        {
+          "anchor": "can-admins-enforce-provider-only-routing-and-disable-warp-managed-models",
+          "character_count": 226,
+          "heading": "Can admins enforce provider-only routing and disable Warp-managed models?",
+          "line_end": 368,
+          "line_start": 365
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 819,
+          "heading": "Related resources",
+          "line_end": 377,
+          "line_start": 369
+        }
+      ],
+      "character_count": 19260,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "key-features",
+          "line_start": 19,
+          "text": "Key features"
+        },
+        {
+          "anchor": "how-it-works",
+          "line_start": 25,
+          "text": "How it works"
+        },
+        {
+          "anchor": "credential-lifecycle",
+          "line_start": 47,
+          "text": "Credential lifecycle"
+        },
+        {
+          "anchor": "model-availability",
+          "line_start": 57,
+          "text": "Model availability"
+        },
+        {
+          "anchor": "enabling-byollm",
+          "line_start": 68,
+          "text": "Enabling BYOLLM"
+        },
+        {
+          "anchor": "prerequisites",
+          "line_start": 70,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "1-configure-routing-policies-admin",
+          "line_start": 78,
+          "text": "1. Configure routing policies (admin)"
+        },
+        {
+          "anchor": "2-provision-iam-roles-cloud-admin",
+          "line_start": 86,
+          "text": "2. Provision IAM roles (cloud admin)"
+        },
+        {
+          "anchor": "3-authenticate-locally-team-member",
+          "line_start": 118,
+          "text": "3. Authenticate locally (team member)"
+        },
+        {
+          "anchor": "4-validate",
+          "line_start": 128,
+          "text": "4. Validate"
+        },
+        {
+          "anchor": "enabling-byollm-for-cloud-agents",
+          "line_start": 135,
+          "text": "Enabling BYOLLM for cloud agents"
+        },
+        {
+          "anchor": "prerequisites",
+          "line_start": 139,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "1-set-up-warp-as-an-oidc-identity-provider-in-aws-cloud-admin",
+          "line_start": 145,
+          "text": "1. Set up Warp as an OIDC identity provider in AWS (cloud admin)"
+        },
+        {
+          "anchor": "2-provision-an-assumable-iam-role-cloud-admin",
+          "line_start": 160,
+          "text": "2. Provision an assumable IAM role (cloud admin)"
+        },
+        {
+          "anchor": "trust-policy-requirements",
+          "line_start": 169,
+          "text": "Trust policy requirements"
+        },
+        {
+          "anchor": "permissions-policy",
+          "line_start": 202,
+          "text": "Permissions policy"
+        },
+        {
+          "anchor": "3-configure-routing-policies-admin",
+          "line_start": 234,
+          "text": "3. Configure routing policies (admin)"
+        },
+        {
+          "anchor": "option-a-team-wide",
+          "line_start": 238,
+          "text": "Option A: Team-wide"
+        },
+        {
+          "anchor": "option-b-per-named-agent",
+          "line_start": 246,
+          "text": "Option B: Per named agent"
+        },
+        {
+          "anchor": "4-validate-the-configuration",
+          "line_start": 263,
+          "text": "4. Validate the configuration"
+        },
+        {
+          "anchor": "routing-and-fallback-behavior",
+          "line_start": 270,
+          "text": "Routing and fallback behavior"
+        },
+        {
+          "anchor": "routing-behavior",
+          "line_start": 272,
+          "text": "Routing behavior"
+        },
+        {
+          "anchor": "failover-behavior",
+          "line_start": 276,
+          "text": "Failover behavior"
+        },
+        {
+          "anchor": "auto-model-selection",
+          "line_start": 284,
+          "text": "Auto model selection"
+        },
+        {
+          "anchor": "billing-behavior",
+          "line_start": 290,
+          "text": "Billing behavior"
+        },
+        {
+          "anchor": "security-and-data-handling",
+          "line_start": 299,
+          "text": "Security and data handling"
+        },
+        {
+          "anchor": "credential-security",
+          "line_start": 301,
+          "text": "Credential security"
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "line_start": 307,
+          "text": "Zero Data Retention (ZDR)"
+        },
+        {
+          "anchor": "auditability",
+          "line_start": 317,
+          "text": "Auditability"
+        },
+        {
+          "anchor": "troubleshooting",
+          "line_start": 322,
+          "text": "Troubleshooting"
+        },
+        {
+          "anchor": "common-errors",
+          "line_start": 324,
+          "text": "Common errors"
+        },
+        {
+          "anchor": "debugging-steps",
+          "line_start": 333,
+          "text": "Debugging steps"
+        },
+        {
+          "anchor": "faq",
+          "line_start": 341,
+          "text": "FAQ"
+        },
+        {
+          "anchor": "how-is-byollm-different-from-byok",
+          "line_start": 343,
+          "text": "How is BYOLLM different from BYOK?"
+        },
+        {
+          "anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
+          "line_start": 358,
+          "text": "What data does Warp store? Do you store our cloud credentials?"
+        },
+        {
+          "anchor": "can-admins-enforce-provider-only-routing-and-disable-warp-managed-models",
+          "line_start": 365,
+          "text": "Can admins enforce provider-only routing and disable Warp-managed models?"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 369,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/enterprise-features/byollm-aws-bedrock/",
+      "source_sha256": "1d856d5849a8370769b45b48068398987a977c89cff2a0e96dacb452a1f27ba4",
+      "title": "BYOLLM: AWS Bedrock"
+    },
+    "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 1100,
+          "heading": "",
+          "line_end": 21,
+          "line_start": 9
+        },
+        {
+          "anchor": "key-features",
+          "character_count": 1086,
+          "heading": "Key features",
+          "line_end": 29,
+          "line_start": 22
+        },
+        {
+          "anchor": "how-it-works",
+          "character_count": 1171,
+          "heading": "How it works",
+          "line_end": 41,
+          "line_start": 30
+        },
+        {
+          "anchor": "credential-lifecycle",
+          "character_count": 970,
+          "heading": "Credential lifecycle",
+          "line_end": 50,
+          "line_start": 42
+        },
+        {
+          "anchor": "model-availability",
+          "character_count": 630,
+          "heading": "Model availability",
+          "line_end": 59,
+          "line_start": 51
+        },
+        {
+          "anchor": "enabling-gemini-enterprise",
+          "character_count": 763,
+          "heading": "Enabling Gemini Enterprise",
+          "line_end": 72,
+          "line_start": 60
+        },
+        {
+          "anchor": "prerequisites",
+          "character_count": 671,
+          "heading": "Prerequisites",
+          "line_end": 82,
+          "line_start": 73
+        },
+        {
+          "anchor": "values-youll-need",
+          "character_count": 766,
+          "heading": "Values you'll need",
+          "line_end": 91,
+          "line_start": 83
+        },
+        {
+          "anchor": "1-create-a-workload-identity-pool-and-provider-cloud-admin",
+          "character_count": 753,
+          "heading": "1. Create a workload identity pool and provider (cloud admin)",
+          "line_end": 102,
+          "line_start": 92
+        },
+        {
+          "anchor": "create-the-pool",
+          "character_count": 337,
+          "heading": "Create the pool",
+          "line_end": 110,
+          "line_start": 103
+        },
+        {
+          "anchor": "create-the-provider",
+          "character_count": 645,
+          "heading": "Create the provider",
+          "line_end": 127,
+          "line_start": 111
+        },
+        {
+          "anchor": "2-grant-vertex-ai-access-to-your-warp-team-cloud-admin",
+          "character_count": 542,
+          "heading": "2. Grant Vertex AI access to your Warp team (cloud admin)",
+          "line_end": 157,
+          "line_start": 149
+        },
+        {
+          "anchor": "option-a-direct-federated-access-recommended",
+          "character_count": 940,
+          "heading": "Option A: Direct federated access (recommended)",
+          "line_end": 172,
+          "line_start": 158
+        },
+        {
+          "anchor": "option-b-service-account-impersonation-optional",
+          "character_count": 1304,
+          "heading": "Option B: Service account impersonation (optional)",
+          "line_end": 191,
+          "line_start": 173
+        },
+        {
+          "anchor": "3-configure-routing-in-the-admin-panel-warp-admin",
+          "character_count": 1637,
+          "heading": "3. Configure routing in the Admin Panel (Warp admin)",
+          "line_end": 221,
+          "line_start": 192
+        },
+        {
+          "anchor": "4-validate",
+          "character_count": 281,
+          "heading": "4. Validate",
+          "line_end": 229,
+          "line_start": 222
+        },
+        {
+          "anchor": "alternative-configure-google-cloud-with-the-gcloud-cli",
+          "character_count": 2513,
+          "heading": "Alternative: configure Google Cloud with the gcloud CLI",
+          "line_end": 310,
+          "line_start": 230
+        },
+        {
+          "anchor": "using-gemini-enterprise-as-a-team-member",
+          "character_count": 1015,
+          "heading": "Using Gemini Enterprise as a team member",
+          "line_end": 321,
+          "line_start": 311
+        },
+        {
+          "anchor": "host-priority",
+          "character_count": 395,
+          "heading": "Host priority",
+          "line_end": 333,
+          "line_start": 324
+        },
+        {
+          "anchor": "failover-behavior",
+          "character_count": 349,
+          "heading": "Failover behavior",
+          "line_end": 337,
+          "line_start": 334
+        },
+        {
+          "anchor": "auto-model-selection",
+          "character_count": 361,
+          "heading": "Auto model selection",
+          "line_end": 341,
+          "line_start": 338
+        },
+        {
+          "anchor": "billing-behavior",
+          "character_count": 552,
+          "heading": "Billing behavior",
+          "line_end": 351,
+          "line_start": 342
+        },
+        {
+          "anchor": "security-and-data-handling",
+          "character_count": 30,
+          "heading": "Security and data handling",
+          "line_end": 353,
+          "line_start": 352
+        },
+        {
+          "anchor": "credential-security",
+          "character_count": 722,
+          "heading": "Credential security",
+          "line_end": 359,
+          "line_start": 354
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "character_count": 428,
+          "heading": "Zero Data Retention (ZDR)",
+          "line_end": 369,
+          "line_start": 360
+        },
+        {
+          "anchor": "common-errors",
+          "character_count": 1416,
+          "heading": "Common errors",
+          "line_end": 385,
+          "line_start": 377
+        },
+        {
+          "anchor": "debugging-steps",
+          "character_count": 526,
+          "heading": "Debugging steps",
+          "line_end": 393,
+          "line_start": 386
+        },
+        {
+          "anchor": "how-is-this-different-from-byok-with-a-google-api-key",
+          "character_count": 482,
+          "heading": "How is this different from BYOK with a Google API key?",
+          "line_end": 399,
+          "line_start": 396
+        },
+        {
+          "anchor": "do-members-need-the-gcloud-cli-installed",
+          "character_count": 414,
+          "heading": "Do members need the gcloud CLI installed?",
+          "line_end": 403,
+          "line_start": 400
+        },
+        {
+          "anchor": "does-gemini-enterprise-work-with-cloud-agents",
+          "character_count": 346,
+          "heading": "Does Gemini Enterprise work with cloud agents?",
+          "line_end": 407,
+          "line_start": 404
+        },
+        {
+          "anchor": "which-claude-models-route-through-my-project",
+          "character_count": 387,
+          "heading": "Which Claude models route through my project?",
+          "line_end": 411,
+          "line_start": 408
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 783,
+          "heading": "Related resources",
+          "line_end": 424,
+          "line_start": 416
+        }
+      ],
+      "character_count": 25746,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "key-features",
+          "line_start": 22,
+          "text": "Key features"
+        },
+        {
+          "anchor": "how-it-works",
+          "line_start": 30,
+          "text": "How it works"
+        },
+        {
+          "anchor": "credential-lifecycle",
+          "line_start": 42,
+          "text": "Credential lifecycle"
+        },
+        {
+          "anchor": "model-availability",
+          "line_start": 51,
+          "text": "Model availability"
+        },
+        {
+          "anchor": "enabling-gemini-enterprise",
+          "line_start": 60,
+          "text": "Enabling Gemini Enterprise"
+        },
+        {
+          "anchor": "prerequisites",
+          "line_start": 73,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "values-youll-need",
+          "line_start": 83,
+          "text": "Values you'll need"
+        },
+        {
+          "anchor": "1-create-a-workload-identity-pool-and-provider-cloud-admin",
+          "line_start": 92,
+          "text": "1. Create a workload identity pool and provider (cloud admin)"
+        },
+        {
+          "anchor": "create-the-pool",
+          "line_start": 103,
+          "text": "Create the pool"
+        },
+        {
+          "anchor": "create-the-provider",
+          "line_start": 111,
+          "text": "Create the provider"
+        },
+        {
+          "anchor": "configure-attribute-mappings",
+          "line_start": 128,
+          "text": "Configure attribute mappings"
+        },
+        {
+          "anchor": "restrict-the-provider-to-your-warp-team",
+          "line_start": 137,
+          "text": "Restrict the provider to your Warp team"
+        },
+        {
+          "anchor": "2-grant-vertex-ai-access-to-your-warp-team-cloud-admin",
+          "line_start": 149,
+          "text": "2. Grant Vertex AI access to your Warp team (cloud admin)"
+        },
+        {
+          "anchor": "option-a-direct-federated-access-recommended",
+          "line_start": 158,
+          "text": "Option A: Direct federated access (recommended)"
+        },
+        {
+          "anchor": "option-b-service-account-impersonation-optional",
+          "line_start": 173,
+          "text": "Option B: Service account impersonation (optional)"
+        },
+        {
+          "anchor": "3-configure-routing-in-the-admin-panel-warp-admin",
+          "line_start": 192,
+          "text": "3. Configure routing in the Admin Panel (Warp admin)"
+        },
+        {
+          "anchor": "4-validate",
+          "line_start": 222,
+          "text": "4. Validate"
+        },
+        {
+          "anchor": "alternative-configure-google-cloud-with-the-gcloud-cli",
+          "line_start": 230,
+          "text": "Alternative: configure Google Cloud with the gcloud CLI"
+        },
+        {
+          "anchor": "using-gemini-enterprise-as-a-team-member",
+          "line_start": 311,
+          "text": "Using Gemini Enterprise as a team member"
+        },
+        {
+          "anchor": "routing-and-fallback-behavior",
+          "line_start": 322,
+          "text": "Routing and fallback behavior"
+        },
+        {
+          "anchor": "host-priority",
+          "line_start": 324,
+          "text": "Host priority"
+        },
+        {
+          "anchor": "failover-behavior",
+          "line_start": 334,
+          "text": "Failover behavior"
+        },
+        {
+          "anchor": "auto-model-selection",
+          "line_start": 338,
+          "text": "Auto model selection"
+        },
+        {
+          "anchor": "billing-behavior",
+          "line_start": 342,
+          "text": "Billing behavior"
+        },
+        {
+          "anchor": "security-and-data-handling",
+          "line_start": 352,
+          "text": "Security and data handling"
+        },
+        {
+          "anchor": "credential-security",
+          "line_start": 354,
+          "text": "Credential security"
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "line_start": 360,
+          "text": "Zero Data Retention (ZDR)"
+        },
+        {
+          "anchor": "auditability",
+          "line_start": 370,
+          "text": "Auditability"
+        },
+        {
+          "anchor": "troubleshooting",
+          "line_start": 375,
+          "text": "Troubleshooting"
+        },
+        {
+          "anchor": "common-errors",
+          "line_start": 377,
+          "text": "Common errors"
+        },
+        {
+          "anchor": "debugging-steps",
+          "line_start": 386,
+          "text": "Debugging steps"
+        },
+        {
+          "anchor": "faq",
+          "line_start": 394,
+          "text": "FAQ"
+        },
+        {
+          "anchor": "how-is-this-different-from-byok-with-a-google-api-key",
+          "line_start": 396,
+          "text": "How is this different from BYOK with a Google API key?"
+        },
+        {
+          "anchor": "do-members-need-the-gcloud-cli-installed",
+          "line_start": 400,
+          "text": "Do members need the gcloud CLI installed?"
+        },
+        {
+          "anchor": "does-gemini-enterprise-work-with-cloud-agents",
+          "line_start": 404,
+          "text": "Does Gemini Enterprise work with cloud agents?"
+        },
+        {
+          "anchor": "which-claude-models-route-through-my-project",
+          "line_start": 408,
+          "text": "Which Claude models route through my project?"
+        },
+        {
+          "anchor": "can-admins-enforce-provider-only-routing",
+          "line_start": 412,
+          "text": "Can admins enforce provider-only routing?"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 416,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+      "source_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+      "title": "BYOLLM: Gemini Enterprise (Vertex AI)"
+    },
+    "src/content/docs/enterprise/enterprise-features/private-networking.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "supported-service-connections",
+          "character_count": 1009,
+          "heading": "Supported service connections",
+          "line_end": 24,
+          "line_start": 14
+        },
+        {
+          "anchor": "set-up-google-cloud-private-service-connect",
+          "character_count": 643,
+          "heading": "Set up Google Cloud Private Service Connect",
+          "line_end": 53,
+          "line_start": 45
+        },
+        {
+          "anchor": "set-up-aws-privatelink",
+          "character_count": 580,
+          "heading": "Set up AWS PrivateLink",
+          "line_end": 62,
+          "line_start": 54
+        },
+        {
+          "anchor": "set-up-azure-private-link",
+          "character_count": 802,
+          "heading": "Set up Azure Private Link",
+          "line_end": 70,
+          "line_start": 63
+        },
+        {
+          "anchor": "set-up-an-on-premises-interconnect",
+          "character_count": 583,
+          "heading": "Set up an on-premises interconnect",
+          "line_end": 80,
+          "line_start": 71
+        },
+        {
+          "anchor": "set-up-a-route-based-ipsec-vpn",
+          "character_count": 472,
+          "heading": "Set up a route-based IPsec VPN",
+          "line_end": 89,
+          "line_start": 81
+        },
+        {
+          "anchor": "configure-and-validate-the-service",
+          "character_count": 1087,
+          "heading": "Configure and validate the service",
+          "line_end": 106,
+          "line_start": 90
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 640,
+          "heading": "Related pages",
+          "line_end": 112,
+          "line_start": 107
+        }
+      ],
+      "character_count": 7217,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "supported-service-connections",
+          "line_start": 14,
+          "text": "Supported service connections"
+        },
+        {
+          "anchor": "requirements",
+          "line_start": 25,
+          "text": "Requirements"
+        },
+        {
+          "anchor": "choose-a-connection-method",
+          "line_start": 33,
+          "text": "Choose a connection method"
+        },
+        {
+          "anchor": "set-up-google-cloud-private-service-connect",
+          "line_start": 45,
+          "text": "Set up Google Cloud Private Service Connect"
+        },
+        {
+          "anchor": "set-up-aws-privatelink",
+          "line_start": 54,
+          "text": "Set up AWS PrivateLink"
+        },
+        {
+          "anchor": "set-up-azure-private-link",
+          "line_start": 63,
+          "text": "Set up Azure Private Link"
+        },
+        {
+          "anchor": "set-up-an-on-premises-interconnect",
+          "line_start": 71,
+          "text": "Set up an on-premises interconnect"
+        },
+        {
+          "anchor": "set-up-a-route-based-ipsec-vpn",
+          "line_start": 81,
+          "text": "Set up a route-based IPsec VPN"
+        },
+        {
+          "anchor": "configure-and-validate-the-service",
+          "line_start": 90,
+          "text": "Configure and validate the service"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 107,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/enterprise-features/private-networking/",
+      "source_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+      "title": "Connecting private services to Warp"
     }
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "80115f22c37507e41d0991de80f585ce308f429e"
+    "docs": "90535b6cf719a2b32843ca75a65bc06583353645"
   }
 }

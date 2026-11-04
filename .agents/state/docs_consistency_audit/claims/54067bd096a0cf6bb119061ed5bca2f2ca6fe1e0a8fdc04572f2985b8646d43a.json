@@ -1,11 +1,274 @@
 {
   "claims": [
     {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:a33c231519d575a0782fbb13a6ac3a966cb57da70d5bb61925f85c9a550ca3cc",
+      "claim_id": "sha256:4bd9656924014b8ab99ad77f2220972811f43053895a1a8813192fd023a52a20",
+      "entity": "auto-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Auto (Responsive) | `auto` | Selects the highest-quality, fastest available model. Can cost more than cost-efficient options. |\n| Auto (Cost-efficient) | `auto-efficient` | Optimizes for lower inference cost while maintaining output quality. |\n| Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and `/plan` sessions. |\n| Auto (Open-weights) | `auto-open` | Routes between the best open-source models available in Warp. Optimizes for low cost and fast speed using open-weights models. |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Auto models",
+        "heading_anchor": "auto-models",
+        "line_end": 28,
+        "line_start": 25,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "auto",
+          "auto-efficient",
+          "auto-genius",
+          "auto-open"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:1f7aaeaff06cd239132e30c50f0d11de086102ba0acb3975ec80e24c2d5c8a7c",
+      "claim_id": "sha256:b114c061b28665c5e0e4ad1abafbdb6952c01b9f6fdd80156847e141b60679e4",
+      "entity": "model-picker",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "selection-persists",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your selection will automatically persist for future prompts.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "How to change models",
+        "heading_anchor": "how-to-change-models",
+        "line_end": 131,
+        "line_start": 131,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:ac3db1f3bddd952aa7e0dffd915b919a22d5d94b2a73c69a88fe3fbba6922b96",
+      "claim_id": "sha256:0d2124f9ad9e54a83f645853fd3779dffdfa86236f9ec7a7cf2119a5b4f2c05a",
+      "entity": "model-fallback",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "automatic",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If your selected model isn't available, Warp automatically uses a fallback model from a predefined chain to continue your conversation without errors.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Model fallback",
+        "heading_anchor": "model-fallback",
+        "line_end": 145,
+        "line_start": 145,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:a818aed12557328b609946568d5df1626fc50cdc28a730ff87464e6736352205",
+      "claim_id": "sha256:ea82b764409b8390e98adeed3100567b4944e80ec71f4a55823277907b92cd67",
+      "entity": "model-fallback",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "restores-selected-model",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "As soon as your originally selected model becomes available again, Warp automatically switches back to it.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Model fallback",
+        "heading_anchor": "model-fallback",
+        "line_end": 146,
+        "line_start": 146,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:b102c9c164d3dcacc581f24d8fd8ba5bebaed5339cf405fcc6129f3a58ac8e49",
+      "claim_id": "sha256:0349b4b46520ac3810b4da9b0cecfd37248351d9715755dc16547d3abb487e77",
+      "entity": "agent-profile-base-model",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "used-for-planning",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The base model is also used for [Planning](/agents/capabilities/planning/).",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Configuring models per Agent Profile",
+        "heading_anchor": "configuring-models-per-agent-profile",
+        "line_end": 151,
+        "line_start": 151,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:25679f5b020f30772ad2a83d9e7d725a53dcefd05a187084fc47ce4ae40c453e",
+      "claim_id": "sha256:4880db7c6aa3c6fdcd6f61643722d2b77a4aa1d15351d3c27bdafa3eb41f530f",
+      "entity": "claude-haiku-5.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "has-fixed-default-model-id",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 71,
+        "line_start": 71,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
       "category": "privacy",
       "claim_content_fingerprint": "sha256:032e4bc65a25f585678ddcf5a3d0f8e96ec662b77fea94e961f6c47d6e2fe153",
       "claim_id": "sha256:a57ee70be66d981fe317dcbcc9b3384d469e74ff18b28c5ccdb99d9a5481e105",
       "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "retained-by-model-provider",
       "qualifiers": {
@@ -31,11 +294,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
-        "line_end": 71,
-        "line_start": 71,
+        "line_end": 74,
+        "line_start": 74,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -49,16 +312,64 @@
       }
     },
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:328ccc87c1472bb743afdbba6f9557ba3b4efb6dba759e92fe7173820c5f6660",
-      "claim_id": "sha256:ef95c96ed2b53d4a26f1cd2c1f792188b32098d947bd3d1a1cb735ec47217a00",
-      "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:138114b5a0138c9805164ff4788a7e6d1a54e006fc30b634cb50be95bf81486e",
+      "claim_id": "sha256:1be24435fdbf16ad38a40c470a17f440407a6db267946a0d6c0a5e694f3134c9",
+      "entity": "claude-fable-models",
+      "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "retained-by-model-provider",
+      "predicate": "enterprise-enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1"
+        ]
+      },
+      "quote": "For Enterprise teams, these models are off by default and a workspace admin must enable them",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 74,
+        "line_start": 74,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:cba15a52e7f39f5b80cc1ef98cee455bf3a09821b6d9c446acd092c5136db573",
+      "claim_id": "sha256:cdf171e3b2d98e44dfc9d038f35e2811e6e294f486a6c21d0d5d7dcc55b349fe",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
       "qualifiers": {
         "actors": [
-          "llm-providers"
+          "model-providers"
         ],
         "architectures": [],
         "environments": [],
@@ -72,15 +383,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.",
+      "quote": "LLM providers commit not to train their models on any customer-generated data processed through Warp\u2019s services.",
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
         "heading": "Zero data retention policies",
         "heading_anchor": "zero-data-retention-policies",
-        "line_end": 167,
-        "line_start": 167,
+        "line_end": 169,
+        "line_start": 169,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -95,16 +406,105 @@
     },
     {
       "category": "privacy",
-      "claim_content_fingerprint": "sha256:3be1e793c1c825bb568172be7a3b9788230afb390d29b01c67bd7434b72f1ec2",
-      "claim_id": "sha256:971d8c6f8a25e559acefd472bd18ee00e7f1dae531963c4363b83398889cd64a",
+      "claim_content_fingerprint": "sha256:365242794649c7aecabd9dfecd1184517cd22595d75933534730476f3a77a7ff",
+      "claim_id": "sha256:8e3f4ee7b5402b70d258ad801f920fb8792735f411b3440512c00ae8a8bd7bb6",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "claude-fable-5",
+          "claude-fable-5.1"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Zero data retention policies",
+        "heading_anchor": "zero-data-retention-policies",
+        "line_end": 170,
+        "line_start": 170,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": "deleted after output within fixed period by default",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:0b1bcf4512f58e03847bf9f787686835cbd7d109b30cc7c5067d712b51c651a8",
+      "claim_id": "sha256:ab6b2632eec7a86d388bd2088be85806c63cca27561c6eab4a11fa8a2456b708",
       "entity": "warp-managed-inference",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "zero-data-retention-available",
       "qualifiers": {
-        "actors": [
-          "anthropic"
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "provider-retention-required-models"
         ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Zero data retention is available for supported models.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Zero data retention policies",
+        "heading_anchor": "zero-data-retention-policies",
+        "line_end": 174,
+        "line_start": 174,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:f34cada3914354e49b39f19fb23a0deaac21a270ac01c90197fa744d369b1bd4",
+      "claim_id": "sha256:c64573c24fa45ef6a7cbc4f182871512c8ae229c9a6bcab1dd163ef7d3d85441",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "appear-in-model-picker",
+      "qualifiers": {
+        "actors": [],
         "architectures": [],
         "environments": [],
         "exceptions": [],
@@ -115,34 +515,78 @@
         "release_statuses": [],
         "shells": [],
         "time_scope": null,
-        "versions": [
-          "claude-fable-5",
-          "claude-fable-5.1"
-        ]
+        "versions": []
       },
-      "quote": "these models are **not available under Zero Data Retention (ZDR)**",
+      "quote": "Custom routers appear in the model picker alongside Auto and individual models.",
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
-        "heading": "Anthropic",
-        "heading_anchor": "anthropic",
-        "line_end": 71,
-        "line_start": 71,
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "Custom routers",
+        "heading_anchor": "custom-routers",
+        "line_end": 135,
+        "line_start": 135,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
         "visibility": "public"
       },
       "source_class": "canonical-doc",
-      "topic": "privacy",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:a62dcd15a22981dd4c5f0b50c43cc2c3910b3363a5805acf7e08be67556c60e2",
+      "claim_id": "sha256:aabd6da34679f04623b6477450af8bce55e5da2162138e9dda11e61baa4853d2",
+      "entity": "grok-subscription-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [
+          "connected-xai-subscriber"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "other-applicable-charges"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "To use eligible Grok models without Warp-provided inference charges, connect your xAI account.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "heading": "xAI",
+        "heading_anchor": "xai",
+        "line_end": 107,
+        "line_start": 107,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
       "value": {
         "normalized": false,
         "type": "boolean"
       }
     }
   ],
-  "page_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+  "page_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
   "path": "src/content/docs/agents/inference/model-choice.mdx",
   "schema_version": 1
 }
