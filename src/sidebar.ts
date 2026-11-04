@@ -528,7 +528,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/api-and-sdk', label: 'Agent & run endpoints' },
 								{ slug: 'factories/api-and-sdk/quickstart', label: 'Quickstart' },
 								{ slug: 'factories/api-and-sdk/demo-sentry-monitoring-with-sdk', label: 'Sentry monitoring demo' },
-								{ label: 'API reference', link: '/api' },
+								{ label: 'API reference', link: '/api/' },
 								{ label: 'Python SDK', link: 'https://github.com/warpdotdev/oz-sdk-python' },
 								{ label: 'TypeScript SDK', link: 'https://github.com/warpdotdev/oz-sdk-typescript' },
 								{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'Errors' },
