@@ -43,6 +43,24 @@
       ]
     },
     {
+      "source": "/index.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://docs.warp.dev/>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
+      "source": "/:path((?!index\\.md$).+)\\.md",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "<https://docs.warp.dev/:path/>; rel=\"canonical\""
+        }
+      ]
+    },
+    {
       "source": "/:directory(_astro|assets)/:path(.*)",
       "headers": [
         {
