@@ -157,6 +157,14 @@ Pass it with `--config-file config.yaml`. See the [Self-hosted worker reference]
 
 ---
 
+## Harness transport
+
+Claude Code and Codex runs on a Docker worker use the Agent Client Protocol (ACP), which gives follow-ups native streaming and file attachments. The worker mounts the `warpdotdev/warp-<harness>-acp-sidecar` image for such a run. If the agent finds no ACP adapter in the sandbox, for example because a mirror maps that repository to the terminal image, it falls back to a terminal (PTY) by itself and reports that, and the {VARS.WARP_AUTOMATION_PLATFORM} delivers follow-ups accordingly. No worker upgrade is needed.
+
+For mirrored registries, see [Images to mirror](/factories/self-hosting/private-container-registry/#images-to-mirror).
+
+---
+
 ## Docker connectivity
 
 The worker uses the standard Docker client discovery mechanism to find the Docker daemon.

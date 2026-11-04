@@ -163,6 +163,7 @@ backend:
 * `volumes` — List of volume mounts (same format as `-v` flag).
 * `image_pull_policy` — Pull policy for task and sidecar images. One of `Always`, `Never`, or `IfNotPresent`. Defaults to `Always`. Requires worker release `v2026-08-20-16-38-31` or newer.
 * `sidecar_image` — Image reference for the Warp Agent sidecar mounted at `/agent`. It does not affect additional sidecars. Requires worker release `v2026-08-28-21-43-14` or newer.
+* `sidecar_image_mappings` — Map of Warp sidecar repositories (without a tag or digest) to mirrored image references, for example `docker.io/warpdotdev/warp-claude-acp-sidecar: "registry.internal/claude-acp"`. Applies to every assigned sidecar. Cannot be combined with `sidecar_image`. See [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
 * `environment` — List of environment variables with `name` and optional `value`. If `value` is omitted, the variable is inherited from the host.
 
 **`backend.kubernetes`:**
@@ -175,7 +176,8 @@ backend:
 * `preflight_image` — Startup preflight Job image. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
 * `preflight_resources` — CPU and memory requests and limits for startup preflight containers.
 * `sidecar_image` — Image reference that replaces the Warp Agent sidecar mounted at `/agent`.
-* `coding_cli_sidecars` — Map of harness names such as `claude` or `codex` to coding CLI sidecar images.
+* `sidecar_image_mappings` — Map of Warp sidecar repositories (without a tag or digest) to mirrored image references. Applies to every assigned sidecar. Cannot be combined with `sidecar_image` or `coding_cli_sidecars`. See [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
+* `coding_cli_sidecars` — Legacy map of harness names such as `claude` or `codex` to coding CLI sidecar images. A bare harness key maps both the `warp-<harness>-cli-sidecar` and `warp-<harness>-acp-sidecar` repositories to that image, so the agent runs the harness over a terminal (PTY). Add a `<harness>_acp` key such as `claude_acp` to map the ACP repository to its own image and keep the Agent Client Protocol (ACP) (worker release `<WORKER_RELEASE>` or newer). Prefer `sidecar_image_mappings` for new configurations.
 * `setup_command` — Shell command to run before each task.
 * `teardown_command` — Shell command to run after each task completes.
 * `extra_labels` — Map of additional labels to add to task Jobs and Pods.

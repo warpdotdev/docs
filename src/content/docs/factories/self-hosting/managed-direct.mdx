@@ -37,6 +37,7 @@ The Direct backend does not provide per-task container isolation. Each task runs
 * A worker host with write access to `workspace_root`, which defaults to `/var/lib/oz/workspaces`.
 * The `oz-agent-worker` binary on the worker host. See [Homebrew or prebuilt binary installation](/factories/self-hosting/managed-docker/#install-and-run-the-worker).
 * The {VARS.WARP_AGENT_CLI} in `PATH` on the worker host, or selected with `oz_path` in the config file. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+* For Claude Code and Codex: the `claude` and `codex` CLIs in the `PATH` that tasks inherit. The Direct backend does not mount sidecars, so the agent runs these harnesses over a terminal (PTY) rather than the Agent Client Protocol (ACP). To run them over ACP, install the `@agentclientprotocol/claude-agent-acp` and `@agentclientprotocol/codex-acp` npm packages so `claude-agent-acp` and `codex-acp` are on that `PATH`; the agent uses them when it finds them.
 
 ---
 

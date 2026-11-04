@@ -178,6 +178,24 @@ Exit code `143` generally indicates `SIGTERM`; it does not by itself prove an ou
 
 ---
 
+## Claude Code or Codex runs use a PTY instead of ACP
+
+**Cause:** The agent found no ACP adapter in the sandbox at startup, so it ran the harness over a terminal (PTY) and reported that to the {VARS.WARP_AUTOMATION_PLATFORM}. Follow-ups on such runs lack native streaming and file attachments. The Direct backend mounts no sidecars, so its runs use a terminal unless the ACP adapters are installed on the task `PATH`.
+
+**Fix:**
+
+1. Find the line starting with `oz:` near the top of the run's terminal session. It says why the agent fell back.
+2. If it says **no ACP sidecar is mounted**, the worker mounted no sidecar for the run:
+   * On the Direct backend, install `claude-agent-acp` and `codex-acp` on the task `PATH`.
+   * On the Command backend, mount every entry of the payload's `sidecars` at its `mount_path`.
+3. If it says **the mounted sidecar has no ACP adapter**, the worker mounted the terminal image for an ACP run:
+   * On Kubernetes with the legacy `coding_cli_sidecars` option, add a `<harness>_acp` entry for the harness, or switch to `sidecar_image_mappings` and mirror the `warpdotdev/warp-<harness>-acp-sidecar` image.
+   * With `sidecar_image_mappings`, confirm the `-acp-sidecar` repository is mapped to an image that contains the adapter, not to the `-cli-sidecar` image.
+
+The fix applies to new conversations. A conversation that already ran over a terminal keeps using one for its follow-ups, because its ACP history does not include the turns that ran in the terminal.
+
+---
+
 ## Image pull failures
 
 ### Docker backend (image pull)
