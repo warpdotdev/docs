@@ -23,7 +23,7 @@ The [published schema catalogue](https://app.warp.dev/api/v1/factory-files/schem
 
 Definition files accept the authoring aliases listed below. Native API subscription filters use canonical keys, not those aliases. Some schema fields are server-managed or reserved; the provider notes identify them.
 
-The [state-independent validator](factory-as-code.mdx#validate-locally-or-in-ci) checks syntax, event/key combinations, and matcher types without an existing factory. Linear and Slack name lookups can be deferred until apply time. A validation pass doesn't prove that a name exists, resolves uniquely, or is accessible through your team's active provider connection. Review the response's `deferred_resolutions` and list of checks not run.
+The [state-independent validator](/factories/factory-as-code/#validate-locally-or-in-ci) checks syntax, event/key combinations, and matcher types without an existing factory. Linear and Slack name lookups can be deferred until apply time. A validation pass doesn't prove that a name exists, resolves uniquely, or is accessible through your team's active provider connection. Review the response's `deferred_resolutions` and list of checks not run.
 
 ## Matchers and defaults
 
@@ -42,14 +42,14 @@ Most native keys accept lists or matcher objects. Exceptions:
 * **Linear and Slack name aliases** - Plain lists only; don't combine an alias with its native key.
 * **GitHub `skip_bots`** - A scalar: `all` (default), `self`, or `none`.
 * **Microsoft Teams `team_ids` and `channel_ids`** - `in` only, with required scope described below.
-* **Webhook `webhook_ids`** - Exactly one included UID; `payload` uses a [JSON pattern](automations.mdx#payload-filters-for-webhook-triggers).
+* **Webhook `webhook_ids`** - Exactly one included UID; `payload` uses a [JSON pattern](/factories/automations/#payload-filters-for-webhook-triggers).
 * **Schedules** - Declare `schedule`, not a `schedule_ids` matcher.
 
 Lists aren't glob patterns unless a field explicitly supports globs. Keyword filters match case-insensitive substrings, not regular expressions.
 
 ## Linear
 
-Use `provider: linear`. Connect the [Linear integration](integrations/linear.mdx) and grant the app access to the relevant teams. Labels are **names**, not label IDs, and match case-insensitively.
+Use `provider: linear`. Connect the [Linear integration](/factories/integrations/linear/) and grant the app access to the relevant teams. Labels are **names**, not label IDs, and match case-insensitively.
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -108,7 +108,7 @@ A comment mentioning the app can also create an agent session. If comment and ag
 
 ## Slack
 
-Use `provider: slack`. Connect [Slack](integrations/slack.mdx); the app must be a member of channels it listens to, including private channels.
+Use `provider: slack`. Connect [Slack](/factories/integrations/slack/); the app must be a member of channels it listens to, including private channels.
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -132,7 +132,7 @@ Names must resolve to exactly one active object visible to the connection. To ex
 
 ## GitHub
 
-Use `provider: github`. Events are scoped to repositories available through the factory's [GitHub connection](integrations/github.mdx).
+Use `provider: github`. Events are scoped to repositories available through the factory's [GitHub connection](/factories/integrations/github/).
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -156,11 +156,11 @@ Use `provider: github`. Events are scoped to repositories available through the 
 
 `commit_status` fires only for `success`, `failure`, or `error`, not `pending`. `contexts` contains status names such as `ci/build`. Both status fields compare case-insensitively. Check re-request events are delivered only for checks owned by the receiving GitHub App. CI label and author constraints require exactly one linked pull request.
 
-`skip_bots: all` skips all bot-authored events; `self` skips Warp-owned bots; `none` removes that exclusion. See [bot-event limits](integrations/github.mdx#events-from-bots-dont-start-work).
+`skip_bots: all` skips all bot-authored events; `self` skips Warp-owned bots; `none` removes that exclusion. See [bot-event limits](/factories/integrations/github/#events-from-bots-dont-start-work).
 
 ## GitLab
 
-Use `provider: gitlab` with the factory's [GitLab connection](integrations/gitlab.mdx).
+Use `provider: gitlab` with the factory's [GitLab connection](/factories/integrations/gitlab/).
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -172,7 +172,7 @@ Use `provider: gitlab` with the factory's [GitLab connection](integrations/gitla
 
 ## Azure DevOps
 
-Use `provider: azure_devops` with the factory's [Azure DevOps connection](integrations/azure-devops.mdx).
+Use `provider: azure_devops` with the factory's [Azure DevOps connection](/factories/integrations/azure-devops/).
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -187,7 +187,7 @@ The catalogue also contains `push` with `repos` and `branches`, but `azure_devop
 
 ## Jira
 
-Use `provider: jira` with the [Jira integration](integrations/jira.mdx).
+Use `provider: jira` with the [Jira integration](/factories/integrations/jira/).
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -199,7 +199,7 @@ Use `provider: jira` with the [Jira integration](integrations/jira.mdx).
 
 ## Microsoft Teams
 
-Use `provider: teams`, not the integration identifier `microsoft-teams`. Connect [Microsoft Teams](integrations/teams.mdx) and select channels the app can access.
+Use `provider: teams`, not the integration identifier `microsoft-teams`. Connect [Microsoft Teams](/factories/integrations/teams/) and select channels the app can access.
 
 | Event | Native filter keys | Example `filter` |
 | --- | --- | --- |
@@ -225,7 +225,7 @@ Use `provider: schedule`.
 | --- | --- | --- |
 | `cron_fired` | No authored filter; `schedule_ids` is server-managed | `{provider: schedule, event: cron_fired, schedule: {cron: "0 9 * * 1-5"}}` |
 
-The required `schedule.cron` uses five-field UTC cron or a descriptor such as `@daily` or `@every 1h`. Don't set `schedule_ids`. For optional schedule names and update semantics, see [inline schedules](factory-as-code.mdx#triggersschedule).
+The required `schedule.cron` uses five-field UTC cron or a descriptor such as `@daily` or `@every 1h`. Don't set `schedule_ids`. For optional schedule names and update semantics, see [inline schedules](/factories/factory-as-code/#triggersschedule).
 
 ## Custom webhooks
 
@@ -235,11 +235,11 @@ Use `provider: webhook`.
 | --- | --- | --- |
 | `received` | `webhook_ids`: exactly one webhook UID, `in` only; `payload`: optional JSON pattern | `{webhook_ids: [WEBHOOK_UID], payload: {status: [failed]}}` |
 
-Replace `WEBHOOK_UID` with the UID of a [configured webhook](webhooks.mdx), not its file name. Use one trigger per webhook. Authentication applies before filtering. See [payload patterns](automations.mdx#payload-filters-for-webhook-triggers) for `in`, `not_in`, `exists`, and nested objects.
+Replace `WEBHOOK_UID` with the UID of a [configured webhook](/factories/webhooks/), not its file name. Use one trigger per webhook. Authentication applies before filtering. See [payload patterns](/factories/automations/#payload-filters-for-webhook-triggers) for `in`, `not_in`, `exists`, and nested objects.
 
 ## Related pages
 
-* [Factory automations](automations.mdx) - Edit automations and diagnose matching
-* [Factory definition syntax](factory-as-code.mdx) - Define the surrounding factory and agent files
-* [Connect Linear to your factory](integrations/linear.mdx)
-* [Connect Slack to your factory](integrations/slack.mdx)
+* [Factory automations](/factories/automations/) - Edit automations and diagnose matching
+* [Factory definition syntax](/factories/factory-as-code/) - Define the surrounding factory and agent files
+* [Connect Linear to your factory](/factories/integrations/linear/)
+* [Connect Slack to your factory](/factories/integrations/slack/)

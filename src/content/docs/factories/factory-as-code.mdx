@@ -585,7 +585,7 @@ unresolved product questions to a human.
 **Required.**
 One or more events that start runs. Each trigger declares `provider` and `event`, and can include `filter` or, for scheduled runs, `schedule`.
 
-For exact provider and event strings, per-event filter keys, and examples, see [Events and filters for factory automations](automation-triggers.mdx).
+For exact provider and event strings, per-event filter keys, and examples, see [Events and filters for factory automations](/factories/automation-triggers/).
 
 Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
@@ -596,7 +596,7 @@ Narrows which events start runs. Available keys depend on the provider and event
 
 A `webhook` trigger for `received` requires `webhook_ids`: a one-item list with one webhook UID. It supports `in` only and doesn't accept a file name. To listen to multiple webhooks, add one trigger per UID. The optional `payload` pattern matches against the delivery's JSON body. See [webhook payload filters](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern syntax.
 
-The [trigger reference](automation-triggers.mdx) lists canonical API keys separately from definition-file aliases, with matcher syntax, provider-specific defaults, and deferred name-resolution limits.
+The [trigger reference](/factories/automation-triggers/) lists canonical API keys separately from definition-file aliases, with matcher syntax, provider-specific defaults, and deferred name-resolution limits.
 
 ```yaml
 triggers:
