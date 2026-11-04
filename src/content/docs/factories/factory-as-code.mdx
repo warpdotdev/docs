@@ -63,7 +63,7 @@ See the [example factory definition](#example-factory-definition), the minimal [
 
 ## Validate a definition
 
-Warp validates syntax, required fields, and resource access before applying a definition. A Warp-managed factory validates on save; a GitHub-backed factory validates in pull requests to its production branch. Warp applies the definition as one unit and keeps the last valid definition if validation fails.
+Warp validates syntax, required fields, and resource access before applying a definition. A Warp-managed factory validates on save; a GitHub-backed factory validates in pull requests to its production branch by default. Use [`github.factoryConfigChecks`](#github) to extend checks to other branches. Warp applies the definition as one unit and keeps the last valid definition if validation fails.
 
 ### Pull request checks
 
@@ -161,6 +161,18 @@ automations:
   githubOnboardingNotices: false
 ```
 
+### `github`
+
+**Optional.**
+GitHub-specific settings. `github.factoryConfigChecks` accepts `main` (the default) or `all`. `main` checks pull requests targeting the factory's production branch, regardless of its name. `all` checks pull requests targeting any branch; it doesn't change which branch deploys the factory.
+
+```yaml title="factory.yaml"
+github:
+  factoryConfigChecks: all
+```
+
+Checks use the pull request's changed paths to decide whether validation is needed, then validate its complete head snapshot. Base-only edits and advances to the base or production branch don't refresh unchanged pull request checks. See [factory-definition pull request checks](/factories/integrations/github/#factory-definition-pull-request-checks).
+
 ### `codeForges`
 
 **Optional.**
@@ -192,7 +204,105 @@ Repository substitutions for benchmark starting states. Each entry requires `sou
 ### `secrets`
 
 **Optional.**
-Names of [managed secrets](/platform/secrets/) granted to every agent, in addition to secrets declared by an agent.
+Names of [managed secrets](/factories/secrets/) granted to every agent, in addition to secrets declared by an agent.
+
+### `networkPolicy`
+
+**Optional.**
+Restricts outbound network access for factory runs. Declare `networkPolicy` at the root of `factory.yaml` for every factory agent, or in an agent's frontmatter for that agent.
+
+If neither scope declares a policy, outbound access is unrestricted. Once either scope declares a policy, hosts not allowed by the combined policy are blocked, except for services required for the platform to function.
+
+```yaml title="factory.yaml"
+schemaVersion: v1alpha1
+name: payments-factory
+repositories:
+  - owner: acme
+    name: payments-service
+agentDefaults:
+  model: auto
+networkPolicy:
+  extends: warp/package-registries@1.0.0
+  allowedHosts:
+    - api.example.com
+  deniedHosts:
+    - blocked.example.com
+```
+
+| Field under `networkPolicy` | Description |
+| --- | --- |
+| `allowedHosts` | Optional list of hostnames or literal IP addresses to allow. |
+| `deniedHosts` | Optional list of hostnames or literal IP addresses to remove from user-configured allowances at either scope, including built-in policies. |
+| `extends` | Optional built-in policy reference, or list of references, in the form `<policy-name>@<version-selector>`. |
+
+Host entries don't accept URLs, ports, CIDRs, or wildcards. Hostnames are normalized to lowercase.
+
+An omitted or `null` policy contributes no restrictions at that scope. A policy containing only `deniedHosts` is not an unrestricted-access denylist.
+
+For failed requests, see [network troubleshooting and blocked-host diagnostics](/factories/troubleshooting/#network-requests-fail-during-a-run).
+
+#### Factory and agent scope
+
+Factory and agent allowances combine; the agent policy doesn't replace the factory policy. A denial at either scope takes precedence over an allowance at either scope, including hosts supplied by `extends`.
+
+For example, this agent adds access to a documentation service but cannot re-allow the host denied in `factory.yaml` above:
+
+```markdown title="agents/reviewer/agent.md"
+---
+agentType: REVIEW
+networkPolicy:
+  allowedHosts:
+    - docs.example.com
+    - blocked.example.com
+---
+
+Review pull requests against the service documentation.
+```
+
+Policies cannot block services required for the platform to function, even through `deniedHosts`. Warp adds the required access for the run, including its repository forges, configured MCP servers, image registry, and agent data storage.
+
+#### Denying all outbound access
+
+To deny all outbound network access except required platform services, set an empty policy in `factory.yaml` and remove any `allowedHosts` or `extends` from agent policies:
+
+```yaml title="factory.yaml"
+networkPolicy: {}
+```
+
+An empty policy contributes no allowed hosts. Allowances from the other scope still apply, so an empty agent policy does not cancel factory allowances.
+
+#### Built-in policies and versions
+
+Built-in policies supply reusable allowed-host lists:
+
+| Policy name | Purpose |
+| --- | --- |
+| `warp/claude-code` | Inference and authentication services for Claude Code. |
+| `warp/codex` | Inference and authentication services for Codex. |
+| `warp/package-registries` | Package registries and source or release downloads used by development toolchains. |
+
+Use an exact version such as `warp/package-registries@1.0.0` to pin the policy. A semantic-version range such as `warp/claude-code@^1` selects the highest matching version; `warp/codex@latest` selects the highest stable version.
+
+To combine policies, use a list:
+
+```yaml
+networkPolicy:
+  extends:
+    - warp/package-registries@1.0.0
+    - warp/claude-code@^1
+```
+
+Query `GET /api/v1/networking/policies` on the {VARS.WARP_PLATFORM_API} for available policy names and versions. For authentication, see the [API reference](https://docs.warp.dev/api).
+
+```http
+GET https://app.warp.dev/api/v1/networking/policies
+```
+
+The response groups policies by `name`, with `latest_version` and a `versions` list. Each version includes `version`, `is_latest`, and `allowed_hosts`. The catalog excludes the platform's required-service allowances.
+
+#### Kubernetes support
+
+Network controls for the self-hosted Kubernetes backend are pending. Don't rely on `networkPolicy` to restrict Kubernetes task pods.
 
 ### `mcpServers`
 
@@ -203,7 +313,7 @@ Names of [managed secrets](/platform/secrets/) granted to every agent, in additi
 * `command` - A stdio command. Optional `args` is a list of strings, and optional `env` maps names to string values.
 * `url` - An absolute HTTP or HTTPS URL. Optional `headers` maps header names to string values.
 
-Don't put credentials in `env` or `headers`. Reference a [managed secret](/platform/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
+Don't put credentials in `env` or `headers`. Reference a [managed secret](/factories/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
 
 ```yaml
 mcpServers:
@@ -313,6 +423,37 @@ harness:
 
 `model` and `harness` are mutually exclusive everywhere they appear.
 
+#### Custom inference endpoints and BYOK
+
+Factory runs can use [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) with the Warp Agent harness (`type: oz`). Configure the provider credentials in the Admin Panel, not in the definition files. Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) and [custom endpoints](/agents/inference/custom-inference-endpoint/) saved on your device aren't available to factory cloud runs.
+
+| Inference source | `model` value |
+| --- | --- |
+| Team custom inference endpoint | `custom:<model-name>`, using the exact, case-sensitive model name configured on the endpoint, not its display alias or endpoint name. It must match exactly one configured model in the factory's team, and both the endpoint and model must be enabled. |
+| Team provider API key (BYOK) | The standard Warp `model_id` from [Agent model choice](/agents/inference/model-choice/), such as `claude-4-6-sonnet-high`. Don't add `custom:`. Warp uses the configured key for that provider. |
+
+For example, select a configured Fireworks AI endpoint model as the factory default:
+
+```yaml title="factory.yaml"
+agentDefaults:
+  model: "custom:accounts/fireworks/models/glm-5p3"
+```
+
+Other endpoint model names use the same prefix, such as `custom:firerouter/opus` or `custom:accounts/fireworks/models/kimi-k3`.
+
+To select a different model for one agent, edit the YAML frontmatter in its existing `agents/<name>/agent.md` file. An explicit agent model overrides the factory default:
+
+```markdown title="agents/reviewer/agent.md"
+---
+model: "custom:accounts/fireworks/models/kimi-k3"
+---
+Review pull requests against the repository's standards.
+```
+
+If the same block already has `harness`, replace it with `model` rather than keeping both. A top-level `model` selects the Warp Agent even when the inherited default uses Claude Code or Codex; those harnesses use their own [model and authentication settings](#agentdefaultsharness).
+
+For a GitHub-backed factory, merge the change into its connected production branch and wait for a successful definition sync before starting a new run. Existing runs keep their selected model. See [definition validation](#validate-a-definition) if the change isn't applied.
+
 #### `agentDefaults.harness`
 
 **Conditionally required.** Set exactly one of `model` or `harness`.
@@ -402,6 +543,7 @@ All frontmatter keys are optional.
 | [`agentType`](#agenttype) | The agent's role. |
 | `credentialStrategy` | Overrides the factory-level [`credentialStrategy`](#credentialstrategy). Omit it to keep the agent's current setting. |
 | `spawnableBy` | Agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list exact agent names. |
+| `networkPolicy` | Combines with the factory's [`networkPolicy`](#networkpolicy); denials at either scope take precedence over user-configured allowances. |
 | `model`, `harness` | Override the corresponding [`agentDefaults`](#agentdefaults). Set at most one. |
 | `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` | Override the corresponding [`agentDefaults`](#agentdefaults), subject to each field's inheritance rules. |
 | `idleTimeoutMinutes` | Keeps a completed session available for follow-up for 1 through 60 minutes. Omit it or use `null` to inherit. Without an inherited or run-level value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run. |
@@ -443,24 +585,7 @@ unresolved product questions to a human.
 **Required.**
 One or more events that start runs. Each trigger declares `provider` and `event`, and can include `filter` or, for scheduled runs, `schedule`.
 
-The providers and their events:
-
-| Provider | Events |
-| --- | --- |
-| `azure_devops` (pull requests and pushes) | `pull_request_closed`, `pull_request_commented`, `pull_request_created`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_updated`, `push` |
-| `azure_devops` (work items) | `work_item_assigned`, `work_item_created`, `work_item_labeled`, `work_item_mentioned` |
-| `factory` | `work_item_stage_changed` |
-| `github` (issues) | `issue_assigned`, `issue_commented`, `issue_created`, `issue_labeled`, `issue_mentioned` |
-| `github` (pull requests) | `pull_request_assigned`, `pull_request_closed`, `pull_request_commented`, `pull_request_dequeued`, `pull_request_enqueued`, `pull_request_labeled`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_opened`, `pull_request_ready`, `pull_request_reopened`, `pull_request_synchronized` |
-| `github` (reviews) | `pull_request_review_requested`, `pull_request_review_submitted` |
-| `github` (code and CI) | `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `push`, `workflow_run_completed` |
-| `gitlab` | `bot_mentioned`, `merge_request`, `push` |
-| `jira` | `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed` |
-| `linear` | `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed` |
-| `schedule` | `cron_fired` |
-| `slack` | `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added` |
-| `teams` | `app_mention`, `message_posted` |
-| `webhook` | `received` |
+For exact provider and event strings, per-event filter keys, and examples, see [Events and filters for factory automations](/factories/automation-triggers/).
 
 Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
@@ -471,24 +596,7 @@ Narrows which events start runs. Available keys depend on the provider and event
 
 A `webhook` trigger for `received` requires `webhook_ids`: a one-item list with one webhook UID. It supports `in` only and doesn't accept a file name. To listen to multiple webhooks, add one trigger per UID. The optional `payload` pattern matches against the delivery's JSON body. See [webhook payload filters](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern syntax.
 
-Filter keys by provider:
-
-* Factory: `stages`.
-* Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
-* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, `skip_bots`, and `workflows`.
-* GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
-* Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
-* Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
-* Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
-* Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
-* Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
-* Webhook: `payload` and `webhook_ids`.
-
-Most canonical keys accept matcher objects: `in` includes values and `not_in` excludes them. Webhook `payload` also accepts `exists`. Microsoft Teams `team_ids` and `channel_ids` support only `in`.
-
-For Microsoft Teams, `team_ids` contains exactly one Microsoft Graph team UUID, and `channel_ids` contains at least one channel ID.
-
-`baseBranches` and `prNumbers` alias `base_branches` and `pr_numbers`. The name-based aliases `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` take plain lists; Warp resolves their values to their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
+The [trigger reference](/factories/automation-triggers/) lists canonical API keys separately from definition-file aliases, with matcher syntax, provider-specific defaults, and deferred name-resolution limits.
 
 ```yaml
 triggers:
@@ -738,7 +846,7 @@ One to 20 classifications. Each label requires a unique `value` and a `score` fr
 ## `webhooks/<name>.yaml`
 
 **Optional resource.**
-Webhook files define [authenticated URLs](/factories/webhooks/) for JSON POST requests. Automation `webhook` triggers subscribe to them; the file name identifies the webhook. `secretName` references an existing [managed secret](/platform/secrets/), not secret material.
+Webhook files define [authenticated URLs](/factories/webhooks/) for JSON POST requests. Automation `webhook` triggers subscribe to them; the file name identifies the webhook. `secretName` references an existing [managed secret](/factories/secrets/), not secret material.
 
 ```yaml title="webhooks/internal-ci.yaml"
 authMode: token
