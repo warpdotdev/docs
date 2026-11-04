@@ -46,7 +46,11 @@ Use [factory automations](/factories/automations/) for event-driven work and rec
 
 A trigger supplies the request and its context, such as an issue description or pull request diff. The agent works on its configured host with the repositories, tools, and credentials available to it, then produces results such as a branch, pull request, report, or transcript. Define the task's scope and validation commands before starting; a completed run alone doesn't prove the result is correct.
 
-The [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) explains the shared execution model in more detail. For factory hosting choices, see [deployment patterns](/factories/deployment-patterns/). For standalone CLI execution in your own CI or development environment, see [unmanaged execution](/platform/unmanaged-execution/).
+The [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) explains the shared execution model in more detail.
+
+For factory execution options, see [Deployment patterns for Warp Factories](/factories/deployment-patterns/).
+
+To keep execution on your infrastructure, use a [managed worker](/factories/self-hosting/) when the {VARS.WARP_AUTOMATION_PLATFORM} routes the run. For standalone agents started directly with `oz agent run` in CI, Kubernetes, or a dev environment, see [Unmanaged execution](/platform/unmanaged-execution/).
 
 <span id="what-you-get-by-default" />
 
@@ -101,6 +105,7 @@ Check [access, billing, and identity requirements](/platform/team-access-billing
 * [Agent harnesses](/factories/harnesses/) - Choose a coding-agent runtime
 * [Environments for factory agents](/factories/environments/) - Configure repositories and dependencies
 * [Connecting MCP servers to agents](/factories/mcp/) - Give agents access to external tools
+* [Deployment patterns for Warp Factories](/factories/deployment-patterns/) - Compare Warp-hosted and managed self-hosted factory execution
 
 ### Runs, interfaces, and access
 
