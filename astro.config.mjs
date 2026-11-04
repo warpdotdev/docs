@@ -210,7 +210,9 @@ export default defineConfig({
 				// due to their size. The upstream plugin only applies `exclude` to
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
 				// extends it to llms-full.txt and custom sets as well.
-				exclude: ['support-and-community/community/open-source-licenses'],
+				// '404' is the not-found page; it is not documentation, and listing
+				// it sent agents to https://docs.warp.dev/404/.
+				exclude: ['support-and-community/community/open-source-licenses', '404'],
 					// This string is the first thing an AI engine reads about Warp, so it
 					// carries the product lineup. Kept in sync with the rename and with
 					// launches: it said "the Oz platform" until the 8/18 rename, which

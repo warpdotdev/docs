@@ -141,6 +141,9 @@ jobs:
       - name: Test agent discovery catalog
         run: npm run test:agent-discovery
 
+      - name: Test Markdown twin canonical headers
+        run: npm run test:markdown-canonical
+
       - name: Build site
         run: npm run build
 
@@ -152,6 +155,12 @@ jobs:
 
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld
+
+      - name: Validate llms files list only sitemap pages
+        run: npm run test:llms-txt
+
+      - name: Validate Markdown twin frontmatter
+        run: npm run test:markdown-twins
 
       - name: Validate page title order
         run: npm run test:page-title-order

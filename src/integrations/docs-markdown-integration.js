@@ -33,7 +33,9 @@ async function generateMarkdownFiles(outputRoot) {
 
 		const markdownPath = getMarkdownOutputPath(outputRoot, relativeHtmlPath);
 		const html = await readFile(htmlFile, 'utf8');
-		const markdown = convertHtmlToMarkdown(html);
+		const markdown = convertHtmlToMarkdown(html, {
+			canonicalUrl: getCanonicalUrl(relativeHtmlPath),
+		});
 		if (!markdown) continue;
 
 		await mkdir(path.dirname(markdownPath), { recursive: true });
@@ -72,6 +74,15 @@ function isDocHtmlFile(relativeHtmlPath) {
 	return relativeHtmlPath === 'index.html' || relativeHtmlPath.endsWith('/index.html');
 }
 
+// The HTML page a twin was generated from: `factories/index.html` ->
+// https://docs.warp.dev/factories/, `index.html` -> https://docs.warp.dev/.
+// scripts/build-markdown-canonical-routes.mjs sends the same URL as a
+// `Link: <...>; rel="canonical"` header on each twin's response.
+function getCanonicalUrl(relativeHtmlPath) {
+	const htmlDir = path.dirname(relativeHtmlPath).split(path.sep).join('/');
+	return htmlDir === '.' ? `${DOCS_ORIGIN}/` : `${DOCS_ORIGIN}/${htmlDir}/`;
+}
+
 function getMarkdownOutputPath(outputRoot, relativeHtmlPath) {
 	if (relativeHtmlPath === 'index.html') {
 		return path.join(outputRoot, 'index.md');
@@ -81,12 +92,19 @@ function getMarkdownOutputPath(outputRoot, relativeHtmlPath) {
 	return path.join(outputRoot, `${htmlDir}.md`);
 }
 
-function convertHtmlToMarkdown(html) {
+/**
+ * @param {string} html
+ * @param {{ canonicalUrl?: string }} [options] `canonicalUrl` is the HTML page
+ *   the twin duplicates; it falls back to the page's `<link rel="canonical">`.
+ */
+function convertHtmlToMarkdown(html, { canonicalUrl } = {}) {
 	const { document } = parseHTML(html);
 	const title = document.querySelector('h1[data-page-title], main h1')?.textContent?.trim();
 	const description = document.querySelector('meta[name="description"]')?.getAttribute('content')?.trim();
 	const contentRoot = document.querySelector('main .sl-markdown-content');
 	if (!title || !contentRoot) return '';
+	const canonical =
+		canonicalUrl ?? document.querySelector('link[rel="canonical"]')?.getAttribute('href')?.trim();
 
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
 	expandAgentOnlyTemplates(clone);
@@ -107,7 +125,28 @@ function convertHtmlToMarkdown(html) {
 		sections.push(markdownBody);
 	}
 
-	return `${sections.join('\n\n').trim()}\n`;
+	const frontmatter = buildFrontmatter({
+		title: normalizeWhitespace(title),
+		description: description ? normalizeWhitespace(description) : undefined,
+		canonical,
+	});
+	return `${frontmatter}${sections.join('\n\n').trim()}\n`;
+}
+
+/**
+ * YAML frontmatter as the first bytes of the twin, so tools that read
+ * Markdown metadata get the page title, summary, and the HTML page to cite.
+ * Values are written as JSON strings, which are valid YAML double-quoted
+ * scalars, so colons, quotes, `#`, and leading symbols cannot change the
+ * meaning of the YAML. Empty values are omitted.
+ *
+ * @param {Record<string, string | undefined>} fields
+ */
+function buildFrontmatter(fields) {
+	const lines = Object.entries(fields)
+		.filter(([, value]) => value)
+		.map(([key, value]) => `${key}: ${JSON.stringify(value)}`);
+	return `---\n${lines.join('\n')}\n---\n\n`;
 }
 
 /**

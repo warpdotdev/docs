@@ -140,6 +140,8 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
 <template id="agent-prompt-content">{agentPromptText}</template>
 
 <script>
+  import { stripFrontmatter } from '../lib/docs-markdown.js';
+
   // `DOMContentLoaded` is used instead of `astro:page-load` because
   // `<ClientRouter />` is not enabled site-wide (see CustomHead.astro).
   // `astro:page-load` only fires when View Transitions are active.
@@ -185,7 +187,10 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
     async function fetchMarkdown(): Promise<string> {
       const res = await fetch(markdownUrl(), { headers: { Accept: 'text/markdown' } });
       if (!res.ok) throw new Error(`Markdown fetch failed: ${res.status}`);
-      const text = await res.text();
+      // The twin opens with YAML frontmatter (title, description, canonical
+      // URL) for crawlers and agents. The copied page keeps its previous
+      // shape, which already starts with the title and description.
+      const text = stripFrontmatter(await res.text());
       if (!text.trim()) throw new Error('Markdown fetch returned an empty body');
       return text;
     }
