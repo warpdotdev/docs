@@ -12,10 +12,12 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 
 ## Prerequisites
 
-* **The Warp GitHub App** - Follow the [GitHub integration setup](/platform/integrations/github/) if you haven't already. One installation serves both the platform integration and factories.
-* **A factory with GitHub repositories** - The app must have access to at least one of the factory's repositories.
+* The Warp GitHub App installed. See [GitHub integration setup](/platform/integrations/github/).
+* At least one GitHub repository for the factory that the app can access.
 
 ## Connect GitHub to a factory
+
+One GitHub App installation serves both the platform integration and factories.
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitHub** under **Connect your code host**.
 2. Under **Select your repos**, choose the repositories to provide code and context for the factory.
@@ -68,7 +70,7 @@ This example admits third-party bots but skips Warp-owned bots. See [bot event t
 <tr><td>Issues</td><td>Created, labeled, assigned, or agent mentioned</td></tr>
 <tr><td>Pull requests</td><td>Opened, marked ready, reopened, updated with commits, added to or removed from a merge queue, assigned, labeled, mentioned, closed, or merged</td></tr>
 <tr><td>Reviews</td><td>Review requested or review submitted</td></tr>
-<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run</td></tr>
+<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run, or a commit status of success, failure, or error</td></tr>
 </tbody>
 </table>
 
@@ -81,20 +83,24 @@ Every trigger names the repository it watches. The remaining filters appear only
 
 | Filter | Matches | Appears on |
 | --- | --- | --- |
-| **Branches** | The pushed branch, or a CI run's head branch | Push and CI triggers |
+| **Branches** | The pushed branch, or a CI run's head branch | Push, check suite, and workflow run triggers |
 | **Base branches** | The branch the pull request targets | Pull request triggers |
 | **Paths** | The files the change touches | Push and pull request triggers |
-| **Labels** | Labels on the issue or pull request | Issue, pull request, review submitted, and CI triggers |
-| **Authors** | Who opened the issue or pull request | Issue, pull request, and CI triggers |
+| **Labels** | Labels on the issue or pull request | Issue, pull request, review submitted, check suite, and workflow run triggers |
+| **Authors** | Who opened the issue or pull request | Issue, pull request, check suite, and workflow run triggers |
 | **Assignees** | Who the issue or pull request is assigned to | Issue and pull request triggers |
 | **Mentioned users or teams** | Which user or team is @mentioned | Mention and review submitted triggers |
 | **Reviewers** and **Reviewer teams** | Who review was requested from | Review requested triggers |
 | **Review states** | Whether the review approved, requested changes, or commented | Review submitted triggers |
 | **Workflows** | The GitHub Actions workflow, by name | Workflow run triggers |
 | **Conclusions** | The run's result: success, failure, cancelled, and so on | Check suite and workflow run triggers |
+| **Result** | The commit status result: success, failure, or error | Commit status triggers |
+| **Contexts** | The commit status name, such as `ci/build` | Commit status triggers |
 | **Skip bot events** | Which bot senders to ignore; defaults to **All bots** | All GitHub triggers |
 
 On check suite and workflow run triggers, **Labels** and **Authors** match the pull request linked to the run rather than the run itself.
+
+Commit status triggers don't fire for pending statuses. In a definition file, use `event: commit_status` and filter with `repos`, `states`, `contexts`, and `skip_bots`. Branch, label, and author filters aren't supported for this event. See the [trigger filter reference](/factories/factory-as-code/#triggersfilter) for matching rules.
 
 ## Mention the factory
 
@@ -124,6 +130,35 @@ Branches and pull requests the factory creates follow the repository's normal ru
 
 Runs authenticate with the GitHub App installation. Its repositories and permissions control access; [automation filters](/factories/automations/) only control when work starts.
 
+The [Warp Factories GitHub App](https://github.com/apps/warp-factories) requests the following permissions. Repository permissions apply to the repositories covered by the installation. A run doesn't necessarily use every grant.
+
+| Repository permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Actions (`actions`) | Write | Read CI logs and artifacts, and manage workflow runs | Broader than receiving workflow-completion events |
+| Administration (`administration`) | Read | Inspect repository settings, collaborators, and rules | Doesn't grant permission to change repository settings |
+| Checks (`checks`) | Write | Read check results and publish factory-definition checks | Separate from commit statuses |
+| Code scanning alerts (`security_events`) | Read | Inspect code-scanning findings for security work | Doesn't grant permission to change alerts |
+| Commit statuses (`statuses`) | Read | Inspect CI status on commits | Doesn't grant permission to publish commit statuses |
+| Contents (`contents`) | Write | Read code and create branches, commits, and repository changes | Repository rules and branch protection still apply |
+| Dependabot alerts (`vulnerability_alerts`) | Read | Inspect dependency vulnerability alerts for security work | Doesn't grant permission to change alerts |
+| Issues (`issues`) | Write | Read and update issues, comments, labels, and assignments | Broader than the issues matched by a trigger |
+| Metadata (`metadata`) | Read | Read basic repository information | Required by GitHub for installed apps |
+| Pull requests (`pull_requests`) | Write | Open and update pull requests, and post reviews and review comments | Required reviews and merge rules still apply |
+| Workflows (`workflows`) | Write | Update GitHub Actions workflow files | Separate from managing workflow runs |
+
+The app also requests permissions outside the repository:
+
+| Permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Organization members (`members`) | Read | Read organization membership, including checking an installer's organization role | Doesn't grant permission to manage membership |
+| Account email addresses (`emails`) | Read | Read a connected user's email addresses for account identification | Requires user authorization; isn't an installation-token grant |
+
+At installation, choose **All repositories** or **Only select repositories** to control repository access. Connecting a person's GitHub account is separate from installing the app. Repository selection doesn't narrow the organization or account permissions above.
+
+For example, a filter that starts work only on `main` doesn't restrict the installation token to `main`. Repository rules, including branch protection, still apply.
+
+To narrow access or uninstall the app, manage the installation in [GitHub's installation settings](https://github.com/settings/installations). Removing a trigger stops that route into the factory; it doesn't revoke the app's credentials.
+
 See [GitHub permissions and identity](/platform/integrations/github/#permissions-and-identity) for the full credential model.
 
 ## Factory-definition pull request checks
@@ -131,6 +166,8 @@ See [GitHub permissions and identity](/platform/integrations/github/#permissions
 If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it validates the head commit and dry-runs the change against your team, so it also catches a secret, runner, MCP server, or model that doesn't exist. It passes with a summary of what merging would create, update, and delete, or fails with the specific fields to fix. If the definition lives in a subdirectory of the repository, the directory is appended to the check name, as in **warp/factory-config (factory)**. Require the check in branch protection to stop an invalid definition from merging.
 
 These checks validate configuration files only and don't create work items. Unchanged definitions pass immediately, so requiring the check doesn't block unrelated work. To check a definition before opening a pull request, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
+
+By default, checks run only for pull requests targeting the factory's production branch, regardless of that branch's name. To check pull requests targeting other branches, set `github.factoryConfigChecks: all` in `factory.yaml` on the production branch. This doesn't change which branch deploys the factory. See [GitHub settings in the definition reference](/factories/factory-as-code/#github) for the accepted values and when checks refresh.
 
 ## Troubleshooting
 
@@ -164,9 +201,10 @@ Check that the installation still covers the target repository and grants the re
 
 ### A factory-definition check doesn't appear
 
-The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from and that the GitHub App covers the repository.
+The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the GitHub App covers the repository. Unless [`github.factoryConfigChecks` is `all`](/factories/factory-as-code/#github), the pull request must target the factory's production branch.
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Factory automations](/factories/automations/) - Configure event matching
 * [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting) - Diagnose events that don't start work

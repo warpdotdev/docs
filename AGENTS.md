@@ -4,7 +4,7 @@
 
 # Warp Documentation Style Guide
 
-This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Use it as the authoritative reference when creating or updating any page in the Astro Starlight repository.
+This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Keep the full writing rules here. Skills and templates must state the actions needed for their tasks and link here for additional detail. Document product behavior in the relevant product documentation, not in general writing rules.
 
 ## Writing style
 
@@ -14,6 +14,7 @@ This guide establishes standards for writing Warp documentation. It covers voice
 - **User-focused**: Use second person ("you") and active voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
 - **Plain over polished**: Prefer the short word and the declarative sentence. A page should read like a capable colleague explaining something, not like a spec or a launch post.
+- **State instructions explicitly**: Name the action, where to perform it, and the result to check. Do not expect readers to infer a required action from an example, a section name, or a phrase such as "apply best practices." Follow this rule in documentation, skills, templates, and writing guidelines. Link to background information without using the link as a substitute for the instruction.
 
 Our reference points are the GitHub and Vercel docs: short declarative sentences, concrete examples, restrained formatting, and no selling.
 
@@ -38,6 +39,14 @@ When readers need exact fields, IDs, or runtime labels, order the explanation fr
 * **Technical detail** - Add the exact field, identifier, or label after the action is clear.
 
 Explain an identifier by what it lets the reader select or load, not by its storage or schema name. Include a literal product or runtime label only when the reader needs it to find a value, and introduce it after the plain-language concept.
+
+Before listing fields or example values:
+
+* **State the task** - Say what the reader is configuring. A name alone does not explain the purpose.
+* **Explain the selections** - Say what each selected agent, environment, or credential is used for. Do not give only its example name.
+* **Give the action and location** - Name the field, menu, command, or file the reader changes, then give the value.
+
+For example, write "Create an automation that checks broken documentation links. In the 'Name' field, enter `Weekly link check`," not only "Enter `Weekly link check` in the 'Name' field."
 
 This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
 
@@ -86,7 +95,7 @@ The reader came for the product, not the writer's presence in the page.
 - **Describe the present** - Write how the product works now. Renames and history belong in time-boxed transition notes or the changelog, not woven through pages ("the built-in harness is the Warp Agent harness", not "Oz is retired product language").
 
 #### The read-aloud test
-Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist.
+Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist. After changing a sentence, reread the whole paragraph and the steps before and after it. Check that the task is still named, pronouns refer to the right things, required actions are still in order, and no explanation is repeated unnecessarily.
 
 #### Cut again
 A plain-language rewrite still under-cuts on the first pass. Follow it with a deletion-only pass that removes:
@@ -163,7 +172,7 @@ These practices serve both human accessibility needs and AI agent consumption (A
 
 **Writing for agents (AEO):**
 - **Descriptive headers**: Use specific, parseable headers ("Configuring environments") not vague ones ("Getting set up"). Agents use headers as semantic signals to extract answers.
-- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. This helps agents extract self-contained answers.
+- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. Name the relevant product in the opening and description so a reader who sees either without the navigation knows which product it describes. Do not repeat the product name in every heading or add topics only to include search keywords.
 - **Frontmatter descriptions**: Agents and search engines use the `description` field to determine relevance before reading the full page. Write descriptions as standalone summaries.
 - **Consistent terminology**: Agents struggle when the same concept has multiple names. Use the glossary terms consistently.
 - **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.agents/templates/` enforce this.
@@ -284,6 +293,7 @@ Use formatting consistently to distinguish different types of content:
 - Always explain what a placeholder represents
 - Include context about what the code does
 - Provide both simple examples and real-world scenarios
+- Use sample data that readers can understand. If a test needs a prepared file, record, or other test input, explain what it contains and where to get or create it. Do not give an internal test code without explaining it. Require test credentials only when the documented test needs authentication.
 
 ### Images and media
 - Always include descriptive alt text (describe what the image shows, not just "screenshot")
@@ -346,6 +356,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ❌ `<figcaption>The input toolbelt, from left to right: model selector, voice input, image attachments, and conversation controls.</figcaption>` (exhaustive list)
 
 ### Links, embeds, and cross-references
+- When link text uses a destination's full page title, match that title's wording and capitalization, even within a sentence. Descriptive link phrases follow normal sentence capitalization and don't need to reproduce the title.
 - Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
   - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"
   - ❌ "Click [here](...)" / "See [this page](...)" / "Read [more](...)"
@@ -526,8 +537,21 @@ These rules apply regardless of content type:
 - **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
 - **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
   - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
+  - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
 - **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
 - **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
+
+#### Check connected procedures
+
+When readers can combine procedures from this page and related pages, read and check those procedures together:
+
+* **Starting work** - Identify the event that starts each task, the rule that handles it, and the agent that receives it.
+* **Overlapping rules** - Check whether the same event can match more than one rule. State whether both rules are intended to act. If only one should act, explain how to make their conditions exclude each other; do not assume their order prevents overlap.
+* **Existing exclusions** - When adding a condition to a rule, preserve the conditions already there. For example, adding a label to an exclusion list must not remove labels the rule already excludes.
+* **Unmatched inputs** - State what happens when an input matches none of the specialized rules. Verify whether a general rule handles it or no task starts.
+* **Work already in progress** - Verify whether configuration changes affect only new tasks or also existing work. Check which agent, settings, permissions, and conversation continue to be used. Do not promise that changing a rule transfers existing work unless that behavior is verified.
+* **Passing work to the next stage** - State what information the next agent receives, what result it must return, where it stops, and which decisions require a person.
+* **Tests** - Include a matching input, an input that matches overlapping conditions, an input that matches none of those conditions, and an existing conversation when the workflow supports continuation. State the expected result for each test. If a test cannot be run, record that limit rather than reporting success.
 
 ### Conceptual
 
@@ -567,15 +591,22 @@ These rules apply regardless of content type:
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
+- **Keep prerequisites concise.** State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details, and put conditional instructions beside the step that needs them. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
   - **Separate reference detail from the action.** Link a long lookup list to its owning reference. Keep facts needed for the immediate choice beside the step; use a short callout only within the callout budget.
     - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
     - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
+- **Separate setup, instructions, and testing.** Give each of these jobs its own step or group of related steps:
+  - **Configuration** - Show where to create or edit the agent and choose its repository, environment, runtime, or other required settings.
+  - **Access** - Show where to configure the tools, permissions, URLs, and credentials the agent needs. State when credentials are optional or required; do not require a test account for a path that needs no sign-in.
+  - **Instructions** - List what the agent must do in its skill or prompt. Writing an instruction does not install a tool or grant permission to use it.
+  - **Testing** - Apply the configuration before testing. Give a concrete test input and describe the behavior and evidence that prove it worked. A completed run alone does not prove the requested checks happened.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
   - ✅ "Export your API key so the CLI can authenticate your requests automatically."
   - ❌ "Export your API key as an environment variable." (why?)
+- **Support existing configurations.** If the reader can reuse an agent or resource, show how to find and edit or select it as well as how to create a new one. For file-based setup, identify the existing file or agent directory to edit. Do not tell readers to create a duplicate or imply that a new resource takes over existing work.
 - **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
   - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
   - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
@@ -589,7 +620,7 @@ These rules apply regardless of content type:
 **Template**: `.agents/templates/procedural.md`
 #### Reader-understanding test
 
-Keep the context the reader needs for the choice, consequence, or success signal near the step. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
+Keep the information needed to make a choice, understand a consequence, or check a result beside the relevant step. Explain what a selected agent, environment, or credential is used for, not only its example name. Put safety limits beside the action they restrict. Repeat those limits inside a prompt that readers can copy and use separately from the page. Use the shortest clear wording without leaving required actions unstated. An explanation elsewhere does not replace information needed to follow the current step.
 
 Cut repetition that adds no understanding. Link background not needed for the immediate task. For example, retain why a Docker image needs the project's toolchain; cut a second paragraph repeating that execution happens in the cloud.
 
@@ -955,6 +986,24 @@ Match a control's shipped label without letting that label define all surroundin
 
 Scope credential claims by configuration: personal device keys, team-managed keys and endpoints, connected subscriptions, and third-party harness credentials are different paths. Don't apply "not stored by Warp" or "not available to cloud agents" to all customer credentials. See the glossary's [inference configuration terms](.agents/references/terminology.md#inference-configuration).
 
+#### Usage prerequisites and setup instructions
+
+State the funding requirement, give a short action if needed, and link to the canonical billing page. Prefer "usage balance" and "add usage" to vague conditions such as "sufficient eligible usage." Do not imply that every reader must make a purchase when included usage or a contract allowance may already cover the work.
+
+* **Separate access from funding** - Team membership, plan access, and available usage are different requirements. Keep required access visible; link to its reference rather than copying plan tables.
+* **Match the balance to the workflow** - Use team-balance wording for factory setup. Standalone cloud runs can be individual or team runs; don't add a team requirement to individual workflows. For schedules and API-triggered runs, preserve or link to which user or team is billed.
+* **Keep exceptions with their owner** - Billing pages own balance eligibility, spending controls, charge components, and Enterprise terms. Preserve a condition needed for the current task, but don't duplicate those rules in every prerequisite list. Don't apply standalone integration restrictions to factory integrations without verification.
+* **Preserve technical precision** - "Eligible" can be necessary when distinguishing usable balances in billing references. Keep credit-named UI labels, identifiers, error codes, URLs, and credit-billed contexts; this is not a blanket terminology replacement.
+
+Examples to adapt, not mandatory boilerplate:
+
+* **Factory setup** - "Available usage in your team's balance for factory runs. Add usage if needed. See access and billing requirements."
+* **Individual or team cloud runs** - "Available usage for cloud runs. Add usage if needed. See access and billing requirements."
+* **Scheduled runs** - "Available usage for the user or team billed for the schedule. Add usage if needed. See run identity before choosing which agent runs it."
+
+In published copy, link the billing-reference phrase to the owning page or section. If the funding source or access rule is unverified, ask the product or billing owner; do not invent a uniform policy for consistent wording.
+
+
 ### UI elements
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
@@ -1021,6 +1070,13 @@ All documentation should be written with search discoverability in mind — both
 
 ### SEO data
 When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.agents/skills/docs-seo-audit/`) can identify technical SEO issues.
+
+When using search data to recommend content:
+
+* **Name the evidence** - Record the exact query or recommendation and what the data measured in the brief or PR rationale.
+* **Distinguish broad topics from specific topics** - Data about a broad topic does not show demand for every narrower topic within it. For each proposed topic, say whether there is direct supporting data or whether it is your editorial recommendation.
+* **Describe missing data accurately** - If no matching query was found, say that. Do not claim it proves there is no demand.
+* **Keep the agreed scope** - Improve the page's answer to its intended question. Do not add unrelated topics or promise unsupported behavior to include more search terms.
 
 ## Quality checklist
 

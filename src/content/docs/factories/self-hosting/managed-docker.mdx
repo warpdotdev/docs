@@ -20,11 +20,10 @@ Run the `oz-agent-worker` daemon with the **Docker backend** — the default man
 
 ## Prerequisites
 
-Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then prepare:
-
-* **A machine to run the worker** - Use a Linux VM, server, or workstation. On macOS, use [Homebrew](#option-2-homebrew) or a [release binary](#option-3-github-releases-binary). On Windows, use a [release binary](#option-3-github-releases-binary).
-* **Docker** - Install a **linux/amd64** or **linux/arm64** Docker daemon that runs Linux containers. Windows containers are not supported. Verify the daemon with `docker info`.
-* **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
+* Managed self-hosting access, network connectivity, and credentials. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
+* A Linux VM, server, or workstation, or a macOS or Windows host using a native worker binary.
+* A `linux/amd64` or `linux/arm64` Docker daemon running Linux containers. Windows containers are not supported.
+* A glibc-based task image with the required tools and dependencies. See [custom environment images](/platform/environments/). Musl-based images such as Alpine Linux are not supported.
 
 ### Install Docker
 
@@ -51,6 +50,8 @@ export WARP_API_KEY="YOUR_API_KEY"
 The `oz-agent-worker` is open source. See the [oz-agent-worker repository](https://github.com/warpdotdev/oz-agent-worker) for source code, issues, and contribution guidelines.
 
 There are three ways to install and run the worker: as a Docker container, via Homebrew, or as a prebuilt binary from GitHub Releases. Docker is the recommended default.
+
+On macOS, use [Homebrew](#option-2-homebrew) or a [release binary](#option-3-github-releases-binary). On Windows, use a [release binary](#option-3-github-releases-binary).
 
 The worker can be configured entirely via CLI flags, or via a YAML [config file](/factories/self-hosting/reference/#config-file) for more complex setups.
 
@@ -152,7 +153,7 @@ backend:
       - name: GITHUB_TOKEN  # inherits from host environment
 ```
 
-Pass it with `--config-file config.yaml`. See the [self-hosted worker reference](/factories/self-hosting/reference/) for the full flag and config schema.
+Pass it with `--config-file config.yaml`. See the [Self-hosted worker reference](/factories/self-hosting/reference/) for the full flag and config schema.
 
 ---
 
