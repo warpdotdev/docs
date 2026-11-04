@@ -1,43 +1,20 @@
 ---
 title: Self-hosting overview
 description: >-
-  Run cloud agents on your infrastructure with a managed worker or invoke the
-  CLI from an orchestrator you control.
+  Run factory workloads on your infrastructure with a managed worker.
+  Choose a backend, connect the worker, and route runs to it.
 ---
 import { VARS } from '@data/vars';
 
-Self-hosting runs cloud agent workloads on your infrastructure. You control the compute, network access, runtime secrets, and execution workspaces while Warp tracks each run.
+Self-hosting runs factory workloads on your infrastructure through a managed worker (`oz-agent-worker`). You control the compute, network access, runtime secrets, and execution workspaces while Warp routes and tracks each run.
 
 :::note
 Self-hosting requires an Enterprise plan. To enable it for your team, [contact sales](https://www.warp.dev/contact-sales).
 :::
 
-## Managed and unmanaged architectures
+## Choosing a managed backend
 
-Choose an architecture based on which system starts each run. With the [managed architecture](#managed-architecture), the {VARS.WARP_AUTOMATION_PLATFORM} routes work to `oz-agent-worker`. Use it for runs started from Slack, Linear, schedules, the API, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, or `oz agent run-cloud`.
-
-With [unmanaged execution](/platform/unmanaged-execution/), your CI system, scheduler, or script invokes `oz agent run` directly. Warp tracks the session but does not start or stop the process.
-
-| Aspect | Managed | Unmanaged |
-| --- | --- | --- |
-| Run lifecycle | The {VARS.WARP_AUTOMATION_PLATFORM} routes each run to a worker | Your system starts and stops each CLI process |
-| Host support | Linux | Linux, macOS, and Windows |
-| Execution | Docker container, Kubernetes Job, direct host process, or external runtime | The host environment you provide |
-| Triggers | Integrations, schedules, API, web app, and CLI | CI, cron, scripts, and internal schedulers |
-
-Use managed and unmanaged runs together when different workflows need different ownership. For example, route Slack-triggered work to a managed worker and invoke unmanaged agents from CI.
-
-## Choosing an architecture
-
-Use [unmanaged execution](/platform/unmanaged-execution/) when any of these conditions apply:
-
-* Agents must run on macOS or Windows.
-* Your system should own both the trigger and process lifecycle.
-* You want to add `oz agent run` to an existing CI job or script.
-
-### Choosing a managed backend
-
-Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should accept the trigger and route the run. Then choose a backend:
+Choose a backend for the worker based on where each task should execute:
 
 * **[Docker backend](/factories/self-hosting/managed-docker/)** - Use the default backend when Docker is available. Each task runs in a container.
 * **[Kubernetes backend](/factories/self-hosting/managed-kubernetes/)** - Use an existing cluster to run each task as a Kubernetes Job.
@@ -47,13 +24,11 @@ Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should acc
 
 ## Managed prerequisites
 
-All managed deployments require:
+* Outbound network access from the worker and agent runtime to Warp. No inbound ports are required. See [Security and networking](/platform/execution-security/).
+* A worker ID for routing runs with `--host`.
+* Worker credentials. Docker, Kubernetes, Direct, and Command workers accept a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key).
 
-* **Outbound network access** - The worker and agent runtime must reach Warp. You do not need to open inbound ports. See [Security and networking](/platform/execution-security/) for endpoints and data boundaries.
-* **A worker ID** - Choose the value used to route runs with `--host`. Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
-* **Worker credentials** - Docker, Kubernetes, Direct, and Command workers can use a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
-
-For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+Store the worker key in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
 
 Backend pages list the remaining runtime-specific requirements, such as Docker, Kubernetes, or the {VARS.WARP_AGENT_CLI} binary.
 
@@ -61,11 +36,27 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 
 `oz-agent-worker` connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks addressed to its worker ID, and handles each task with the configured backend. Docker, Kubernetes, and Direct run the agent on worker infrastructure. Command hands the task to an external runtime.
 
-Start with the [self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [self-hosted worker reference](/factories/self-hosting/reference/).
+Warp hosts the control plane. The worker opens an outbound connection, so task assignment requires no inbound firewall port. The diagram shows customer-configured inference and run-data storage alongside self-hosted execution.
+
+![Managed self-hosting architecture showing the Warp control plane, outbound worker connection, agent backends, inference routes, and customer-configured run-data storage.](../../../../assets/agent-platform/warp-factories-architecture-diagrams.png)
+
+You can manage [factory and agent configuration as code](/factories/factory-as-code/) in a repository you control.
+
+Execution, inference, and storage are separate choices.
+
+Transcripts, artifacts, and prompt attachments use Warp-managed storage by default. Configure [self-hosted agent data storage](/factories/self-hosting/data-storage/) separately to keep selected categories in your own bucket. Warp still retains control-plane data such as configuration, run metadata, operational logs, and billing records.
+
+Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
+
+Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [Self-hosted worker reference](/factories/self-hosting/reference/).
 
 ### Routing runs to self-hosted workers
 
-Set the run's host to the connected worker's ID. From the {VARS.WARP_AGENT_CLI}:
+Set the run's host to the connected worker's ID.
+
+For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+
+From the {VARS.WARP_AGENT_CLI}:
 
 ```bash
 oz agent run-cloud \
@@ -135,23 +126,19 @@ After your managed worker connects, submit a smoke test through the {VARS.WARP_A
 
 If the run stays `QUEUED`, confirm the worker is connected, the host matches exactly, and the run and worker belong to the same team. For `FAILED` or `ERROR`, inspect `status_message` and the worker logs. For authentication errors, sign in again with `oz login`. For permission errors, check team access and self-hosting eligibility. See [Self-hosting troubleshooting](/factories/self-hosting/troubleshooting/) for further diagnostics.
 
-## Unmanaged architecture
-
-With [unmanaged execution](/platform/unmanaged-execution/), your system invokes `oz agent run` where the work should happen. The agent uses the tools, credentials, and network access available on that host. Warp records the session and lets authorized teammates view or steer it.
-
-Use unmanaged execution for an existing CI pipeline, Kubernetes Job, VM, or developer machine when Warp does not need to route the task.
-
 ## Security and observability
 
-Repository clones and execution workspaces stay on your infrastructure. Agent context and model requests still travel through Warp's services. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture and [Security and networking](/platform/execution-security/) for data boundaries, ZDR, and BYOLLM.
+Repository clones and execution workspaces stay on your infrastructure, but prompts, transcripts, and artifacts can contain code context. The Warp Agent sends model requests through Warp; Claude Code and Codex call their providers directly from the execution environment. See [Security and networking](/platform/execution-security/) for data boundaries and [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs) for provider support.
 
-View managed and unmanaged runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>. Managed workers can also export OpenTelemetry metrics; see [Monitoring](/factories/self-hosting/monitoring/).
+For a factory using a team-managed inference gateway, see [Networking for BYO inference endpoints](/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway ingress requirements, source IPs, and private connectivity options.
+
+View runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>. Workers can also export OpenTelemetry metrics; see [Monitoring](/factories/self-hosting/monitoring/).
 
 ## Related pages
 
+* [Self-hosted agent data storage](/factories/self-hosting/data-storage/) - Store cloud agent run data in your own bucket
 * [Self-hosting quickstart](/factories/self-hosting/quickstart/) - Start a managed Docker worker and route a test run.
 * [External orchestrators](/factories/self-hosting/external-orchestrators/) - Choose and deploy the Command backend or one-shot Direct.
-* [Unmanaged execution](/platform/unmanaged-execution/) - Invoke `oz agent run` from your own scheduler or CI system.
 * [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and backend configuration fields.
-* [Deployment patterns](/factories/deployment-patterns/) - Compare Warp-hosted, self-hosted, and CLI-only execution.
+* [Deployment patterns for Warp Factories](/factories/deployment-patterns/) - Compare Warp-hosted and managed self-hosted execution
 * [Troubleshooting](/factories/self-hosting/troubleshooting/) - Diagnose worker startup, routing, and task failures.

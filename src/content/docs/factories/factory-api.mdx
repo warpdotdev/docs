@@ -27,7 +27,7 @@ Factory endpoints are one of several ways to get work into a factory, and each f
 * **A coding agent session**, local or in another MCP client - use [Factory MCP](/factories/factory-mcp/) to send work in or pull a task down to work on locally.
 * **A chat platform or issue tracker your team already uses** - connect it as an [integration](/factories/connect-your-factory/) so matching events start work automatically.
 
-See [connect your factory](/factories/connect-your-factory/) for the full comparison across every intake path.
+See [Connect your factory](/factories/connect-your-factory/) for the full comparison across every intake path.
 
 ## Choosing an endpoint family
 
@@ -39,7 +39,7 @@ Use factory endpoints to find or start work on a factory. Use Agent & run endpoi
 | Start a new task on a factory | factory endpoints - `POST /factory/{uid}/runs` |
 | Continue, monitor, or cancel a run (factory or standalone) | Agent & run endpoints - `GET /agent/runs/{runId}`, `POST /agent/runs/{runId}/followups`, `POST /agent/runs/{runId}/cancel` |
 | Run a standalone cloud agent with no factory involved | Agent & run endpoints - `POST /agent/runs` |
-| Build a multi-agent orchestration | Agent & run endpoints - see [multi-agent orchestration](/platform/orchestration/) |
+| Build a multi-agent orchestration | Agent & run endpoints - see [Multi-agent orchestration](/platform/orchestration/) |
 
 Every factory run is still an ordinary run, so Agent & run endpoints handle status, follow-ups, and cancellation no matter which endpoint family started it.
 

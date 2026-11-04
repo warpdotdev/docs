@@ -287,7 +287,7 @@ specific interface changes, not on an inferred retirement date:
 - **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
   *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
 
-- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
+- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/factories/self-hosting/data-storage/).
   *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
 
 - **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
@@ -366,7 +366,7 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Not a second concept. Use "task" only where the MCP surface forces it, and say once on the page that a task is the factory's work item. Never introduce "task" as a distinct unit of work.
 
 - **stages** — The phases a work item moves through, named as the factory dashboard's **Activity** view names them: **Triage**, **Planning**, **Building**, and **Reviewing**, plus the terminal stages **Complete** and **Cancelled**.
-  *Usage note:* Stage names are not agent names. The spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Write stages with the dashboard's names so docs and screen agree; write agents with their own names (triage, spec, implement, review).
+  *Usage note:* Stage names are not agent names. The spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. Use lowercase for stages in explanatory prose. Preserve the displayed spelling and capitalization when referencing exact UI labels, filters, or status values; sentence-initial and diagram labels may also begin with capitals. Write agents with their own names (triage, spec, implement, review).
 
 - **foreman agent** — The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results.
   *Usage note:* Lowercase "foreman" in prose. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.
@@ -434,6 +434,8 @@ Docs match the screen; the fix belongs in the app.
 ## Billing and credits
 
 - **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
+- **usage balance** — usage available to the user or team billed for the work, subject to the applicable billing rules.
+  *Usage note:* Use "add usage" for the action of funding the balance, with "if needed" when an existing allowance may cover the work. Do not imply that every workflow uses a shared team balance or requires a new purchase.
 - **included usage** — the allowance included with a plan; distinguish it from purchased usage and contract-specific pools.
 - **purchased usage** — additional usage bought on an eligible plan. Distinguish the usage added to the balance from the payment amount.
 - **dollar usage** — a usage balance expressed in US dollars, not the subscription price or necessarily the amount paid for a purchase.
@@ -463,6 +465,6 @@ Docs match the screen; the fix belongs in the app.
 - **Bitbucket Data Center** — Atlassian's official self-hosted Bitbucket edition name (alongside Bitbucket Server and Bitbucket Cloud). Capitalize all three words, including in headings ("Bitbucket Data Center / Server").
 - **Workload Identity Pool and Provider** — GCP's IAM resources for federating external identities. Capitalize as GCP's official term, including in headings.
 - **Workload Identity Federation** — GCP's mechanism for granting external identities access without a long-lived service account key. Capitalize as GCP's official term, including in headings.
-- **AWS S3** — Amazon's S3 object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/). Warp's Admin Panel labels this option "AWS S3" to match its sibling entries (Google Cloud Storage, Azure Blob Storage); use "AWS S3" in Warp UI and docs contexts, and "Amazon S3" only when naming AWS's own documentation.
-- **Google Cloud Storage** — Google's object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/).
-- **Azure Blob Storage** — Microsoft Azure's object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/).
+- **AWS S3** — Amazon's S3 object storage service, one of the providers for [self-hosted agent data storage](/factories/self-hosting/data-storage/). Warp's Admin Panel labels this option "AWS S3" to match its sibling entries (Google Cloud Storage, Azure Blob Storage); use "AWS S3" in Warp UI and docs contexts, and "Amazon S3" only when naming AWS's own documentation.
+- **Google Cloud Storage** — Google's object storage service, one of the providers for [self-hosted agent data storage](/factories/self-hosting/data-storage/).
+- **Azure Blob Storage** — Microsoft Azure's object storage service, one of the providers for [self-hosted agent data storage](/factories/self-hosting/data-storage/).

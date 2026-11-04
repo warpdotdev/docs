@@ -9,7 +9,7 @@ Shared library for the v1 agent-doc quality program. This is a reference and
 helper-script skill, not something dispatched on its own — every content skill
 that opens or updates a PR (`create_pr`, `draft_docs` and its type-specific
 skills, `release_updates`, `missing_docs`, the AEO skills, `sync_terminology`,
-`sync-error-docs`, `sync-openapi-spec`, `docs-seo-audit`, `afdocs-fix`,
+`sync-error-docs`, `docs-seo-audit`, `afdocs-fix`,
 `update-changelog`, `improve-drafting-skills`) and CI use it inline.
 
 The full rules live in `.agents/references/doc-quality-policy.md`. This
@@ -32,6 +32,16 @@ directory implements them:
 - `check_compression_contract.py` — checks the mechanically-checkable parts
   of the shared compression contract (word budget, callout count) for one
   file.
+- `server_rollout.py` — the Gate 0 check for server-backed surfaces. Reads
+  `config/features/features.go` and `config/{prod,staging}.yaml` in a sibling
+  `warp-server` checkout and reports whether a flag is on in production.
+  `staging-only` lists every flag that is on in staging but off in prod;
+  `check TERM...` finds flags related to a user-facing name (a schema field,
+  endpoint, or feature word); `flag NAME...` reports specific flags. Exit 1
+  means a related flag is off in production. See
+  `.agents/references/docs-worthiness-criteria.md` → Gate 0. Its output names
+  private flags and unreleased features, so never paste it into a public page,
+  PR body, or comment; record the verdict and the `warp-server` revision.
 - `authorized_docs_reviewers.json` — the GitHub handles authorized to record
   a `docs-verified`/`docs-waiver` override. Pod-Docs owns this list.
 
