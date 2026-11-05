@@ -5,6 +5,7 @@ description: >-
   security risks, and missing tests in human- or agent-written code.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 
 Warp Factories can independently review pull requests written by people or agents. The review checks code changes against the acceptance criteria in the issue or pull request, repository conventions, and security requirements.
 
@@ -80,6 +81,8 @@ In this [recipe](/factories/use-cases/), the foreman asks the review agent to in
 
    The optional `skip-factory-review` label excludes a pull request when the event fires. For bot-authored events, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
+   The [`04-code-review-only` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) is a complete single-agent definition for this workflow: its only agent is the foreman, which reviews and posts findings itself, and its automation starts on `pull_request_opened` with a base-branch filter and a `wip` opt-out label.
+
    </TabItem>
    <TabItem label="GitLab">
 
@@ -117,6 +120,33 @@ In this [recipe](/factories/use-cases/), the foreman asks the review agent to in
 
 5. Apply the definition changes. For a Warp-managed factory, save your edits in the factory dashboard. For a GitHub-backed factory, merge them into the configured production branch. Confirm validation succeeds and the changes are applied before testing. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
+## Set it up with a prompt
+
+Send this prompt to your factory's foreman from a new chat in the {VARS.FACTORY_WEB_APP}, or to a coding agent connected to your factory through [Factory MCP](/factories/factory-mcp/). Replace `OWNER/REPO` with your repository and `BASE_BRANCH` with the target branch, or name your GitLab project or Azure DevOps repository instead.
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/use-cases/code-review.md and set up
+review-only pull request review in my factory for OWNER/REPO, for pull
+requests targeting BASE_BRANCH. Use
+https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only
+as the reference for the trigger filters and the reviewer's instructions.
+
+- Check my existing automations first. If one already reviews pull
+  requests in OWNER/REPO, update it or narrow its filters instead of
+  adding a second review.
+- Put my validation commands, security checks, and finding thresholds in
+  the review agent's skill.
+- Send pull requests that become ready for review to the foreman with the
+  page's review-only prompt: skip drafts and closed requests, review the
+  current head commit, publish findings as comments, then stop. Do not
+  edit code, dispatch implementation, approve, or merge.
+- Validate the definition. If it's managed as code, open a pull request to
+  the definition repository; otherwise tell me what to change in the
+  factory dashboard.
+Then walk me through the page's test plan with a pull request that has a
+known defect.
+```
+
 ## Test pull request review
 
 1. Trigger the automation with a pull request or merge request that contains a known defect and matches every filter.
@@ -142,6 +172,13 @@ If you want another review after updates, extend the automation after testing th
 A pull request changes a cache key from `account_id:region` to `account_id`. When the author marks it ready, the foreman requests a review. The review agent finds that two regions now share one entry and reports the collision scenario and expected key shape to the foreman, which posts the finding on the pull request.
 
 After the author pushes a fix, a configured re-review event requests another check of the current head commit. The review agent verifies the new key and the foreman publishes the result. A person still decides whether to approve and merge.
+
+## Troubleshooting
+
+* **Marking a pull request ready doesn't start a review** - A filter doesn't match the repository or target branch, the pull request carries the opt-out label, or a bot marked it ready, which GitHub triggers skip by default. Compare the pull request with the filters, then have a person mark it ready again. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **The review posts on a draft or closed request** - GitLab and Azure DevOps triggers have no draft filter, and GitHub's `pull_request_opened` fires for drafts too, so the prompt's instruction to stop on a draft or closed request is the only check. Keep that instruction, and on GitHub use `pull_request_ready` with the opt-out label.
+* **Two reviews appear on one pull request** - The [SDLC workflow](/factories/use-cases/end-to-end-sdlc-automation/) already requested an internal review, or a re-review event fired on every push without instructions for earlier findings. Create SDLC pull requests as drafts and apply the opt-out label before marking them ready, and tell the foreman to update its earlier findings instead of repeating them. See [automation matching rules](/factories/automations/#how-matching-works).
+* **The review agent changes the branch or starts implementation** - The automation prompt lost its review-only limits, or the review skill includes implementation steps. Keep the instruction not to edit code, dispatch implementation, approve, or merge in the prompt, and keep the skill to validation and findings. Branch protection and required reviews still decide who can change and merge the pull request.
 
 ## Related pages
 
