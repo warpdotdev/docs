@@ -405,6 +405,19 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					// Reading-path order: factory boundaries first, then the architecture
+					// shapes. Each page's closing section points to the next stage, so
+					// keep this order when adding pages.
+					label: 'Guides',
+					items: [
+						{ slug: 'factories/guides/structuring-your-factory', label: 'Factory boundaries' },
+						{ slug: 'factories/guides/web-application-factory', label: 'Web application factory' },
+						{ slug: 'factories/guides/monorepo-factory', label: 'Monorepo factory' },
+						{ slug: 'factories/guides/microservices-factory', label: 'Microservices factory' },
+						{ slug: 'factories/guides/multi-repository-factory', label: 'Multi-repository factory' },
+					],
+				},
+				{
 					label: 'Factory use cases',
 					items: [
 						{ slug: 'factories/use-cases', label: 'Overview' },
