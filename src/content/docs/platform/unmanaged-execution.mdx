@@ -115,6 +115,12 @@ Whether Kubernetes pods provide sufficient sandboxing for agents depends on your
 
 ---
 
+## Large repositories
+
+Use unmanaged execution when a pre-provisioned host already has the repository and dependencies. The CLI starts in that checkout rather than building an environment image or cloning it again.
+
+For managed execution, review [Docker volume mounts](/factories/self-hosting/managed-docker/) or [Kubernetes task storage](/factories/self-hosting/managed-kubernetes/). For a Direct worker sharing a monorepo, use the [worktree-isolation recipe](/factories/self-hosting/direct-monorepo-worktrees/). Do not let concurrent agents edit the same checkout.
+
 ## Tracking and observability
 
 Unmanaged agents are tracked on Warp's backend. Each run creates a persistent session that your team can:
@@ -123,7 +129,7 @@ Unmanaged agents are tracked on Warp's backend. Each run creates a persistent se
 * **Attach to** via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer.
 * **API and SDK** — Query run data through the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) for custom dashboards or monitoring.
 
-Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/platform/mcp/), [secrets](/platform/secrets/), Warp Drive context, and saved prompts all apply.
+Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/factories/mcp/), [secrets](/platform/secrets/), Warp Drive context, and saved prompts all apply.
 
 Unmanaged runs don't ship with the bundled declarations script, so end-of-run workspace snapshots are a no-op by default. To enable [handoff](/platform/handoff/) into a follow-up run, see [Customizing workspace snapshots](/platform/handoff/snapshots/).
 
@@ -131,9 +137,9 @@ Unmanaged runs don't ship with the bundled declarations script, so end-of-run wo
 
 ## Related pages
 
-* [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged, plus the architecture decision guide.
+* [Self-hosting overview](/factories/self-hosting/) - Set up a worker on your infrastructure to receive runs assigned by Warp
 * [External orchestrators](/factories/self-hosting/external-orchestrators/) — Compare one-shot Direct with the Command backend for externally allocated compute.
 * [GitHub Actions integration](/platform/integrations/github-actions/) — Run agents in CI with the official action.
-* [Deployment patterns](/factories/deployment-patterns/) — Pattern 1 (CLI-only) explains the unmanaged model conceptually.
+* [Security and networking](/factories/self-hosting/security-and-networking/) - Review data boundaries and network requirements for self-hosted execution
 * [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) — Full CLI reference for `oz agent run` and related commands.
 * [Agent Session Sharing](/agents/local-agents/session-sharing/) — Attach to running sessions to monitor or steer them.

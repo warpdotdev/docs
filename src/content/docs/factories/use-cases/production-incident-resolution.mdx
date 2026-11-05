@@ -36,7 +36,7 @@ The example uses Sentry [issue webhooks](https://docs.sentry.io/integrations/int
 
    If your Sentry project mixes environments, use an event type that includes environment information and filter that field explicitly. The example's project filter alone can't distinguish environments within one project. Other senders, such as PagerDuty or Grafana, need their own authentication mode and payload filter.
 2. Check whether an existing webhook and automation already handle those events. Reuse them where appropriate, or narrow overlapping triggers before adding another automation. One delivery can match multiple automations. See [automation matching rules](/factories/automations/#how-matching-works).
-3. Configure the triage agent's [MCP servers](/platform/mcp/) or [factory secrets](/factories/secrets/) for read-only diagnostic access. Scope permissions at the observability provider, and remove production write credentials from any shared factory configuration the agents inherit.
+3. Configure the triage agent's [MCP servers](/factories/mcp/) or [factory secrets](/factories/secrets/) for read-only diagnostic access. Scope permissions at the observability provider, and remove production write credentials from any shared factory configuration the agents inherit.
 
    This recipe returns the report in the factory work item and conversation. To post to an incident channel or tracker, configure the foreman's integration and name the destination in the runbook. Webhook intake doesn't provide a reply channel or replace paging.
 4. Add or update `skills/incident-response/SKILL.md` so foreman and triage share the runbook. Include:

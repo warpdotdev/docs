@@ -20,7 +20,7 @@ Pick where the parent will run. Every orchestration starts with a single parent 
 * **Parent in the Warp app** - use the `/orchestrate` or `/plan` slash command. This is the fastest way to try orchestration.
 * **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/), or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
 
-Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
+Cloud parents that spawn cloud children need access to one or more [environments](/factories/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
 
 To use different setup profiles with one configured factory agent, [send each profile in run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task).
 
@@ -49,6 +49,18 @@ You can also reach the same approval flow from `/plan`. When you ask the agent t
 A local parent - a Warp Agent conversation in the Warp app - can spawn cloud children by specifying an environment for each child. The parent asks for the environment if it isn't already clear from context. You can select any environment from your account or team.
 
 Cloud children inherit the parent's authentication; the same credit and credentials rules from the [Cloud agents overview](/platform/) apply.
+
+## Adding metadata to cloud children
+
+Ask the parent to attach string key-value metadata when it starts cloud children. Shared metadata applies to every child in that batch; a child's own values override shared values with the same key.
+
+For example, tag a migration batch and identify each child's package:
+
+```text
+Spawn one cloud child per package to migrate Jest tests to Vitest. Give every child metadata migration=jest-to-vitest, and give each child a package tag matching its package name.
+```
+
+The parent supplies shared tags through `run_agents.metadata` and child-specific tags through `agent_run_configs[].metadata`.
 
 ## Starting an orchestrated run from the CLI
 
@@ -201,4 +213,4 @@ Self-hosted, local, and GitHub Action runs cannot be cancelled through this endp
 * [Scheduled agents](/platform/triggers/scheduled-agents/) - start a recurring cloud parent that fans out children on a cron cadence.
 * [Self-hosting](/factories/self-hosting/) - keep parent or child execution on your infrastructure while Warp tracks the runs.
 * [Handoff between local and cloud agents](/platform/handoff/) - promote a local parent to the cloud, or continue a finished cloud parent with a follow-up.
-* [Environments](/platform/environments/) - configure the runtime context cloud children execute in.
+* [Environments](/factories/environments/) - configure the runtime context cloud children execute in.

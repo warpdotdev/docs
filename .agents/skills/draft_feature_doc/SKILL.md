@@ -50,4 +50,4 @@ For any product name in `src/data/vars.ts`, use the variable — never hardcode 
 
 Read 2-3 of these strong examples to match the existing pattern:
 - `src/content/docs/agents/capabilities/skills.mdx`
-- `src/content/docs/platform/environments.mdx`
+- `src/content/docs/factories/environments.mdx`

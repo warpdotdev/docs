@@ -222,6 +222,11 @@ function normalizeTabPanels(root) {
 }
 
 function sanitizeRoot(root) {
+	// Starlight excludes file trees from search, but their examples belong in Markdown.
+	for (const tree of root.querySelectorAll('starlight-file-tree')) {
+		tree.removeAttribute('data-pagefind-ignore');
+	}
+
 	for (const selector of [
 		'script',
 		'style',
