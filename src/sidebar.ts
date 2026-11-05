@@ -405,6 +405,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					// Reading-path guides, in stage order: structure, architecture,
+					// testing and tuning, then work intake.
+					label: 'Guides',
+					items: [
+						{ slug: 'factories/guides/testing-and-tuning-your-factory', label: 'Testing and tuning' },
+					],
+				},
+				{
 					label: 'Factory use cases',
 					items: [
 						{ slug: 'factories/use-cases', label: 'Overview' },
