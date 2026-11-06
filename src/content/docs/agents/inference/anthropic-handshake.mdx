@@ -1,0 +1,25 @@
+---
+title: Anthropic Handshake linked billing
+description: >-
+  Anthropic Handshake links a Claude Platform organization to Warp for direct
+  Anthropic billing without copying an API key.
+---
+
+Anthropic Handshake links your Claude Platform organization to Warp through OAuth, without copying an API key into Warp.
+
+In Warp Factories, Anthropic bills eligible Claude model requests directly to the linked organization, using purchased Claude Platform credits or invoiced billing. Linked billing does not support the Claude Code harness inside Warp.
+
+## Organization requirements
+
+An Owner, Admin, or user with the Billing role in the Claude Platform organization approves the connection once for the whole organization. Each organization can have one link per platform.
+
+If you have your own Claude Platform organization, you can link it as an individual.
+
+## Ineligible subscriptions
+
+Claude Pro, Max, Team, and Enterprise subscriptions and their included credits are not eligible for linked billing.
+
+## Related pages
+
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Connect a provider account with an API key instead
+* [Plans and billing](https://docs.warp.dev/support-and-community/plans-and-billing/)
