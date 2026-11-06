@@ -1,11 +1,407 @@
 {
   "claims": [
     {
-      "category": "cli",
+      "claim_content_fingerprint": "sha256:ff40ba2f131f46162ad56918817174bb5b08c83366ff09f6827921d171112cc9",
+      "claim_id": "sha256:5a196c12e5d7f580f961097ca76e12a279cb9f59ab9c750ca74caadee7c9e661",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "support-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "is a supported legacy interface. Existing users do not need to change their workflows.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 12,
+        "line_start": 12,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "supported-legacy"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6bba5e7d41a31dc117f5268b9483da4e84d09adfb39d89ce7a4f37712203fcdc",
+      "claim_id": "sha256:9bbbfd5f8a5fd0d9070614ad27431b2c97279824def520926670b8138c06c708",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "standalone-package-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [
+          "standalone-package"
+        ],
+        "legacy": true,
+        "operating_systems": [
+          "linux",
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp provides standalone packages for the CLI on macOS and Linux, without the Warp app.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Standalone package",
+        "heading_anchor": "standalone-package",
+        "line_end": 57,
+        "line_start": 57,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:aa1471f904837bd41448b13e4e8d93388912af8bc238a840143e14502e2647d9",
+      "claim_id": "sha256:74eabec4451298073425593864f5c494d28fae1f7dd21b56d30ee459599d80e2",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "standalone-package-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [
+          "standalone-package"
+        ],
+        "legacy": true,
+        "operating_systems": [
+          "windows"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A standalone CLI package is not currently available on Windows.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Standalone package",
+        "heading_anchor": "standalone-package",
+        "line_end": 111,
+        "line_start": 111,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f064e8e3186b06e935a4201165183de6a7d58701ae95b5ad12536daa81eb531a",
+      "claim_id": "sha256:8b7b3038343c931db34e96f4feccdc2f2220e1b5a8c2e17aab678e5048d0a423",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "direct-tar-auto-updates",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [
+          "direct-download-tar"
+        ],
+        "legacy": true,
+        "operating_systems": [
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "These builds do not auto-update.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Standalone package",
+        "heading_anchor": "standalone-package",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:89d2281e11d2255ce98f7d3e9a5d8854204d39c8fa683473956f1622cb7ea5b4",
+      "claim_id": "sha256:e6232ea716f1cd5940229cc08f69cd7aa0d41e802610d15152da9987b027aaae",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stable-command",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Regardless of your OS or installation method, the CLI command is `oz`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running the CLI",
+        "heading_anchor": "running-the-cli",
+        "line_end": 125,
+        "line_start": 125,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "oz",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4f41423e045a327575128fbf8bb9cd9451d58d6c7828f3936f0cd553e7d15d1d",
+      "claim_id": "sha256:97dc98b1922285991beb933419a195b542d0bc80cd4ac52249402d2ddf794aa9",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "preview-command",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "use `oz-preview` instead.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running the CLI",
+        "heading_anchor": "running-the-cli",
+        "line_end": 125,
+        "line_start": 125,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "oz-preview",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4cbb9bc4fc0cba20c5839fc31d84ace80ada11ba7e28cf51479879d6b713adf0",
+      "claim_id": "sha256:d3236276e910846af25f5a11c32b954c1a441972fec5e0e10347a8ace1873cb1",
+      "entity": "oz-cli-authentication",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "reuses-gui-credentials",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If you use the CLI on a host where you're already signed in to Warp, it automatically reuses your existing credentials.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Interactive login (local machines)",
+        "heading_anchor": "interactive-login-local-machines",
+        "line_end": 138,
+        "line_start": 138,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:217378db12e56adf585078f67b84cf90ff851bf4345aba912db587fe4eea9454",
+      "claim_id": "sha256:c615d4bead91da8b1ff752c36124ea633f5a5dad7090b10a037eb74e49596fb2",
+      "entity": "oz-logout",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "clears-environment-api-key",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "API keys authenticated through `WARP_API_KEY` or `--api-key` are not affected",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Logging out",
+        "heading_anchor": "logging-out",
+        "line_end": 179,
+        "line_start": 179,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e6ed29e8ebc816d5e6431a4284bf8749d7220bd14e37245fd78589930793ce5d",
+      "claim_id": "sha256:04eaf127b630a6e68d658e3fd3b130c31de270a34eee9f1432182118acceb398",
+      "entity": "oz-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-working-directory",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, the agent runs in your current working directory.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running locally: \\`oz agent run\\`",
+        "heading_anchor": "running-locally-oz-agent-run",
+        "line_end": 237,
+        "line_start": 237,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "current working directory",
+        "type": "free-text"
+      }
+    },
+    {
       "claim_content_fingerprint": "sha256:adbaea2e244438ca0433afc7d3f29888d4f19b7a0182c18742c55d1ba2b71e53",
       "claim_id": "sha256:03f5ca735b638a6da859ccb9fb80c8fbd46a99e54da6c40a330ed7998ce79d4f",
       "entity": "oz-run-cloud-attachments",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "maximum-file-count",
       "qualifiers": {
@@ -28,11 +424,11 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
-        "line_end": 274,
-        "line_start": 274,
+        "line_end": 268,
+        "line_start": 268,
         "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/cli/oz-cli/",
@@ -46,11 +442,10 @@
       }
     },
     {
-      "category": "cli",
       "claim_content_fingerprint": "sha256:a5c7a2629a25d62633258c948c4947b3d010bbcf732bfc17dcb1872b779fdd18",
       "claim_id": "sha256:c5530923646af8429249d35d2c751786627c9d03cd609e211ad7530d19974903",
       "entity": "oz-run-cloud-attachments",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "maximum-file-size",
       "qualifiers": {
@@ -73,11 +468,11 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
-        "line_end": 274,
-        "line_start": 274,
+        "line_end": 268,
+        "line_start": 268,
         "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/cli/oz-cli/",
@@ -89,9 +484,539 @@
         "normalized": 10000000,
         "type": "bytes"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6608654ff287914018046cf60f65d6382b8b0a216c073c1f209a04b27d0ebca3",
+      "claim_id": "sha256:0e10e23e4c0c39f2291bf90799d79c779a7aa873311465624fea7b04f9e929f5",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-harness",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`oz` (default, the Warp Agent)",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 270,
+        "line_start": 270,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "oz"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:64942237cb917f5037fb9ee49f216681d11ca4b31d36d76a0a8d1785522b3e67",
+      "claim_id": "sha256:f671002ef7dac5c02251e3654ce45bb2c631bf5ed4b2a9517df3fa33685a8b2f",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-agent-profiles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No `--profile` \u2014 cloud runs do not use agent profiles.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 290,
+        "line_start": 290,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:64942237cb917f5037fb9ee49f216681d11ca4b31d36d76a0a8d1785522b3e67",
+      "claim_id": "sha256:c56978314e3f1d01abe43ed65798c4d67c908437529aff80422fee07f37c813d",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-agent-profile-permissions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No `--profile` \u2014 cloud runs do not use agent profiles.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 290,
+        "line_start": 290,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:a411bdf8af9844f2c17697282d1bbf5962321175f6fd595bc73cb271fc7b10d8",
+      "claim_id": "sha256:3bde8cbf05cded294bf370ad8b2dc5ba13f262e7891c06908bb9f5f6dc99e3db",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-agent-profile-permissions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Check that your profile allows the commands and MCP servers needed.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Starting a run as an orchestration child",
+        "heading_anchor": "starting-a-run-as-an-orchestration-child",
+        "line_end": 351,
+        "line_start": 351,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9c742a1e5fae701c5af60c9e2e9bcd9cfd7fd08d8d952564b8082994e5eecf85",
+      "claim_id": "sha256:584b25f94aff86c81be9f87314a64fa8437372027b6da878763ff92c68e057fa",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-cwd-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No `--cwd` \u2014 the environment determines the working directory.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 288,
+        "line_start": 288,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e2792f8d17e606de113b5ef3a3f3df2bba35c96c3b327d1bbc116aa19fa3b32d",
+      "claim_id": "sha256:69e90b0641f43a2782ce1c396998428d7c7ebf51428031c53835f89be34c7197",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-share-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No `--share` \u2014 sharing options are on `run`, not `run-cloud`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 289,
+        "line_start": 289,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7cf982b0bd1013727d9936d7c24640aaa4d27d27b34c8c6bc780cb19a18d2cdf",
+      "claim_id": "sha256:00695c78501fb9dde6be5df2299bf3b8e1513ea1b1d2c51e425b5daef7b99624",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "name-groups-runs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `--name` flag assigns a config name to the run.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Naming runs",
+        "heading_anchor": "naming-runs",
+        "line_end": 294,
+        "line_start": 294,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:af68c66bc9fa4762790e6fcad5ccdbfe06fede2ff2713b26559bb137d920360e",
+      "claim_id": "sha256:a9305f33b3d11dc3237be2148e1117af4b4b3db99f6af188e5d4ac842ec88582",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "skill-run-auto-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the name is automatically set to the skill name.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Naming runs",
+        "heading_anchor": "naming-runs",
+        "line_end": 298,
+        "line_start": 298,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f296786df8cf327556e5ffd0db9b228314e865e904c6eceb279226767e27860c",
+      "claim_id": "sha256:622551208506cd398baabcc296ff4831202430be609f82a06ef160b0e27c1439",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "parent-run-id-attaches-child",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `--parent-run-id` flag attaches the new run to an existing run",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Starting a run as an orchestration child",
+        "heading_anchor": "starting-a-run-as-an-orchestration-child",
+        "line_end": 336,
+        "line_start": 336,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:71ed31f17c64b7a6b7958cbfe49dfdd31beb1c5a118cdc8a8ac579b805c0a1cc",
+      "claim_id": "sha256:8924a4acf958bd10dd10a5c70140761dedcc0b3c96136b46cd20fa0410b5e74b",
+      "entity": "oz-agent-run-share",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-viewers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, the session is only accessible to the user running the CLI",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Collaboration",
+        "heading_anchor": "collaboration",
+        "line_end": 397,
+        "line_start": 397,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "self"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:42d4a39c326d0b3751410c55032eb9103ebd916cbf22294bf300ded71c31f3ac",
+      "claim_id": "sha256:ff90d4dbdbe80cb969aa42aebae814ac3fb7f1aa9126b525a86191e0fc780994",
+      "entity": "oz-agent-create",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "only-required-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Only `--name` is required; attach skills and secrets by repeating the flags:",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "Managing named agents",
+        "heading_anchor": "managing-named-agents",
+        "line_end": 438,
+        "line_start": 438,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--name",
+        "type": "flag"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7279c6fb4d8ca40fd865e333f7f03e33fbfc5b2f58b099f514d851a19df633c0",
+      "claim_id": "sha256:f06b02e75fd7d5e85121caeb063abd5c7cabd902693c3dbba0a8ab54ac3332cc",
+      "entity": "oz-run-list",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-limit",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "List recent runs (default: 10)",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "heading": "`oz run list` / `oz run get`",
+        "heading_anchor": "oz-run-list-oz-run-get",
+        "line_end": 492,
+        "line_start": 492,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": 10,
+        "type": "integer"
+      }
     }
   ],
-  "page_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+  "page_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
   "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
   "schema_version": 1
 }

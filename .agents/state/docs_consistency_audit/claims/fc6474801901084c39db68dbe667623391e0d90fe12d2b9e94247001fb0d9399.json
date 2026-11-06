@@ -1,5 +1,186 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:c186626041b465381daf13f03fb4ffdc18a846df8c6effe583c7995c0d92e1b6",
+      "claim_id": "sha256:56665f497632340116bf769ac462b0e8e6df49f6cdb3f44f4561ce76a2ffd5a8",
+      "entity": "authentication-required",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `401 Unauthorized`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "content_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 401,
+        "raw": 401,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4dfb359e9df094988e5a883ac5c004cd1a2695f39c21ce272b82284855adabf7",
+      "claim_id": "sha256:03de449132c61575255997ba377930b0b839ec9c1fd0ea3f915d510af073b5e5",
+      "entity": "authentication-required",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "content_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:358f4dee82bd83cfe5c1a94985a96297bfdd21caee6175628cee50c49eb55d8c",
+      "claim_id": "sha256:bd3b6b1ba02dfa3eae048b0851413ce924ba7a692ac8d4fb11def1f33ef5e037",
+      "entity": "authentication-required",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "task-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** ERROR",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "content_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 22,
+        "line_start": 22,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "ERROR"
+        ],
+        "raw": [
+          "ERROR"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c92dea60094fc6323d1ce8264fbfafed4bcbf5a878cbfa9599a9d9fe425aecc1",
+      "claim_id": "sha256:5d402b6aee3cd9f2b1f20cdbc778f953bd753af5cfc49fe874286b1c45ef45ea",
+      "entity": "authentication-required",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "classification",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This is classified as a **platform error** (task state \u2192 ERROR) rather than a user error",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required",
+        "content_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "platform-error"
+        ],
+        "raw": [
+          "platform-error"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
   "page_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
   "schema_version": 1

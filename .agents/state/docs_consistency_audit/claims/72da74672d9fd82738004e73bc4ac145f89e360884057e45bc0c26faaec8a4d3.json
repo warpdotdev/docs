@@ -1,11 +1,52 @@
 {
   "claims": [
     {
-      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:66f7ed7d7b8c4953eefe3833bea71c1c361b7900a44f02fcdfb78bf445dcd162",
+      "claim_id": "sha256:73c0f6a3cf217161c1256176aa4388c8d8ae0f123d8fb922717318d2a82de0fd",
+      "entity": "oz-interactive-login",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-api-key",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Interactive login works on both **local** and **remote** machines, and does not require API keys.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/quickstart",
+        "canonical_route": "/agents/cli/oz-cli/quickstart",
+        "content_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
+        "heading": "2. Authenticate",
+        "heading_anchor": "2-authenticate",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
       "claim_content_fingerprint": "sha256:809d8993ec7c71555948d9626d6a9a019f2bae6d4227e101877e936e5642c536",
       "claim_id": "sha256:b22371cade5580be09ebad05b4bde0b74b44f8b8311ddd75db0a13eec20e0ea2",
       "entity": "oz-default-agent-profile",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "starts-all-configured-mcp-servers",
       "qualifiers": {
@@ -26,11 +67,11 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/quickstart",
         "canonical_route": "/agents/cli/oz-cli/quickstart",
-        "content_sha256": "d0739d4bc62457714bc2ef0664e5e9d5430aa8725f535baea799b8c519b08481",
+        "content_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
         "heading": "3. Run an agent",
         "heading_anchor": "3-run-an-agent",
-        "line_end": 58,
-        "line_start": 58,
+        "line_end": 63,
+        "line_start": 63,
         "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/cli/oz-cli/quickstart/",
@@ -42,9 +83,137 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c93dc33d3fb0c6d4429c3931914212cbc1bc48f88051b59925560f92f6ba95ce",
+      "claim_id": "sha256:4a7a13179c42ba9cb85b4d77a64ebcf673ece55e19912adabcff4153606e5f03",
+      "entity": "oz-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-working-directory",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The agent runs locally in your current working directory.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/quickstart",
+        "canonical_route": "/agents/cli/oz-cli/quickstart",
+        "content_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
+        "heading": "3. Run an agent",
+        "heading_anchor": "3-run-an-agent",
+        "line_end": 67,
+        "line_start": 67,
+        "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": "current working directory",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f26325374819f29c902e51b24d80ce822a88943714731d7781c6c209a3692eb9",
+      "claim_id": "sha256:b9bbef1354fa41e7c00cff8229a50a7e35629bd08b96ab6352dc613c81b5c702",
+      "entity": "oz-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "local-run",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This uses the default agent profile and executes the run locally.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/quickstart",
+        "canonical_route": "/agents/cli/oz-cli/quickstart",
+        "content_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
+        "heading": "3. Run an agent",
+        "heading_anchor": "3-run-an-agent",
+        "line_end": 63,
+        "line_start": 63,
+        "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b115756a5ff47d3bc4ea25085d420683e736a0d1028375c1dfe3f00f4c9ae4f0",
+      "claim_id": "sha256:111d15679c13e67593d08eb17c017d93887db5a5808c8d2f115f2caab6071a8e",
+      "entity": "oz-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "session-tracked-remotely",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The session is tracked on Warp's backend for observability and collaboration.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/quickstart",
+        "canonical_route": "/agents/cli/oz-cli/quickstart",
+        "content_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
+        "heading": "3. Run an agent",
+        "heading_anchor": "3-run-an-agent",
+        "line_end": 68,
+        "line_start": 68,
+        "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "d0739d4bc62457714bc2ef0664e5e9d5430aa8725f535baea799b8c519b08481",
+  "page_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
   "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
   "schema_version": 1
 }

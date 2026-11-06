@@ -1,19 +1,16 @@
 {
   "claims": [
     {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:93f741c3f81aab54ace733db56aa5989ad8f1260501c57cc6b3891374e836587",
-      "claim_id": "sha256:14177698d39708fa8c2d265758c3ed7ef9d96e156c71d3af1ab27d9983c5832b",
-      "entity": "byok-requests",
-      "extraction_confidence": 0.95,
+      "claim_content_fingerprint": "sha256:52147bd01ebc4dd2eb96044c6d81983d68ee40ba64846ed7cf81cd30338632f1",
+      "claim_id": "sha256:9de81226475a79700110f3347723f1253ad9ecc9ed8807411b64aeca6bee14b7",
+      "entity": "interactive-cli-model-choice",
+      "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "consumes-warp-credits",
+      "predicate": "saved-to-active-profile",
       "qualifiers": {
         "actors": [],
         "architectures": [],
-        "environments": [
-          "byok"
-        ],
+        "environments": [],
         "exceptions": [],
         "install_methods": [],
         "legacy": false,
@@ -24,10 +21,55 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "requests are billed through your provider account and don't consume your Warp [credits]",
+      "quote": "Your choice is saved as the base model of your active profile, so it persists across sessions.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
-        "content_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
+        "heading": "Choosing a model",
+        "heading_anchor": "choosing-a-model",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8662635747600f64294716f01bf4d44a7f616a7062f4189c018eab99d0f87d2b",
+      "claim_id": "sha256:d5168c0aa4b03a5ab2feac6b0aee42a0240506a9c59cf7fbc6e85b6e7d0d80bd",
+      "entity": "byok-requests",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [
+          "platform charges still apply"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Requests routed through your account do not consume Warp-provided inference usage. Applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
         "heading": "Bring your own API key",
         "heading_anchor": "bring-your-own-api-key",
         "line_end": 21,
@@ -45,11 +87,10 @@
       }
     },
     {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:1c3de09256bbb8337387d62a8a72333c740e202cf452cef80736ad416299c4cd",
+      "claim_content_fingerprint": "sha256:e4cd49995667a1672bf1241d631ac205ff5e8202899cba61f4c4eca4da3fc68e",
       "claim_id": "sha256:2e70f7c4185e742ce464bf36472ee14fa35b9d639296748559a6654d341621d9",
       "entity": "auto-models",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "consumes-warp-credits",
       "qualifiers": {
@@ -68,14 +109,14 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Warp's built-in Auto models always consume Warp credits, even with BYOK configured.",
+      "quote": "Warp's built-in Auto models always use Warp-provided inference, even with BYOK configured.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
-        "content_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
         "heading": "Bring your own API key",
         "heading_anchor": "bring-your-own-api-key",
-        "line_end": 33,
-        "line_start": 33,
+        "line_end": 35,
+        "line_start": 35,
         "path": "src/content/docs/agents/cli/models-and-usage.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/cli/models-and-usage/",
@@ -89,13 +130,55 @@
       }
     },
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:953f444f237dba7878f71c9ddde58143e19878547dc75f301d11033a068848c2",
-      "claim_id": "sha256:6d7a386756e2d198cbfcc425329c4b2b6891d06a51552f8b7be30033aeed60a5",
+      "claim_content_fingerprint": "sha256:de7027a38419759eea06f0068bbbf531dfa3ba0e795892852ccda29a657d0401",
+      "claim_id": "sha256:a23dc6029065b5ae90dd265d3de25087292ba2cb80a97f3090b0f7f28de5abba",
       "entity": "provider-api-keys",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "personal-device-keys"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp does not retain these personal provider keys on its servers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
+        "heading": "Bring your own API key",
+        "heading_anchor": "bring-your-own-api-key",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9292d55e9f6803fe4d7e5b460732459be18d7af12a22909904283a1d41cd28f5",
+      "claim_id": "sha256:1725b627aa52ff6c000c6cf1ea050bdf64dc55343d5f0b85dfaf9e38f7489caa",
+      "entity": "interactive-cli-provider-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "shared-with-gui",
       "qualifiers": {
         "actors": [],
         "architectures": [],
@@ -110,14 +193,14 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Warp does not store provider keys on its servers.",
+      "quote": "The CLI and Warp app store provider keys separately. Configure a key in each surface you use.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
-        "content_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
         "heading": "Bring your own API key",
         "heading_anchor": "bring-your-own-api-key",
-        "line_end": 25,
-        "line_start": 25,
+        "line_end": 23,
+        "line_start": 23,
         "path": "src/content/docs/agents/cli/models-and-usage.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/cli/models-and-usage/",
@@ -129,9 +212,177 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0ab8fb36b30450a17d3f33aac737031a47924df9265813e381419c9b4b312b54",
+      "claim_id": "sha256:a2eb2af7dfeb522b08f03d12892247981ff9cb392a9ffc5de17951ca6576017b",
+      "entity": "interactive-cli-provider-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "storage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "it's saved to your device's secure storage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
+        "heading": "Bring your own API key",
+        "heading_anchor": "bring-your-own-api-key",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "privacy",
+      "value": {
+        "normalized": "device secure storage",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a388c3165deb60ed171cc50d17c00bda0e85182bbb53198180ea0778692f7966",
+      "claim_id": "sha256:63deda06c0e76a78561acdc2eac4da75d4719a9492b64c9e02b4400c51206bd1",
+      "entity": "interactive-cli-model-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "shares-definitions-with-gui",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI loads the same router definitions as the Warp app.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
+        "heading": "Custom model routing",
+        "heading_anchor": "custom-model-routing",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8c73aa8ecad57699d23397327f0d37bb13f7771333e9d9a9df99d83027996c34",
+      "claim_id": "sha256:8718eddd77b7346b12bf899d1f1c84855de4704d9ac889744ea1b85f36932b9f",
+      "entity": "interactive-cli-usage-display",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "credit-billed-display",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "credit-billed-account"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Accounts billed in credits always see credits.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
+        "heading": "Usage and cost",
+        "heading_anchor": "usage-and-cost",
+        "line_end": 49,
+        "line_start": 49,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "credits"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1ac4b50e74458ccc36f4909ebcdc19a98b1989553a6bf30873f07388b61c55c4",
+      "claim_id": "sha256:b0335665244496a7cfc115cf2d27ea003d29a680d9818af79f8a5c1d0937c2a8",
+      "entity": "interactive-cli-usage-panel",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "conversation-level",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This is not conversation-level usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
+        "heading": "Usage and cost",
+        "heading_anchor": "usage-and-cost",
+        "line_end": 48,
+        "line_start": 48,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+  "page_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
   "path": "src/content/docs/agents/cli/models-and-usage.mdx",
   "schema_version": 1
 }
