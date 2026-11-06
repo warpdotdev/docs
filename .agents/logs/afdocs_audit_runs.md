@@ -1,5 +1,20 @@
 # AFDocs audit run log
 
+## 2026-11-06 — partial
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 85/100 (B) — partial-sample observation only; excluded from regression comparisons and future baselines.
+- **Reliability**: partial (`fetch-or-discovery-errors`); 50 of 410 discovered pages sampled, 49 compared for parity. `/404/` returned HTTP 404, reported as one fetch error in each of `llms-txt-directive-html` and `markdown-content-parity`. Bot protection passed across 532 requests, with no challenges, stalled bodies, blocked responses, or network fetch errors reported by that check.
+- **Checks**: 28 total — 20 pass, 2 fail, 4 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 3 checks: intentional OpenAPI YAML/JSON links; Vercel static content negotiation; the parity warning's three Mermaid segments, verified present in served Markdown after bracket unescaping. The failed `/404/` fetch is not allowlisted.
+- **Oz run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1afdf-2bbd-7170-be33-a472a9910d31
+- **Comparison**: The latest complete comparable entry is 2026-10-30, 90/100, v0.6.0, native afdocs CLI score (its afdocs 0.22.2 annotation identifies the CLI version, not a different score method). This partial run is not compared against it and does not replace it. Partial, blocked, legacy, and compatibility entries remain excluded from native-score baselines.
+- **Findings**: Three remaining warning observations: `llms-txt-directive-md` finds directives on 49/50 pages, missing on `/404.md`; `markdown-link-portability` flags the root-relative `/` link on that same error page; `page-size-html` flags `/support-and-community/plans-and-billing/pricing-faqs/` at 53,874 converted characters from 211,904 HTML characters, outside the listed long-page exceptions. `markdown-content-parity` warns at 7% on `/factories/how-factories-work/`; all three flagged Mermaid segments are present after Markdown unescaping. Additional unscored parity diagnostics record 48 HTML versus 19 Markdown table items on `/agents/capabilities/slash-commands/`, and two file-tree segments on `/factories/use-cases/production-incident-resolution/`; these are observations requiring verification, not established regressions.
+- **Interaction effects**: `dynamic-content-rendered-statically` groups the page-size and parity signals. Diagnostic only; no additional score penalty.
+- **Owner action**: Investigate why the 404 page entered documentation sampling and obtain a complete scan before remediation. Reassess the retained warning and unscored parity observations after reliability is restored. No `afdocs-fix` invocation or automatic remediation on this partial scan.
+- **Validation**: Required repo-local audit command exited 0; report JSON parsed successfully and retained as `afdocs-report.json` in this run's artifacts. Two bounded diagnostic fetches verified the OpenAPI links and Mermaid escaping exception; they do not make the original scan complete. Public-doc validation commands were not run because this change records the run only. Trunk is not installed; no lint or formatting success is claimed.
+- **Notes**: Node.js 24.0.0, npm 11.3.0, GitHub repository access, and connected Slack MCP channel access verified. The standing remote log branch was confirmed absent; this branch was created from current `main` with all prior entries preserved. Isolated log worktree; no public-doc, CDN/WAF, schedule, merge, or deployment changes. Actionable-only Slack reporting is subject to the full-day same-title deduplication check.
+
 ## 2026-10-30 — valid
 - **Spec**: v0.6.0 — native afdocs CLI score (afdocs 0.22.2)
 - **Score**: 90/100 (A-)
