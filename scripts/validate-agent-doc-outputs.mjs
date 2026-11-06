@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { access, readdir, readFile } from 'node:fs/promises';
+import { DOCS_ORIGIN } from '../src/lib/site.js';
 
 // Validate the actual plugin and route outputs, not just their configuration.
 // Run after `npm run build`.
@@ -15,16 +16,15 @@ for (const path of ['404.md', '404.md.html', '404/index.md']) {
 }
 
 const homepageMarkdown = await readFile(new URL('index.md', output), 'utf8');
-assert.match(
-	homepageMarkdown,
-	/\[llms\.txt\]\(https:\/\/docs\.warp\.dev\/llms\.txt\)/,
+assert.ok(
+	homepageMarkdown.includes(`[llms.txt](${DOCS_ORIGIN}/llms.txt)`),
 	'Normal documentation must still receive cleaned Markdown',
 );
 
 const index = await readFile(new URL('llms.txt', output), 'utf8');
 for (const file of ['llms-small.txt', 'llms-full.txt']) {
 	assert.ok(
-		index.includes(`https://docs.warp.dev/${file}`),
+		index.includes(`${DOCS_ORIGIN}/${file}`),
 		`The root agent index must still link to ${file}`,
 	);
 }
