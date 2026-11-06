@@ -206,11 +206,11 @@ export default defineConfig({
 							description: `Machine-readable OpenAPI ${openApiVersion} specification (JSON format) for the Oz Agent API.`,
 						},
 					],
-				// Excludes pages that cause a stack overflow in hast-util-to-text
-				// due to their size. The upstream plugin only applies `exclude` to
+				// Exclude the error page and the oversized licenses page. The
+				// upstream plugin only applies `exclude` to
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
 				// extends it to llms-full.txt and custom sets as well.
-				exclude: ['support-and-community/community/open-source-licenses'],
+				exclude: ['404', 'support-and-community/community/open-source-licenses'],
 					// This string is the first thing an AI engine reads about Warp, so it
 					// carries the product lineup. Kept in sync with the rename and with
 					// launches: it said "the Oz platform" until the 8/18 rename, which

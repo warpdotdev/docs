@@ -153,6 +153,9 @@ jobs:
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld
 
+      - name: Validate agent documentation outputs
+        run: npm run test:agent-doc-outputs
+
       - name: Validate page title order
         run: npm run test:page-title-order
 
