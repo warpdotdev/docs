@@ -309,7 +309,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agents/inference/custom-routers', label: 'Custom routers' },
 								'agents/inference/bring-your-own-api-key',
 								{ slug: 'agents/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
-								'agents/inference/anthropic-handshake',
+								'agents/inference/claude-platform-linked-billing',
 								{ slug: 'agents/inference/chatgpt-subscription', label: 'ChatGPT subscription' },
 								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
 							],
