@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "",
         "heading_anchor": "",
         "line_end": 8,
@@ -76,7 +76,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Static slash commands",
         "heading_anchor": "static-slash-commands",
         "line_end": 21,
@@ -120,7 +120,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Static slash commands",
         "heading_anchor": "static-slash-commands",
         "line_end": 21,
@@ -164,7 +164,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Static slash commands",
         "heading_anchor": "static-slash-commands",
         "line_end": 21,
@@ -208,7 +208,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Static slash commands",
         "heading_anchor": "static-slash-commands",
         "line_end": 21,
@@ -252,7 +252,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Static slash commands",
         "heading_anchor": "static-slash-commands",
         "line_end": 21,
@@ -312,7 +312,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Static slash commands",
         "heading_anchor": "static-slash-commands",
         "line_end": 24,
@@ -356,7 +356,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/slash-commands",
         "canonical_route": "/agents/capabilities/slash-commands",
-        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "content_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
         "heading": "Using Agent Prompts via Slash Commands",
         "heading_anchor": "using-agent-prompts-via-slash-commands",
         "line_end": 29,
@@ -375,7 +375,7 @@
       }
     }
   ],
-  "page_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+  "page_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
   "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
   "schema_version": 1
 }

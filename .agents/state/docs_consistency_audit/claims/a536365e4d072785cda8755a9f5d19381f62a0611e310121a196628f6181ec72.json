@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "",
         "heading_anchor": "",
         "line_end": 13,
@@ -70,7 +70,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Setting up notifications",
         "heading_anchor": "setting-up-notifications",
         "line_end": 23,
@@ -114,7 +114,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Auto-install",
         "heading_anchor": "auto-install",
         "line_end": 27,
@@ -158,7 +158,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Auto-install",
         "heading_anchor": "auto-install",
         "line_end": 27,
@@ -202,7 +202,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Manual install",
         "heading_anchor": "manual-install",
         "line_end": 32,
@@ -246,7 +246,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Manual install",
         "heading_anchor": "manual-install",
         "line_end": 49,
@@ -290,7 +290,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Supported Warp features",
         "heading_anchor": "supported-warp-features",
         "line_end": 71,
@@ -334,7 +334,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Supported Warp features",
         "heading_anchor": "supported-warp-features",
         "line_end": 73,
@@ -378,7 +378,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli-agents/claude-code",
         "canonical_route": "/agents/cli-agents/claude-code",
-        "content_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+        "content_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
         "heading": "Supported Warp features",
         "heading_anchor": "supported-warp-features",
         "line_end": 73,
@@ -397,7 +397,7 @@
       }
     }
   ],
-  "page_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+  "page_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
   "path": "src/content/docs/agents/cli-agents/claude-code.mdx",
   "schema_version": 1
 }

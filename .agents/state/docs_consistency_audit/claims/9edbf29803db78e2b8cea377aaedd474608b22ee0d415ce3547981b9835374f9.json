@@ -24,7 +24,7 @@
       "quote": "Warp forks the conversation, so the cloud agent sees the full transcript and your local conversation stays untouched.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Hand off to a cloud agent",
         "heading_anchor": "hand-off-to-a-cloud-agent",
         "line_end": 17,
@@ -65,7 +65,7 @@
       "quote": "Warp snapshots your uncommitted repository changes, including untracked files, and applies them in the cloud run.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Hand off to a cloud agent",
         "heading_anchor": "hand-off-to-a-cloud-agent",
         "line_end": 18,
@@ -106,7 +106,7 @@
       "quote": "The optional follow-up prompt and any images attached to the input move to the cloud run.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Hand off to a cloud agent",
         "heading_anchor": "hand-off-to-a-cloud-agent",
         "line_end": 19,
@@ -147,7 +147,7 @@
       "quote": "You can't hand off while a command is still running, or while the conversation has child agents that are in progress or blocked.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Hand off a conversation",
         "heading_anchor": "hand-off-a-conversation",
         "line_end": 42,
@@ -188,7 +188,7 @@
       "quote": "Handing off an orchestrator forks only its own conversation. The orchestration and its child agents stay local.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Hand off a conversation",
         "heading_anchor": "hand-off-a-conversation",
         "line_end": 42,
@@ -229,7 +229,7 @@
       "quote": "Cloud runs that are still in progress or blocked can't be opened in the CLI.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Resume cloud conversations",
         "heading_anchor": "resume-cloud-conversations",
         "line_end": 53,
@@ -270,7 +270,7 @@
       "quote": "Conversations that ran with a different harness, such as Claude Code or Codex, can't be opened in the CLI.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Resume cloud conversations",
         "heading_anchor": "resume-cloud-conversations",
         "line_end": 54,
@@ -311,7 +311,7 @@
       "quote": "By default, no child agents launch until you approve.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Multi-agent orchestration",
         "heading_anchor": "multi-agent-orchestration",
         "line_end": 68,
@@ -354,7 +354,7 @@
       "quote": "Local children always run the Warp Agent.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Multi-agent orchestration",
         "heading_anchor": "multi-agent-orchestration",
         "line_end": 83,
@@ -374,7 +374,7 @@
       }
     },
     {
-      "claim_content_fingerprint": "sha256:2ec98b46699bae03c4608630efb850de5adbc29ab71e5c47daf4c79c439b39c3",
+      "claim_content_fingerprint": "sha256:e3118aabbc88cea7cd825ddf92816179fe4084ff7800fbaa3fbd74dd648b26ea",
       "claim_id": "sha256:8f3b2592d804f81e068614273012675f35f2de2bc64fd9f7b6488c66e4d9ffbf",
       "entity": "cli-cloud-child-agents",
       "extraction_confidence": "high",
@@ -396,10 +396,10 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Each cloud child runs in a cloud [environment](/platform/environments/), and can run a different harness than the parent, such as Claude Code or Codex",
+      "quote": "Each cloud child runs in a cloud [environment](/factories/environments/), and can run a different harness than the parent, such as Claude Code or Codex",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Multi-agent orchestration",
         "heading_anchor": "multi-agent-orchestration",
         "line_end": 84,
@@ -442,7 +442,7 @@
       "quote": "Cloud child sessions in the CLI only show status. They don't accept input.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Multi-agent orchestration",
         "heading_anchor": "multi-agent-orchestration",
         "line_end": 87,
@@ -483,7 +483,7 @@
       "quote": "child agents keep working in the background.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Managing child agents",
         "heading_anchor": "managing-child-agents",
         "line_end": 100,
@@ -526,7 +526,7 @@
       "quote": "It stops the child's work, cancels the cloud run if the child is a cloud agent, and removes the child's tab and conversation",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "content_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
         "heading": "Kill a child agent",
         "heading_anchor": "kill-a-child-agent",
         "line_end": 106,
@@ -544,7 +544,7 @@
       }
     }
   ],
-  "page_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+  "page_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
   "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
   "schema_version": 1
 }

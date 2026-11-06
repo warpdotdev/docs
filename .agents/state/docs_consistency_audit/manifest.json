@@ -1,6 +1,11 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
+    "src/content/docs/agents/cli/oz-cli/federate.mdx",
+    "src/content/docs/agents/cli/oz-cli/index.mdx",
+    "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+    "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+    "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
     "src/content/docs/enterprise/getting-started/faq.mdx",
     "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
@@ -21,7 +26,6 @@
     "src/content/docs/factories/api-and-sdk/index.mdx",
     "src/content/docs/factories/api-and-sdk/quickstart.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
@@ -46,6 +50,9 @@
     "src/content/docs/factories/connect-your-factory.mdx",
     "src/content/docs/factories/deployment-patterns.mdx",
     "src/content/docs/factories/developer-tools.mdx",
+    "src/content/docs/factories/environments.mdx",
+    "src/content/docs/factories/environments/configuring-environments.mdx",
+    "src/content/docs/factories/environments/troubleshooting-environments.mdx",
     "src/content/docs/factories/factory-agents.mdx",
     "src/content/docs/factories/factory-agents/configuration.mdx",
     "src/content/docs/factories/factory-agents/creating-custom-agents.mdx",
@@ -55,6 +62,11 @@
     "src/content/docs/factories/factory-inbox.mdx",
     "src/content/docs/factories/factory-mcp.mdx",
     "src/content/docs/factories/factory-skills.mdx",
+    "src/content/docs/factories/harnesses/authentication.mdx",
+    "src/content/docs/factories/harnesses/claude-code.mdx",
+    "src/content/docs/factories/harnesses/codex.mdx",
+    "src/content/docs/factories/harnesses/index.mdx",
+    "src/content/docs/factories/harnesses/warp-agent.mdx",
     "src/content/docs/factories/how-factories-work.mdx",
     "src/content/docs/factories/index.mdx",
     "src/content/docs/factories/infrastructure-and-security.mdx",
@@ -66,6 +78,7 @@
     "src/content/docs/factories/integrations/permissions.mdx",
     "src/content/docs/factories/integrations/slack.mdx",
     "src/content/docs/factories/integrations/teams.mdx",
+    "src/content/docs/factories/mcp.mdx",
     "src/content/docs/factories/measure-and-improve.mdx",
     "src/content/docs/factories/measure-and-improve/scorers.mdx",
     "src/content/docs/factories/measure-and-improve/self-improvement.mdx",
@@ -85,6 +98,7 @@
     "src/content/docs/factories/self-hosting/private-container-registry.mdx",
     "src/content/docs/factories/self-hosting/quickstart.mdx",
     "src/content/docs/factories/self-hosting/reference.mdx",
+    "src/content/docs/factories/self-hosting/security-and-networking.mdx",
     "src/content/docs/factories/self-hosting/troubleshooting.mdx",
     "src/content/docs/factories/troubleshooting.mdx",
     "src/content/docs/factories/use-cases/code-review.mdx",
@@ -121,7 +135,6 @@
     "src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx",
     "src/content/docs/guides/agent-workflows/how-to-run-unattended-agents.mdx",
     "src/content/docs/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents.mdx",
-    "src/content/docs/guides/agent-workflows/run-a-software-factory-in-the-cloud.mdx",
     "src/content/docs/guides/agent-workflows/set-up-a-software-factory.mdx",
     "src/content/docs/guides/agent-workflows/understanding-your-codebase.mdx",
     "src/content/docs/guides/agent-workflows/using-images-as-context-with-warp.mdx",
@@ -139,7 +152,6 @@
     "src/content/docs/guides/configuration/how-to-set-tech-stack-preferences-with-rules.mdx",
     "src/content/docs/guides/configuration/how-to-set-up-self-serve-data-analytics-with-skills.mdx",
     "src/content/docs/guides/configuration/how-to-sync-your-monorepos.mdx",
-    "src/content/docs/guides/configuration/how-to-use-agent-profiles-efficiently.mdx",
     "src/content/docs/guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents.mdx",
     "src/content/docs/guides/configuration/trigger-reusable-actions-with-saved-prompts.mdx",
     "src/content/docs/guides/devops/how-to-analyze-cloud-run-logs-gcloud.mdx",
@@ -186,20 +198,11 @@
     "src/content/docs/knowledge-and-collaboration/warp-drive/workflows.mdx",
     "src/content/docs/platform/agents.mdx",
     "src/content/docs/platform/architecture.mdx",
-    "src/content/docs/platform/environments.mdx",
-    "src/content/docs/platform/environments/configuring-environments.mdx",
-    "src/content/docs/platform/environments/troubleshooting-environments.mdx",
-    "src/content/docs/platform/execution-security.mdx",
     "src/content/docs/platform/faqs.mdx",
     "src/content/docs/platform/handoff/cloud-to-cloud.mdx",
     "src/content/docs/platform/handoff/index.mdx",
     "src/content/docs/platform/handoff/local-to-cloud.mdx",
     "src/content/docs/platform/handoff/snapshots.mdx",
-    "src/content/docs/platform/harnesses/authentication.mdx",
-    "src/content/docs/platform/harnesses/claude-code.mdx",
-    "src/content/docs/platform/harnesses/codex.mdx",
-    "src/content/docs/platform/harnesses/index.mdx",
-    "src/content/docs/platform/harnesses/warp-agent.mdx",
     "src/content/docs/platform/index.mdx",
     "src/content/docs/platform/integrations/azure-devops.mdx",
     "src/content/docs/platform/integrations/bitbucket.mdx",
@@ -214,14 +217,12 @@
     "src/content/docs/platform/integrations/quickstart.mdx",
     "src/content/docs/platform/integrations/slack.mdx",
     "src/content/docs/platform/managing-cloud-agents.mdx",
-    "src/content/docs/platform/mcp.mdx",
     "src/content/docs/platform/orchestration/index.mdx",
     "src/content/docs/platform/orchestration/multi-agent-runs.mdx",
     "src/content/docs/platform/overview.mdx",
     "src/content/docs/platform/oz-web-app.mdx",
     "src/content/docs/platform/quickstart.mdx",
     "src/content/docs/platform/secrets.mdx",
-    "src/content/docs/platform/skills-as-agents.mdx",
     "src/content/docs/platform/team-access-billing-and-identity.mdx",
     "src/content/docs/platform/transitioning-from-oz.mdx",
     "src/content/docs/platform/triggers/index.mdx",
@@ -719,7 +720,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1103,
+          "character_count": 1104,
           "heading": "",
           "line_end": 25,
           "line_start": 9
@@ -782,14 +783,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 676,
+          "character_count": 644,
           "heading": "Related pages",
           "line_end": 101,
           "line_start": 95
         }
       ],
-      "character_count": 8595,
-      "extraction_status": "unchanged",
+      "character_count": 8564,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -850,7 +851,7 @@
       "path": "src/content/docs/agents/agent-memory/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/agent-memory/",
-      "source_sha256": "0ee3deac74ea40f27ee564312dabafc420272794165560fd6cc8860531d5c29a",
+      "source_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
       "title": "Agent Memory (Research Preview)"
     },
     "src/content/docs/agents/capabilities/agent-notifications.mdx": {
@@ -1351,7 +1352,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 405,
+          "character_count": 406,
           "heading": "",
           "line_end": 11,
           "line_start": 9
@@ -1379,14 +1380,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 371,
+          "character_count": 372,
           "heading": "Related pages",
           "line_end": 55,
           "line_start": 51
         }
       ],
-      "character_count": 3943,
-      "extraction_status": "unchanged",
+      "character_count": 3945,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1422,7 +1423,7 @@
       "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/computer-use/browser-use/",
-      "source_sha256": "1a732866656832e6c3a93f2d32d7774da34d8f5f45a9875e5831f0b77af131cd",
+      "source_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
       "title": "Browser use for agents"
     },
     "src/content/docs/agents/capabilities/computer-use/index.mdx": {
@@ -1450,7 +1451,7 @@
         },
         {
           "anchor": "enabling-computer-use",
-          "character_count": 504,
+          "character_count": 505,
           "heading": "Enabling Computer Use",
           "line_end": 40,
           "line_start": 37
@@ -1485,7 +1486,7 @@
         },
         {
           "anchor": "setup-and-requirements",
-          "character_count": 644,
+          "character_count": 645,
           "heading": "Setup and requirements",
           "line_end": 87,
           "line_start": 82
@@ -1533,8 +1534,8 @@
           "line_start": 134
         }
       ],
-      "character_count": 8164,
-      "extraction_status": "unchanged",
+      "character_count": 8166,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1625,7 +1626,7 @@
       "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/capabilities/computer-use/",
-      "source_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+      "source_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
       "title": "Computer Use for agents"
     },
     "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx": {
@@ -2011,7 +2012,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1010,
+          "character_count": 1015,
           "heading": "",
           "line_end": 17,
           "line_start": 7
@@ -2129,8 +2130,8 @@
           "line_start": 500
         }
       ],
-      "character_count": 21050,
-      "extraction_status": "unchanged",
+      "character_count": 21055,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -2231,7 +2232,7 @@
       "path": "src/content/docs/agents/capabilities/mcp.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/mcp/",
-      "source_sha256": "5ca50027057a6d9964d780a5dc99b116d51fd1e72f90a0cc3cfd7f4322d3bce2",
+      "source_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
       "title": "Model Context Protocol (MCP)"
     },
     "src/content/docs/agents/capabilities/planning.mdx": {
@@ -2473,238 +2474,259 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 430,
+          "character_count": 316,
           "heading": "",
           "line_end": 14,
           "line_start": 9
         },
         {
           "anchor": "key-features",
-          "character_count": 690,
+          "character_count": 734,
           "heading": "Key features",
           "line_end": 24,
           "line_start": 15
         },
         {
           "anchor": "how-skills-work",
-          "character_count": 790,
+          "character_count": 473,
           "heading": "How Skills work",
-          "line_end": 38,
+          "line_end": 30,
           "line_start": 25
         },
         {
-          "anchor": "skill-name-conflicts",
-          "character_count": 783,
-          "heading": "Skill name conflicts",
-          "line_end": 46,
+          "anchor": "example-interactions",
+          "character_count": 337,
+          "heading": "Example interactions",
+          "line_end": 48,
           "line_start": 39
         },
         {
-          "anchor": "example-interactions",
-          "character_count": 673,
-          "heading": "Example interactions",
-          "line_end": 64,
-          "line_start": 47
-        },
-        {
           "anchor": "identify-skill-sources-in-conversation-data",
-          "character_count": 935,
+          "character_count": 608,
           "heading": "Identify skill sources in conversation data",
-          "line_end": 77,
-          "line_start": 65
+          "line_end": 59,
+          "line_start": 49
         },
         {
           "anchor": "instructions",
           "character_count": 179,
           "heading": "Instructions",
-          "line_end": 98,
-          "line_start": 95
+          "line_end": 77,
+          "line_start": 74
+        },
+        {
+          "anchor": "example-skill-file",
+          "character_count": 410,
+          "heading": "Example skill file",
+          "line_end": 91,
+          "line_start": 82
         },
         {
           "anchor": "instructions",
-          "character_count": 255,
+          "character_count": 224,
           "heading": "Instructions",
-          "line_end": 120,
-          "line_start": 115
+          "line_end": 99,
+          "line_start": 94
         },
         {
           "anchor": "configuration-format",
-          "character_count": 176,
-          "heading": "Configuration Format",
-          "line_end": 128,
-          "line_start": 121
+          "character_count": 204,
+          "heading": "Configuration format",
+          "line_end": 109,
+          "line_start": 100
         },
         {
           "anchor": "examples",
-          "character_count": 118,
+          "character_count": 354,
           "heading": "Examples",
-          "line_end": 133,
-          "line_start": 129
+          "line_end": 116,
+          "line_start": 110
         },
         {
           "anchor": "skill-arguments",
-          "character_count": 327,
+          "character_count": 206,
           "heading": "Skill arguments",
-          "line_end": 139,
-          "line_start": 134
+          "line_end": 122,
+          "line_start": 117
         },
         {
           "anchor": "argument-syntax",
-          "character_count": 435,
+          "character_count": 229,
           "heading": "Argument syntax",
-          "line_end": 147,
-          "line_start": 140
+          "line_end": 128,
+          "line_start": 123
         },
         {
           "anchor": "how-argument-substitution-works",
-          "character_count": 893,
+          "character_count": 487,
           "heading": "How argument substitution works",
-          "line_end": 159,
-          "line_start": 148
+          "line_end": 136,
+          "line_start": 129
         },
         {
-          "anchor": "explain-topic",
-          "character_count": 359,
-          "heading": "Explain Topic",
-          "line_end": 194,
-          "line_start": 170
+          "anchor": "explain-a-topic",
+          "character_count": 393,
+          "heading": "Explain a topic",
+          "line_end": 167,
+          "line_start": 147
         },
         {
           "anchor": "greet",
-          "character_count": 324,
+          "character_count": 313,
           "heading": "Greet",
-          "line_end": 217,
-          "line_start": 205
+          "line_end": 186,
+          "line_start": 178
         },
         {
           "anchor": "project-skills",
-          "character_count": 1295,
+          "character_count": 936,
           "heading": "Project skills",
-          "line_end": 262,
-          "line_start": 222
+          "line_end": 231,
+          "line_start": 193
         },
         {
           "anchor": "root-directory-skills-global",
-          "character_count": 789,
+          "character_count": 330,
           "heading": "Root directory skills (global)",
-          "line_end": 290,
-          "line_start": 263
+          "line_end": 244,
+          "line_start": 232
+        },
+        {
+          "anchor": "cloud-agents",
+          "character_count": 360,
+          "heading": "Cloud agents",
+          "line_end": 254,
+          "line_start": 249
         },
         {
           "anchor": "extra-directories-for-cloud-runs",
-          "character_count": 422,
+          "character_count": 1514,
           "heading": "Extra directories for cloud runs",
-          "line_end": 312,
-          "line_start": 309
+          "line_end": 271,
+          "line_start": 255
         },
         {
           "anchor": "step-1-choose-a-location",
-          "character_count": 346,
+          "character_count": 96,
           "heading": "Step 1: Choose a location",
-          "line_end": 321,
-          "line_start": 315
+          "line_end": 277,
+          "line_start": 274
         },
         {
           "anchor": "step-2-create-the-directory-structure",
           "character_count": 156,
           "heading": "Step 2: Create the directory structure",
-          "line_end": 329,
-          "line_start": 322
+          "line_end": 285,
+          "line_start": 278
         },
         {
           "anchor": "step-3-write-the-skill-file",
           "character_count": 133,
           "heading": "Step 3: Write the skill file",
-          "line_end": 337,
-          "line_start": 330
+          "line_end": 293,
+          "line_start": 286
         },
         {
           "anchor": "step-4-add-content",
-          "character_count": 165,
+          "character_count": 181,
           "heading": "Step 4: Add content",
-          "line_end": 347,
-          "line_start": 338
-        },
-        {
-          "anchor": "instructions",
-          "character_count": 130,
-          "heading": "Instructions",
-          "line_end": 357,
-          "line_start": 353
+          "line_end": 297,
+          "line_start": 294
         },
         {
           "anchor": "skills-with-supporting-files",
-          "character_count": 447,
+          "character_count": 325,
           "heading": "Skills with supporting files",
-          "line_end": 377,
-          "line_start": 363
+          "line_end": 312,
+          "line_start": 298
         },
         {
           "anchor": "running-the-check",
-          "character_count": 378,
+          "character_count": 123,
           "heading": "Running the check",
-          "line_end": 390,
-          "line_start": 378
+          "line_end": 319,
+          "line_start": 313
         },
         {
           "anchor": "viewing-available-skills",
-          "character_count": 283,
+          "character_count": 115,
           "heading": "Viewing available skills",
-          "line_end": 402,
-          "line_start": 393
+          "line_end": 325,
+          "line_start": 322
         },
         {
           "anchor": "editing-skills",
-          "character_count": 319,
+          "character_count": 155,
           "heading": "Editing skills",
-          "line_end": 416,
-          "line_start": 403
+          "line_end": 329,
+          "line_start": 326
         },
         {
           "anchor": "pre-built-skills",
-          "character_count": 464,
+          "character_count": 239,
           "heading": "Pre-built skills",
-          "line_end": 431,
-          "line_start": 426
+          "line_end": 341,
+          "line_start": 336
         },
         {
           "anchor": "suggested-skills-from-agent-memory",
           "character_count": 234,
           "heading": "Suggested skills from Agent Memory",
-          "line_end": 435,
-          "line_start": 432
+          "line_end": 345,
+          "line_start": 342
         },
         {
           "anchor": "invoking-skills-with-a-prompt",
-          "character_count": 562,
+          "character_count": 276,
           "heading": "Invoking skills with a prompt",
-          "line_end": 446,
-          "line_start": 436
+          "line_end": 351,
+          "line_start": 346
         },
         {
           "anchor": "running-agents-from-skills",
-          "character_count": 564,
+          "character_count": 262,
           "heading": "Running agents from skills",
-          "line_end": 452,
-          "line_start": 447
+          "line_end": 355,
+          "line_start": 352
         },
         {
-          "anchor": "related-features",
-          "character_count": 428,
-          "heading": "Related features",
-          "line_end": 461,
-          "line_start": 453
+          "anchor": "cli",
+          "character_count": 287,
+          "heading": "CLI",
+          "line_end": 359,
+          "line_start": 356
         },
         {
-          "anchor": "next-steps",
-          "character_count": 452,
-          "heading": "Next steps",
-          "line_end": 467,
-          "line_start": 462
+          "anchor": "web-app",
+          "character_count": 162,
+          "heading": "Web app",
+          "line_end": 365,
+          "line_start": 360
+        },
+        {
+          "anchor": "api-and-sdk",
+          "character_count": 199,
+          "heading": "API and SDK",
+          "line_end": 369,
+          "line_start": 366
+        },
+        {
+          "anchor": "running-skills-on-a-schedule",
+          "character_count": 530,
+          "heading": "Running skills on a schedule",
+          "line_end": 379,
+          "line_start": 370
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 419,
+          "heading": "Related pages",
+          "line_end": 385,
+          "line_start": 380
         }
       ],
-      "character_count": 17766,
-      "extraction_status": "unchanged",
+      "character_count": 14514,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -2723,239 +2745,239 @@
         },
         {
           "anchor": "skill-name-conflicts",
-          "line_start": 39,
+          "line_start": 31,
           "text": "Skill name conflicts"
         },
         {
           "anchor": "example-interactions",
-          "line_start": 47,
+          "line_start": 39,
           "text": "Example interactions"
         },
         {
           "anchor": "identify-skill-sources-in-conversation-data",
-          "line_start": 65,
+          "line_start": 49,
           "text": "Identify skill sources in conversation data"
         },
         {
           "anchor": "skill-file-format",
-          "line_start": 78,
+          "line_start": 60,
           "text": "Skill file format"
         },
         {
           "anchor": "basic-structure",
-          "line_start": 85,
+          "line_start": 64,
           "text": "Basic structure"
         },
         {
           "anchor": "your-skill-name",
-          "line_start": 93,
+          "line_start": 72,
           "text": "Your Skill Name"
         },
         {
           "anchor": "instructions",
-          "line_start": 95,
+          "line_start": 74,
           "text": "Instructions"
         },
         {
           "anchor": "examples",
-          "line_start": 99,
+          "line_start": 78,
           "text": "Examples"
         },
         {
           "anchor": "example-skill-file",
-          "line_start": 103,
+          "line_start": 82,
           "text": "Example skill file"
         },
         {
-          "anchor": "add-feature-flag",
-          "line_start": 113,
-          "text": "Add Feature Flag"
+          "anchor": "add-a-feature-flag",
+          "line_start": 92,
+          "text": "Add a feature flag"
         },
         {
           "anchor": "instructions",
-          "line_start": 115,
+          "line_start": 94,
           "text": "Instructions"
         },
         {
           "anchor": "configuration-format",
-          "line_start": 121,
-          "text": "Configuration Format"
+          "line_start": 100,
+          "text": "Configuration format"
         },
         {
           "anchor": "examples",
-          "line_start": 129,
+          "line_start": 110,
           "text": "Examples"
         },
         {
           "anchor": "skill-arguments",
-          "line_start": 134,
+          "line_start": 117,
           "text": "Skill arguments"
         },
         {
           "anchor": "argument-syntax",
-          "line_start": 140,
+          "line_start": 123,
           "text": "Argument syntax"
         },
         {
           "anchor": "how-argument-substitution-works",
-          "line_start": 148,
+          "line_start": 129,
           "text": "How argument substitution works"
         },
         {
           "anchor": "example-skill-with-arguments",
-          "line_start": 160,
+          "line_start": 137,
           "text": "Example: Skill with arguments"
         },
         {
-          "anchor": "explain-topic",
-          "line_start": 170,
-          "text": "Explain Topic"
+          "anchor": "explain-a-topic",
+          "line_start": 147,
+          "text": "Explain a topic"
         },
         {
           "anchor": "example-skill-without-arguments",
-          "line_start": 195,
+          "line_start": 168,
           "text": "Example: Skill without arguments"
         },
         {
           "anchor": "greet",
-          "line_start": 205,
+          "line_start": 178,
           "text": "Greet"
         },
         {
           "anchor": "skill-locations",
-          "line_start": 218,
+          "line_start": 187,
           "text": "Skill locations"
         },
         {
           "anchor": "project-skills",
-          "line_start": 222,
+          "line_start": 193,
           "text": "Project skills"
         },
         {
           "anchor": "root-directory-skills-global",
-          "line_start": 263,
+          "line_start": 232,
           "text": "Root directory skills (global)"
         },
         {
           "anchor": "project-vs-root-directory-skills",
-          "line_start": 291,
+          "line_start": 245,
           "text": "Project vs Root directory skills"
         },
         {
+          "anchor": "cloud-agents",
+          "line_start": 249,
+          "text": "Cloud agents"
+        },
+        {
           "anchor": "extra-directories-for-cloud-runs",
-          "line_start": 309,
+          "line_start": 255,
           "text": "Extra directories for cloud runs"
         },
         {
           "anchor": "creating-skills",
-          "line_start": 313,
+          "line_start": 272,
           "text": "Creating skills"
         },
         {
           "anchor": "step-1-choose-a-location",
-          "line_start": 315,
+          "line_start": 274,
           "text": "Step 1: Choose a location"
         },
         {
           "anchor": "step-2-create-the-directory-structure",
-          "line_start": 322,
+          "line_start": 278,
           "text": "Step 2: Create the directory structure"
         },
         {
           "anchor": "step-3-write-the-skill-file",
-          "line_start": 330,
+          "line_start": 286,
           "text": "Step 3: Write the skill file"
         },
         {
           "anchor": "step-4-add-content",
-          "line_start": 338,
+          "line_start": 294,
           "text": "Step 4: Add content"
         },
         {
-          "anchor": "my-new-skill",
-          "line_start": 348,
-          "text": "My New Skill"
-        },
-        {
-          "anchor": "when-to-use",
-          "line_start": 350,
-          "text": "When to use"
-        },
-        {
-          "anchor": "instructions",
-          "line_start": 353,
-          "text": "Instructions"
-        },
-        {
-          "anchor": "important-notes",
-          "line_start": 358,
-          "text": "Important notes"
-        },
-        {
           "anchor": "skills-with-supporting-files",
-          "line_start": 363,
+          "line_start": 298,
           "text": "Skills with supporting files"
         },
         {
           "anchor": "running-the-check",
-          "line_start": 378,
+          "line_start": 313,
           "text": "Running the check"
         },
         {
           "anchor": "managing-skills",
-          "line_start": 391,
+          "line_start": 320,
           "text": "Managing skills"
         },
         {
           "anchor": "viewing-available-skills",
-          "line_start": 393,
+          "line_start": 322,
           "text": "Viewing available skills"
         },
         {
           "anchor": "editing-skills",
-          "line_start": 403,
+          "line_start": 326,
           "text": "Editing skills"
         },
         {
           "anchor": "best-practices",
-          "line_start": 417,
+          "line_start": 330,
           "text": "Best practices"
         },
         {
           "anchor": "pre-built-skills",
-          "line_start": 426,
+          "line_start": 336,
           "text": "Pre-built skills"
         },
         {
           "anchor": "suggested-skills-from-agent-memory",
-          "line_start": 432,
+          "line_start": 342,
           "text": "Suggested skills from Agent Memory"
         },
         {
           "anchor": "invoking-skills-with-a-prompt",
-          "line_start": 436,
+          "line_start": 346,
           "text": "Invoking skills with a prompt"
         },
         {
           "anchor": "running-agents-from-skills",
-          "line_start": 447,
+          "line_start": 352,
           "text": "Running agents from skills"
         },
         {
-          "anchor": "related-features",
-          "line_start": 453,
-          "text": "Related features"
+          "anchor": "cli",
+          "line_start": 356,
+          "text": "CLI"
         },
         {
-          "anchor": "next-steps",
-          "line_start": 462,
-          "text": "Next steps"
+          "anchor": "web-app",
+          "line_start": 360,
+          "text": "Web app"
+        },
+        {
+          "anchor": "api-and-sdk",
+          "line_start": 366,
+          "text": "API and SDK"
+        },
+        {
+          "anchor": "running-skills-on-a-schedule",
+          "line_start": 370,
+          "text": "Running skills on a schedule"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 380,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/capabilities/skills.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/skills/",
-      "source_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+      "source_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
       "title": "Skills for agents"
     },
     "src/content/docs/agents/capabilities/slash-commands.mdx": {
@@ -2969,7 +2991,7 @@
         },
         {
           "anchor": "static-slash-commands",
-          "character_count": 8529,
+          "character_count": 8532,
           "heading": "Static slash commands",
           "line_end": 26,
           "line_start": 17
@@ -2989,8 +3011,8 @@
           "line_start": 44
         }
       ],
-      "character_count": 10544,
-      "extraction_status": "unchanged",
+      "character_count": 10547,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3021,7 +3043,7 @@
       "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/slash-commands/",
-      "source_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+      "source_sha256": "4a189ce2c81adbdcd59421d97db11bea12d7ad3da1117f490ab0aa0cf233bea3",
       "title": "Slash Commands"
     },
     "src/content/docs/agents/capabilities/task-lists.mdx": {
@@ -3186,7 +3208,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 971,
+          "character_count": 1077,
           "heading": "",
           "line_end": 20,
           "line_start": 9
@@ -3221,14 +3243,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 669,
+          "character_count": 637,
           "heading": "Related pages",
           "line_end": 83,
           "line_start": 75
         }
       ],
-      "character_count": 4906,
-      "extraction_status": "unchanged",
+      "character_count": 4980,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3269,14 +3291,14 @@
       "path": "src/content/docs/agents/cli-agents/claude-code.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/claude-code/",
-      "source_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
+      "source_sha256": "2cdc38130ba2089be31db41807b94bf7e0399b920f7d3c027b88183a6b9e0426",
       "title": "Claude Code in Warp"
     },
     "src/content/docs/agents/cli-agents/codex.mdx": {
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 873,
+          "character_count": 979,
           "heading": "",
           "line_end": 20,
           "line_start": 9
@@ -3297,14 +3319,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 533,
+          "character_count": 501,
           "heading": "Related pages",
           "line_end": 64,
           "line_start": 57
         }
       ],
-      "character_count": 3526,
-      "extraction_status": "unchanged",
+      "character_count": 3600,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3330,7 +3352,7 @@
       "path": "src/content/docs/agents/cli-agents/codex.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/codex/",
-      "source_sha256": "ba108b20332fd566ae0837fabacb278f57708500a7ff6599bd2d97fc01307251",
+      "source_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
       "title": "Codex CLI in Warp"
     },
     "src/content/docs/agents/cli-agents/opencode.mdx": {
@@ -3398,7 +3420,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 828,
+          "character_count": 796,
           "heading": "",
           "line_end": 20,
           "line_start": 9
@@ -3446,7 +3468,7 @@
           "line_start": 101
         }
       ],
-      "character_count": 6661,
+      "character_count": 6629,
       "extraction_status": "changed",
       "headings": [
         {
@@ -3488,7 +3510,7 @@
       "path": "src/content/docs/agents/cli-agents/overview.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/overview/",
-      "source_sha256": "f9dfe3a330274299f278d16b38b0877c7599bb7f3a23c0a5ea2834d11dbc73be",
+      "source_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
       "title": "Third-party CLI agents overview"
     },
     "src/content/docs/agents/cli-agents/remote-control.mdx": {
@@ -3877,7 +3899,7 @@
         },
         {
           "anchor": "multi-agent-orchestration",
-          "character_count": 2958,
+          "character_count": 2959,
           "heading": "Multi-agent orchestration",
           "line_end": 89,
           "line_start": 58
@@ -3891,14 +3913,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 1033,
+          "character_count": 1034,
           "heading": "Related pages",
           "line_end": 122,
           "line_start": 113
         }
       ],
-      "character_count": 10409,
-      "extraction_status": "unchanged",
+      "character_count": 10411,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3944,7 +3966,7 @@
       "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/cloud-and-orchestration/",
-      "source_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+      "source_sha256": "a50e3088fd97fa648f59a79a2da86a59ed0bcd3131329cad8086adb0d72c7b2b",
       "title": "Cloud handoff and orchestration in the Warp Agent CLI"
     },
     "src/content/docs/agents/cli/configuration.mdx": {
@@ -4156,7 +4178,7 @@
         },
         {
           "anchor": "what-is-the-warp-agent-cli",
-          "character_count": 803,
+          "character_count": 804,
           "heading": "What is the Warp Agent CLI?",
           "line_end": 18,
           "line_start": 11
@@ -4170,7 +4192,7 @@
         },
         {
           "anchor": "how-it-relates-to-the-warp-app-and-cloud-agents",
-          "character_count": 658,
+          "character_count": 659,
           "heading": "How it relates to the Warp app and cloud agents",
           "line_end": 34,
           "line_start": 30
@@ -4197,8 +4219,8 @@
           "line_start": 49
         }
       ],
-      "character_count": 5546,
-      "extraction_status": "unchanged",
+      "character_count": 5548,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4239,7 +4261,7 @@
       "path": "src/content/docs/agents/cli/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/cli/",
-      "source_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+      "source_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
       "title": "Warp Agent CLI overview"
     },
     "src/content/docs/agents/cli/input-and-shell-commands.mdx": {
@@ -8003,7 +8025,7 @@
         }
       ],
       "character_count": 10560,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10030,7 +10052,7 @@
         }
       ],
       "character_count": 9486,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11474,7 +11496,7 @@
         }
       ],
       "character_count": 9164,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11643,7 +11665,7 @@
         }
       ],
       "character_count": 7475,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11914,7 +11936,7 @@
         }
       ],
       "character_count": 19260,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -12341,7 +12363,7 @@
         }
       ],
       "character_count": 25746,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -12668,10 +12690,88 @@
       "route": "/enterprise/enterprise-features/private-networking/",
       "source_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
       "title": "Connecting private services to Warp"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 362,
+          "heading": "",
+          "line_end": 17,
+          "line_start": 8
+        },
+        {
+          "anchor": "details",
+          "character_count": 99,
+          "heading": "Details",
+          "line_end": 25,
+          "line_start": 18
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 391,
+          "heading": "Example response",
+          "line_end": 50,
+          "line_start": 36
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 215,
+          "heading": "How to resolve",
+          "line_end": 58,
+          "line_start": 51
+        },
+        {
+          "anchor": "related",
+          "character_count": 164,
+          "heading": "Related",
+          "line_end": 62,
+          "line_start": 59
+        }
+      ],
+      "character_count": 1632,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 18,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 26,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 36,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 51,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 59,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+      "source_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
+      "title": "authentication_required"
     }
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "90535b6cf719a2b32843ca75a65bc06583353645"
+    "docs": "403d5d626153a8d4ee5dc37effddc86ce2f9d4aa"
   }
 }

@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Capabilities",
         "heading_anchor": "capabilities",
         "line_end": 27,
@@ -82,7 +82,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -102,7 +102,7 @@
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:5eddbbab3981a75b9b1c8adafb7df28947d36d021060ec87cee50bb0efdd4627",
+      "claim_content_fingerprint": "sha256:3ce041c678f4dfe352295a7bd452e822e475767e2ecdcde25ed2b2fd636efc95",
       "claim_id": "sha256:5c3851155734bd3a623afac42a3f932ffcba39e27b5d4ba0c13ce607d0e9f7ee",
       "entity": "computer-use",
       "extraction_confidence": 0.95,
@@ -126,11 +126,11 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Runs on [third-party harnesses](/platform/harnesses/) (Claude Code and Codex) default to Computer Use disabled because third-party harnesses don't integrate with Warp's Computer Use tooling.",
+      "quote": "Runs on [third-party harnesses](/factories/harnesses/) (Claude Code and Codex) default to Computer Use disabled because third-party harnesses don't integrate with Warp's Computer Use tooling.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -180,7 +180,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Warp app settings",
         "heading_anchor": "warp-app-settings",
         "line_end": 43,
@@ -224,7 +224,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "CLI",
         "heading_anchor": "cli",
         "line_end": 50,
@@ -268,7 +268,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "CLI",
         "heading_anchor": "cli",
         "line_end": 51,
@@ -312,7 +312,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -360,7 +360,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -408,7 +408,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -454,7 +454,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 84,
@@ -474,7 +474,7 @@
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:0635dd7583a2926629ba9d69045884675518b78aa9e4700c760a96ee2dd6857e",
+      "claim_content_fingerprint": "sha256:f834761797df2a8319cb8dced1255cdbfbb3198b48337eb715215501376a2139",
       "claim_id": "sha256:8c8a848d43d9dcf39d1c080bc73607daa815f24c0c2fb3249683a92c58c4f4a1",
       "entity": "computer-use",
       "extraction_confidence": 0.95,
@@ -494,11 +494,11 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Your cloud environment must include any desktop applications you want the agent to control in your [environment configuration](/platform/environments/).",
+      "quote": "Your cloud environment must include any desktop applications you want the agent to control in your [environment configuration](/factories/environments/).",
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 86,
@@ -542,7 +542,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 86,
@@ -590,7 +590,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Model selection",
         "heading_anchor": "model-selection",
         "line_end": 90,
@@ -638,7 +638,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Model selection",
         "heading_anchor": "model-selection",
         "line_end": 90,
@@ -682,7 +682,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
         "heading": "Recording sessions",
         "heading_anchor": "recording-sessions",
         "line_end": 96,
@@ -701,7 +701,7 @@
       }
     }
   ],
-  "page_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+  "page_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
   "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
   "schema_version": 1
 }

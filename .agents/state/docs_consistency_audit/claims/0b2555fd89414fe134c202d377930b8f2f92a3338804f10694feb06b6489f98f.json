@@ -25,7 +25,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "How it relates to the Warp app and cloud agents",
         "heading_anchor": "how-it-relates-to-the-warp-app-and-cloud-agents",
         "line_end": 32,
@@ -67,7 +67,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "What is the Warp Agent CLI?",
         "heading_anchor": "what-is-the-warp-agent-cli",
         "line_end": 15,
@@ -109,7 +109,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "Key features",
         "heading_anchor": "key-features",
         "line_end": 24,
@@ -151,7 +151,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "What is the Warp Agent CLI?",
         "heading_anchor": "what-is-the-warp-agent-cli",
         "line_end": 15,
@@ -193,7 +193,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "Coming from the Warp app",
         "heading_anchor": "coming-from-the-warp-app",
         "line_end": 47,
@@ -235,7 +235,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "Coming from the Warp app",
         "heading_anchor": "coming-from-the-warp-app",
         "line_end": 47,
@@ -277,7 +277,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "Coming from the Warp app",
         "heading_anchor": "coming-from-the-warp-app",
         "line_end": 47,
@@ -319,7 +319,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli",
         "canonical_route": "/agents/cli",
-        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "content_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
         "heading": "Checking your account, plan, and billing",
         "heading_anchor": "checking-your-account-plan-and-billing",
         "line_end": 41,
@@ -337,7 +337,7 @@
       }
     }
   ],
-  "page_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+  "page_sha256": "c8111e567e5383bef2e4efab23cd1c8f824cbb24b54e271895fffdadd96ee04d",
   "path": "src/content/docs/agents/cli/index.mdx",
   "schema_version": 1
 }

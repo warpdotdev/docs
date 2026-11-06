@@ -2,7 +2,7 @@
   "claims": [
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:c3188da6238e67d895f2c08a5cfeff9b091a49fec061d7583ed1c16107f654dc",
+      "claim_content_fingerprint": "sha256:cf59cb0b5120fd6fba21246bbec6230784784940408431dc0a92ea45467463ff",
       "claim_id": "sha256:84abf45b07dfafda74f842f484eefee5a63b78dd18f9cf33deb72dced9ec17d8",
       "entity": "skill-discovery",
       "extraction_confidence": 0.95,
@@ -22,11 +22,11 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "the Agent receives a list of all available skills with their names and descriptions.",
+      "quote": "the agent receives the names and descriptions of available skills.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "How Skills work",
         "heading_anchor": "how-skills-work",
         "line_end": 27,
@@ -46,7 +46,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:6e42404dabc1af0eecf3e3375658f9039dc907dd05aef4e6a021c60f953a2321",
+      "claim_content_fingerprint": "sha256:44c38882998a7e2725a6ea38f0fbf2da8ce50bc6d59005bc74b4c9ef9c7bd188",
       "claim_id": "sha256:3d5bc2eee972724260e6d0164089177c466d3ca7e3965735c03f0340f637daa7",
       "entity": "skill-discovery",
       "extraction_confidence": 0.95,
@@ -66,15 +66,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "For Git repositories, Warp includes all skills from your current directory up through the repository root.",
+      "quote": "Project discovery follows your working directory up to the Git repository root; skills from another project are not in scope.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "How Skills work",
         "heading_anchor": "how-skills-work",
-        "line_end": 32,
-        "line_start": 32,
+        "line_end": 29,
+        "line_start": 29,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -90,7 +90,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:96c07f96e900cfa01974bd51e8bb2de1d574c458f6a1f4111a7883570f65dc2c",
+      "claim_content_fingerprint": "sha256:acbb95c41961c2ceb64dcce57560b6170efb8e0af3775ea50b41d8fa7edf00fb",
       "claim_id": "sha256:ac193b2bbb5182f00e40199642922095f7c532504acdc128896e3030b1ee781e",
       "entity": "skill-name-conflicts",
       "extraction_confidence": 0.95,
@@ -112,15 +112,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "it prioritizes home directory (global) skills first, then skills from higher directories (closer to the repository root).",
+      "quote": "**Background resolution** - Home-directory skills take priority, then project skills closer to the repository root.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Skill name conflicts",
         "heading_anchor": "skill-name-conflicts",
-        "line_end": 45,
-        "line_start": 45,
+        "line_end": 37,
+        "line_start": 37,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -142,7 +142,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:501ccd2114aba85ab27e354428a00be2e8d25a1cbf7763d6c4d166fd26bad523",
+      "claim_content_fingerprint": "sha256:be4fdd92264db8e09aa1d6916738f3490628cb236fecc88c494c58dc17894666",
       "claim_id": "sha256:ad628e38389b432dc02408f76e5f4b5415bac202518571a7ce2b9ec727c91326",
       "entity": "skill-name-conflicts",
       "extraction_confidence": 0.95,
@@ -164,15 +164,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "When multiple skills share the same name, Warp displays all matching skills in the menu.",
+      "quote": "**Slash commands** - The menu lists matches; choose by description.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Skill name conflicts",
         "heading_anchor": "skill-name-conflicts",
-        "line_end": 44,
-        "line_start": 44,
+        "line_end": 36,
+        "line_start": 36,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -188,7 +188,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:05edd4476a2bb6b0e33692d5cdb5783328397aab66feb2d570296334eddccae6",
+      "claim_content_fingerprint": "sha256:25cbcfa2cd147c115e20160fff5e77604e738ed7d303c7d8f9663b91ad1197c6",
       "claim_id": "sha256:04d44a830401663e383903256909c6c8cd10251fcdada9562ba598101ca4553b",
       "entity": "skill-name-conflicts",
       "extraction_confidence": 0.95,
@@ -210,15 +210,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "The Agent receives a list of all in-scope skills including their names, descriptions, and file paths.",
+      "quote": "**Natural language** - The agent sees all in-scope names, descriptions, and paths and chooses a skill.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Skill name conflicts",
         "heading_anchor": "skill-name-conflicts",
-        "line_end": 43,
-        "line_start": 43,
+        "line_end": 35,
+        "line_start": 35,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -234,7 +234,7 @@
     },
     {
       "category": "api",
-      "claim_content_fingerprint": "sha256:0c8a596aa6847ef6b6a552ae28e7173199825b5733dd4f75a71a7ecaef036b2a",
+      "claim_content_fingerprint": "sha256:4ff906a7428e4b28c582c60260e700e0eb1692ced509c2a6da3421bce48c8946",
       "claim_id": "sha256:d389e24222ec7c02da05ea792d67976d685eedcf371e26e9f72de74fbd5f58a5",
       "entity": "skill-load-action",
       "extraction_confidence": 0.95,
@@ -254,15 +254,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "returns skill loads as `read_skill` actions.",
+      "quote": "returns `read_skill` actions with these `input` fields:",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Identify skill sources in conversation data",
         "heading_anchor": "identify-skill-sources-in-conversation-data",
-        "line_end": 67,
-        "line_start": 67,
+        "line_end": 51,
+        "line_start": 51,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -278,7 +278,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:7523e600880195470f1ef903d1a054419ea7e1a7f6240784fc4a438802e9eee2",
+      "claim_content_fingerprint": "sha256:a0a1739ef4ea9b0a9cf8d62cb81fed60c854944128d887a82cedf7c37451016f",
       "claim_id": "sha256:42d70bfc7b3c8f689277424a398a24d823a5bebfad603b9ada0f6edbc4ba9723",
       "entity": "bundled-skill-source",
       "extraction_confidence": 0.95,
@@ -298,15 +298,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "| `bundled_skill_id` | A Warp-provided bundled reference when this field is present. |",
+      "quote": "| `bundled_skill_id` | Warp-provided bundled reference. |",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Identify skill sources in conversation data",
         "heading_anchor": "identify-skill-sources-in-conversation-data",
-        "line_end": 71,
-        "line_start": 71,
+        "line_end": 55,
+        "line_start": 55,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -322,7 +322,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:cce67a3cadb35b85b62b03375719385bc58fb630490678d0e3875a9191eab0c8",
+      "claim_content_fingerprint": "sha256:bd39623aab5b35b7af3b63bd3c00fe09762f16d22c504486735e70a3cada9629",
       "claim_id": "sha256:8ca35e0c00ca3be82ab4a0fddf1f50fc5abcf19d1627cf64d9bff7f94de5de08",
       "entity": "path-referenced-skill",
       "extraction_confidence": 0.95,
@@ -342,15 +342,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Don't classify other path-based entries as customer-owned because Warp-bundled skills can also use `skill_path`.",
+      "quote": "A path alone does not prove ownership.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Identify skill sources in conversation data",
         "heading_anchor": "identify-skill-sources-in-conversation-data",
-        "line_end": 74,
-        "line_start": 74,
+        "line_end": 58,
+        "line_start": 58,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -366,7 +366,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:d45d40f8ed178b340ea4002931b7bda6f24a560598eaddbc1c226458f12c17f9",
+      "claim_content_fingerprint": "sha256:a974b314f015d2feceb0616cf5019bd0eb1420162dd9857f87bc540dbbd063ea",
       "claim_id": "sha256:83efcb62f61c5212f8b72c9ae2f2a9e39e2aa8bc9de81b737323374898160e69",
       "entity": "skill-file",
       "extraction_confidence": 0.95,
@@ -386,15 +386,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Each skill must have:\n\n* **name** - A unique identifier for the skill (typically kebab-case)\n* **description** - A brief explanation of what the skill does and when to use it",
+      "quote": "Each skill is a Markdown file with YAML frontmatter: `name` identifies the skill, and `description` tells the agent when to use it.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Skill file format",
         "heading_anchor": "skill-file-format",
-        "line_end": 83,
-        "line_start": 80,
+        "line_end": 62,
+        "line_start": 62,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -416,7 +416,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:868e2dfdb619d687ea0d598c969def01be4b4287c5f4d9eb6dc4258ef1945bb3",
+      "claim_content_fingerprint": "sha256:8decf75c3922266e81789ad30687c00b4803f845c2e939cd46d60d9ba97550b7",
       "claim_id": "sha256:79ba7eb292cc4f2a4b1d288ea73c524aaab71ea315a85004c733c967a734508c",
       "entity": "skill-arguments",
       "extraction_confidence": 0.95,
@@ -436,15 +436,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "* **`$ARGUMENTS`** \u2014 Replaced with the full raw argument string (everything after the skill name).\n* **`$ARGUMENTS[N]`** \u2014 Replaced with the Nth whitespace-separated argument (0-indexed). For example, `$ARGUMENTS[0]` is the first argument, `$ARGUMENTS[1]` is the second, etc.\n* **`$N`** \u2014 Shorthand for `$ARGUMENTS[N]`. For example, `$0` is equivalent to `$ARGUMENTS[0]`.",
+      "quote": "* **`$ARGUMENTS`** - Full raw text after the skill name\n* **`$ARGUMENTS[N]`** - The Nth whitespace-separated argument, indexed from zero\n* **`$N`** - Shorthand for `$ARGUMENTS[N]`; `$0` is the first argument",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Argument syntax",
         "heading_anchor": "argument-syntax",
-        "line_end": 146,
-        "line_start": 144,
+        "line_end": 127,
+        "line_start": 125,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -468,7 +468,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:76f91b3e9f20f070f96c59f83742df10d7dde57ca7acc77f33857ae44ec53854",
+      "claim_content_fingerprint": "sha256:05c366ab6bff49c1c65695f91f14e2425f49127cd4463e96c907d3343c07073d",
       "claim_id": "sha256:215fd6d03a91ab875828eea9678494b3785c81c10003821f7d07bf65adb7b0f9",
       "entity": "skill-arguments",
       "extraction_confidence": 0.95,
@@ -488,15 +488,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "The argument string is split on whitespace to produce individual indexed arguments.",
+      "quote": "Warp splits it on whitespace for indexed arguments and substitutes placeholders before sending the instructions to the agent.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "How argument substitution works",
         "heading_anchor": "how-argument-substitution-works",
-        "line_end": 150,
-        "line_start": 150,
+        "line_end": 131,
+        "line_start": 131,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -516,7 +516,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:8c0f2a474c094bb1a9f5c5eb09899d61a12c66087e0bd170a61e4e65b224070e",
+      "claim_content_fingerprint": "sha256:868ab6528a9a0c43f4302927491360796f0962595725144b3adfea8b9cd0a448",
       "claim_id": "sha256:2cfd8e90ceaf1baf002dd09c5c018055dcb706174f07dc6e7677326aaacc3b6e",
       "entity": "skill-arguments",
       "extraction_confidence": 0.95,
@@ -538,15 +538,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "**If the skill does not contain any argument placeholders**, the extra text you provide is passed to the agent as a separate user message alongside the skill instructions.",
+      "quote": "Without placeholders, it sends the extra text as a separate user message alongside the skill.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "How argument substitution works",
         "heading_anchor": "how-argument-substitution-works",
-        "line_end": 154,
-        "line_start": 154,
+        "line_end": 131,
+        "line_start": 131,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -586,11 +586,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "How argument substitution works",
         "heading_anchor": "how-argument-substitution-works",
-        "line_end": 157,
-        "line_start": 157,
+        "line_end": 134,
+        "line_start": 134,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -630,11 +630,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Project skills",
         "heading_anchor": "project-skills",
-        "line_end": 237,
-        "line_start": 228,
+        "line_end": 208,
+        "line_start": 199,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -672,7 +672,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:e1083d54e55aa2a1ba6d60a97e6177313a694ff700d78eb3ef7ad58a1b451c9f",
+      "claim_content_fingerprint": "sha256:a848c79f849600ab9754b22b9ab6222576af215376514c8e66b8da91ba481d7b",
       "claim_id": "sha256:6718a4fad3b8cc3bc756ba342a8cfa09a2488c0a6c928f036a7fc519abdb6e79",
       "entity": "skill-file",
       "extraction_confidence": 0.95,
@@ -692,15 +692,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Each skill must be in its own subdirectory with a `SKILL.md` file.",
+      "quote": "Each skill needs its own subdirectory containing `SKILL.md`.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Project skills",
         "heading_anchor": "project-skills",
-        "line_end": 239,
-        "line_start": 239,
+        "line_end": 210,
+        "line_start": 210,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -716,7 +716,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:cd125116f1383cb6b5fe59b819803bd0f45cfb393e5e6fb2f0764fba0659619e",
+      "claim_content_fingerprint": "sha256:ab8f208da0dddd4a4cd4ed3995bae2b0b9e88612159878c31c09323fdac7e308",
       "claim_id": "sha256:625296261e7e853705859b3a46361f7b97234aa7a70b32f10aea395261c80b85",
       "entity": "global-skills",
       "extraction_confidence": 0.95,
@@ -736,15 +736,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Root directory skills are stored in your home directory and are available across all projects on your machine.",
+      "quote": "These skills are available across projects:",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Root directory skills (global)",
         "heading_anchor": "root-directory-skills-global",
-        "line_end": 265,
-        "line_start": 265,
+        "line_end": 234,
+        "line_start": 234,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -760,7 +760,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:c235871ae8b1d4ae5700f98d8a41e24bcb5b69ae08dc054239396c7cc79c5e32",
+      "claim_content_fingerprint": "sha256:139dd39e435e9f6cbee05e05453c3a9f75de3ee8c5ac556337a5eb035a56e4bb",
       "claim_id": "sha256:fd90d107b0f1d67c4fe8371cb96da1975a34a1452b93044a1ef5c5acb02684a9",
       "entity": "cloud-skill-discovery",
       "extraction_confidence": 0.95,
@@ -782,15 +782,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "set the `WARP_SKILL_DIRS` environment variable.",
+      "quote": "set `WARP_SKILL_DIRS` in the environment's Docker image before startup:",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Extra directories for cloud runs",
         "heading_anchor": "extra-directories-for-cloud-runs",
-        "line_end": 311,
-        "line_start": 311,
+        "line_end": 257,
+        "line_start": 257,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -806,7 +806,7 @@
     },
     {
       "category": "skills",
-      "claim_content_fingerprint": "sha256:039dd201447494dc3e53a4b94424536c6971305d41ce921df2ab63729b228063",
+      "claim_content_fingerprint": "sha256:f8c1cf4728831257bba80fac4a522a4895a9768b3aa081d3a0b3daea845f5fff",
       "claim_id": "sha256:65e30f0154f58e1822da33e3a5a5145bc0a3da6dc856d51e1a6339dd7f7e8431",
       "entity": "public-skill-collection",
       "extraction_confidence": 0.95,
@@ -826,15 +826,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Warp maintains a public collection of ready-to-use skills in the [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repository.",
+      "quote": "Copy or adapt examples from the public [warpdotdev/oz-skills collection](https://github.com/warpdotdev/oz-skills).",
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Pre-built skills",
         "heading_anchor": "pre-built-skills",
-        "line_end": 428,
-        "line_start": 428,
+        "line_end": 338,
+        "line_start": 338,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -876,11 +876,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/skills",
         "canonical_route": "/agents/capabilities/skills",
-        "content_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
         "heading": "Suggested skills from Agent Memory",
         "heading_anchor": "suggested-skills-from-agent-memory",
-        "line_end": 434,
-        "line_start": 434,
+        "line_end": 344,
+        "line_start": 344,
         "path": "src/content/docs/agents/capabilities/skills.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/skills/",
@@ -897,9 +897,439 @@
         ],
         "type": "enum"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d22ba05d0b47795157d3d667c0f16ebc64cba58da28eb722ffd68b991933c368",
+      "claim_id": "sha256:87a6dcfcdc44e9227d9af74b6dce6189335e328e1b07bc15ad9378083280ae4a",
+      "entity": "skill-discovery",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "lazy-load-instructions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It loads a skill's full instructions when the task calls for them.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "How Skills work",
+        "heading_anchor": "how-skills-work",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:43f2b2a083ce28ca145edb87ef770c77f0389c5c8e0956a2482d0076eef37242",
+      "claim_id": "sha256:b65031e9d0460b3b160fdf2a2be3b4da0aee086c84a88c2ba443aafc419338f0",
+      "entity": "cloud-skill-discovery",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "extra-directory-separator",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Separate entries with commas; surrounding whitespace and empty entries are ignored.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "Extra directories for cloud runs",
+        "heading_anchor": "extra-directories-for-cloud-runs",
+        "line_end": 264,
+        "line_start": 264,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": [
+          "comma"
+        ],
+        "raw": [
+          "comma"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a77dd9555fbfb383bb7ef10c3748907c44a77e316235390eeee6b5430e31b745",
+      "claim_id": "sha256:ce1589ea04b481611820e36ac4c7ec841946887375c93ddbbacd2afbfc79d1bd",
+      "entity": "cloud-skill-discovery",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "relative-path-base",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Relative paths resolve against the run's base working directory, not later directory changes.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "Extra directories for cloud runs",
+        "heading_anchor": "extra-directories-for-cloud-runs",
+        "line_end": 264,
+        "line_start": 264,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": [
+          "run-base-working-directory"
+        ],
+        "raw": [
+          "run-base-working-directory"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f4dd1ee9c9121fef4814d55a33b0b46d5229ad90de4e972da4df1693d4d4c494",
+      "claim_id": "sha256:b8dbcf392d0f15347fb0e8b7613fe0baa5c60ca2a21025a1ef97118552dd9275",
+      "entity": "cloud-skill-discovery",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "extra-directories-global-scope",
+      "qualifiers": {
+        "actors": [
+          "warp-agent"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Warp Agent treats these as home-directory skills, in scope throughout the run.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "Extra directories for cloud runs",
+        "heading_anchor": "extra-directories-for-cloud-runs",
+        "line_end": 266,
+        "line_start": 266,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ed40c34ddb031f24a6dc717be014d204710009c42615cf6913f1bd78aeee86f8",
+      "claim_id": "sha256:803c9e662459da613058ede58b086ba54ae4c1d8531b92af8d01c471fede1c21",
+      "entity": "cloud-skill-publication",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supplied-name-precedence",
+      "qualifiers": {
+        "actors": [
+          "claude-code",
+          "codex"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The first configured directory wins when two supplied folders have the same name.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "Extra directories for cloud runs",
+        "heading_anchor": "extra-directories-for-cloud-runs",
+        "line_end": 268,
+        "line_start": 268,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": [
+          "first-configured-directory"
+        ],
+        "raw": [
+          "first-configured-directory"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:034611017ab3508ed293fa987eb636b1ffc9ab6426f827e3dfb5a2464fa36d12",
+      "claim_id": "sha256:35542aae6578b8fd1da4651a98e1939f86715961f06ec9c47000ad1354362b41",
+      "entity": "cloud-skill-publication",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "conflicting-entry-handling",
+      "qualifiers": {
+        "actors": [
+          "claude-code",
+          "codex"
+        ],
+        "architectures": [],
+        "environments": [
+          "sandbox"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "In a sandbox, conflicting existing entries are backed up.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "Extra directories for cloud runs",
+        "heading_anchor": "extra-directories-for-cloud-runs",
+        "line_end": 268,
+        "line_start": 268,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": [
+          "backup-existing"
+        ],
+        "raw": [
+          "backup-existing"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:821e1a681d63c6bf69b8f6dd7a42c07802bc4ec17c972b01082b3cfb2f003b3f",
+      "claim_id": "sha256:9b6990b3331be651b9a1200b87819da0f8a57f35e8c8842fa7b3852bcff8119e",
+      "entity": "cloud-skill-publication",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "conflicting-entry-handling",
+      "qualifiers": {
+        "actors": [
+          "claude-code",
+          "codex"
+        ],
+        "architectures": [],
+        "environments": [
+          "outside-sandbox"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Outside a sandbox, existing entries remain untouched: a conflicting skill uses a `warp-` name prefix, or is skipped if that name is also occupied.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "Extra directories for cloud runs",
+        "heading_anchor": "extra-directories-for-cloud-runs",
+        "line_end": 268,
+        "line_start": 268,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": [
+          "prefix-warp-or-skip"
+        ],
+        "raw": [
+          "prefix-warp-or-skip"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c1210245a84af60af7d432582840a42a63f67731c1956a61072ff79324109f53",
+      "claim_id": "sha256:547cd82b4ea37176a163141074974b76b6b318ba06a6016b42b876b66106676f",
+      "entity": "skill-based-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cli-local-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use `--skill` with `oz agent run` for a local task or `oz agent run-cloud` for a cloud run.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "CLI",
+        "heading_anchor": "cli",
+        "line_end": 358,
+        "line_start": 358,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": "--skill",
+        "raw": "--skill",
+        "type": "flag"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:560279622b91d84ff062b53b46c200d1db07fe64ddef031309e38b6c96ef0578",
+      "claim_id": "sha256:71a0715fca452519c5de8912e0f03eb8e48d93a2f83522112cfb29c197b06277",
+      "entity": "skill-based-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "api-field",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Set `config.skill_spec` when [creating a run from a skill](/factories/api-and-sdk/#running-a-skill).",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/skills",
+        "canonical_route": "/agents/capabilities/skills",
+        "content_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
+        "heading": "API and SDK",
+        "heading_anchor": "api-and-sdk",
+        "line_end": 368,
+        "line_start": 368,
+        "path": "src/content/docs/agents/capabilities/skills.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/skills/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "skills",
+      "value": {
+        "normalized": "config.skill_spec",
+        "raw": "config.skill_spec",
+        "type": "parameter"
+      }
     }
   ],
-  "page_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
+  "page_sha256": "d80a0b9c0906ebff53f886b2e63e438f962f835136134306eae545b159eed634",
   "path": "src/content/docs/agents/capabilities/skills.mdx",
   "schema_version": 1
 }
