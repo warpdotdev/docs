@@ -1,0 +1,122 @@
+---
+title: Testing and tuning your factory
+description: >-
+  Run small backlog changes through your factory, evaluate the artifacts and
+  cost, tune one setting at a time, and repeat until you trust it.
+---
+import { VARS } from '@data/vars';
+
+Before your factory takes real backlog work, run it on a few small changes and compare what comes back with what you expected. The loop is the same each time: test with a small change, evaluate the run and its artifacts, tune one setting, and run the same change again. When two or three changes come back right without edits, widen the scope.
+
+The worked example is [`26-product-change-implementation`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation) in the `warp-factory-examples` repository. Its README carries one complete trace from issue to hand-off: the issue text, the expected spec, the pull request as first delivered, and the review findings. Compare your first runs with that trace.
+
+## Prerequisites
+
+* A factory with foreman, spec, implement, and review agents, connected to a GitHub repository where you can create labels. See the [Warp Factories quickstart](/factories/quickstart/).
+* For the walkthrough, the `26-product-change-implementation` example registered against that repository, with its `factory-ready` and `spec-approved` labels created. The example's [Make it yours](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation#make-it-yours) section lists the values to replace.
+* Permission to edit the factory's definition. See [factory roles and permissions](/factories/infrastructure-and-security/#factory-roles-and-permissions).
+
+## Test with a small change
+
+Pick the test changes from your own backlog, so the results tell you about your repository and your team's standards.
+
+1. Choose two or three changes that one pull request can deliver, each with acceptance criteria you can check by reading the pull request: a visible UI change with a test, a validation rule, or a copy change with a screenshot. Leave out bugs with no reproduction and work that needs a product decision; the example's foreman declines those.
+2. Write the first change as a GitHub issue in the shape of the example's [issue #128](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation#1-the-issue), "Add a 'Copy link' button to the share dialog": what exists today, what changes, and two or three acceptance criteria. Leave small decisions open, such as how long a confirmation shows, so you can see how the spec stage resolves them.
+3. On GitHub, add the `factory-ready` label to the issue. The foreman has the spec agent write a spec in a draft pull request, comments on the issue with the link and the approval instruction, and stops. Nothing else happens until you act.
+4. Read the spec on the pull request. Edit the file on the branch if it needs changes, then add `spec-approved` to the issue. The foreman dispatches implementation and review, then hands the pull request back in an issue comment.
+
+Run one change at a time. A second run in flight makes the timeline and the cost harder to read.
+
+## Evaluate the run
+
+Compare what the factory produced with what you expected before you change anything: the runs first, then each artifact, then cost.
+
+### Read the runs
+
+1. In the {VARS.FACTORY_WEB_APP}, click **Runs** in the sidebar. Each stage is its own run, grouped under the foreman run that started it. Check the sequence: a `factory-ready` run with a spec child, no run at all until you added `spec-approved`, then a run with an implement child and a review child. A run between the two labels means the foreman didn't hold the gate.
+2. Open a run to see its timeline and cost, then click **View session** to read the transcript. Look for the decisions: which files the spec agent read, whether the implement agent ran the checks before claiming they passed, and whether the review agent verified the pull request description against the diff instead of trusting it.
+
+### Compare each artifact with the trace
+
+The example README shows the [expected spec, pull request, and review findings](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation#sample-task-and-expected-output) for issue #128. Your artifacts differ in detail but match in shape.
+
+* **The spec** - Short, with Summary, Behavior, Implementation notes, Acceptance criteria, Assumptions, and Out of scope. Every acceptance criterion names the test file and case, or the command, that checks it. Decisions the issue left open sit under Assumptions, where you can correct them before approving. A spec much longer than the example's is a sign to trim the spec rules; one without Assumptions, or with criteria that name no test, means the spec agent didn't follow its skill.
+* **The pull request** - The same branch and pull request as the spec, with one implementation commit after the spec commit. The diff touches only the files the spec named, plus a test for each criterion, and nothing in the dependencies. The Verification section lists the commands run and their results; in the trace, `npm run lint`, `npm run typecheck`, and `npm test` with 27 passed and 4 new. "Tests pass" with no command is a claim, not evidence.
+* **The review findings** - Each finding has a file and line, a severity, the problem, and a correction, and is marked unambiguous or a judgment call. The trace has three: an uncleared timer (blocking), a half-tested criterion (should-fix), and a product question about an absent clipboard API (judgment call). The foreman sends the first two to the implement agent once and posts the third on the pull request without approving or requesting changes. Findings about style the linter accepts, or a second review of the same revision, mean the reviewer's strictness needs narrowing.
+* **The hand-off** - One issue comment with the pull request link, the verification evidence, what the review found, and what's still open for you. The pull request isn't merged, the issue isn't closed, and `spec-approved` appears once on the issue's timeline, added by a person.
+
+### Check cost and quality
+
+A good pull request can still cost more than the change is worth.
+
+* **Per stage** - Each run's page shows its duration and cost. Note the implement run's cost; the implement agent's model moves it most, and it's the number you compare after a change.
+* **Across runs** - After a few runs, the factory's **Dashboard** page shows **Cost per PR** and **Most expensive PRs**. Treat them as comparison figures, not a bill; see [factory cost metrics](/factories/measure-and-improve/#read-metrics-on-the-dashboard-page) for what they include.
+* **Against your standards** - Review the pull request as you would one from a teammate: scope, test coverage, naming, and the description. Write down each gap your reviews would have caught; it becomes a rule for the review agent or the spec skill in the next step. To make a check repeatable, write it as a [Scorer](/factories/measure-and-improve/scorers/) and score the run on demand from its run page.
+
+## Tune one setting
+
+Change one thing, then run the same change again. The example keeps each common adjustment in one file:
+
+| What you saw | What to change | File |
+| --- | --- | --- |
+| The implement agent made a product decision the spec left open | Add a required section to the spec rules, or require a snippet for each decision | `agents/spec/skills/spec-format/SKILL.md` |
+| The spec is far longer than a one-file change needs | Trim the template, or make Implementation notes optional in the "Scale to the change" rule | `agents/spec/skills/spec-format/SKILL.md` |
+| The implement run cost more than the change warranted | Change `model:` from `auto-genius` to `auto` or `auto-efficient` | `agents/implementer/agent.md` |
+| Too many revision rounds, or findings about style | Narrow what blocks in the "Strictness" section | `agents/reviewer/agent.md` |
+| Review missed what your team catches by hand | Add those failure modes to the procedure, and give the reviewer a `model:` that differs from the implement agent's | `agents/reviewer/agent.md` |
+| An agent skipped a check, or claimed one it didn't run | Name the lint, typecheck, and test commands in step 4 of the implement agent and step 2 of the review agent | `agents/implementer/agent.md` and `agents/reviewer/agent.md` |
+
+1. Edit the file for the setting you chose. For a Warp-managed factory, open **Factory definition** in the factory dashboard; for a GitHub-backed factory, open a pull request in the definition repository. Start with one agent's `model:`; `agentDefaults.model` in `factory.yaml` moves every stage at once.
+2. Apply the change: save the definition, or merge the pull request into the production branch, and confirm validation passes. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+3. Run the same issue again. Close the spec pull request, then remove and re-add `factory-ready`. Compare the new artifacts and each run's cost with the previous pass.
+
+Before changing a model across the factory, compare the candidates on the same task with a [benchmark](/factories/benchmarks/). You can turn a completed run into a benchmark task from its run page.
+
+## Repeat, then widen the scope
+
+Model output varies between runs, so run each test change at least twice before concluding that a setting worked. Keep looping until two or three changes come back the way the trace does, with a spec you approved without edits and a review round you'd have asked for yourself. Then widen one dimension at a time:
+
+* **Larger changes** - A change across several files, then one whose spec needs a Decisions section.
+* **New task types** - A bug with a reproduction, a review-only request, or a documentation change. Each exercises a different agent, so expect to tune again. The [factory use cases](/factories/use-cases/) describe the expected shape of each.
+* **New intake** - Once the loop holds for labeled issues, let work arrive from Slack or your issue tracker.
+
+This loop is for a factory's first days, when you can read every run yourself. Once the factory handles more runs than you can read, hand the comparison to Scorers sampled across runs and the [practical improvement loop](/factories/measure-and-improve/#run-a-practical-improvement-loop), which adds benchmarks and Self-improvement.
+
+## Set it up with a prompt
+
+Paste this into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or into a coding agent connected through [Factory MCP](/factories/factory-mcp/). Fill in the uppercase placeholders first.
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/testing-and-tuning-your-factory.md
+and https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation,
+then run one iteration of the test, evaluate, tune, repeat loop with me on
+the factory FACTORY_NAME for OWNER/REPO.
+
+If the factory doesn't yet have the example's spec, implement, and review
+agents and its factory-ready and spec-approved automations, set them up for
+OWNER/REPO the way the example's README describes, validate the definition,
+and open a pull request. Tell me which labels I still have to create.
+
+Then help me pick three small, user-visible changes from my backlog with
+acceptance criteria I can check in a pull request, and write the first one
+as an issue in the shape of the example's issue #128. Tell me what to expect
+at each stage. After each run, compare the spec, the pull request, the
+review findings, and each run's cost with the example's trace, and tell me
+which one setting to change and which file it lives in. Never add
+spec-approved yourself and never merge.
+```
+
+## Troubleshooting
+
+* **Nothing runs after you add a label** - A bot or another automation added the label, which the default bot policy skips, or the definition change wasn't applied before the test. Confirm a person added the label and the definition validated, then follow [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **Implementation started before you added `spec-approved`** - The foreman's instructions lost the gate, or a second automation also matches `factory-ready`. Check that the foreman prompt still stops after the spec comment and that only one automation lists each label. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **The same change comes back different on each run** - Model output varies between runs with no setting changed. Run the change again before you tune, and use a [benchmark](/factories/benchmarks/) with repetitions when you compare models.
+* **A run costs far more than the trace** - The implement agent's `model:` is `auto-genius`, every stage inherits a high-cost `agentDefaults.model`, or a revision round repeated the checks. Read the cost per stage on the run pages, then change one agent's model and rerun.
+
+## Next steps
+
+You ran a small change through your factory, compared each artifact with a known-good trace, and changed one setting at a time until the results held.
+
+* [Turning a Slack mention into a pull request](/factories/guides/slack-to-pull-request/) - Next on the reading path: let work arrive from where your team already talks
+* [Measure and improve a factory](/factories/measure-and-improve/) - Replace hand comparison with Scorers, benchmarks, and Self-improvement as volume grows
+* [Factory benchmarks](/factories/benchmarks/) - Compare model and runner configurations on the same tasks before changing the factory
