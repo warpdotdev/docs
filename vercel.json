@@ -78,6 +78,16 @@
   ],
   "redirects": [
     {
+      "source": "/factories/factory-inbox(/?)",
+      "destination": "/factories/factory-home/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/factory-inbox.md",
+      "destination": "/factories/factory-home.md",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/skills-as-agents(/?)",
       "destination": "/agents/capabilities/skills/",
       "statusCode": 308

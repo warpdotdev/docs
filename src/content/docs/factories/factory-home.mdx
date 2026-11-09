@@ -1,0 +1,52 @@
+---
+title: Reviewing items on Home
+description: >-
+  Review questions, spec approvals, and pull requests waiting on you
+  across Warp Factories from the Home page.
+sidebar:
+  label: "Reviewing items on Home"
+---
+import { VARS } from '@data/vars';
+
+**Home** in the {VARS.FACTORY_WEB_APP} brings together your factory runs and items that need your attention. It opens with **Waiting on you** selected, so you can answer a question, approve a spec, or review a pull request without checking each factory's **Runs** page.
+
+Open the <a href={`${VARS.FACTORY_WEB_APP_URL}/home`}>Home page</a> or click **Home** in the web app sidebar.
+
+<span id="what-appears-in-your-inbox" />
+
+## What appears in Waiting on you
+
+The view groups pending items by work item across the factories you have access to. Items include:
+
+* **Asked question** - An agent needs a decision from you before it can continue.
+* **Answered question** - An agent answered your question. The answer is for your information; no action is required.
+* **Spec review** - A spec needs your approval before implementation starts.
+* **PR review** - One or more pull requests are ready for your review.
+* **Blocked** - A run stopped and needs attention, and nothing else on that work item already needs yours.
+* **Failed** - A run ended in an error, and nothing else on that work item already needs your attention.
+
+Home is personal, not a team-wide feed. Its run views show factory runs you started. **Waiting on you** shows items directed to you, which can also include a GitHub PR review requested from you on someone else's work.
+
+Items clear when they stop being relevant. For example, a PR review clears when a person submits a review or the pull request is merged or closed, and a question clears when its answer is submitted. You can also mark an item as resolved yourself.
+
+<span id="reviewing-your-inbox" />
+
+## Reviewing items waiting on you
+
+1. On **Home**, click **Waiting on you** if another status is selected.
+2. Click a row to open its conversation or details in a side pane. Use the linked pull request, spec, or originating thread or ticket to review the request in context. Where available, **View run details** opens the full run.
+3. After handling an item, click **Mark as resolved** on the row or in the side pane. The item leaves **Waiting on you**. Click **Undo** in the confirmation to restore an item resolved by mistake.
+
+Opening an item marks it as read without resolving it. To change read state yourself, select rows using their selection controls, or click **Select all**, then use **Mark as read** or **Mark as unread** in the selection menu. The same menu offers **Mark as resolved** for the selected items.
+
+## Finding other runs on Home
+
+Use **Active**, **Complete**, **Blocked**, or **Failed** to view your other factory runs. Click the selected status again to remove the status filter. A run with a pending item appears in **Waiting on you** rather than its other status view.
+
+Use **Search your runs...** to narrow the list. Results are grouped under **Today**, **This week**, and **All time**. Resolving an attention item doesn't delete its run; use the other status views or the [Runs page](/factories/factory-dashboard/#inspect-runs) to find it.
+
+## Related pages
+
+* [Factory dashboard](/factories/factory-dashboard/) - Track runs, manage agents, and change factory settings
+* [How Warp Factories work](/factories/how-factories-work/) - Where a factory pauses for a person to decide something
+* [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) - Follow and steer a run in real time from its session
