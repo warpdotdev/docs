@@ -45,8 +45,6 @@ A change spanning services produces one pull request per repository. A person co
 
 ## Group related services
 
-The factory's repository list is the group: the services whose contract and ownership match.
-
 1. List the provider and its consumers in `factory.yaml`. This example has one of each. Add consumers that share the contract and reviewers.
 
    ```yaml title="factory.yaml"
@@ -139,14 +137,16 @@ The factory's repository list is the group: the services whose contract and owne
 
    For example, run `go build ./... && go test ./...`, your repository's contract check, and `git diff origin/main -- openapi.yaml` after fetching the default branch. Substitute its name if it isn't `main`.
 3. Require consumer verification against both versions of the provider's contract:
-   * Copy the provider branch's schema over the consumer's vendored copy.
-   * Run `npm run lint && npm test` and `npm run contract-check`.
-   * Run the contract check again using the provider's current `main` schema, then restore the branch's schema. Use your contract check's schema-path option, or replace its input file.
-   * If the check against `main` fails because the consumer needs the new contract, record that result in the pull request as the reason the consumer merges second.
+   * For a paired change, copy the provider branch's schema over the consumer's vendored copy. For consumer-only work, keep the vendored schema unchanged.
+   * Run `npm run contract-check` to regenerate the client and type-check its callers, then `npm run lint && npm test`.
+   * Probe the provider's current `main` schema using your contract check's schema-path option, or replace its input file. Record the result separately.
+   * After the probe, restore the vendored schema as input, regenerate the client, and rerun the normal checks. These checks must pass, and the final generated client must match the vendored schema, not the probe.
+   * For a pair, a probe failure caused by the new contract explains why the consumer merges second. For consumer-only work, the probe must pass; an unreleased dependency goes back to the foreman as a scope mismatch.
 4. Define the cross-service review in `agents/reviewer/agent.md`. Require the review agent to confirm that:
-   * The provider's contract and the consumer's vendored copy are identical.
-   * The consumer uses the added fields with matching names and types.
-   * The provider's contract diff contains only additions.
+   * For a pair, the provider's contract and consumer's vendored copy are identical, and the consumer uses the added fields with matching names and types.
+   * A provider change leaves the contract unchanged or additive.
+   * A consumer change records passing checks after regeneration from its vendored schema, including after the `main` probe.
+   * A one-service change remains compatible with the unchanged service.
 
    Leave other judgments to a person.
 5. Apply and validate the factory definition:
@@ -160,7 +160,7 @@ The factory's repository list is the group: the services whose contract and owne
 1. Apply `factory-ready` to an issue that changes only one service. Check for one pull request with that service's check results and no merge-order requirements.
 2. Apply `factory-ready` to an issue that adds an optional field to the provider's contract and displays it in the consumer. Check for two pull requests:
    * **Provider:** An additive contract diff and the provider's check results.
-   * **Consumer:** A regenerated client and a passing contract check against the provider's branch. Record the check against the provider's current `main` too. If it fails because the consumer requires the new field, the description identifies that dependency as the reason the consumer merges second.
+   * **Consumer:** A passing contract check against the provider's branch, the probe result against current `main`, and passing checks after regeneration from the vendored schema. A probe failure caused by the new field explains why the consumer merges second.
 3. Apply `factory-ready` to an issue that renames a field in every response. Check that the foreman explains why the breaking change is out of scope and creates no branch.
 
 ## Set it up with a prompt
@@ -180,8 +180,11 @@ and pick a runner image that carries every toolchain. Keep the rules: the
 provider changes first with backward-compatible additions only, never new
 required request fields. Every service runs its own
 checks and contract check, the consumer also checks against the
-provider's current main, and the reviewer only checks that the services
-agree. Validate the definition before you open a pull request, never
+provider's current default branch. After that probe, regenerate from the
+vendored schema and rerun positive checks before publishing. Consumer-only
+work must pass against the current provider without a companion PR.
+The reviewer checks contract consistency and that final verification.
+Validate the definition before you open a pull request, never
 merge, and list anything I still have to do myself: connecting GitHub,
 creating the factory-ready label in each repository, adding a contract
 check where one is missing, and registering the definition.
@@ -190,7 +193,7 @@ check where one is missing, and registering the definition.
 ## Troubleshooting
 
 * **A service's bootstrap fails:** The image may lack its toolchain, or the command may run in the wrong directory. Use an image with every service's toolchain and start each setup command with `cd /workspace/REPOSITORY_NAME`.
-* **The consumer's contract check fails against the provider's `main`:** This is expected when the consumer needs an unmerged contract change. Confirm the check passes against the provider's branch and record the `main` failure as the reason the consumer merges second. A failure against the provider's branch still needs a fix.
+* **The consumer's contract check fails against the provider's `main`:** For a paired change, a failure caused by the new contract explains why the consumer merges second. Regenerate from the vendored schema and rerun positive checks before publishing. Unrelated failures need a fix; consumer-only work must pass against `main`.
 * **The agent tries to verify against a live service:** Runs start with repository checkouts, not deployed services. Point verification at contract files and fixtures, and document how to start test dependencies inside the sandbox.
 * **The foreman accepts a breaking change as additive:** The compatibility instructions or contract-diff check may be incomplete. Explicitly prohibit removals, renames, type changes, and new required request fields, and require the provider's contract diff in verification.
 

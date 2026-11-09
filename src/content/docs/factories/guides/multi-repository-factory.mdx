@@ -97,10 +97,12 @@ List every repository a coordinated change can touch. This selects the checkouts
    * Open one pull request per changed repository.
    * Use the same branch name in each repository, such as `factory/118-order-status`.
    * Prefix the titles with `[1/2]` and `[2/2]` to show merge order. Omit the prefix for a single-repository change.
-   * Include Summary, Linked PR, Compatibility, and Verification sections in each description.
+   * Include Summary, Compatibility, and Verification sections. Add Linked PR only for a paired change.
 4. Require verification that supports the merge order:
    * **Provider:** Run its checks and confirm the contract diff contains only additions.
-   * **Consumer:** Run its checks against the provider's branch and current `main`. If the check against `main` fails because the consumer needs the new contract, record that as the reason the consumer merges second.
+   * **Consumer:** Run its checks against the provider's branch and probe current `main`. Regenerate the client from the vendored schema after the probe and rerun positive checks before publishing. For a pair, a probe failure caused by the new contract explains why the consumer merges second. Consumer-only work must pass against the current provider.
+
+   Follow the [contract-check sequence](/factories/guides/microservices-factory/#verify-against-contracts-and-dependencies), including restoring the generated client after the probe.
 5. In `agents/reviewer/agent.md`, limit review to whether the pull requests agree and are safe to merge in the documented order. Direct the reviewer to report findings to the foreman, not as comments on the pull requests.
 6. Apply and validate the factory definition:
    * **Warp-managed factory:** Save the edits in the factory dashboard.
@@ -137,6 +139,7 @@ To revert the change, reverse the order: revert the consumer first, then the pro
    * Verification commands run in both checkouts.
    * Pull requests titled with `[1/2]` and `[2/2]`, linking each other and the issue.
    * The consumer's check result against the provider's current `main`, recorded in the consumer's description.
+   * Passing checks after the consumer client is regenerated from its vendored schema.
    * A foreman comment on the issue with both pull request links and the merge order.
 2. Apply `factory-ready` to an issue that changes only one repository. Check for one pull request with no title prefix or cross-repository merge order.
 3. Apply `factory-ready` to an issue requiring a breaking change, such as renaming a field in every response. Check that the foreman comments with what is needed instead and creates no branch.
@@ -158,10 +161,14 @@ prompts), replace the bootstrap, test, and contract-check commands with
 the ones each repository really uses, and pick a runner image that carries
 every toolchain. Keep the rules: the provider changes first and only
 with backward-compatible additions, never new required request fields.
-Open one pull request per repository linked both ways with the
-merge order in every description, a reviewer that only checks the pair
-agrees, and a human who merges in the order the foreman posts. Validate
-the definition before you open a pull request, never merge, and list what
+Open one pull request per changed repository. For a pair, link both ways
+and state the merge order in each description. Require a reviewer to check
+contract consistency and leave merging to a human.
+For consumer checks, regenerate from the vendored schema and rerun positive
+checks after probing the provider's current default branch. One-repository
+work needs no companion PR; consumer-only work must pass against the current
+provider. Validate the definition before you open a pull request, never
+merge, and list what
 I still have to do myself: connecting GitHub, creating the factory-ready
 label in each repository, and registering the definition.
 ```

@@ -16,10 +16,10 @@ Adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-facto
 
 The factory checks out the whole repository. Its intake label names the product, and a shared skill defines its directory, shared packages, and owners. These instructions scope the work; they do not restrict repository access. See [factory boundaries](/factories/guides/structuring-your-factory/) for when to use one factory for the whole repository.
 
-Three rules make the scope hold:
+Configure these rules in the agents' instructions:
 
 * **Scoped tasks** - The foreman places every request before dispatching anything. Work outside the product gets one comment naming the directory and its owners, and no branch.
-* **Shared-dependency checks** - The implement agent runs the tests of every workspace package a change affects, including the dependents of a shared package, and lists every path it touched outside the product in a "Shared packages" section of the pull request. The review agent checks that list against the diff.
+* **Shared-dependency checks** - Before testing a shared edit, the implement agent installs the affected dependents and their dependencies. It tests every affected package and lists shared edits in the pull request's "Shared packages" section. The review agent checks that list and the results against the diff.
 * **Owner involvement** - A pull request that touches a shared package opens as a draft with review requested from the owning team in `CODEOWNERS`. A person on that team marks it ready; the factory never does.
 
 | Part | Recommendation |
@@ -79,7 +79,7 @@ The intake label identifies approved work for one product.
 A matching label starts a run even when the issue describes out-of-scope work. The trigger checks the label, not the issue's content. The foreman checks the scope and declines the request.
 :::
 
-## Install only the product's workspace
+## Scope the initial install
 
 On a large monorepo, installing everything can exceed the 30-minute limit for one setup command.
 
@@ -104,13 +104,13 @@ On a large monorepo, installing everything can exceed the 30-minute limit for on
    ```
 
 2. Preserve the `|| echo "Warning: ..." >&2` ending on each setup command. A nonzero exit status fails setup before the agent starts. In the shared skill, require the implement agent to retry failed installs before testing and report a blocker if installation still fails.
+
+   The scoped install does not prepare other products that depend on shared packages. For a diff touching `packages/*`, require `pnpm install --frozen-lockfile` to succeed before tests or typechecks. This prepares those dependents and their dependencies without permitting edits to them. Product-only changes keep the scoped install.
 3. Choose an image that includes `git`, such as `node:22-bookworm` rather than `node:22-bookworm-slim`. The `[origin/main]` test filter requires `git`.
 
    Use `sudo corepack enable` for the sandbox's non-root user. See [configuring container users](/factories/environments/configuring-environments/#configure-container-users).
 
 ## Check shared dependencies and involve their owners
-
-A shared-package edit isn't verified until its other dependents pass, and it isn't landed until its owners agree.
 
 1. Define the implement agent's editing scope in `agents/implementer/agent.md`:
    * Keep changes inside the product directory.
@@ -130,14 +130,14 @@ A shared-package edit isn't verified until its other dependents pass, and it isn
    * Open the pull request as a draft.
    * Request review from the owning team or fallback team.
    * Explain each shared edit in a "Shared packages" section.
-   * Include passing test results for the shared package and its dependents.
+   * Record the successful expanded install and passing tests and typechecks for the shared package and its dependents.
 
    :::note
    GitHub does not automatically request code-owner reviews on draft pull requests. Instruct the agent to request them explicitly.
    :::
 4. In `agents/reviewer/agent.md`, require the shared-impact check before other review:
    * Confirm every changed path outside the product appears in "Shared packages".
-   * Treat a missing draft status, review request, or dependent-package test results as a blocking finding when shared packages change.
+   * Treat a missing draft status, review request, successful expanded install, or dependent-package check results as a blocking finding when shared packages change.
 5. Apply and validate the factory definition:
    * **Warp-managed factory:** Save the edits in the factory dashboard.
    * **GitHub-backed factory:** Merge the edits into the production branch.
@@ -153,7 +153,7 @@ A shared-package edit isn't verified until its other dependents pass, and it isn
 2. Apply the product-specific label to an issue requiring a shared-package edit, such as exposing an existing API field through a shared client package. Check that the pull request:
    * Opens as a draft with review requested from the owning team.
    * Names the shared file in "Shared packages".
-   * Includes test results for the shared package's dependents.
+   * Records a successful expanded install followed by tests and typechecks for the shared package's dependents.
 
    A person on the owning team marks the pull request ready. A person merges it.
 3. Apply the product-specific label to an issue in another product's directory. Check for one foreman comment identifying the directory and its owners, with no branch created.
@@ -169,10 +169,11 @@ Read https://docs.warp.dev/factories/guides/monorepo-factory.md and adapt
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
 for my monorepo, OWNER/REPO. Keep this shape:
 one repository; a foreman that scopes every task to one product directory;
-an implementer that runs the tests of every affected workspace package and
-lists any shared-package edit in the pull request; a reviewer that checks
-that list against the diff; a runner whose setup installs only the
-product's workspace; and the escalation rule that a pull request touching
+an implementer that installs affected dependents and their dependencies
+before testing a shared edit and lists those edits in the pull request;
+a reviewer that checks the list and verification against the diff; a runner
+whose initial setup installs only the product's workspace and dependencies;
+and the escalation rule that a pull request touching
 shared packages opens as a draft with review requested from the owning
 team.
 
@@ -180,8 +181,9 @@ Replace the placeholders: acme/monorepo with OWNER/REPO; apps/web with
 PRODUCT_DIR; packages/* with SHARED_PACKAGES_GLOB; acme/platform with the
 GitHub team that owns the shared packages (check CODEOWNERS first);
 factory-ready:web with the label I will apply; and the pnpm commands with
-the commands this repository uses to install one workspace and to test
-changed packages plus their dependents. Validate the definition before you
+the commands for its scoped initial install, expanded install before shared
+checks, and tests and typechecks of changed packages and their dependents.
+Validate the definition before you
 open a pull request, never merge, and tell me which labels, teams, and
 access I still have to create or grant.
 ```

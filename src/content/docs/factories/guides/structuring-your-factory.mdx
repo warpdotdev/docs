@@ -35,8 +35,6 @@ Work through the following questions in order. If your answer matches the “Use
 | **Approvals** - Where do people sign off? | One spec policy and one merge process fit all of the code, with escalation rules for the exceptions | Part of the code needs its own approval path that an escalation rule can't express |
 | **Operating needs** - What does a run need to build and test? | One runner image and setup serve every repository, and one dashboard is the right place to measure | Stacks need different images, operating systems, or hosts, or their cost and quality must be measured separately |
 
-Repository count isn't on the list. One factory can hold several repositories, and one repository can host several products. A product with its own owners and approval path can have its own factory even when it shares a repository with others.
-
 ## Examples by codebase structure
 
 Choose the setup guidance that fits your codebase. These guides are complementary, not mutually exclusive; a web application can use microservices across several repositories.
@@ -47,8 +45,6 @@ Choose the setup guidance that fits your codebase. These guides are complementar
 * [Coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) - One pull request per repository, linked together, with a merge order a person controls.
 
 After configuring your factory, continue to [testing and tuning](/factories/guides/testing-and-tuning-your-factory/).
-
-Factories shared by several teams, or operated by a platform team on behalf of others, add shared standards and routing responsibilities on top of these shapes.
 
 ## Set it up with a prompt
 
