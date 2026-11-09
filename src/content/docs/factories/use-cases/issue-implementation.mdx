@@ -40,7 +40,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
    * Tests for behavior changes and visual evidence for user-facing changes.
    * Missing requirements or decisions that need a maintainer's input.
 
-   The [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) uses this layout: `skills/repository-conventions/` for every agent and `agents/implementer/skills/testing-standards/` for its implementation agent only.
+   Use the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) as a layout reference. It stores shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`.
 
 4. Configure the automation to send approved issues to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`.
 
@@ -68,7 +68,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
    about missing requirements or product decisions rather than guessing.
    If the triggering request asks only for information or investigation,
    do not implement.
-   If a specification is needed, obtain approval before implementing it.
+   If a specification is needed, obtain human approval before implementing it.
    Delegate implementation, run the repository's required checks, and obtain
    independent review. Continue an existing specification PR when provided.
    Return the pull request link, validation results, and review findings to
@@ -77,7 +77,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
    For events sent by bots, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
-   The [`01-single-repo-quickstart` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) is a complete definition built on this trigger: one repository, a foreman, and an implementation agent that turns `factory-ready` issues into pull requests.
+   Start with the [`01-single-repo-quickstart` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) for a GitHub label trigger and implementation agent. It turns `factory-ready` issues into pull requests in one repository. Retain this page's independent-review step when adapting the example.
 
    </TabItem>
    <TabItem label="Linear">
@@ -124,7 +124,8 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
 ## Set it up with a prompt
 
-Send this prompt to your factory's foreman from a new chat in the {VARS.FACTORY_WEB_APP}, or to a coding agent connected to your factory through [Factory MCP](/factories/factory-mcp/). Replace `OWNER/REPO` with your repository and `READINESS_LABEL` with the label from step 1, or describe your Linear state or Jira project instead.
+1. Replace `OWNER/REPO` with your repository and `READINESS_LABEL` with your approved-work label. For Linear or Jira, describe the workflow state or project instead.
+2. Paste the completed prompt into a new chat with your factory's foreman in the {VARS.FACTORY_WEB_APP}, or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/use-cases/issue-implementation.md and
@@ -140,10 +141,11 @@ for shared conventions and implementation procedures.
   a second one.
 - Put my build, test, lint, and formatting commands in the implementation
   skill, and require tests for behavior changes.
-- Send labeled issues to the foreman with the page's implementation
-  prompt: implement against the acceptance criteria, ask a human about
-  missing requirements, get approval for any specification, obtain
-  independent review, report failed or unverified checks, and never merge.
+- Route approved issues to the foreman using the prompt in the setup
+  procedure. Require implementation against the acceptance criteria,
+  human input for missing requirements, human approval before implementing
+  any specification, independent review, and reporting of failed or
+  unverified checks. Never merge.
 - Validate the definition. If it's managed as code, open a pull request to
   the definition repository; otherwise tell me what to change in the
   factory dashboard.
@@ -174,10 +176,15 @@ The implementation agent adds validation and regression tests, runs the service 
 
 ## Troubleshooting
 
-* **A run starts before the issue is approved** - The automation checks only the event and its filters, so a readiness label or state change starts work whether or not anyone reviewed the requirements. Reserve the label or state for approved work, remove `needs-triage` before applying `factory-ready`, and confirm no other automation applies the label.
-* **Applying the label or changing the state doesn't start a run** - A filter doesn't match the issue's repository, team, project, or label, or a bot applied the label, which GitHub triggers skip by default. Linear team and state names must match exactly one accessible object when the definition is applied. For Jira, assign or mention **Warp** after the label is present. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
-* **No pull request appears** - The foreman is waiting for an answer or specification approval, or the factory can't push. Check your [inbox](/factories/factory-inbox/) for a waiting question or spec review, then confirm the code host connection still grants write access. See [no pull request appears](/factories/troubleshooting/#no-pull-request-appears).
-* **The pull request reports no validation results** - The implementation skill doesn't name the required commands, or the runner image lacks the toolchain. Name the build, test, lint, and formatting commands in the skill, choose a [runner](/factories/factory-as-code/#runnersnameyaml) whose image provides the toolchain, and keep the instruction to report failed or unverified checks.
+* **Work starts before approval** - The automation checks events and filters, not whether a maintainer reviewed the requirements. Reserve the readiness label or state for approved work. Remove `needs-triage` before applying `factory-ready`, and check whether another automation applies the readiness label.
+* **A label or state change starts no run** - A nonmatching filter or missing provider event can prevent the run. Check the repository, team, project, and label filters.
+  * **GitHub** - Bot senders are skipped by default. Retry from a person's account when required.
+  * **Linear** - Team and state names must resolve to exactly one accessible object when the definition is applied.
+  * **Jira** - Apply the label before assigning or mentioning **Warp**.
+
+  See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **No pull request appears** - The foreman may be waiting for input or approval, or the factory may be unable to push. Check your [inbox](/factories/factory-inbox/) for unanswered questions or specification approval, then confirm the code-host connection has write access. See [no pull request appears](/factories/troubleshooting/#no-pull-request-appears).
+* **Validation results are missing** - The implementation skill may omit commands, or the runner may lack the toolchain. Name the build, test, lint, and formatting commands in the skill and choose a [runner](/factories/factory-as-code/#runnersnameyaml) with the required toolchain. Retain the instruction to report failed or unverified checks.
 
 ## Related pages
 

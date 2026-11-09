@@ -6,13 +6,15 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-With Warp Factories, your existing factory can carry an issue from investigation to a reviewed pull request through the software development lifecycle (SDLC). Once [triage](/factories/use-cases/issue-triage/), [implementation](/factories/use-cases/issue-implementation/), and [review](/factories/use-cases/code-review/) work reliably on their own, the foreman can coordinate the handoffs.
+With Warp Factories, your existing factory can carry an issue from investigation to a reviewed pull request through the software development lifecycle (SDLC).
 
-In this [recipe](/factories/use-cases/), maintainers select work in GitHub, approve any specification, and decide whether to merge. If no work reaches your factory yet, set up an intake path first, starting with [delegating work from Slack](/factories/guides/slack-to-pull-request/).
+If issues are not reaching your factory, [connect GitHub](/factories/integrations/github/#connect-github-to-a-factory) before configuring intake below.
+
+For an agent and skill definition to adapt, start with the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
 
 ## Prerequisites
 
-* An existing [factory](/factories/quickstart/) with [foreman, triage, spec, implement, and review agents](/factories/factory-agents/#the-default-agents). The [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) defines all five as files, along with the shared and per-agent skill layout used in step 3.
+* An existing [factory](/factories/quickstart/) with [foreman, triage, spec, implement, and review agents](/factories/factory-agents/#the-default-agents).
 * A [GitHub connection](/factories/integrations/github/) with access to the target repositories and permission to update issues, push branches, open pull requests, and post review findings.
 * Permission to edit the factory's [definition](/factories/factory-as-code/#where-the-definition-lives).
 * Documented build, test, and review commands.
@@ -34,9 +36,7 @@ The foreman chooses the stages a request needs. A well-defined fix can go direct
 | UI verification, when configured | Custom verification agent | Results for a recorded commit and shareable visual evidence |
 | Merge | Human | Approval and merge under repository policy |
 
-When a specification is needed, the foreman obtains approval before implementation, which continues on the specification's branch and PR. Without a specification, the implementation agent opens a new PR. The foreman returns review findings to the existing implementation conversation. See [How Warp Factories work](/factories/how-factories-work/) for default responsibilities and human decision points.
-
-For a single-repository walkthrough of the specification gate, see the [`26-product-change-implementation` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation). It requests a specification with a `factory-ready` label, starts implementation only when a person adds `spec-approved`, and records one complete trace, from issue text to review findings, to compare your first runs against.
+When a specification is needed, the foreman obtains approval before implementation, which continues on the specification's branch and PR. Without a specification, the implementation agent opens a new PR.
 
 ## Set up the SDLC workflow
 
@@ -95,16 +95,16 @@ For a single-repository walkthrough of the specification gate, see the [`26-prod
 
 ## Set it up with a prompt
 
-Send this prompt to your factory's foreman from a new chat in the {VARS.FACTORY_WEB_APP}, or to a coding agent connected to your factory through [Factory MCP](/factories/factory-mcp/). Replace `OWNER/REPO` with your repository and `INTAKE_LABEL` with the label from step 1.
+1. Replace `OWNER/REPO` with your repository and `INTAKE_LABEL` with the label you chose for SDLC intake.
+2. Paste the completed prompt into a new chat with your factory's foreman in the {VARS.FACTORY_WEB_APP}, or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/use-cases/end-to-end-sdlc-automation.md
 and connect triage, planning, implementation, and review in my factory for
 OWNER/REPO, started when a maintainer applies the INTAKE_LABEL label. Use
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
-for the five agents and the skill layout, and
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation
-as the trace to compare my first run against.
+for the five default agents and skill layout. Retain this page's intake
+and issue-mention approval workflow when adapting the example.
 
 - Inspect my existing automations for intake, review-submitted, and
   merged-PR handlers. Update or narrow overlapping ones instead of adding
@@ -112,10 +112,12 @@ as the trace to compare my first run against.
 - Put test commands and repository conventions in shared skills, and the
   rules for asking maintainers and reporting failed checks in each
   agent's skills.
-- Add the intake automation with the page's prompt: investigate unknown
-  scope with the triage agent, get explicit human approval for any
-  specification before implementation, delegate implementation and
-  independent review, keep the issue updated, and never approve or merge.
+- Use the intake prompt to investigate unclear scope with the triage
+  agent. Obtain explicit human approval for any specification in the
+  originating issue, using an @warp mention and the specification PR link,
+  before implementation. Delegate implementation and independent review,
+  keep the issue updated, report failed or unverified checks, and never
+  approve or merge.
 - Validate the definition. If it's managed as code, open a pull request to
   the definition repository; otherwise tell me what to change in the
   factory dashboard.
@@ -146,15 +148,13 @@ Use fresh issues for initial-intake tests. If the factory already tracks an issu
 * **Failed validation** - Test a failing command or unavailable dependency. Confirm the issue and any existing PR report the failure and what remains unverified.
 * **Unavailable verification** - Confirm missing captures, unavailable sharing, and stale commits are reported rather than presented as proof of success.
 
-Review these results before widening intake. For missing events or stalled work, see [factory troubleshooting](/factories/troubleshooting/).
-
 ## Example workflow
 
-A GitHub issue reports that invoices omit a purchase-order number, but doesn't define whether the new API field is required. A maintainer applies `factory-intake`. The triage agent identifies the affected service, and the foreman asks the maintainer to resolve the API behavior.
+A GitHub issue requests a purchase-order number on invoices without defining whether the new field is required. A maintainer applies `factory-intake`. The triage agent identifies the affected service, and the foreman asks the maintainer to resolve the API behavior.
 
 The spec agent records the agreed behavior and validation criteria in a draft PR. The foreman obtains approval, then asks the implementation agent to update that same branch and PR. The review agent reports a missing migration test to the foreman, which sends the finding back to the implementation agent.
 
-After revision, the configured verifier exercises the invoice preview at a recorded commit and returns observations and media links. The foreman posts the evidence on the PR and links the PR and validation results from the issue. A maintainer reviews and merges.
+After revision, the configured verifier exercises the invoice preview at a recorded commit and returns observations and media links. The foreman posts the evidence on the PR and validation results on the issue. A maintainer reviews and merges.
 
 ## Scope across repositories
 
@@ -164,10 +164,10 @@ If work needs to pass between separate factories, define the receiving factory, 
 
 ## Troubleshooting
 
-* **Applying `factory-intake` starts two runs** - Another automation on the same repository, such as a triage or implementation recipe, also matches the label event. Exclude `factory-intake` from the overlapping trigger with `labels: { not_in: [factory-intake] }`, keeping its other filters. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
-* **The work item stops after the specification pull request** - The foreman is waiting for a person to approve the specification, and an issue comment without an **@warp** mention doesn't reach it. Check your [inbox](/factories/factory-inbox/) for the spec review, then approve in the originating issue with a new **@warp** mention and the specification PR's link, as in the [handoff test](#test-a-work-item-through-handoff).
-* **The foreman skips the specification** - Well-defined work goes directly to implementation. If every change needs a specification, say so in the intake prompt, or use the two-label gate from the [`26-product-change-implementation` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/26-product-change-implementation), which never implements until a person adds `spec-approved`.
-* **Review feedback on the pull request doesn't continue the work** - The review-submitted handler is disabled, or the pull request doesn't carry the factory's `factory:<alias>` label. Re-enable the handler from [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory) and confirm the label is on the pull request; the foreman then continues the existing implementation conversation.
+* **Applying `factory-intake` starts two runs** - Another triage or implementation automation may match the same event. Add `factory-intake` to the overlapping trigger's `labels.not_in` list while preserving its other filters and exclusions. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **Work pauses after the specification pull request** - This workflow waits for human approval before implementation. Check your [inbox](/factories/factory-inbox/) for the request, then approve in the originating issue with a new **@warp** mention and the specification PR link. Follow the [handoff test](#test-a-work-item-through-handoff).
+* **The foreman skips planning** - Well-defined work can go directly to implementation. If every change requires a specification, state that in the intake prompt.
+* **Pull request feedback does not continue the work** - The review-submitted handler may be disabled or the factory label missing. Confirm that the handler is enabled and the pull request carries `factory:<alias>`. Restore the handler using [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory) so it can continue the existing implementation conversation.
 
 ## Related pages
 

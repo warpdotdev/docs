@@ -81,7 +81,7 @@ In this [recipe](/factories/use-cases/), the foreman asks the review agent to in
 
    The optional `skip-factory-review` label excludes a pull request when the event fires. For bot-authored events, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
-   The [`04-code-review-only` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) is a complete single-agent definition for this workflow: its only agent is the foreman, which reviews and posts findings itself, and its automation starts on `pull_request_opened` with a base-branch filter and a `wip` opt-out label.
+   Start with the [`04-code-review-only` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) for a single-agent review definition. Its foreman reviews code and posts findings itself, using `pull_request_opened`, a target-branch filter, and a `wip` opt-out label. To follow this page's workflow, retain the separate review agent and the `pull_request_ready` trigger with `skip-factory-review` shown above.
 
    </TabItem>
    <TabItem label="GitLab">
@@ -122,14 +122,16 @@ In this [recipe](/factories/use-cases/), the foreman asks the review agent to in
 
 ## Set it up with a prompt
 
-Send this prompt to your factory's foreman from a new chat in the {VARS.FACTORY_WEB_APP}, or to a coding agent connected to your factory through [Factory MCP](/factories/factory-mcp/). Replace `OWNER/REPO` with your repository and `BASE_BRANCH` with the target branch, or name your GitLab project or Azure DevOps repository instead.
+1. Replace `OWNER/REPO` with your repository and `BASE_BRANCH` with the target branch. For GitLab or Azure DevOps, describe your project or repository instead.
+2. Paste the completed prompt into a new chat with your factory's foreman in the {VARS.FACTORY_WEB_APP}, or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
 
 ```text title="Prompt"
-Read https://docs.warp.dev/factories/use-cases/code-review.md and set up
-review-only pull request review in my factory for OWNER/REPO, for pull
-requests targeting BASE_BRANCH. Use
+Read https://docs.warp.dev/factories/use-cases/code-review.md and configure
+my factory to review pull requests in OWNER/REPO targeting BASE_BRANCH.
+Use this page's foreman-and-review-agent workflow. Consult
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only
-as the reference for the trigger filters and the reviewer's instructions.
+for review instructions, but retain this page's trigger and opt-out label
+rather than copying the example's single-agent setup unchanged.
 
 - Check my existing automations first. If one already reviews pull
   requests in OWNER/REPO, update it or narrow its filters instead of
@@ -175,10 +177,10 @@ After the author pushes a fix, a configured re-review event requests another che
 
 ## Troubleshooting
 
-* **Marking a pull request ready doesn't start a review** - A filter doesn't match the repository or target branch, the pull request carries the opt-out label, or a bot marked it ready, which GitHub triggers skip by default. Compare the pull request with the filters, then have a person mark it ready again. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
-* **The review posts on a draft or closed request** - GitLab and Azure DevOps triggers have no draft filter, and GitHub's `pull_request_opened` fires for drafts too, so the prompt's instruction to stop on a draft or closed request is the only check. Keep that instruction, and on GitHub use `pull_request_ready` with the opt-out label.
-* **Two reviews appear on one pull request** - The [SDLC workflow](/factories/use-cases/end-to-end-sdlc-automation/) already requested an internal review, or a re-review event fired on every push without instructions for earlier findings. Create SDLC pull requests as drafts and apply the opt-out label before marking them ready, and tell the foreman to update its earlier findings instead of repeating them. See [automation matching rules](/factories/automations/#how-matching-works).
-* **The review agent changes the branch or starts implementation** - The automation prompt lost its review-only limits, or the review skill includes implementation steps. Keep the instruction not to edit code, dispatch implementation, approve, or merge in the prompt, and keep the skill to validation and findings. Branch protection and required reviews still decide who can change and merge the pull request.
+* **Marking a pull request ready starts no review** - A nonmatching filter or skipped bot event can prevent the run. Check repository, target-branch, and opt-out filters. After fixing the cause, have a person mark the pull request ready again. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **A review appears on a draft or closed request** - Some creation events include drafts, and request state can change before review starts. Keep the prompt's instruction to stop on drafts and closed requests. For GitHub, use `pull_request_ready` and the opt-out filter. GitLab and Azure DevOps lack a draft filter, so retain the prompt check.
+* **Two reviews appear on one pull request** - The [SDLC workflow](/factories/use-cases/end-to-end-sdlc-automation/) and a standalone review automation can review the same change. To use only the SDLC pass, create its pull requests as drafts and apply `skip-factory-review` before marking them ready. For re-review events, instruct the foreman to update earlier findings rather than repeat them. See [automation matching rules](/factories/automations/#how-matching-works).
+* **The review agent edits code or starts implementation** - Implementation instructions in the automation or review skill can exceed the intended scope. Remove those instructions and restore the limits: no code edits, implementation dispatch, approval, or merging. Prompt instructions govern behavior; code-host permissions and branch protection enforce access and merge restrictions.
 
 ## Related pages
 
