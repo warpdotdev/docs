@@ -405,8 +405,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// Reading-path guides, in stage order. Work-intake pages (Stage 4)
-					// are alternatives; each one points to Factory use cases next.
 					label: 'Guides',
 					items: [
 						{ slug: 'factories/guides/slack-to-pull-request', label: 'Slack to pull request' },
