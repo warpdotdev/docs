@@ -206,11 +206,12 @@ export default defineConfig({
 							description: `Machine-readable OpenAPI ${openApiVersion} specification (JSON format) for the Oz Agent API.`,
 						},
 					],
-				// Excludes pages that cause a stack overflow in hast-util-to-text
-				// due to their size. The upstream plugin only applies `exclude` to
-				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
-				// extends it to llms-full.txt and custom sets as well.
-				exclude: ['support-and-community/community/open-source-licenses'],
+				// The error page is not documentation. The licenses page is excluded
+				// because its size causes a stack overflow in hast-util-to-text.
+				// The upstream plugin only applies `exclude` to llms-small.txt; our
+				// patch (patches/starlight-llms-txt+0.8.1.patch) extends it to
+				// llms-full.txt and custom sets as well.
+				exclude: ['404', 'support-and-community/community/open-source-licenses'],
 					// This string is the first thing an AI engine reads about Warp, so it
 					// carries the product lineup. Kept in sync with the rename and with
 					// launches: it said "the Oz platform" until the 8/18 rename, which
@@ -220,9 +221,9 @@ export default defineConfig({
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Agents in Warp: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
-						{ label: 'Factories', description: 'Warp Factories documentation for setup, agent roles, definitions as code, integrations, measurement, and infrastructure.', paths: ['factories/**'] },
+						{ label: 'Factories', description: 'Warp Factories setup, agents, integrations, measurement, and shared cloud harness, environment, and MCP-server references.', paths: ['factories/**'] },
 						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
-						{ label: 'Automation Platform', description: 'The Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
+						{ label: 'Automation Platform', description: 'Factory-first entry points and supported standalone cloud-agent workflows, orchestration, triggers, integrations, and legacy configuration.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },

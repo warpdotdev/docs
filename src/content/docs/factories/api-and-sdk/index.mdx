@@ -85,6 +85,22 @@ You can influence how an agent runs using `AmbientAgentConfig`, including:
 
 See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
 
+### Running a skill
+
+To start a standalone cloud run with reusable instructions, send this body to `POST /agent/runs`:
+
+```json
+{
+  "prompt": "Review the latest changes and report missing tests. Do not modify files.",
+  "config": {
+    "environment_id": "ENVIRONMENT_ID",
+    "skill_spec": "OWNER/REPO:code-review"
+  }
+}
+```
+
+Replace `ENVIRONMENT_ID` with the environment that provides the repository and dependencies, and `OWNER/REPO:code-review` with your repository and skill name. The skill provides the base instructions; `prompt` supplies context for this run. See [Skills for agents](/agents/capabilities/skills/) for skill files and discovery.
+
 ### Skill actions in conversation data
 
 The Conversation API returns skill loads as `read_skill` actions. When `input.bundled_skill_id` is present, it identifies a Warp-provided bundled reference. `input.skill_path` is the path used to resolve a skill, but doesn't prove ownership: file-based skills and path-referenced bundled skills, including skills from a remote host, can both use this field.
