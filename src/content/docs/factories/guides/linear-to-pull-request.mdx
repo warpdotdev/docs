@@ -48,7 +48,8 @@ Delegating an issue to Warp or mentioning the app in a comment opens a Linear ag
    acceptance criteria. Require tests and a verification summary on the pull
    request. Attach the pull request to the issue and post its link and results
    in the session. Ask for missing requirements before implementation.
-   Leave the issue's workflow state unchanged. Replies continue this run;
+   Make no additional workflow-state change. Do not undo Warp's automatic
+   claim-time transition. Replies continue this run;
    do not start a second work item for them. A person reviews and merges;
    do not merge.
    ```
@@ -93,7 +94,9 @@ With the instructions above, check for:
 * **Pull request** - The implementation agent opens a pull request with tests and a verification summary.
 * **Handoff** - The foreman attaches the pull request to the issue and posts its link and verification summary in the session.
 
-The instructions leave the issue's workflow state unchanged. A person reviews and merges the pull request and updates the issue. To have the foreman move the issue, such as to In Review, add that instruction to its prompt. This is configured behavior, not an enforced workflow rule.
+When Warp claims the session, an issue outside a started, completed, or canceled state may move to the team's available started state, such as In Progress. This can happen even if the foreman stops to ask for requirements.
+
+The foreman makes no additional workflow-state change. A person reviews and merges the pull request and decides later state changes. To request a transition such as In Review, add it to the foreman's prompt.
 
 ## Unmatched and vague requests
 
@@ -126,8 +129,10 @@ telling me how to delegate a first test issue and what I should see in the
 issue's agent session and on the pull request. Configure the foreman to
 confirm scope, ask for missing requirements, delegate to the implementation
 agent, and attach the PR to the issue with verification results in the
-session. Require tests and human review; never merge or change the issue's
-workflow state. Include tests for an unmatched team and a session reply.
+session. Require tests and human review; never merge. Explain Warp's
+automatic claim-time transition and make no additional workflow-state
+change or attempt to undo it. Include tests for an unmatched team, a
+session reply, and the issue's state when Warp claims the session.
 Check that no other automation matches the test delegation.
 ```
 

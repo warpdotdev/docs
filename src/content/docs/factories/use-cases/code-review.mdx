@@ -9,7 +9,7 @@ import { VARS } from '@data/vars';
 
 Warp Factories can independently review pull requests written by people or agents. The review checks code changes against the acceptance criteria in the issue or pull request, repository conventions, and security requirements.
 
-In this [recipe](/factories/use-cases/), the foreman asks the review agent to inspect the change, then publishes the agent's report on the pull request. The automation prompt limits the workflow to review, without implementation, approval, or merging. Your code host's required reviews and merge permissions remain the controls for accepting the change.
+The foreman delegates review and posts the findings on the pull request. The prompt limits this [recipe](/factories/use-cases/) to review: no implementation, approval, or merging. Your code host's required reviews and merge permissions still control acceptance.
 
 ## Prerequisites
 

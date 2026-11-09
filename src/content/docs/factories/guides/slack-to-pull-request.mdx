@@ -11,7 +11,7 @@ next:
   label: Factory use cases
 ---
 
-Configure a factory in Warp Factories to accept requests from one Slack channel and return pull request links in the original thread. A person reviews and merges the changes.
+Route requests from one Slack channel to a factory in Warp Factories and return pull request links in the original thread. A person reviews and merges the changes.
 
 Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Slack mentions. For emoji-reaction triggers, see [factory automations for Slack](/factories/integrations/slack/#configure-factory-automations-for-slack).
 
@@ -75,7 +75,7 @@ Add files, context, or corrections in the same thread. Replies continue its exis
 
 ## What comes back
 
-With the instructions above, check for these results:
+Check for:
 
 * **Acknowledgement** - The app adds an eyes reaction to the message, and a work item appears on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs).
 * **Scope confirmation** - The foreman restates the requested change in the thread. Reply there if it misunderstood.
