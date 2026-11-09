@@ -1,21 +1,22 @@
 ---
 title: Setting up a factory for a web application
 description: >-
-  Set up a factory for a web application: organize frontend and backend work,
-  connect its repositories, and run the app and tests that verify changes.
+  Coordinate frontend and backend changes with Warp Factories, automated tests, and browser verification for user-facing changes.
 sidebar:
   label: "Web application factory"
 ---
 
-A web application factory holds the frontend and backend that ship together, routes each request to the part of the app it touches, and proves a change with the app's own checks plus a browser pass for anything a user can see. Start from the one-repository topology in [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) and add the browser verification from [`05-ui-verification`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification), both in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
+Use Warp Factories to coordinate frontend and backend changes that ship together. Agents run the app's checks and verify user-facing changes in a browser.
+
+Start with the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example, which configures a factory for one repository. Add browser verification using the [`05-ui-verification`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification) example.
 
 ## How a web application factory is organized
 
-The frontend and backend belong in one factory when the same team ships them, whether they live in one repository or two. The factory then has one intake path, one set of skills, and one runner that can build both. See [factory boundaries](/factories/guides/structuring-your-factory/) for the questions behind that choice.
+The frontend and backend belong in one factory when the same team ships them, whether they live in one repository or two. The factory then has one intake path, one set of skills, and one runner that can build both. See [factory boundaries](/factories/guides/structuring-your-factory/) for guidance on when to use one factory or separate factories.
 
 Inside the factory, a shared skill tells every agent where the frontend and backend live and how each is installed, tested, and started. The foreman restates each request and names the areas it touches, the implement agent runs the checks for every area it changed, and the review agent reads the result against the request.
 
-Tests cover logic. For a user-facing change, a verification agent on the Warp Agent harness builds and starts the app in the run's sandbox, drives it in the bundled browser, and attaches screenshots or a recording to the pull request. Computer Use is a capability of the Warp Agent harness; third-party harnesses don't integrate with it, but a foreman on another harness can still delegate to a Warp Agent verifier.
+For user-facing changes, supplement automated tests with browser verification to check that the app looks and behaves as expected. A verification agent builds and starts the app in the run’s sandbox, interacts with it in the bundled browser, and attaches screenshots or a recording to the pull request.
 
 | Part | Recommendation |
 | --- | --- |
@@ -30,16 +31,17 @@ Tests cover logic. For a user-facing change, a verification agent on the Warp Ag
 
 * A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/) with access to the app's repositories.
 * [Foreman, implement, and review agents](/factories/factory-agents/#the-default-agents) in the factory.
-* Documented commands to install dependencies, run tests, build, and start the app, plus the local URL it serves.
-* Sample data with no sensitive information, and a test account if the app requires sign-in.
-* The [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) and [`05-ui-verification`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification) definitions to copy from.
+* Documented commands to install dependencies, test, build, and start the app, plus its local URL.
+* Nonsensitive sample data and a test account if the app requires sign-in.
 
 ## Connect the repositories
 
 The factory checks out the repositories it lists on every run, so list every repository the app ships from.
 
-1. Decide which repositories belong in the factory. An app in one repository is one entry. A frontend and backend in separate repositories that deploy together are two entries, and a change that spans them becomes one pull request per repository; see [coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/). Keep a service that other teams own and deploy out of this factory.
-2. Add the repositories. For a Warp-managed factory, open the factory's **Settings** in the factory dashboard and edit **Repositories**. For a GitHub-backed factory, list them in `factory.yaml`:
+1. Identify the repositories your team uses to maintain and deploy the app, including both frontend and backend code. Exclude services that other teams own and deploy independently.
+2. Add each repository to the factory. If the frontend and backend share a repository, add it once. If they live in separate repositories, add both.
+   * Warp-managed factory: Open the factory's **Settings** in the factory dashboard and update the repository selection under "Repos".
+   * GitHub-backed factory: List each repository under `repositories` in `factory.yaml`:
 
    ```yaml title="factory.yaml"
    schemaVersion: v1alpha1
@@ -53,13 +55,22 @@ The factory checks out the repositories it lists on every run, so list every rep
      runner: linux-app
    ```
 
-3. Confirm the GitHub App installation covers each repository. A repository the installation doesn't cover doesn't appear in the picker and can't be pushed to. See [a repository doesn't appear in the picker](/factories/troubleshooting/#a-repository-doesnt-appear-in-the-picker).
+   A change spanning separate frontend and backend repositories produces one pull request per repository. See [coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/).
+
+3. Confirm the GitHub App installation covers each repository. Repositories outside the installation’s scope won’t appear in the picker, and the factory can’t push to them. See [a repository doesn't appear in the picker](/factories/troubleshooting/#a-repository-doesnt-appear-in-the-picker).
 
 ## Organize frontend and backend work
 
 One implement agent can serve both areas when it knows where each lives and how to check it. Put those facts in a shared skill instead of in each agent's prompt.
 
-1. Add `skills/app-layout/SKILL.md` to the definition and describe the app: the frontend and backend directories, the install, test, and typecheck commands for each, the command that starts the app and the URL that shows it's ready, where sample data lives, and the sections a pull request description must have. See [factory skills](/factories/factory-skills/) for the file format.
+1. Create or update `skills/app-layout/SKILL.md` in the factory definition with:
+   * Frontend and backend directories.
+   * Install, test, and typecheck commands for each.
+   * The app’s start command and readiness URL.
+   * Sample data location.
+   * Required sections for pull request descriptions.
+
+   See [factory skills](/factories/factory-skills/) for the file format.
 
    ```markdown title="skills/app-layout/SKILL.md"
    ---
@@ -78,15 +89,24 @@ One implement agent can serve both areas when it knows where each lives and how 
      Verification (the commands you ran and their results).
    ```
 
-2. In `agents/foreman/agent.md`, add a scoping rule: restate the request as one deliverable, name the areas it touches, and pass both to the implement agent. When a request touches both areas, tell the implement agent to make the backend change before the frontend change, so the frontend has something to call.
-3. In `agents/implementer/agent.md`, require the checks for every area the change touched, with the commands and results pasted into the pull request description. A change that touches both areas stays in one pull request when both areas live in one repository.
-4. If the areas need different setup, keep one implement agent and select a setup profile per task with [run metadata](/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task) instead of adding a second agent.
+2. In `agents/foreman/agent.md`, instruct the foreman to:
+   * Summarize the request as one deliverable and identify the affected areas: frontend, backend, or both.
+   * Pass that scope to the implement agent, specifying backend changes first when the frontend depends on them.
+   * Decline requests outside the app without creating a branch.
+3. In `agents/implementer/agent.md`, instruct the implement agent to:
+   * Run checks for every area it changes and include the commands and results in the pull request description.
+   * Keep frontend and backend changes in one pull request when they share a repository.
+   * Retry dependency installation if setup logs a warning; report a blocker if installation still fails.
+4. If frontend and backend work need different setup, use [run metadata](/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task) to select a setup profile per task rather than adding another implement agent.
 
 ## Set up the app and tests for verification
 
-Tests run in every pull request, but a user-facing change also needs the app running so the verifier can see it.
+1. Configure a runner that can build and serve the app.
+   * Choose an image with the app’s toolchain.
+   * Allocate enough CPU and memory for builds and the running app.
+   * Add dependency installation commands to `setupCommands`.
 
-1. Give the factory a runner whose image has the app's toolchain and enough memory to build and serve it. The `05-ui-verification` runner uses `node:22-bookworm-slim` at 4 vCPUs and 8 GB; the sandbox supplies the browser regardless of image.
+   The `05-ui-verification` example uses `node:22-bookworm-slim`, 4 vCPUs, and 8 GB of memory. The sandbox provides the browser regardless of image.
 
    ```yaml title="runners/linux-app.yaml"
    description: Builds and serves the web app. The image provides Node; the sandbox provides the browser.
@@ -102,10 +122,24 @@ Tests run in every pull request, but a user-facing change also needs the app run
        dockerImage: node:22-bookworm-slim
    ```
 
-   Setup commands start from `/workspace`, where the factory checks out its repositories. A setup command that exits with a nonzero status fails the sandbox before any agent can read the error, so the install logs a warning instead and the agent reruns it from the skill if the workspace is missing. See [runners](/factories/runners/) for the 30-minute setup limit and image requirements.
+   :::note
+   Setup commands start in `/workspace`, where the factory checks out its repositories. Each command has a 30-minute limit, and a nonzero exit status fails setup before the agent starts. The warning handler lets the agent retry a failed install. See [runners](/factories/runners/).
+   :::
 
-2. Add a verification agent on the Warp Agent harness. Create `agents/verify/agent.md` with `agentType: VERIFY`, `model: auto`, and `workerHost: warp`, or adapt the single verifier in `05-ui-verification`. Give it a skill with the start command, the readiness URL, how to load sample data and sign in with the test account, and the visible states to capture. The full agent prompt, skill contents, and evidence-sharing settings are in [verifying changes with Computer Use](/factories/use-cases/computer-use-verification/).
-3. Decide how verification starts. Either tell the foreman to dispatch the verifier for any change that alters what a user sees, or add a label automation so a maintainer can request a check on any pull request:
+2. Add a verification agent on the Warp Agent harness. Create `agents/verify/agent.md`, or adapt the verifier in `05-ui-verification`:
+   * Set `agentType: VERIFY`, `model: auto`, and `workerHost: warp`.
+   * Provide a skill with the app's start command, readiness URL, sample data, and visible states to capture.
+   * If sign-in is required, configure a test account through [factory secrets](/factories/secrets/) and document its use in the skill. Do not use production credentials or customer data. Writing instructions does not grant access.
+   * Require a pull request comment naming the tested commit, observations, and evidence links.
+
+   See [verifying changes with Computer Use](/factories/use-cases/computer-use-verification/) for the full agent prompt, skill contents, and evidence-sharing settings.
+
+   :::note
+   Computer Use requires the Warp Agent harness. The foreman can use a different harness and delegate browser verification to this agent.
+   :::
+3. Choose how browser verification starts.
+   * Automatic: Tell the foreman to dispatch the verification agent for any customer-facing changes.
+   * On request: Add a label automation so a maintainer can request verification on a pull request (see following example).
 
    ```markdown title="automations/pr-needs-ui-check/automation.md"
    ---
@@ -123,17 +157,28 @@ Tests run in every pull request, but a user-facing change also needs the app run
    pull request. Do not edit code, approve, or merge.
    ```
 
-4. Apply the definition. For a Warp-managed factory, save the edits in the factory dashboard. For a GitHub-backed factory, merge them into the production branch. Confirm validation succeeds before testing. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+4. Apply and validate the factory definition.
+   * For a Warp-managed factory: Save the edits in the factory dashboard.
+   * For a GitHub-backed factory: Merge the edits into the production branch.
+
+   Confirm validation succeeds before testing the factory. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Test the factory
 
-1. Send a backend-only change with clear acceptance criteria, such as adding a field to an API response, by applying `factory-ready` to an issue. Expect a pull request whose description names the backend area and shows the `api/` checks passing, with no browser evidence.
-2. Send a frontend change that a user can see, such as showing that field in the page header. Expect the frontend checks in the pull request and, after verification, a comment with the tested commit, observations for each visible state, and screenshot or recording links that open for a reviewer.
-3. Send a request for code outside the app. Expect the foreman to decline in a comment without creating a branch.
+1. Apply `factory-ready` to an issue requesting a backend-only change with clear acceptance criteria, such as adding a field to an API response. Check that the pull request:
+   * Identifies the backend as the changed area.
+   * Shows passing `api/` checks.
+   * Includes no browser evidence.
+2. Apply `factory-ready` to an issue requesting a visible frontend change, such as showing that field in the page header. After browser verification, check for:
+   * Frontend check results in the pull request.
+   * A verification comment naming the tested commit and observations for each visible state.
+   * Screenshot or recording links that reviewers can open.
+3. Send a request for code outside the app. Check that the foreman declines in a comment without creating a branch.
 
 ## Set it up with a prompt
 
-Paste this into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or into a coding agent connected through [Factory MCP](/factories/factory-mcp/). Fill in the uppercase placeholders first.
+1. Replace the uppercase placeholders in the following prompt with your information.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/web-application-factory.md and
@@ -155,10 +200,10 @@ which labels, access, and test accounts I still have to create.
 
 ## Troubleshooting
 
-* **The app doesn't start in the sandbox** - The runner image lacks the app's toolchain, or the start command and readiness URL aren't written down where the agent can find them. Pick an image that already has the toolchain, and put the exact start command and readiness check in the shared skill.
-* **Setup fails before any agent runs** - A setup command exited with a nonzero status or ran past the 30-minute limit, which fails the sandbox. Let install commands log a warning on failure, keep setup to dependency installs, and leave builds to the agent's own steps.
-* **Verification runs but posts no screenshots or recording** - The verifier is on a third-party harness, which doesn't integrate with Computer Use, or evidence sharing is disabled for the team. Set the verifier's `model` so it runs on the Warp Agent harness, and check the [artifact attachment mode](/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes).
-* **A frontend change passes its tests but nobody can tell whether it works** - The request names no visible states to check, so the verifier has nothing to prove. Require acceptance criteria that describe what a user sees, and have the foreman dispatch verification for any change to the frontend.
+* **The app does not start in the sandbox:** The image may lack the toolchain, or the agent may lack startup instructions. Choose an image with the required toolchain and document the exact start command and readiness URL in the shared skill.
+* **Setup fails before an agent starts:** A setup command that fails or exceeds 30 minutes fails setup. Keep setup to dependency installation and leave builds to the agent. Retain the example's warning-and-retry pattern for failed installation.
+* **Verification produces no screenshots or recording:** Computer Use requires the Warp Agent harness, and sharing must be enabled for the team. Confirm the verifier's harness and the [artifact attachment mode](/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes).
+* **A user-facing change has no browser verification:** The request may omit visible acceptance criteria, or the foreman may not dispatch the verifier. Specify the states and behavior to check, and instruct the foreman to request verification for frontend changes.
 
 ## Related pages
 

@@ -1,28 +1,29 @@
 ---
 title: Factory boundaries
 description: >-
-  Factory boundaries follow ownership, code coupling, permissions, approvals,
-  and operating needs, not repository count. Decide yours before setup.
+  Set boundaries in Warp Factories based on ownership, dependencies, access requirements, and approvals, not repository count.
 sidebar:
   label: "Factory boundaries"
 ---
 
-A factory boundary is the set of repositories one factory works in, together with the agents, skills, intake, credentials, and approvals that apply there. It decides what a run can see and change and who signs off on the result, so choose it by how your code is owned and shipped, not by how many repositories you have. For example, a web app whose frontend and backend ship together belongs in one factory even when they live in two repositories, while two products that share a monorepo but have different owners can each get their own.
+In Warp Factories, a factory boundary defines which code a factory works on, which requests it handles, and which changes require human approval. That scope can range from part of a repository to several repositories.
 
-The rule of thumb from [sizing a factory](/factories/#sizing-a-factory) still holds: group the repositories that ship together, keep separate products apart, and specialize with [custom agents](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) rather than splitting one codebase by team or task.
+Choose that scope based on how your code is owned, changed, and approved, not how many repositories you have. A frontend and backend that the same team maintains and ships together can share a factory, even across two repositories. Products with different owners and approval requirements may need separate factories, even within one monorepo.
+
+Group code that ships together in one factory, and keep separate products in separate factories. Use [custom agents](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) to specialize work within a factory rather than creating separate factories for each team or task. See [sizing a factory](/factories/#sizing-a-factory) for more guidance.
 
 ## What a boundary decides
 
-* **Repositories** - The [`repositories`](/factories/factory-as-code/#repositories) list is what every run checks out and what the agents are told to work in. Access itself comes from the code host connection and its permissions, so narrow the installation as well as the list. See [GitHub permissions](/factories/integrations/github/#permissions).
+* **Repositories** - The [`repositories`](/factories/factory-as-code/#repositories) list specifies which repositories are checked out with every run and where the agents are instructed to work. Access comes from the code host connection and its permissions, so narrow the installation as well as the list. See [GitHub permissions](/factories/integrations/github/#permissions).
 * **Agents and skills** - The foreman, the default agents, and any custom agents share the factory's [skills](/factories/factory-skills/), so repository conventions and commands are written once per factory.
-* **Intake** - [Automations](/factories/automations/) filter events by repository, label, team, or channel and send them to this factory's foreman. When two factories watch the same event, each starts its own run.
-* **Credentials** - Repository identity, [secrets](/factories/secrets/), and MCP servers are configured per factory and per agent. Automation filters don't narrow access. See [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries).
-* **Approvals** - Spec approval is policy in the foreman's instructions. Merging is enforced by each repository's branch protection and required reviews, and the factory never merges. See [human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
+* **Intake** - [Automations](/factories/automations/) filter events by repository, label, team, or channel and send them to the factory's foreman. When two factories watch the same event, each starts its own run.
+* **Credentials** - Repository identity, secrets, and MCP servers are configured per factory and per agent. Automation filters control which events start runs, not which resources agents can access. See [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries).
+* **Approvals** - The foreman’s instructions specify when a spec requires human approval. Merging is enforced by each repository's branch protection and required reviews. The factory never merges. See [human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
 * **Operations** - A factory has one default [runner](/factories/runners/), which agents can override, and one [dashboard](/factories/factory-dashboard/) for cost, Scorers, and pull request metrics. Every stack inside the boundary has to fit that setup, and their results are measured together.
 
 ## Questions that set the boundary
 
-Work through the questions in order. The first answer that lands in the right-hand column usually settles it.
+Work through the following questions in order. If your answer matches the “Use separate factories” column, consider creating separate factories.
 
 | Question | Keep in one factory when | Use separate factories when |
 | --- | --- | --- |
@@ -34,9 +35,9 @@ Work through the questions in order. The first answer that lands in the right-ha
 
 Repository count isn't on the list. One factory can hold several repositories, and one repository can host several products. A product with its own owners and approval path can have its own factory even when it shares a repository with others.
 
-## What this looks like for your shape
+## Examples by codebase structure
 
-Each page below applies the questions to a common codebase shape and links a complete definition you can copy from [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples):
+Choose the setup guidance that fits your codebase. The pages include configuration examples to adapt to your repositories.
 
 * [Setting up a factory for a web application](/factories/guides/web-application-factory/) - Frontend and backend work in one factory, with the app and its tests set up so changes can be verified in a browser.
 * [Setting up a factory for a monorepo](/factories/guides/monorepo-factory/) - One product inside a shared repository, with checks on shared packages and escalation to their owners.
@@ -47,7 +48,7 @@ Factories shared by several teams, or operated by a platform team on behalf of o
 
 ## Set it up with a prompt
 
-Paste this into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or into a coding agent connected through [Factory MCP](/factories/factory-mcp/). Fill in the uppercase placeholders first.
+Paste this into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or into a coding agent connected through [Factory MCP](/factories/factory-mcp/). Replace the uppercase placeholders with your information first.
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/structuring-your-factory.md and
@@ -58,23 +59,18 @@ work must not receive.
 
 Propose the factories to create. For each proposed factory, list its
 repositories, the owning team, how work will enter it, who approves specs
-and merges, what its runner must be able to build and test, and which
-example to start from:
+and merges, and what its runner must be able to build and test. Use the
+setup guidance linked from the page and adapt this starter:
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
-for one repository,
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/24-monorepo-product
-for one product in a monorepo, or
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/25-related-services
-for repositories that share a contract. Show me the proposal before you
-create or change anything.
+Show me the proposal before you create or change anything.
 ```
 
 ## Troubleshooting
 
-* **The foreman declines or misplaces requests** - Work arrives for code the factory doesn't own, or a request doesn't say which repository or product it belongs to. Narrow intake with one label or filter per factory, and write the scope, directories, and owners into a shared skill so the foreman can place a request before dispatching it. The [monorepo factory](/factories/guides/monorepo-factory/) shows the pattern.
-* **Pull requests wait on people outside the factory's team** - The boundary crosses ownership. Add an escalation rule that opens those pull requests as drafts with review requested from the owning team, or move that code into its own factory.
-* **One event starts runs in two factories** - Both factories watch the same repository or channel with overlapping filters. Give each factory its own label, channel, or project filter so an event matches one automation. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
-* **Setup fails or takes most of the run** - One runner is carrying every stack in the factory. Scope setup commands to the code a run needs, give agents their own runners, or split the factory by operating needs. See [runners](/factories/runners/).
+* **Requests are rejected or sent to the wrong factory:** Intake filters may not match ownership, or requests may omit the repository or product. Use a distinct label or filter per factory and document its directories and owners in a shared skill. See the [monorepo factory](/factories/guides/monorepo-factory/) for an example.
+* **Pull requests wait for another team's review:** The factory's scope crosses ownership. Add an escalation rule that opens affected pull requests as drafts and requests the owning team's review, or move that code into a separate factory.
+* **One event starts runs in two factories:** Their event filters overlap. Separate them by label, channel, or project so an event matches only one automation. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **Setup fails or takes most of the run:** One runner may be preparing more stacks than the task needs. Scope setup commands to the relevant code, give agents separate runners, or split the factory by operating needs. See [runners](/factories/runners/).
 
 ## Related pages
 
