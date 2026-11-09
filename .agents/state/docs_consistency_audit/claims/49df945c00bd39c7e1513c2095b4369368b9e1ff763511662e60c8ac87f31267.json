@@ -25,7 +25,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "",
         "heading_anchor": "",
         "line_end": 12,
@@ -74,7 +74,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Standalone package",
         "heading_anchor": "standalone-package",
         "line_end": 57,
@@ -120,7 +120,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Standalone package",
         "heading_anchor": "standalone-package",
         "line_end": 111,
@@ -166,7 +166,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Standalone package",
         "heading_anchor": "standalone-package",
         "line_end": 84,
@@ -208,7 +208,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running the CLI",
         "heading_anchor": "running-the-cli",
         "line_end": 125,
@@ -252,7 +252,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running the CLI",
         "heading_anchor": "running-the-cli",
         "line_end": 125,
@@ -294,7 +294,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Interactive login (local machines)",
         "heading_anchor": "interactive-login-local-machines",
         "line_end": 138,
@@ -336,7 +336,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Logging out",
         "heading_anchor": "logging-out",
         "line_end": 179,
@@ -380,7 +380,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running locally: \\`oz agent run\\`",
         "heading_anchor": "running-locally-oz-agent-run",
         "line_end": 237,
@@ -424,7 +424,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 268,
@@ -468,7 +468,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 268,
@@ -512,7 +512,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 270,
@@ -558,7 +558,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 290,
@@ -603,7 +603,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 290,
@@ -648,7 +648,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Starting a run as an orchestration child",
         "heading_anchor": "starting-a-run-as-an-orchestration-child",
         "line_end": 351,
@@ -692,7 +692,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 288,
@@ -736,7 +736,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "line_end": 289,
@@ -780,7 +780,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Naming runs",
         "heading_anchor": "naming-runs",
         "line_end": 294,
@@ -824,7 +824,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Naming runs",
         "heading_anchor": "naming-runs",
         "line_end": 298,
@@ -868,7 +868,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Starting a run as an orchestration child",
         "heading_anchor": "starting-a-run-as-an-orchestration-child",
         "line_end": 336,
@@ -912,7 +912,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Collaboration",
         "heading_anchor": "collaboration",
         "line_end": 397,
@@ -956,7 +956,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "Managing named agents",
         "heading_anchor": "managing-named-agents",
         "line_end": 438,
@@ -998,7 +998,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli",
         "canonical_route": "/agents/cli/oz-cli",
-        "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
         "heading": "`oz run list` / `oz run get`",
         "heading_anchor": "oz-run-list-oz-run-get",
         "line_end": 492,
@@ -1014,9 +1014,279 @@
         "normalized": 10,
         "type": "integer"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:adf6f0ef21487b357a603eb21cf5587d51dac8f339d02055b49d47d5dfd1234e",
+      "claim_id": "sha256:9d84c77424a03a632f41242604a7af236aebb32e8899cf99dbbcc9b59c99b0e8",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bundled-with-desktop",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "is automatically distributed with the Warp desktop app",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+        "heading": "Bundled with Warp",
+        "heading_anchor": "bundled-with-warp",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bfa85423ca6100231a3963cd12ed7b23c485f0e92c783b44d201a439f8e275cd",
+      "claim_id": "sha256:e653280b1810997a63a845b79b10add2585cd7633d349136b82798e2cab73751",
+      "entity": "oz-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "linux-package-managers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [
+          "linux"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "We support `apt`, `yum`, and `pacman`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+        "heading": "Standalone package",
+        "heading_anchor": "standalone-package",
+        "line_end": 87,
+        "line_start": 87,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "apt",
+          "yum",
+          "pacman"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e6ea5a3ad0d1c32b4e242bba89abcd7a8deca11a3d4dcb1a1fa5c1e1c3381544",
+      "claim_id": "sha256:61d6f9060fb75f3267cacb2aa029ce1b8d4db38f53c59a54f91f9a0d40aba0e1",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "harness-identifiers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`oz` (default, the Warp Agent), `claude` (Claude Code), or `codex` (Codex).",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 270,
+        "line_start": 270,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "oz",
+          "claude",
+          "codex"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bb72133cac549866427d73ad0b4563b1c4aa3509325b71072a229c46fe574756",
+      "claim_id": "sha256:7546ed2fb1b85d3ed4c6975c3b8c55bf50c173731cbeaf489011d11ffc767047",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "claude-harness-alias",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`claude-code` is accepted as an alias for `claude`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 270,
+        "line_start": 270,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "claude-code",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b667bf35f94d5e210ec2d41ac047868170e8a4f32afd24f6d4bab9c97af951a8",
+      "claim_id": "sha256:445c0993c2f9b8a0cd0f41c22c8e4bb0a58665c4935480e2692664e13152c5fa",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "unavailable-model-fails-before-start",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If the model is not available for the selected harness, the command fails before the run starts.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+        "heading": "Choosing an execution harness",
+        "heading_anchor": "choosing-an-execution-harness",
+        "line_end": 371,
+        "line_start": 371,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d2a0e5913b09decafa386936101c584946cb5a7d35c201e48c0954c0a1cdc2a7",
+      "claim_id": "sha256:74580331b1bd48c0bb2b4db04476a155842e85e508a7e5b3e6031665831ae687",
+      "entity": "oz-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-agent-profiles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use the `--profile` flag with `oz agent run` to apply a specific profile.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+        "heading": "Using agent profiles",
+        "heading_anchor": "using-agent-profiles",
+        "line_end": 377,
+        "line_start": 377,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+  "page_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
   "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
   "schema_version": 1
 }

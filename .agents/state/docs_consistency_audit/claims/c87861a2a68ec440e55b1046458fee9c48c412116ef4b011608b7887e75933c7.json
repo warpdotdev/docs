@@ -1,5 +1,428 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:1be9cb135ffa398f814564921e8bef22387a6c2dbe467898a0efe52ba36e4705",
+      "claim_id": "sha256:c735c79d092d9d9d7d7627ec10912a02ec1932712acbcca75d99c1768b2e131b",
+      "entity": "sso-login",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-protocols",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "any SAML 2.0 or OIDC compatible provider",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "Step 1: Configure Single Sign-On (SSO)",
+        "heading_anchor": "step-1-configure-single-sign-on-sso",
+        "line_end": 22,
+        "line_start": 22,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "saml-2.0",
+          "oidc"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5aab104114d75ddbd25cfb8c8180279343d3c9d053b24d28013aea906534efbe",
+      "claim_id": "sha256:23a6e30c2cc933f10ca5d22767c11aeebfc5b5fbe992b025b7a1e94bde647406",
+      "entity": "sso-setup",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-warp-coordination",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "SSO setup is coordinated with Warp's team",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "Step 1: Configure Single Sign-On (SSO)",
+        "heading_anchor": "step-1-configure-single-sign-on-sso",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:47a1f02676980d903755bf25511ce3bd70b26eb9891535667356d5d0bb5540d8",
+      "claim_id": "sha256:91caf7bde22103ed88d12687df87d76db9d7d83387b09d22318676aa81165d0f",
+      "entity": "enterprise-plan",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "self-serve-upgrade-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the Enterprise plan must be applied by Warp internally \u2014 this cannot be self-served.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "Creating your team",
+        "heading_anchor": "creating-your-team",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4a72432a98a75d99dc110244f85d9a942898ddce7936a34ce5df1351dfc150be",
+      "claim_id": "sha256:0c39321ac8abf24807d25bdfa43118fe0962b3479475d4c7a311696846932d5c",
+      "entity": "sso-existing-accounts",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "linking-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "existing users who signed up with email or OAuth will need to [link their accounts to SSO](https://app.warp.dev/link_sso)",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "Step 1: Configure Single Sign-On (SSO)",
+        "heading_anchor": "step-1-configure-single-sign-on-sso",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6ecf35133481f372a75caab681e9084ff79c81df15142bf95b1de99298e3ed45",
+      "claim_id": "sha256:7d2cd6ce52ae8da2badbc67b1a597e07698ba0c6e664632dbc3c3d6dac141e08",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp has three user roles:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "User roles and permissions",
+        "heading_anchor": "user-roles-and-permissions",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "owner",
+          "admin",
+          "member"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ce220d96e7e489292024e2131c58067312e58b6dd16d152f591abf84146f8dde",
+      "claim_id": "sha256:a53a6b8beffb6cffad48f279d3c09386f185da40a1e8e397e772edf72c84f30f",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-owners",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "There can only be one Owner.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "User roles and permissions",
+        "heading_anchor": "user-roles-and-permissions",
+        "line_end": 80,
+        "line_start": 80,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:eb57a7bdd0826331c37f43b40a93e57f075f9336a87dbfe89655790467594f79",
+      "claim_id": "sha256:eadeb5b1c8940155c6ed07859210cf194c151447b2aa45d844eccfa3925dff7f",
+      "entity": "team-admin",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-transfer-ownership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Same permissions as the Owner, except they can't transfer ownership of the team.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "User roles and permissions",
+        "heading_anchor": "user-roles-and-permissions",
+        "line_end": 81,
+        "line_start": 81,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:62f70f6ccc650193daea4625706e52464f490ec614d12410d0e23f48eefe8a43",
+      "claim_id": "sha256:0c12f2d8d875ea5b031d962886cd1ba81ea0baa6c777aadf20d41ee7b9014899",
+      "entity": "team-enforced-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "user-override-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cannot be overridden by individual users",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "How settings enforcement works",
+        "heading_anchor": "how-settings-enforcement-works",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b39e60b994ec0579d76403025b4ea79b7a1854cc2c4faa5aa8b9bec6f262bf32",
+      "claim_id": "sha256:6c7ec3e3d3b08acb38ec018354051837a760f62d1edebeb6cb34bb6bb05f9ab6",
+      "entity": "sso-domain-auto-join",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-warp-domain-configuration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The domain must be configured by the Warp team during onboarding",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "Team settings",
+        "heading_anchor": "team-settings",
+        "line_end": 49,
+        "line_start": 49,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bbcd9838bcb706df7d00b6ff5241764b44e7a0c843e6a957aafe8333eb21741e",
+      "claim_id": "sha256:2308fd3dcebed26b82700db150fc91b50c0c417caba6413b89f01a89c59e9baa",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "available in both interactive sessions and cloud agents",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "content_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+        "heading": "Next steps",
+        "heading_anchor": "next-steps",
+        "line_end": 165,
+        "line_start": 165,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
   "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
   "schema_version": 1

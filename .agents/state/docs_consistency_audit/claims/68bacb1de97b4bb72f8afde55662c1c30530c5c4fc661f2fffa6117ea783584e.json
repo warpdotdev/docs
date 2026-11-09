@@ -1,5 +1,349 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:49f7f79178ff13a43545799c923d9d2dd1ac0d7aaf6faab9105b91273c204cca",
+      "claim_id": "sha256:02b47e68f2d48749a3e377791b44efe2fc0f16a7954562c425b826db87b58af1",
+      "entity": "warp-desktop",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-operating-systems",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp is available for macOS, Linux, and Windows.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "1. Download and install Warp",
+        "heading_anchor": "1-download-and-install-warp",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "macos",
+          "linux",
+          "windows"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:303ac9f0bc699f8dfc004ff33a07a4daec79d0a50effd493af87499a6bd464d4",
+      "claim_id": "sha256:e7592d72e3df8dacf60b5a923a3b8f5c4fa5d0365059fee3ca0d8f2e5276d89b",
+      "entity": "warp-desktop",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "minimum-os-version",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "macOS 10.15 Catalina or later",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Download Warp",
+        "heading_anchor": "download-warp",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "10.15",
+        "type": "version"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5ceb03642f20b449b036a9e95d2dfc9783496e30ef19c506b75de054d7e30e7b",
+      "claim_id": "sha256:9d96fb949e32cae1a23842a0d18fec694739ed78a269d68834e00fa893395aae",
+      "entity": "warp-desktop",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "minimum-os-version",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "windows"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Windows 10 or later",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Download Warp",
+        "heading_anchor": "download-warp",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 10,
+        "type": "version"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b369ff9fc9fe4634d77b8f5e942d5cb836559da165c86c9832546a5b373e6774",
+      "claim_id": "sha256:a4780e5f615ac0fb6cce0742debcff550c5633706f17cfb43cf4384d4e56678a",
+      "entity": "sso-login",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "idp-initiated-login-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Do not attempt to launch Warp directly from your SSO provider's app portal (e.g., Okta dashboard). This will result in an error.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Logging in with SSO",
+        "heading_anchor": "logging-in-with-sso",
+        "line_end": 65,
+        "line_start": 65,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b71586242544b6c5c6ae220a60c461b6dfde9c400c700fd4b46c1f391bd53805",
+      "claim_id": "sha256:b318fbf723bafde3fb521383ff43944c3c2c93ec54248e5148746b9a30f24e19",
+      "entity": "codebase-indexing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-files-per-repository",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Up to 200,000 files per repository",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Codebase Context",
+        "heading_anchor": "codebase-context",
+        "line_end": 116,
+        "line_start": 116,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 200000,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:10d2bc96dd5f151f831483503b5514111075da4a010a331a3ab825cfe6548829",
+      "claim_id": "sha256:12de39ae731dcbb3d1f38ad9e23044e0b3313881394bf7b70cbd6763a96ed8d6",
+      "entity": "codebase-indexing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "respects-ignore-files",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Files excluded in `.gitignore` or `.warpindexingignore` are automatically skipped",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Codebase Context",
+        "heading_anchor": "codebase-context",
+        "line_end": 117,
+        "line_start": 117,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          ".gitignore",
+          ".warpindexingignore"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7190c4699d88be9a28d9ab4f0a557af15a6250e93d17e271d5f849f00c4dc0df",
+      "claim_id": "sha256:0ff480e080ff1145e5c2a062e8d45455d287920c1c8b788367d26254a3bfa49a",
+      "entity": "indexed-source-code",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "codebase-indexing"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The code itself is not saved\u2014only the embeddings are persisted.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Codebase Context",
+        "heading_anchor": "codebase-context",
+        "line_end": 121,
+        "line_start": 121,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:85faf310605e36aa50373e4a7be86ff927d67b26f326bb7887709121f387bc18",
+      "claim_id": "sha256:d1b42a36f51470a6feb9cef1f22ed18090d2beb9a126a39102feebc2d54b79a8",
+      "entity": "cloud-conversation-code-snippets",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Code snippets may be stored as part of conversation records when agents create or modify files, since diffs are preserved in the conversation history.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "content_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+        "heading": "Codebase Context",
+        "heading_anchor": "codebase-context",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/getting-started-developers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
   "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
   "schema_version": 1

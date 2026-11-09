@@ -1,6 +1,15 @@
 # Docs consistency audit run log
 
 Scheduled and manual runs prepend one compact entry through the standing state branch.
+## 2026-11-09 — partial
+- Run: https://staging.warp.dev/conversation/10cfc0fd-1e77-4ac4-aab9-baf39e0926cf
+- Source commits: docs 399611aa3b4da0d8573001c71f8ae9bbc3bd21bd; public client abb3fe33e004f7b1de540fecd6e3eec20dbc1883; private authority revision retained transiently
+- Coverage: partial; 12/399 pages extracted, not fully audited; 80 unchanged pages reused; 307 deferred; all 61 candidate pairs context-adjudicated
+- Findings: 0 new; 0 changed; 0 resolved; 6 unchanged active; 5 rechecked; 1 saved finding carried forward, not rechecked (universal AI retention omits Claude Fable exception)
+- Suppressed: 0 rules; expired: 0; 53 compatible pairs; 3 intentional exceptions; 0 unverified candidates
+- Cost: 116203 extraction characters; 61 candidates; 0 additional model API calls (inline reasoning unmetered)
+- Sources unavailable / blocker: no blocker; generated CLI help unavailable (public source fallback); 374 cached shards, deferred manifest entries and hashes, and all 13 receipts preserved byte-for-byte; actionable-only no-change result, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
 ## 2026-11-06 — partial
 - Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1b204-7d29-7637-a3da-da71f6f712af
 - Source commits: docs 403d5d626153a8d4ee5dc37effddc86ce2f9d4aa; public client f7fc2f2a08a3aa446baa23960710e630c5defd6e; private authority revision retained transiently

@@ -1,19 +1,7 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/agents/cli/oz-cli/federate.mdx",
-    "src/content/docs/agents/cli/oz-cli/index.mdx",
-    "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-    "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
-    "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-    "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
-    "src/content/docs/enterprise/getting-started/faq.mdx",
-    "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
-    "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
-    "src/content/docs/enterprise/getting-started/quickstart.mdx",
-    "src/content/docs/enterprise/index.mdx",
     "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
-    "src/content/docs/enterprise/security-and-compliance/sso.mdx",
     "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
     "src/content/docs/enterprise/support-and-resources/billing.mdx",
     "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
@@ -4978,14 +4966,14 @@
         },
         {
           "anchor": "related",
-          "character_count": 194,
+          "character_count": 195,
           "heading": "Related",
           "line_end": 114,
           "line_start": 111
         }
       ],
-      "character_count": 5560,
-      "extraction_status": "unchanged",
+      "character_count": 5561,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5031,7 +5019,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/federate/",
-      "source_sha256": "8dfaa5e8a7623f998365ed7b006a900300a2fb396c2d4fa0e28fb68ddc365e93",
+      "source_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
       "title": "Federated identity tokens"
     },
     "src/content/docs/agents/cli/oz-cli/index.mdx": {
@@ -5129,7 +5117,7 @@
         },
         {
           "anchor": "running-agents-remotely-oz-agent-run-cloud",
-          "character_count": 3381,
+          "character_count": 3385,
           "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
           "line_end": 277,
           "line_start": 239
@@ -5185,7 +5173,7 @@
         },
         {
           "anchor": "choosing-an-execution-harness",
-          "character_count": 973,
+          "character_count": 976,
           "heading": "Choosing an execution harness",
           "line_end": 374,
           "line_start": 358
@@ -5345,8 +5333,8 @@
           "line_start": 565
         }
       ],
-      "character_count": 25321,
-      "extraction_status": "unchanged",
+      "character_count": 25328,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5592,7 +5580,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/cli/oz-cli/",
-      "source_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+      "source_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
       "title": "{{WARP_AGENT_CLI}} reference"
     },
     "src/content/docs/agents/cli/oz-cli/integration-setup.mdx": {
@@ -5826,7 +5814,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1194,
+          "character_count": 1170,
           "heading": "",
           "line_end": 22,
           "line_start": 9
@@ -5847,49 +5835,49 @@
         },
         {
           "anchor": "passing-warp-managed-integration-servers-by-id",
-          "character_count": 1126,
+          "character_count": 892,
           "heading": "Passing Warp-managed integration servers by id",
-          "line_end": 83,
+          "line_end": 79,
           "line_start": 64
         },
         {
           "anchor": "inline-json",
           "character_count": 123,
           "heading": "Inline JSON",
-          "line_end": 91,
-          "line_start": 89
+          "line_end": 87,
+          "line_start": 85
         },
         {
           "anchor": "from-a-file",
           "character_count": 343,
           "heading": "From a file",
-          "line_end": 109,
-          "line_start": 92
+          "line_end": 105,
+          "line_start": 88
         },
         {
           "anchor": "combining-multiple-servers",
           "character_count": 340,
           "heading": "Combining multiple servers",
-          "line_end": 122,
-          "line_start": 110
+          "line_end": 118,
+          "line_start": 106
         },
         {
           "anchor": "environment-variables-on-remote-machines",
           "character_count": 1064,
           "heading": "Environment variables on remote machines",
-          "line_end": 137,
-          "line_start": 123
+          "line_end": 133,
+          "line_start": 119
         },
         {
           "anchor": "learn-more",
-          "character_count": 599,
+          "character_count": 600,
           "heading": "Learn more",
-          "line_end": 143,
-          "line_start": 138
+          "line_end": 139,
+          "line_start": 134
         }
       ],
-      "character_count": 6837,
-      "extraction_status": "unchanged",
+      "character_count": 6580,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5913,39 +5901,39 @@
         },
         {
           "anchor": "passing-mcp-servers-as-inline-json-or-a-file",
-          "line_start": 84,
+          "line_start": 80,
           "text": "Passing MCP servers as inline JSON or a file"
         },
         {
           "anchor": "inline-json",
-          "line_start": 89,
+          "line_start": 85,
           "text": "Inline JSON"
         },
         {
           "anchor": "from-a-file",
-          "line_start": 92,
+          "line_start": 88,
           "text": "From a file"
         },
         {
           "anchor": "combining-multiple-servers",
-          "line_start": 110,
+          "line_start": 106,
           "text": "Combining multiple servers"
         },
         {
           "anchor": "environment-variables-on-remote-machines",
-          "line_start": 123,
+          "line_start": 119,
           "text": "Environment variables on remote machines"
         },
         {
           "anchor": "learn-more",
-          "line_start": 138,
+          "line_start": 134,
           "text": "Learn more"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/mcp-servers/",
-      "source_sha256": "22edeb4a3824bdadbc0d1da19bf7333323a2f26bfb3eee40d35a249026f08d52",
+      "source_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
       "title": "MCP servers (CLI reference)"
     },
     "src/content/docs/agents/cli/oz-cli/quickstart.mdx": {
@@ -9472,7 +9460,7 @@
         },
         {
           "anchor": "cloud-agent-conversations",
-          "character_count": 1731,
+          "character_count": 1732,
           "heading": "Cloud agent conversations",
           "line_end": 139,
           "line_start": 111
@@ -9611,8 +9599,8 @@
           "line_start": 367
         }
       ],
-      "character_count": 20091,
-      "extraction_status": "unchanged",
+      "character_count": 20092,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -9778,7 +9766,7 @@
       "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
       "role": "docs-prose",
       "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
-      "source_sha256": "3e56106dd9faed2ffbb9ffe0153452a34acece41f36b4986078ecc13464ca5d9",
+      "source_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
       "title": "Terminal and Agent modes"
     },
     "src/content/docs/agents/local-agents/interacting-with-agents/voice.mdx": {
@@ -12571,7 +12559,7 @@
       "candidate_sections": [
         {
           "anchor": "supported-service-connections",
-          "character_count": 1009,
+          "character_count": 1011,
           "heading": "Supported service connections",
           "line_end": 24,
           "line_start": 14
@@ -12613,21 +12601,21 @@
         },
         {
           "anchor": "configure-and-validate-the-service",
-          "character_count": 1087,
+          "character_count": 1088,
           "heading": "Configure and validate the service",
           "line_end": 106,
           "line_start": 90
         },
         {
           "anchor": "related-pages",
-          "character_count": 640,
+          "character_count": 641,
           "heading": "Related pages",
           "line_end": 112,
           "line_start": 107
         }
       ],
-      "character_count": 7217,
-      "extraction_status": "new",
+      "character_count": 7221,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -12688,8 +12676,1225 @@
       "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
       "role": "docs-prose",
       "route": "/enterprise/enterprise-features/private-networking/",
-      "source_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+      "source_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
       "title": "Connecting private services to Warp"
+    },
+    "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 809,
+          "heading": "",
+          "line_end": 18,
+          "line_start": 7
+        },
+        {
+          "anchor": "key-features",
+          "character_count": 780,
+          "heading": "Key features",
+          "line_end": 25,
+          "line_start": 19
+        },
+        {
+          "anchor": "how-team-managed-providers-differ-from-self-serve-byok-and-byollm",
+          "character_count": 1861,
+          "heading": "How team-managed providers differ from self-serve BYOK and BYOLLM",
+          "line_end": 39,
+          "line_start": 26
+        },
+        {
+          "anchor": "first-party-keys-and-custom-endpoints",
+          "character_count": 705,
+          "heading": "First-party keys and custom endpoints",
+          "line_end": 46,
+          "line_start": 42
+        },
+        {
+          "anchor": "member-key-precedence",
+          "character_count": 682,
+          "heading": "Member key precedence",
+          "line_end": 53,
+          "line_start": 47
+        },
+        {
+          "anchor": "cloud-agents",
+          "character_count": 317,
+          "heading": "Cloud agents",
+          "line_end": 57,
+          "line_start": 54
+        },
+        {
+          "anchor": "prerequisites",
+          "character_count": 174,
+          "heading": "Prerequisites",
+          "line_end": 64,
+          "line_start": 60
+        },
+        {
+          "anchor": "configure-keys-and-endpoints",
+          "character_count": 1577,
+          "heading": "Configure keys and endpoints",
+          "line_end": 79,
+          "line_start": 65
+        },
+        {
+          "anchor": "keep-inference-on-your-teams-providers",
+          "character_count": 296,
+          "heading": "Keep inference on your team's providers",
+          "line_end": 83,
+          "line_start": 80
+        },
+        {
+          "anchor": "member-experience",
+          "character_count": 826,
+          "heading": "Member experience",
+          "line_end": 92,
+          "line_start": 84
+        },
+        {
+          "anchor": "billing-behavior",
+          "character_count": 1074,
+          "heading": "Billing behavior",
+          "line_end": 102,
+          "line_start": 93
+        },
+        {
+          "anchor": "security-and-data-handling",
+          "character_count": 347,
+          "heading": "Security and data handling",
+          "line_end": 108,
+          "line_start": 103
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "character_count": 510,
+          "heading": "Zero Data Retention (ZDR)",
+          "line_end": 118,
+          "line_start": 109
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 989,
+          "heading": "Related pages",
+          "line_end": 127,
+          "line_start": 119
+        }
+      ],
+      "character_count": 11221,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "key-features",
+          "line_start": 19,
+          "text": "Key features"
+        },
+        {
+          "anchor": "how-team-managed-providers-differ-from-self-serve-byok-and-byollm",
+          "line_start": 26,
+          "text": "How team-managed providers differ from self-serve BYOK and BYOLLM"
+        },
+        {
+          "anchor": "how-it-works",
+          "line_start": 40,
+          "text": "How it works"
+        },
+        {
+          "anchor": "first-party-keys-and-custom-endpoints",
+          "line_start": 42,
+          "text": "First-party keys and custom endpoints"
+        },
+        {
+          "anchor": "member-key-precedence",
+          "line_start": 47,
+          "text": "Member key precedence"
+        },
+        {
+          "anchor": "cloud-agents",
+          "line_start": 54,
+          "text": "Cloud agents"
+        },
+        {
+          "anchor": "configuring-team-managed-keys-and-endpoints",
+          "line_start": 58,
+          "text": "Configuring team-managed keys and endpoints"
+        },
+        {
+          "anchor": "prerequisites",
+          "line_start": 60,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "configure-keys-and-endpoints",
+          "line_start": 65,
+          "text": "Configure keys and endpoints"
+        },
+        {
+          "anchor": "keep-inference-on-your-teams-providers",
+          "line_start": 80,
+          "text": "Keep inference on your team's providers"
+        },
+        {
+          "anchor": "member-experience",
+          "line_start": 84,
+          "text": "Member experience"
+        },
+        {
+          "anchor": "billing-behavior",
+          "line_start": 93,
+          "text": "Billing behavior"
+        },
+        {
+          "anchor": "security-and-data-handling",
+          "line_start": 103,
+          "text": "Security and data handling"
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "line_start": 109,
+          "text": "Zero Data Retention (ZDR)"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 119,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+      "source_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+      "title": "Team-managed LLM API keys and endpoints"
+    },
+    "src/content/docs/enterprise/getting-started/faq.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "i-cant-log-in-with-sso",
+          "character_count": 534,
+          "heading": "I can't log in with SSO",
+          "line_end": 22,
+          "line_start": 12
+        },
+        {
+          "anchor": "i-logged-in-with-another-method-before-and-cant-use-sso-now",
+          "character_count": 442,
+          "heading": "I logged in with another method before and can't use SSO now",
+          "line_end": 33,
+          "line_start": 23
+        },
+        {
+          "anchor": "warp-wont-open-from-my-sso-provider",
+          "character_count": 351,
+          "heading": "Warp won't open from my SSO provider",
+          "line_end": 43,
+          "line_start": 34
+        },
+        {
+          "anchor": "team-invite-links-not-working",
+          "character_count": 253,
+          "heading": "Team invite links not working",
+          "line_end": 55,
+          "line_start": 46
+        },
+        {
+          "anchor": "users-cant-see-new-admin-settings",
+          "character_count": 380,
+          "heading": "Users can't see new admin settings",
+          "line_end": 65,
+          "line_start": 56
+        },
+        {
+          "anchor": "additional-help",
+          "character_count": 421,
+          "heading": "Additional help",
+          "line_end": 72,
+          "line_start": 66
+        }
+      ],
+      "character_count": 2601,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "login-and-sso",
+          "line_start": 10,
+          "text": "Login and SSO"
+        },
+        {
+          "anchor": "i-cant-log-in-with-sso",
+          "line_start": 12,
+          "text": "I can't log in with SSO"
+        },
+        {
+          "anchor": "i-logged-in-with-another-method-before-and-cant-use-sso-now",
+          "line_start": 23,
+          "text": "I logged in with another method before and can't use SSO now"
+        },
+        {
+          "anchor": "warp-wont-open-from-my-sso-provider",
+          "line_start": 34,
+          "text": "Warp won't open from my SSO provider"
+        },
+        {
+          "anchor": "team-and-access",
+          "line_start": 44,
+          "text": "Team and access"
+        },
+        {
+          "anchor": "team-invite-links-not-working",
+          "line_start": 46,
+          "text": "Team invite links not working"
+        },
+        {
+          "anchor": "users-cant-see-new-admin-settings",
+          "line_start": 56,
+          "text": "Users can't see new admin settings"
+        },
+        {
+          "anchor": "additional-help",
+          "line_start": 66,
+          "text": "Additional help"
+        }
+      ],
+      "path": "src/content/docs/enterprise/getting-started/faq.mdx",
+      "role": "faq",
+      "route": "/enterprise/getting-started/faq/",
+      "source_sha256": "0e37970b67125f8ec60b2e06d4b2f039bd2f51527e645377f92c6d10d912e270",
+      "title": "Enterprise FAQ"
+    },
+    "src/content/docs/enterprise/getting-started/getting-started-developers.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 909,
+          "heading": "",
+          "line_end": 16,
+          "line_start": 7
+        },
+        {
+          "anchor": "1-download-and-install-warp",
+          "character_count": 82,
+          "heading": "1. Download and install Warp",
+          "line_end": 20,
+          "line_start": 17
+        },
+        {
+          "anchor": "download-warp",
+          "character_count": 307,
+          "heading": "Download Warp",
+          "line_end": 28,
+          "line_start": 21
+        },
+        {
+          "anchor": "install-warp",
+          "character_count": 173,
+          "heading": "Install Warp",
+          "line_end": 37,
+          "line_start": 29
+        },
+        {
+          "anchor": "debianubuntu",
+          "character_count": 49,
+          "heading": "Debian/Ubuntu",
+          "line_end": 40,
+          "line_start": 38
+        },
+        {
+          "anchor": "fedorarhel",
+          "character_count": 388,
+          "heading": "Fedora/RHEL",
+          "line_end": 51,
+          "line_start": 41
+        },
+        {
+          "anchor": "2-log-in-to-your-team",
+          "character_count": 26,
+          "heading": "2. Log in to your team",
+          "line_end": 53,
+          "line_start": 52
+        },
+        {
+          "anchor": "logging-in-with-sso",
+          "character_count": 549,
+          "heading": "Logging in with SSO",
+          "line_end": 67,
+          "line_start": 54
+        },
+        {
+          "anchor": "logging-in-with-an-invite-link",
+          "character_count": 354,
+          "heading": "Logging in with an invite link",
+          "line_end": 75,
+          "line_start": 68
+        },
+        {
+          "anchor": "linking-an-existing-account-to-sso",
+          "character_count": 416,
+          "heading": "Linking an existing account to SSO",
+          "line_end": 85,
+          "line_start": 76
+        },
+        {
+          "anchor": "3-set-up-key-features",
+          "character_count": 26,
+          "heading": "3. Set up key features",
+          "line_end": 87,
+          "line_start": 86
+        },
+        {
+          "anchor": "codebase-context",
+          "character_count": 1660,
+          "heading": "Codebase Context",
+          "line_end": 126,
+          "line_start": 88
+        },
+        {
+          "anchor": "agent-profiles",
+          "character_count": 1021,
+          "heading": "Agent Profiles",
+          "line_end": 150,
+          "line_start": 127
+        },
+        {
+          "anchor": "warp-drive",
+          "character_count": 1488,
+          "heading": "Warp Drive",
+          "line_end": 183,
+          "line_start": 151
+        },
+        {
+          "anchor": "mcp-model-context-protocol",
+          "character_count": 779,
+          "heading": "MCP (Model Context Protocol)",
+          "line_end": 202,
+          "line_start": 184
+        },
+        {
+          "anchor": "4-start-using-warp",
+          "character_count": 23,
+          "heading": "4. Start using Warp",
+          "line_end": 204,
+          "line_start": 203
+        },
+        {
+          "anchor": "everyday-workflows",
+          "character_count": 1157,
+          "heading": "Everyday workflows",
+          "line_end": 236,
+          "line_start": 205
+        },
+        {
+          "anchor": "learning-resources",
+          "character_count": 282,
+          "heading": "Learning resources",
+          "line_end": 245,
+          "line_start": 237
+        },
+        {
+          "anchor": "troubleshooting",
+          "character_count": 122,
+          "heading": "Troubleshooting",
+          "line_end": 249,
+          "line_start": 246
+        },
+        {
+          "anchor": "next-steps",
+          "character_count": 375,
+          "heading": "Next steps",
+          "line_end": 257,
+          "line_start": 250
+        },
+        {
+          "anchor": "support-and-feedback",
+          "character_count": 496,
+          "heading": "Support and feedback",
+          "line_end": 263,
+          "line_start": 258
+        }
+      ],
+      "character_count": 10915,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "1-download-and-install-warp",
+          "line_start": 17,
+          "text": "1. Download and install Warp"
+        },
+        {
+          "anchor": "download-warp",
+          "line_start": 21,
+          "text": "Download Warp"
+        },
+        {
+          "anchor": "install-warp",
+          "line_start": 29,
+          "text": "Install Warp"
+        },
+        {
+          "anchor": "debianubuntu",
+          "line_start": 38,
+          "text": "Debian/Ubuntu"
+        },
+        {
+          "anchor": "fedorarhel",
+          "line_start": 41,
+          "text": "Fedora/RHEL"
+        },
+        {
+          "anchor": "2-log-in-to-your-team",
+          "line_start": 52,
+          "text": "2. Log in to your team"
+        },
+        {
+          "anchor": "logging-in-with-sso",
+          "line_start": 54,
+          "text": "Logging in with SSO"
+        },
+        {
+          "anchor": "logging-in-with-an-invite-link",
+          "line_start": 68,
+          "text": "Logging in with an invite link"
+        },
+        {
+          "anchor": "linking-an-existing-account-to-sso",
+          "line_start": 76,
+          "text": "Linking an existing account to SSO"
+        },
+        {
+          "anchor": "3-set-up-key-features",
+          "line_start": 86,
+          "text": "3. Set up key features"
+        },
+        {
+          "anchor": "codebase-context",
+          "line_start": 88,
+          "text": "Codebase Context"
+        },
+        {
+          "anchor": "agent-profiles",
+          "line_start": 127,
+          "text": "Agent Profiles"
+        },
+        {
+          "anchor": "warp-drive",
+          "line_start": 151,
+          "text": "Warp Drive"
+        },
+        {
+          "anchor": "mcp-model-context-protocol",
+          "line_start": 184,
+          "text": "MCP (Model Context Protocol)"
+        },
+        {
+          "anchor": "4-start-using-warp",
+          "line_start": 203,
+          "text": "4. Start using Warp"
+        },
+        {
+          "anchor": "everyday-workflows",
+          "line_start": 205,
+          "text": "Everyday workflows"
+        },
+        {
+          "anchor": "learning-resources",
+          "line_start": 237,
+          "text": "Learning resources"
+        },
+        {
+          "anchor": "troubleshooting",
+          "line_start": 246,
+          "text": "Troubleshooting"
+        },
+        {
+          "anchor": "next-steps",
+          "line_start": 250,
+          "text": "Next steps"
+        },
+        {
+          "anchor": "support-and-feedback",
+          "line_start": 258,
+          "text": "Support and feedback"
+        }
+      ],
+      "path": "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/getting-started/getting-started-developers/",
+      "source_sha256": "d31e1ff2470fcb7b5b78f32b4142e0e3481a39392a39e4dd9d606a41f4a26e1f",
+      "title": "Getting started for developers"
+    },
+    "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "prerequisites",
+          "character_count": 279,
+          "heading": "Prerequisites",
+          "line_end": 19,
+          "line_start": 12
+        },
+        {
+          "anchor": "step-1-configure-single-sign-on-sso",
+          "character_count": 1144,
+          "heading": "Step 1: Configure Single Sign-On (SSO)",
+          "line_end": 31,
+          "line_start": 20
+        },
+        {
+          "anchor": "step-2-create-and-configure-your-team",
+          "character_count": 42,
+          "heading": "Step 2: Create and configure your team",
+          "line_end": 33,
+          "line_start": 32
+        },
+        {
+          "anchor": "creating-your-team",
+          "character_count": 673,
+          "heading": "Creating your team",
+          "line_end": 42,
+          "line_start": 34
+        },
+        {
+          "anchor": "team-settings",
+          "character_count": 647,
+          "heading": "Team settings",
+          "line_end": 51,
+          "line_start": 43
+        },
+        {
+          "anchor": "step-3-invite-and-manage-users",
+          "character_count": 35,
+          "heading": "Step 3: Invite and manage users",
+          "line_end": 53,
+          "line_start": 52
+        },
+        {
+          "anchor": "inviting-users",
+          "character_count": 737,
+          "heading": "Inviting users",
+          "line_end": 75,
+          "line_start": 54
+        },
+        {
+          "anchor": "managing-admins",
+          "character_count": 414,
+          "heading": "Managing admins",
+          "line_end": 96,
+          "line_start": 84
+        },
+        {
+          "anchor": "step-4-configure-the-admin-panel",
+          "character_count": 145,
+          "heading": "Step 4: Configure the Admin Panel",
+          "line_end": 100,
+          "line_start": 97
+        },
+        {
+          "anchor": "accessing-the-admin-panel",
+          "character_count": 226,
+          "heading": "Accessing the Admin Panel",
+          "line_end": 108,
+          "line_start": 101
+        },
+        {
+          "anchor": "key-admin-panel-sections",
+          "character_count": 734,
+          "heading": "Key Admin Panel sections",
+          "line_end": 119,
+          "line_start": 109
+        },
+        {
+          "anchor": "step-5-set-up-team-resources",
+          "character_count": 33,
+          "heading": "Step 5: Set up team resources",
+          "line_end": 128,
+          "line_start": 127
+        },
+        {
+          "anchor": "enable-codebase-context",
+          "character_count": 334,
+          "heading": "Enable Codebase Context",
+          "line_end": 137,
+          "line_start": 129
+        },
+        {
+          "anchor": "create-shared-warp-drive-resources",
+          "character_count": 678,
+          "heading": "Create shared Warp Drive resources",
+          "line_end": 149,
+          "line_start": 138
+        },
+        {
+          "anchor": "configure-mcp-integrations",
+          "character_count": 513,
+          "heading": "Configure MCP integrations",
+          "line_end": 157,
+          "line_start": 150
+        },
+        {
+          "anchor": "next-steps",
+          "character_count": 1140,
+          "heading": "Next steps",
+          "line_end": 168,
+          "line_start": 158
+        },
+        {
+          "anchor": "sso-login-issues",
+          "character_count": 190,
+          "heading": "SSO login issues",
+          "line_end": 174,
+          "line_start": 171
+        },
+        {
+          "anchor": "team-invite-links-not-working",
+          "character_count": 247,
+          "heading": "Team invite links not working",
+          "line_end": 184,
+          "line_start": 175
+        },
+        {
+          "anchor": "support-and-resources",
+          "character_count": 332,
+          "heading": "Support and resources",
+          "line_end": 189,
+          "line_start": 185
+        }
+      ],
+      "character_count": 9735,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "prerequisites",
+          "line_start": 12,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "step-1-configure-single-sign-on-sso",
+          "line_start": 20,
+          "text": "Step 1: Configure Single Sign-On (SSO)"
+        },
+        {
+          "anchor": "step-2-create-and-configure-your-team",
+          "line_start": 32,
+          "text": "Step 2: Create and configure your team"
+        },
+        {
+          "anchor": "creating-your-team",
+          "line_start": 34,
+          "text": "Creating your team"
+        },
+        {
+          "anchor": "team-settings",
+          "line_start": 43,
+          "text": "Team settings"
+        },
+        {
+          "anchor": "step-3-invite-and-manage-users",
+          "line_start": 52,
+          "text": "Step 3: Invite and manage users"
+        },
+        {
+          "anchor": "inviting-users",
+          "line_start": 54,
+          "text": "Inviting users"
+        },
+        {
+          "anchor": "user-roles-and-permissions",
+          "line_start": 76,
+          "text": "User roles and permissions"
+        },
+        {
+          "anchor": "managing-admins",
+          "line_start": 84,
+          "text": "Managing admins"
+        },
+        {
+          "anchor": "step-4-configure-the-admin-panel",
+          "line_start": 97,
+          "text": "Step 4: Configure the Admin Panel"
+        },
+        {
+          "anchor": "accessing-the-admin-panel",
+          "line_start": 101,
+          "text": "Accessing the Admin Panel"
+        },
+        {
+          "anchor": "key-admin-panel-sections",
+          "line_start": 109,
+          "text": "Key Admin Panel sections"
+        },
+        {
+          "anchor": "how-settings-enforcement-works",
+          "line_start": 120,
+          "text": "How settings enforcement works"
+        },
+        {
+          "anchor": "step-5-set-up-team-resources",
+          "line_start": 127,
+          "text": "Step 5: Set up team resources"
+        },
+        {
+          "anchor": "enable-codebase-context",
+          "line_start": 129,
+          "text": "Enable Codebase Context"
+        },
+        {
+          "anchor": "create-shared-warp-drive-resources",
+          "line_start": 138,
+          "text": "Create shared Warp Drive resources"
+        },
+        {
+          "anchor": "configure-mcp-integrations",
+          "line_start": 150,
+          "text": "Configure MCP integrations"
+        },
+        {
+          "anchor": "next-steps",
+          "line_start": 158,
+          "text": "Next steps"
+        },
+        {
+          "anchor": "troubleshooting",
+          "line_start": 169,
+          "text": "Troubleshooting"
+        },
+        {
+          "anchor": "sso-login-issues",
+          "line_start": 171,
+          "text": "SSO login issues"
+        },
+        {
+          "anchor": "team-invite-links-not-working",
+          "line_start": 175,
+          "text": "Team invite links not working"
+        },
+        {
+          "anchor": "support-and-resources",
+          "line_start": 185,
+          "text": "Support and resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/getting-started/getting-started-enterprise/",
+      "source_sha256": "cda9018e195b8e5e82166e2dc7cd5b6941ed8b7873043ced6badb2e03906a8f5",
+      "title": "Getting started with Warp Enterprise"
+    },
+    "src/content/docs/enterprise/getting-started/quickstart.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 196,
+          "heading": "",
+          "line_end": 12,
+          "line_start": 9
+        },
+        {
+          "anchor": "1-log-in-via-sso",
+          "character_count": 545,
+          "heading": "1. Log in via SSO",
+          "line_end": 25,
+          "line_start": 13
+        },
+        {
+          "anchor": "2-download-and-set-up-warp",
+          "character_count": 451,
+          "heading": "2. Download and set up Warp",
+          "line_end": 35,
+          "line_start": 26
+        },
+        {
+          "anchor": "3-configure-and-run-your-first-agent",
+          "character_count": 304,
+          "heading": "3. Configure and run your first agent",
+          "line_end": 39,
+          "line_start": 36
+        },
+        {
+          "anchor": "index-your-codebase",
+          "character_count": 312,
+          "heading": "Index your codebase",
+          "line_end": 46,
+          "line_start": 40
+        },
+        {
+          "anchor": "try-more-prompts",
+          "character_count": 320,
+          "heading": "Try more prompts",
+          "line_end": 63,
+          "line_start": 57
+        },
+        {
+          "anchor": "4-run-a-cloud-agent",
+          "character_count": 127,
+          "heading": "4. Run a cloud agent",
+          "line_end": 67,
+          "line_start": 64
+        },
+        {
+          "anchor": "create-an-environment",
+          "character_count": 504,
+          "heading": "Create an environment",
+          "line_end": 83,
+          "line_start": 68
+        },
+        {
+          "anchor": "run-a-cloud-agent",
+          "character_count": 309,
+          "heading": "Run a cloud agent",
+          "line_end": 93,
+          "line_start": 84
+        },
+        {
+          "anchor": "next-steps",
+          "character_count": 452,
+          "heading": "Next steps",
+          "line_end": 98,
+          "line_start": 94
+        }
+      ],
+      "character_count": 4001,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "1-log-in-via-sso",
+          "line_start": 13,
+          "text": "1. Log in via SSO"
+        },
+        {
+          "anchor": "2-download-and-set-up-warp",
+          "line_start": 26,
+          "text": "2. Download and set up Warp"
+        },
+        {
+          "anchor": "3-configure-and-run-your-first-agent",
+          "line_start": 36,
+          "text": "3. Configure and run your first agent"
+        },
+        {
+          "anchor": "index-your-codebase",
+          "line_start": 40,
+          "text": "Index your codebase"
+        },
+        {
+          "anchor": "run-your-first-agent-locally",
+          "line_start": 47,
+          "text": "Run your first agent locally"
+        },
+        {
+          "anchor": "try-more-prompts",
+          "line_start": 57,
+          "text": "Try more prompts"
+        },
+        {
+          "anchor": "4-run-a-cloud-agent",
+          "line_start": 64,
+          "text": "4. Run a cloud agent"
+        },
+        {
+          "anchor": "create-an-environment",
+          "line_start": 68,
+          "text": "Create an environment"
+        },
+        {
+          "anchor": "run-a-cloud-agent",
+          "line_start": 84,
+          "text": "Run a cloud agent"
+        },
+        {
+          "anchor": "next-steps",
+          "line_start": 94,
+          "text": "Next steps"
+        }
+      ],
+      "path": "src/content/docs/enterprise/getting-started/quickstart.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/getting-started/quickstart/",
+      "source_sha256": "62916288216d92edc5c19b03bd18c4c141d93c70a7dc80d9ce9fb4f1bdd0b99b",
+      "title": "Enterprise quickstart"
+    },
+    "src/content/docs/enterprise/index.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 1079,
+          "heading": "",
+          "line_end": 16,
+          "line_start": 7
+        },
+        {
+          "anchor": "who-warp-enterprise-is-for",
+          "character_count": 567,
+          "heading": "Who Warp Enterprise is for",
+          "line_end": 24,
+          "line_start": 17
+        },
+        {
+          "anchor": "enterprise-administration",
+          "character_count": 569,
+          "heading": "Enterprise administration",
+          "line_end": 32,
+          "line_start": 27
+        },
+        {
+          "anchor": "security-and-compliance",
+          "character_count": 931,
+          "heading": "Security and compliance",
+          "line_end": 41,
+          "line_start": 33
+        },
+        {
+          "anchor": "agent-capabilities",
+          "character_count": 936,
+          "heading": "Agent capabilities",
+          "line_end": 55,
+          "line_start": 48
+        },
+        {
+          "anchor": "what-this-section-covers",
+          "character_count": 539,
+          "heading": "What this section covers",
+          "line_end": 64,
+          "line_start": 56
+        },
+        {
+          "anchor": "getting-started",
+          "character_count": 1011,
+          "heading": "Getting started",
+          "line_end": 76,
+          "line_start": 65
+        },
+        {
+          "anchor": "why-enterprises-choose-warp",
+          "character_count": 910,
+          "heading": "Why enterprises choose Warp",
+          "line_end": 86,
+          "line_start": 77
+        },
+        {
+          "anchor": "support-and-resources",
+          "character_count": 376,
+          "heading": "Support and resources",
+          "line_end": 92,
+          "line_start": 87
+        }
+      ],
+      "character_count": 7670,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "who-warp-enterprise-is-for",
+          "line_start": 17,
+          "text": "Who Warp Enterprise is for"
+        },
+        {
+          "anchor": "key-capabilities",
+          "line_start": 25,
+          "text": "Key capabilities"
+        },
+        {
+          "anchor": "enterprise-administration",
+          "line_start": 27,
+          "text": "Enterprise administration"
+        },
+        {
+          "anchor": "security-and-compliance",
+          "line_start": 33,
+          "text": "Security and compliance"
+        },
+        {
+          "anchor": "team-collaboration",
+          "line_start": 42,
+          "text": "Team collaboration"
+        },
+        {
+          "anchor": "agent-capabilities",
+          "line_start": 48,
+          "text": "Agent capabilities"
+        },
+        {
+          "anchor": "what-this-section-covers",
+          "line_start": 56,
+          "text": "What this section covers"
+        },
+        {
+          "anchor": "getting-started",
+          "line_start": 65,
+          "text": "Getting started"
+        },
+        {
+          "anchor": "why-enterprises-choose-warp",
+          "line_start": 77,
+          "text": "Why enterprises choose Warp"
+        },
+        {
+          "anchor": "support-and-resources",
+          "line_start": 87,
+          "text": "Support and resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/index.mdx",
+      "role": "canonical-overview",
+      "route": "/enterprise/",
+      "source_sha256": "31acfaf2b81ab497df3027d074bfcf7702134e02072799f952e5a68479b581ca",
+      "title": "Enterprise overview"
+    },
+    "src/content/docs/enterprise/security-and-compliance/sso.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "supported-identity-providers",
+          "character_count": 220,
+          "heading": "Supported identity providers",
+          "line_end": 19,
+          "line_start": 10
+        },
+        {
+          "anchor": "sso-enforcement-and-session-management",
+          "character_count": 472,
+          "heading": "SSO enforcement and session management",
+          "line_end": 25,
+          "line_start": 20
+        },
+        {
+          "anchor": "setting-up-sso",
+          "character_count": 807,
+          "heading": "Setting up SSO",
+          "line_end": 37,
+          "line_start": 26
+        },
+        {
+          "anchor": "testing-sso",
+          "character_count": 541,
+          "heading": "Testing SSO",
+          "line_end": 51,
+          "line_start": 38
+        },
+        {
+          "anchor": "scim-provisioning",
+          "character_count": 920,
+          "heading": "SCIM provisioning",
+          "line_end": 63,
+          "line_start": 52
+        },
+        {
+          "anchor": "linking-existing-accounts",
+          "character_count": 359,
+          "heading": "Linking existing accounts",
+          "line_end": 72,
+          "line_start": 64
+        },
+        {
+          "anchor": "users-cant-log-in-with-sso",
+          "character_count": 557,
+          "heading": "Users can't log in with SSO",
+          "line_end": 94,
+          "line_start": 83
+        },
+        {
+          "anchor": "warp-wont-open-from-sso-provider-portal",
+          "character_count": 254,
+          "heading": "Warp won't open from SSO provider portal",
+          "line_end": 101,
+          "line_start": 95
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 377,
+          "heading": "Related resources",
+          "line_end": 106,
+          "line_start": 102
+        }
+      ],
+      "character_count": 5278,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "supported-identity-providers",
+          "line_start": 10,
+          "text": "Supported identity providers"
+        },
+        {
+          "anchor": "sso-enforcement-and-session-management",
+          "line_start": 20,
+          "text": "SSO enforcement and session management"
+        },
+        {
+          "anchor": "setting-up-sso",
+          "line_start": 26,
+          "text": "Setting up SSO"
+        },
+        {
+          "anchor": "testing-sso",
+          "line_start": 38,
+          "text": "Testing SSO"
+        },
+        {
+          "anchor": "scim-provisioning",
+          "line_start": 52,
+          "text": "SCIM provisioning"
+        },
+        {
+          "anchor": "linking-existing-accounts",
+          "line_start": 64,
+          "text": "Linking existing accounts"
+        },
+        {
+          "anchor": "domain-auto-join",
+          "line_start": 73,
+          "text": "Domain auto-join"
+        },
+        {
+          "anchor": "troubleshooting",
+          "line_start": 81,
+          "text": "Troubleshooting"
+        },
+        {
+          "anchor": "users-cant-log-in-with-sso",
+          "line_start": 83,
+          "text": "Users can't log in with SSO"
+        },
+        {
+          "anchor": "warp-wont-open-from-sso-provider-portal",
+          "line_start": 95,
+          "text": "Warp won't open from SSO provider portal"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 102,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/security-and-compliance/sso/",
+      "source_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+      "title": "Single Sign-On (SSO)"
     },
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx": {
       "candidate_sections": [
@@ -12772,6 +13977,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "403d5d626153a8d4ee5dc37effddc86ce2f9d4aa"
+    "docs": "399611aa3b4da0d8573001c71f8ae9bbc3bd21bd"
   }
 }

@@ -25,7 +25,7 @@
       "quote": "Private networking setup is manual and coordinated with Warp.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "",
         "heading_anchor": "",
         "line_end": 11,
@@ -67,7 +67,7 @@
       "quote": "Private networking applies to services that Warp calls from its hosted services:",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "Supported service connections",
         "heading_anchor": "supported-service-connections",
         "line_end": 16,
@@ -114,7 +114,7 @@
       "quote": "Self-serve [custom inference endpoints](/agents/inference/custom-inference-endpoint/#network-requirements) remain device-level settings and require a public URL.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "Supported service connections",
         "heading_anchor": "supported-service-connections",
         "line_end": 21,
@@ -156,7 +156,7 @@
       "quote": "Serve the endpoint over HTTPS.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "Requirements",
         "heading_anchor": "requirements",
         "line_end": 30,
@@ -198,7 +198,7 @@
       "quote": "| Google Cloud | Private Service Connect |\n| AWS | AWS PrivateLink |\n| Azure | Azure Private Link |\n| On-premises or colocation network | On-premises interconnect |\n| Network with a public VPN gateway | Route-based IPsec VPN |",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "Choose a connection method",
         "heading_anchor": "choose-a-connection-method",
         "line_end": 43,
@@ -248,7 +248,7 @@
       "quote": "Include private OAuth or identity provider endpoints in the onboarding scope when the MCP server depends on them.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "Supported service connections",
         "heading_anchor": "supported-service-connections",
         "line_end": 19,
@@ -290,7 +290,7 @@
       "quote": "Configure a route-based IPsec VPN whose gateway and routing use BGP.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/private-networking.mdx",
-        "content_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+        "content_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
         "heading": "Set up a route-based IPsec VPN",
         "heading_anchor": "set-up-a-route-based-ipsec-vpn",
         "line_end": 86,
@@ -308,7 +308,7 @@
       }
     }
   ],
-  "page_sha256": "2f8c35a4424f2c12c242903aa8e93cd46004f4321164d9da12dc1624f6da7441",
+  "page_sha256": "28bd9e67d159a034b96c53ae8e05f42f172fb2f771d85a8a37466c680e603fd2",
   "path": "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
   "schema_version": 1
 }
