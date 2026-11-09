@@ -1,0 +1,125 @@
+---
+title: Turning a Slack mention into a pull request
+description: >-
+  Turn requests in a designated Slack channel into pull requests, with
+  progress updates and verification results returned to the same thread.
+sidebar:
+  label: "Slack to pull request"
+prev: false
+next:
+  link: /factories/use-cases/
+  label: Factory use cases
+---
+
+Configure a factory in Warp Factories to accept requests from one Slack channel and return pull request links in the original thread. A person reviews and merges the changes.
+
+Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Slack mentions. For emoji-reaction triggers, see [factory automations for Slack](/factories/integrations/slack/#configure-factory-automations-for-slack).
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) with access to the target repository and permission to push branches and open pull requests.
+* Slack [connected to the factory](/factories/integrations/slack/#connect-the-factory), with the factory's app invited to the intake channel.
+* Active membership in the factory's Warp team and a [linked Slack account](/factories/integrations/slack/#who-can-start-work) for each requester.
+* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
+
+## Configure the mention trigger
+
+Use the `slack` / `app_mention` event to start work from mentions. Filter it to one channel so mentions elsewhere do not start this automation.
+
+1. In the factory dashboard, open **Automations** and find the existing Slack mention automation. Connecting Slack during setup creates one. Reuse it to avoid duplicate runs.
+   * **Warp-managed factory** - Edit the automation in the dashboard.
+   * **GitHub-backed factory** - Edit its definition file. The dashboard view is read-only.
+
+2. Set the trigger's `channels` filter to the exact name of your intake channel. Replace `YOUR_CHANNEL` in the following example. Invite the app to the channel before applying the definition so Warp can resolve its name.
+
+   ```markdown title="automations/slack-intake/automation.md"
+   ---
+   triggers:
+     - provider: slack
+       event: app_mention
+       filter:
+         channels: [YOUR_CHANNEL]
+   ---
+   Someone @-mentioned the factory in the intake channel. Treat the message and
+   its thread as a work request for this factory's repository. Reply in the same
+   thread with one sentence that restates the deliverable, drive it to a pull
+   request, and post the PR link back in that thread. If the request is too
+   vague to restate, ask one clarifying question in the thread and stop.
+   Delegate implementation to the implementation agent. Require tests and a
+   verification summary on its pull request. A person reviews and merges;
+   do not merge.
+   ```
+
+   This example omits `agent`, so requests go to the foreman. To narrow matching further, add `users` for Slack usernames or email addresses, or `keywords` for case-insensitive substrings of the message. See [Slack events and filters](/factories/automation-triggers/#slack).
+
+3. Apply the definition change.
+   * **Warp-managed factory** - Save the edits in the factory dashboard.
+   * **GitHub-backed factory** - Open a pull request, confirm the `warp/factory-config` check passes, then merge it into the factory's production branch.
+
+   A channel name must resolve to exactly one channel the app can see. Resolution errors appear when the definition is applied, not during validation.
+
+## Delegate from Slack
+
+1. Write a request with the behavior to add, change, or fix, verifiable acceptance criteria, and any constraints the agent cannot infer.
+2. Send the request in the intake channel, mentioning the factory's app by its [foreman name](/factories/factory-agents/#foreman-name). The message and thread provide the task context.
+
+For a factory whose foreman name is `Intake`, use a request like this:
+
+```text title="Example mention"
+@Intake add a GET /healthz route that returns {"status":"ok"} with a 200,
+and a test that covers it.
+```
+
+Add files, context, or corrections in the same thread. Replies continue its existing work item without another mention. To require mentions on replies, set `slack.autoRespondToThreadReplies: false` in the Slack [integration entry](/factories/factory-as-code/#integrations).
+
+## What comes back
+
+With the instructions above, check for these results:
+
+* **Acknowledgement** - The app adds an eyes reaction to the message, and a work item appears on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs).
+* **Scope confirmation** - The foreman restates the requested change in the thread. Reply there if it misunderstood.
+* **Pull request** - The implementation agent opens a pull request with tests and a verification summary.
+* **Handoff** - The foreman posts the pull request link in the thread, then stops. A person reviews and merges.
+
+Questions from the foreman also appear in your [inbox](/factories/factory-inbox/). To see the factory's work items by stage, open the app's **Home** tab in Slack.
+
+## Unmatched and vague requests
+
+A mention outside the channel filter starts no run through this automation. Direct messages use a separate event, `message_dm`. Other matching automations can still handle those messages. Check the factory's Runs page to distinguish an unmatched event from a failed run.
+
+The instructions above ask the foreman to clarify vague requests, such as "make the API faster", before implementation. Answer in the thread to continue the same work item.
+
+## Troubleshooting
+
+* **The app does not react to a mention** - The app needs channel access and a matching automation. Confirm it is in the channel, the automation is enabled, and the channel filter matches the exact name. After fixing the cause, mention the factory again. The original event is not replayed. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **The app asks you to connect an account** - Your Slack account must be linked to a Warp account with membership in the factory's team. Follow the prompt while signed in to that Warp account, then send the mention again.
+* **One mention starts two runs** - Overlapping automations can handle the same message. Narrow or remove the duplicate mention or **Message posted in channel** trigger. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **Applying the definition fails on the channel name** - The name must resolve to exactly one channel the app can see. Invite the app to the channel, check the spelling in `channels`, and apply the definition again.
+
+## Set it up with a prompt
+
+1. Replace `OWNER/REPO` with your repository and `CHANNEL` with your intake channel in the following prompt.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/slack-to-pull-request.md.
+Set up Slack intake for my factory: one slack/app_mention
+automation filtered to the channel #CHANNEL, routed to the foreman, for my
+repository OWNER/REPO. If the factory already has a Slack mention automation,
+update its channel filter instead of adding a second one. Validate the
+definition before applying it, then list what I still have to do by hand:
+connect Slack to the factory, invite the app to #CHANNEL, and have each
+requester link their Slack account. Configure the foreman to confirm scope,
+ask for missing requirements, delegate to the implementation agent, and
+return the PR link and verification results in the thread. Require tests
+and human review; never merge. Finish with test steps for a matching mention,
+an out-of-channel mention, and a reply continuing the first work item.
+Check that no other automation matches the test mention.
+```
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Add triage, review, and other workflows to the same factory
+* [Connect Slack to your factory](/factories/integrations/slack/) - Permissions, direct messages, reaction triggers, and the app's Home tab
+* [Factory automations](/factories/automations/) - How matching works and how to edit filters
