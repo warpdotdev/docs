@@ -1,0 +1,149 @@
+---
+title: Turning a Jira issue into a pull request
+description: >-
+  Route delegated work from one Jira Cloud project to a factory and receive
+  pull request links on the work items, with progress in their agent sessions.
+sidebar:
+  label: "Jira to pull request"
+prev: false
+next: false
+---
+
+Configure a factory in Warp Factories to accept work assigned to Warp or requested through mentions in one Jira project. The foreman responds in the work item's agent session and posts the resulting pull request link on the work item. A person reviews and merges the changes.
+
+Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Jira delegation.
+
+This guide applies to Jira Cloud. Jira Server and Data Center are not supported.
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) with access to the target repository and permission to push branches and open pull requests.
+* Warp for Jira installed on your Jira Cloud site and connected to your Warp workspace by a Jira site admin.
+* Jira [connected to the factory](/factories/integrations/jira/#connect-jira-and-add-an-automation). A factory connects to Jira or Linear, not both.
+* An [Atlassian account linked to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) for each requester.
+* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
+
+## Configure the agent-session trigger
+
+Assigning or mentioning Warp on a Jira work item creates an agent session. Use the `jira` / `agent_session_created` trigger with `project_keys` to limit which projects' sessions this automation handles.
+
+Connecting the Jira site to your workspace grants integration access; automation filters control routing. For a GitHub-backed factory, declare `type: jira` in `factory.yaml`'s [integrations list](/factories/factory-as-code/#integrations). Dashboard project selection is not required or editable for that setup.
+
+1. In the factory dashboard, open **Automations** and find the existing Jira automation. Selecting Jira projects during setup creates one. Reuse it to avoid overlapping handlers.
+   * **Warp-managed factory** - Edit the automation in the dashboard.
+   * **GitHub-backed factory** - Edit its definition file. The dashboard view is read-only.
+
+2. Set the trigger's project filter to your Jira project. In the [definition file](/factories/factory-as-code/), use the project key in `project_keys`. Replace `YOUR_PROJECT_KEY` below with the prefix of your issue identifiers, such as `ENG` in `ENG-123`.
+
+   ```markdown title="automations/jira-agent-sessions/automation.md"
+   ---
+   triggers:
+     - provider: jira
+       event: agent_session_created
+       filter:
+         project_keys: [YOUR_PROJECT_KEY]
+   ---
+   Someone assigned or mentioned Warp on a Jira work item in a project this
+   factory serves, which started this agent session. Read the work item and
+   the instruction that started the session, restate the deliverable, and
+   delegate to the implementation agent with the acceptance criteria. Ask for
+   missing requirements before implementation. Require tests and a verification
+   summary on the pull request. Post progress and the final pull request link
+   in the session, and comment the link and verification summary on the work
+   item so the result stays visible after the session ends. Leave the work
+   item's status and assignee unchanged. A person reviews and merges;
+   do not merge.
+   ```
+
+   This example omits `agent`, so requests go to the foreman. Its project filter matches every agent session in that project.
+
+   For opt-in intake, add `labels: [factory-ready]` and apply the label before assigning or mentioning Warp. The filter reads the work item's current labels when the session starts. Jira label names are case-sensitive. See [Jira events and filters](/factories/automation-triggers/#jira) for all options.
+
+   Avoid overlapping project filters across factories. If two factories match the same project's session, both handle that work item.
+
+3. Apply the definition change.
+   * **Warp-managed factory** - Save the edits in the factory dashboard.
+   * **GitHub-backed factory** - Open a pull request, confirm the `warp/factory-config` check passes, then merge it into the factory's production branch.
+
+   Validation does not confirm Jira connectivity, project access, or account linking. Test those requirements with a real agent session.
+
+## Delegate from Jira
+
+1. Write the Jira work item with the requested behavior, verifiable acceptance criteria, and the target repository if the factory has more than one.
+2. Assign the work item to **Warp**, or mention **Warp** in a comment, and include an instruction. Warp must be available on your Jira site, where it appears among Atlassian's Rovo agents.
+
+The `warp-agent` label starts a standalone cloud agent run, not factory work.
+
+For example, prepare `ENG-123` with:
+
+* **Summary** - Return 404 for unknown customer IDs
+* **Expected behavior** - `GET /customers/{id}` returns `404` with `{"error": "customer_not_found"}` instead of `500` when the ID does not exist
+* **Verification** - A regression test for an unknown customer ID
+
+Then assign it to Warp with this instruction:
+
+```text title="Example instruction"
+Implement this against the acceptance criteria and open a pull request.
+```
+
+Replies in the agent session continue the same run, even after the agent finishes a turn, so answer the foreman's questions there instead of starting another session.
+
+## What comes back
+
+Jira shows the agent session as submitted, working, waiting for input, completed, failed, or cancelled. The instructions above explicitly request a work-item comment so the result remains visible outside the session.
+
+Check for these results:
+
+* **Run** - An entry under the automation on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs), while the session moves from submitted to working
+* **Pull request** - A pull request linked to the work item, with tests and a verification summary
+* **Handoff** - The foreman posts the pull request link and verification summary both on the work item and in the session
+
+The instructions leave the work item's status and assignee unchanged. A person reviews and merges the pull request. To have the foreman transition the work item, such as to In Review, add that instruction to the prompt. Jira permissions and valid project transitions still apply.
+
+## Unmatched and vague requests
+
+A session outside `project_keys` starts no run through this automation. Other matching automations can still handle it. Check the factory's Runs page to distinguish an unmatched event from a failed run.
+
+The instructions above ask for missing requirements before implementation. Reply in the session to continue the same run.
+
+## Troubleshooting
+
+* **Warp is unavailable to assign or mention** - Warp for Jira must be installed on the Jira Cloud site and connected to a workspace. Ask a Jira site admin to install it and click **Connect to Warp** on the app's **Configure** page. See [Jira troubleshooting](/factories/integrations/jira/#troubleshooting).
+* **Jira asks you to connect an account** - Site installation does not link individual Atlassian accounts. Link your account to Warp from Jira personal settings, then assign or mention Warp again.
+* **Assigning Warp starts no run** - The factory needs the Jira integration and a matching automation. Confirm Jira is connected, the `agent_session_created` automation is enabled, and `project_keys` matches the work item's project. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **The session shows no result** - The run may still be working, waiting for input, or failed. Open it under the automation on the factory's Runs page and check its status.
+
+## Set it up with a prompt
+
+1. Replace `OWNER/REPO` with your repository and `YOUR_PROJECT_KEY` with your Jira project key in the following prompt.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/jira-to-pull-request.md.
+Set up Jira intake for my factory: one jira/agent_session_created
+automation filtered to project_keys [YOUR_PROJECT_KEY], routed to the foreman, for my
+repository OWNER/REPO, with a prompt that comments the pull request link on
+the work item. If the factory already has a Jira agent-session automation,
+update it instead of adding a second one. Validate the definition before
+applying it, then list what I still have to do by hand: install Warp for Jira
+on my Jira Cloud site and connect it to my workspace, declare Jira in the
+factory definition, and link each requester's Atlassian account to Warp.
+Configure scope confirmation, clarification, delegation to the implementation
+agent, tests, and verification results in the session and work-item comment.
+Require human review; never merge or change work-item status or assignee.
+Do not change anything in Jira during setup without asking me first.
+Include tests for a matching project, an unmatched project, and a session
+reply. Check that no other factory or automation matches the test session.
+```
+
+## Guide navigation
+
+* Previous stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* Next stage: [Factory use cases](/factories/use-cases/) - Extend the workflow as needed
+* All stages: [Factory guides](/factories/guides/)
+
+## Related pages
+
+* [Connect Jira to your factory](/factories/integrations/jira/) - Permissions, what happens during a run, and which account the Jira tools use
+* [Factory automations](/factories/automations/) - How matching works and how to edit filters

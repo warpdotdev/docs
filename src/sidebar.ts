@@ -405,16 +405,29 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// Reading-path order: factory boundaries first, then the architecture
-					// shapes. Each page's closing section points to the next stage, so
-					// keep this order when adding pages.
 					label: 'Guides',
 					items: [
+						{ slug: 'factories/guides', label: 'Overview' },
 						{ slug: 'factories/guides/structuring-your-factory', label: 'Factory boundaries' },
-						{ slug: 'factories/guides/web-application-factory', label: 'Web application factory' },
-						{ slug: 'factories/guides/monorepo-factory', label: 'Monorepo factory' },
-						{ slug: 'factories/guides/microservices-factory', label: 'Microservices factory' },
-						{ slug: 'factories/guides/multi-repository-factory', label: 'Multi-repository factory' },
+						{
+							label: 'Configure your factory',
+							items: [
+								{ slug: 'factories/guides/web-application-factory', label: 'Web application factory' },
+								{ slug: 'factories/guides/monorepo-factory', label: 'Monorepo factory' },
+								{ slug: 'factories/guides/microservices-factory', label: 'Microservices factory' },
+								{ slug: 'factories/guides/multi-repository-factory', label: 'Multi-repository factory' },
+							],
+						},
+						{ slug: 'factories/guides/testing-and-tuning-your-factory', label: 'Testing and tuning' },
+						{
+							label: 'Connect work intake',
+							items: [
+								{ slug: 'factories/guides/slack-to-pull-request', label: 'Slack to pull request' },
+								{ slug: 'factories/guides/jira-to-pull-request', label: 'Jira to pull request' },
+								{ slug: 'factories/guides/linear-to-pull-request', label: 'Linear to pull request' },
+								{ slug: 'factories/guides/github-issue-to-pull-request', label: 'GitHub issue to pull request' },
+							],
+						},
 					],
 				},
 				{
