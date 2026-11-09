@@ -4,6 +4,8 @@ description: >-
   Scope a monorepo product in Warp Factories, install its workspace, test shared-package dependents, and involve their owners.
 sidebar:
   label: "Monorepo factory"
+prev: false
+next: false
 ---
 
 Use Warp Factories to scope work to one product in a shared repository. Agents install the product's workspace, test affected packages and their dependents, and request shared-package owners' review. A person merges the changes.
@@ -191,10 +193,14 @@ access I still have to create or grant.
 * **GitHub rejects a review request for a shared edit:** The team may lack access, or its name may be wrong. Check the `org/team` slug and repository access. Code-owner teams need write access; fallback reviewers need at least read access.
 * **A shared edit shows only the product's tests:** The affected-package filter may use the wrong base branch, or workspace dependencies may be missing. Compare against the default branch and declare the shared packages as workspace dependencies so the tool includes their dependents.
 
+## Guide navigation
+
+* Previous stage: [Factory boundaries](/factories/guides/structuring-your-factory/)
+* Next stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* All stages: [Factory guides](/factories/guides/)
+
 ## Related pages
 
-* [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/) - Next on the reading path: test, evaluate, and tune
-* [Factory boundaries](/factories/guides/structuring-your-factory/) - Decide whether each product needs its own factory
 * [Factory skills](/factories/factory-skills/) - Where a shared skill lives and how agents read it
 * [Isolating Direct backend tasks with Git worktrees](/factories/self-hosting/direct-monorepo-worktrees/) - Share one monorepo checkout across self-hosted runs
 * [Runners for Warp Factories](/factories/runners/) - Images, setup commands, and the setup time limit

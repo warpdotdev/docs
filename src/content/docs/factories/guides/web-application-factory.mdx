@@ -4,6 +4,8 @@ description: >-
   Coordinate frontend and backend changes with Warp Factories, automated tests, and browser verification for user-facing changes.
 sidebar:
   label: "Web application factory"
+prev: false
+next: false
 ---
 
 Use Warp Factories to coordinate frontend and backend changes that ship together. Agents run the app's checks and verify user-facing changes in a browser.
@@ -194,7 +196,8 @@ to load sample data. Make the foreman name the areas a request touches,
 make the implementer run the checks for every area it changed and paste
 the results into the pull request, and keep the verification agent on the
 Warp Agent harness. Choose a runner image that has our toolchain. Validate
-the definition before opening a pull request, never merge, and tell me
+the definition before opening a pull request. Use nonsensitive sample data
+and test credentials only. Never merge, and tell me
 which labels, access, and test accounts I still have to create.
 ```
 
@@ -205,10 +208,14 @@ which labels, access, and test accounts I still have to create.
 * **Verification produces no screenshots or recording:** Computer Use requires the Warp Agent harness, and sharing must be enabled for the team. Confirm the verifier's harness and the [artifact attachment mode](/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes).
 * **A user-facing change has no browser verification:** The request may omit visible acceptance criteria, or the foreman may not dispatch the verifier. Specify the states and behavior to check, and instruct the foreman to request verification for frontend changes.
 
+## Guide navigation
+
+* Previous stage: [Factory boundaries](/factories/guides/structuring-your-factory/)
+* Next stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* All stages: [Factory guides](/factories/guides/)
+
 ## Related pages
 
-* [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/) - Next on the reading path: test, evaluate, and tune
-* [Factory boundaries](/factories/guides/structuring-your-factory/) - Decide what belongs in this factory
 * [Verifying changes with Computer Use in your factory](/factories/use-cases/computer-use-verification/) - The full verification agent, skill, and evidence-sharing settings
 * [Coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) - When the frontend and backend live in separate repositories
 * [Runners for Warp Factories](/factories/runners/) - Images, instance sizes, and setup command behavior

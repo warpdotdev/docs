@@ -4,6 +4,8 @@ description: >-
   Set boundaries in Warp Factories based on ownership, dependencies, access requirements, and approvals, not repository count.
 sidebar:
   label: "Factory boundaries"
+prev: false
+next: false
 ---
 
 In Warp Factories, a factory boundary defines which code a factory works on, which requests it handles, and which changes require human approval. That scope can range from part of a repository to several repositories.
@@ -37,12 +39,14 @@ Repository count isn't on the list. One factory can hold several repositories, a
 
 ## Examples by codebase structure
 
-Choose the setup guidance that fits your codebase. The pages include configuration examples to adapt to your repositories.
+Choose the setup guidance that fits your codebase. These guides are complementary, not mutually exclusive; a web application can use microservices across several repositories.
 
 * [Setting up a factory for a web application](/factories/guides/web-application-factory/) - Frontend and backend work in one factory, with the app and its tests set up so changes can be verified in a browser.
 * [Setting up a factory for a monorepo](/factories/guides/monorepo-factory/) - One product inside a shared repository, with checks on shared packages and escalation to their owners.
 * [Setting up a factory for microservices](/factories/guides/microservices-factory/) - Related services grouped by contract and ownership, with runtime context and contract checks.
 * [Coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) - One pull request per repository, linked together, with a merge order a person controls.
+
+After configuring your factory, continue to [testing and tuning](/factories/guides/testing-and-tuning-your-factory/).
 
 Factories shared by several teams, or operated by a platform team on behalf of others, add shared standards and routing responsibilities on top of these shapes.
 
@@ -72,9 +76,14 @@ Show me the proposal before you create or change anything.
 * **One event starts runs in two factories:** Their event filters overlap. Separate them by label, channel, or project so an event matches only one automation. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
 * **Setup fails or takes most of the run:** One runner may be preparing more stacks than the task needs. Scope setup commands to the relevant code, give agents separate runners, or split the factory by operating needs. See [runners](/factories/runners/).
 
+## Guide navigation
+
+* Previous stage: [Factory guides overview](/factories/guides/)
+* Next stage: [Configure your factory](/factories/guides/#configure-your-factory) - Use the setup options above
+* All stages: [Factory guides](/factories/guides/)
+
 ## Related pages
 
-* [Setting up a factory for a web application](/factories/guides/web-application-factory/) - Continue the reading path with the first codebase shape
 * [How Warp Factories work](/factories/how-factories-work/) - What happens inside one factory from intake to handoff
 * [Warp Factories overview](/factories/#sizing-a-factory) - The sizing rule of thumb this page expands on
 * [Definitions as code](/factories/factory-as-code/) - The files where a boundary is written: repositories, agents, runners, and skills

@@ -4,6 +4,8 @@ description: >-
   Coordinate changes across repositories with Warp Factories, linked pull requests, and a merge order controlled by a person.
 sidebar:
   label: "Multi-repository factory"
+prev: false
+next: false
 ---
 
 Use Warp Factories to coordinate work across repositories and deliver linked pull requests for a person to merge in a documented order. Cross-repository changes are not atomic: each repository has its own branch and pull request.
@@ -155,7 +157,8 @@ appear (factory.yaml, the automation, the runner, and all three agent
 prompts), replace the bootstrap, test, and contract-check commands with
 the ones each repository really uses, and pick a runner image that carries
 every toolchain. Keep the rules: the provider changes first and only
-additively, one pull request per repository linked both ways with the
+with backward-compatible additions, never new required request fields.
+Open one pull request per repository linked both ways with the
 merge order in every description, a reviewer that only checks the pair
 agrees, and a human who merges in the order the foreman posts. Validate
 the definition before you open a pull request, never merge, and list what
@@ -170,10 +173,14 @@ label in each repository, and registering the definition.
 * **Production breaks after the consumer merges first:** The consumer may require a contract the deployed provider does not serve yet. Revert the consumer, then follow the documented merge order. Branch protection controls who can merge, not cross-repository order, so keep that order in each description and the final issue comment.
 * **One change starts two runs:** The same change may have been labeled in two issues, or automation filters may overlap. Use one issue per change and nonoverlapping filters. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
 
+## Guide navigation
+
+* Previous stage: [Factory boundaries](/factories/guides/structuring-your-factory/)
+* Next stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* All stages: [Factory guides](/factories/guides/)
+
 ## Related pages
 
-* [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/) - Next on the reading path: test, evaluate, and tune
-* [Factory boundaries](/factories/guides/structuring-your-factory/) - Decide which repositories belong in one factory
 * [Setting up a factory for microservices](/factories/guides/microservices-factory/) - The runtime context and contract checks behind each pull request
 * [Factory definition syntax](/factories/factory-as-code/#repositories) - The `repositories` and `codeForges` fields
 * [Connect GitHub to your factory](/factories/integrations/github/) - Installation scope, permissions, and label routing
