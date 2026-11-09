@@ -5,6 +5,7 @@ description: >-
   assign categories and priorities, and recommend the next action.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 
 With Warp Factories, you can investigate incoming issues before deciding what to work on. Your factory's triage agent gathers evidence and recommends a category, priority, and next step.
 
@@ -40,6 +41,8 @@ This [recipe](/factories/use-cases/) sends intake to your foreman, which delegat
    * When to ask the foreman to get missing information from a maintainer.
 
    See [factory skills](/factories/factory-skills/) for the file format.
+
+   If your file-based definition lacks a triage agent, start with `agents/triage/agent.md` from the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr). The agent investigates requests, reproduces bugs, and records findings on the tracked issue. Replace its Linear references with your issue source.
 4. Configure the automation to send triage requests to your foreman. Set its `agent` field to the foreman agent's name in your definition; the examples use `agent: foreman`. Keep the triage-only stopping instructions in the prompt.
 
    Choose your issue source below.
@@ -148,6 +151,36 @@ This [recipe](/factories/use-cases/) sends intake to your foreman, which delegat
 
 5. Apply the definition changes. For a Warp-managed factory, save the edits in the factory dashboard. For a GitHub-backed factory, merge the changes into its configured production branch. Confirm validation succeeds and the changes are applied before testing. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
+## Set it up with a prompt
+
+1. Replace `OWNER/REPO` with your repository, or describe your Linear team or Jira project instead.
+2. Paste the completed prompt into a new chat with your factory's foreman in the {VARS.FACTORY_WEB_APP}, or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/use-cases/issue-triage.md and set up
+issue triage in my factory for OWNER/REPO. Use the triage agent in
+https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
+as the starting point, adapted to my issue source.
+
+- Check my existing automations first. If one already handles new or
+  labeled issues in OWNER/REPO, update it or narrow its filters instead of
+  adding a second one.
+- Add or update the triage skill with my categories, priority levels, the
+  evidence required before naming a root cause, and when to ask a
+  maintainer.
+- Configure one intake path for my issue source using the setup procedure.
+  If I have not selected a path, ask me before configuring it. Do not add
+  both creation and label intake for the same backlog. Route requests to
+  the foreman using the triage-only prompt: return evidence, category,
+  priority, and the next action, then stop. Never write a specification,
+  dispatch implementation, approve, or merge.
+- Validate the definition. If it's managed as code, open a pull request to
+  the definition repository; otherwise tell me what to change in the
+  factory dashboard.
+Then guide me through the page's test plan with a fresh test issue outside
+my production backlog.
+```
+
 ## Test issue triage
 
 Use fresh issues for intake tests. Changing an automation's `agent` field doesn't switch the agent in an existing conversation. For an issue previously handled directly by a triage agent, start a separate foreman conversation with the issue link and make further requests there. Don't rely on label events to switch its agent.
@@ -171,6 +204,12 @@ A customer opens `Checkout fails after applying two coupons` in `acme/payments-s
 The triage agent labels the issue `bug` and `payments`, assigns the team's `P1` priority according to the skill, and records the failing test output and affected code path. The foreman returns the recommendation to implement because the cause is bounded. If cart data is missing, the foreman asks for it instead.
 
 To take accepted issues through implementation in the same factory, follow the [issue implementation recipe](/factories/use-cases/issue-implementation/).
+
+## Troubleshooting
+
+* **Triage runs twice for one issue** - Creation and label triggers may overlap, or a Jira general-purpose handler may also match. Use one intake path per backlog. For Jira, exclude `needs-triage` from the general `agent_session_created` handler while preserving its other exclusions. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **Applying `needs-triage` starts no run** - Check the repository, team, project, and label filters. GitHub skips bot senders by default, so retry from a person's account when required. For Jira, match the label's capitalization and assign or mention **Warp** after applying it. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
+* **Implementation starts after triage** - The triage prompt may lack its stopping instruction, or another automation may match `factory-ready`. Require the triage prompt to return findings and stop without dispatching implementation. Check overlapping automation filters, and remove `needs-triage` before applying `factory-ready` to request implementation.
 
 ## Related pages
 
