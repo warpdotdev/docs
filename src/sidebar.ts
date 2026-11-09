@@ -405,11 +405,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// Reading-path guides, in stage order: structure, architecture,
-					// testing and tuning, then work intake.
 					label: 'Guides',
 					items: [
 						{ slug: 'factories/guides/testing-and-tuning-your-factory', label: 'Testing and tuning' },
+						{ slug: 'factories/guides/slack-to-pull-request', label: 'Slack to pull request' },
+						{ slug: 'factories/guides/jira-to-pull-request', label: 'Jira to pull request' },
+						{ slug: 'factories/guides/linear-to-pull-request', label: 'Linear to pull request' },
+						{ slug: 'factories/guides/github-issue-to-pull-request', label: 'GitHub issue to pull request' },
 					],
 				},
 				{

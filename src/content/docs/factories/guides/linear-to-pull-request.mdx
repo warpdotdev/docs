@@ -1,0 +1,138 @@
+---
+title: Turning a Linear issue into a pull request
+description: >-
+  Route one Linear team's delegated issues to a factory and receive pull
+  requests attached to the issues, with verification results in each session.
+sidebar:
+  label: "Linear to pull request"
+prev: false
+next:
+  link: /factories/use-cases/
+  label: Factory use cases
+---
+
+Configure a factory in Warp Factories to accept delegated issues from one Linear team and attach the resulting pull requests to those issues. A person reviews and merges the code changes.
+
+Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Linear delegation.
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) with access to the target repository and permission to push branches and open pull requests.
+* Linear [connected to the factory](/factories/integrations/linear/#connect-linear), with the Warp app authorized to access your team. A factory connects either Linear or Jira, not both.
+* Each requester's Linear account linked to their Warp account.
+* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
+
+## Configure the agent-session trigger
+
+Delegating an issue to Warp or mentioning the app in a comment opens a Linear agent session. Use the `linear` / `agent_session_created` trigger with `teams` to limit which teams' sessions this automation handles.
+
+1. In the factory dashboard, open **Automations** and find the existing Linear agent-session automation. Connecting Linear creates one for the selected teams. Reuse it to avoid duplicate runs.
+   * **Warp-managed factory** - Edit the automation in the dashboard.
+   * **GitHub-backed factory** - Edit its definition file. The dashboard view is read-only.
+
+2. Set the trigger's team filter to your Linear team. In the [definition file](/factories/factory-as-code/), use the team's exact name in `teams`. Replace `YOUR_TEAM` in the following example.
+
+   ```markdown title="automations/linear-delegation/automation.md"
+   ---
+   triggers:
+     - provider: linear
+       event: agent_session_created
+       filter:
+         teams: [YOUR_TEAM]
+   ---
+   Someone delegated a Linear issue to this factory, or mentioned it in a
+   comment, and Linear opened an agent session. The session's issue is the work
+   item. Acknowledge in the session first, then drive the issue to a pull
+   request. Delegate to the implementation agent with the issue reference and
+   acceptance criteria. Require tests and a verification summary on the pull
+   request. Attach the pull request to the issue and post its link and results
+   in the session. Ask for missing requirements before implementation.
+   Leave the issue's workflow state unchanged. Replies continue this run;
+   do not start a second work item for them. A person reviews and merges;
+   do not merge.
+   ```
+
+   This example omits `agent`, so requests go to the foreman. Optional filters include `projects` for project names, `labels` for the issue's current labels, and `keywords` for the text that opened the session.
+
+   `agent_session_created` does not accept a workflow-state filter. For state-based intake, use `issue_state_changed` with `states`, as shown in [implementing approved issues](/factories/use-cases/issue-implementation/). See [Linear events and filters](/factories/automation-triggers/#linear).
+
+3. Apply the definition change.
+   * **Warp-managed factory** - Save the edits in the factory dashboard.
+   * **GitHub-backed factory** - Open a pull request, confirm the `warp/factory-config` check passes, then merge it into the factory's production branch.
+
+   Warp resolves team names against your Linear workspace when the definition is applied. A name must resolve to exactly one team the app can see.
+
+## Delegate from Linear
+
+1. Write the issue with the requested behavior, verifiable acceptance criteria, and the target repository if the factory has more than one.
+2. Delegate the issue to the Warp app, or mention the app in a comment on the issue.
+
+For example, prepare an issue like this before delegating it:
+
+```text title="Example issue"
+ENG-142  Reject unsupported currency codes on POST /invoices
+
+POST /invoices accepts any string in `currency`. Reject anything that is
+not USD, EUR, or GBP.
+
+Acceptance criteria:
+- A request with an unsupported `currency` returns 400 with
+  {"error": "unsupported_currency"}.
+- Requests with USD, EUR, or GBP behave as before.
+- Tests cover one accepted code and one rejected code.
+```
+
+Replies in the agent session continue the same run, so answer the foreman's questions there instead of opening another session.
+
+## What comes back
+
+With the instructions above, check for:
+
+* **Acknowledgement** - The foreman restates the requested change in the issue's agent session before implementation. The factory's [Runs page](/factories/factory-dashboard/#inspect-runs) shows the foreman and implementation runs.
+* **Pull request** - The implementation agent opens a pull request with tests and a verification summary.
+* **Handoff** - The foreman attaches the pull request to the issue and posts its link and verification summary in the session.
+
+The instructions leave the issue's workflow state unchanged. A person reviews and merges the pull request and updates the issue. To have the foreman move the issue, such as to In Review, add that instruction to its prompt. This is configured behavior, not an enforced workflow rule.
+
+## Unmatched and vague requests
+
+A session from a team that isn't in `teams` starts no run through this automation. Other matching automations can still handle it. If none matches, the [Linear integration](/factories/integrations/linear/#route-agent-sessions) uses its default session behavior.
+
+The instructions above ask for missing requirements before implementation. Reply in the session to continue the same run.
+
+## Troubleshooting
+
+* **The agent session shows an authentication prompt** - The requester has not linked their Linear account to Warp. Complete the account-linking prompt, then delegate again.
+* **Delegating an issue starts no run** - Check that the automation is enabled and its `teams` filter matches the issue's team. Then inspect the factory's Runs page. A session matching no automation leaves no factory run entry. See [Linear troubleshooting](/factories/integrations/linear/#troubleshooting).
+* **One delegation starts two runs** - A default session automation, a custom automation, or a mentioning-comment trigger may overlap. Narrow or remove the duplicate trigger. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **No pull request appears** - The request may not have reached implementation, or the code-host connection may be unable to push. Check the run's stage and repository write access. Linear authorization does not grant code-host permissions. See [no pull request appears](/factories/troubleshooting/#no-pull-request-appears).
+
+## Set it up with a prompt
+
+1. Replace `OWNER/REPO` with your repository and `TEAM` with your Linear team's name in the following prompt.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/linear-to-pull-request.md.
+Set up Linear intake for my factory: one
+linear/agent_session_created automation filtered to the Linear team TEAM,
+routed to the foreman, for my repository OWNER/REPO. If the factory already
+has a Linear agent-session automation, update it instead of adding a second
+one. Validate the definition before applying it, then list what I still have
+to do by hand: connect Linear to the factory, authorize team access, and have
+each requester link their Linear user to their Warp account. Finish by
+telling me how to delegate a first test issue and what I should see in the
+issue's agent session and on the pull request. Configure the foreman to
+confirm scope, ask for missing requirements, delegate to the implementation
+agent, and attach the PR to the issue with verification results in the
+session. Require tests and human review; never merge or change the issue's
+workflow state. Include tests for an unmatched team and a session reply.
+Check that no other automation matches the test delegation.
+```
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Add triage, review, and other workflows to the same factory
+* [Connect Linear to your factory](/factories/integrations/linear/) - Permissions, other Linear events, and replying to a waiting run
+* [Factory automations](/factories/automations/) - How matching works and how to edit filters
