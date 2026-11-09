@@ -9,7 +9,7 @@ prev: false
 next: false
 ---
 
-Configure a factory in Warp Factories to start work when a GitHub issue receives a readiness label or is assigned to the factory. The foreman checks that the request is clear enough to implement and posts the resulting pull request link on the issue. A person reviews and merges the changes.
+Start work in Warp Factories when a GitHub issue receives a readiness label or is assigned to the factory. The foreman checks the requirements and posts the pull request link on the issue. A person reviews and merges the changes.
 
 Use an existing factory with a foreman and an implementation agent, or start with the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. It includes label-based intake; the steps below also show assignment-based intake.
 
@@ -120,7 +120,7 @@ Matching activity on an issue with an existing work item continues that work ite
 
 ## What comes back
 
-With the instructions above, check for:
+Check for:
 
 * **Work item** - An entry on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs), with the issue as its source
 * **Scope confirmation** - A foreman comment restating the requested change. Reply on the issue if it misunderstood.
