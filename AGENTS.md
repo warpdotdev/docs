@@ -950,12 +950,12 @@ The platform is not something you address — it runs and coordinates agents, an
 
 ### Warp Factories terminology
 
-This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+**Warp Factories** names the infrastructure platform and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun. Use `.agents/rules/oz-style-guidelines.md` for the platform's positioning and its distinction from a customer's workflow.
 
-- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
 - ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
-- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+- ❌ "Factories" on its own to mean the platform → write "Warp Factories"
 
 Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
 

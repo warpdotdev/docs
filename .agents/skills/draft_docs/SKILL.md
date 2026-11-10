@@ -63,7 +63,7 @@ Also clarify: Is this a new page or an update to an existing page?
 ### 3. Read the style guide
 Read `AGENTS.md` in the docs repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
 
-Use `.agents/rules/oz-style-guidelines.md` as the canonical positioning source and `.agents/references/terminology.md` for names. Do not infer a product promise or migration deadline from older marketing guidance.
+Read and apply `.agents/rules/oz-style-guidelines.md` as the canonical positioning source and `.agents/references/terminology.md` for names. Check definitions, openings, and descriptions against the platform/workflow distinction before drafting. Positioning is not evidence of shipped behavior or compatibility.
 
 ### 3.5. Confirm the doc should exist, then design it
 

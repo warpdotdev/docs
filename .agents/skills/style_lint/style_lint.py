@@ -1456,18 +1456,18 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
                 continue
             if preceded_by_warp:
                 message = (
-                    'Singular "Warp Factory" used as a product name. The '
-                    'product is "Warp Factories", always plural and written in '
+                    'Singular "Warp Factory" used as a platform name. The '
+                    'platform is "Warp Factories", always plural and written in '
                     'full; one deployment of it is a lowercase "factory". '
-                    'Write "Warp Factories" for the product, or "a factory" '
+                    'Write "Warp Factories" for the platform, or "a factory" '
                     "for an instance."
                 )
             else:
                 message = (
                     'Bare "Factory" used as a proper noun. "Warp Factories" is '
-                    'the product and is written in full; an individual factory '
+                    'the platform and is written in full; an individual factory '
                     'is lowercase. Write "factory" (or "Warp Factories" if you '
-                    "mean the product)."
+                    "mean the platform)."
                 )
             issues.append(Issue(
                 filepath, i, "factory-proper-noun", message, "warning",

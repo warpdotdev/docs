@@ -326,18 +326,18 @@ specific interface changes, not on an inferred retirement date:
 
 ## Warp Factories terminology
 
-### The product/instance rule
+### The platform/factory rule
 
-This works like GitHub Actions. **Warp Factories** is the product and is always
-written in full. An individual **factory** is a common noun and is always
-lowercase. A bare capitalized **Factory** is never a proper noun — there is no
-such product.
+**Warp Factories** names the infrastructure platform and is always written in
+full. An individual **factory** is a common noun and is always lowercase. A bare
+capitalized **Factory** is never a proper noun. Follow
+`.agents/rules/oz-style-guidelines.md` for positioning.
 
-- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "set up a factory" (an instance)
 - ✅ "factory dashboard", "factory run", "factory agents", "factory definition"
 - ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
-- ❌ "Factories" on its own to mean the product — write "Warp Factories"
+- ❌ "Factories" on its own to mean the platform — write "Warp Factories"
 
 Sentence-initial capitals are positional, not proper nouns: a heading, sidebar
 label, or page title may begin "Factory agents" or "Factory dashboard" for the
@@ -348,13 +348,13 @@ The setup wizard currently renders **Factory name**, **Add your Factory to your
 team**, and "Factory running!", and the sidebar renders **Factory definition**.
 Docs match the screen; the fix belongs in the app.
 
-- **Warp Factories** — Warp's product for deploying and operating cloud software factories: automation loops around the SDLC where cloud agents triage, spec, implement, review, and verify work, with humans in the loop at key decision points. Launched in Early Access 2026-08-18.
-  *Usage note:* Capitalize both words as the product name; plural "Factories." Always write it in full — never a bare "Factory" or "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
+- **Warp Factories** — Warp's infrastructure platform on which teams build and operate their own software factories.
+  *Usage note:* Capitalize both words as the platform name; plural "Factories." Always write it in full — never a bare "Factory" or "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
 
-- **software factory** — The generic, lowercase industry term for an automation loop around the SDLC (triage, spec, implement, review, verify). Warp Factories is Warp's product implementation of this pattern.
-  *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). Capitalize only when part of the product name "Warp Factories."
+- **software factory** — The generic, lowercase industry term for a system of development workflows that automates parts of the software development lifecycle.
+  *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). A team can build one on Warp Factories; the term does not require every lifecycle stage.
 
-- **factory** — An individual deployed instance of a software factory, built on Warp Factories infrastructure.
+- **factory** — An individual software factory a team configures on Warp Factories infrastructure.
   *Usage note:* Lowercase common noun ("your factory," "set up a factory").
 
 - **factory definitions as code** — The practice of specifying a factory's repos, agent roles, skills, MCPs, and permissions as version-controlled code, similar to infrastructure-as-code. Enables rollback, canarying, and agentic self-improvement of the factory itself.
@@ -375,7 +375,7 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Bold **Foreman name** when referring to the field, and use `alias` when referring to the definition key. Factory setup defaults it to the factory's name, so the two usually match — say so wherever a reader could mistake the handle for the factory itself. This collision is the main reported source of foreman/factory confusion.
 
 - **Factory MCP** — The MCP server that lets any coding agent or MCP client interact with a factory: push work in, pull status, or guide sessions.
-  *Usage note:* The one sanctioned exception to the product/instance rule above, because it is the feature's own shipped name — the server registers as `warp-factory` and its skill calls itself "the Warp Factory MCP." Capitalize both words; do not generalize the exception to other phrases.
+  *Usage note:* The one sanctioned exception to the platform/factory rule above, because it is the feature's own shipped name — the server registers as `warp-factory` and its skill calls itself "the Warp Factory MCP." Capitalize both words; do not generalize the exception to other phrases.
 
 - **`warp-factory`** — The conventional key for the Factory MCP server in an MCP client's configuration, as in `claude mcp add ... warp-factory` or a `"warp-factory": { "url": ... }` entry.
   *Usage note:* A name the reader chooses in their own client, not a Warp-owned identifier, and unrelated to a factory's name or a foreman's handle. Always code-formatted. Do not write it as `@warp-factory`, and do not introduce it as if it names a factory. Note that the same string also appears in the `warp-factory-examples` repository name and in an example IAM role — those are unrelated.

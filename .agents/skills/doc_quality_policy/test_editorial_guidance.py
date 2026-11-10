@@ -82,6 +82,33 @@ class EditorialGuidanceTests(unittest.TestCase):
                        "Developer control", "Measurement and improvement"):
             self.assertEqual(text.count(f"* **{pillar}** -"), 1, pillar)
 
+    def test_positioning_entry_points_reference_the_canonical_file(self):
+        canonical = ".agents/rules/oz-style-guidelines.md"
+        self.assertTrue((ROOT / canonical).is_file())
+        for path in ("AGENTS.md", ".agents/references/terminology.md",
+                     ".agents/skills/draft_docs/SKILL.md",
+                     ".agents/skills/review-docs-pr/SKILL.md",
+                     ".agents/skills/style_lint/SKILL.md"):
+            self.assertIn(canonical, self.text(path), path)
+        for skill in ("draft_conceptual", "draft_procedural", "draft_quickstart",
+                      "draft_reference", "draft_troubleshooting", "draft_faq",
+                      "draft_guide", "draft_feature_doc"):
+            text = self.text(f".agents/skills/{skill}/SKILL.md")
+            self.assertIn("draft_docs", text, skill)
+            self.assertIn("AGENTS.md", text, skill)
+
+    def test_factory_guidance_does_not_reintroduce_product_definitions(self):
+        for path in ("AGENTS.md", ".agents/references/terminology.md",
+                     ".agents/skills/style_lint/SKILL.md",
+                     ".agents/skills/draft_docs/evals/evals.json"):
+            text = self.text(path)
+            for phrase in ("**Warp Factories** is the product",
+                           "Warp's product for deploying",
+                           "Warp's product implementation",
+                           '"Warp Factories" is the product',
+                           "Warp Factories is the product name"):
+                self.assertNotIn(phrase, text, path)
+
     def test_quickstart_timing_can_be_omitted_when_unverified(self):
         for path in ("AGENTS.md", ".agents/skills/draft_quickstart/SKILL.md",
                      ".agents/templates/quickstart.md"):
