@@ -6,12 +6,10 @@ description: >-
 sidebar:
   label: "Jira to pull request"
 prev: false
-next:
-  link: /factories/use-cases/
-  label: Factory use cases
+next: false
 ---
 
-Configure a factory in Warp Factories to accept work assigned to Warp or requested through mentions in one Jira project. The foreman responds in the work item's agent session and posts the resulting pull request link on the work item. A person reviews and merges the changes.
+Route assignments and mentions in one Jira project to a factory in Warp Factories. The foreman responds in the agent session and posts the pull request link on the work item. A person reviews and merges the changes.
 
 Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Jira delegation.
 
@@ -93,7 +91,7 @@ Replies in the agent session continue the same run, even after the agent finishe
 
 ## What comes back
 
-Jira shows the agent session as submitted, working, waiting for input, completed, failed, or cancelled. The instructions above explicitly request a work-item comment so the result remains visible outside the session.
+Jira shows session progress and results. The prompt also requires a work-item comment so the pull request link remains visible outside the session.
 
 Check for these results:
 
@@ -139,8 +137,13 @@ Include tests for a matching project, an unmatched project, and a session
 reply. Check that no other factory or automation matches the test session.
 ```
 
+## Guide navigation
+
+* Previous stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* Next stage: [Factory use cases](/factories/use-cases/) - Extend the workflow as needed
+* All stages: [Factory guides](/factories/guides/)
+
 ## Related pages
 
-* [Factory use cases](/factories/use-cases/) - Add triage, review, and other workflows to the same factory
 * [Connect Jira to your factory](/factories/integrations/jira/) - Permissions, what happens during a run, and which account the Jira tools use
 * [Factory automations](/factories/automations/) - How matching works and how to edit filters
