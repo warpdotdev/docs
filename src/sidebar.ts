@@ -557,11 +557,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// The factory dashboard and inbox are operational surfaces. Measurement
-					// and optimization pages live earlier under 'Measure and improve'.
 					label: 'Management & observability',
 					items: [
-						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
+						{ slug: 'factories/factory-home' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
 					],
 				},
