@@ -2822,10 +2822,11 @@ paths:
       description: |
         Cancel the request the agent is currently working on without ending
         the run or tearing down its sandbox. The run stays in progress and
-        accepts follow-ups afterwards. Only live runs on the Warp harness
-        can be interrupted; use `POST /agent/runs/{runId}/cancel` to end a
-        run outright. A 202 means the platform accepted the cancel; the agent
-        applies it asynchronously.
+        accepts follow-ups afterwards. Only live runs on the Warp harness,
+        or on a third-party harness driven over ACP, can be interrupted; use
+        `POST /agent/runs/{runId}/cancel` to end a run outright. A 202 means
+        the platform accepted the cancel; the agent applies it
+        asynchronously.
       operationId: interruptRun
       tags:
         - agent
@@ -2874,7 +2875,8 @@ paths:
             The run cannot be interrupted right now. `reason` is one of
             `no_live_session` (no reachable session, or the session has not
             registered a conversation yet), `session_ended`, or
-            `unsupported_harness` (a non-Oz harness has no turn-level cancel).
+            `unsupported_harness` (a third-party harness driven through a
+            terminal rather than ACP has no turn-level cancel).
           content:
             application/json:
               schema:
@@ -6124,6 +6126,11 @@ components:
         corresponding agent default; an explicit empty collection overrides
         the agent default with no values.
       properties:
+        model_id:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Default Warp model for scorers without an authored override. Does not inherit the agent model.
         default_runner_uid:
           type: string
           description: Default runner UID for scorers. Omitted to inherit the agent default.
@@ -9605,6 +9612,14 @@ components:
           description: |
             Inference usage charged using a custom endpoint, keyed by the
             custom model's config key.
+        claude_linked_billing_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: |
+            Claude tokens billed to the team's linked Claude organization, keyed by model ID.
+            Token costs are zero because Warp does not bill these tokens.
+            Separately applicable Warp web-tool costs remain included.
         platform_usage_in_cents:
           type: number
           format: double
@@ -11262,6 +11277,15 @@ components:
         A non-empty value replaces that default. Empty secrets and mcp_servers
         collections explicitly clear the optional Factory defaults.
       properties:
+        model_id:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 255
+          description: |
+            Authored Warp model override. On create, omission or null inherits
+            scorer_defaults.model_id. On PATCH, omission leaves it unchanged
+            and null resets to that default. A model must resolve after saving.
         default_runner_uid:
           type:
             - string
@@ -11287,6 +11311,27 @@ components:
             inherit the Factory agent defaults; an empty object attaches none.
           additionalProperties:
             $ref: '#/components/schemas/MCPServerConfig'
+    ScorerScopeMode:
+      type: string
+      description: |
+        Scorer selection policy: whole tasks, every Factory agent, or a
+        configured set of agents or blueprint stages. This differs from the
+        concrete target of one recorded evaluation.
+      enum:
+        - all_agents
+        - selected_agents
+        - selected_stages
+        - task
+    EvaluationScopeMode:
+      type: string
+      description: |
+        Kind of one concrete evaluation target. Benchmarks choose one target;
+        recorded scores identify what was actually evaluated. Agent and stage
+        identities are carried in separate fields.
+      enum:
+        - task
+        - agent
+        - stage
     CreateScorerRequest:
       type: object
       description: |
@@ -11299,7 +11344,6 @@ components:
         - allowed_classifications
         - threshold
         - scope_mode
-        - model_id
       properties:
         factory_uid:
           type: string
@@ -11338,12 +11382,8 @@ components:
             Score a run's classified label must meet or exceed to pass, from 0
             to 1.
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-            - selected_stages
-          description: 'Whether the scorer applies to every factory agent, selected agents, or selected blueprint stages'
+          $ref: '#/components/schemas/ScorerScopeMode'
+          description: 'Scorer selection policy for whole tasks, every Factory agent, selected agents, or selected blueprint stages'
         agent_uids:
           type: array
           description: |
@@ -11392,8 +11432,8 @@ components:
           minLength: 1
           maxLength: 255
           description: |
-            LLM model dispatched judge runs use to evaluate this scorer's
-            rubric.
+            Compatibility alias for agent_config.model_id. When both are
+            present, they must be equal nonblank strings. Null is rejected.
         self_improvement_enabled:
           type: boolean
           description: |
@@ -11458,11 +11498,7 @@ components:
             to two decimal places. 0 stops automatic scoring; manual dispatch
             still works.
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-            - selected_stages
+          $ref: '#/components/schemas/ScorerScopeMode'
           description: |
             New scope mode. Defaults to the scorer's current mode when only
             agent_uids, agents, or stages is supplied.
@@ -11574,12 +11610,8 @@ components:
         scorer_kind:
           $ref: '#/components/schemas/ScorerKind'
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-            - selected_stages
-          description: 'Whether the scorer applies to every factory agent, selected agents, or selected blueprint stages'
+          $ref: '#/components/schemas/ScorerScopeMode'
+          description: 'Scorer selection policy for whole tasks, every Factory agent, selected agents, or selected blueprint stages'
         stages:
           type: array
           items:
@@ -11689,12 +11721,8 @@ components:
           format: double
           description: 'Score a run''s classified label must meet or exceed to pass, from 0 to 1'
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-            - selected_stages
-          description: 'Whether the scorer applies to every factory agent, selected agents, or selected blueprint stages'
+          $ref: '#/components/schemas/ScorerScopeMode'
+          description: 'Scorer selection policy for whole tasks, every Factory agent, selected agents, or selected blueprint stages'
         stages:
           type: array
           items:
@@ -11791,6 +11819,15 @@ components:
         - attempted_at
         - is_in_flight
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Actual evaluated scope. Absent means unknown legacy identity; never inferred from the current scorer.
+        agent_uid:
+          type: string
+          description: 'Agent actually evaluated, when recorded.'
+        factory_task_uid:
+          type: string
+          description: Optional Factory task identity for linking. Older task roots may have none.
         run_id:
           type: string
           description: 'The scored run; for a stage scorer, the Factory task''s top-level run'
@@ -12080,6 +12117,15 @@ components:
         - trigger_source
         - attempted_at
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Actual evaluated scope. Absent means unknown legacy identity; never inferred from the current scorer.
+        agent_uid:
+          type: string
+          description: 'Agent actually evaluated, when recorded.'
+        factory_task_uid:
+          type: string
+          description: Optional Factory task identity for linking. Older task roots may have none.
         scorer_uid:
           $ref: '#/components/schemas/ScorerUID'
         scorer_name:
@@ -12704,6 +12750,36 @@ components:
           type:
             - string
             - 'null'
+    BenchmarkCorrectnessScorerConfig:
+      type: object
+      additionalProperties: false
+      description: 'Optional resource overrides for the managed Correctness judge, independent of tested agents and user scorers.'
+      properties:
+        runner_uid:
+          type: string
+          minLength: 1
+          description: 'Same-Factory runner UID. Omitted inherits Factory agent defaults, then the judge environment.'
+        model_id:
+          type: string
+          minLength: 1
+          description: 'Judge model ID. Omitted inherits Factory scoring defaults, then the platform judge default.'
+    BenchmarkCorrectnessScorerPatch:
+      type:
+        - object
+        - 'null'
+      additionalProperties: false
+      description: Omission preserves overrides. Null resets both. An empty object changes neither field; a null child resets only that field.
+      properties:
+        runner_uid:
+          type:
+            - string
+            - 'null'
+          minLength: 1
+        model_id:
+          type:
+            - string
+            - 'null'
+          minLength: 1
     BenchmarkSuite:
       type: object
       required:
@@ -12715,6 +12791,11 @@ components:
         - created_at
         - updated_at
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Effective evaluation target; task is explicit, never inferred from its routing agent.'
+        correctness_scorer:
+          $ref: '#/components/schemas/BenchmarkCorrectnessScorerConfig'
         uid:
           type: string
         factory_uid:
@@ -12791,6 +12872,9 @@ components:
         - uid
         - name
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Set task without agent_uid, factory_agent_type or stage_name to evaluate a whole task through the normal Factory entry. Omitted PATCH target fields preserve the target; existing agent UID/type and stage forms remain valid.'
         uid:
           type: string
         name:
@@ -12941,6 +13025,11 @@ components:
     BenchmarkSuitePatchRequest:
       type: object
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Set task without agent_uid, factory_agent_type or stage_name to evaluate a whole task through the normal Factory entry. Omitted PATCH target fields preserve the target; existing agent UID/type and stage forms remain valid.'
+        correctness_scorer:
+          $ref: '#/components/schemas/BenchmarkCorrectnessScorerPatch'
         name:
           type: string
         description:
@@ -13072,6 +13161,9 @@ components:
         - execution
         - scoring
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Effective evaluation scope frozen at launch.
         display_name:
           $ref: '#/components/schemas/BenchmarkOptionalName'
         uid:
@@ -13551,6 +13643,15 @@ components:
         - outcome
         - latest_judge_run_id
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Actual evaluated scope, absent when unknown.'
+        agent_uid:
+          type: string
+        stage_name:
+          type: string
+        factory_task_uid:
+          type: string
         scorer_uid:
           type: string
           description: resolved canonical scorer UUID.
@@ -13940,6 +14041,9 @@ components:
         - scorer_count
         - narrative
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Effective evaluation scope frozen at launch.
         factory_uid:
           type: string
           description: authorized owning Factory UID.
@@ -14072,6 +14176,9 @@ components:
         - execution
         - scoring
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Effective evaluation scope frozen at launch.
         factory_uid:
           type: string
           description: authorized owning Factory UID.
