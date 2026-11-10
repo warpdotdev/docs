@@ -1,0 +1,180 @@
+---
+title: Turning a GitHub issue into a pull request
+description: >-
+  Turn labeled or assigned GitHub issues into pull requests, with scoped
+  triggers and progress updates posted on the original issue.
+sidebar:
+  label: "GitHub issue to pull request"
+prev: false
+next:
+  link: /factories/use-cases/
+  label: Factory use cases
+---
+
+Configure a factory in Warp Factories to start work when a GitHub issue receives a readiness label or is assigned to the factory. The foreman checks that the request is clear enough to implement and posts the resulting pull request link on the issue. A person reviews and merges the changes.
+
+Use an existing factory with a foreman and an implementation agent, or start with the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. It includes label-based intake; the steps below also show assignment-based intake.
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) [connected to GitHub](/factories/integrations/github/), with the target repository included in both the factory and GitHub App installation. The connection must permit branch pushes and pull requests.
+* Membership in the factory's Warp team and a GitHub account linked to Warp for each requester.
+* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
+
+## Choose the intake signal
+
+Choose how maintainers indicate that an issue is ready for factory work:
+
+* **Label-based** - Apply a readiness label during triage or bulk processing. The assignee field remains available for the person responsible for the outcome. Automated labeling also requires the bot-event configuration described below.
+* **Assignment-based** - Assign the factory when deciding who will implement an issue. The example also requires the factory's routing label, so an assignment alone does not start work.
+
+Before adding a trigger, open **Automations** in the factory dashboard and inspect the existing filters. The setup wizard creates a routing-label automation and a mentions-and-assignments automation. Reuse an existing automation where possible; otherwise, narrow its filters to avoid overlap with the new one.
+
+If you keep both paths, exclude the assignment path's label from the label-based trigger and the readiness label from the assignment trigger. Preserve existing exclusions. An issue carrying both labels then matches neither path. See [matchers and defaults](/factories/automation-triggers/#matchers-and-defaults).
+
+## Configure the issue trigger
+
+Each example targets one repository, and all filter conditions must match. Replace `acme/api-service` with your repository in the trigger and in `factory.yaml`. GitHub events are routed only for repositories included in the factory.
+
+### Label-based intake
+
+Configure a `github` / `issue_labeled` trigger with your readiness label in `labels`. Replace `factory-ready` below.
+
+```markdown title="automations/issue-labeled/automation.md"
+---
+triggers:
+  - provider: github
+    event: issue_labeled
+    filter:
+      repos: [acme/api-service]
+      labels: [factory-ready]
+---
+A maintainer labeled an issue `factory-ready`. Read the issue, restate the
+deliverable, and drive it to a pull request. Post progress as comments on the
+issue. Ask for missing requirements before implementation. Delegate to the
+implementation agent, require tests and a verification summary, and include
+Closes #ISSUE_NUMBER in the pull request description using this issue's
+number. Post the PR link and verification results on the issue.
+A person reviews and merges; do not merge.
+```
+
+### Assignment-based intake
+
+Configure a `github` / `issue_assigned` trigger matching the repository, assigned login, and factory routing label when assignment occurs.
+
+```markdown title="automations/issue-assigned/automation.md"
+---
+triggers:
+  - provider: github
+    event: issue_assigned
+    filter:
+      repos: [acme/api-service]
+      assignees: [warp, warp-factory]
+      labels: ["factory:Acme"]
+---
+A maintainer assigned an issue carrying this factory's routing label to the
+factory. Read the issue and restate the deliverable in a comment. If the
+issue is not actionable, ask for missing requirements and stop. Otherwise,
+delegate to the implementation agent, require tests and a verification
+summary, and include Closes #ISSUE_NUMBER in the pull request description
+using this issue's number. Post progress, the PR link, and verification
+results on the issue. A person reviews and merges; do not merge.
+```
+
+Configure the filters as follows:
+
+* **`assignees`** - Keep `warp` and the earlier `warp-factory` login. The filter checks the login assigned by this event, not the issue's full assignee list.
+* **`labels`** - Replace `factory:Acme` with `factory:<alias>`, using the factory's [foreman name](/factories/factory-agents/#foreman-name). Warp creates this routing label with the factory. Apply it to the issue before assigning the factory.
+* **`authors` (optional)** - Restrict intake to issues opened by specific logins.
+
+Removing `labels` allows any matching factory assignment in the repository to start work. Removing `assignees` also allows assignments to other users when the remaining filters match. Keep both unless you intend broader intake. See [GitHub events and filters](/factories/automation-triggers/#github) for all options.
+
+Before relying on assignments, confirm `warp` appears in an issue's assignee picker. App installation and account assignability are separate. Eligible assignees include commenters, collaborators with write access, and organization members with read access. If `warp` is missing, have an administrator check [GitHub's assignment requirements](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/assigning-issues-and-pull-requests-to-other-github-users), or use label-based intake. Do not grant write access solely to enable assignment.
+
+Apply the definition change:
+
+* **Warp-managed factory** - Save the edits in the factory dashboard.
+* **GitHub-backed factory** - Open a pull request, confirm the `warp/factory-config` check passes, then merge it into the factory's production branch.
+
+Validation does not confirm repository access or assignment availability. Test the configured trigger with a real issue event before relying on it.
+
+## Delegate from GitHub
+
+1. Write the issue with the requested behavior, verifiable acceptance criteria, and tests to add. Labels and assignments carry no task instructions; the issue's title, body, and comments provide that context.
+
+   For example:
+
+   ```text title="Example issue"
+   Return 400 for unknown `currency` codes on `POST /invoices`
+
+   `POST /invoices` accepts any string in `currency` and stores it. Validate it
+   against USD, EUR, and GBP and reject anything else with 400 and the body
+   {"error": "unsupported_currency"}. Lowercase codes are accepted and normalized
+   to uppercase. Add tests for a valid code, an unknown code, and a lowercase code.
+   ```
+
+2. Start work using the intake path you configured.
+   * **Label-based** - Apply `factory-ready`, or your replacement readiness label.
+   * **Assignment-based** - Apply `factory:<alias>`, then assign `warp`.
+
+Matching activity on an issue with an existing work item continues that work item. If you keep both intake paths with the exclusions above, test an issue carrying both labels: neither path should handle it.
+
+## What comes back
+
+With the instructions above, check for:
+
+* **Work item** - An entry on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs), with the issue as its source
+* **Scope confirmation** - A foreman comment restating the requested change. Reply on the issue if it misunderstood.
+* **Pull request** - A pull request with tests, verification results, and a closing reference to the issue
+* **Handoff** - A foreman comment with the pull request link and verification summary
+
+A person reviews and merges. Repository branch protection and required reviews still apply. Issues and pull requests the factory opens or adopts carry its `factory:<alias>` label. See [how the factory responds on GitHub](/factories/integrations/github/#how-the-factory-responds-on-github).
+
+## Unmatched and vague requests
+
+An event that fails a filter starts no run through this automation. This includes assigning the factory before applying its label or assigning another user. GitHub triggers also skip bot senders by default.
+
+To allow other bots, set `skip_bots: self`; `skip_bots: none` also admits Warp-owned bots and can create feedback loops. See [bot-event policy](/factories/integrations/github/#events-from-bots-dont-start-work). Other automations may still match. Unlabeled `@warp` mentions have a [routing fallback](/factories/integrations/github/#mention-the-factory); assignments do not.
+
+To retry an unmatched event, fix the cause, then unassign and reassign the factory, or remove and reapply the readiness label. The original event is not replayed.
+
+The instructions above ask for missing requirements before implementation. Update the issue and send a matching trigger event to continue the work item.
+
+## Troubleshooting
+
+* **Assigning the factory starts no run** - The repository, assigned login, and routing label must match when assignment occurs. Confirm the label was already present, the repository is in both `repos` and the factory, and bot policy permits the event. After fixing the cause, unassign and reassign. See [a GitHub event doesn't start work](/factories/integrations/github/#a-github-event-doesnt-start-work).
+* **`warp` is missing from the assignee picker** - App installation and assignable-user access are separate requirements. Ask a repository administrator to check [GitHub's assignment requirements](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/assigning-issues-and-pull-requests-to-other-github-users). Use label-based intake if the account cannot be assigned.
+* **One label or assignment starts two runs** - A default and custom automation may match the same event. Reuse the default or narrow the filters so only one automation matches. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **The label filter still names the old alias** - Changing the alias does not update automation filters or remove old labels. Update the filter to the new `factory:<alias>`, then remove the obsolete label when it is no longer used.
+
+## Set it up with a prompt
+
+1. Replace `OWNER/REPO` with your repository and `ALIAS` with your foreman name in the following prompt.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+This prompt configures assignment-based intake. For label-based intake, request an `issue_labeled` automation instead.
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/github-issue-to-pull-request.md.
+Set up assignment-based intake for my factory:
+one github/issue_assigned automation for my repository OWNER/REPO
+with assignees [warp, warp-factory] and the label factory:ALIAS, routed to
+the foreman. If the factory already has a default mentions-and-assignments
+automation, edit it instead of adding a second one. Validate the definition
+before applying it, then give me the exact steps to test it: one labeled
+issue assigned to warp that should start work, one unlabeled issue that
+should not, and a second matching event that continues the first work item.
+Check all existing automations for overlap, including the label-applied
+automation. Preserve their unrelated triggers and existing exclusions.
+Configure scope confirmation, clarification, implementation delegation,
+tests, a closing issue reference, and PR verification results on the issue.
+Require human review; never merge. List manual access steps separately,
+including confirming that warp is assignable; do not grant extra permissions.
+```
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Add triage, review, and other workflows to the same factory
+* [Connect GitHub to your factory](/factories/integrations/github/) - Permissions, supported events, mention routing, and bot-event policy
+* [Factory automations](/factories/automations/) - How matching works and how to edit filters
