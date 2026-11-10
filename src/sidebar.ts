@@ -405,44 +405,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Guides',
-					items: [
-						{ slug: 'factories/guides', label: 'Overview' },
-						{ slug: 'factories/guides/structuring-your-factory', label: 'Factory boundaries' },
-						{
-							label: 'Configure your factory',
-							items: [
-								{ slug: 'factories/guides/web-application-factory', label: 'Web application factory' },
-								{ slug: 'factories/guides/monorepo-factory', label: 'Monorepo factory' },
-								{ slug: 'factories/guides/microservices-factory', label: 'Microservices factory' },
-								{ slug: 'factories/guides/multi-repository-factory', label: 'Multi-repository factory' },
-							],
-						},
-						{ slug: 'factories/guides/testing-and-tuning-your-factory', label: 'Testing and tuning' },
-						{
-							label: 'Connect work intake',
-							items: [
-								{ slug: 'factories/guides/slack-to-pull-request', label: 'Slack to pull request' },
-								{ slug: 'factories/guides/jira-to-pull-request', label: 'Jira to pull request' },
-								{ slug: 'factories/guides/linear-to-pull-request', label: 'Linear to pull request' },
-								{ slug: 'factories/guides/github-issue-to-pull-request', label: 'GitHub issue to pull request' },
-							],
-						},
-					],
-				},
-				{
-					label: 'Factory use cases',
-					items: [
-						{ slug: 'factories/use-cases', label: 'Overview' },
-						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
-						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
-						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
-						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
-						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
-						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
-					],
-				},
-				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
 					// and where it runs.
@@ -603,9 +565,47 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
 					],
 				},
-				// Keep troubleshooting as a direct trailing item rather than creating a
+				// Keep troubleshooting as a direct item rather than creating a
 				// singleton group.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
+				{
+					label: 'Guides',
+					items: [
+						{ slug: 'factories/guides', label: 'Overview' },
+						{ slug: 'factories/guides/structuring-your-factory', label: 'Factory boundaries' },
+						{
+							label: 'Configure your factory',
+							items: [
+								{ slug: 'factories/guides/web-application-factory', label: 'Web application factory' },
+								{ slug: 'factories/guides/monorepo-factory', label: 'Monorepo factory' },
+								{ slug: 'factories/guides/microservices-factory', label: 'Microservices factory' },
+								{ slug: 'factories/guides/multi-repository-factory', label: 'Multi-repository factory' },
+							],
+						},
+						{ slug: 'factories/guides/testing-and-tuning-your-factory', label: 'Testing and tuning' },
+						{
+							label: 'Connect work intake',
+							items: [
+								{ slug: 'factories/guides/slack-to-pull-request', label: 'Slack to pull request' },
+								{ slug: 'factories/guides/jira-to-pull-request', label: 'Jira to pull request' },
+								{ slug: 'factories/guides/linear-to-pull-request', label: 'Linear to pull request' },
+								{ slug: 'factories/guides/github-issue-to-pull-request', label: 'GitHub issue to pull request' },
+							],
+						},
+					],
+				},
+				{
+					label: 'Factory use cases',
+					items: [
+						{ slug: 'factories/use-cases', label: 'Overview' },
+						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
+						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
+						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
+						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
+						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
+						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
+					],
+				},
 			],
 		},
 		{
