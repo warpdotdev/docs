@@ -16,12 +16,6 @@ Adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-facto
 
 Group services in one factory when they share an API, schema, or event contract, regularly need coordinated changes, and are reviewed by the same team. Use separate factories for services that change independently or have different owners, even if they communicate in production. See [factory boundaries](/factories/guides/structuring-your-factory/) for guidance.
 
-Each run checks out all of the factory's repositories so the agents can examine the provider and consumers together:
-
-* **Foreman:** Identifies which services the request affects.
-* **Implement agent:** Updates the provider's contract first, then runs each service's checks and contract check, including the consumer's check against the provider's current `main`.
-* **Review agent:** Checks that the provider and consumer changes agree.
-
 This example allows only additive contract changes. For breaking changes, such as removing, renaming, or changing a field's type, the foreman explains what is needed instead and stops.
 
 Runs start with repository checkouts, not deployed services. Verify changes using contract files and fixtures. If a test needs a dependency such as a database, start it in the sandbox with the repository's documented command. Warp-hosted Linux runners support Docker containers.
