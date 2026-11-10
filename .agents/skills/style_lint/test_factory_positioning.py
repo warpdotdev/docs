@@ -53,6 +53,11 @@ class FactoryPositioningTests(unittest.TestCase):
         issues = self.check("Introduction.\n\nYour factory is a team\nof agents.")
         self.assertEqual(issues[0].line, 3)
 
+    def test_alternative_html_comment_end_does_not_hide_visible_prose(self):
+        issues = self.check("<!-- note --!>\nYour factory is a team of agents.")
+        self.assertEqual(len(issues), 1)
+        self.assertEqual(issues[0].line, 2)
+
 
 if __name__ == "__main__":
     unittest.main()

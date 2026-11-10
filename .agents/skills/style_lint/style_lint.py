@@ -1515,10 +1515,10 @@ def check_factory_positioning(lines: List[str], filepath: str) -> List[Issue]:
                 continue
             prose = re.sub(r'"[^"]*"|(?<!\w)\'[^\'\n]+\'(?!\w)', " ", prose)
         result = []
-        for fragment in re.split(r"(<!--|-->|\{/\*|\*/\})", prose):
+        for fragment in re.split(r"(<!--|--!?>|\{/\*|\*/\})", prose):
             if fragment in ("<!--", "{/*"):
                 in_comment = True
-            elif fragment in ("-->", "*/}"):
+            elif fragment in ("-->", "--!>", "*/}"):
                 in_comment = False
             elif not in_comment:
                 result.append(fragment)
