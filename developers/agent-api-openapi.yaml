@@ -4,7 +4,7 @@ paths:
       summary: List built-in network policies
       description: |
         Return Warp-managed network policies grouped by name, with every published
-        version and its included allowed hosts. Use a name and version in network_policy.extends.
+        version and its included allowed hosts. Use a name and version in networkPolicy.extends.
         Policies do not include the platform's system-required egress rules.
       operationId: listNetworkPolicies
       tags:
@@ -3848,7 +3848,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
       requestBody:
         required: true
         content:
@@ -3912,7 +3912,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
       responses:
         '204':
           description: Scorer deleted
@@ -4275,7 +4275,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
         - name: limit
           in: query
           description: 'Maximum number of results to return (1-100, default 50)'
@@ -4373,7 +4373,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
         - name: start_date
           in: query
           description: 'RFC3339 UTC range start, inclusive. Defaults to 30 days before end_date.'
@@ -8869,7 +8869,9 @@ components:
           description: Optional event-specific JSON payload. Contents vary by event type.
     AIRunTimelineEventType:
       type: string
-      description: Type of timeline event recorded for a run.
+      description: |
+        Type of timeline event recorded for a run. A `skill_sources_resolved`
+        event's payload is a `SkillSourcesResolvedPayload`.
       enum:
         - oz_run_created
         - oz_run_claimed
@@ -8883,6 +8885,7 @@ components:
         - oz_run_errored
         - vm_shutdown
         - run_retry_scheduled
+        - skill_sources_resolved
     ConversationResponse:
       type: object
       required:
@@ -11525,7 +11528,6 @@ components:
       type: object
       required:
         - scorer_uid
-        - id
         - factory_uid
         - name
         - description
@@ -11549,9 +11551,6 @@ components:
         self_improvement_enabled:
           type: boolean
           description: Whether self-improvement is enabled for this scorer
-        id:
-          type: integer
-          description: Scorer identifier
         factory_uid:
           type: string
           description: UID of the factory that owns the scorer
@@ -11649,7 +11648,6 @@ components:
       type: object
       required:
         - scorer_uid
-        - id
         - factory_uid
         - name
         - description
@@ -11670,9 +11668,6 @@ components:
       properties:
         scorer_uid:
           $ref: '#/components/schemas/ScorerUID'
-        id:
-          type: integer
-          description: Scorer identifier
         factory_uid:
           type: string
           description: Public UID of the factory that owns the scorer
@@ -12079,7 +12074,6 @@ components:
       type: object
       required:
         - scorer_uid
-        - scorer_id
         - scorer_name
         - attempt_status
         - is_in_flight
@@ -12088,9 +12082,6 @@ components:
       properties:
         scorer_uid:
           $ref: '#/components/schemas/ScorerUID'
-        scorer_id:
-          type: integer
-          description: The evaluation that attempted this run
         scorer_name:
           type: string
           description: Display name of the evaluation
@@ -12913,7 +12904,12 @@ components:
       maxLength: 200
       description: Optional display name. Surrounding whitespace is trimmed; empty clears the name.
     BenchmarkConfigurationInput:
+      oneOf:
+        - $ref: '#/components/schemas/BenchmarkOverrideConfigurationInput'
+    BenchmarkOverrideConfigurationInput:
       type: object
+      additionalProperties: false
+      description: Optional execution overrides for a configuration that runs the production Factory definition.
       properties:
         display_name:
           $ref: '#/components/schemas/BenchmarkOptionalName'
@@ -12991,13 +12987,10 @@ components:
         scorer_selection:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/ScorerUID'
-              - type: integer
-                minimum: 1
+            $ref: '#/components/schemas/ScorerUID'
           description: |
-            Allowlist of live scorer UUIDs (or temporary positive numeric IDs) for this factory, applied to every trial
-            in the run. Empty or absent means all applicable scorers. IDs must
+            Allowlist of live scorer UUIDs for this factory, applied to every trial
+            in the run. Empty or absent means all applicable scorers. UUIDs must
             belong to the suite's factory and team (any status except deleted).
         tasks:
           type: array

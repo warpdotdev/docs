@@ -15,7 +15,7 @@ Watch this walkthrough to see how a cloud agent can coordinate a team of agents 
 
 To start an orchestrated run, see [Running orchestrated agents](/platform/orchestration/multi-agent-runs/).
 
-To orchestrate work inside a [Warp factory](/factories/), dispatch through [factory endpoints](/factories/factory-api/) instead of calling `POST /agent/runs` with the foreman's `agent_identity_uid` directly. The server resolves the foreman for you, and everything on this page still applies to the run it starts.
+To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) instead of starting its foreman through `POST /agent/runs`. The foreman dispatches [configured factory agents](/factories/factory-agents/creating-custom-agents/#dispatch-a-configured-agent). Named factory-agent dispatch has its own resource configuration; don't assume every ad hoc execution mode or parent setting described below applies unchanged.
 
 ## The parent/child model
 
@@ -31,7 +31,7 @@ Orchestrations today are exactly one level deep: a parent and its direct childre
 The parent and child don't have to run in the same place. Orchestration supports four combinations:
 
 * **Local → local** - a [Warp Agent](/agents/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
-* **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/platform/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
+* **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/factories/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
 * **Cloud → cloud** - a cloud parent spawns cloud children that each run in their own environment. This is the canonical pattern for review swarms, large fan-outs, and any orchestration triggered from Slack, Linear, a schedule, or the API.
 * **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
 
@@ -41,7 +41,7 @@ Children can also run with a different agent runtime than the parent. A parent r
 
 An ad hoc child's prompt comes from the parent at spawn time. The model, harness, and execution settings apply to every child in the batch.
 
-Use a [skill](/agents/capabilities/skills/) for reusable instructions. A local child discovers the project and home-directory skills in scope from its working directory. For cloud children, the parent attaches skills from a repository in the [environment](/platform/environments/).
+Use a [skill](/agents/capabilities/skills/) for reusable instructions. A local child discovers the project and home-directory skills in scope from its working directory. For cloud children, the parent attaches skills from a repository in the [environment](/factories/environments/).
 
 For named agents with standing configuration, use [Warp Factories](/factories/). A factory's foreman can dispatch its [factory agents](/factories/factory-agents/creating-custom-agents/#dispatch-a-configured-agent).
 
@@ -69,7 +69,7 @@ Track run state transitions in these places:
 
 Orchestration is built on a durable, server-backed message bus. Every agent in an orchestration - parent and children - has its own inbox addressed by its agent ID, and the parent and children send each other short, structured messages to coordinate, hand off work, and stay in sync as they run.
 
-This is how parallel agents stay consistent without sharing mutable state. Each run owns its own conversation, working directory or environment, and usage charges; agents don't read each other's transcripts or live working trees. Instead, they exchange explicit messages whenever they need to communicate a decision, a result, or a question. Messages and run state transitions share a global sequence number so the parent never observes a child's `SUCCEEDED` state before the message that produced the result.
+Each agent has its own conversation and usage charges. Filesystem isolation depends on the execution mode: cloud-local children share the parent's environment. Use explicit messages to communicate decisions, results, and questions rather than assuming another agent has read your conversation.
 
 The same messaging infrastructure works across every combination of agent runtimes and execution locations:
 
@@ -80,6 +80,12 @@ The same messaging infrastructure works across every combination of agent runtim
 Alongside messages, every run emits **lifecycle events** on the same infrastructure when its state changes - the six states listed in [Run state transitions](#run-state-transitions). The parent observes these events to decide what to do next (keep waiting, send a follow-up, spawn a replacement, finish) without polling any child.
 
 Use messages for coordination signals - handoffs, decisions, blocked-on-input requests, status updates, and final results - rather than for piping full transcripts around. The parent's prompt to a child and the child's final output carry the substance of the work; messages are how the agents talk *about* the work as it happens.
+
+## Repository isolation and review
+
+Decide how agents will branch, exchange changes, and resolve conflicts before parallel editing starts. Give agents sharing a host separate [Git worktrees](/code/git-worktrees/) and branches; assigning different prompts does not isolate their files.
+
+For a large refactor, split the work into bounded changes with validation checkpoints. Name the files each agent owns, require repository tests and lint checks, and assign one agent or person to integrate the results. Review conflicts and the combined diff before merging. See [running multiple coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) for a worked workflow.
 
 ## Common patterns
 

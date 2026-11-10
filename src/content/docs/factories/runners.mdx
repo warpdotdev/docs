@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Runners are reusable compute configurations for [cloud agent runs](/platform/). Each runner selects an operating system, CPU architecture, instance size, and sandbox image.
 
-An [environment](/platform/environments/) supplies the repositories, toolchain, and workspace setup. The execution host determines whether the work runs on [Warp-hosted](/factories/warp-hosting/) infrastructure or a [self-hosted worker](/factories/self-hosting/).
+An [environment](/factories/environments/) supplies the repositories, toolchain, and workspace setup. The execution host determines whether the work runs on [Warp-hosted](/factories/warp-hosting/) infrastructure or a [self-hosted worker](/factories/self-hosting/).
 
 <span id="key-features" />
 
@@ -58,7 +58,7 @@ Self-hosted runner settings don't provision capacity. Worker configuration contr
 
     Warp-hosted Linux runners support x86-64 and aarch64 images. Use a public image, or a private image with a team credential. The default image is [`warpdotdev/dev-base:latest`](https://hub.docker.com/r/warpdotdev/dev-base).
 
-    The image must match the runner's architecture and include `bash` and core utilities such as `ls` and `mkdir`. See [image and container-user requirements](/platform/environments/configuring-environments/) for runtime compatibility.
+    The image must match the runner's architecture and include `bash` and core utilities such as `ls` and `mkdir`. See [image and container-user requirements](/factories/environments/configuring-environments/) for runtime compatibility.
 
     To pull a private image, choose a team-owned credential for the image's registry in the "Private image credential" dropdown when you create or edit the runner. See [Configuring AWS ECR credentials](/factories/secrets/aws-ecr/) for Amazon ECR.
 
@@ -191,7 +191,7 @@ You can also select a runner when [running orchestrated agents](/platform/orches
 
 ## Related pages
 
-* [Cloud agent environments](/platform/environments/) - Define repositories, images, and workspace setup
+* [Environments for factory agents](/factories/environments/) - Define repositories, images, and workspace setup
 * [Warp-hosted execution for Warp Factories](/factories/warp-hosting/) - Review hosted capacity and networking
 * [Self-hosting overview](/factories/self-hosting/) - Choose a managed backend
 * [Managing cloud agents](/platform/managing-cloud-agents/) - Start and monitor standalone runs

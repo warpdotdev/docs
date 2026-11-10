@@ -307,13 +307,13 @@ Network controls for the self-hosted Kubernetes backend are pending. Don't rely 
 ### `mcpServers`
 
 **Optional.**
-[MCP servers](/platform/mcp/) granted to every agent, keyed by the name shown to the agent. Each entry selects exactly one transport:
+[MCP servers](/factories/mcp/) granted to every agent, keyed by the name shown to the agent. Each entry selects exactly one transport:
 
 * `warpId` - A Warp-managed MCP server ID.
 * `command` - A stdio command. Optional `args` is a list of strings, and optional `env` maps names to string values.
 * `url` - An absolute HTTP or HTTPS URL. Optional `headers` maps header names to string values.
 
-Don't put credentials in `env` or `headers`. Reference a [managed secret](/factories/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
+Don't put credentials in `env` or `headers`. Reference a [managed secret](/factories/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/factories/mcp/#oauth-authentication).
 
 ```yaml
 mcpServers:
@@ -400,7 +400,7 @@ agentDefaults:
 | Field under `agentDefaults` | Required | When omitted | Description |
 | --- | --- | --- | --- |
 | <span id="agentdefaultsrunner" />`runner` | No | No runner selected here | Name of a runner defined under [`runners/`](#runnersnameyaml). See [runner OS requirements](/factories/runners/#operating-systems) before choosing a factory default. |
-| <span id="agentdefaultsenvironmentid" />`environmentId` | No | Warp manages the workspace from the factory's repositories | ID of an existing [environment](/platform/environments/). |
+| <span id="agentdefaultsenvironmentid" />`environmentId` | No | Warp manages the workspace from the factory's repositories | ID of an existing [environment](/factories/environments/). |
 | <span id="agentdefaultssecrets" />`secrets` | No | No defaults declared here | Managed secrets inherited by agents without their own list. An agent-level list replaces this list; factory-wide [`secrets`](#secrets) still apply. |
 | <span id="agentdefaultsmcpservers" />`mcpServers` | No | No defaults declared here | MCP servers inherited by agents without their own map. An agent-level map replaces this map; factory-wide servers still apply. Uses the [`mcpServers`](#mcpservers) syntax. |
 
@@ -457,7 +457,7 @@ For a GitHub-backed factory, merge the change into its connected production bran
 #### `agentDefaults.harness`
 
 **Conditionally required.** Set exactly one of `model` or `harness`.
-The run harness and model. The object requires `type` and `model`. `type` accepts `oz`, `claude`, `codex`, or `claude-code` (an alias for `claude`). Prefer the canonical [harness identifier](/platform/harnesses/#harness-identifiers) used by the CLI and the {VARS.WARP_PLATFORM_API}. See [supported harnesses](/platform/harnesses/) for availability and behavior.
+The run harness and model. The object requires `type` and `model`. `type` accepts `oz`, `claude`, `codex`, or `claude-code` (an alias for `claude`). Prefer the canonical [harness identifier](/factories/harnesses/#harness-identifiers) used by the CLI and the {VARS.WARP_PLATFORM_API}. See [supported harnesses](/factories/harnesses/) for availability and behavior.
 
 ```yaml
 harness:
@@ -591,7 +591,7 @@ Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integrat
 
 ### `triggers[].filter`
 
-**Conditionally required.** Required for `webhook` / `received`; optional for other triggers.
+**Conditionally required.** Required for `webhook` / `received` and Microsoft Teams triggers; optional for other providers except `schedule`, which accepts no authored filters.
 Narrows which events start runs. Available keys depend on the provider and event. Keys combine with AND; within an inclusion list, any value can match. Omitting an optional list filter adds no restriction, but provider defaults still apply. For example, GitHub's [`skip_bots` defaults to `all`](/factories/integrations/github/#events-from-bots-dont-start-work).
 
 A `webhook` trigger for `received` requires `webhook_ids`: a one-item list with one webhook UID. It supports `in` only and doesn't accept a file name. To listen to multiple webhooks, add one trigger per UID. The optional `payload` pattern matches against the delivery's JSON body. See [webhook payload filters](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern syntax.
@@ -818,7 +818,7 @@ exactly one declared label.
 | <span id="description-3" />`description` | No | Not specified | What the scorer checks. |
 | <span id="output" />`output` | No | Not specified | Output form; `classification` is the supported value. |
 | <span id="passingscore" />`passingScore` | Yes | None | Passing threshold, from 0 through 1. |
-| <span id="samplingrate" />`samplingRate` | No | `25` | Percentage of eligible runs to score, from 0 through 100. Rounds to two decimal places; `0` disables automatic scoring. |
+| <span id="samplingrate" />`samplingRate` | No | `10` | Percentage of eligible runs to score, from 0 through 100. Rounds to two decimal places; `0` disables automatic scoring. |
 | <span id="model" />`model` | Yes | None | Model that judges runs. |
 | <span id="selfimprovement-1" />`selfImprovement` | No | `false` | When `true`, failing scores can feed self-improvement, which proposes definition changes in pull requests. |
 

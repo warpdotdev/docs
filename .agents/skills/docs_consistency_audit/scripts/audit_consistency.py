@@ -756,6 +756,38 @@ def generate_candidates(
     return candidates
 
 
+def prior_finding_for_candidate(
+    candidate: dict[str, Any],
+    previous_state: dict[str, Any],
+) -> dict[str, Any] | None:
+    matches = [
+        finding for finding in previous_state["findings"].values()
+        if len(finding["claims"]) == 2
+        and candidate_identity(*finding["claims"]) == candidate["candidate_id"]
+    ]
+    if len(matches) > 1:
+        raise AuditError("Multiple saved findings match the candidate's stable claim pair")
+    return copy.deepcopy(matches[0]) if matches else None
+
+
+def prior_finding_command(args: argparse.Namespace) -> int:
+    candidates = load_json(Path(args.candidates))["candidates"]
+    matches = [
+        candidate for candidate in candidates
+        if candidate["candidate_id"] == args.candidate_id
+    ]
+    if len(matches) != 1:
+        raise AuditError("Prior-finding lookup requires exactly one candidate with that ID")
+    previous = load_json(Path(args.state_dir) / "findings.json")
+    result = {
+        "candidate_id": args.candidate_id,
+        "finding": prior_finding_for_candidate(matches[0], previous),
+    }
+    ensure_no_private_reference(result)
+    print(canonical_json(result))
+    return 0
+
+
 def finding_identity_payload(finding: dict[str, Any]) -> dict[str, Any]:
     return {
         "category": finding["category"],
@@ -2585,6 +2617,15 @@ def build_parser() -> argparse.ArgumentParser:
     adapters.add_argument("--fetch-pricing", action="store_true")
     adapters.add_argument("--output", required=True)
     adapters.set_defaults(func=adapters_command)
+
+    prior_finding = subparsers.add_parser(
+        "prior-finding",
+        help="Read historical context for a candidate's stable claim pair",
+    )
+    prior_finding.add_argument("--candidates", required=True)
+    prior_finding.add_argument("--candidate-id", required=True)
+    prior_finding.add_argument("--state-dir", required=True)
+    prior_finding.set_defaults(func=prior_finding_command)
 
     run = subparsers.add_parser("run", help="Compare validated claims and update generated state")
     run.add_argument("--claims", required=True)

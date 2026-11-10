@@ -50,7 +50,7 @@ skopeo copy --all \
   "docker://${PRIVATE_REGISTRY}/agent-base:22.04"
 ```
 
-The example mirrors Ubuntu as the task image. Replace that source with your own task image, then set the private image reference on the [Warp environment](/platform/environments/) used by the worker pool.
+The example mirrors Ubuntu as the task image. Replace that source with your own task image, then set the private image reference on the [Warp environment](/factories/environments/) used by the worker pool.
 
 ## Configuring the Docker backend
 
@@ -291,5 +291,5 @@ Confirm `warp-registry` exists in the task namespace. The worker Deployment need
 
 * [Managed: Docker backend](/factories/self-hosting/managed-docker/) — Configure Docker daemon and private-registry access.
 * [Managed: Kubernetes backend](/factories/self-hosting/managed-kubernetes/) — Configure the Helm chart, task Pod template, and preflight job.
-* [Environments](/platform/environments/) — Set the task image used by self-hosted runs.
-* [Security and networking](/platform/execution-security/) — Review image egress and other network requirements.
+* [Environments](/factories/environments/) — Set the task image used by self-hosted runs.
+* [Security and networking](/factories/self-hosting/security-and-networking/) — Review image egress and other network requirements.
