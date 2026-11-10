@@ -1,8 +1,8 @@
 ---
 title: Warp Factories overview
 description: >-
-  Warp Factories turns issues, tickets, and Slack messages into reviewed pull requests.
-  Teams of cloud agents do the work, while people approve specs and merges.
+  Warp Factories is open infrastructure for building your own software factory,
+  defining workflows as code, and measuring and improving results.
 sidebar:
   label: "Overview"
 ---
@@ -10,7 +10,9 @@ import { VARS } from '@data/vars';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp Factories runs software factories that you [define in code](/factories/factory-as-code/). A factory is a team of cloud agents connected to your repositories. It routes work from Slack, GitHub, Linear, or Jira through triage, planning, implementation, and review. The output, usually a pull request, is returned to the thread or issue where the work started.
+Warp Factories is open, flexible infrastructure for building your own software factory. [Define your workflows as code](/factories/factory-as-code/), connect them to your repositories and tools, and use [evaluation and benchmarks](/factories/measure-and-improve/) to measure results and compare changes.
+
+A factory is the system of development workflows you configure on that infrastructure. For example, an issue-to-PR workflow routes a request from Slack, GitHub, Linear, or Jira through triage, planning, implementation, and review, then returns a pull request to the original thread or issue. You choose the workflow and its human decision points.
 
 <CardGrid>
   <LinkCard
