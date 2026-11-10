@@ -1,0 +1,208 @@
+---
+title: Setting up a factory for a monorepo
+description: >-
+  Scope a monorepo product in Warp Factories, install its workspace, test shared-package dependents, and involve their owners.
+sidebar:
+  label: "Monorepo factory"
+prev: false
+next: false
+---
+
+Use Warp Factories to scope work to one product in a shared repository. Agents install the product's workspace, test affected packages and their dependents, and request shared-package owners' review. A person merges the changes.
+
+Adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) starter. The examples below use `acme/monorepo`, a product in `apps/web`, and shared packages in `packages/*`. Replace these illustrative paths and commands with your repository's equivalents.
+
+## How a monorepo factory works
+
+The factory checks out the whole repository. Its intake label names the product, and a shared skill defines its directory, shared packages, and owners. These instructions scope the work; they do not restrict repository access. See [factory boundaries](/factories/guides/structuring-your-factory/) for when to use one factory for the whole repository.
+
+Configure these rules in the agents' instructions:
+
+* **Scoped tasks** - The foreman places every request before dispatching anything. Work outside the product gets one comment naming the directory and its owners, and no branch.
+* **Shared-dependency checks** - Before testing a shared edit, the implement agent installs the affected dependents and their dependencies. It tests every affected package and lists shared edits in the pull request's "Shared packages" section. The review agent checks that list and the results against the diff.
+* **Owner involvement** - A pull request that touches a shared package opens as a draft with review requested from the owning team in `CODEOWNERS`. A person on that team marks it ready; the factory never does.
+
+| Part | Recommendation |
+| --- | --- |
+| Trigger | A maintainer applies a product-specific label, such as `factory-ready:web`, to an issue |
+| Repositories | The monorepo; scope lives in the skill, not the repository list |
+| Agents | Foreman, implement, and review, all reading the shared `monorepo-ownership` skill |
+| Runner | A Linux image with `git` and the workspace tool, with setup scoped to the product's workspace |
+| Output | A pull request with the tests of every affected package and a "Shared packages" section, opened as a draft when shared code changed |
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/) with access to the monorepo.
+* [Foreman, implement, and review agents](/factories/factory-agents/#the-default-agents) in the factory.
+* A workspace tool that can install a package and its dependencies and test changed packages and their dependents. The example uses pnpm.
+* `test` and `typecheck` scripts in every package.
+* `CODEOWNERS` entries for shared packages naming teams with write access, plus a fallback review team with at least read access.
+
+## Scope the factory to a product
+
+The intake label identifies approved work for one product.
+
+1. Create a product-specific label, such as `factory-ready:web`.
+
+   For a labeled event, the added label must match a listed value. Combine product and approval in one label. Use only one product label per issue; applying two can start work in two factories.
+2. Configure the intake automation to match only that label. The `factory:<alias>` label applied by the foreman should not trigger this automation.
+
+   ```markdown title="automations/web-issue-labeled/automation.md"
+   ---
+   triggers:
+     - provider: github
+       event: issue_labeled
+       filter:
+         repos: [acme/monorepo]
+         labels: ["factory-ready:web"]
+   ---
+   A maintainer labeled an issue `factory-ready:web`: approved work for the
+   `apps/web` product. Read the issue, scope it to that product as the
+   `monorepo-ownership` skill describes, and drive it to a pull request. Post
+   progress as comments on the issue.
+   ```
+
+3. Define the product's scope in `skills/monorepo-ownership/SKILL.md` for all agents to read. Include:
+   * Product directory and shared-package glob.
+   * Out-of-scope work.
+   * `CODEOWNERS` location and fallback team.
+   * Install and test commands.
+   * Pull request conventions and escalation rules.
+
+   See [factory skills](/factories/factory-skills/) for placement.
+4. In `agents/foreman/agent.md`, require a scope check before dispatch:
+   * Continue for work in the product directory.
+   * Warn the implement agent when a change is likely to affect a shared package.
+   * Decline work in another product or work primarily on shared packages, with one explanatory comment and no branch.
+
+:::note
+A matching label starts a run even when the issue describes out-of-scope work. The trigger checks the label, not the issue's content. The foreman checks the scope and declines the request.
+:::
+
+## Scope the initial install
+
+On a large monorepo, installing everything can exceed the 30-minute limit for one setup command.
+
+1. Configure the runner to install only the product's workspace and its dependencies. The example enables the pinned pnpm version with corepack, then runs a filtered install for `apps/web` and its dependencies.
+
+   ```yaml title="runners/linux-web.yaml"
+   description: >-
+     Runner for the web product only. node:22-bookworm provides Node, corepack,
+     and git; the setup installs the apps/web workspace and the packages it
+     depends on, not the whole monorepo.
+   setupCommands:
+     - 'sudo corepack enable || echo "Warning: corepack enable failed; pnpm may not be on PATH" >&2'
+     - '(cd /workspace/monorepo && pnpm install --frozen-lockfile --filter "{apps/web}...") || echo "Warning: apps/web workspace install skipped" >&2'
+   instanceShape:
+     vcpus: 4
+     memoryGb: 8
+   platform:
+     os: linux
+     arch: x86_64
+     linux:
+       dockerImage: node:22-bookworm
+   ```
+
+2. Preserve the `|| echo "Warning: ..." >&2` ending on each setup command. A nonzero exit status fails setup before the agent starts. In the shared skill, require the implement agent to retry failed installs before testing and report a blocker if installation still fails.
+
+   The scoped install does not prepare other products that depend on shared packages. For a diff touching `packages/*`, require `pnpm install --frozen-lockfile` to succeed before tests or typechecks. This prepares those dependents and their dependencies without permitting edits to them. Product-only changes keep the scoped install.
+3. Choose an image that includes `git`, such as `node:22-bookworm` rather than `node:22-bookworm-slim`. The `[origin/main]` test filter requires `git`.
+
+   Use `sudo corepack enable` for the sandbox's non-root user. See [configuring container users](/factories/environments/configuring-environments/#configure-container-users).
+
+## Check shared dependencies and involve their owners
+
+1. Define the implement agent's editing scope in `agents/implementer/agent.md`:
+   * Keep changes inside the product directory.
+   * Allow only the smallest additive shared-package edit needed for the product change.
+   * Return larger shared-package changes to the foreman as out of scope.
+   * Open product-only pull requests ready for review.
+2. Require the affected-package test command from the skill. It must select changed packages and their dependents. Include the command and results in the pull request:
+
+   ```bash
+   pnpm --filter "...[origin/main]" test
+   pnpm --filter "...[origin/main]" run typecheck
+   ```
+
+   Fetch the default branch before comparing. If it isn't `main`, change the ref.
+
+3. Require the skill's escalation rule for pull requests that change shared packages:
+   * Open the pull request as a draft.
+   * Request review from the owning team or fallback team.
+   * Explain each shared edit in a "Shared packages" section.
+   * Record the successful expanded install and passing tests and typechecks for the shared package and its dependents.
+
+   :::note
+   GitHub does not automatically request code-owner reviews on draft pull requests. Instruct the agent to request them explicitly.
+   :::
+4. In `agents/reviewer/agent.md`, require the shared-impact check before other review:
+   * Confirm every changed path outside the product appears in "Shared packages".
+   * Treat a missing draft status, review request, successful expanded install, or dependent-package check results as a blocking finding when shared packages change.
+5. Apply and validate the factory definition:
+   * **Warp-managed factory:** Save the edits in the factory dashboard.
+   * **GitHub-backed factory:** Merge the edits into the production branch.
+
+   Confirm validation succeeds before testing. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+
+## Test the factory
+
+1. Apply the product-specific label to an issue whose change stays inside the product directory. Check that the pull request:
+   * Opens ready for review.
+   * States "Shared packages: none".
+   * Includes passing results for all affected packages.
+2. Apply the product-specific label to an issue requiring a shared-package edit, such as exposing an existing API field through a shared client package. Check that the pull request:
+   * Opens as a draft with review requested from the owning team.
+   * Names the shared file in "Shared packages".
+   * Records a successful expanded install followed by tests and typechecks for the shared package's dependents.
+
+   A person on the owning team marks the pull request ready. A person merges it.
+3. Apply the product-specific label to an issue in another product's directory. Check for one foreman comment identifying the directory and its owners, with no branch created.
+4. Apply a different, nonmatching label to another issue. Check that no run starts.
+
+## Set it up with a prompt
+
+1. Replace the uppercase placeholders in the following prompt with your information.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/monorepo-factory.md and adapt
+https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+for my monorepo, OWNER/REPO. Keep this shape:
+one repository; a foreman that scopes every task to one product directory;
+an implementer that installs affected dependents and their dependencies
+before testing a shared edit and lists those edits in the pull request;
+a reviewer that checks the list and verification against the diff; a runner
+whose initial setup installs only the product's workspace and dependencies;
+and the escalation rule that a pull request touching
+shared packages opens as a draft with review requested from the owning
+team.
+
+Replace the placeholders: acme/monorepo with OWNER/REPO; apps/web with
+PRODUCT_DIR; packages/* with SHARED_PACKAGES_GLOB; acme/platform with the
+GitHub team that owns the shared packages (check CODEOWNERS first);
+factory-ready:web with the label I will apply; and the pnpm commands with
+the commands for its scoped initial install, expanded install before shared
+checks, and tests and typechecks of changed packages and their dependents.
+Validate the definition before you
+open a pull request, never merge, and tell me which labels, teams, and
+access I still have to create or grant.
+```
+
+## Troubleshooting
+
+* **Setup exceeds 30 minutes or fails the sandbox:** The install may cover the whole repository, or a setup command may exit with a nonzero status. Filter installation to the product's workspace and retain the example's warning handlers so the implement agent can retry failed setup commands.
+* **The foreman rejects an issue belonging to the product:** The skill's scope may not match the repository, or the issue may omit the relevant directory. Correct `skills/monorepo-ownership/SKILL.md` and name the product directory in the issue.
+* **GitHub rejects a review request for a shared edit:** The team may lack access, or its name may be wrong. Check the `org/team` slug and repository access. Code-owner teams need write access; fallback reviewers need at least read access.
+* **A shared edit shows only the product's tests:** The affected-package filter may use the wrong base branch, or workspace dependencies may be missing. Compare against the default branch and declare the shared packages as workspace dependencies so the tool includes their dependents.
+
+## Guide navigation
+
+* Previous stage: [Factory boundaries](/factories/guides/structuring-your-factory/)
+* Next stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* All stages: [Factory guides](/factories/guides/)
+
+## Related pages
+
+* [Factory skills](/factories/factory-skills/) - Where a shared skill lives and how agents read it
+* [Isolating Direct backend tasks with Git worktrees](/factories/self-hosting/direct-monorepo-worktrees/) - Share one monorepo checkout across self-hosted runs
+* [Runners for Warp Factories](/factories/runners/) - Images, setup commands, and the setup time limit

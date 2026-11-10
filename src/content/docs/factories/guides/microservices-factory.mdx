@@ -1,0 +1,204 @@
+---
+title: Setting up a factory for microservices
+description: >-
+  Group related microservices in Warp Factories, provide each service's toolchain, and verify provider and consumer contracts together.
+sidebar:
+  label: "Microservices factory"
+prev: false
+next: false
+---
+
+Use Warp Factories to group services that share a contract and an owner. Agents verify changes against contract files in the repositories rather than a live deployment.
+
+Adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) starter by adding the related repositories. The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their illustrative names, paths, and commands with yours.
+
+## How a microservices factory is organized
+
+Group services in one factory when they share an API, schema, or event contract, regularly need coordinated changes, and are reviewed by the same team. Use separate factories for services that change independently or have different owners, even if they communicate in production. See [factory boundaries](/factories/guides/structuring-your-factory/) for guidance.
+
+This example allows only additive contract changes. For breaking changes, such as removing, renaming, or changing a field's type, the foreman explains what is needed instead and stops.
+
+Runs start with repository checkouts, not deployed services. Verify changes using contract files and fixtures. If a test needs a dependency such as a database, start it in the sandbox with the repository's documented command. Warp-hosted Linux runners support Docker containers.
+
+A change spanning services produces one pull request per repository. A person controls the merge order. See [coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/).
+
+| Part | Recommendation |
+| --- | --- |
+| Trigger | A maintainer applies `factory-ready` to an issue in any of the factory's repositories |
+| Repositories | The services that share a contract and an owner; the foreman's instructions name the provider |
+| Agents | Foreman, implement, and review; review only checks that the services agree |
+| Runner | One Linux image that carries every service's toolchain, with a per-service dependency prefetch |
+| Output | One pull request per changed service with its checks and contract-check results |
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/) with access to every service repository.
+* [Foreman, implement, and review agents](/factories/factory-agents/#the-default-agents) in the factory.
+* A provider contract file, such as `openapi.yaml`, and contract checks in each repository. The provider checks its handlers against the contract. Each consumer regenerates its client and type-checks all call sites.
+* Documented bootstrap and test commands for every service.
+
+## Group related services
+
+1. List the provider and its consumers in `factory.yaml`. This example has one of each. Add consumers that share the contract and reviewers.
+
+   ```yaml title="factory.yaml"
+   schemaVersion: v1alpha1
+   name: related-services
+   alias: Services
+   repositories:
+     - owner: acme
+       name: api-service
+     - owner: acme
+       name: webapp
+   agentDefaults:
+     model: auto
+     runner: linux-services
+   ```
+
+2. Define each repository's role in `agents/foreman/agent.md`:
+   * Identify the contract provider and its consumers.
+   * Instruct the foreman to identify which services a request affects, order changes from provider to consumer, and decline work outside the factory.
+3. Create the `factory-ready` label in every service repository. GitHub labels are configured separately for each repository.
+4. Configure the intake automation to match those repositories and the `factory-ready` label:
+
+   :::note
+   Use `issue_labeled` for issue labels and `pull_request_labeled` for pull request labels.
+   :::
+
+   ```yaml title="Intake trigger"
+   triggers:
+     - provider: github
+       event: issue_labeled
+       filter:
+         repos: [acme/api-service, acme/webapp]
+         labels: [factory-ready]
+   ```
+
+## Provide runtime context
+
+1. Choose one runner image with every service's toolchain. Options include:
+   * `warpdotdev/dev-go:1.23`, used below, with Go and Node.
+   * `warpdotdev/dev-full:latest`, with every language in [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
+   * Another public image with the required toolchains.
+2. Add one dependency prefetch command per repository to the runner's `setupCommands`. Each command starts in `/workspace`, so change to the repository's directory before fetching dependencies.
+
+   ```yaml title="runners/linux-services.yaml"
+   description: >-
+     One runner with Go and Node for the API and web app checkouts.
+   setupCommands:
+     - '(cd /workspace/api-service && go mod download) || echo "Warning: api-service prefetch skipped" >&2'
+     - '(cd /workspace/webapp && npm ci) || echo "Warning: webapp prefetch skipped" >&2'
+   instanceShape:
+     vcpus: 4
+     memoryGb: 8
+   platform:
+     os: linux
+     arch: x86_64
+     linux:
+       dockerImage: warpdotdev/dev-go:1.23
+   ```
+
+   :::note
+   A nonzero exit status from a setup command fails the sandbox. Each prefetch command logs a warning on failure so the implement agent can run the bootstrap command in every repository it changes.
+   :::
+
+3. Document each service's commands in `agents/implementer/agent.md`, or in a shared skill under `skills/` when there are several consumers. Include:
+   * Bootstrap command.
+   * Normal checks.
+   * Contract check.
+   * Contract file path.
+
+   See [factory skills](/factories/factory-skills/) for the shared skill format.
+4. Configure any access the service needs beyond its checkout:
+   * [MCP servers](/factories/mcp/) for logs or error tracking when handling incidents.
+   * [Factory secrets](/factories/secrets/) for private package registries.
+
+   Skills describe how to use resources. Access comes from the agent's configuration.
+
+## Verify against contracts and dependencies
+
+1. Define the compatibility policy in `agents/foreman/agent.md`:
+   * Change the provider first.
+   * Allow only backward-compatible additions. Do not remove, rename, or change the types of existing fields or endpoints, or add required request fields.
+   * For a breaking change, comment with an alternative, such as a versioned endpoint or coordinated deployment, and stop without creating a branch.
+
+   Check that the deployed consumer tolerates the additions.
+2. In `agents/implementer/agent.md`, require the provider's implementation checks:
+   * Run bootstrap, retrying any failed dependency prefetch before testing. Report a blocker if bootstrap still fails.
+   * Update the contract file before the handlers and their tests.
+   * Run the normal checks and contract check.
+   * Confirm that the contract diff contains only additions.
+
+   For example, run `go build ./... && go test ./...`, your repository's contract check, and `git diff origin/main -- openapi.yaml` after fetching the default branch. Substitute its name if it isn't `main`.
+3. Require consumer verification against both versions of the provider's contract:
+   * For a paired change, copy the provider branch's schema over the consumer's vendored copy. For consumer-only work, keep the vendored schema unchanged.
+   * Run `npm run contract-check` to regenerate the client and type-check its callers, then `npm run lint && npm test`.
+   * Probe the provider's current `main` schema using your contract check's schema-path option, or replace its input file. Record the result separately.
+   * After the probe, restore the vendored schema as input, regenerate the client, and rerun the normal checks. These checks must pass, and the final generated client must match the vendored schema, not the probe.
+   * For a pair, a probe failure caused by the new contract explains why the consumer merges second. For consumer-only work, the probe must pass; an unreleased dependency goes back to the foreman as a scope mismatch.
+4. Define the cross-service review in `agents/reviewer/agent.md`. Require the review agent to confirm that:
+   * For a pair, the provider's contract and consumer's vendored copy are identical, and the consumer uses the added fields with matching names and types.
+   * A provider change leaves the contract unchanged or additive.
+   * A consumer change records passing checks after regeneration from its vendored schema, including after the `main` probe.
+   * A one-service change remains compatible with the unchanged service.
+
+   Leave other judgments to a person.
+5. Apply and validate the factory definition:
+   * **Warp-managed factory:** Save the edits in the factory dashboard.
+   * **GitHub-backed factory:** Merge the edits into the production branch.
+
+   Confirm validation succeeds before testing. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+
+## Test the factory
+
+1. Apply `factory-ready` to an issue that changes only one service. Check for one pull request with that service's check results and no merge-order requirements.
+2. Apply `factory-ready` to an issue that adds an optional field to the provider's contract and displays it in the consumer. Check for two pull requests:
+   * **Provider:** An additive contract diff and the provider's check results.
+   * **Consumer:** A passing contract check against the provider's branch, the probe result against current `main`, and passing checks after regeneration from the vendored schema. A probe failure caused by the new field explains why the consumer merges second.
+3. Apply `factory-ready` to an issue that renames a field in every response. Check that the foreman explains why the breaking change is out of scope and creates no branch.
+
+## Set it up with a prompt
+
+1. Replace the uppercase placeholders in the following prompt with your information.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/microservices-factory.md and adapt
+https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+for my services. The provider repository is
+OWNER/PROVIDER and its contract file is CONTRACT_PATH. The consumer
+repositories are CONSUMER_LIST. Replace acme/api-service and acme/webapp
+everywhere they appear, replace the bootstrap, test, and contract-check
+commands and the schema paths with the ones each repository really uses,
+and pick a runner image that carries every toolchain. Keep the rules: the
+provider changes first with backward-compatible additions only, never new
+required request fields. Every service runs its own
+checks and contract check, the consumer also checks against the
+provider's current default branch. After that probe, regenerate from the
+vendored schema and rerun positive checks before publishing. Consumer-only
+work must pass against the current provider without a companion PR.
+The reviewer checks contract consistency and that final verification.
+Validate the definition before you open a pull request, never
+merge, and list anything I still have to do myself: connecting GitHub,
+creating the factory-ready label in each repository, adding a contract
+check where one is missing, and registering the definition.
+```
+
+## Troubleshooting
+
+* **A service's bootstrap fails:** The image may lack its toolchain, or the command may run in the wrong directory. Use an image with every service's toolchain and start each setup command with `cd /workspace/REPOSITORY_NAME`.
+* **The consumer's contract check fails against the provider's `main`:** For a paired change, a failure caused by the new contract explains why the consumer merges second. Regenerate from the vendored schema and rerun positive checks before publishing. Unrelated failures need a fix; consumer-only work must pass against `main`.
+* **The agent tries to verify against a live service:** Runs start with repository checkouts, not deployed services. Point verification at contract files and fixtures, and document how to start test dependencies inside the sandbox.
+* **The foreman accepts a breaking change as additive:** The compatibility instructions or contract-diff check may be incomplete. Explicitly prohibit removals, renames, type changes, and new required request fields, and require the provider's contract diff in verification.
+
+## Guide navigation
+
+* Previous stage: [Factory boundaries](/factories/guides/structuring-your-factory/)
+* Next stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* All stages: [Factory guides](/factories/guides/)
+
+## Related pages
+
+* [Coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) - Linked pull requests and the merge order a person controls
+* [MCP servers for factory agents](/factories/mcp/) - Give agents logs, error tracking, and other service context
+* [Runners for Warp Factories](/factories/runners/) - Images, setup commands, and what a Warp-hosted sandbox can run
