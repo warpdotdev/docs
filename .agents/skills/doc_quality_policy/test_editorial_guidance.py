@@ -15,6 +15,39 @@ class EditorialGuidanceTests(unittest.TestCase):
     def text(self, path):
         return (ROOT / path).read_text()
 
+    def test_positioning_rename_has_no_stale_active_references(self):
+        canonical = ".agents/rules/warp-positioning.md"
+        obsolete = "oz-" + "style-guidelines.md"
+        self.assertTrue((ROOT / canonical).is_file())
+        self.assertFalse((ROOT / ".agents/rules" / obsolete).exists())
+        paths = [ROOT / "AGENTS.md"]
+        for directory in ("rules", "references", "skills"):
+            paths.extend((ROOT / ".agents" / directory).rglob("*.md"))
+            paths.extend((ROOT / ".agents" / directory).rglob("*.py"))
+        for path in paths:
+            self.assertNotIn(obsolete, path.read_text(), str(path))
+
+    def test_repository_glossary_has_no_external_sync_dependency(self):
+        skill = self.text(".agents/skills/sync_terminology/SKILL.md")
+        self.assertNotIn("NOTION_DICTIONARY_PAGE_ID", skill)
+        self.assertNotIn("Notion MCP", skill)
+        self.assertNotIn("Notion is the source of truth", skill)
+        self.assertIn("weekly", skill)
+        self.assertIn("human review", skill)
+        glossary = self.text(".agents/references/terminology.md")
+        self.assertIn("authoritative glossary", glossary)
+        self.assertIn("Maintaining this glossary", glossary)
+
+    def test_positioning_preserves_roles_without_the_team_exception(self):
+        positioning = self.text(".agents/rules/warp-positioning.md")
+        self.assertIn("including a customer's factory", positioning)
+        self.assertIn("foreman", positioning)
+        self.assertIn("UI strings", positioning)
+        self.assertNotIn("its agents can collaborate as a team", positioning)
+        review = self.text(".agents/skills/review-docs-pr/SKILL.md")
+        self.assertNotIn("do not flag accurate descriptions of collaboration", review)
+        self.assertIn("insufficient evidence", review)
+
     def assert_agents_links(self, path, text):
         links = re.findall(r"\]\(([^)]+AGENTS\.md)#([^)]+)\)", text)
         self.assertIn("check-connected-procedures", [anchor for _, anchor in links],
@@ -39,7 +72,7 @@ class EditorialGuidanceTests(unittest.TestCase):
 
     def test_retirement_promises_are_not_reintroduced(self):
         for path in ("AGENTS.md", ".agents/references/terminology.md",
-                     ".agents/rules/oz-style-guidelines.md"):
+                     ".agents/rules/warp-positioning.md"):
             text = self.text(path)
             self.assertNotIn("until 2026-10-06", text)
             self.assertNotIn("retired and wrapped", text)
@@ -76,14 +109,14 @@ class EditorialGuidanceTests(unittest.TestCase):
         self.assertNotIn("Each edit is additive", text)
 
     def test_positioning_retains_each_supported_pillar_once(self):
-        text = self.text(".agents/rules/oz-style-guidelines.md")
+        text = self.text(".agents/rules/warp-positioning.md")
         for pillar in ("Choice of models and harnesses", "Visibility and intervention",
                        "Incremental adoption and configuration", "Team workflows",
                        "Developer control", "Measurement and improvement"):
             self.assertEqual(text.count(f"* **{pillar}** -"), 1, pillar)
 
     def test_positioning_entry_points_reference_the_canonical_file(self):
-        canonical = ".agents/rules/oz-style-guidelines.md"
+        canonical = ".agents/rules/warp-positioning.md"
         self.assertTrue((ROOT / canonical).is_file())
         for path in ("AGENTS.md", ".agents/references/terminology.md",
                      ".agents/skills/draft_docs/SKILL.md",

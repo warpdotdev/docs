@@ -18,6 +18,18 @@ This guide establishes standards for writing Warp documentation. It covers voice
 
 Our reference points are the GitHub and Vercel docs: short declarative sentences, concrete examples, restrained formatting, and no selling.
 
+Apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for names. Use `.agents/references/writing-examples.md` for examples of how to apply the writing rules.
+
+#### Reader goals, control, and evidence
+
+Start with the problem or decision the reader faces, then explain the action and its consequence. For configurable workflows, name what the reader controls and how they can check the result. A feature list or a source-code description cannot establish who needs a page.
+
+Connect measurement to a decision: establish a baseline, compare a configuration on comparable work, then decide whether to keep the change. Do not equate automation or token consumption with useful output.
+
+Use a concrete example to explain the mechanism, not an adjective to imply a benefit. Keep limitations beside the choice they affect. A polished sentence with an unsupported claim still needs correction.
+
+Borrow directness and explicit reasoning from the reference writing, not an author's identity or personal experiences. Procedures use second-person instructions; references give precise lookup information. Neither needs a founder's anecdote, a slogan, or every positioning pillar.
+
 #### Define, show, link
 Introduce a concept in one to three plain sentences, give a concrete example, then link out for depth. Repeat that pattern instead of front-loading the page with context.
 - ✅ "A workflow is an automated process that runs one or more jobs. For example, a workflow can label new issues automatically. For more information, see [Writing workflows](...)."
@@ -539,7 +551,7 @@ These rules apply regardless of content type:
   - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
   - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
 - **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
-- **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
+- **Use one positioning source**: Follow `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
 
 #### Check connected procedures
 
@@ -950,7 +962,7 @@ The platform is not something you address — it runs and coordinates agents, an
 
 ### Warp Factories terminology
 
-**Warp Factories** names the infrastructure platform and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun. Use `.agents/rules/oz-style-guidelines.md` for the platform's positioning and its distinction from a customer's workflow.
+**Warp Factories** names the infrastructure platform and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun. Use `.agents/rules/warp-positioning.md` for the platform's positioning and its distinction from a customer's workflow.
 
 - ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"

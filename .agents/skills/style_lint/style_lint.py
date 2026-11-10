@@ -1358,7 +1358,7 @@ def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
-# "Warp Factories" is the product; a "factory" is an instance. A bare
+# "Warp Factories" is the infrastructure platform; a "factory" is an instance. A bare
 # capitalized "Factory" is never a proper noun, with two classes of exception:
 # the feature's own name (Factory MCP) and verbatim product strings the docs
 # quote from the app. Both are matched on the word that FOLLOWS "Factory".
@@ -1389,7 +1389,7 @@ FACTORY_LEADING_MARKUP = re.compile(r"[\s*_\[\(\"'|>#\-\u2014\u2013]+$")
 def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
     """Flag a bare capitalized "Factory" used as a proper noun.
 
-    The rule works like GitHub Actions: "Warp Factories" is the product and is
+    "Warp Factories" is the infrastructure platform and is
     always written in full, an individual "factory" is a lowercase common noun,
     and there is no product called "Factory". See AGENTS.md -> Warp Factories
     terminology.
@@ -1482,6 +1482,63 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
 def _strip_inline_code(line: str) -> str:
     """Remove inline code spans so CLI flags and API fields never trip tone checks."""
     return re.sub(r"`[^`]*`", "", line)
+
+
+def check_factory_positioning(lines: List[str], filepath: str) -> List[Issue]:
+    """Report direct staffing definitions; semantic review handles paraphrases."""
+    if "changelog" in Path(filepath).parts:
+        return []
+    masked = []
+    fence = None
+    in_frontmatter = bool(lines and lines[0].strip() == "---")
+    in_comment = False
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        marker = re.match(r"^(`{3,}|~{3,})", stripped)
+        if marker:
+            value = marker.group(1)
+            if fence is None:
+                fence = value
+            elif value[0] == fence[0] and len(value) >= len(fence):
+                fence = None
+            masked.append("")
+            continue
+        if fence:
+            masked.append("")
+            continue
+        if index and stripped == "---" and in_frontmatter:
+            in_frontmatter = False
+        prose = re.sub(r"`+[^`]*`+", " ", line)
+        if not in_frontmatter:
+            if stripped.startswith(">"):
+                masked.append("")
+                continue
+            prose = re.sub(r'"[^"]*"|(?<!\w)\'[^\'\n]+\'(?!\w)', " ", prose)
+        result = []
+        for fragment in re.split(r"(<!--|-->|\{/\*|\*/\})", prose):
+            if fragment in ("<!--", "{/*"):
+                in_comment = True
+            elif fragment in ("-->", "*/}"):
+                in_comment = False
+            elif not in_comment:
+                result.append(fragment)
+        prose = re.sub(r"<[^>]+>", " ", "".join(result))
+        masked.append(prose.replace("**", "").replace("__", ""))
+    content = "\n".join(masked)
+    pattern = re.compile(
+        r"\b(?:Warp Factories|(?:(?:a|your|the)\s+)?(?:software\s+)?factory)"
+        r"\s+is\s+(?:a\s+)?(?:team|workforce)\s+of\s+(?:cloud\s+)?agents\b",
+        re.IGNORECASE,
+    )
+    return [
+        Issue(filepath, content.count("\n", 0, match.start()) + 1,
+              "factory-positioning",
+              "Staffing definition conflicts with positioning rule P1. "
+              "Describe infrastructure or configured workflows; preserve "
+              "shipped role names. Review context; do not auto-rewrite.",
+              "warning")
+        for match in pattern.finditer(content)
+    ]
 
 
 def check_tone_buzzwords(lines: List[str], filepath: str) -> List[Issue]:
@@ -1614,6 +1671,7 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_hardcoded_vars(lines, str(filepath)))
     issues.extend(check_platform_determiner(lines, str(filepath)))
     issues.extend(check_factory_proper_noun(lines, str(filepath)))
+    issues.extend(check_factory_positioning(lines, str(filepath)))
     issues.extend(check_unrecognized_terms(lines, str(filepath), _get_glossary()))
     return issues
 

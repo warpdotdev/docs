@@ -104,7 +104,7 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 
 Include an editorial verdict in the review rationale: reader task, concept ownership across siblings, unnecessary scaffolds or repetition removed, unsupported assurances, and useful understanding preserved. Identify each unconfirmed claim and its narrow correction. Removing a page or changing its purpose requires human approval; a transition guide is not interchangeable with a chooser.
 
-Read and apply `.agents/rules/oz-style-guidelines.md` for framing and the canonical glossary for terminology. Check definitions, openings, and descriptions against its platform/workflow distinction; do not flag accurate descriptions of collaboration within a customer's factory as platform definitions. Verify technical promises independently of positioning. Historical Oz references, commands, and package names are not automatic rename findings.
+Read and apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for terminology. Check definitions, openings, descriptions, and changed explanatory copy against rule P1, including definitions of a customer's factory. Team-of-agents and equivalent staffing metaphors are important positioning findings, not optional style preferences. Preserve shipped role names and literal interfaces. Verify technical promises independently under rule P2; when source evidence is missing, report insufficient evidence rather than approval. Historical Oz references, commands, and package names are not automatic rename findings.
 
 ### Severity Labels (Required)
 

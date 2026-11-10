@@ -2,6 +2,16 @@
 
 Use this glossary everywhere you write about Warp. Keep definitions short, concrete, and consistent. If a term is likely unfamiliar outside developer audiences, include a short plain-language explanation you can reuse on first mention.
 
+This is the authoritative glossary for documentation. The unmaintained Notion Dictionary is not an input or a fallback. Positioning lives in `.agents/rules/warp-positioning.md`; naming changes do not establish changes to shipped behavior.
+
+## Maintaining this glossary
+
+Review terminology weekly and when a verified interface or approved name changes. Use the `sync_terminology` skill to compare the glossary with evidence from the owning UI, API, command, or approved positioning guidance. Keep the source revision and any deployment limits with the proposed change.
+
+Docs maintainers review glossary changes before merge. Ask the positioning owner to resolve changes to framing, and an engineering source owner to resolve technical claims. An agent can propose a correction but cannot approve a new policy. Record a section's review date and source when materially changing it; do not claim that untouched entries were reverified.
+
+Keep each entry's preferred term, definition, usage note, and necessary UI, API, or historical exceptions together. Update any corresponding summary in `AGENTS.md` without creating a second full glossary. Do not synchronize from an external dictionary or silently remove repo-only terms.
+
 For the summary of the most critical terms (core features, Automation Platform terms, terms to avoid), see the [Terminology standards](../../AGENTS.md#terminology-standards) section of AGENTS.md. This file is the full canonical reference.
 
 > **Product name variables**: Product names are defined in `src/data/vars.ts`. When writing new content, use `{VARS.WARP_AGENT_CLI}` (body prose) or `{{WARP_AGENT_CLI}}` (frontmatter) rather than hardcoding product names. See the ["Content variables" section of AGENTS.md](../../AGENTS.md#content-variables) for full usage instructions.
@@ -169,7 +179,7 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 Renamed from "Oz" on 2026-08-18. The `oz` binary and legacy web app retain
 their names. No retirement date or replacement command mapping is established
 here. See "What still says Oz"; product framing lives in
-`.agents/rules/oz-style-guidelines.md`.
+`.agents/rules/warp-positioning.md`.
 
 ### The article rule
 
@@ -331,7 +341,7 @@ specific interface changes, not on an inferred retirement date:
 **Warp Factories** names the infrastructure platform and is always written in
 full. An individual **factory** is a common noun and is always lowercase. A bare
 capitalized **Factory** is never a proper noun. Follow
-`.agents/rules/oz-style-guidelines.md` for positioning.
+`.agents/rules/warp-positioning.md` for positioning.
 
 - ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "set up a factory" (an instance)
@@ -355,7 +365,7 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). A team can build one on Warp Factories; the term does not require every lifecycle stage.
 
 - **factory** — An individual software factory a team configures on Warp Factories infrastructure.
-  *Usage note:* Lowercase common noun ("your factory," "set up a factory").
+  *Usage note:* Lowercase common noun ("your factory," "set up a factory"). Describe configured workflows, not a team of agents. Preserve literal agent role names, including foreman.
 
 - **factory definitions as code** — The practice of specifying a factory's repos, agent roles, skills, MCPs, and permissions as version-controlled code, similar to infrastructure-as-code. Enables rollback, canarying, and agentic self-improvement of the factory itself.
 

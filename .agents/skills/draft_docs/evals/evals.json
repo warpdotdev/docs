@@ -60,6 +60,30 @@
         "The rationale identifies the two provided umbrella signals and explicitly distinguishes them from unmeasured per-topic demand.",
         "No invented metric, completion time, claim of strong demand for every topic, FAQ, or new deployment/monitoring recipe is added."
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Revise this existing overview's description and opening for publication. Return only those elements. Treat the supplied capabilities as complete facts for this exercise; do not research, change files, add sections, or claim new support. Capabilities: Warp Factories provides infrastructure for workflows defined as code. Teams configure their own workflows and use Scorers and benchmarks to compare results. A workflow can handle only pull-request review; the full SDLC is not required. The foreman routes requests to configured agents. Rough description: 'Warp Factories is your AI engineering team.' Rough opening: 'Your factory is a team of cloud agents. Hire the foreman to manage your software engineers and automate everything.' Use a standalone 50-160-character description and one short paragraph. Preserve the role name foreman and human ownership, without staffing metaphors or guaranteed outcomes.",
+      "expected_output": "An infrastructure-led description and opening that explain customer-configured workflows, code-based definitions, and comparison without inventing scope or renaming the foreman.",
+      "files": [],
+      "assertions": [
+        "The description is 50-160 characters and identifies Warp Factories as infrastructure.",
+        "The opening describes customer-owned configurable workflows rather than an AI team, workforce, or employee.",
+        "The foreman remains a literal routing role, not a person to hire or a renamed interface.",
+        "The output does not make the full SDLC mandatory or promise universal automation or savings."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Edit this short configuration-reference entry without expanding its scope. Return only the revised entry. Supplied facts are complete for this exercise: runner selects the compute configuration used for a run. A missing selection inherits the factory default. This is a lookup entry for a reader already editing a definition. Rough entry: 'Runner: This powerful feature seamlessly empowers your agent workforce to use the best compute. Leaving it unset uses the factory default.' Keep the field runner literal, preserve inheritance, remove unsupported optimization and staffing claims, and do not add a story, introduction, or factory slogan.",
+      "expected_output": "A concise factual lookup entry naming runner, its purpose, and default inheritance without hype, a staffing metaphor, or irrelevant scaffolding.",
+      "files": [],
+      "assertions": [
+        "The entry retains the literal field runner and its compute-selection purpose.",
+        "The entry preserves inheritance from the factory default when unset.",
+        "No best-compute guarantee, staffing metaphor, or unsupported behavior remains.",
+        "The result stays a reference entry rather than a conceptual overview or marketing paragraph."
+      ]
     }
   ]
 }
