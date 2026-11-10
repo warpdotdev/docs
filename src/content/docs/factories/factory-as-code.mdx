@@ -151,6 +151,27 @@ The handle used to @-mention the foreman on platforms such as Slack and Linear. 
 **Optional.**
 Whose credentials runs use: `EXECUTOR` for the identity executing the run, or `CREATOR` for the user who created it. `CREATOR` requires a paid plan. Omitting the key preserves the stored setting; the factory default is `EXECUTOR`. Agents can override the strategy by role.
 
+### `restrictFollowupsToStarter`
+
+**Optional.** Boolean; defaults to `false`.
+Set to `true` to limit follow-up messages to the Warp user who started the run. Senders on Slack, GitHub, Linear, and other integrations are matched to their Warp account. Other users, unidentified senders, and bots cannot send messages that steer that user's run. Other users can start a separate request.
+
+The restriction applies across the factory, including child runs, which use the original run's starter. It doesn't restrict runs without a human starter. Schedules, system messages, and automation events that report state rather than carry a person's message, such as CI results, remain eligible to continue runs. Agent messages within the same run tree and follow-ups from other runs started by the same person are also allowed.
+
+To restrict follow-ups in your existing definition, add these root-level fields to `factory.yaml`:
+
+```yaml title="factory.yaml"
+restrictFollowupsToStarter: true
+allowServiceAccountFollowups: false
+```
+
+Omitting `restrictFollowupsToStarter` or setting it to `false` disables this restriction when you apply the definition.
+
+### `allowServiceAccountFollowups`
+
+**Optional.** Boolean; defaults to `false`.
+Set to `true` to accept follow-ups authenticated with a team-issued service-account API key even when `restrictFollowupsToStarter` is `true`. This exception doesn't include system-generated run or sandbox keys, or messages attributed to another person. It has no effect when `restrictFollowupsToStarter` is `false`.
+
 ### `automations`
 
 **Optional.**
