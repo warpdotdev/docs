@@ -1,13 +1,13 @@
 ---
 title: About factory agents
 description: >-
-  Configure the foreman, triage, spec, implement, and review agents in Warp
-  Factories, or add custom agents for your development workflows.
+  Every factory has a team of default agents: a foreman that coordinates the
+  work, plus triage, spec, implement, and review agents.
 sidebar:
   label: "About factory agents"
 ---
 
-The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results. Default agents each cover one part of the software development lifecycle: triage scopes the request, spec writes the plan, implement writes the code, and review checks it. Together, they turn a work item into a pull request ready for your team to review.
+The **foreman** is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results. Default agents each cover one part of the software development lifecycle: triage scopes the request, spec writes the plan, implement writes the code, and review checks it. Together, they turn a work item into a pull request ready for your team to review.
 
 ## The default agents
 
@@ -29,7 +29,7 @@ For the complete lifecycle, see [How Warp Factories work](/factories/how-factori
 
 ### Foreman
 
-The foreman agent assigns work and is the only default agent that communicates directly with you. It relays questions and answers between you and other agents, and continues their existing conversations for revisions and follow-ups.
+The **foreman agent** assigns work and is the only default agent that communicates directly with you. It relays questions and answers between you and other agents, and continues their existing conversations for revisions and follow-ups.
 
 After implementation and review, the foreman returns the pull request and supporting evidence, then waits for your team to merge. By default, the foreman marks the work item complete on a later merge notification or your confirmation that the pull request landed.
 
