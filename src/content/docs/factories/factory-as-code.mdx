@@ -451,7 +451,7 @@ Factory runs can use [team-managed API keys and endpoints](/enterprise/enterpris
 | Inference source | `model` value |
 | --- | --- |
 | Team custom inference endpoint | `custom:<model-name>`, using the exact, case-sensitive model name configured on the endpoint, not its display alias or endpoint name. It must match exactly one configured model in the factory's team, and both the endpoint and model must be enabled. |
-| Team provider API key (BYOK) | The standard Warp `model_id` from [Agent model choice](/agents/inference/model-choice/), such as `claude-4-6-sonnet-high`. Don't add `custom:`. Warp uses the configured key for that provider. |
+| Team provider API key (BYOK) | The standard Warp `model_id` from [Agent model choice](/agents/inference/model-choice/), such as `claude-5-5-sonnet-high`. Don't add `custom:`. Warp uses the configured key for that provider. |
 
 For example, select a configured Fireworks AI endpoint model as the factory default:
 
@@ -514,7 +514,7 @@ The `model_id` used by [Computer Use](/agents/capabilities/computer-use/). Omit 
 ```yaml
 agentDefaults:
   model: auto
-  computerUseModel: claude-5-sonnet-high
+  computerUseModel: claude-5-5-sonnet-high
 ```
 
 Use `computer-use-agent-auto` for automatic selection. A model suffix selects its effort level; `thinking` enables thinking, and `xhigh-fast` selects fast mode.
@@ -526,6 +526,7 @@ Use `computer-use-agent-auto` for automatic selection. A model suffix selects it
 | Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` |
 | Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` |
 | Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` |
+| Claude Fable 5.2 | `claude-5-2-fable-low`, `claude-5-2-fable-medium`, `claude-5-2-fable-high`, `claude-5-2-fable-xhigh`, `claude-5-2-fable-max` |
 | Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` |
 | Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` |
 | Claude Opus 4.8 | `claude-4-8-opus-low`, `claude-4-8-opus-medium`, `claude-4-8-opus-high`, `claude-4-8-opus-xhigh`, `claude-4-8-opus-xhigh-fast`, `claude-4-8-opus-max` |
@@ -713,12 +714,12 @@ Router files define factory-owned custom model routers. Use the file name anywhe
 ```yaml title="routers/by-task.yaml"
 name: By task
 type: prompt
-default: claude-4-6-sonnet-high
+default: claude-5-5-sonnet-high
 routing:
   - description: Routine documentation changes
-    model: claude-4-5-haiku
+    model: claude-5-5-haiku-low
   - description: Complex implementation or debugging
-    model: claude-4-8-opus-high
+    model: claude-5-5-opus-high
 ```
 
 The optional `routing` field takes a different shape for each type:
@@ -827,7 +828,7 @@ labels:
     score: 0
 passingScore: 1
 samplingRate: 25
-model: claude-4-5-haiku
+model: claude-5-5-haiku-low
 ---
 Evaluate whether the agent ran the relevant tests before finishing. Return
 exactly one declared label.
