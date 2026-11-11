@@ -117,7 +117,7 @@ See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrati
 
 ## LLM inference and BYOLLM
 
-The Warp Agent sends inference requests through Warp to LLM providers. With customer-supplied inference, provider-side retention follows your team's agreement with that provider.
+The Warp Agent sends inference requests through Warp. With Warp-managed inference, requests go to contracted providers covered by [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. With customer-supplied inference, provider-side retention follows your team's agreement with that provider.
 
 Teams that want inference routed and billed through their own accounts can use [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) or [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). Plan requirements and cloud agent support vary by option; see [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs).
 
@@ -131,6 +131,6 @@ Claude Code and Codex send inference requests directly to their providers under 
 * [Unmanaged execution](/platform/unmanaged-execution/) - Run standalone agents from your own CI or scheduler
 * [About factory infrastructure and security](/factories/infrastructure-and-security/) - Choose execution, inference, and credential boundaries
 * [Data security and boundaries](/platform/architecture/#data-security-and-boundaries) - Review where each class of data lives and travels
-* [Security overview](/enterprise/security-and-compliance/security-overview/) - Review Warp's security controls and data flows
+* [Security overview](/enterprise/security-and-compliance/security-overview/) - Review Warp's security model and ZDR
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - Route inference through your own cloud provider accounts
 * [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and configuration

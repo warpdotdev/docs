@@ -302,10 +302,13 @@ Rates follow your [Enterprise contract](/enterprise/support-and-resources/billin
 
 * **No long-lived API keys** — BYOLLM uses cloud-native IAM with short-lived session tokens.
 * **Per-user authentication** — Each team member authenticates individually; credentials are not shared.
+* **No storage or logging** — Warp never stores or logs your cloud session tokens on its servers.
 
 ### Zero Data Retention (ZDR)
 
-When using BYOLLM:
+Warp maintains **SOC 2 compliance** and has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers.
+
+However, when using BYOLLM:
 
 * **Your** cloud account settings determine data retention policies.
 * Warp cannot enforce ZDR for requests routed through your infrastructure.
@@ -351,6 +354,13 @@ Business and Enterprise admins can also centrally manage BYOK itself: [team-mana
 | Authentication | API keys (local) | IAM role assumed by Warp via OIDC |
 | Billing | Direct to provider | Your cloud account |
 | Data locality | Provider infrastructure | Your cloud infrastructure |
+
+### What data does Warp store? Do you store our cloud credentials?
+
+Warp **does not store or log** your cloud credentials.
+
+* **Interactive terminal use** — Credentials are used transiently to sign requests and are never persisted on Warp servers.
+* **Cloud agent runs** — Temporary AWS credentials are used only for the duration of the run and are not retained after it ends.
 
 ### Can admins enforce provider-only routing and disable Warp-managed models?
 

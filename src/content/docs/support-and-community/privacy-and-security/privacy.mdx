@@ -33,6 +33,10 @@ If you haven't opted out of "Help improve Warp", we may collect:
 Telemetry must be enabled to use AI features on the Free plan, while paid plans can opt out at any time and continue using Warp, including AI.
 :::
 
+:::caution
+Business and Enterprise plans are covered by our Zero Data Retention (ZDR) agreement. No AI interaction or console data is ever collected.
+:::
+
 Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience. Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
 You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy) as well as [how Warp handles security](https://www.warp.dev/legal/security).
@@ -44,7 +48,7 @@ You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)
 
-Telemetry controls are separate from storage needed for product features such as [cloud conversations](/enterprise/security-and-compliance/security-overview/#data-collection-controls). Disabling telemetry does not establish model-provider retention terms.
+With telemetry disabled, no console interactions are ever persisted on Warp's servers. Each request contains a `X-Warp-Telemetry-Enabled` header to specify whether telemetry is disabled, and even if this is missing from the request, our server assumes it's disabled.
 
 ### Delete your account and data
 

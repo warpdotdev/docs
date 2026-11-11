@@ -41,7 +41,7 @@ Warp offers two options for larger teams and organizations:
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
 :::
 
-Traffic you route through your own API key or a custom inference endpoint is subject to your provider's data-retention policies. Review [data collection controls](/enterprise/security-and-compliance/security-overview/#data-collection-controls) separately from provider retention terms.
+For Warp-managed model traffic (requests Warp routes to OpenAI, Anthropic, Google, or xAI on your behalf), all plans are covered by Warp's Zero Data Retention (ZDR) agreements with the underlying model providers. Traffic you route through your own API key or a custom inference endpoint is governed by that provider's data-retention policies, not Warp's agreements. Admin-configurable data controls — including team-wide retention policies and training opt-outs — are available on Business and Enterprise.
 
 ### What counts as a team member and how does billing work for members?
 
@@ -236,23 +236,31 @@ Warp Drive data is securely stored on Google Cloud Platform servers located in t
 
 For more details, [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
-<span id="does-warp-have-a-soc-2-type-2-attestation" />
+### Does Warp have a SOC 2 Type 2 attestation?
 
-### Where can I find security assessment materials?
+Yes. Warp has obtained a SOC 2 Type 2 attestation from an accredited third party. See the [Trust Center](/enterprise/security-and-compliance/trust-center/) to request the report.
 
-See the [Trust Center](/enterprise/security-and-compliance/trust-center/) and contact [security@warp.dev](mailto:security@warp.dev) for current assessment materials and their scope.
+### Does Warp have Zero Data Retention policies with LLM providers?
 
-<span id="does-warp-have-zero-data-retention-policies-with-llm-providers" />
+Warp integrates with multiple LLM providers — including Anthropic, OpenAI, Google, xAI, and Fireworks AI — to power its AI features. Warp has executed Zero Data Retention (ZDR) agreements with these providers. Across all plans, these agreements mean:
 
-### Where can I confirm model-provider retention terms?
+* LLM providers commit not to train their models on any customer-generated data processed through Warp's services.
+* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
 
-Contact [security@warp.dev](mailto:security@warp.dev) to confirm the applicable terms for your model, provider, and inference configuration.
+Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
 
-<span id="how-can-i-enable-zero-data-retention-in-warp" />
+Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
 
-### Does disabling telemetry change provider retention?
+### How can I enable Zero Data Retention in Warp?
 
-Telemetry controls and model-provider retention are separate. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/) for telemetry settings; confirm provider terms separately before choosing an inference configuration.
+Zero Data Retention (ZDR) can be enabled in two ways:
+
+* **Individual level** — Any user can enable full ZDR for their own account by disabling **Help Improve Warp** in **Settings** > **Privacy**.
+* **Organization-wide** — On Business and Enterprise plans, admins can enforce ZDR for all members from the [Admin Panel](/enterprise/team-management/admin-panel/), so team-wide compliance doesn't rely on individual settings.
+
+To discuss organization-wide ZDR for your team, [contact our sales team](https://www.warp.dev/contact-sales).
+
+Regardless of plan, Warp never allows OpenAI, Anthropic, Google, xAI, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details.
 
 ### Can I bring my own API key?
 

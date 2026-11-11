@@ -27,6 +27,7 @@ The [stack overview](/platform/architecture/#stack-overview) reference describes
 
 * **Warp terminal (client)** ↔ **Warp backend (control plane)** ↔ **LLM providers**
 * The Warp backend handles task orchestration, observability, and LLM inference routing.
+* LLM providers operate under **Zero Data Retention (ZDR)** agreements. They do not store or train on your data.
 * The **execution plane** is where source code is accessed, commands run, and build artifacts are produced. This can run on Warp's infrastructure or yours.
 
 ## Warp-hosted (SaaS)
@@ -52,10 +53,11 @@ Warp-hosted agents can be triggered by:
 
 * You want the simplest path to scalable cloud agent execution.
 * You need to run many tasks in parallel without building sandboxing infrastructure.
+* Your security requirements are met by Warp's SOC 2 Type II certified infrastructure with ZDR.
 
 ## Self-hosted execution
 
-Warp supports running agent tools on your infrastructure. Inference and session data still transit Warp's servers.
+For organizations that need agent execution and source code to remain within their own network boundary, Warp supports self-hosted execution.
 
 :::note
 Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
@@ -65,8 +67,8 @@ Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
 
 Self-hosted deployments use a split architecture:
 
-* **Execution plane (customer-hosted)** - Repository clones, build artifacts, and agent tools run on your infrastructure. Code context, commands, and output can be included in LLM prompts and session transcripts that route through Warp's servers (see [What transits Warp's servers](#what-transits-warps-servers)).
-* **Control plane (Warp-hosted)** - Task orchestration, observability data, and LLM inference route through Warp's servers.
+* **Execution plane (customer-hosted)** - Source code repositories, build artifacts, shell commands, and runtime secrets stay on your infrastructure. Note that during agent interactions, code context is included in LLM prompts and session transcripts that route through Warp's servers under ZDR agreements (see [What transits Warp's servers](#what-transits-warps-servers)).
+* **Control plane (Warp-hosted)** - Task orchestration, observability data, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements.
 
 ### Deployment modes
 
@@ -93,8 +95,9 @@ Self-hosted agents require **outbound-only** network access. No inbound network 
 
 ### When to use
 
-* You need agent tools to run in your own execution environment.
-* You want the {VARS.WARP_AUTOMATION_PLATFORM}'s orchestration and visibility with customer-hosted compute.
+* Compliance or security requirements prevent using Warp-hosted compute.
+* Source code and execution must stay within your network boundary.
+* You want {VARS.WARP_AUTOMATION_PLATFORM} orchestration and visibility without sending code to Warp's infrastructure.
 
 ## Hybrid deployments
 
@@ -102,7 +105,7 @@ Organizations can combine Warp-hosted and self-hosted execution to balance conve
 
 ### How it works
 
-* Route tasks that need your execution environment to self-hosted agents.
+* Route sensitive workloads (e.g., production code, regulated data) to self-hosted agents.
 * Route less sensitive workloads (e.g., open-source tooling, internal utilities) to Warp-hosted agents.
 * Both execution modes share the same {VARS.DASHBOARD}, session sharing, and API/SDK visibility.
 
@@ -120,15 +123,15 @@ Understanding what data stays where is critical for security and compliance deci
 
 * **Source code** - Repository contents and version history
 * **Build artifacts** - Compiled outputs and generated files
+* **Shell commands** - Terminal commands and their output
 * **Runtime secrets** - Environment variables and credentials
-
-Agent prompts, transcripts, and output can contain code or other data from that environment and transit Warp's servers.
+* **Execution logs** - Agent run logs and diagnostics
 
 ### What transits Warp's servers
 
 * **Task orchestration** - Scheduling, routing, and lifecycle management
 * **Observability data** - Run status, duration, and metadata
-* **LLM inference** - Prompts and responses (which include code context from agent interactions) routed through Warp to LLM providers
+* **LLM inference** - Prompts and responses (which include code context from agent interactions) routed through Warp to contracted LLM providers under ZDR agreements
 * **Session sharing data** - Session transcripts, which include code context from agent interactions, when session sharing is enabled for monitoring and collaboration
 
 ## Choosing a deployment model
@@ -139,9 +142,11 @@ Consider the following when selecting a deployment model:
 
 **Warp-hosted** is right if:
 * You want zero infrastructure management for agent execution.
+* Your security team is comfortable with SOC 2 Type II certified, ZDR-covered infrastructure.
 * You need maximum parallelization and scalability.
 
 **Self-hosted** is right if:
+* Compliance requirements mandate that code stays within your network.
 * You need to integrate with existing CI/CD or infrastructure tooling.
 * You want full control over the execution environment.
 

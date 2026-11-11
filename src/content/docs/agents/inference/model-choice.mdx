@@ -73,7 +73,7 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.
 
 :::caution
-Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 have provider-specific data retention requirements. For Enterprise teams, these models are off by default and a workspace admin must enable them. See the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
+Anthropic requires data retention for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 :::
 
 #### Google
@@ -155,8 +155,23 @@ You can configure the base model for each [Agent Profile](/agents/capabilities/a
 
 Edit your default profile or any other profile directly in **Settings** > **Agents** > **Profiles**.
 
-<span id="zero-data-retention-policies" />
+### Zero data retention policies
 
-### Data handling
+Warp integrates with multiple large language model (LLM) providers to power its AI-driven features.
 
-Review the [Security overview](/enterprise/security-and-compliance/security-overview/) for data flows and controls. Contact [security@warp.dev](mailto:security@warp.dev) to confirm retention terms for the model and inference configuration you plan to use.
+**These providers include, but are not limited to:**
+
+* OpenAI
+* Anthropic
+* Google
+* xAI
+* Fireworks AI
+
+Warp has executed **Zero Data Retention (ZDR)** agreements with these providers. This means that, by default across all plans:
+
+* LLM providers commit not to train their models on any customer-generated data processed through Warp’s services.
+* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+
+Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+
+Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
