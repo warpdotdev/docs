@@ -11,7 +11,7 @@ tags:
 ---
 import { VARS } from '@data/vars';
 
-This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request. To run this same loop as a managed product instead of wiring it yourself, see [Warp Factories](/factories/).
+This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request. To build an intake-to-review workflow on Warp's factory infrastructure instead, see [Warp Factories](/factories/).
 
 ## Prerequisites
 
@@ -162,9 +162,9 @@ The reviewer agent surfaces issues and inconsistencies; the human makes the fina
 
 ## Next steps
 
-* [Warp Factories overview](/factories/) - Warp's product for running this same intake-to-review loop without the workflow wiring
+* [Warp Factories overview](/factories/) - Infrastructure for building and configuring your own intake-to-review workflow
 * [Automations](/factories/automations/) - Replaces the label-based state machine you just wired by hand
-* [About factory agents](/factories/factory-agents/) - The same four roles, Triage, Spec, Implement, and Review, as managed agents
+* [About factory agents](/factories/factory-agents/) - The same four roles, triage, spec, implement, and review, as managed agents
 * [Warp Factories quickstart](https://docs.warp.dev/factories/quickstart/) - Set up a factory and send your first work item
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) - Add the outer improvement loop
 * [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) - The human review workflow for agent-generated PRs
