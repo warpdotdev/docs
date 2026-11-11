@@ -29,6 +29,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Test editorial guidance and factory positioning
+        run: |
+          python3 .agents/skills/doc_quality_policy/test_editorial_guidance.py
+          python3 .agents/skills/style_lint/test_factory_positioning.py
+
       # Changed-file-only style lint. Error-severity findings block; warning-
       # severity tone/judgment findings remain visible to review-docs-pr.
       - name: Run style_lint --changed
