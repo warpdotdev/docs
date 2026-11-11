@@ -7,11 +7,11 @@ sidebar:
   label: "How factories work"
 ---
 
-Warp Factories provides infrastructure for development workflows you define and configure. Your factory connects repositories, agents, and automations in [definition files](/factories/factory-as-code/), with [Scorers and benchmarks](/factories/measure-and-improve/) to evaluate results and compare changes.
+Warp Factories provides the infrastructure for development workflows you define and configure. Your [definition files](/factories/factory-as-code/) connect repositories, agents, and automations. Use Scorers to check runs against criteria you define, and benchmarks to compare configurations on the same tasks. See [Measure and improve](/factories/measure-and-improve/).
 
 The foreman agent routes requests according to the workflow's instructions and communicates through the tool where work started, such as Slack or Linear. The default workflow covers triage, planning, implementation, and review, with human decision points you can configure.
 
-A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
+A work item is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
 ![Warp Factories system diagram showing work sources, automations, the foreman and stage agents, human handoff, the factory definition, platform execution, the factory dashboard, and the measure-and-improve loop](../../../assets/agent-platform/factories-work-item-flow.png)
 
