@@ -1,8 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
-    "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
     "src/content/docs/enterprise/support-and-resources/billing.mdx",
     "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
     "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
@@ -47,9 +45,20 @@
     "src/content/docs/factories/factory-api.mdx",
     "src/content/docs/factories/factory-as-code.mdx",
     "src/content/docs/factories/factory-dashboard.mdx",
-    "src/content/docs/factories/factory-inbox.mdx",
+    "src/content/docs/factories/factory-home.mdx",
     "src/content/docs/factories/factory-mcp.mdx",
     "src/content/docs/factories/factory-skills.mdx",
+    "src/content/docs/factories/guides/github-issue-to-pull-request.mdx",
+    "src/content/docs/factories/guides/index.mdx",
+    "src/content/docs/factories/guides/jira-to-pull-request.mdx",
+    "src/content/docs/factories/guides/linear-to-pull-request.mdx",
+    "src/content/docs/factories/guides/microservices-factory.mdx",
+    "src/content/docs/factories/guides/monorepo-factory.mdx",
+    "src/content/docs/factories/guides/multi-repository-factory.mdx",
+    "src/content/docs/factories/guides/slack-to-pull-request.mdx",
+    "src/content/docs/factories/guides/structuring-your-factory.mdx",
+    "src/content/docs/factories/guides/testing-and-tuning-your-factory.mdx",
+    "src/content/docs/factories/guides/web-application-factory.mdx",
     "src/content/docs/factories/harnesses/authentication.mdx",
     "src/content/docs/factories/harnesses/claude-code.mdx",
     "src/content/docs/factories/harnesses/codex.mdx",
@@ -778,7 +787,7 @@
         }
       ],
       "character_count": 8564,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1375,7 +1384,7 @@
         }
       ],
       "character_count": 3945,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1523,7 +1532,7 @@
         }
       ],
       "character_count": 8166,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2119,7 +2128,7 @@
         }
       ],
       "character_count": 21055,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2714,7 +2723,7 @@
         }
       ],
       "character_count": 14514,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3000,7 +3009,7 @@
         }
       ],
       "character_count": 10547,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3238,7 +3247,7 @@
         }
       ],
       "character_count": 4980,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3314,7 +3323,7 @@
         }
       ],
       "character_count": 3600,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3457,7 +3466,7 @@
         }
       ],
       "character_count": 6629,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3908,7 +3917,7 @@
         }
       ],
       "character_count": 10411,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4208,7 +4217,7 @@
         }
       ],
       "character_count": 5548,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4973,7 +4982,7 @@
         }
       ],
       "character_count": 5561,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5334,7 +5343,7 @@
         }
       ],
       "character_count": 25328,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5877,7 +5886,7 @@
         }
       ],
       "character_count": 6580,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7698,7 +7707,7 @@
         }
       ],
       "character_count": 9013,
-      "extraction_status": "unchanged",
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7774,7 +7783,7 @@
       "path": "src/content/docs/agents/inference/custom-routers.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/custom-routers/",
-      "source_sha256": "2484318832fceb50a5ce1bb5c27a0e13ad452e9abd59b9850a449e515bdd36aa",
+      "source_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
       "title": "Custom routers"
     },
     "src/content/docs/agents/inference/grok-subscription.mdx": {
@@ -7943,77 +7952,77 @@
         },
         {
           "anchor": "openai",
-          "character_count": 1253,
+          "character_count": 1362,
           "heading": "OpenAI",
-          "line_end": 49,
+          "line_end": 50,
           "line_start": 32
         },
         {
           "anchor": "anthropic",
-          "character_count": 2946,
+          "character_count": 3144,
           "heading": "Anthropic",
-          "line_end": 76,
-          "line_start": 50
+          "line_end": 78,
+          "line_start": 51
         },
         {
           "anchor": "google",
-          "character_count": 256,
+          "character_count": 294,
           "heading": "Google",
-          "line_end": 86,
-          "line_start": 77
+          "line_end": 89,
+          "line_start": 79
         },
         {
           "anchor": "xai",
           "character_count": 870,
           "heading": "xAI",
-          "line_end": 108,
-          "line_start": 87
+          "line_end": 111,
+          "line_start": 90
         },
         {
           "anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
           "character_count": 517,
           "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
-          "line_end": 121,
-          "line_start": 109
+          "line_end": 124,
+          "line_start": 112
         },
         {
           "anchor": "how-to-change-models",
           "character_count": 605,
           "heading": "How to change models",
-          "line_end": 132,
-          "line_start": 122
+          "line_end": 135,
+          "line_start": 125
         },
         {
           "anchor": "custom-routers",
           "character_count": 456,
           "heading": "Custom routers",
-          "line_end": 138,
-          "line_start": 133
+          "line_end": 141,
+          "line_start": 136
         },
         {
           "anchor": "model-fallback",
           "character_count": 572,
           "heading": "Model fallback",
-          "line_end": 148,
-          "line_start": 139
+          "line_end": 151,
+          "line_start": 142
         },
         {
           "anchor": "configuring-models-per-agent-profile",
           "character_count": 397,
           "heading": "Configuring models per Agent Profile",
-          "line_end": 154,
-          "line_start": 149
+          "line_end": 157,
+          "line_start": 152
         },
         {
           "anchor": "zero-data-retention-policies",
           "character_count": 893,
           "heading": "Zero data retention policies",
-          "line_end": 174,
-          "line_start": 155
+          "line_end": 177,
+          "line_start": 158
         }
       ],
-      "character_count": 10560,
-      "extraction_status": "unchanged",
+      "character_count": 10905,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -8037,54 +8046,54 @@
         },
         {
           "anchor": "anthropic",
-          "line_start": 50,
+          "line_start": 51,
           "text": "Anthropic"
         },
         {
           "anchor": "google",
-          "line_start": 77,
+          "line_start": 79,
           "text": "Google"
         },
         {
           "anchor": "xai",
-          "line_start": 87,
+          "line_start": 90,
           "text": "xAI"
         },
         {
           "anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
-          "line_start": 109,
+          "line_start": 112,
           "text": "Hosted models (via [Fireworks AI](https://fireworks.ai))"
         },
         {
           "anchor": "how-to-change-models",
-          "line_start": 122,
+          "line_start": 125,
           "text": "How to change models"
         },
         {
           "anchor": "custom-routers",
-          "line_start": 133,
+          "line_start": 136,
           "text": "Custom routers"
         },
         {
           "anchor": "model-fallback",
-          "line_start": 139,
+          "line_start": 142,
           "text": "Model fallback"
         },
         {
           "anchor": "configuring-models-per-agent-profile",
-          "line_start": 149,
+          "line_start": 152,
           "text": "Configuring models per Agent Profile"
         },
         {
           "anchor": "zero-data-retention-policies",
-          "line_start": 155,
+          "line_start": 158,
           "text": "Zero data retention policies"
         }
       ],
       "path": "src/content/docs/agents/inference/model-choice.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/model-choice/",
-      "source_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+      "source_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
       "title": "Agent model choice"
     },
     "src/content/docs/agents/local-agents/active-ai.mdx": {
@@ -9600,7 +9609,7 @@
         }
       ],
       "character_count": 20092,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -12615,7 +12624,7 @@
         }
       ],
       "character_count": 7221,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -12781,7 +12790,7 @@
         }
       ],
       "character_count": 11221,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -12916,7 +12925,7 @@
         }
       ],
       "character_count": 2601,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "login-and-sso",
@@ -13116,7 +13125,7 @@
         }
       ],
       "character_count": 10915,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13367,7 +13376,7 @@
         }
       ],
       "character_count": 9735,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13565,7 +13574,7 @@
         }
       ],
       "character_count": 4001,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13696,7 +13705,7 @@
         }
       ],
       "character_count": 7670,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13759,6 +13768,334 @@
       "route": "/enterprise/",
       "source_sha256": "31acfaf2b81ab497df3027d074bfcf7702134e02072799f952e5a68479b581ca",
       "title": "Enterprise overview"
+    },
+    "src/content/docs/enterprise/security-and-compliance/security-overview.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 301,
+          "heading": "",
+          "line_end": 11,
+          "line_start": 8
+        },
+        {
+          "anchor": "transparency-and-control",
+          "character_count": 1069,
+          "heading": "Transparency and control",
+          "line_end": 21,
+          "line_start": 12
+        },
+        {
+          "anchor": "what-telemetry-does-warp-collect-and-why",
+          "character_count": 45,
+          "heading": "What telemetry does Warp collect and why?",
+          "line_end": 23,
+          "line_start": 22
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "character_count": 1548,
+          "heading": "Zero Data Retention (ZDR)",
+          "line_end": 44,
+          "line_start": 24
+        },
+        {
+          "anchor": "telemetry-categories",
+          "character_count": 509,
+          "heading": "Telemetry categories",
+          "line_end": 56,
+          "line_start": 45
+        },
+        {
+          "anchor": "disabling-telemetry",
+          "character_count": 441,
+          "heading": "Disabling telemetry",
+          "line_end": 67,
+          "line_start": 57
+        },
+        {
+          "anchor": "data-handling-and-privacy",
+          "character_count": 29,
+          "heading": "Data handling and privacy",
+          "line_end": 69,
+          "line_start": 68
+        },
+        {
+          "anchor": "where-your-data-lives",
+          "character_count": 1372,
+          "heading": "Where your data lives",
+          "line_end": 78,
+          "line_start": 70
+        },
+        {
+          "anchor": "encryption",
+          "character_count": 161,
+          "heading": "Encryption",
+          "line_end": 83,
+          "line_start": 79
+        },
+        {
+          "anchor": "secret-redaction",
+          "character_count": 598,
+          "heading": "Secret redaction",
+          "line_end": 96,
+          "line_start": 84
+        },
+        {
+          "anchor": "data-retention",
+          "character_count": 391,
+          "heading": "Data retention",
+          "line_end": 102,
+          "line_start": 97
+        },
+        {
+          "anchor": "soc-2-type-ii",
+          "character_count": 460,
+          "heading": "SOC 2 Type II",
+          "line_end": 115,
+          "line_start": 105
+        },
+        {
+          "anchor": "infrastructure-security",
+          "character_count": 27,
+          "heading": "Infrastructure security",
+          "line_end": 117,
+          "line_start": 116
+        },
+        {
+          "anchor": "warp-hosted-infrastructure",
+          "character_count": 487,
+          "heading": "Warp-hosted infrastructure",
+          "line_end": 126,
+          "line_start": 118
+        },
+        {
+          "anchor": "self-hosted-deployments",
+          "character_count": 1263,
+          "heading": "Self-hosted deployments",
+          "line_end": 144,
+          "line_start": 127
+        },
+        {
+          "anchor": "single-sign-on-sso",
+          "character_count": 408,
+          "heading": "Single Sign-On (SSO)",
+          "line_end": 152,
+          "line_start": 147
+        },
+        {
+          "anchor": "team-permissions",
+          "character_count": 383,
+          "heading": "Team permissions",
+          "line_end": 158,
+          "line_start": 153
+        },
+        {
+          "anchor": "admin-panel-governance",
+          "character_count": 867,
+          "heading": "Admin Panel governance",
+          "line_end": 169,
+          "line_start": 159
+        },
+        {
+          "anchor": "security-features-for-developers",
+          "character_count": 36,
+          "heading": "Security features for developers",
+          "line_end": 171,
+          "line_start": 170
+        },
+        {
+          "anchor": "bring-your-own-llm-byollm",
+          "character_count": 579,
+          "heading": "Bring Your Own LLM (BYOLLM)",
+          "line_end": 182,
+          "line_start": 172
+        },
+        {
+          "anchor": "agent-permissions",
+          "character_count": 446,
+          "heading": "Agent permissions",
+          "line_end": 200,
+          "line_start": 192
+        },
+        {
+          "anchor": "incident-response-and-support",
+          "character_count": 33,
+          "heading": "Incident response and support",
+          "line_end": 202,
+          "line_start": 201
+        },
+        {
+          "anchor": "security-issue-reporting",
+          "character_count": 349,
+          "heading": "Security issue reporting",
+          "line_end": 212,
+          "line_start": 203
+        },
+        {
+          "anchor": "enterprise-support",
+          "character_count": 396,
+          "heading": "Enterprise support",
+          "line_end": 221,
+          "line_start": 213
+        },
+        {
+          "anchor": "additional-resources",
+          "character_count": 885,
+          "heading": "Additional resources",
+          "line_end": 232,
+          "line_start": 222
+        }
+      ],
+      "character_count": 13793,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "transparency-and-control",
+          "line_start": 12,
+          "text": "Transparency and control"
+        },
+        {
+          "anchor": "what-telemetry-does-warp-collect-and-why",
+          "line_start": 22,
+          "text": "What telemetry does Warp collect and why?"
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "line_start": 24,
+          "text": "Zero Data Retention (ZDR)"
+        },
+        {
+          "anchor": "telemetry-categories",
+          "line_start": 45,
+          "text": "Telemetry categories"
+        },
+        {
+          "anchor": "disabling-telemetry",
+          "line_start": 57,
+          "text": "Disabling telemetry"
+        },
+        {
+          "anchor": "data-handling-and-privacy",
+          "line_start": 68,
+          "text": "Data handling and privacy"
+        },
+        {
+          "anchor": "where-your-data-lives",
+          "line_start": 70,
+          "text": "Where your data lives"
+        },
+        {
+          "anchor": "encryption",
+          "line_start": 79,
+          "text": "Encryption"
+        },
+        {
+          "anchor": "secret-redaction",
+          "line_start": 84,
+          "text": "Secret redaction"
+        },
+        {
+          "anchor": "data-retention",
+          "line_start": 97,
+          "text": "Data retention"
+        },
+        {
+          "anchor": "compliance-and-certifications",
+          "line_start": 103,
+          "text": "Compliance and certifications"
+        },
+        {
+          "anchor": "soc-2-type-ii",
+          "line_start": 105,
+          "text": "SOC 2 Type II"
+        },
+        {
+          "anchor": "infrastructure-security",
+          "line_start": 116,
+          "text": "Infrastructure security"
+        },
+        {
+          "anchor": "warp-hosted-infrastructure",
+          "line_start": 118,
+          "text": "Warp-hosted infrastructure"
+        },
+        {
+          "anchor": "self-hosted-deployments",
+          "line_start": 127,
+          "text": "Self-hosted deployments"
+        },
+        {
+          "anchor": "access-controls-and-authentication",
+          "line_start": 145,
+          "text": "Access controls and authentication"
+        },
+        {
+          "anchor": "single-sign-on-sso",
+          "line_start": 147,
+          "text": "Single Sign-On (SSO)"
+        },
+        {
+          "anchor": "team-permissions",
+          "line_start": 153,
+          "text": "Team permissions"
+        },
+        {
+          "anchor": "admin-panel-governance",
+          "line_start": 159,
+          "text": "Admin Panel governance"
+        },
+        {
+          "anchor": "security-features-for-developers",
+          "line_start": 170,
+          "text": "Security features for developers"
+        },
+        {
+          "anchor": "bring-your-own-llm-byollm",
+          "line_start": 172,
+          "text": "Bring Your Own LLM (BYOLLM)"
+        },
+        {
+          "anchor": "docker-sandboxes",
+          "line_start": 183,
+          "text": "Docker Sandboxes"
+        },
+        {
+          "anchor": "agent-permissions",
+          "line_start": 192,
+          "text": "Agent permissions"
+        },
+        {
+          "anchor": "incident-response-and-support",
+          "line_start": 201,
+          "text": "Incident response and support"
+        },
+        {
+          "anchor": "security-issue-reporting",
+          "line_start": 203,
+          "text": "Security issue reporting"
+        },
+        {
+          "anchor": "enterprise-support",
+          "line_start": 213,
+          "text": "Enterprise support"
+        },
+        {
+          "anchor": "additional-resources",
+          "line_start": 222,
+          "text": "Additional resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/security-and-compliance/security-overview/",
+      "source_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+      "title": "Security overview"
     },
     "src/content/docs/enterprise/security-and-compliance/sso.mdx": {
       "candidate_sections": [
@@ -13827,7 +14164,7 @@
         }
       ],
       "character_count": 5278,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13896,6 +14233,108 @@
       "source_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
       "title": "Single Sign-On (SSO)"
     },
+    "src/content/docs/enterprise/security-and-compliance/trust-center.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 296,
+          "heading": "",
+          "line_end": 11,
+          "line_start": 9
+        },
+        {
+          "anchor": "soc-2-type-ii",
+          "character_count": 676,
+          "heading": "SOC 2 Type II",
+          "line_end": 24,
+          "line_start": 14
+        },
+        {
+          "anchor": "subprocessors",
+          "character_count": 529,
+          "heading": "Subprocessors",
+          "line_end": 34,
+          "line_start": 25
+        },
+        {
+          "anchor": "security-documentation",
+          "character_count": 661,
+          "heading": "Security documentation",
+          "line_end": 43,
+          "line_start": 35
+        },
+        {
+          "anchor": "requesting-security-information",
+          "character_count": 631,
+          "heading": "Requesting security information",
+          "line_end": 53,
+          "line_start": 44
+        },
+        {
+          "anchor": "penetration-testing-and-vulnerability-management",
+          "character_count": 262,
+          "heading": "Penetration testing and vulnerability management",
+          "line_end": 57,
+          "line_start": 54
+        },
+        {
+          "anchor": "responsible-disclosure",
+          "character_count": 364,
+          "heading": "Responsible disclosure",
+          "line_end": 65,
+          "line_start": 58
+        }
+      ],
+      "character_count": 3685,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "compliance-certifications",
+          "line_start": 12,
+          "text": "Compliance certifications"
+        },
+        {
+          "anchor": "soc-2-type-ii",
+          "line_start": 14,
+          "text": "SOC 2 Type II"
+        },
+        {
+          "anchor": "subprocessors",
+          "line_start": 25,
+          "text": "Subprocessors"
+        },
+        {
+          "anchor": "security-documentation",
+          "line_start": 35,
+          "text": "Security documentation"
+        },
+        {
+          "anchor": "requesting-security-information",
+          "line_start": 44,
+          "text": "Requesting security information"
+        },
+        {
+          "anchor": "penetration-testing-and-vulnerability-management",
+          "line_start": 54,
+          "text": "Penetration testing and vulnerability management"
+        },
+        {
+          "anchor": "responsible-disclosure",
+          "line_start": 58,
+          "text": "Responsible disclosure"
+        }
+      ],
+      "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/security-and-compliance/trust-center/",
+      "source_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+      "title": "Warp Trust Center"
+    },
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx": {
       "candidate_sections": [
         {
@@ -13935,7 +14374,7 @@
         }
       ],
       "character_count": 1632,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13977,6 +14416,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "399611aa3b4da0d8573001c71f8ae9bbc3bd21bd"
+    "docs": "bb1d0e5daaca849adebaadfaea37863ffce549a4"
   }
 }

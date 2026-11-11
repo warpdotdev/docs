@@ -1,5 +1,169 @@
 {
   "findings": {
+    "sha256:048f226ecedaf40d8b1c4db051f9a9d55fec4a80321395cef442761cb8504717": {
+      "audit_run_id": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
+      "authority_reason": "The security overview states the exception, and the model-choice reference names the affected models. Trust Center's complete section contains no matching exception. This finding concerns inconsistent public scope, not a policy decision.",
+      "canonical_source": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx#zero-data-retention-zdr",
+      "category": "privacy",
+      "claims": [
+        {
+          "category": "privacy",
+          "claim_content_fingerprint": "sha256:15b2788f8c5633cd397bd0310ece5a5035916c1f7ca9b346b8446a0bf705527c",
+          "claim_id": "sha256:22fb9c258431c107b86dddd9255b6f49f6c29b8b64d273878ad2db23a9df4e34",
+          "entity": "customer-ai-data",
+          "extraction_confidence": "high",
+          "polarity": "affirmative",
+          "predicate": "retained-by-model-provider",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [],
+            "exceptions": [
+              "claude-fable-5",
+              "claude-fable-5.1",
+              "claude-fable-5.2",
+              "provider-retention-required-models"
+            ],
+            "install_methods": [],
+            "legacy": false,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "Warp's contracted LLM providers do not retain or train on your data",
+          "source": {
+            "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+            "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+            "heading": "Data retention",
+            "heading_anchor": "data-retention",
+            "line_end": 99,
+            "line_start": 99,
+            "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/enterprise/security-and-compliance/security-overview/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "privacy",
+          "value": {
+            "normalized": false,
+            "type": "boolean"
+          }
+        },
+        {
+          "category": "privacy",
+          "claim_content_fingerprint": "sha256:53b504d86da297c4bf8a0e519a6959958cb0e72b8f3a45fb557a848a18859c1b",
+          "claim_id": "sha256:ef93b48fce40e09f035de9db40420180d27aec877d562ef2414456b94701d94f",
+          "entity": "customer-ai-data",
+          "extraction_confidence": "high",
+          "polarity": "affirmative",
+          "predicate": "retained-by-model-provider",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": false,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "meaning they do not store or train on your data.",
+          "source": {
+            "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+            "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+            "heading": "Subprocessors",
+            "heading_anchor": "subprocessors",
+            "line_end": 32,
+            "line_start": 32,
+            "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/enterprise/security-and-compliance/trust-center/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "privacy",
+          "value": {
+            "normalized": false,
+            "type": "boolean"
+          }
+        }
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "entity": "customer-ai-data",
+      "finding_content_fingerprint": "sha256:61a50e3b22b4e4854c6c0187020e95e148ee662fe905cc1a1f7eee2341714c52",
+      "finding_id": "sha256:048f226ecedaf40d8b1c4db051f9a9d55fec4a80321395cef442761cb8504717",
+      "first_seen_run": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
+      "last_seen_run": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
+      "lifecycle": "new",
+      "predicate": "retained-by-model-provider",
+      "qualifier_status": "complete",
+      "rationale": "Trust Center gives an unqualified assurance that contracted model providers do not store data, while the security overview explicitly excludes retention-required models from ZDR.",
+      "rationale_class": "unqualified-retention-assurance-versus-model-exceptions",
+      "reopened": false,
+      "scope_quotes": [
+        {
+          "quote": "### Data retention\n\n* **ZDR** - Warp's contracted LLM providers do not retain or train on your data\n* **Telemetry data** - When collected, Warp retains telemetry data indefinitely for analytics and debugging\n* **User accounts** - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations\n",
+          "source": {
+            "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+            "line_end": 102,
+            "line_start": 97,
+            "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+            "repository": "warpdotdev/docs",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "## Subprocessors\n\nWarp publishes a list of subprocessors \u2014 third-party service providers that process data on Warp's behalf. This includes infrastructure providers, LLM providers, and other services that support Warp's operations.\n\nView the current list of subprocessors at [Warp subprocessors list](https://www.warp.dev/legal/subprocessors).\n\n:::note\nWarp maintains **Zero Data Retention (ZDR)** agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data.\n:::\n",
+          "source": {
+            "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+            "line_end": 34,
+            "line_start": 25,
+            "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+            "repository": "warpdotdev/docs",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Some models carry provider-specific data retention requirements and are therefore not covered by ZDR.",
+          "source": {
+            "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+            "line_end": 38,
+            "line_start": 38,
+            "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+            "repository": "warpdotdev/docs",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "#### Anthropic\n\nSuffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` enables thinking. The default ID for each family is listed separately where one exists.\n\n| Model | Supported `model_id` values | Default `model_id` |\n| --- | --- | --- |\n| Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` | `claude-5-5-opus-high` |\n| Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` | `claude-5-opus-high` |\n| Claude Fable 5.2 | `claude-5-2-fable-low`, `claude-5-2-fable-medium`, `claude-5-2-fable-high`, `claude-5-2-fable-xhigh`, `claude-5-2-fable-max` | Choose an effort-specific ID |\n| Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` | `claude-5-1-fable-high` |\n| Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` | `claude-5-fable-high` |\n| Claude Sonnet 5.5 | `claude-5-5-sonnet-low`, `claude-5-5-sonnet-medium`, `claude-5-5-sonnet-high`, `claude-5-5-sonnet-xhigh`, `claude-5-5-sonnet-max` | `claude-5-5-sonnet-xhigh` |\n| Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` | `claude-5-sonnet-xhigh` |\n| Claude Opus 4.8 | `claude-4-8-opus-low`, `claude-4-8-opus-medium`, `claude-4-8-opus-high`, `claude-4-8-opus-xhigh`, `claude-4-8-opus-xhigh-fast`, `claude-4-8-opus-max` | `claude-4-8-opus-xhigh` |\n| Claude Opus 4.7 | `claude-4-7-opus-high`, `claude-4-7-opus-xhigh`, `claude-4-7-opus-max` | `claude-4-7-opus-xhigh` |\n| Claude Opus 4.6 | `claude-4-6-opus-high`, `claude-4-6-opus-max` | `claude-4-6-opus-high` |\n| Claude Sonnet 4.6 | `claude-4-6-sonnet-high`, `claude-4-6-sonnet-max` | `claude-4-6-sonnet-high` |\n| Claude Opus 4.5 | `claude-4-5-opus`, `claude-4-5-opus-thinking` | `claude-4-5-opus` |\n| Claude Sonnet 4.5 | `claude-4-5-sonnet`, `claude-4-5-sonnet-thinking` | `claude-4-5-sonnet` |\n| Claude Haiku 5.5 | `claude-5-5-haiku-low`, `claude-5-5-haiku-medium`, `claude-5-5-haiku-high`, `claude-5-5-haiku-xhigh`, `claude-5-5-haiku-max` | \u2014 |\n| Claude Haiku 4.5 | `claude-4-5-haiku` | `claude-4-5-haiku` |\n\nClaude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.\n\n:::caution\nAnthropic requires data retention for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them \u2014 see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).\n:::\n",
+          "source": {
+            "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+            "line_end": 78,
+            "line_start": 51,
+            "path": "src/content/docs/agents/inference/model-choice.mdx",
+            "repository": "warpdotdev/docs",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "source_commit": "bb1d0e5daaca849adebaadfaea37863ffce549a4",
+      "status": "active",
+      "suggested_resolution": "Have the privacy owner confirm the retention scope and align Trust Center's assurance with the documented model-specific exceptions before editing.",
+      "suggested_resolution_class": "human-review-provider-retention-exceptions",
+      "title": "Trust Center's no-retention assurance omits documented model exceptions",
+      "topic": "privacy",
+      "verdict": "contradiction"
+    },
     "sha256:50890f2239bc6a5045d38e66cb7f4f160232143c6abc357e749789e9a86f8e47": {
       "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "authority_reason": "The model-choice page provides the model-specific retention requirement; the overview supplies no matching exception.",
@@ -159,6 +323,7 @@
       "audit_run_id": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
       "authority_reason": "Model choice names the exact provider-specific retention exception; the enterprise security overview confirms such models can be enabled by an Enterprise admin. Both are current public policy scope evidence.",
       "canonical_source": "src/content/docs/agents/inference/model-choice.mdx#zero-data-retention-policies",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -336,8 +501,8 @@
       "verdict": "gap"
     },
     "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2": {
-      "audit_run_id": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
-      "authority_reason": "The same public cloud-command reference explicitly excludes Agent Profiles and scopes its troubleshooting to cloud runs. Generated CLI help was unavailable; this is a documentation-only contradiction, not proof of deployed permission behavior.",
+      "audit_run_id": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
+      "authority_reason": "Both instructions are in the same current public cloud-command reference. This is a contradiction in public permission guidance, not a claim about deployed enforcement.",
       "canonical_source": {
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
@@ -442,51 +607,41 @@
       "finding_content_fingerprint": "sha256:2b81bd25f5698ca2e0fc9483ebbe6cc0dbe0f3b0142f312afce445d58ec0cf22",
       "finding_id": "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2",
       "first_seen_run": "01a18dc1-0a96-7631-bee5-cc1e5dee9535",
-      "last_seen_run": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
+      "last_seen_run": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
       "lifecycle": "existing",
       "predicate": "requires-agent-profile-permissions",
       "qualifier_status": "complete",
-      "rationale": "The cloud command section explicitly says cloud runs do not use Agent Profiles, while its cloud-failure checklist instructs readers to check profile command and MCP permissions. Both passages concern the same legacy cloud command and supply no configuration exception. This is a documentation conflict, not verification of deployed cloud permission behavior.",
+      "rationale": "The cloud-command reference excludes Agent Profiles, but its cloud-failure troubleshooting asks readers to check a profile's command and MCP permissions.",
       "rationale_class": "cloud-run-profile-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
-          "quote": "### Running agents remotely: \\`oz agent run-cloud\\`\n\nCloud runs dispatch tasks to remote environments. Use cloud runs for:\n\n* Background processing\n* Standardized team configurations\n* Remote execution on servers you don't directly access\n\n```sh\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --name \"Repo summary\" \\\n  --prompt \"Summarize this repo and list the top 5 risky areas\" \\\n  --open\n```\n\n**Key flags**\n\n* `--environment <ENVIRONMENT_ID>` (`-e`) \u2014 select the environment to run in.\n* `--no-environment` \u2014 run without an environment (not recommended).\n* `--open` \u2014 view the agent's session in Warp once it's available.\n* `--name <NAME>` (`-n`) \u2014 label the run for grouping and traceability (see [Naming runs](/agents/cli/oz-cli/#naming-runs) below).\n* `--title <TITLE>` \u2014 set the title shown for the run and its conversation (see [Titling runs](/agents/cli/oz-cli/#titling-runs) below).\n* `--parent-run-id <RUN_ID>` \u2014 start the run as an orchestration child of an existing run (see [Starting a run as an orchestration child](/agents/cli/oz-cli/#starting-a-run-as-an-orchestration-child) below).\n* `--agent <UID>` \u2014 run as a saved [named agent](/platform/agents/), applying its configuration (skills, secrets, base model, and default environment) and attributing credit usage to it (see [Managing named agents](/agents/cli/oz-cli/#managing-named-agents) below).\n* `--mcp <SPEC>` \u2014 start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.\n* `--model <MODEL_ID>` \u2014 choose the model for the selected harness. For the Warp Agent harness, use an ID from `oz model list`. For Claude Code or Codex, see [Choosing an execution harness](#choosing-an-execution-harness).\n* `--skill <SPEC>` \u2014 use a skill from the environment's repository as the base prompt (see [Using Skills](/agents/cli/oz-cli/#using-skills)).\n* `--host <WORKER_ID>` \u2014 run on a specific self-hosted worker instead of Warp-hosted infrastructure.\n* `--attach <PATH>` \u2014 attach a file to the agent query. You can attach up to 25 files, with a maximum size of 10 MB per file. For images in interactive local or cloud conversations, see [Images as Context](/agents/local-agents/agent-context/images-as-context/).\n* `--computer-use` / `--no-computer-use` \u2014 enable or disable [Computer Use](/agents/capabilities/computer-use/) for this run.\n* `--harness <HARNESS>` \u2014 choose the [execution harness](/factories/harnesses/) for the run: `oz` (default, the Warp Agent), `claude` (Claude Code), or `codex` (Codex). `claude-code` is accepted as an alias for `claude`. See [harness identifiers](/factories/harnesses/#harness-identifiers).\n* `--claude-auth-secret <NAME>` \u2014 name of the [Warp-managed secret](/platform/secrets/) that authenticates the Claude Code harness. Use with `--harness claude` or the `--harness claude-code` alias. See [Third-party cloud agent authentication](/factories/harnesses/authentication/).\n* `--codex-auth-secret <NAME>` \u2014 name of the [Warp-managed secret](/platform/secrets/) that authenticates the Codex harness. Only valid with `--harness codex`. See [Third-party cloud agent authentication](/factories/harnesses/authentication/).\n* `--file <PATH>` (`-f`) \u2014 load run configuration from a YAML or JSON file.\n\nTo run a third-party harness, first store the provider credential as a Warp-managed secret, then pass it with the matching flag:\n\n```sh\n# Run Claude Code as a cloud agent, authenticating with a stored Anthropic secret\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --harness claude \\\n  --claude-auth-secret ANTHROPIC_API_KEY \\\n  --prompt \"Review the latest PR and suggest fixes\"\n```\n\n**Key differences from `run`**\n\n* No `--cwd` \u2014 the environment determines the working directory.\n* No `--share` \u2014 sharing options are on `run`, not `run-cloud`.\n* No `--profile` \u2014 cloud runs do not use agent profiles.\n\n#### Naming runs\n\nThe `--name` flag assigns a config name to the run. Use it to group related runs under a shared label so you can filter, search, and track them later.\n\n**How names work:**\n\n* **Skill-based runs** \u2014 When you run an agent from a [skill](/agents/capabilities/skills/), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.\n* **Custom runs** \u2014 When you build your own automation (via the CLI, API, or SDK), set `--name` to a consistent value that describes the workflow's intent.\n\n**Why naming matters:**\n\nWhen your team runs many agents across schedules, integrations, and ad-hoc triggers, `name` lets you answer questions like \"how many distinct workflows are we running?\" and \"how often does this particular workflow run?\" You can filter runs by name using the `name` query parameter on `GET /agent/runs` in the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/).\n\n**Examples:**\n\n```sh\n# Name a recurring workflow for easy tracking\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --name \"nightly-dependency-check\" \\\n  --prompt \"Check for outdated dependencies and open a PR with updates\"\n\n# Skill-based runs are named automatically\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --skill \"myorg/backend:code-review\" \\\n  --prompt \"review the latest PR\"\n```\n\n#### Titling runs\n\nThe `--title` flag sets the title shown for the run and its conversation in Warp and the [{VARS.WEB_APP}](/platform/oz-web-app/). Use it when the auto-generated title isn't descriptive enough:\n\n```sh\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --title \"Upgrade Postgres driver to 5.2\" \\\n  --prompt \"Upgrade the Postgres driver and fix any resulting build errors\"\n```\n\n`--title` and `--name` do different things: `--name` sets the run's config name, which groups related runs under a shared label, while `--title` labels this one run for humans reading it.\n\n#### Starting a run as an orchestration child\n\nThe `--parent-run-id` flag attaches the new run to an existing run as an [orchestration](/platform/orchestration/multi-agent-runs/) child. The child inherits the parent's lineage and scope, and it appears alongside the parent's other children instead of as a standalone run:\n\n```sh\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --parent-run-id <PARENT_RUN_ID> \\\n  --title \"Backfill integration tests\" \\\n  --prompt \"Add integration tests for the new endpoints\"\n```\n\nPass the run ID of the run doing the spawning. Omit the flag for ordinary standalone runs.\n\n**When cloud runs fail**\n\n* Verify your environment has the correct repository and context.\n* Check that your profile allows the commands and MCP servers needed.\n* Ensure environment variables are set in the environment, not your local shell.\n\n#### Reusing saved prompts and Warp Drive objects\n\nYou can reuse saved prompts with `--saved-prompt`, and reference notebooks, workflows, and rules inline in any `--prompt` string. See [Referencing Warp Drive objects](/agents/cli/oz-cli/warp-drive/) for details.\n\n#### Choosing an execution harness\n\nBy default, cloud runs use the Warp Agent harness (`oz`). To run Claude Code or Codex, pass `--harness` with the matching auth secret.\n\n```bash\noz agent run-cloud \\\n  --environment ENVIRONMENT_ID \\\n  --harness claude \\\n  --claude-auth-secret SECRET_NAME \\\n  --model opus \\\n  --prompt \"review the latest PR\"\n```\n\nRun `oz model list` to list model IDs for the Warp Agent harness. For Claude Code, choose an ID from [available Claude Code models](/factories/harnesses/claude-code/#available-models). For Codex, choose an ID from [available Codex models](/factories/harnesses/codex/#available-models). If the model is not available for the selected harness, the command fails before the run starts.\n\nCreate the auth secret first with `oz secret create claude api-key SECRET_NAME` (or `oz secret create codex api-key SECRET_NAME` for Codex). See [Third-party cloud agent authentication](/factories/harnesses/authentication/) for the full setup.\n",
+          "quote": "### Running agents remotely: \\`oz agent run-cloud\\`\n\nCloud runs dispatch tasks to remote environments. Use cloud runs for:\n\n* Background processing\n* Standardized team configurations\n* Remote execution on servers you don't directly access\n\n```sh\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --name \"Repo summary\" \\\n  --prompt \"Summarize this repo and list the top 5 risky areas\" \\\n  --open\n```\n\n**Key flags**\n\n* `--environment <ENVIRONMENT_ID>` (`-e`) \u2014 select the environment to run in.\n* `--no-environment` \u2014 run without an environment (not recommended).\n* `--open` \u2014 view the agent's session in Warp once it's available.\n* `--name <NAME>` (`-n`) \u2014 label the run for grouping and traceability (see [Naming runs](/agents/cli/oz-cli/#naming-runs) below).\n* `--title <TITLE>` \u2014 set the title shown for the run and its conversation (see [Titling runs](/agents/cli/oz-cli/#titling-runs) below).\n* `--parent-run-id <RUN_ID>` \u2014 start the run as an orchestration child of an existing run (see [Starting a run as an orchestration child](/agents/cli/oz-cli/#starting-a-run-as-an-orchestration-child) below).\n* `--agent <UID>` \u2014 run as a saved [named agent](/platform/agents/), applying its configuration (skills, secrets, base model, and default environment) and attributing credit usage to it (see [Managing named agents](/agents/cli/oz-cli/#managing-named-agents) below).\n* `--mcp <SPEC>` \u2014 start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.\n* `--model <MODEL_ID>` \u2014 choose the model for the selected harness. For the Warp Agent harness, use an ID from `oz model list`. For Claude Code or Codex, see [Choosing an execution harness](#choosing-an-execution-harness).\n* `--skill <SPEC>` \u2014 use a skill from the environment's repository as the base prompt (see [Using Skills](/agents/cli/oz-cli/#using-skills)).\n* `--host <WORKER_ID>` \u2014 run on a specific self-hosted worker instead of Warp-hosted infrastructure.\n* `--attach <PATH>` \u2014 attach a file to the agent query. You can attach up to 25 files, with a maximum size of 10 MB per file. For images in interactive local or cloud conversations, see [Images as Context](/agents/local-agents/agent-context/images-as-context/).\n* `--computer-use` / `--no-computer-use` \u2014 enable or disable [Computer Use](/agents/capabilities/computer-use/) for this run.\n* `--harness <HARNESS>` \u2014 choose the [execution harness](/factories/harnesses/) for the run: `oz` (default, the Warp Agent), `claude` (Claude Code), or `codex` (Codex). `claude-code` is accepted as an alias for `claude`. See [harness identifiers](/factories/harnesses/#harness-identifiers).\n* `--claude-auth-secret <NAME>` \u2014 name of the [Warp-managed secret](/platform/secrets/) that authenticates the Claude Code harness. Use with `--harness claude` or the `--harness claude-code` alias. See [Third-party cloud agent authentication](/factories/harnesses/authentication/).\n* `--codex-auth-secret <NAME>` \u2014 name of the [Warp-managed secret](/platform/secrets/) that authenticates the Codex harness. Only valid with `--harness codex`. See [Third-party cloud agent authentication](/factories/harnesses/authentication/).\n* `--file <PATH>` (`-f`) \u2014 load run configuration from a YAML or JSON file.\n\nTo run a third-party harness, first store the provider credential as a Warp-managed secret, then pass it with the matching flag:\n\n```sh",
           "source": {
-            "canonical_identity": "route:/agents/cli/oz-cli",
-            "canonical_route": "/agents/cli/oz-cli",
             "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
-            "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
-            "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
-            "line_end": 374,
+            "line_end": 277,
             "line_start": 239,
             "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/agents/cli/oz-cli/",
             "visibility": "public"
           }
         },
         {
           "quote": "#### Starting a run as an orchestration child\n\nThe `--parent-run-id` flag attaches the new run to an existing run as an [orchestration](/platform/orchestration/multi-agent-runs/) child. The child inherits the parent's lineage and scope, and it appears alongside the parent's other children instead of as a standalone run:\n\n```sh\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --parent-run-id <PARENT_RUN_ID> \\\n  --title \"Backfill integration tests\" \\\n  --prompt \"Add integration tests for the new endpoints\"\n```\n\nPass the run ID of the run doing the spawning. Omit the flag for ordinary standalone runs.\n\n**When cloud runs fail**\n\n* Verify your environment has the correct repository and context.\n* Check that your profile allows the commands and MCP servers needed.\n* Ensure environment variables are set in the environment, not your local shell.\n",
           "source": {
-            "canonical_identity": "route:/agents/cli/oz-cli",
-            "canonical_route": "/agents/cli/oz-cli",
             "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
-            "heading": "Starting a run as an orchestration child",
-            "heading_anchor": "starting-a-run-as-an-orchestration-child",
             "line_end": 353,
             "line_start": 334,
             "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/agents/cli/oz-cli/",
             "visibility": "public"
           }
         }
       ],
       "severity": "medium",
-      "source_commit": "399611aa3b4da0d8573001c71f8ae9bbc3bd21bd",
+      "source_commit": "bb1d0e5daaca849adebaadfaea37863ffce549a4",
       "status": "active",
-      "suggested_resolution": "Have the CLI permissions owner replace the cloud troubleshooting instruction with verified cloud configuration guidance. Do not infer that local Agent Profiles apply to cloud runs. Human review required.",
+      "suggested_resolution": "Have the permissions owner confirm cloud-run configuration and align the troubleshooting instruction with the cloud command.",
       "suggested_resolution_class": "human-permission-guidance-review",
       "title": "Cloud-run troubleshooting requires an unsupported Agent Profile",
       "topic": "cli",
@@ -496,6 +651,7 @@
       "audit_run_id": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
       "authority_reason": "The canonical overview and FAQ make opposing public statements about training use, and the privacy page confirms collection depends on telemetry and plan context rather than establishing a universal no-training rule.",
       "canonical_source": "canonical-doc",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -656,8 +812,8 @@
       "verdict": "contradiction"
     },
     "sha256:a77ac773485788d4a397b5db19747e26c63158c5b7b6c04f258fc09deae975ac": {
-      "audit_run_id": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
-      "authority_reason": "The public architecture reference's data-security boundary explicitly distinguishes local checkouts from code context that transits and may persist as run data. Human security review is required.",
+      "audit_run_id": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
+      "authority_reason": "The current public architecture reference explicitly distinguishes customer-hosted checkouts from code context that transits Warp and may persist as run data.",
       "canonical_source": "src/content/docs/platform/architecture.mdx#data-security-and-boundaries",
       "category": "privacy",
       "claims": [
@@ -758,73 +914,60 @@
       "finding_content_fingerprint": "sha256:7245b08e3f443ca4c37d34bd748567b72b3025ee575cf3de19fa8e3f7cc805fb",
       "finding_id": "sha256:a77ac773485788d4a397b5db19747e26c63158c5b7b6c04f258fc09deae975ac",
       "first_seen_run": "manual-20261104T224556Z",
-      "last_seen_run": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
+      "last_seen_run": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
       "lifecycle": "existing",
       "predicate": "transits-warp-servers",
       "qualifier_status": "complete",
-      "rationale": "The complete self-hosted section says prompts and transcripts include code context that routes through Warp, while its selection advice promises orchestration without sending code to Warp infrastructure. The later data-flow section and public architecture reference distinguish checkout locality from code-context transit and persistence. The selection advice needs human security review.",
+      "rationale": "The deployment chooser promises orchestration without sending code to Warp, while the same page says self-hosted prompts and transcripts contain code context that routes through Warp.",
       "rationale_class": "self-hosted-code-transit-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
           "quote": "### Split architecture\n\nSelf-hosted deployments use a split architecture:\n\n* **Execution plane (customer-hosted)** - Source code repositories, build artifacts, shell commands, and runtime secrets stay on your infrastructure. Note that during agent interactions, code context is included in LLM prompts and session transcripts that route through Warp's servers under ZDR agreements (see [What transits Warp's servers](#what-transits-warps-servers)).\n* **Control plane (Warp-hosted)** - Task orchestration, observability data, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements.\n",
           "source": {
-            "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
-            "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
             "content_sha256": "49a89792a39ba229f05c54700cfa91721cb36afc2a3fae0580011e6d61148df9",
-            "heading": "Split architecture",
-            "heading_anchor": "split-architecture",
             "line_end": 72,
             "line_start": 66,
             "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/enterprise/enterprise-features/architecture-and-deployment/",
             "visibility": "public"
           }
         },
         {
-          "quote": "### When to use\n\n* Compliance or security requirements prevent using Warp-hosted compute.\n* Source code and execution must stay within your network boundary.\n* You want {VARS.WARP_AUTOMATION_PLATFORM} orchestration and visibility without sending code to Warp's infrastructure.\n",
+          "quote": "### When to use\n\n* You want the simplest path to scalable cloud agent execution.\n* You need to run many tasks in parallel without building sandboxing infrastructure.\n* Your security requirements are met by Warp's SOC 2 Type II certified infrastructure with ZDR.\n",
           "source": {
-            "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
-            "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
             "content_sha256": "49a89792a39ba229f05c54700cfa91721cb36afc2a3fae0580011e6d61148df9",
-            "heading": "When to use",
-            "heading_anchor": "when-to-use",
-            "line_end": 101,
-            "line_start": 96,
+            "line_end": 57,
+            "line_start": 52,
             "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/enterprise/enterprise-features/architecture-and-deployment/",
             "visibility": "public"
           }
         },
         {
-          "quote": "Either way, code context the agent puts into prompts, transcripts, or artifacts transits Warp and may persist as run data.",
+          "quote": "## Data security and boundaries\n\nEvery run moves a few distinct classes of data, and each class has its own boundary. This section maps them across your infrastructure, the Warp platform, model providers, and the data plane where run data is stored. All communication is encrypted in transit (TLS 1.2+), all stored data is encrypted at rest (AES-256), and known secret values are redacted at output boundaries.\n\n![Warp-hosted data security and boundaries diagram showing repositories, clients, and integrations in customer infrastructure, the per-run sandbox and control plane on the Warp platform, model providers, and Warp-managed run-data storage](../../../assets/agent-platform/warp-hosted-data-boundaries.png)\n\n* **Source code** - For Warp-hosted runs, repositories are cloned into an isolated per-run sandbox and destroyed with it; Warp does not persistently store repository clones or train on your code. For [managed self-hosting](/factories/self-hosting/), checkout and the workspace stay on your infrastructure. Either way, code context the agent puts into prompts, transcripts, or artifacts transits Warp and may persist as run data.\n* **Prompts and context** - With the Warp Agent, model calls route through Warp to LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements: providers don't retain or train on the traffic. [Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) keep the same route but use your provider account. Claude Code and Codex call their provider directly from the execution environment, under your provider agreement rather than Warp's.\n* **Run data** - Transcripts, artifacts, and run attachments are stored in Warp-managed storage, encrypted at rest and access-controlled by your team's roles.\n* **Control-plane data** - Warp always retains what it needs to operate the platform: user and organization settings, agent and factory configuration, orchestration and lifecycle metadata, trigger and integration metadata, operational logs, and usage and billing.\n* **Execution secrets** - Secrets you inject locally never transit Warp. [Managed secrets](/platform/secrets/) are stored encrypted and fetched just-in-time by the execution environment with a run-scoped token, and each delivery is audit-logged. Agents can also obtain short-lived cloud credentials at runtime through [workload identity federation](/platform/integrations/cloud-providers/) instead of holding long-lived secrets. [Secret redaction](/support-and-community/privacy-and-security/secret-redaction/) at output boundaries is a backstop, not a substitute for narrow scopes and rotation.\n* **Inference credentials** - With the Warp Agent, team-managed keys, and Bring Your Own LLM, provider credentials are used only at the Warp\u2013provider boundary and never enter the sandbox. Claude Code and Codex use your provider credentials inside the execution environment, delivered as managed secrets or injected locally.\n* **MCP credentials** - URL-backed MCP servers, including OAuth-connected servers, use Warp's proxy. Command-based servers connect from the execution environment. Credentials for proxied servers stay with Warp; command-based connections use local or managed secrets in the execution environment.\n* **Repository identity** - User-triggered cloud agent runs use the triggering user's personal GitHub token. Agent API key runs with [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) and runs started by the GitHub integration act as the Warp Factories GitHub App. Factory runs act with the creating user's authorization or as the agent itself, depending on the configured [credential strategy](/factories/factory-as-code/#credentialstrategy). Branch protection and repository permissions apply as usual.\n",
           "source": {
             "content_sha256": "9c4ad218a6a6453d949b48c4bdd5587f6befdf035de57483dddd1300a19024d8",
-            "heading": "Data security and boundaries",
-            "heading_anchor": "data-security-and-boundaries",
-            "line_end": 96,
-            "line_start": 96,
+            "line_end": 104,
+            "line_start": 90,
             "path": "src/content/docs/platform/architecture.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/platform/architecture/",
             "visibility": "public"
           }
         }
       ],
       "severity": "high",
-      "source_commit": "399611aa3b4da0d8573001c71f8ae9bbc3bd21bd",
+      "source_commit": "bb1d0e5daaca849adebaadfaea37863ffce549a4",
       "status": "active",
-      "suggested_resolution": "Request human security and documentation-owner review to distinguish checkout and execution locality from code context transit in the self-hosted selection guidance.",
+      "suggested_resolution": "Ask the security owner to reconcile the deployment-choice promise with the documented code-context boundary.",
       "suggested_resolution_class": "human-review-self-hosted-data-boundary",
       "title": "Self-hosted deployment selection promises no code transit despite documented code context transit",
       "topic": "privacy",
       "verdict": "contradiction"
     },
     "sha256:ad94d2b549d43b173263f9534c974a5725aabd91cd6e6576f81105bc6418ccf6": {
-      "audit_run_id": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
-      "authority_reason": "The dedicated Codex setup guide owns the task-specific instructions. The current public overview makes an incompatible unqualified statement; public client implementation alone is not stable-release evidence and cannot choose the shipped path.",
+      "audit_run_id": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
+      "authority_reason": "The current dedicated public setup guide owns the notification task. Neither page scopes its instructions to a different version; no deployed behavior is inferred.",
       "canonical_source": "src/content/docs/agents/cli-agents/codex.mdx#setting-up-notifications",
       "category": "product-behavior",
       "claims": [
@@ -929,51 +1072,41 @@
       "finding_content_fingerprint": "sha256:0cde5e8c82bf99e484a70be7d25c7061eb8ded3a677164de407e4caf17984be1",
       "finding_id": "sha256:ad94d2b549d43b173263f9534c974a5725aabd91cd6e6576f81105bc6418ccf6",
       "first_seen_run": "01a1b204-7d29-7637-a3da-da71f6f712af",
-      "last_seen_run": "01a1c177-9270-7ed9-9e0e-52738f50e53f",
+      "last_seen_run": "01a1cbc4-48c3-7bdf-9f7f-2fd69464861d",
       "lifecycle": "existing",
       "predicate": "setup-mechanism",
       "qualifier_status": "complete",
-      "rationale": "Both public pages describe local Codex notification setup without a version or rollout qualifier. The dedicated guide requires the Warp plugin and supplies marketplace commands; the overview says Codex uses a native config change. Public client implementation contains alternative feature-gated paths, not stable-release evidence choosing either one. The owner must verify released scope before reconciling the instructions.",
+      "rationale": "The overview says Codex notifications use a native configuration change, while the dedicated setup guide requires the Warp plugin and gives plugin installation commands.",
       "rationale_class": "codex-notification-setup-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
           "quote": "## Setting up notifications\n\nWarp surfaces Codex activity as in-app and desktop alerts \u2014 such as when Codex completes a task, encounters an error, or needs your input. This is powered by the Warp plugin for Codex, published from the [warpdotdev/codex-warp](https://github.com/warpdotdev/codex-warp) plugin marketplace.\n\nWhen Warp detects a Codex session without the plugin, it shows an install chip in the terminal. Click the chip to install the plugin, then restart Codex. Warp shows an update chip the same way when a newer plugin version is required.\n\nTo install the plugin yourself, add the marketplace and the plugin:\n\n```bash\ncodex plugin marketplace add warpdotdev/codex-warp\ncodex plugin add warp@codex-warp\n```\n\nRestart Codex to activate the plugin. To update it later, upgrade the marketplace and reinstall the plugin:\n\n```bash\ncodex plugin marketplace upgrade codex-warp\ncodex plugin add warp@codex-warp\n```\n\n:::note\nIf you point `codex-warp` at a local (non-Git) marketplace source, Warp leaves that override alone and doesn't offer plugin updates for it.\n:::\n",
           "source": {
-            "canonical_identity": "route:/agents/cli-agents/codex",
-            "canonical_route": "/agents/cli-agents/codex",
             "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
-            "heading": "Setting up notifications",
-            "heading_anchor": "setting-up-notifications",
             "line_end": 44,
             "line_start": 21,
             "path": "src/content/docs/agents/cli-agents/codex.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/agents/cli-agents/codex/",
             "visibility": "public"
           }
         },
         {
           "quote": "## Feature support\n\nNot every feature is available for every agent. The table below shows current support.\n\n| Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Claude Code | Codex | OpenCode | Amp | Auggie | Copilot CLI | Cursor | Gemini CLI | Droid | Pi |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Rich input editor (`Ctrl-G`) | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Agent notifications | \u2713 | \u2713 | \u2713 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 |\n| Code review comments | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Attach code as context | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Vertical tabs + metadata | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Tab Configs | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Remote Control | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n\n**Goose**, **Hermes**, **Mistral Vibe**, **Grok Build** (`grok`), and **Kiro CLI** (`kiro-cli` or `kiro`) are also recognized. They get the same enhanced features as the agents above \u2014 rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control \u2014 but don't support agent notifications yet.\n\n**Antigravity** (`agy` or `antigravity`) also supports these features and can report task completion and requests for input when its CLI emits structured notifications.\n\nAgent notifications in Claude Code, OpenCode, and Codex require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.\n",
           "source": {
-            "canonical_identity": "route:/agents/cli-agents/overview",
-            "canonical_route": "/agents/cli-agents/overview",
             "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
-            "heading": "Feature support",
-            "heading_anchor": "feature-support",
             "line_end": 79,
             "line_start": 60,
             "path": "src/content/docs/agents/cli-agents/overview.mdx",
             "repository": "warpdotdev/docs",
-            "route": "/agents/cli-agents/overview/",
             "visibility": "public"
           }
         }
       ],
       "severity": "medium",
-      "source_commit": "399611aa3b4da0d8573001c71f8ae9bbc3bd21bd",
+      "source_commit": "bb1d0e5daaca849adebaadfaea37863ffce549a4",
       "status": "active",
-      "suggested_resolution": "Have the CLI integration owner confirm the shipped notification setup, then align the overview and dedicated guide. If both paths remain supported, document their version or rollout conditions.",
+      "suggested_resolution": "Ask the integration owner to confirm the shipped notification setup and reconcile the two public instructions.",
       "suggested_resolution_class": "owner-review-notification-setup-scope",
       "title": "Codex notification setup conflicts between overview and setup guide",
       "topic": "product-behavior",

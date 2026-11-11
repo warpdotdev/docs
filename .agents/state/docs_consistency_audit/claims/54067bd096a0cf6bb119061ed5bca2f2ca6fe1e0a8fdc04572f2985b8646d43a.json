@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Auto models",
         "heading_anchor": "auto-models",
         "line_end": 28,
@@ -74,11 +74,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "How to change models",
         "heading_anchor": "how-to-change-models",
-        "line_end": 131,
-        "line_start": 131,
+        "line_end": 134,
+        "line_start": 134,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -117,11 +117,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Model fallback",
         "heading_anchor": "model-fallback",
-        "line_end": 145,
-        "line_start": 145,
+        "line_end": 148,
+        "line_start": 148,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -160,11 +160,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Model fallback",
         "heading_anchor": "model-fallback",
-        "line_end": 146,
-        "line_start": 146,
+        "line_end": 149,
+        "line_start": 149,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -203,11 +203,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Configuring models per Agent Profile",
         "heading_anchor": "configuring-models-per-agent-profile",
-        "line_end": 151,
-        "line_start": 151,
+        "line_end": 154,
+        "line_start": 154,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -246,11 +246,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
-        "line_end": 71,
-        "line_start": 71,
+        "line_end": 73,
+        "line_start": 73,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -265,8 +265,8 @@
     },
     {
       "category": "privacy",
-      "claim_content_fingerprint": "sha256:032e4bc65a25f585678ddcf5a3d0f8e96ec662b77fea94e961f6c47d6e2fe153",
-      "claim_id": "sha256:a57ee70be66d981fe317dcbcc9b3384d469e74ff18b28c5ccdb99d9a5481e105",
+      "claim_content_fingerprint": "sha256:864a0c7edabe3293a5e625bc1ab57f874dcaea15a75f2cd968e94af732cf310e",
+      "claim_id": "sha256:4dcd4fedd5ed4bc4c308b11e3f199db515f680c07aef31a409fee1ad6b2e437c",
       "entity": "customer-ai-data",
       "extraction_confidence": "high",
       "polarity": "affirmative",
@@ -287,18 +287,19 @@
         "time_scope": null,
         "versions": [
           "claude-fable-5",
-          "claude-fable-5.1"
+          "claude-fable-5.1",
+          "claude-fable-5.2"
         ]
       },
-      "quote": "Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1",
+      "quote": "Anthropic requires data retention for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2",
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
-        "line_end": 74,
-        "line_start": 74,
+        "line_end": 76,
+        "line_start": 76,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -313,8 +314,8 @@
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:138114b5a0138c9805164ff4788a7e6d1a54e006fc30b634cb50be95bf81486e",
-      "claim_id": "sha256:1be24435fdbf16ad38a40c470a17f440407a6db267946a0d6c0a5e694f3134c9",
+      "claim_content_fingerprint": "sha256:87dd8028bb83dc7bb708c495117cd0deaef89f0980b168647f8e91b78fea71a5",
+      "claim_id": "sha256:32a539ccf2ff8ff1d97613c4ac6ca9ac97d7026f2a53b4214be8f952fa64ba28",
       "entity": "claude-fable-models",
       "extraction_confidence": "high",
       "polarity": "affirmative",
@@ -335,18 +336,19 @@
         "time_scope": null,
         "versions": [
           "claude-fable-5",
-          "claude-fable-5.1"
+          "claude-fable-5.1",
+          "claude-fable-5.2"
         ]
       },
       "quote": "For Enterprise teams, these models are off by default and a workspace admin must enable them",
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
-        "line_end": 74,
-        "line_start": 74,
+        "line_end": 76,
+        "line_start": 76,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -387,11 +389,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Zero data retention policies",
         "heading_anchor": "zero-data-retention-policies",
-        "line_end": 169,
-        "line_start": 169,
+        "line_end": 172,
+        "line_start": 172,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -406,8 +408,8 @@
     },
     {
       "category": "privacy",
-      "claim_content_fingerprint": "sha256:365242794649c7aecabd9dfecd1184517cd22595d75933534730476f3a77a7ff",
-      "claim_id": "sha256:8e3f4ee7b5402b70d258ad801f920fb8792735f411b3440512c00ae8a8bd7bb6",
+      "claim_content_fingerprint": "sha256:b4d2271e73bc43d29ee9b8a3e4f09a99b6a9568df90c188f915ca8be65ebb323",
+      "claim_id": "sha256:b7b9491f77c22f1cdb47f45fb860ad4e49c72f4ad5d881b9726f013c50ce2312",
       "entity": "customer-ai-data",
       "extraction_confidence": "high",
       "polarity": "affirmative",
@@ -418,7 +420,8 @@
         "environments": [],
         "exceptions": [
           "claude-fable-5",
-          "claude-fable-5.1"
+          "claude-fable-5.1",
+          "claude-fable-5.2"
         ],
         "install_methods": [],
         "legacy": false,
@@ -433,11 +436,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Zero data retention policies",
         "heading_anchor": "zero-data-retention-policies",
-        "line_end": 170,
-        "line_start": 170,
+        "line_end": 173,
+        "line_start": 173,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -478,11 +481,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Zero data retention policies",
         "heading_anchor": "zero-data-retention-policies",
-        "line_end": 174,
-        "line_start": 174,
+        "line_end": 177,
+        "line_start": 177,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -521,11 +524,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "Custom routers",
         "heading_anchor": "custom-routers",
-        "line_end": 135,
-        "line_start": 135,
+        "line_end": 138,
+        "line_start": 138,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -568,11 +571,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
         "heading": "xAI",
         "heading_anchor": "xai",
-        "line_end": 107,
-        "line_start": 107,
+        "line_end": 110,
+        "line_start": 110,
         "path": "src/content/docs/agents/inference/model-choice.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/model-choice/",
@@ -584,9 +587,2035 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:71329d8029d0492a72e8f2c0bd28ea1984bf9c303ae086dfefa117858cf08ea3",
+      "claim_id": "sha256:f0bc9b4641e2d708a44a0f5db0afa29395160ab3f9e3990c852efe3863bbcac3",
+      "entity": "claude-fable-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1",
+          "claude-fable-5.2"
+        ]
+      },
+      "quote": "these models are **not available under Zero Data Retention (ZDR)**.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:453c6cbdac0cf4e1580cf96d0c87447a386fb9c1823c74be12ce6cc70b2bf56d",
+      "claim_id": "sha256:f8e51d643007418832cf8306b1bbc41834b6eac003491f38a52ed17b718cdb6b",
+      "entity": "gpt-6-astra",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-6 Astra | `gpt-6-astra-low`, `gpt-6-astra-medium`, `gpt-6-astra-high`, `gpt-6-astra-xhigh`, `gpt-6-astra-max` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-6-astra-low",
+          "gpt-6-astra-medium",
+          "gpt-6-astra-high",
+          "gpt-6-astra-xhigh",
+          "gpt-6-astra-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:5a068ec6b586c32dee247ec27a36d34d93663b0e7216331d095042f7409581bf",
+      "claim_id": "sha256:e959ba453e62fb19b7e9f9fe5b452619e64819a7d209423154870139a1a9d97f",
+      "entity": "gpt-6.1-sol",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-6.1 Sol | `gpt-6-1-sol-low`, `gpt-6-1-sol-medium`, `gpt-6-1-sol-high`, `gpt-6-1-sol-xhigh`, `gpt-6-1-sol-max` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 39,
+        "line_start": 39,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-6-1-sol-low",
+          "gpt-6-1-sol-medium",
+          "gpt-6-1-sol-high",
+          "gpt-6-1-sol-xhigh",
+          "gpt-6-1-sol-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:2378adbc8eb7b8639066365af2b3c383ec5e7913663d46ca317c082f02f92152",
+      "claim_id": "sha256:8d30bcb975dac7146f756e9443cf78bc53fb3725df49e4f9669d2e3822d1690e",
+      "entity": "gpt-6.1-terra",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-6.1 Terra | `gpt-6-1-terra-low`, `gpt-6-1-terra-medium`, `gpt-6-1-terra-high`, `gpt-6-1-terra-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-6-1-terra-low",
+          "gpt-6-1-terra-medium",
+          "gpt-6-1-terra-high",
+          "gpt-6-1-terra-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:07f39d6e9de99098aebac10a59ecc9c9fc6ad5ef83015ae0f38187a6394e1f75",
+      "claim_id": "sha256:ab5e127d7815022570062cd887e09122bdcf6e77a4b6e33d567290b139760a9c",
+      "entity": "gpt-6-sol",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-6 Sol | `gpt-6-sol-low`, `gpt-6-sol-medium`, `gpt-6-sol-high`, `gpt-6-sol-xhigh`, `gpt-6-sol-max` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-6-sol-low",
+          "gpt-6-sol-medium",
+          "gpt-6-sol-high",
+          "gpt-6-sol-xhigh",
+          "gpt-6-sol-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:e4d3c355136b81b83e3f1a49c89a63989bd82197a43f768197776234319ce01a",
+      "claim_id": "sha256:504c4308a031f53a896cb7cf1ae552c09c083497bdb01333a0ad5d5f0d408415",
+      "entity": "gpt-6-luna",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-6 Luna | `gpt-6-luna-low`, `gpt-6-luna-medium`, `gpt-6-luna-high`, `gpt-6-luna-xhigh`, `gpt-6-luna-max` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-6-luna-low",
+          "gpt-6-luna-medium",
+          "gpt-6-luna-high",
+          "gpt-6-luna-xhigh",
+          "gpt-6-luna-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:e9f3311d5c81ea7a3c239d5fcc4a8e80e999269b83b4a35ab31cb0aaa3f12ddf",
+      "claim_id": "sha256:08068a585ebc0e0a75efb0219bd74d479f72ce0d26d3e1d92e5a591b766565a2",
+      "entity": "gpt-5.6-sol",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-5.6 Sol | `gpt-5-6-sol-low`, `gpt-5-6-sol-medium`, `gpt-5-6-sol-high`, `gpt-5-6-sol-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-5-6-sol-low",
+          "gpt-5-6-sol-medium",
+          "gpt-5-6-sol-high",
+          "gpt-5-6-sol-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:8f4ae29f8fa9c20bbaf5cb8ff0431e8d885696e5dc8a0168b71d249b807ad65e",
+      "claim_id": "sha256:b4a90e5276573066b9ca3da613f81f4c5ab0959cc1db0d3ab3109837d39436cf",
+      "entity": "gpt-5.6-terra",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-5.6 Terra | `gpt-5-6-terra-low`, `gpt-5-6-terra-medium`, `gpt-5-6-terra-high`, `gpt-5-6-terra-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-5-6-terra-low",
+          "gpt-5-6-terra-medium",
+          "gpt-5-6-terra-high",
+          "gpt-5-6-terra-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:ccc2bda7984e611bbf17d5562c805ad22689351be4a37824fc641a4f50f17b74",
+      "claim_id": "sha256:f4c04f72a4f2459996a25d6509e66e2f86ca589bbad3cc761ed0c86ce0006a15",
+      "entity": "gpt-5.6-luna",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-5.6 Luna | `gpt-5-6-luna-low`, `gpt-5-6-luna-medium`, `gpt-5-6-luna-high`, `gpt-5-6-luna-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 45,
+        "line_start": 45,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-5-6-luna-low",
+          "gpt-5-6-luna-medium",
+          "gpt-5-6-luna-high",
+          "gpt-5-6-luna-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:b94fcb4f8c58991b902a842540a4a7db28706b996abd7b8fd0aa9e08169f24cc",
+      "claim_id": "sha256:4ebd392d7f68a344b0f965626bb6778801831d24c80e72e42fd845853f94c487",
+      "entity": "gpt-5.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-5.5 | `gpt-5-5-low`, `gpt-5-5-medium`, `gpt-5-5-high`, `gpt-5-5-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-5-5-low",
+          "gpt-5-5-medium",
+          "gpt-5-5-high",
+          "gpt-5-5-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:d15b6e5bdc1a317df966e315c2b00e9fa98a33b355913f6c19623a1e06842c2e",
+      "claim_id": "sha256:50b0ce01f3caadac9949a42786af6b596f6edda93c7e0df47b5a47c72d0bdea8",
+      "entity": "gpt-5.4",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GPT-5.4 | `gpt-5-4-low`, `gpt-5-4-medium`, `gpt-5-4-high`, `gpt-5-4-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "OpenAI",
+        "heading_anchor": "openai",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gpt-5-4-low",
+          "gpt-5-4-medium",
+          "gpt-5-4-high",
+          "gpt-5-4-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:98971730b95c6519d56afc7729f2630f4624c734be3a1077cdfe5fd0d1afe19b",
+      "claim_id": "sha256:156b646c2431a4730a2157978159863042f2e64f0a2aee6eac41b73037477723",
+      "entity": "claude-opus-5.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` | `claude-5-5-opus-high` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 57,
+        "line_start": 57,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-5-opus-low",
+          "claude-5-5-opus-medium",
+          "claude-5-5-opus-high",
+          "claude-5-5-opus-xhigh",
+          "claude-5-5-opus-xhigh-fast",
+          "claude-5-5-opus-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:d61665bff252b0d572d4949657b9c059d53a86b0a9202f3f9768a98dd7ac1bc9",
+      "claim_id": "sha256:2118e152bae82c13d55e981056829e62b882eb6ad5a3c3ece6e7a40a8f78ab3c",
+      "entity": "claude-opus-5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` | `claude-5-opus-high` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-opus-low",
+          "claude-5-opus-medium",
+          "claude-5-opus-high",
+          "claude-5-opus-xhigh",
+          "claude-5-opus-xhigh-fast",
+          "claude-5-opus-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:c03f2bce80ddb28606d7193a07c4a909f5c45ca2400d0c726e8109bf7d3b152d",
+      "claim_id": "sha256:f3109ec0dab6b45dcbc7870e2e67f791fc528e8657fc9fdac125e09f2cd157c1",
+      "entity": "claude-fable-5.2",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Fable 5.2 | `claude-5-2-fable-low`, `claude-5-2-fable-medium`, `claude-5-2-fable-high`, `claude-5-2-fable-xhigh`, `claude-5-2-fable-max` | Choose an effort-specific ID |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 59,
+        "line_start": 59,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-2-fable-low",
+          "claude-5-2-fable-medium",
+          "claude-5-2-fable-high",
+          "claude-5-2-fable-xhigh",
+          "claude-5-2-fable-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:8c42892421dcd54767c6dfaf49898a212977f9f86ad25c19261dcb060b1458c6",
+      "claim_id": "sha256:0c9304516191c78c8769c256f3a69f689889523c3370e7c23c19bb0cfc7ca6c9",
+      "entity": "claude-fable-5.1",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` | `claude-5-1-fable-high` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 60,
+        "line_start": 60,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-1-fable-low",
+          "claude-5-1-fable-medium",
+          "claude-5-1-fable-high",
+          "claude-5-1-fable-xhigh",
+          "claude-5-1-fable-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:52450e0e915e79b37316817c8720b074b5d31a31247ab665c992bc343cdb6d6b",
+      "claim_id": "sha256:e074814ed844d182a8805bc965e63aa00035a3ba8e8392c6ab7ed3dd7f92447d",
+      "entity": "claude-fable-5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` | `claude-5-fable-high` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-fable-low",
+          "claude-5-fable-medium",
+          "claude-5-fable-high",
+          "claude-5-fable-xhigh",
+          "claude-5-fable-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:8bec8c5640db00648ada98df3b7d5e2e49fef8fc1ec9393f47b5d348d31d8621",
+      "claim_id": "sha256:ac8455a40d855d2e5e0c2bb0d80d26a8bdd141c3d5f294bf33e09f7f06e86fd2",
+      "entity": "claude-sonnet-5.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Sonnet 5.5 | `claude-5-5-sonnet-low`, `claude-5-5-sonnet-medium`, `claude-5-5-sonnet-high`, `claude-5-5-sonnet-xhigh`, `claude-5-5-sonnet-max` | `claude-5-5-sonnet-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-5-sonnet-low",
+          "claude-5-5-sonnet-medium",
+          "claude-5-5-sonnet-high",
+          "claude-5-5-sonnet-xhigh",
+          "claude-5-5-sonnet-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:ba55e1eccf4290c81f957a87923afe0d97da3682ef5947fec424484cdd840be3",
+      "claim_id": "sha256:ef5adc86d1ffd70875600c43cccd895d2479f64c5690d431160e061dd7f2a555",
+      "entity": "claude-sonnet-5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` | `claude-5-sonnet-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 63,
+        "line_start": 63,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-sonnet-low",
+          "claude-5-sonnet-medium",
+          "claude-5-sonnet-high",
+          "claude-5-sonnet-xhigh",
+          "claude-5-sonnet-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:0c45e51ffefc5d06eb59f16b797a611b72e4061d4cf7f753274c25aeb948cbe4",
+      "claim_id": "sha256:09fe72f9853454a25dca0c3187249f7c33d66793b603cbc4eaaddf97fb6252d5",
+      "entity": "claude-opus-4.8",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Opus 4.8 | `claude-4-8-opus-low`, `claude-4-8-opus-medium`, `claude-4-8-opus-high`, `claude-4-8-opus-xhigh`, `claude-4-8-opus-xhigh-fast`, `claude-4-8-opus-max` | `claude-4-8-opus-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-8-opus-low",
+          "claude-4-8-opus-medium",
+          "claude-4-8-opus-high",
+          "claude-4-8-opus-xhigh",
+          "claude-4-8-opus-xhigh-fast",
+          "claude-4-8-opus-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:37fae09bdd4e52847df4a7f2967ef6c8de06947a3c779ab66b38137ac9bb89b2",
+      "claim_id": "sha256:8ec49d2561734613afcbb3125f0b261b27695fdcb1c232f718896fec11e02eda",
+      "entity": "claude-opus-4.7",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Opus 4.7 | `claude-4-7-opus-high`, `claude-4-7-opus-xhigh`, `claude-4-7-opus-max` | `claude-4-7-opus-xhigh` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 65,
+        "line_start": 65,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-7-opus-high",
+          "claude-4-7-opus-xhigh",
+          "claude-4-7-opus-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:86d3d0aee2b6aaa170f28ab78ca6c1c815e79f4ed9184b7a5e6989532d043e00",
+      "claim_id": "sha256:6d387a2c640862e99a65019d085505d8c1a1b1d616cf6146058162578729eaf8",
+      "entity": "claude-opus-4.6",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Opus 4.6 | `claude-4-6-opus-high`, `claude-4-6-opus-max` | `claude-4-6-opus-high` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 66,
+        "line_start": 66,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-6-opus-high",
+          "claude-4-6-opus-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:49e62c20b378d19f98b8e451406a2feedc53fd2fd3ba66b977498935687e63ab",
+      "claim_id": "sha256:aefcc309e9734fc05b79aec7fd0e40fe4f54d5e41d663fe2b38bfdeaa3c23c38",
+      "entity": "claude-sonnet-4.6",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Sonnet 4.6 | `claude-4-6-sonnet-high`, `claude-4-6-sonnet-max` | `claude-4-6-sonnet-high` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 67,
+        "line_start": 67,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-6-sonnet-high",
+          "claude-4-6-sonnet-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:50e17f8bc3ac4c88097ca1f4da05c0acd62223f8eb7fee66d3ce6b405346e063",
+      "claim_id": "sha256:aac76c3f155cb8151d0e48b6f00e838ad1042e75261c54a4f890e887b117f988",
+      "entity": "claude-opus-4.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Opus 4.5 | `claude-4-5-opus`, `claude-4-5-opus-thinking` | `claude-4-5-opus` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 68,
+        "line_start": 68,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-5-opus",
+          "claude-4-5-opus-thinking"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:eb9b816be351b406821f20d1f7f786105715ea1262836cbda640dcea23546872",
+      "claim_id": "sha256:67bd5cb371f491e2d6e3c5ba6ab7d3b5a0ebf814882f729a6d841fe90594c4a9",
+      "entity": "claude-sonnet-4.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Sonnet 4.5 | `claude-4-5-sonnet`, `claude-4-5-sonnet-thinking` | `claude-4-5-sonnet` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 69,
+        "line_start": 69,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-5-sonnet",
+          "claude-4-5-sonnet-thinking"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:cbfbf3f54870255f5bd0178b8b23a4488793033e07d1273fe816b063d87e8692",
+      "claim_id": "sha256:049c08239e322361815465aa8ab6f1a9ea6c1d23e3925aba8394028b0723cb74",
+      "entity": "claude-haiku-5.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Haiku 5.5 | `claude-5-5-haiku-low`, `claude-5-5-haiku-medium`, `claude-5-5-haiku-high`, `claude-5-5-haiku-xhigh`, `claude-5-5-haiku-max` | \u2014 |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 70,
+        "line_start": 70,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-5-5-haiku-low",
+          "claude-5-5-haiku-medium",
+          "claude-5-5-haiku-high",
+          "claude-5-5-haiku-xhigh",
+          "claude-5-5-haiku-max"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:7351315d4057f761cdd58ce3356a96e24e12c41d9cf3100f2de39ab4a0039e74",
+      "claim_id": "sha256:6c2d32578f5268f0c930ac1d342138370b50accb05c09fd95608da596d1b6193",
+      "entity": "claude-haiku-4.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Haiku 4.5 | `claude-4-5-haiku` | `claude-4-5-haiku` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 71,
+        "line_start": 71,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "claude-4-5-haiku"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:63bd3d07f4ca095778e040e6c6465f8b6326a668b3e5047a9a1fc9ac18c195e0",
+      "claim_id": "sha256:8b7e7498be22b1efca3ad514d7a917b0e5067c79a369a044c8922e611fe421c6",
+      "entity": "gemini-4-argon",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Gemini 4 Argon | `gemini-4-argon` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Google",
+        "heading_anchor": "google",
+        "line_end": 83,
+        "line_start": 83,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gemini-4-argon"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:4d003d968d4ae79d5b15625e19262da344786eeabd6f915bfa26c8e1559bcfdc",
+      "claim_id": "sha256:a2e5e80346e8fb0a39ac6f30e78aebd1e0da74193a76706664175064b6e14e54",
+      "entity": "gemini-3.1-pro",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Gemini 3.1 Pro | `gemini-3.1-pro` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Google",
+        "heading_anchor": "google",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gemini-3.1-pro"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:cad45704b052aeb3f4d227a6c56d1d41692aca5166d328537ffaedb108733c3a",
+      "claim_id": "sha256:734e4c644c4fc390f1d406ddce7ee887f1f2b51ee51ce2e0ec426bc683f608cf",
+      "entity": "gemini-3.8-flash",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Gemini 3.8 Flash | `gemini-3.8-flash` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Google",
+        "heading_anchor": "google",
+        "line_end": 85,
+        "line_start": 85,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gemini-3.8-flash"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:d53fd4a9d6b57e0b03ce810379b4acb1b2132ee1035811e0f381b36e85112089",
+      "claim_id": "sha256:f7fe9ac3275a3c19b7343d674285ebe7d7d43917ae3e2e0560a2bcd16d24fc29",
+      "entity": "gemini-3.7-flash",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Gemini 3.7 Flash | `gemini-3.7-flash` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Google",
+        "heading_anchor": "google",
+        "line_end": 86,
+        "line_start": 86,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gemini-3.7-flash"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:a391b900ccb2c6021c01e827574d6815b78261addcb9112a65b58ccac28cef5b",
+      "claim_id": "sha256:ca4e7b1518a939986c9ab5037b8cc25e7008db228d9d6d048aa139ce7a0a42ea",
+      "entity": "gemini-3.6-flash",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Gemini 3.6 Flash | `gemini-3.6-flash` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Google",
+        "heading_anchor": "google",
+        "line_end": 87,
+        "line_start": 87,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gemini-3.6-flash"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:5119c5eb4e0195435a3841adcac12c98c39818f6acaa332fd39b18a1d63719c9",
+      "claim_id": "sha256:6d5e8d0fbd13c0fb4407925415ff8a20c643aa0d1bab9578cd1b083957171eec",
+      "entity": "gemini-3.5-flash",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Gemini 3.5 Flash | `gemini-3.5-flash` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Google",
+        "heading_anchor": "google",
+        "line_end": 88,
+        "line_start": 88,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "gemini-3.5-flash"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:3e14563991fedaa3186c9ddd6740c206856b13b555c23dfe9207542ca83a6430",
+      "claim_id": "sha256:9c0e0aecf52aea1e1cfcfbc5ae56628df98679c53ca507fa45de02ccfd1c8341",
+      "entity": "grok-4.7",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Grok 4.7 | `grok-4-7-low` | Low |\n| Grok 4.7 | `grok-4-7-medium` | Medium |\n| Grok 4.7 | `grok-4-7-high` | High |\n| Grok 4.7 | `grok-4-7-xhigh` | Extra High |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "xAI",
+        "heading_anchor": "xai",
+        "line_end": 97,
+        "line_start": 94,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "grok-4-7-low",
+          "grok-4-7-medium",
+          "grok-4-7-high",
+          "grok-4-7-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:8365edf95d5c2097e625c4018a7f96ec4ad03191c11923fd35006d80754f99e4",
+      "claim_id": "sha256:633ef9a9863b9d9fa65c2aa4e1ea1945844abb4e7993e5c965fd93571658f634",
+      "entity": "grok-4.6",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Grok 4.6 | `grok-4-6-low` | Low |\n| Grok 4.6 | `grok-4-6-medium` | Medium |\n| Grok 4.6 | `grok-4-6-high` | High |\n| Grok 4.6 | `grok-4-6-xhigh` | Extra High |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "xAI",
+        "heading_anchor": "xai",
+        "line_end": 101,
+        "line_start": 98,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "grok-4-6-low",
+          "grok-4-6-medium",
+          "grok-4-6-high",
+          "grok-4-6-xhigh"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:0b81da522982fc0768c42bbbcfae857afaa52ad0212a6c073e6266896d921216",
+      "claim_id": "sha256:396eebe8da7c09a0120ed694b66508a14978bc64dc88cbea6d6e5852b4176c86",
+      "entity": "grok-4.5",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Grok 4.5 | `grok-4-5-low` | Low |\n| Grok 4.5 | `grok-4-5-medium` | Medium |\n| Grok 4.5 | `grok-4-5-high` | High |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "xAI",
+        "heading_anchor": "xai",
+        "line_end": 104,
+        "line_start": 102,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "grok-4-5-low",
+          "grok-4-5-medium",
+          "grok-4-5-high"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:ac41e46ec8be44886c759b0f9e4402fba2ec968fa63891f277bacf8313bf3eef",
+      "claim_id": "sha256:fadb65483b5d3391673f3f2ff9bc5522fc6bef8e52ea38f530d14c122cec57e6",
+      "entity": "grok-4.3",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Grok 4.3 | `grok-4-3-low` | Low |\n| Grok 4.3 | `grok-4-3-medium` | Medium |\n| Grok 4.3 | `grok-4-3-high` | High |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "xAI",
+        "heading_anchor": "xai",
+        "line_end": 107,
+        "line_start": 105,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "grok-4-3-low",
+          "grok-4-3-medium",
+          "grok-4-3-high"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:6f4506542971eab9596de50811eee8bc97eea753d1033ea21f51b59f66a3edb6",
+      "claim_id": "sha256:c4a51b5c0e31734b88497b60f4bf239b855be3554d4cbb45a39f6fe6c5fd4bbd",
+      "entity": "grok-build-0.1",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Grok Build 0.1 | `grok-build-0.1` | \u2014 |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "xAI",
+        "heading_anchor": "xai",
+        "line_end": 108,
+        "line_start": 108,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "grok-build-0.1"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:5d179ada3a4ba42c15e697a9a6a763252b3dc0ecdc5e7fe1671571f98faad4ca",
+      "claim_id": "sha256:c24f171ca8fd63b2687dc5776f599c761948d2522a119b430608810a08e91ce2",
+      "entity": "glm-5.3",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GLM 5.3 | `glm-5.3-fireworks` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
+        "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
+        "line_end": 118,
+        "line_start": 118,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "glm-5.3-fireworks"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:583d6ae24a0697caf1faff220b7dca0886b35294a38f491a5508a193bb575645",
+      "claim_id": "sha256:1b2157c348c1f8240053fb23fe78874313ae4366463a332fd2e65a43f88278fd",
+      "entity": "glm-5.3-flash",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| GLM 5.3 Flash | `glm-5.3-flash-fireworks` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
+        "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
+        "line_end": 119,
+        "line_start": 119,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "glm-5.3-flash-fireworks"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:952f5ecfed3ed4463c51e755a602338ad6f2dce8754179adb8812631078f0cc0",
+      "claim_id": "sha256:46f8e837a544168aeb02fb4c97d5519b2898e6432514e9c2c7825b76410442b2",
+      "entity": "kimi-k3",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Kimi K3 | `kimi-k3-fireworks` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
+        "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
+        "line_end": 120,
+        "line_start": 120,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "kimi-k3-fireworks"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:ea10f635c06932c894e6b94df16199fcf622baf67839253dc2fcf41118ffe8f4",
+      "claim_id": "sha256:4bc33206c54269fb7bf3685cb7e674396ad918119364ea2f665678134a3deaff",
+      "entity": "minimax-3",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Minimax 3 | `minimax-3-fireworks` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
+        "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
+        "line_end": 121,
+        "line_start": 121,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "minimax-3-fireworks"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:7c2745edc25e14d2b5a621faca16698bec2d46ff33be6380e329831aed313cff",
+      "claim_id": "sha256:bcedbf32ba29002b397a7f32b424dd8cf32f951af4b34b48115bdba095a4e4b2",
+      "entity": "qwen-3.8-max",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Qwen 3.8 Max | `qwen-3.8-max-fireworks` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
+        "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
+        "line_end": 122,
+        "line_start": 122,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "qwen-3.8-max-fireworks"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "model-identifiers",
+      "claim_content_fingerprint": "sha256:7da62093a7f86985add31ba6abbdf593208e34a3876a6f7bb30c9ab93065027f",
+      "claim_id": "sha256:ac7d8eaa31799c949fd60ee16e95d1bb4013403c9c327cb8e8c163acdf61199e",
+      "entity": "deepseek-v4.1-flash",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-ids",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| DeepSeek V4.1 Flash | `deepseek-v4.1-flash-fireworks` |",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
+        "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
+        "line_end": 123,
+        "line_start": 123,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "model-identifiers",
+      "value": {
+        "normalized": [
+          "deepseek-v4.1-flash-fireworks"
+        ],
+        "type": "enum"
+      }
     }
   ],
-  "page_sha256": "3b341d20f18d5a8a332d49b1c059a29b50ded3e6f28b07bdb86c3db16efb0242",
+  "page_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
   "path": "src/content/docs/agents/inference/model-choice.mdx",
   "schema_version": 1
 }
