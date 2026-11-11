@@ -126,8 +126,8 @@ Apply the [reader-understanding test](#reader-understanding-test) before cutting
 
 #### Active vs. passive voice
 Use active voice whenever possible. Active voice is clearer and more direct.
-- ✅ "Warp indexes your codebase to help Agents understand your code."
-- ❌ "Your codebase is indexed by Warp to help Agents understand your code."
+- ✅ "Warp indexes your codebase to help agents understand your code."
+- ❌ "Your codebase is indexed by Warp to help agents understand your code."
 
 Passive voice is acceptable when the action's recipient is more important than the agent, or when the agent is unknown or irrelevant:
 - ✅ "A critical security vulnerability was discovered in the authentication module." (emphasis on the vulnerability, not who found it)
@@ -279,22 +279,26 @@ Search engines and AI agents give extra weight to the first paragraph. Lead with
 - Use bulleted lists for features, benefits, or non-sequential items
 - Use numbered lists only for step-by-step processes
 - End each numbered step in a procedure with a period
-- Bold the key term or feature name at the start of each list item
+- Bold the key term or feature name at the start of each feature-list item, except agent names and non-clickable UI field labels
 - Follow the bold term with a dash and explanation
 - Closing link lists start with the link, not a bold term. See [Closing section](#closing-section) for their format.
 
 Example:
 ```markdown
-* **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code
+* **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code
 * **Code Review** - Review, edit, and manage Git diffs in real time
 ```
 
 ### Emphasis
 Use formatting consistently to distinguish different types of content:
-- **Bold** — UI elements, key terms on first use in a list, feature names in context
+- **Bold** — clickable UI controls and feature-list lead terms; not agent names or non-clickable field labels
 - *Italic* — introducing a new term inline (not a feature name), titles of external works
 - `Backticks` — code, commands, file paths, keyboard keys, config values, CLI flags
 - Underline — avoid (poor web accessibility, looks like a link)
+
+Do not bold agent names in explanatory prose or list lead terms. Write "the foreman routes the request" or "foreman - Routes requests," not a bold role name. Use lowercase for generic agents and default roles; proper feature names keep their capitalization. Exact UI strings, configured names, and code identifiers retain their literal spelling.
+
+Use quotation marks for a non-clickable UI field label, such as "Foreman name." Bold identifies an actual clickable UI control, not a label merely because it appears on screen. Keep the bold feature-list lead terms defined above; they do not make an agent name or field label an exception.
 
 ### Code examples
 - Always specify the language identifier for syntax highlighting (`bash`, `yaml`, `json`, etc.)
@@ -479,6 +483,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
 - Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
 - Use quotation marks, not bold, for a field or label name that is not itself clickable. The interactive control next to it (the dropdown, the input, the option you choose from it) still gets bold.
+- Agent names in explanatory prose and lists remain unbolded; naming an agent does not identify a clickable control.
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
@@ -872,7 +877,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
 - **Warp Drive** - Shared workspace for saving and organizing commands, workflows, and environment variables across your team.
-- **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
+- **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
 - **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
@@ -971,7 +976,7 @@ The platform is not something you address — it runs and coordinates agents, an
 
 Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
 
-**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — "Factory name," "Foreman name," "Factory integrations," "Add your Factory to your team," "Factory running!", and the **Factory definition** sidebar label — retain their displayed spelling. Non-clickable labels remain quoted rather than bold.
 
 See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 

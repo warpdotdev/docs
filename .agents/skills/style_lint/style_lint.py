@@ -1530,15 +1530,20 @@ def check_factory_positioning(lines: List[str], filepath: str) -> List[Issue]:
         r"\s+is\s+(?:a\s+)?(?:team|workforce)\s+of\s+(?:cloud\s+)?agents\b",
         re.IGNORECASE,
     )
-    return [
-        Issue(filepath, content.count("\n", 0, match.start()) + 1,
-              "factory-positioning",
-              "Staffing definition conflicts with positioning rule P1. "
-              "Describe infrastructure or configured workflows; preserve "
-              "shipped role names. Review context; do not auto-rewrite.",
-              "warning")
-        for match in pattern.finditer(content)
-    ]
+    issues = []
+    for match in pattern.finditer(content):
+        prefix = content[:match.start()]
+        if re.search(r"\b(?:no|neither)\s+$", prefix, re.IGNORECASE):
+            continue
+        issues.append(Issue(
+            filepath, content.count("\n", 0, match.start()) + 1,
+            "factory-positioning",
+            "Staffing definition conflicts with positioning rule P1. "
+            "Describe infrastructure or configured workflows; preserve "
+            "shipped role names. Review context; do not auto-rewrite.",
+            "warning",
+        ))
+    return issues
 
 
 def check_tone_buzzwords(lines: List[str], filepath: str) -> List[Issue]:

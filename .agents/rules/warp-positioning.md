@@ -4,6 +4,10 @@ Use this as the canonical positioning source for Warp documentation and related 
 
 Reviewed direction: November 10, 2026. This guidance applies the Warp Positioning direction and the approved requirement to avoid anthropomorphizing agents while preserving shipped role names. Changes to that direction require human approval; examples and existing docs do not override it.
 
+Source direction: [Warp Positioning](https://app.notion.com/p/warpdev/Warp-Positioning-3c743263616d81139c2fdd1cd4d1b331) (internal). The source link records provenance; it is not a dependency for routine drafting from these approved repository rules. Do not copy private strategy or PDFs into public documentation. If the upstream source is unavailable, ask for confirmation before changing positioning intent rather than reconstructing it from examples.
+
+Docs maintainers own this operational guidance. The docs maintainer reviewing a change resolves writing and terminology questions; changes to the approved positioning require confirmation from Zach Lloyd or his designated delegate. If the responsible maintainer or approval is missing, ask the requester. This route does not change GitHub reviewer-request rules.
+
 ## Infrastructure framing
 
 Warp Factories is open, flexible infrastructure on which teams build, run, measure, and improve their own software factories. A software factory is a configurable system of development workflows, not a team to hire or a fixed pipeline to adopt.
@@ -13,6 +17,8 @@ Warp's terminal and coding surface supports interactive work. The Automation Pla
 **Positioning rule P1:** Describe Warp Factories as infrastructure or an infrastructure platform, not as a product, an AI software engineer, or a team of agents. This applies to all explanatory definitions, including a customer's factory. Avoid equivalent staffing metaphors such as an AI teammate, workforce, or fleet of teammates. Describe configuration, routing, execution, and outputs instead.
 
 Retain shipped role names such as foreman, triage, spec, implement, and review agents, and exact UI strings, handles, commands, and configuration keys. For example, "The foreman routes the request to the review agent" explains behavior without assigning agents personalities or employment roles.
+
+Agent names and roles remain unbolded in prose and list lead terms. Use lowercase except for sentence-initial capitalization, proper feature names, and literal UI or configuration spelling. Non-clickable field labels take quotation marks; naming an agent or a field does not make it a clickable control.
 
 * **Open** - Explain the supported choices that preserve customer control over models, harnesses, hosting, and data. This is not a claim that every component is open source or every configuration is supported.
 * **Flexible** - Show how teams adapt workflows and select primitives for their existing tools and development process, rather than replace their systems with a fixed pipeline.

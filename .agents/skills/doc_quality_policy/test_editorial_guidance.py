@@ -15,6 +15,54 @@ class EditorialGuidanceTests(unittest.TestCase):
     def text(self, path):
         return (ROOT / path).read_text()
 
+    def test_guidance_and_positioning_tests_run_in_early_ci(self):
+        workflow = self.text(".github/workflows/ci.yml")
+        editorial = workflow.split("  docs-technical-references:", 1)[0]
+        for command in (
+            "python3 .agents/skills/doc_quality_policy/test_editorial_guidance.py",
+            "python3 .agents/skills/style_lint/test_factory_positioning.py",
+        ):
+            self.assertIn(command, editorial)
+            self.assertLess(editorial.index(command),
+                            editorial.index("Run style_lint --changed"))
+
+    def test_agent_styling_has_no_conflicting_glossary_rule(self):
+        glossary = self.text(".agents/references/terminology.md")
+        self.assertIn("- **agent** / **agents**", glossary)
+        self.assertNotIn('Capitalize when referring to the feature: "Agent," "Agents."', glossary)
+        for phrase in ("an Agent", "your Agent", "help Agents", "helps Agents"):
+            self.assertNotIn(phrase, glossary)
+        self.assertIn("Do not bold agent names", self.text("AGENTS.md"))
+        self.assertNotIn("Bold **Foreman name**", glossary)
+        self.assertNotIn("**foreman agent**", glossary)
+        self.assertNotIn("**Foreman name**", glossary)
+        self.assertIn('"Foreman name"', glossary)
+        for template in ("conceptual", "feature-doc"):
+            self.assertIn(
+                "except agent names and non-clickable UI field labels",
+                self.text(f".agents/templates/{template}.md"),
+            )
+
+    def test_maintenance_approval_and_review_record_are_defined(self):
+        skill = self.text(".agents/skills/sync_terminology/SKILL.md")
+        for requirement in (
+            "docs/terminology-maintenance",
+            "Durable review record",
+            "no verified",
+            "baseline",
+            "source_revisions",
+            "terms_reviewed",
+            "partial",
+            "Zach Lloyd or his designated delegate",
+            "Do not create a new issue",
+        ):
+            self.assertIn(requirement, skill)
+        positioning = self.text(".agents/rules/warp-positioning.md")
+        self.assertIn("Source direction:", positioning)
+        self.assertIn("not a dependency for routine drafting", positioning)
+        self.assertIn("Docs maintainers own", positioning)
+        self.assertIn("less-coached", self.text(".agents/references/writing-examples.md"))
+
     def test_positioning_rename_has_no_stale_active_references(self):
         canonical = ".agents/rules/warp-positioning.md"
         obsolete = "oz-" + "style-guidelines.md"

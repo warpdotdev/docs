@@ -62,3 +62,12 @@ Some source pages contain broad compatibility, data-location, automatic-scoring,
 or savings claims, and some retain product or staffing metaphors. Those do not
 override the positioning rule or prove technical behavior. Verify a factual
 claim against its owning technical source and deployed scope, not a blog.
+
+## Calibration follow-up
+
+The current authoring fixtures explicitly provide the desired framing and are
+editing exercises, not proof that writers loaded this guidance. During the
+planned calibration, add a less-coached task that relies on the repository
+rules without restating the expected answer. Keep baseline and candidate
+inputs identical and assess context loading separately from writing quality.
+This follow-up does not authorize a paid run or live scorer activation.

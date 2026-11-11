@@ -51,7 +51,7 @@ python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 - **Image alt text**: `<img>` or `<figure>` without alt text or with generic alt text ("screenshot", "image")
 - **Screenshot widths**: Likely UI/product screenshots must use `<figure style={{ maxWidth: "..." }}>` with a standard width (`300px`, `350px`, `375px`, or `563px`)
 - **Callout syntax**: Leftover GitBook `{% hint %}` tags that should be migrated to Starlight `:::note` / `:::caution` / `:::danger` asides
-- **List format**: Bulleted feature/capability lists missing the bold term + dash pattern (report only, never auto-fixed)
+- **List format**: Bulleted feature/capability lists use the bold term + dash pattern, except agent names and non-clickable UI field labels; see `AGENTS.md` (report only, never auto-fixed)
 
 ### Terminology checks
 
@@ -60,12 +60,12 @@ python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 - **Deprecated terminology**: "whitelist" (→ "allowlist"), "blacklist"/"blocklist" (→ "denylist")
 - **External product names**: "Github" (→ "GitHub"), "github actions" (→ "GitHub Actions"), "MacOS" (→ "macOS"), "A.I." (→ "AI")
 - **Unrecognized terms** (warning): Bolded terms that look like product names but aren't in `terminology.md`. Flags candidates for glossary addition — not errors, just suggestions.
-- **Warp Factories naming**: A bare capitalized "Factory" used as a proper noun. "Warp Factories" is the platform name and is written in full; an individual "factory" is lowercase. Sentence-, heading-, bullet-, quote-, and cell-initial capitals are positional and stay, as do frontmatter titles and labels, the shipped feature name "Factory MCP", and verbatim UI strings such as **Factory name** and **Add your Factory to your team**. Use `.agents/rules/warp-positioning.md` for positioning. Regression cases live in `test_factory_proper_noun.py`.
+- **Warp Factories naming**: A bare capitalized "Factory" used as a proper noun. "Warp Factories" is the platform name and is written in full; an individual "factory" is lowercase. Sentence-, heading-, bullet-, quote-, and cell-initial capitals are positional and stay, as do frontmatter titles and labels, the shipped feature name "Factory MCP", and verbatim UI strings such as "Factory name" and "Add your Factory to your team". Use `.agents/rules/warp-positioning.md` for positioning. Regression cases live in `test_factory_proper_noun.py`.
 - **Hardcoded product name strings**: Product name strings that have a corresponding key in `src/data/vars.ts` but appear as literal text rather than variable syntax. Reports instances of known strings like "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run" (any value currently in `src/data/vars.ts`) in body prose and frontmatter. These are flagged as `⚠️ [IMPORTANT]` in PR context and reported (not auto-fixed) — they should use `{VARS.KEY}` in prose and `{{TOKEN}}` in frontmatter.
 
 ### Tone checks (report-only, never auto-fixed)
 
-The `factory-positioning` check reports direct team/workforce definitions of Warp Factories or a customer's factory under rule P1. It includes folded metadata and wrapped prose, preserves code, quotations, comments, historical changelogs, and shipped role names, and never auto-fixes. Semantic review still checks paraphrases, context, and unsupported promises; zero matches are not proof of positioning alignment.
+The `factory-positioning` check reports direct team/workforce definitions of Warp Factories or a customer's factory under rule P1. It includes folded metadata and wrapped prose, excludes explicit subject negations such as "No factory is a team of agents," preserves code, quotations, comments, historical changelogs, and shipped role names, and never auto-fixes. Semantic review still checks other negation forms, paraphrases, context, and unsupported promises; zero matches are not proof of positioning alignment.
 
 These enforce the "Voice & tone" section of `AGENTS.md`. Every hit needs a human rewrite, so they are always warnings and never auto-fixed:
 
@@ -98,6 +98,7 @@ touching the corresponding check:
 ```bash
 python3 .agents/skills/style_lint/test_platform_determiner.py
 python3 .agents/skills/style_lint/test_factory_proper_noun.py
+python3 .agents/skills/style_lint/test_factory_positioning.py
 python3 .agents/skills/style_lint/test_hardcoded_var_exemptions.py
 python3 .agents/skills/style_lint/test_header_case_sentence_boundary.py
 python3 .agents/skills/style_lint/test_product_casing_word_boundary.py

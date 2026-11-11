@@ -58,6 +58,23 @@ class FactoryPositioningTests(unittest.TestCase):
         self.assertEqual(len(issues), 1)
         self.assertEqual(issues[0].line, 2)
 
+    def test_explicit_negation_is_not_a_staffing_definition(self):
+        for text in (
+            "No factory is a team of agents.",
+            "No software factory is a team of cloud agents.",
+            "Neither factory is a team of agents.",
+            "Your factory is not a team of agents.",
+        ):
+            with self.subTest(text=text):
+                self.assertEqual(self.check(text), [])
+
+    def test_negation_does_not_exempt_a_later_positive_definition(self):
+        issues = self.check(
+            "No factory is a team of agents.\nYour factory is a team of agents."
+        )
+        self.assertEqual(len(issues), 1)
+        self.assertEqual(issues[0].line, 2)
+
 
 if __name__ == "__main__":
     unittest.main()
