@@ -165,7 +165,7 @@ If work needs to pass between separate factories, define the receiving factory, 
 ## Troubleshooting
 
 * **Applying `factory-intake` starts two runs** - Another triage or implementation automation may match the same event. Add `factory-intake` to the overlapping trigger's `labels.not_in` list while preserving its other filters and exclusions. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
-* **Work pauses after the specification pull request** - This workflow waits for human approval before implementation. Check your [inbox](/factories/factory-inbox/) for the request, then approve in the originating issue with a new **@warp** mention and the specification PR link. Follow the [handoff test](#test-a-work-item-through-handoff).
+* **Work pauses after the specification pull request** - This workflow waits for human approval before implementation. Check **Waiting on you** on the [Home page](/factories/factory-home/) for the request, then approve in the originating issue with a new **@warp** mention and the specification PR link. Follow the [handoff test](#test-a-work-item-through-handoff).
 * **The foreman skips planning** - Well-defined work can go directly to implementation. If every change requires a specification, state that in the intake prompt.
 * **Pull request feedback does not continue the work** - The review-submitted handler may be disabled or the factory label missing. Confirm that the handler is enabled and the pull request carries `factory:<alias>`. Restore the handler using [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory) so it can continue the existing implementation conversation.
 
