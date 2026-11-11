@@ -15,6 +15,8 @@ document is the single source of truth for the *rules*; the code enforces them.
 
 ## Scope
 
+Compliance claims follow `.agents/references/compliance-claims-policy.md`. This is an exception to generic source verification and `VERIFY` handling: source code or existing docs cannot establish Security or Legal approval. Omit unsupported compliance promises from public content, flag them in the PR evidence, and request changes when they remain. A Docs override does not replace the required approval.
+
 This program covers every agent-authored content PR in `warpdotdev/docs` —
 `draft_*`, `release_updates`, AEO, `missing_docs`, and any other recurring
 skill that adds or changes public documentation. It is not limited to ambient

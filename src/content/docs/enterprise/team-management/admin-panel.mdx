@@ -19,7 +19,6 @@ The [Admin Panel](https://app.warp.dev/admin/) is your control center for managi
 * **Enforce security policies** - Configure secret redaction, telemetry controls, and data handling
 * **Manage team resources** - Enable Codebase Context, configure BYOLLM, and control sharing permissions
 * **Monitor usage** - Track consumption and configure spending controls
-* **Maintain compliance** - Apply consistent policies that meet your organization's security requirements
 
 :::note
 Warp restricts Admin Panel access to team administrators. Regular team members can view settings that affect them but cannot modify organization-wide policies.
@@ -106,7 +105,6 @@ The features available in the Admin Panel scale with your Warp plan:
 * **Enterprise secret redaction** - Custom regex patterns for secrets
 * **BYOLLM** - Route inference through your cloud infrastructure
 * **Self-hosting cloud agent workers** - Deploy cloud agent workers on your own infrastructure
-* **Advanced compliance** - SOC 2, HIPAA, and custom data handling agreements
 * **Priority support** - Dedicated Slack/Teams channels
 
 For complete plan details, see [Warp pricing](https://www.warp.dev/pricing) or [contact sales](https://www.warp.dev/contact-sales).
@@ -129,7 +127,6 @@ Configure how agents behave across your organization, including autonomy levels 
 **Prompt summarization caching**
 * When conversations become long, the LLM provider caches summaries temporarily
 * Improves performance for extended agent interactions
-* Zero Data Retention agreements cover caching (short-lived)
 
 #### Autonomy settings
 
@@ -180,15 +177,13 @@ Command denylist rules take precedence over allowlist rules and agent autonomy s
 
 ### Privacy settings
 
-Manage data collection and security policies to meet your organization's compliance requirements.
+Manage data collection and security settings for your organization.
 
 **User-generated content (UGC) data collection**
 Controls how Warp collects and uses user-generated content to improve the service:
-* **Disabled** - Warp collects no UGC data from your organization
+* **Disabled** - Disable UGC collection for service improvement
 * **Enabled** - Allow data collection for service improvement
 * **Respect User Setting** - Let individual users decide
-
-Enterprise teams with Zero Data Retention agreements can disable this completely.
 
 **Enterprise secret redaction**
 Automatically detects and redacts sensitive information before sending data to LLM providers:
@@ -224,7 +219,7 @@ From the **Models** page, admins can also create team-synced [custom routers](/a
 
 **Models with provider-specific data retention requirements**
 
-Some models require data retention from the model provider and are therefore not available under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
+Some models have provider-specific data retention requirements. For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
 
 ### Billing settings
 

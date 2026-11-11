@@ -353,15 +353,13 @@ Rates and credit pools follow your [Enterprise contract](/enterprise/support-and
 
 ### Credential security
 
-* **No long-lived credentials** - The only long-lived credential involved is the member's Warp session. Access tokens are short-lived, held in memory, and never persisted.
-* **Nothing sensitive leaves your boundary** - Warp stores only non-secret routing configuration (project ID, location, WIF audience, and optional service account email). Service account keys, refresh tokens, and credential files are never uploaded to Warp.
+* **Short-lived access tokens** - Gemini Enterprise uses federated access tokens minted from the member's Warp session.
+* **Routing configuration** - Admins configure the project ID, location, WIF audience, and optional service account email. Inference requests still route through Warp's servers.
 * **Per-user identity** - Every token is minted for the individual signed-in member, so access control and revocation stay in your identity stack: remove a member from your Warp team (or restrict the WIF provider's attribute condition) and their tokens stop minting.
 
 ### Zero Data Retention (ZDR)
 
-Warp maintains **SOC 2 compliance** and has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers.
-
-However, when using Gemini Enterprise:
+When using Gemini Enterprise:
 
 * **Your** Google Cloud project settings determine data retention policies.
 * Warp cannot enforce ZDR for requests routed through your infrastructure.
