@@ -2,16 +2,30 @@
 
 Use this glossary everywhere you write about Warp. Keep definitions short, concrete, and consistent. If a term is likely unfamiliar outside developer audiences, include a short plain-language explanation you can reuse on first mention.
 
+This is the authoritative glossary for documentation. The unmaintained Notion Dictionary is not an input or a fallback. Positioning lives in `.agents/rules/warp-positioning.md`; naming changes do not establish changes to shipped behavior.
+
+## Maintaining this glossary
+
+Review terminology weekly and when a verified interface or approved name changes. Use the `sync_terminology` skill to compare the glossary with evidence from the owning UI, API, command, or approved positioning guidance. Keep the source revision and any deployment limits with the proposed change.
+
+Docs maintainers own the glossary and voice guidance. The docs maintainer reviewing the PR resolves naming and writing questions; changes to approved positioning require confirmation from Zach Lloyd or his designated delegate. Ask the relevant engineering source owner to resolve technical claims. If no responsible maintainer is identified, ask the requester rather than approving a policy yourself. This approval route does not authorize adding or re-requesting GitHub reviewers.
+
+Record a section's review date and source when materially changing it; do not claim that untouched entries were reverified. The `sync_terminology` skill defines the durable review record and the first-review path when no previous record exists.
+
+Keep each entry's preferred term, definition, usage note, and necessary UI, API, or historical exceptions together. Update any corresponding summary in `AGENTS.md` without creating a second full glossary. Do not synchronize from an external dictionary or silently remove repo-only terms.
+
 For the summary of the most critical terms (core features, Automation Platform terms, terms to avoid), see the [Terminology standards](../../AGENTS.md#terminology-standards) section of AGENTS.md. This file is the full canonical reference.
 
 > **Product name variables**: Product names are defined in `src/data/vars.ts`. When writing new content, use `{VARS.WARP_AGENT_CLI}` (body prose) or `{{WARP_AGENT_CLI}}` (frontmatter) rather than hardcoding product names. See the ["Content variables" section of AGENTS.md](../../AGENTS.md#content-variables) for full usage instructions.
 
 ## Core product terms
 
-- **Agent** / **Agents** — Warp's AI feature for turning natural language into actions (answers, commands, code changes, and workflows).
-  *Usage note:* Capitalize when referring to the feature: "Agent," "Agents."
+Naming and formatting reviewed November 10, 2026 against `AGENTS.md` and the approved clarification in docs PR #1012. This is not a re-verification of every technical definition.
 
-- **Agent Mode** — The mode where Warp interprets your input as a request to an Agent (not a shell command).
+- **agent** / **agents** — Coding agents that act on natural-language requests, commands, and code.
+  *Usage note:* Lowercase the generic term. Capitalize only as part of a proper feature name, such as "Warp Agent" or "Agent Mode," or to preserve an exact UI string or identifier. Agent names and roles are not bold in prose or list lead terms.
+
+- **Agent Mode** — The mode where Warp interprets your input as a request to an agent (not a shell command).
   *Usage note:* Not "agent mode" or "Agent-mode."
 
 - **Block** / **Blocks** — Warp's structured unit of terminal output and history.
@@ -20,7 +34,7 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Command** — A shell command you run in the terminal.
   *Usage note:* Keep distinct from "prompt."
 
-- **Prompt** — A natural-language request you give to an Agent.
+- **Prompt** — A natural-language request you give to an agent.
   *Usage note:* Keep distinct from "command."
 
 - **terminal mode** — The mode where Warp interprets your input as shell commands.
@@ -34,7 +48,7 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Admin Panel** — The team administration interface.
   *Usage note:* Capitalize as a UI name.
 
-- **Agent Management Panel** — The interface for managing Agent configurations, permissions, and activity.
+- **Agent Management Panel** — The interface for managing agent configurations, permissions, and activity.
   *Usage note:* Capitalize as a UI surface name. Avoid "agent dashboard," "dashboard of agents," or "agent manager."
 
 - **Command Palette** — The searchable menu for actions and navigation in Warp.
@@ -72,23 +86,23 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Cloud Agents** — Agents that run in the cloud on a schedule, trigger, or integration, without interactive input. Managed by the Automation Platform.
   *Usage note:* Use lowercase "cloud agents" in most contexts. Capitalize as "Cloud Agents" only when referring to the product section or feature name.
 
-- **Agent Profiles** — Saved configurations that define how an Agent runs (for example, permissions and model selection).
-  *Usage note:* Use when describing "choose how your Agent behaves."
+- **Agent Profiles** — Saved configurations that define how an agent runs (for example, permissions and model selection).
+  *Usage note:* Use when describing "choose how your agent behaves."
 
 - **Context** — Inputs attached to a prompt to improve accuracy (files, Blocks, images, URLs, selections).
   *Usage note:* Prefer "attach context" / "add context."
 
-- **Conversation** — A threaded interaction with an Agent, including history and attached context.
+- **Conversation** — A threaded interaction with an agent, including history and attached context.
   *Usage note:* Use "conversation" consistently in product and support content.
 
 - **Global Rules** — Rules that apply across all projects.
 
-- **Permissions** — Controls for what an Agent is allowed to do (run commands, edit files, access tools).
+- **Permissions** — Controls for what an agent is allowed to do (run commands, edit files, access tools).
   *Usage note:* Use for safety, review, and trust messaging.
 
 - **Project Rules** — Rules that apply within a specific repo, stored in `WARP.md`.
 
-- **Rules** — Saved guidelines that steer how Agents respond and behave.
+- **Rules** — Saved guidelines that steer how agents respond and behave.
   *Usage note:* Treat as a feature name.
 
 - **Slash Commands** — Built-in commands you run by typing `/` to trigger actions (or run saved prompts).
@@ -126,8 +140,8 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
   *Usage note:* Use when describing "prompt-to-change" workflows.
 
-- **Codebase Context** — Warp's ability to index a Git-tracked repo so Agents can understand the full codebase.
-  *Usage note:* Good first-mention explanation: "Codebase Context helps Agents find the right files and make accurate repo-wide changes."
+- **Codebase Context** — Warp's ability to index a Git-tracked repo so agents can understand the full codebase.
+  *Usage note:* Good first-mention explanation: "Codebase Context helps agents find the right files and make accurate repo-wide changes."
 
 - **Code Review** — Warp's diff review experience for inspecting, refining, and applying code changes.
   *Usage note:* Treat as the feature name.
@@ -140,7 +154,7 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 - **Notebook** / **Notebooks** — Rich documents in Warp Drive for sharing instructions, runbooks, and runnable content.
 
 - **Prompt** / **Prompts** — Saved natural-language prompts in Warp Drive, reusable across conversations.
-  *Usage note:* Capitalize when referring to the Warp Drive object type. Use lowercase "prompt" when referring generically to any natural-language request given to an Agent.
+  *Usage note:* Capitalize when referring to the Warp Drive object type. Use lowercase "prompt" when referring generically to any natural-language request given to an agent.
 
 - **Warp Drive** — Warp's place to save and reuse developer artifacts (Workflows, Notebooks, Prompts, Rules, Environment Variables).
   *Usage note:* Good first-mention explanation: "Warp Drive is where Warp stores reusable pieces of your workflow."
@@ -169,7 +183,7 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 Renamed from "Oz" on 2026-08-18. The `oz` binary and legacy web app retain
 their names. No retirement date or replacement command mapping is established
 here. See "What still says Oz"; product framing lives in
-`.agents/rules/oz-style-guidelines.md`.
+`.agents/rules/warp-positioning.md`.
 
 ### The article rule
 
@@ -290,19 +304,19 @@ specific interface changes, not on an inferred retirement date:
 - **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/factories/self-hosting/data-storage/).
   *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
 
-- **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
-  *Usage note:* Capitalize as **Auth** when referring to the settings field name.
+- "Auth" — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
+  *Usage note:* Preserve the field label's capitalization and use quotation marks, not bold, when the label is not clickable.
 
-- **Harness** — The agent runtime that executes a cloud agent's work, such as Warp Agent, Claude Code, or Codex. Configurable per agent, independent of the platform features (triggers, environments, secrets, observability) around the run.
-  *Usage note:* Capitalize as **Harness** when referring to the settings field name; lowercase "harness" as a generic noun.
+- "Harness" — The agent runtime that executes a cloud agent's work, such as Warp Agent, Claude Code, or Codex. Configurable per agent, independent of the platform features (triggers, environments, secrets, observability) around the run.
+  *Usage note:* Use the quoted label "Harness" for a non-clickable field name; lowercase "harness" as a generic noun.
 
 - **Host** — Where a task executes (Warp-hosted or customer-hosted).
 
 - **Integration** / **Integrations** — Configured connections between Warp and external tools (Slack, Linear, GitHub Actions) that trigger runs and post results back.
   *Usage note:* Use for the configured connection, not "plugin."
 
-- **Model** — The agent settings field for choosing which model a harness runs. Options come from the selected harness's own catalog, not Warp's, so changing harness clears the model and auth selections.
-  *Usage note:* Capitalize as **Model** when referring to the settings field name.
+- "Model" — The agent settings field for choosing which model a harness runs. Options come from the selected harness's own catalog, not Warp's, so changing harness clears the model and auth selections.
+  *Usage note:* Preserve the field label's capitalization and use quotation marks, not bold, when the label is not clickable.
 
 - **Outputs** — What a run produces (PRs, messages, reports, transcripts).
 
@@ -326,36 +340,38 @@ specific interface changes, not on an inferred retirement date:
 
 ## Warp Factories terminology
 
-### The product/instance rule
+Naming and formatting reviewed November 10, 2026 against `AGENTS.md` and `.agents/rules/warp-positioning.md`. Literal UI spelling is preserved; the formatting corrections do not certify interface availability.
 
-This works like GitHub Actions. **Warp Factories** is the product and is always
-written in full. An individual **factory** is a common noun and is always
-lowercase. A bare capitalized **Factory** is never a proper noun — there is no
-such product.
+### The platform/factory rule
 
-- ✅ "Warp Factories is in Early Access" (the product)
+**Warp Factories** names the infrastructure platform and is always written in
+full. An individual **factory** is a common noun and is always lowercase. A bare
+capitalized **Factory** is never a proper noun. Follow
+`.agents/rules/warp-positioning.md` for positioning.
+
+- ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "set up a factory" (an instance)
 - ✅ "factory dashboard", "factory run", "factory agents", "factory definition"
 - ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
-- ❌ "Factories" on its own to mean the product — write "Warp Factories"
+- ❌ "Factories" on its own to mean the platform — write "Warp Factories"
 
 Sentence-initial capitals are positional, not proper nouns: a heading, sidebar
 label, or page title may begin "Factory agents" or "Factory dashboard" for the
 same reason it would begin "Cloud agents." The rule governs mid-sentence prose.
 
 Verbatim product strings are quoted as they ship, even when they break the rule.
-The setup wizard currently renders **Factory name**, **Add your Factory to your
-team**, and "Factory running!", and the sidebar renders **Factory definition**.
+The setup wizard currently renders "Factory name", "Add your Factory to your
+team", and "Factory running!", and the sidebar renders **Factory definition**.
 Docs match the screen; the fix belongs in the app.
 
-- **Warp Factories** — Warp's product for deploying and operating cloud software factories: automation loops around the SDLC where cloud agents triage, spec, implement, review, and verify work, with humans in the loop at key decision points. Launched in Early Access 2026-08-18.
-  *Usage note:* Capitalize both words as the product name; plural "Factories." Always write it in full — never a bare "Factory" or "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
+- **Warp Factories** — Warp's infrastructure platform on which teams build and operate their own software factories.
+  *Usage note:* Capitalize both words as the platform name; plural "Factories." Always write it in full — never a bare "Factory" or "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
 
-- **software factory** — The generic, lowercase industry term for an automation loop around the SDLC (triage, spec, implement, review, verify). Warp Factories is Warp's product implementation of this pattern.
-  *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). Capitalize only when part of the product name "Warp Factories."
+- **software factory** — The generic, lowercase industry term for a system of development workflows that automates parts of the software development lifecycle.
+  *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). A team can build one on Warp Factories; the term does not require every lifecycle stage.
 
-- **factory** — An individual deployed instance of a software factory, built on Warp Factories infrastructure.
-  *Usage note:* Lowercase common noun ("your factory," "set up a factory").
+- **factory** — An individual software factory a team configures on Warp Factories infrastructure.
+  *Usage note:* Lowercase common noun ("your factory," "set up a factory"). Describe configured workflows, not a team of agents. Preserve literal agent role names, including foreman.
 
 - **factory definitions as code** — The practice of specifying a factory's repos, agent roles, skills, MCPs, and permissions as version-controlled code, similar to infrastructure-as-code. Enables rollback, canarying, and agentic self-improvement of the factory itself.
 
@@ -368,14 +384,14 @@ Docs match the screen; the fix belongs in the app.
 - **stages** — The phases a work item moves through, named as the factory dashboard's **Activity** view names them: **Triage**, **Planning**, **Building**, and **Reviewing**, plus the terminal stages **Complete** and **Cancelled**.
   *Usage note:* Stage names are not agent names. The spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. Use lowercase for stages in explanatory prose. Preserve the displayed spelling and capitalization when referencing exact UI labels, filters, or status values; sentence-initial and diagram labels may also begin with capitals. Write agents with their own names (triage, spec, implement, review).
 
-- **foreman agent** — The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results.
-  *Usage note:* Lowercase "foreman" in prose. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.
+- foreman agent — The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results.
+  *Usage note:* Lowercase "foreman" in prose and leave the name unbolded, including in list lead terms. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.
 
-- **Foreman name** / **`alias`** — The handle a team @-mentions to reach a factory's foreman from Slack and Linear. The factory dashboard labels the field **Foreman name** under **Settings** > **Identity**; the definition file key is [`alias`](/factories/factory-as-code/#alias).
-  *Usage note:* Bold **Foreman name** when referring to the field, and use `alias` when referring to the definition key. Factory setup defaults it to the factory's name, so the two usually match — say so wherever a reader could mistake the handle for the factory itself. This collision is the main reported source of foreman/factory confusion.
+- "Foreman name" / `alias` — The handle a team @-mentions to reach a factory's foreman from Slack and Linear. The factory dashboard labels the field "Foreman name" under **Settings** > **Identity**; the definition file key is [`alias`](/factories/factory-as-code/#alias).
+  *Usage note:* Use quotation marks, not bold, for the non-clickable field label "Foreman name", and use `alias` when referring to the definition key. Factory setup defaults it to the factory's name, so the two usually match — say so wherever a reader could mistake the handle for the factory itself. This collision is the main reported source of foreman/factory confusion.
 
 - **Factory MCP** — The MCP server that lets any coding agent or MCP client interact with a factory: push work in, pull status, or guide sessions.
-  *Usage note:* The one sanctioned exception to the product/instance rule above, because it is the feature's own shipped name — the server registers as `warp-factory` and its skill calls itself "the Warp Factory MCP." Capitalize both words; do not generalize the exception to other phrases.
+  *Usage note:* The one sanctioned exception to the platform/factory rule above, because it is the feature's own shipped name — the server registers as `warp-factory` and its skill calls itself "the Warp Factory MCP." Capitalize both words; do not generalize the exception to other phrases.
 
 - **`warp-factory`** — The conventional key for the Factory MCP server in an MCP client's configuration, as in `claude mcp add ... warp-factory` or a `"warp-factory": { "url": ... }` entry.
   *Usage note:* A name the reader chooses in their own client, not a Warp-owned identifier, and unrelated to a factory's name or a foreman's handle. Always code-formatted. Do not write it as `@warp-factory`, and do not introduce it as if it names a factory. Note that the same string also appears in the `warp-factory-examples` repository name and in an example IAM role — those are unrelated.

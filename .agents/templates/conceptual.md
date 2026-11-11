@@ -17,7 +17,7 @@ description: >-
 
 ## [Key concepts — sentence case, renamed to match the subject]
 
-[The main ideas or components the reader needs. Bold term + hyphen + plain-language description. Add one short example when the term is jargon-heavy.]
+[The main ideas or components the reader needs. Bold term + hyphen + plain-language description, except agent names and non-clickable UI field labels, which stay unbolded. Add one short example when the term is jargon-heavy.]
 
 * **Concept A** - What it is and why it matters.
 * **Concept B** - What it is and why it matters.
