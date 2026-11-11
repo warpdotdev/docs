@@ -8,13 +8,9 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agents/inference/custom-routers/) that pick a model for each task using your own logic.
+Choose a model for your agents, use Auto for dynamic selection, or define a [custom router](/agents/inference/custom-routers/). Models support reasoning levels and per-profile defaults.
 
 ## Available models
-
-Warp lets you choose from a curated set of large language models (LLMs) to power your Agentic Development Environment.
-
-**Warp supports the following models.**
 
 The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/agents/cli/oz-cli/).
 
@@ -26,8 +22,6 @@ The `model_id` values shown below can be used when configuring models via the [{
 | Auto (Cost-efficient) | `auto-efficient` | Optimizes for lower inference cost while maintaining output quality. |
 | Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and `/plan` sessions. |
 | Auto (Open-weights) | `auto-open` | Routes between the best open-source models available in Warp. Optimizes for low cost and fast speed using open-weights models. |
-
-All Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
 
 #### OpenAI
 
@@ -73,7 +67,7 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.
 
 :::caution
-Anthropic requires data retention for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
+Some Anthropic models require provider retention even when analytics is off. Check [models requiring provider retention](#models-requiring-provider-retention) before selecting a model.
 :::
 
 #### Google
@@ -111,8 +105,6 @@ To use eligible Grok models without Warp-provided inference charges, connect you
 
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 
-Warp also supports leading open source models hosted via Fireworks AI, so you can run them from inside Warp without setting up your own inference infrastructure.
-
 | Model | `model_id` |
 | --- | --- |
 | GLM 5.3 | `glm-5.3-fireworks` |
@@ -124,14 +116,12 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 
 ### How to change models
 
-You can use the model picker in your prompt input to quickly switch between models. The currently active model appears directly in the input editor.
+In the Warp app's prompt input, click the displayed model name and choose a model. The selection persists for future prompts.
 
 <figure>
 ![Model selector dropdown showing available models with Intelligence, Speed, and Cost benchmarks](../../../../assets/agent-platform/model-selector-dropdown.png)
 <figcaption>Model selector in Warp's input.</figcaption>
 </figure>
-
-To change models, click the displayed model name (for example, _Claude Sonnet 5_) to open a dropdown with all supported options. Your selection will automatically persist for future prompts.
 
 ### Custom routers
 
@@ -141,13 +131,7 @@ Add and manage custom routers in **Settings** > **Agents** > **Warp Agent** > **
 
 ### Model fallback
 
-Warp uses a model fallback system to ensure uninterrupted service if your selected model becomes temporarily unavailable due to provider outages or capacity issues.
-
-**How it works:**
-
-* If your selected model isn't available, Warp automatically uses a fallback model from a predefined chain to continue your conversation without errors.
-* As soon as your originally selected model becomes available again, Warp automatically switches back to it.
-* The fallback model is selected to provide comparable quality and capabilities to your original choice.
+If your selected model is unavailable, Warp uses a fallback from a predefined chain with comparable quality and capabilities. Warp switches back when the selected model becomes available.
 
 ### Configuring models per Agent Profile
 
@@ -155,23 +139,31 @@ You can configure the base model for each [Agent Profile](/agents/capabilities/a
 
 Edit your default profile or any other profile directly in **Settings** > **Agents** > **Profiles**.
 
+### Reviewing inference and privacy in Terminal
+
+To use inference covered by provider ZDR, review the model and its inference source before sending sensitive content:
+
+1. In the Warp app's prompt input, click the current model name. Choose a Warp-managed model that isn't in the [provider-retention exception list](#models-requiring-provider-retention). If you use Auto, review [automatic selection and fallback](#zero-data-retention-policies); Auto isn't a pinned model.
+2. In the Warp app, open **Settings** > **Agents** > **Profiles** and review the active profile's base model. If you use a [custom router](/agents/inference/custom-routers/), review every target and its default model, not only the router's name.
+3. In **Settings** > **Agents** > **Warp Agent**, review personal keys, endpoints, and connected subscriptions, and check any [team-managed configuration](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). Search Settings for `API keys` to find personal inference controls. For customer-managed inference, verify provider ZDR for the specific account, model, and configuration. Review [BYOK fallback](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior) if enabled.
+4. In **Settings** > **Privacy**, toggle off **Help improve Warp** if you don't want analytics and improvement collection. Review **Send crash reports** and **Store AI conversations in the cloud** separately. The storage toggle controls [personal Terminal conversation sync](/agents/local-agents/cloud-conversations/), not factory run storage.
+
+Before sending the next prompt, confirm the intended model is displayed in the input. Recheck these choices when switching profiles, models, or inference providers. For cloud factory runs, use the [factory review procedure](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr) instead.
+
 ### Zero data retention policies
 
-Warp integrates with multiple large language model (LLM) providers to power its AI-driven features.
+Warp's provider Zero Data Retention (ZDR) agreements cover Warp-managed inference on all plans, in both Terminal and factory runs, except for the models listed below. Provider ZDR concerns prompts and responses at the inference provider; it doesn't disable [Warp analytics or product storage](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why).
 
-**These providers include, but are not limited to:**
+Auto selects models dynamically, and [fallback](#model-fallback) can change the model serving a request. A primary model selection isn't a complete inventory of auxiliary inference, such as Computer Use or Scorers. Review the applicable [factory configuration](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr) as well.
 
-* OpenAI
-* Anthropic
-* Google
-* xAI
-* Fireworks AI
+#### Models requiring provider retention
 
-Warp has executed **Zero Data Retention (ZDR)** agreements with these providers. This means that, by default across all plans:
+Anthropic requires retention for these models, including their effort variants, for safety, abuse monitoring, and compliance:
 
-* LLM providers commit not to train their models on any customer-generated data processed through Warp’s services.
-* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+* Claude Fable 5
+* Claude Fable 5.1
+* Claude Fable 5.2
 
-Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+These models aren't covered by provider ZDR even when **Help improve Warp** is off. For Enterprise teams, they are disabled by default and a workspace admin must enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings). Don't rely on Enterprise defaults as a self-serve model restriction.
 
-Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
+For your own keys, endpoints, subscriptions, or direct Claude Code and Codex calls, verify ZDR with the provider for your specific account, model, and configuration rather than applying Warp's agreements to that traffic.

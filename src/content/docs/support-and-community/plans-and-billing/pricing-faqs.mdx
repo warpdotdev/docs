@@ -242,25 +242,13 @@ Yes. Warp has obtained a SOC 2 Type 2 attestation from an accredited third party
 
 ### Does Warp have Zero Data Retention policies with LLM providers?
 
-Warp integrates with multiple LLM providers — including Anthropic, OpenAI, Google, xAI, and Fireworks AI — to power its AI features. Warp has executed Zero Data Retention (ZDR) agreements with these providers. Across all plans, these agreements mean:
-
-* LLM providers commit not to train their models on any customer-generated data processed through Warp's services.
-* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
-
-Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
-
-Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
+Yes. Provider Zero Data Retention (ZDR) covers Warp-managed inference across plans, in both Terminal and factory runs, except for the [models requiring provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). For your own keys, endpoints, or direct Claude Code and Codex calls, verify ZDR with the provider for your specific account, model, and configuration.
 
 ### How can I enable Zero Data Retention in Warp?
 
-Zero Data Retention (ZDR) can be enabled in two ways:
+Provider ZDR isn't enabled by turning off analytics. Choose covered inference and review the [Terminal settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory settings](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr) for your workflow.
 
-* **Individual level** — Any user can enable full ZDR for their own account by disabling **Help Improve Warp** in **Settings** > **Privacy**.
-* **Organization-wide** — On Business and Enterprise plans, admins can enforce ZDR for all members from the [Admin Panel](/enterprise/team-management/admin-panel/), so team-wide compliance doesn't rely on individual settings.
-
-To discuss organization-wide ZDR for your team, [contact our sales team](https://www.warp.dev/contact-sales).
-
-Regardless of plan, Warp never allows OpenAI, Anthropic, Google, xAI, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details.
+**Help improve Warp** controls analytics and improvement collection. Turning it off doesn't change provider retention requirements or disable product storage, including factory transcripts, attachments, and artifacts. Start with the [Security overview](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why) to review these three separate controls.
 
 ### Can I bring my own API key?
 

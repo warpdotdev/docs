@@ -108,11 +108,9 @@ Warp uses the stored credentials to call your provider without delivering them t
 
 ### Zero Data Retention (ZDR)
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers. When you route through your own keys or endpoints:
+Warp's [provider ZDR agreements](/agents/inference/model-choice/#zero-data-retention-policies) don't establish ZDR for requests through your team's keys or endpoints. Verify ZDR with the provider for the specific account, model, and configuration, including upstream providers behind a gateway. Warp cannot enforce provider ZDR for these requests; without it, requests may be retained according to your providers' terms.
 
-* Data retention on the **provider side** is determined by your provider's account settings.
-* Warp **cannot enforce ZDR** for requests sent through your keys or endpoints.
-* If your provider account doesn't have ZDR enabled, your requests may be retained according to their terms.
+Warp analytics and [product storage](/enterprise/security-and-compliance/security-overview/#product-storage) remain separate. Disabling UGC collection doesn't change provider retention or disable factory transcripts, prompt attachments, and uploaded artifacts.
 
 <span id="related-resources" />
 

@@ -1,13 +1,12 @@
 ---
 title: Security overview
 description: >-
-  Understand Warp's security architecture, data handling practices, and
-  compliance certifications to ensure your organization's requirements are
-  met.
+  Review provider Zero Data Retention, analytics controls, product storage,
+  and security boundaries across Warp.
 ---
 import { VARS } from '@data/vars';
 
-Warp builds security and compliance into its core, keeping **developers in control** while enabling powerful agent workflows. This overview explains how Warp handles your data, what security controls are available, and how Warp meets enterprise security standards.
+Evaluate provider retention, Warp's analytics collection, and product storage separately when choosing how to use Warp. These controls apply to different copies of your data; turning off analytics doesn't disable storage needed for a product feature.
 
 ## Transparency and control
 
@@ -23,47 +22,40 @@ Warp's security philosophy centers on **transparency and developer control**:
 
 ### Zero Data Retention (ZDR)
 
-Warp has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data. ZDR applies across all Warp plans.
+Provider Zero Data Retention (ZDR) governs whether an inference provider retains prompts and responses. Warp's provider ZDR agreements cover Warp-managed inference across all plans, in both Terminal and factory runs, except for the [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Covered inference isn't used by the provider for model training.
 
-How data collection works by plan:
+For example, turning off **Help improve Warp** doesn't make a retention-required model ZDR-covered. Check the complete exception list on the model-choice page before choosing a model.
 
-* **Free tier** - Individual users can disable data collection in **Settings** > **Privacy**.
-* **Paid teams** - Team admins can enforce data collection settings for the entire team. Data collection is enabled by default.
-* **Business and Enterprise** - Team admins can enforce data collection settings for the entire team. Data collection is **disabled by default**.
+For [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), verify ZDR with your provider for the specific account, model, and configuration. Warp's agreements don't establish ZDR for customer-managed inference. Claude Code and Codex calls made directly to their providers also use your provider terms, not Warp's.
 
-:::note
-Some product features — including cloud conversations and {VARS.PLATFORM_RUN}s — require storing conversation data to function. This data is stored to power the product experience and is separate from analytics or telemetry data collection.
-:::
+Review [Terminal model and privacy settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory inference settings](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr) for the product you use. Factory users don't need to configure Terminal to review factory inference.
 
-Some models carry provider-specific data retention requirements and are therefore not covered by ZDR. For Enterprise teams, these models are **off by default**; a workspace admin must explicitly enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
+### Warp analytics and improvement collection
 
-Enterprise subscriptions also include:
+**Help improve Warp** controls product analytics and eligible collection of AI interactions and console content for service improvement. Turning it off stops that analytics and improvement collection, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
 
-* **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the Admin Panel
-* **Secret redaction** - Admins can enable [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for the organization and configure patterns for sensitive data
+Neither setting changes a model provider's retention requirements or turns off product storage. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting) for the controls and collected event types.
 
-### Telemetry categories
+### Product storage
 
-When telemetry is enabled, Warp collects:
+Product features store data independently of provider ZDR and analytics preferences:
 
-1. **Product usage analytics** - High-level metrics on feature adoption and usage patterns (e.g., "Agent Mode was opened," "workflow was executed").
-2. **Performance and stability** - Crash reports, error tracking, and performance metrics to identify and fix issues.
+* **Terminal conversations** - **Store AI conversations in the cloud** controls cloud sync of your personal Terminal conversations. Turning it off doesn't disable factory or other cloud agent run storage. See [Cloud-synced conversations](/agents/local-agents/cloud-conversations/).
+* **Factory run data** - Transcripts, prompt attachments, and uploaded artifacts persist so you can inspect past runs. They use Warp-managed storage unless an Enterprise admin configures [self-hosted agent data storage](/factories/self-hosting/data-storage/). Categories are mapped independently; unmapped categories remain with Warp.
+* **Shared sessions and snapshots** - Sharing a live session and saving a workspace snapshot have their own storage behavior. See [shared-session retention and access](/agents/local-agents/session-sharing/#data-retention-and-access) and [workspace snapshot controls](/platform/handoff/snapshots/).
 
-When data collection is disabled, Warp does not collect:
-
-* Personally identifiable information beyond user IDs and email addresses
-* Network traffic or external API calls
+Self-hosting factory execution changes where commands run, not whether inference is ZDR-covered or where run data is stored. Evaluate [inference and storage separately](/factories/infrastructure-and-security/#provider-retention-and-run-storage).
 
 ### Disabling telemetry
 
 Users can opt out of telemetry individually:
 
-1. Navigate to **Settings** > **Privacy**.
-2. Toggle off **Help improve Warp** and/or **Send crash reports**.
+1. In the Warp app, open **Settings** > **Privacy**.
+2. Toggle off **Help improve Warp** to stop analytics and improvement collection. Toggle off **Send crash reports** separately if you don't want to send crash reports.
 
 With telemetry disabled, Warp stops collecting usage and interaction data for analytics purposes.
 
-Team admins can enforce telemetry settings organization-wide through the Admin Panel. On Business and Enterprise plans, data collection is disabled by default.
+If a control is managed by your organization, ask an admin to review the [Admin Panel privacy settings](/enterprise/team-management/admin-panel/#privacy-settings).
 
 ## Data handling and privacy
 
@@ -71,10 +63,10 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 
 * **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
-* **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google, xAI) with Zero Data Retention agreements for Enterprise teams
-* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
+* **Agent requests** - Warp-managed inference uses provider ZDR across plans, with the [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention). Customer-managed inference uses your provider terms.
+* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Your provider's terms govern provider retention; conversation and run storage remain separate.
 * **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
-* **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.
+* **Self-hosted cloud agent execution** - Repository checkouts and execution workspaces stay on your infrastructure. Prompts, transcripts, attachments, and uploaded artifacts can contain code context. Inference and run-data storage have [separate boundaries](/factories/infrastructure-and-security/).
 
 ### Encryption
 
@@ -96,7 +88,8 @@ See [Secret Redaction documentation](/support-and-community/privacy-and-security
 
 ### Data retention
 
-* **ZDR** - Warp's contracted LLM providers do not retain or train on your data
+* **Provider ZDR** - Applies to covered inference, not all models or product storage; see [model retention policies](/agents/inference/model-choice/#zero-data-retention-policies)
+* **Product data** - Retention depends on the feature; use the [storage references above](#product-storage) rather than treating provider ZDR as a deletion policy
 * **Telemetry data** - When collected, Warp retains telemetry data indefinitely for analytics and debugging
 * **User accounts** - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations
 
@@ -130,7 +123,7 @@ Enterprise teams can self-host cloud agent execution to control where agents run
 
 Self-hosted deployments use a split architecture:
 * **Execution plane (customer-hosted)** - Repository clones, build artifacts, runtime secrets, and container filesystem state stay on your infrastructure
-* **Control plane (Warp-hosted)** - Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements. Warp does not persistently store your source code or use it for model training
+* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. Transcripts can contain code context and persist as product data independently of [provider ZDR](#zero-data-retention-zdr). Claude Code and Codex call their providers directly.
 
 Two deployment modes are available:
 * **Unmanaged** - Use `oz agent run` to run agents in your existing orchestrator or CI environment. Supports Linux, macOS, and Windows with no Docker dependency.
@@ -187,7 +180,7 @@ Isolate agent execution in containerized environments:
 * **Process isolation** - Agents run in separate Docker containers, isolated from your host system
 * **Resource limits** - Configure CPU, memory, and disk quotas per sandbox
 * **Network controls** - Restrict outbound network access from sandboxes
-* **Ephemeral environments** - Sandboxes are destroyed after use, leaving no trace
+* **Ephemeral environments** - Sandboxes are destroyed after use; saved snapshots and run data have separate storage behavior
 
 ### Agent permissions
 
@@ -219,7 +212,7 @@ Enterprise customers receive priority security support:
 * **Incident assistance** - Support during security incidents or breach investigations
 * **Compliance assistance** - Help with compliance questionnaires and audits
 
-## Additional resources
+## Related pages
 
 * [Warp privacy policy](https://www.warp.dev/legal/privacy-policy)
 * [Warp Trust Center](https://trust.warp.dev) — security documentation and compliance reports. See also [Trust Center](/enterprise/security-and-compliance/trust-center/) for details on requesting SOC 2 reports, subprocessors, and vendor security assessments.

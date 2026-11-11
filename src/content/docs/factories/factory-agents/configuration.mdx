@@ -59,6 +59,23 @@ The model picker also includes custom routers from factories you can access. See
 
 For team-managed inference in definition files, see [custom endpoint and BYOK model values](/factories/factory-as-code/#custom-inference-endpoints-and-byok), including factory defaults and per-agent overrides.
 
+### Reviewing inference for provider ZDR
+
+Review every inference choice used by your workflow, not only the foreman's model. Warp-managed inference is covered by provider Zero Data Retention (ZDR) across plans except for the [models requiring provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Turning off analytics doesn't remove those exceptions.
+
+For a Warp-managed factory, use the factory dashboard's **Agents** and **Scorers** pages for their settings, and **Factory definition** for defaults and overrides that aren't exposed in those editors. For a GitHub-backed factory, edit the existing files in the connected repository; dashboard settings are read-only. Both use the [Factory definition syntax](/factories/factory-as-code/).
+
+1. Review the factory default in `factory.yaml`: `agentDefaults.model`, or the model and type under `agentDefaults.harness`. Review each agent's "Harness" and "Model" in **Agents** > the agent's **Settings**, or its existing `agents/<name>/agent.md` frontmatter. An agent override can differ from the default.
+2. Review **Automations** to identify the target agent for each trigger. In `automations/<name>/automation.md`, check [execution overrides](/factories/factory-as-code/#execution-overrides), especially `model` or `harness`. The automation editor doesn't expose execution overrides.
+3. Review the separate [Computer Use model](/factories/factory-as-code/#agentdefaultscomputerusemodel): `agentDefaults.computerUseModel` and any agent or automation `computerUseModel` override. An omitted value uses the documented inheritance or automatic selection, not necessarily the primary model.
+4. If a selected model is a custom router, inspect every target and its default against the exception list. Review each Scorer's "Judge model" on **Scorers**, or `scorers/<name>/scorer.md`. Also review the factory's "Analysis model" for [Self-improvement](/factories/measure-and-improve/self-improvement/). These are separate inference choices from the agent's primary model.
+5. Before launching [benchmarks](/factories/benchmarks/#create-and-run-a-benchmark), review every trial's harness and model and the selected Scorers. For runs started through the CLI, API, or another agent, review any supplied model or harness override rather than assuming the saved agent settings apply.
+6. Save dashboard changes, including definition edits. For a GitHub-backed factory, merge through your normal review process into its connected production branch and confirm a successful definition sync. Start a new run and inspect its model and harness in **Runs**. Existing runs keep their selected model; a completed test run doesn't prove the provider's contractual retention policy.
+
+For customer-managed keys or endpoints, BYOLLM, and direct Claude Code or Codex calls, verify ZDR with the provider for the specific account, model, and configuration. Use [factory inference options](/factories/infrastructure-and-security/#inference-options-for-factory-runs) to identify the credential and provider route.
+
+Auto, fallback, and auxiliary inference aren't an immutable model pin. Recheck configurations when models or workflows change. Provider ZDR and analytics settings don't disable [factory transcript, attachment, or artifact storage](/factories/infrastructure-and-security/#provider-retention-and-run-storage).
+
 ### Configuring a third-party harness
 
 Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool.

@@ -75,6 +75,16 @@ For backend selection guidance, including Command and one-shot Direct options, s
 
 Execution hosting doesn't select inference. Configure that boundary separately.
 
+### Provider retention and run storage
+
+Warp-managed inference in factory runs has the same provider Zero Data Retention (ZDR) coverage as Terminal, across plans, except for the [models requiring provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). **Help improve Warp** controls Warp analytics and improvement collection, not provider retention. Start with the [Warp-wide security guidance](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why) for the distinction.
+
+Before sending sensitive work, follow [Reviewing inference for provider ZDR](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr). The procedure covers dashboard-managed and GitHub-backed factories without requiring Terminal settings.
+
+Factory transcripts, prompt attachments, and uploaded artifacts persist for viewing past runs even when analytics is off. **Store AI conversations in the cloud** is a personal Terminal setting, not a switch for factory run storage. Run data uses Warp-managed storage unless an Enterprise admin maps the categories through [self-hosted agent data storage](/factories/self-hosting/data-storage/). A sandbox's teardown doesn't delete those stored records.
+
+Self-hosting execution doesn't establish provider ZDR or move run data automatically. Evaluate the inference route and storage mappings independently.
+
 ### Inference options for factory runs
 
 Factory agents execute as cloud agents. For runs using the Warp Agent, support varies by inference option:
@@ -86,7 +96,9 @@ Factory agents execute as cloud agents. For runs using the Warp Agent, support v
 | **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Supported on Enterprise | The AWS account, IAM role, available Claude models, and provider billing | Warp assumes your IAM role through OIDC; inference runs in your AWS account |
 | **[BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Not supported for factory runs | Interactive inference in your Google Cloud project | Gemini Enterprise BYOLLM currently supports interactive agent requests only |
 
-Personal BYOK and personal custom inference endpoints are stored on a member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint. Auto continues to use Warp-managed inference. Your provider's retention follows your account and contract. Warp can't enforce ZDR for that provider.
+Personal BYOK and personal custom inference endpoints are stored on a member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint. Auto continues to use Warp-managed inference. For customer-managed keys, endpoints, and BYOLLM, verify ZDR with your provider for the specific account, model, and configuration, including any upstream providers behind a gateway. Warp can't enforce provider ZDR for those requests.
+
+Claude Code and Codex call their providers directly from the execution environment. Verify retention under the account and configuration used by the harness's authentication, separately from Warp-managed inference.
 
 ### Networking for BYO inference endpoints
 
