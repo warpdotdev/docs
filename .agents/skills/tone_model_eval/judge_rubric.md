@@ -10,19 +10,11 @@ its fixture's "before" text. Every dimension is scored independently on a 1
 2. **Avoids over-explaining** — does the rewrite cut restated cause-and-effect,
    meta-openers, hedging stacks, and rule-of-three padding (AGENTS.md → Voice &
    tone)? 1 = still over-explains; 5 = states facts once, plainly.
-3. **Technical fidelity** — does the rewrite preserve verified behavior and
-   necessary constraints without adding unsupported promises? Narrowing an
-   unsupported assurance isn't a fidelity failure; dropping a supported
-   permission, compatibility limit, or required step is. 1 = distorts behavior
-   or removes a necessary constraint; 5 = preserves the verified facts. A concise rewrite that damages
+3. **Technical fidelity** — does the rewrite preserve every technical claim from
+   the original, without dropping or distorting one? 1 = drops or distorts a
+   claim; 5 = fully preserves technical accuracy. A concise rewrite that damages
    technical fidelity never qualifies for the "recommend a cheaper model" arm,
    regardless of its concision score (see the spec's Behavior #4).
-
-The original draft isn't a factual authority. This judge receives only the
-before text and candidate, not source evidence; without independently verified
-fixture facts, the fidelity score measures consistency, not technical accuracy.
-Record unresolved factual questions separately and don't use a high composite
-to clear them. This single-page copy rubric doesn't score journey quality.
 
 ## Anonymization
 

@@ -8,59 +8,59 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Create a factory and take one small repository change to a pull request for human review.
+Create your first factory and take one small work item from prompt to pull request.
 
 ## Prerequisites
 
 * A [Warp account](https://app.warp.dev/signup) and membership in a [Warp team](/knowledge-and-collaboration/teams/).
 * Team or workspace admin access, or the team-level [Warp Factories Editor role](/factories/infrastructure-and-security/#factory-roles-and-permissions).
 * Available usage in your team's balance for factory runs. See [access and billing requirements](/platform/team-access-billing-and-identity/).
-* Repository access. For the sample request, use a repository with `README.md`, `CONTRIBUTING.md`, and a known lint command.
+* Access to the repositories you want the factory to work on.
 
 ## Set up your factory
 
 :::note
-For GitHub and GitLab, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run setup. For Azure DevOps, follow the steps below.
+For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this setup. For Azure DevOps, follow the steps below in the {VARS.FACTORY_WEB_APP}. If the setup page is still open when the agent finishes, refresh it to see the new factory.
 :::
 
-1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in. To switch teams, click your avatar, hover over the team name, and select another team.
+1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in if prompted. To switch teams, click your avatar, hover over the team name, and select another team.
 
 2. Click **+** next to **Factories**.
 
    <figure style={{ maxWidth: "300px" }}>
-   ![Factories sidebar with the + button highlighted.](../../../assets/factories/quickstart-open-setup-wizard.png)
+   ![The Factories section of the sidebar, with the + button used to start a new factory highlighted.](../../../assets/factories/quickstart-open-setup-wizard.png)
    <figcaption>The factory setup control in the sidebar.</figcaption>
    </figure>
 
 3. On the "Connect your code hosts" screen, select GitHub, GitLab, or Azure DevOps, then choose the organization or group to connect. For Azure DevOps, also choose a project. Click **Next**.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![Code-host connection options and the GitHub organization dropdown.](../../../assets/factories/quickstart-connect-code-forges.png)
+   ![The Connect your code hosts screen with GitHub connected, a GitHub organization dropdown, and connection options for GitLab and Azure DevOps.](../../../assets/factories/quickstart-connect-code-forges.png)
    <figcaption>The GitHub organization dropdown in factory setup.</figcaption>
    </figure>
 
-   If connections are restricted, involve a code-host administrator. Azure DevOps requires [administrator approval](/factories/integrations/azure-devops/#requirements); send the approval link during setup.
+   If your organization restricts connections to Warp, involve a code-host administrator. Azure DevOps requires [one-time administrator approval](/factories/integrations/azure-devops/#requirements); you can send the approval link during setup.
 
    For other code forges, see [Connecting other code forges to your factory](/factories/code-forges/other-code-forges/).
 
 4. On the "Set up your factory" screen, select the repositories your factory will work on. See [sizing a factory](/factories/#sizing-a-factory).
 
    <figure style={{ maxWidth: "563px" }}>
-   ![Factory setup with matching repositories for the search term docs.](../../../assets/factories/quickstart-connect-repo.png)
+   ![The Set up your factory screen with a progress bar, docs entered in the repository search field, and matching repositories shown.](../../../assets/factories/quickstart-connect-repo.png)
    <figcaption>A repository search during factory setup.</figcaption>
    </figure>
 
 5. Enter a "Factory name". This also sets the default [foreman name](/factories/factory-agents/#foreman-name), the handle your team @-mentions in Slack and Linear. Click **Next**.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![Factory setup with Docs Factory entered as the name.](../../../assets/factories/quickstart-factory-details.png)
+   ![Factory setup with Docs Factory entered as the factory name, an optional description field, an avatar, and the Next button.](../../../assets/factories/quickstart-factory-details.png)
    <figcaption>The factory name and optional details during setup.</figcaption>
    </figure>
 
-6. Choose which [agents](/factories/factory-agents/) the foreman can dispatch. Leave **Code** enabled to produce a pull request.
+6. Choose which agents the foreman can dispatch. Leave **Code** enabled so this quickstart ends in a pull request. See [About factory agents](/factories/factory-agents/) for details.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![Factory setup with Triage, Spec, Code, and Review enabled.](../../../assets/factories/quickstart-pick-agents.png)
+   ![The Configure your Factory agents screen showing the foreman handle and enabled Triage, Spec, Code, and Review agents.](../../../assets/factories/quickstart-pick-agents.png)
    <figcaption>Default factory agents enabled during setup.</figcaption>
    </figure>
 
@@ -70,7 +70,7 @@ Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/
 
 ## Send your first work item
 
-Send a request to your foreman from the {VARS.FACTORY_WEB_APP}.
+Send a request to your factory's foreman from the {VARS.FACTORY_WEB_APP}. You can also send work from [Slack or an issue tracker](/factories/connect-your-factory/).
 
 1. In the web app sidebar, click **New Chat**.
 
@@ -86,19 +86,24 @@ Send a request to your foreman from the {VARS.FACTORY_WEB_APP}.
 
 4. The foreman dispatches the agents needed for the request and posts progress where it started. In the sidebar, click **Runs** to follow the [foreman and child runs](/factories/factory-dashboard/#inspect-runs). Requests for input also appear in the **Waiting on you** status filter on [Home](/factories/factory-home/).
 
+   If you sent the request from Slack, you can follow along in its thread:
+
+   <figure style={{ maxWidth: "563px" }}>
+   ![A Slack thread where the Warp Factories app replies with tracking and triage progress updates, including links to open the session and view it in the factory.](../../../assets/factories/slack-factory-thread-reply.png)
+   <figcaption>A factory Slack thread with live progress.</figcaption>
+   </figure>
+
 5. When the foreman hands back the pull request, review the changes and validation results, then merge it according to your normal process.
 
-## Optional: adapt one instruction
+## Optional: try one instruction
 
-Try one team-specific instruction: require the implementation agent to include the exact lint command and result in each PR description.
+After reviewing the first result, require the implementation agent to include the exact lint command and result in each PR description:
 
-1. On your factory's **Agents** page, open the implementation agent. For a Warp-managed factory, click **Prompt**, edit the instruction, then click **Save**. For a GitHub-owned definition, edit the existing agent file or attached skill, review and merge the definition PR, and confirm it applies. GitHub-owned definitions require a paid plan; see [Configuring factory agents](/factories/factory-agents/configuration/).
-2. Start a fresh small request through **New Chat**. Check the returned PR description against the first result. Keep the instruction only if it addresses the gap.
+1. On your factory's **Agents** page, open the implementation agent. For a Warp-managed factory, click **Prompt**, edit the instruction, then click **Save**. For a GitHub-owned definition, edit the existing agent file or skill, review and merge the definition PR, and confirm it applies. GitHub-owned definitions require a paid plan; see [Configuring factory agents](/factories/factory-agents/configuration/).
+2. Start a fresh small request through **New Chat** and compare the lint evidence with the first result. For comparable trials, follow [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/).
 
 ## Next steps
 
-You have a reviewed first result and a starting point for your own workflow.
-
-* [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/) - Compare one configuration change before expanding
-* [Connect your factory](/factories/connect-your-factory/) - Configure intake sources
-* [How Warp Factories work](/factories/how-factories-work/) - Understand the work-item lifecycle and find troubleshooting links
+* [**Connect your factory**](/factories/connect-your-factory/) - Configure intake sources.
+* [**How Warp Factories work**](/factories/how-factories-work/) - Understand the work-item lifecycle.
+* [**Troubleshooting Warp Factories**](/factories/troubleshooting/) - Fix common setup and run issues.

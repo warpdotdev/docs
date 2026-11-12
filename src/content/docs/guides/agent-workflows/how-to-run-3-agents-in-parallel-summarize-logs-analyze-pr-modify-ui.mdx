@@ -1,108 +1,95 @@
 ---
-title: "Running three agents in parallel"
+title: "Run 3 agents in parallel"
 description: >-
-  Split a UI change, PR review-queue analysis, and log summary across
-  separate agent tabs, then verify each result against its requested scope.
+  Run three agent tasks simultaneously in Warp — modify UI, analyze code
+  reviews, and summarize production logs in parallel.
 sidebar:
   label: "Run 3 agents in parallel"
 tags:
   - "agents"
+
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
 
-Work on a UI fix while separate agents summarize a review queue and inspect logs. Give each task its own scope and evidence requirements; parallel execution doesn't make their answers complete or correct.
+:::note
+This educational module demonstrates Warp’s multi‑threading features — running coding, debugging, and analysis tasks simultaneously in multiple agent tabs.
+:::
 
-<VideoEmbed url="https://youtu.be/3jwus1bfKv4" title="Running a UI change, PR analysis, and log summary in parallel" />
+<VideoEmbed url="https://youtu.be/3jwus1bfKv4" title="Running three agents in parallel workflow video" />
 
-The recording shows three independent agent tabs, not threads sharing one task. It reports 26 open PRs and a summary of 1,000 log entries after requesting 2,000. Those are observations from that demo, not expected results for your account. The log-count mismatch is a reason to check coverage before accepting the summary.
+---
 
-## Prerequisites
+### 🧠 Overview
 
-* A repository and a UI change with agreed acceptance criteria.
-* A [separate Git worktree and branch](/code/git-worktrees/) for any agent editing code. Keep the other two tasks read-only.
-* GitHub CLI access to the repositories being analyzed and `gcloud` access to the selected project's logs. Use existing read permissions; don't grant write access for reporting.
+Warp allows you to launch several agents at once, each focused on a separate task.\
+In the demo, we run three parallel workflows:
 
-For setup and ownership patterns, follow [Run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/).
+* Modify UI behavior
+* Analyze team code reviews
+* Summarize logs from production
 
-## 1. Give each tab one task
+<Steps>
 
-Open three agent tabs. Run the UI task from its assigned worktree. In each prompt, supply the actual issue, screenshot, repository, or account context the agent needs.
+1. #### Launch agents in parallel
 
-<Tabs>
-  <TabItem label="UI change">
+   Each agent runs in its own tab.
 
-    ```text
-    In this worktree, plan a change to the input pane shown in the attached
-    screenshot and issue. Remove the border and background only when the pane
-    is unfocused. Preserve the focused state and input behavior.
-    Stop for approval of the plan before editing. After approval, run the
-    repository checks and verify both focus states and keyboard input.
-    Return the diff, check results, and visual evidence. Do not merge.
-    ```
+   <Tabs>
+     <TabItem label="UI Fix">
+       Remove the background and border from unfocused input panes.
 
-    Include the acceptance criteria and confirm the branch before approving edits.
+           ```
+       I'd like to make a coding change. Please create a new branch to do this.
 
-  </TabItem>
-  <TabItem label="Review queue">
+       I want to remove the border and background from the input when it's rendered in a pane that is not focused. Please look at the reference file and the attached screenshot. In the screenshot, there are two equally prominent input areas, even though one is focused and one is not. Make the non-focused input omit its border and background.
 
-    ```text
-    Use the GitHub CLI to summarize open PRs awaiting review from the GitHub
-    user I specify, in only the repositories I specify. Confirm whether I
-    mean requested reviewer or assignee before querying.
-    Keep this read-only. Report the exact filters, retrieval time, result
-    count, and any pagination or access limits. For each PR, include its URL,
-    author, age, draft status, and unresolved review threads.
-    ```
+       Please check out this linear issue for more information. Also, give me a plan before you make any changes.
+       ```
+       </TabItem>
+     <TabItem label="Code Review Check">
+       Analyze how many pull requests a team member has assigned.
 
-    A PR assignee and a requested reviewer are different relationships. Check the filters and spot-check PR links before using the report to assign work.
+           ```
+       Use the GitHub CLI tool to summarize all open PRs for review that are assigned to user. I'd like to see who is the author of the PR, when was it opened, how long has it been open for, which repo is it in, are there open and unaddressed comments on it, and is it ready for review?
+       ```
+       </TabItem>
+     <TabItem label="Log Analysis">
+       Summarize Cloud Run logs by error severity.
 
-  </TabItem>
-  <TabItem label="Log summary">
+           ```
+       Use the gcloud tool to list all my open projects. Once you've done that, let me select a project. Once I've selected a project, we will want to see all the Cloud Run instances that are available. Then once I've picked a Cloud Run instance, I'd like to get a summary of the last 2000 logs from that Cloud Run instance to see the history histogram of different types of logging on info, warning, and error levels.
+       ```
+       </TabItem>
+   </Tabs>
 
-    ```text
-    Use gcloud to list projects I can access, then wait for my project choice.
-    List that project's Cloud Run services and wait for my service choice.
-    Ask me for a time window. Read logs only; don't change any cloud resources.
-    Retrieve up to 2,000 entries and report the project, service, time window,
-    exact filter, actual count, and any retrieval limits before summarizing
-    severity counts and recurring errors. Distinguish the retrieved sample
-    from all logs. Omit secrets and personal data from the summary.
-    ```
+2. #### Monitor all agents
 
-    Don't treat a partial sample as the full incident history. Confirm whether fewer entries reflect the selected window, access restrictions, or a query limit.
+   The **task pane** in Warp shows all running agents.\
+   You can view plans, progress, and results live without interrupting other tasks. To track these runs across your account and team in real time, including cloud agent runs, open the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app.
 
-  </TabItem>
-</Tabs>
+3. #### Review results
 
-## 2. Monitor requests for input
+   * **Coding Agent:** Implements UI fixes accurately.
+   * **Code Review Agent:** Reports 26 open PRs (identifies bottlenecks).
+   * **Log Agent:** Analyzes 1,000 log entries, categorizing errors and flagging Gemini API issues.
 
-Use the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app to find active conversations and those needing attention. Open the relevant tab to review the UI plan or choose the log project, service, and time window.
+4. #### Why this matters
 
-If an analysis task needs a code change, stop and give that work a separate branch and scope. Don't let a read-only report expand into edits in the UI agent's worktree.
+   Warp multi‑agent execution allows you to:
 
-## 3. Check each handoff
+   * Run multiple tasks without context switching.
+   * Keep coding, debugging, and ops visible simultaneously.
+   * Use AI assistants collaboratively for faster iteration.
 
-| Task | Evidence to inspect | If evidence is missing |
-| --- | --- | --- |
-| UI change | Diff, repository checks, focused and unfocused states, keyboard behavior | Request the missing state or check before accepting the patch |
-| Review queue | Repository list, reviewer-versus-assignee filter, pagination, PR links, unresolved threads | Rerun the query with corrected filters or report the access gap |
-| Log summary | Source, time window, filter, actual count, severity totals, representative errors | Narrow the conclusion to the retrieved sample or retrieve the missing range |
+   :::tip
+   Multi‑agent workflows let you debug, code, and analyze in parallel — boosting throughput without leaving the terminal.
+   :::
 
-Only the UI task produces a patch here. Review it before committing, and rerun checks after integrating it with other work. Neither a screenshot nor a claim that the fix is "accurate" proves the input still works.
+</Steps>
 
-## Troubleshooting
+### Next steps
 
-**Agents edit the same checkout.** Stop overlapping edits and move each code-writing task to its own worktree before continuing.
-
-**A report returns fewer records than requested.** Inspect the actual query, pagination, time bounds, and permissions. Keep the shortfall in the report rather than silently summarizing a smaller dataset.
-
-**The unfocused pane looks right but input breaks.** Test focus transitions and keyboard interaction alongside the visual change, then add a regression check for the missing behavior.
-
-## Next steps
-
-You have one reviewable patch and two reports whose scope can be checked independently.
-
-* [Run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) - Assign ownership, worktrees, and validation
-* [Multi-agent orchestration](/platform/orchestration/) - Delegate independent work to cloud child agents
-* [Reviewing agent-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Review and integrate the UI patch
+* [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) - Decompose tasks, assign Git worktrees, validate output, and hand off branches or PRs for review.
+* [Multi-agent orchestration](/platform/orchestration/) - Fan parallel work out to cloud child agents when a task is too large or slow to run locally.

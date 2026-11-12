@@ -12,7 +12,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp Factories is open, flexible infrastructure for building your own software factory. [Define your workflows as code](/factories/factory-as-code/), connect them to your repositories and tools, and use [evaluation and benchmarks](/factories/measure-and-improve/) to measure results and compare changes.
 
-A factory is the system of development workflows you configure on that infrastructure. Start with one workflow, such as reviewing incoming pull requests. Choose which events start it, what the review must check, and where findings return. Add implementation or other stages only when your process needs them.
+A factory is the system of development workflows you configure on that infrastructure. For example, an issue-to-PR workflow routes a request from Slack, GitHub, Linear, or Jira through triage, planning, implementation, and review, then returns a pull request to the original thread or issue. You choose the workflow and its human decision points.
 
 <CardGrid>
   <LinkCard
@@ -27,17 +27,11 @@ A factory is the system of development workflows you configure on that infrastru
   />
 </CardGrid>
 
-## Choose one outcome
+## What a factory does
 
-Choose work your team can evaluate before connecting more of your development process.
+A factory can work through a backlog of tasks, fix defects reported in a support channel, or review incoming pull requests across several repositories.
 
-| Workflow | Input and output | Human stop | What you customize |
-| --- | --- | --- | --- |
-| [Review a pull request](/factories/use-cases/code-review/) | PR event → findings on that PR | A person decides which findings to address and whether to merge | Review criteria and event filters |
-| [Triage an issue](/factories/use-cases/issue-triage/) | New issue → evidence, classification, and next action | No implementation starts from the triage result | Readiness criteria and ownership guidance |
-| [Investigate an alert](/factories/use-cases/production-incident-resolution/) | Alert → read-only incident report | Request a code fix separately after reviewing the evidence | Data sources, investigation scope, and reporting instructions |
-
-Each [use-case recipe](/factories/use-cases/) separates tool access from instructions and gives a sample input and result to check. After setup, [test and tune a small change](/factories/guides/testing-and-tuning-your-factory/) before expanding the workload.
+Start with one task, such as [reviewing a pull request](/factories/use-cases/code-review/). You choose the review criteria; the agent returns findings, and a person decides what to address and whether to merge. [Test a small configuration change](/factories/guides/testing-and-tuning-your-factory/) before adding more stages.
 
 <figure style={{ maxWidth: "736px" }}>
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
@@ -103,8 +97,8 @@ Don't split the same repositories across factories by team or task, such as fron
 
 ## Related pages
 
-* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
-* [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage
+* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
+* [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
 * [About factory agents](/factories/factory-agents/) - Understand default agent roles
 * [Configuring factory agents](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions
 * [Multi-agent orchestration](/platform/orchestration/) - Fan out ad-hoc parent and child agents outside a standing factory

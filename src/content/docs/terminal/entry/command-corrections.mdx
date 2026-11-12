@@ -8,9 +8,9 @@ sidebar:
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Command Corrections suggests a revised command after a command fails. Review the suggestion, then insert it into the input editor to correct a typo, missing flag, or permission error.
+## What is it
 
-## Corrections to review
+This feature was built on top of the open-source project [nvbn/thefuck](https://github.com/nvbn/thefuck). Here are some examples that the Warp team usually finds Command Corrections useful for:
 
 * Misspelled commands
   * `gti checkout myBranchName` -> `git checkout myBranchName`
@@ -26,8 +26,6 @@ Command Corrections suggests a revised command after a command fails. Review the
 * After an incorrect command is run, a panel with the corrected command suggestion appears above the Input Editor. `CLICK` or press the `→` arrow to insert the suggestion.
 
 ## How it works
-
-Command Corrections builds on the open source project [nvbn/thefuck](https://github.com/nvbn/thefuck).
 
 <VideoEmbed url="https://www.loom.com/share/180e1dc8d1504ec39c00694d9fd71b7c?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" title="Command Corrections Demo" />
 
@@ -56,7 +54,3 @@ Command Corrections builds on the open source project [nvbn/thefuck](https://git
 | sed                                                           |
 | sudo                                                          |
 | yarn                                                          |
-
-## Related pages
-
-* [Command Palette](/terminal/command-palette/) - Find terminal actions

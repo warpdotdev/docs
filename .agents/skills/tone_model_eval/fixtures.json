@@ -16,30 +16,6 @@
     "synthetic": false
   },
   {
-    "id": "factory-quickstart-real-page-holdout",
-    "content_type": "quickstart",
-    "source_path": "src/content/docs/factories/quickstart.mdx",
-    "before_commit": "1583ad80e122f5168ed7f211ac3a6197409a1630",
-    "known_feedback": "Reserved real-page copy-pass input. No case-specific rewrite instructions; factual verification and linked-journey assessment are separate.",
-    "synthetic": false
-  },
-  {
-    "id": "custom-routers-real-page-holdout",
-    "content_type": "feature-doc",
-    "source_path": "src/content/docs/agents/inference/custom-routers.mdx",
-    "before_commit": "1583ad80e122f5168ed7f211ac3a6197409a1630",
-    "known_feedback": "Reserved real-page copy-pass input. No case-specific rewrite instructions; factual verification and linked-journey assessment are separate.",
-    "synthetic": false
-  },
-  {
-    "id": "command-corrections-real-page-holdout",
-    "content_type": "feature-doc",
-    "source_path": "src/content/docs/terminal/entry/command-corrections.mdx",
-    "before_commit": "1583ad80e122f5168ed7f211ac3a6197409a1630",
-    "known_feedback": "Reserved terminal-page copy-pass input. No case-specific rewrite instructions; factual verification is separate.",
-    "synthetic": false
-  },
-  {
     "id": "quickstart-synthetic-verbose-seed",
     "content_type": "quickstart",
     "source_path": null,

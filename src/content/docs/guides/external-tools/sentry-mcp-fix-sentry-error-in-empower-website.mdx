@@ -1,86 +1,121 @@
 ---
-title: "Fixing a Sentry error in the Empower demo"
+title: "Sentry MCP: fix Sentry error in Empower website"
 description: >-
-  Inspect a Sentry issue with MCP, reproduce it locally, and verify a
-  scoped patch before sending it for review.
+  Connect the Sentry MCP server to Warp, fetch live error data, diagnose stack
+  traces, and auto-generate fixes for production issues.
 sidebar:
   label: "Sentry MCP: fix Sentry error in Empower website"
 tags:
   - "mcp"
+
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { Steps } from '@astrojs/starlight/components';
 
-Use Sentry error data to connect a stack trace to a local reproduction, then ask the agent for a patch you can test. The Empower Plant demo shows the workflow; reading an issue or generating a diff isn't evidence that the error is fixed.
+:::note
+This tutorial is based solely on the provided transcript. It teaches how to use the **Sentry MCP Server** within Warp to fetch live error data from Sentry, analyze stack traces, and automatically generate fixes for issues in your codebase.
+:::
 
-<VideoEmbed url="https://youtu.be/rrxfS9u1XRA?si=fVUfjQJSOlyLFBJT" title="Investigating and patching an Empower error with Sentry MCP" />
+<VideoEmbed url="https://youtu.be/rrxfS9u1XRA?si=fVUfjQJSOlyLFBJT" title="Using Sentry MCP to fix a production error video" />
 
-In the recording, the agent investigates an error involving `.toUpperCase()` and an array. Your checkout and Sentry issue may differ; establish the cause from their actual source and event data.
+### Overview
 
-## Prerequisites
+The **Sentry MCP server** gives Warp’s agents access to authenticated Sentry error data.\
+This enables detailed diagnostics and automated fixes that would otherwise be impossible using AI alone.
 
-* Warp with [MCP server support](/agents/capabilities/mcp/).
-* A Sentry account authorized to read the issue and project you will investigate.
-* A local checkout of [Sentry's Empower Plant demo](https://github.com/sentry-demos/empower/tree/master), or your own application with a reproducible error. Use a separate branch for the patch.
+You’ll learn how to:
 
-## 1. Connect Sentry for investigation
+* Connect the Sentry MCP server inside Warp.
+* Trigger live error retrieval from Sentry.
+* Diagnose code issues and generate patches automatically.
+* Integrate Sentry debugging into your daily development loop.
 
-Add Sentry's remote MCP endpoint, `https://mcp.sentry.dev/mcp`, using [Warp's MCP setup](/agents/capabilities/mcp/#adding-an-mcp-server). Complete Sentry's OAuth flow with the account that can read your test project.
+<Steps>
 
-[Sentry's MCP documentation](https://docs.sentry.io/product/sentry-mcp/) also describes organization- and project-scoped URLs. Choose the narrowest project access that serves the investigation.
+1. #### Set up the Sentry MCP server
 
-The server exposes more than issue inspection. Review requested tool calls and keep this investigation read-only in Sentry. Access to production event data is not permission to change production systems.
+   Open the MCP panel in Warp:
 
-## 2. Reproduce one error locally
+   * macOS: `Cmd+Shift+P`
+   * Windows/Linux: `Ctrl+Shift+P`\
+     Search for “MCP” and select the **MCP Panel**.
 
-Follow the demo repository's [local setup instructions](https://github.com/sentry-demos/empower/tree/master#local-setup--development) for its toolchain and `local.env`. Point error reporting at a test project you control. The repository uses a setup script rather than root-level `npm install` and `npm start`.
+   Click **Add**, then paste your configuration:
 
-From the repository root, its documented local React and Flask command is:
+   ```json
+   {
+     "sentry": {
+       "command": "npx",
+       "args": [
+         "-y",
+         "mcp-remote@latest",
+         "https://mcp.sentry.dev/mcp"
+       ],
+       "env": {},
+       "working_directory": null
+     }
+   }
+   ```
+   Save the configuration and ensure it appears in the MCP panel.
 
-```bash
-./deploy react flask --env=local
-```
+2. #### Run your app and trigger an error
 
-Despite its name, `--env=local` selects local servers. Review the script and configuration before running it; setup can still contact external services, and frontends can use remote backends that you haven't started locally.
+   We're using the [**Empower Plant** repository](https://github.com/sentry-demos/empower) — Sentry’s official demo project. This fake e-commerce app includes a React frontend and multiple backends, each containing intentional bugs for testing.
 
-Open the local address printed by setup. To try the checkout flow documented by Empower, add an item to the cart and attempt a purchase. Record the steps, selected backend, source commit, and observed error. In Sentry, find the matching test event and copy its issue URL. Don't assume an older event describes your current checkout.
+   Run the app locally:
 
-## 3. Ask for a diagnosis before a patch
+   ```bash
+   npm install
+   npm start
+   ```
 
-Attach the issue URL and reproduction to your prompt:
+   Open the site in your browser and trigger a few known errors.
 
-```text
-Inspect the attached Sentry issue and my local checkout. Use Sentry only
-to read issue data; don't change issue state, deploy, or modify production.
-Compare the stack trace and release with this source commit.
+3. #### Capture the error in Sentry
 
-Reproduce the reported failure locally using the attached steps.
-Explain the cause and propose the smallest patch and a regression check.
-Stop for my review before editing. If the event and checkout don't match,
-or reproduction fails, report the gap instead of assuming a cause.
-```
+   1. Go to your **Sentry Dashboard**.
+   2. Locate the triggered issue (for example, a `TypeError`).
+   3. Copy the issue’s URL from the Sentry interface.
 
-Review the source location, inputs, and proposed behavior. A type conversion that removes an exception may still return the wrong value. Resolve the intended behavior before authorizing edits.
+   Example:
 
-## 4. Verify the patch
+   ```
+   https://sentry.io/organizations/demo/issues/12345/
+   ```
 
-After approving the approach, ask the agent to implement it on the patch branch and add a regression test for the failing input. Require the same test to fail on the original code and pass on the patch.
+4. #### Diagnose the error using Warp
 
-Run the checks documented for the subproject you changed. Repeat the original local reproduction and check the expected application result, not only the absence of an exception. Inspect the diff for unrelated changes and include the actual check commands and results in the PR.
+   Back in Warp, prompt the agent to fetch and analyze the issue:
 
-Keep deployment and any Sentry issue-state changes as separate human decisions. A local fix doesn't resolve the production incident until your normal release and monitoring process confirms it.
+   ```
+   Diagnose this Sentry error and show where it’s coming from in my code.
+   Create a fix.
+   ```
 
-## Troubleshooting
+   The Sentry MCP calls `getIssueDetails`, fetching the stack trace and error metadata directly from Sentry. Warp then scans your local codebase, cross-references the error location, and identifies the root cause.
 
-**Sentry can't find the issue.** Check the connected account, project scope, and issue URL. Don't broaden access before confirming which project owns the event.
+   From this example:
 
-**The local app behaves differently.** Compare the Sentry release, backend selection, configuration, and source commit. Use the [Empower troubleshooting instructions](https://github.com/sentry-demos/empower/blob/master/troubleshooting.md) for setup failures.
+   > The issue was caused by calling `.toUpperCase()` on an array instead of a string.
 
-**The exception disappears but checkout still fails.** Verify the returned data and expected application behavior. Extend the regression check rather than treating a quiet error stream as success.
+   Warp’s agent automatically writes a fix — changing the code to handle the array properly.
 
-## Next steps
+5. #### Apply the generated fix
 
-You have a local reproduction, a scoped patch, and verification results for review.
+   Warp produces a suggested code change inline. Review the diff and apply it automatically with one click.
 
-* [Reviewing agent-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Review the patch before release
-* [MCP servers](/agents/capabilities/mcp/) - Configure tool access separately from prompts
-* [Production incident resolution](/factories/use-cases/production-incident-resolution/) - Configure a repeatable read-only investigation workflow when you need one
+6. #### Integrate into your workflow
+
+   Use Sentry MCP whenever you encounter production or staging errors. Warp can pull the latest issues, analyze them, and suggest patches.
+
+   Ideal for:
+
+   * Debugging live production errors.
+   * Triaging complex stack traces.
+   * Creating immediate hot-fixes without switching tools.
+
+   :::tip
+   With Sentry MCP, Warp becomes a live debugging console — connecting your code editor, terminal, and Sentry into a single intelligent feedback loop.
+   :::
+
+</Steps>
