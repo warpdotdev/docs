@@ -105,9 +105,11 @@ You can update or replace your keys anytime by opening **Settings** and searchin
 
 ### Zero Data Retention (ZDR) and BYOK
 
-Warp's [provider ZDR agreements](/agents/inference/model-choice/#zero-data-retention-policies) apply to covered Warp-managed inference, not requests through your own key. Verify ZDR with your provider for the specific account, model, and configuration; Warp cannot enforce provider ZDR for BYOK.
+Warp has a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security). Warp's [ZDR agreements with contracted LLM providers](/agents/inference/model-choice/#zero-data-retention-policies) apply to covered Warp-managed inference, with [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention), not requests through your own key.
 
-BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp analytics and product storage remain separate controls; turning off **Help improve Warp** doesn't change your provider's terms or disable [conversation storage](/enterprise/security-and-compliance/security-overview/#product-storage).
+Provider-side retention for BYOK depends on your provider account settings. Verify ZDR with your provider for the specific account, model, and configuration; Warp cannot enforce provider ZDR for BYOK.
+
+BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp-side retention and analytics handling follow the same account-level privacy and telemetry settings as Warp-billed traffic, including organization-enforced settings. Turning off **Help improve Warp** doesn't change your provider's terms or disable [conversation storage](/enterprise/security-and-compliance/security-overview/#product-storage).
 
 ### BYOK on Business and Enterprise plans
 
