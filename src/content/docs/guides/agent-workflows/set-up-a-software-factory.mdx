@@ -13,6 +13,8 @@ import { VARS } from '@data/vars';
 
 This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request. To build an intake-to-review workflow on Warp's factory infrastructure instead, see [Warp Factories](/factories/).
 
+In this path, you own the GitHub Actions workflows and labels that control orchestration; these examples don't configure a factory in the factory dashboard.
+
 ## Prerequisites
 
 * A working [triage agent](/guides/agent-workflows/build-a-triage-agent) and [spec agent](/guides/agent-workflows/write-product-and-tech-specs-with-agents), each deployed individually
@@ -151,7 +153,7 @@ The reviewer agent surfaces issues and inconsistencies; the human makes the fina
 
 ## Reference implementation
 
-[`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) is Warp's complete, deployable software factory for GitHub-hosted repositories. It includes all four agent roles, a Vercel webhook layer that handles GitHub events without GitHub Actions boilerplate, and self-improvement loops that propose skill updates based on maintainer feedback. If you want a production-grade system rather than individual GitHub Actions workflows, start there instead.
+[`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) is a reference implementation for GitHub-hosted repositories. It includes all four agent roles, a Vercel webhook layer that handles GitHub events without GitHub Actions boilerplate, and self-improvement loops that propose skill updates based on maintainer feedback. Inspect its deployment requirements and permissions before adapting it to your workload.
 
 ## Productivity tips
 
