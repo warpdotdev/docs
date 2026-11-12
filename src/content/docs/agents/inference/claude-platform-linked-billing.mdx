@@ -9,12 +9,9 @@ Connect your Claude organization to Warp through OAuth without creating or shari
 
 ## How linked billing works
 
-Setup has two parts:
+Your Warp workspace shares one connection to a Claude organization. Teams that enable linked billing use that organization's Anthropic API billing for eligible Claude usage instead of their Warp balance. Other teams keep their existing billing method.
 
-* **Connect your workspace** - A workspace admin links your Claude organization once.
-* **Choose which teams use it** - A team admin turns on linked billing for their team. Connecting the workspace doesn't turn it on for any team automatically.
-
-For example, your engineering team can use linked billing while another team keeps its existing billing method.
+Linked billing changes how Claude inference is paid for, not all costs of using Warp. Warp still bills [platform usage and other applicable charges](#other-warp-charges). If linked funds run out, eligible requests can [fall back to Warp billing](#if-linked-funds-run-out), subject to available Warp funding and spend limits.
 
 ## Before you connect
 
@@ -24,15 +21,11 @@ For example, your engineering team can use linked billing while another team kee
 
 Claude Pro, Max, Team, and Enterprise subscriptions and their included usage don't fund linked billing.
 
-{/* VERIFY: Confirm Anthropic organization eligibility and approving roles in the live OAuth flow. */}
-
 ## Supported Claude usage
 
 For teams that turn it on, linked billing covers Claude usage through the Warp Agent in the desktop app, CLI, web, and cloud, including subagents and factory runs billed to that team. It doesn't change billing for Claude Code or other tools that connect directly to Anthropic.
 
 Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or custom endpoints. Your team's existing model access, data residency, and retention restrictions still apply.
-
-{/* VERIFY: Confirm the launch model roster and supported surfaces against the released product before publication. */}
 
 ## Connecting your workspace
 
@@ -40,8 +33,6 @@ Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or 
 2. In the "Claude Linked Billing" section, click **Link your Claude organization**.
 3. In Claude's approval flow, select the organization that will pay for Claude usage, review the billing authorization, and approve the connection.
 4. After returning to Warp, check for "Claude organization linked."
-
-{/* VERIFY: Confirm the live OAuth approval labels and monthly spend-limit control, including whether the limit is optional and when it resets. */}
 
 ## Enabling a team
 
@@ -58,8 +49,6 @@ Turning on linked billing also enables [fallback to Warp billing](#if-linked-fun
 ## Managing spending
 
 Use [Claude Console's Linked Platforms page](https://platform.claude.com/linked-platforms) to manage the connection's spending limit. The workspace's "Claude Linked Billing" section also links to the Console connection.
-
-{/* VERIFY: Confirm the Linked Platforms usage fields and reporting granularity before adding instructions for inspecting usage. */}
 
 ### If linked funds run out
 
