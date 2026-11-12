@@ -1,8 +1,7 @@
 ---
 title: "Create and verify a Docker setup"
 description: >-
-  Use agents in Warp to generate Dockerfiles, Compose configuration, and
-  .dockerignore files, then review and test the setup before deployment.
+  Use agents in Warp to create a Docker setup for your application, then build and test it locally before deployment.
 sidebar:
   label: "Create a production-ready Docker setup"
 tags:
@@ -12,11 +11,11 @@ tags:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-Learn how to use Warp’s AI to generate a Docker setup for review and testing before deployment.
+Learn how to use Warp’s coding agent to containerize your application, then build and test the application locally.
 
 <VideoEmbed url="https://youtu.be/zdQdEauSF6Q?si=CoOdDjiffiw-et6r" title="Creating a production-ready Docker setup with Warp video" />
 
-Warp’s AI can analyze your codebase and generate **Dockerfiles**, **.dockerignore**, and **docker-compose.yml**. Generated files don't establish production readiness; review their image, dependency, secret, and network choices for your application.
+Warp’s AI can analyze your codebase and generate **Dockerfiles**, **.dockerignore**, and **docker-compose.yml**. Review the generated files for your application’s dependencies, startup commands, networking, and secret handling before building the image.
 
 Although this example uses a generic web app, the same pattern applies to **Python**, **Node.js**, **Go**, and other ecosystems.
 
@@ -56,6 +55,8 @@ Although this example uses a generic web app, the same pattern applies to **Pyth
 
    You can easily adjust service names or ports in the generated compose file.
 
-   Run `docker compose config`, build the image, and start the service using the generated instructions. Run the application's checks and a representative request through the container. Review deployment, recovery, and access requirements with the service owner before treating the setup as production-ready.
+   Run `docker compose config` to validate the Docker Compose configuration. Follow the build and startup instructions to build the images and run the application locally. Run the relevant application test and exercise a key user flow or API endpoint to check that the containerized application behaves as expected.
+
+   Before deploying, review the configuration against your environment's security access and recovery requirements.
 
 </Steps>

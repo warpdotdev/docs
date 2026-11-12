@@ -12,16 +12,9 @@ tags:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-:::note
-This tutorial is based solely on the provided transcript. It teaches how to use the **Sentry MCP Server** within Warp to fetch live error data from Sentry, analyze stack traces, and automatically generate fixes for issues in your codebase.
-:::
+Use the Sentry MCP server to give Warp’s coding agent access to error reports and stack traces. In this tutorial, you’ll reproduce a bug in Sentry’s Empower Plant demo app, investigate it against the local code, and verify a fix.
 
 <VideoEmbed url="https://youtu.be/rrxfS9u1XRA?si=fVUfjQJSOlyLFBJT" title="Using Sentry MCP to fix a production error video" />
-
-### Overview
-
-The **Sentry MCP server** gives Warp’s agents access to authenticated Sentry error data.\
-This enables detailed diagnostics and automated fixes that would otherwise be impossible using AI alone.
 
 You’ll learn how to:
 
@@ -62,13 +55,15 @@ You’ll learn how to:
 
    We're using the [**Empower Plant** repository](https://github.com/sentry-demos/empower) — Sentry’s official demo project. This fake e-commerce app includes a React frontend and multiple backends, each containing intentional bugs for testing.
 
-   Follow the repository's [local setup instructions](https://github.com/sentry-demos/empower/tree/master#local-setup--development), including its toolchain and `local.env`. Use a Sentry test project you control. From the repository root, start the local React and Flask services:
+   Follow the repository's [local setup instructions](https://github.com/sentry-demos/empower/tree/master#local-setup--development), including its toolchain and `local.env`. Use a Sentry test project you control.
+
+   Before starting the app, check which backends the frontend connects to. Services you haven’t started locally may use remote endpoints. From the repository root, start the local React and Flask services:
 
    ```bash
    ./deploy react flask --env=local
    ```
 
-   Review the configuration first: local frontends can contact remote backends that you haven't started locally. Open the local address printed by setup and record the steps for one error.
+   Open the local URL printed by the startup command, reproduce an error, and record the steps.
 
 3. #### Capture the error in Sentry
 
@@ -97,13 +92,13 @@ You’ll learn how to:
 
    > The issue was caused by calling `.toUpperCase()` on an array instead of a string.
 
-   In the recorded example, the agent proposes a change to handle the array. Verify the cause against your checkout and event; removing an exception doesn't establish that the returned value is correct.
+   In the recorded example, the agent proposes a change to handle the array. Check that the diagnosis matches your Sentry event and local code, then review whether the change produces the expected application behavior.
 
-5. #### Apply the generated fix
+5. #### Review and verify the fix
 
-   Warp produces a suggested code change inline. Review the diff and apply it automatically with one click.
+   Review the proposed diff before applying it, then add a regression test that reproduces the bug: it should fail without the fix and pass with it. Run the affected application’s documented checks, then repeat the original reproduction steps to confirm the expected behavior.
 
-   Add a regression check that fails before the patch and passes after it. Run the changed subproject's documented checks and repeat the original local reproduction, checking the application result as well as the exception. Keep deployment and Sentry issue-state changes as separate decisions.
+   Decide separately when to deploy the change and mark the Sentry issue as resolved.
 
 6. #### Integrate into your workflow
 
@@ -113,10 +108,6 @@ You’ll learn how to:
 
    * Debugging live production errors.
    * Triaging complex stack traces.
-   * Creating immediate hot-fixes without switching tools.
-
-   :::tip
-   With Sentry MCP, Warp becomes a live debugging console — connecting your code editor, terminal, and Sentry into a single intelligent feedback loop.
-   :::
+   * Preparing fixes for review without switching tools.
 
 </Steps>
