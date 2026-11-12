@@ -1,5 +1,17 @@
 # Weekly 404 monitor run log
 
+## 2026-11-09 — No data (blocked)
+- **Total 404s this week**: unavailable
+- **Total 404s last week**: unavailable
+- **Trend**: unavailable; no query completed and no baseline inferred
+- **Significant gaps (≥5 hits)**: unavailable
+- **Redirect candidates processed**: not run (automation threshold: hits ≥ 5)
+- **HIGH-confidence redirects**: not evaluated
+- **PR**: none for redirects; standing log branch `chore/404-monitor-log`
+- **Oz run**: https://staging.warp.dev/conversation/f707559c-8f22-434d-960b-d5afa7d824c6
+- **Validation**: Historical entries byte-preserved; `git diff --check` exit 0; internal-link check exit 0 (407 files, 4721 links, 0 broken). Ordered checks: typecheck exit 127 (`astro` unavailable), heading-vars exit 0 (5 tests), build exit 1 (`yaml` unavailable), heading-tocs and homepage-json-ld each exit 1 (`linkedom` unavailable; build output not produced). Trunk unavailable. No tooling repairs attempted; no public docs or redirects changed.
+- **Notes**: Scheduled cron-event guard exit 0: nominal fire time 2026-11-09T17:00:00Z is Monday 09:00 America/Los_Angeles. Python 3.13.5 and GitHub/connected Slack access verified; current main `399611aa3b4da0d8573001c71f8ae9bbc3bd21bd` has 1424 redirects (sanity passed). `METABASE_API_KEY` is missing. Unchanged report script exited 1 before any Metabase request; stderr retained in run output. Audit incomplete, not zero 404s. No CSV fabricated or uploaded; Phase 2 skipped because data and required artifacts are unavailable. Reporting and automation thresholds remain 5. Current main and standing-branch logs were read before writing; main merged into the shared log branch without rebasing or resetting. All historical entries are retained. No public docs, redirects, secrets, deployments, or schedules changed. Owner action: provision `METABASE_API_KEY` for this automation's execution environment, verify Metabase read access, and rerun. Final Slack delivery follows durable logging and a full Pacific-Monday history dedupe check; its receipt or delivery failure remains in run output.
+
 ## 2026-11-02 — No data (blocked)
 - **Total 404s this week**: unavailable
 - **Total 404s last week**: unavailable

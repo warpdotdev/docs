@@ -1,0 +1,47 @@
+---
+title: Factory guides
+description: >-
+  Plan and configure Warp Factories, test your setup, and choose how work reaches your factory.
+prev: false
+next: false
+---
+
+Configure Warp Factories for the code your team owns, verify the setup, and choose how work reaches the factory.
+
+Start with the [factory quickstart](/factories/quickstart/) if you haven't created a factory. It includes the access requirements and initial setup.
+
+## Define factory boundaries
+
+[Choose factory boundaries](/factories/guides/structuring-your-factory/) based on ownership, dependencies, permissions, and approvals. Decide which code belongs together before configuring repositories and agents.
+
+## Configure your factory
+
+Choose the guidance that fits your codebase. You may need more than one: a web application can use microservices spread across multiple repositories.
+
+* [Setting up a factory for a web application](/factories/guides/web-application-factory/) - Coordinate frontend and backend work and verify user-facing changes in a browser
+* [Setting up a factory for a monorepo](/factories/guides/monorepo-factory/) - Scope work to one product and involve shared-package owners
+* [Setting up a factory for microservices](/factories/guides/microservices-factory/) - Provide each service's toolchain and verify shared contracts
+* [Coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) - Deliver linked pull requests with a human-controlled merge order
+
+## Test and tune
+
+[Test and tune your factory](/factories/guides/testing-and-tuning-your-factory/) with representative tasks before expanding its workload. Use the results to adjust instructions, skills, runners, and intake.
+
+## Choose how to send work
+
+Choose the intake your team uses. If you combine routes, test their filters for duplicate runs.
+
+* [Turning a Slack mention into a pull request](/factories/guides/slack-to-pull-request/) - Accept requests in channels and threads
+* [Turning a Jira issue into a pull request](/factories/guides/jira-to-pull-request/) - Route assignments and mentions from a Jira project
+* [Turning a Linear issue into a pull request](/factories/guides/linear-to-pull-request/) - Route delegated issues from a Linear team
+* [Turning a GitHub issue into a pull request](/factories/guides/github-issue-to-pull-request/) - Start work from labeled or assigned issues
+
+## Extend and improve
+
+Use [factory use cases](/factories/use-cases/) to add workflows, and [measure results](/factories/measure-and-improve/) as usage grows.
+
+## Related pages
+
+* [Warp Factories overview](/factories/) - Learn what a factory does and how it coordinates agents.
+* [Quickstart for Warp Factories](/factories/quickstart/) - Create a factory and send it your first task.
+* [Factory boundaries](/factories/guides/structuring-your-factory/) - Determine which code and work belong in each factory before configuring it.

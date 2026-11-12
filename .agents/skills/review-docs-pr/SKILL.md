@@ -72,6 +72,8 @@ review focus areas, this pass is the human-review-blocking gate defined in
 
 ## Review Instructions
 
+Read and apply `.agents/references/compliance-claims-policy.md`. Flag customer-facing HIPAA references, implications of HIPAA-regulated-workload or HIPAA business associate agreement support, and other compliance promises without current Security or Legal approval as critical accuracy findings and request changes. Existing docs, source code, general approvals, and public `VERIFY` markers do not satisfy that policy.
+
 Review this documentation PR for the docs repository.
 
 Focus on:
@@ -104,7 +106,7 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 
 Include an editorial verdict in the review rationale: reader task, concept ownership across siblings, unnecessary scaffolds or repetition removed, unsupported assurances, and useful understanding preserved. Identify each unconfirmed claim and its narrow correction. Removing a page or changing its purpose requires human approval; a transition guide is not interchangeable with a chooser.
 
-Use `.agents/rules/oz-style-guidelines.md` for framing and the canonical glossary for terminology. Historical Oz references, commands, and package names are not automatic rename findings.
+Read and apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for terminology. Check definitions, openings, descriptions, and changed explanatory copy against rule P1, including definitions of a customer's factory. Team-of-agents and equivalent staffing metaphors are important positioning findings, not optional style preferences. Preserve shipped role names and literal interfaces. Verify technical promises independently under rule P2; when source evidence is missing, report insufficient evidence rather than approval. Historical Oz references, commands, and package names are not automatic rename findings.
 
 ### Severity Labels (Required)
 

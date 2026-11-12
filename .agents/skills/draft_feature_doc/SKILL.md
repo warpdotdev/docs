@@ -9,6 +9,8 @@ Draft a feature documentation page that combines conceptual and procedural conte
 
 ## Workflow
 
+Read and apply `.agents/references/compliance-claims-policy.md` before drafting, including its omission and internal-reporting rules.
+
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **feature-doc template** at `.agents/templates/feature-doc.md`.
 
 ## Frontmatter description

@@ -1,0 +1,193 @@
+---
+title: Coordinating changes across multiple repositories
+description: >-
+  Coordinate changes across repositories with Warp Factories, linked pull requests, and a merge order controlled by a person.
+sidebar:
+  label: "Multi-repository factory"
+prev: false
+next: false
+---
+
+Use Warp Factories to coordinate work across repositories and deliver linked pull requests for a person to merge in a documented order. Cross-repository changes are not atomic: each repository has its own branch and pull request.
+
+Adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) starter by adding the related repositories. The examples below use illustrative `acme/api-service` and `acme/webapp` repositories; replace them with yours.
+
+## How a change spans repositories
+
+The factory's [`repositories`](/factories/factory-as-code/#repositories) list selects the checkouts for every run. A change touching two repositories produces two pull requests. To keep them compatible between merges, change the provider first in ways deployed consumers tolerate. A person merges in that order and reverts in reverse.
+
+The example repositories share an API contract, so the provider changes first and additively. The same shape covers a frontend and backend in separate repositories, a library and the services that pin it, or a schema repository and its consumers. For what to verify inside each service, see [setting up a factory for microservices](/factories/guides/microservices-factory/).
+
+| Part | Recommendation |
+| --- | --- |
+| Trigger | A maintainer applies `factory-ready` to an issue in any of the factory's repositories |
+| Repositories | Every repository a coordinated change can touch, named by role in the foreman's instructions |
+| Agents | Foreman decides the order, implement opens one pull request per repository, review checks that the pair agrees |
+| Runner | One Linux image with every repository's toolchain |
+| Output | Linked pull requests titled `[1/2]` and `[2/2]`, each stating the merge order, plus a foreman comment with both links |
+
+## Prerequisites
+
+* A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/) with access to every repository.
+* [Foreman, implement, and review agents](/factories/factory-agents/#the-default-agents) in the factory.
+* Documented bootstrap and test commands for every repository, plus a compatibility check such as a contract check.
+* Branch protection and required reviews on every repository for human-controlled merging.
+
+## Connect the repositories
+
+List every repository a coordinated change can touch. This selects the checkouts; code-host permissions control whether the agent can push.
+
+1. Add each repository to the factory:
+   * **Warp-managed factory:** Open the factory's **Settings** in the factory dashboard and update the repository selection under "Repos".
+   * **GitHub-backed factory:** List each repository in `factory.yaml`, as shown below.
+
+   For repositories on different code hosts, specify each repository's `codeForge`. See [`codeForges`](/factories/factory-as-code/#codeforges).
+
+   ```yaml title="factory.yaml"
+   schemaVersion: v1alpha1
+   name: related-services
+   alias: Services
+   repositories:
+     - owner: acme
+       name: api-service
+     - owner: acme
+       name: webapp
+   agentDefaults:
+     model: auto
+     runner: linux-services
+   ```
+
+2. Confirm the GitHub App installation grants access to every repository. The agent can push only to repositories covered by the installation. See [GitHub permissions](/factories/integrations/github/#permissions).
+
+   Every run checks out the factory's repositories under `/workspace`.
+3. Create the `factory-ready` label in each repository. GitHub labels are configured separately for each repository.
+4. Configure the intake automation to match all of the factory's repositories and the `factory-ready` label:
+
+   ```markdown title="automations/issue-labeled/automation.md"
+   ---
+   triggers:
+     - provider: github
+       event: issue_labeled
+       filter:
+         repos: [acme/api-service, acme/webapp]
+         labels: [factory-ready]
+   ---
+   A maintainer labeled an issue `factory-ready` in one of the two related
+   repositories. Read the issue, decide which repositories change and in which
+   order, and drive the change to one pull request per repository. Post your
+   decision, progress, and the final merge order as comments on the issue.
+   ```
+
+5. Configure the runner with an image containing every repository's toolchain and a dependency prefetch command for each repository.
+
+   See the example runner in [setting up a factory for microservices](/factories/guides/microservices-factory/#provide-runtime-context).
+
+## Coordinate a change across repositories
+
+1. Define repository roles and compatibility rules in `agents/foreman/agent.md`:
+   * Identify the provider and its consumers.
+   * Change the provider first, using backward-compatible additions. Do not add required request fields. In this example, `acme/api-service` adds response fields and endpoints that the deployed `acme/webapp` can safely ignore until its change merges.
+   * For a breaking change or a repository outside the factory, comment with what is needed instead and stop.
+
+   A single-repository change needs no cross-repository merge order.
+2. Instruct the foreman to announce the plan before dispatching the implement agent:
+   * Comment on the issue with the repositories to change, the merge order, and the reason for that order.
+   * Pass the issue, ordered repository list, and compatibility rule to the implement agent.
+3. Define pull request requirements in `agents/implementer/agent.md`:
+   * Open one pull request per changed repository.
+   * Use the same branch name in each repository, such as `factory/118-order-status`.
+   * Prefix the titles with `[1/2]` and `[2/2]` to show merge order. Omit the prefix for a single-repository change.
+   * Include Summary, Compatibility, and Verification sections. Add Linked PR only for a paired change.
+4. Require verification that supports the merge order:
+   * **Provider:** Run its checks and confirm the contract diff contains only additions.
+   * **Consumer:** Run its checks against the provider's branch and probe current `main`. Regenerate the client from the vendored schema after the probe and rerun positive checks before publishing. For a pair, a probe failure caused by the new contract explains why the consumer merges second. Consumer-only work must pass against the current provider.
+
+   Follow the [contract-check sequence](/factories/guides/microservices-factory/#verify-against-contracts-and-dependencies), including restoring the generated client after the probe.
+5. In `agents/reviewer/agent.md`, limit review to whether the pull requests agree and are safe to merge in the documented order. Direct the reviewer to report findings to the foreman, not as comments on the pull requests.
+6. Apply and validate the factory definition:
+   * **Warp-managed factory:** Save the edits in the factory dashboard.
+   * **GitHub-backed factory:** Merge the edits into the production branch.
+
+   Confirm validation succeeds before testing. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+
+## Link the pull requests
+
+1. Require the implement agent to link the pull requests in both directions:
+   * Link the issue and the other pull request in each description.
+   * State whether each pull request merges before or after the other.
+   * Link to the provider when opening the consumer's pull request, then update the provider's description with the return link.
+2. Require a Compatibility section describing behavior between merges. In this example, the API serves the new field and the deployed web app ignores it until its own change merges.
+3. Instruct the foreman to check both links before handing off the change, then post an issue comment with both pull request links, the merge order, and the compatibility note.
+
+## Control the merge order
+
+The factory never merges. A person merges in the order the foreman posted, and the repositories' own branch protection enforces who can do that.
+
+1. Merge the provider's pull request, `[1/2]`.
+2. Confirm the merge is complete. If merging triggers deployment, wait for deployment to finish.
+3. Merge the consumer's pull request, `[2/2]`.
+
+:::caution
+Merging the consumer first can break it because the deployed provider does not yet serve the required contract.
+:::
+
+To revert the change, reverse the order: revert the consumer first, then the provider.
+
+## Test the factory
+
+1. Apply `factory-ready` to an issue requiring an additive change in both repositories, such as adding an optional response field and displaying it in the consumer. Check for:
+   * Verification commands run in both checkouts.
+   * Pull requests titled with `[1/2]` and `[2/2]`, linking each other and the issue.
+   * The consumer's check result against the provider's current `main`, recorded in the consumer's description.
+   * Passing checks after the consumer client is regenerated from its vendored schema.
+   * A foreman comment on the issue with both pull request links and the merge order.
+2. Apply `factory-ready` to an issue that changes only one repository. Check for one pull request with no title prefix or cross-repository merge order.
+3. Apply `factory-ready` to an issue requiring a breaking change, such as renaming a field in every response. Check that the foreman comments with what is needed instead and creates no branch.
+4. Apply `factory-ready` to an issue in a repository outside the factory. Check that no run starts.
+
+## Set it up with a prompt
+
+1. Replace the uppercase placeholders in the following prompt with your information.
+2. Paste the completed prompt into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or a coding agent connected through [Factory MCP](/factories/factory-mcp/).
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/multi-repository-factory.md and adapt
+https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+for my repositories. The repository others
+depend on is OWNER/PROVIDER; the repositories that depend on it are
+CONSUMER_LIST. Replace acme/api-service and acme/webapp everywhere they
+appear (factory.yaml, the automation, the runner, and all three agent
+prompts), replace the bootstrap, test, and contract-check commands with
+the ones each repository really uses, and pick a runner image that carries
+every toolchain. Keep the rules: the provider changes first and only
+with backward-compatible additions, never new required request fields.
+Open one pull request per changed repository. For a pair, link both ways
+and state the merge order in each description. Require a reviewer to check
+contract consistency and leave merging to a human.
+For consumer checks, regenerate from the vendored schema and rerun positive
+checks after probing the provider's current default branch. One-repository
+work needs no companion PR; consumer-only work must pass against the current
+provider. Validate the definition before you open a pull request, never
+merge, and list what
+I still have to do myself: connecting GitHub, creating the factory-ready
+label in each repository, and registering the definition.
+```
+
+## Troubleshooting
+
+* **A two-repository change produces only one pull request:** The second repository may lack GitHub App access, or the foreman may have scoped the task to one repository. Check installation access, the foreman's issue comment, and the run on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs).
+* **The pull requests do not link each other:** The first description may not have been updated after the second pull request opened. Require the implement agent to add the return link and the foreman to check both descriptions before handoff.
+* **Production breaks after the consumer merges first:** The consumer may require a contract the deployed provider does not serve yet. Revert the consumer, then follow the documented merge order. Branch protection controls who can merge, not cross-repository order, so keep that order in each description and the final issue comment.
+* **One change starts two runs:** The same change may have been labeled in two issues, or automation filters may overlap. Use one issue per change and nonoverlapping filters. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+
+## Guide navigation
+
+* Previous stage: [Factory boundaries](/factories/guides/structuring-your-factory/)
+* Next stage: [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/)
+* All stages: [Factory guides](/factories/guides/)
+
+## Related pages
+
+* [Setting up a factory for microservices](/factories/guides/microservices-factory/) - The runtime context and contract checks behind each pull request
+* [Factory definition syntax](/factories/factory-as-code/#repositories) - The `repositories` and `codeForges` fields
+* [Connect GitHub to your factory](/factories/integrations/github/) - Installation scope, permissions, and label routing

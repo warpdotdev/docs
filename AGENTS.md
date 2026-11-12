@@ -6,6 +6,10 @@
 
 This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Keep the full writing rules here. Skills and templates must state the actions needed for their tasks and link here for additional detail. Document product behavior in the relevant product documentation, not in general writing rules.
 
+## Compliance claims
+
+Before writing, reviewing, or answering from docs, apply [the compliance claims policy](.agents/references/compliance-claims-policy.md). Warp is not HIPAA compliant; omit HIPAA from customer-facing content and never imply support for HIPAA-regulated workloads or a HIPAA business associate agreement. Other compliance claims require a current Warp Security or Legal-approved source for the exact claim and scope. Omit unsupported claims and flag them in the internal handoff or PR evidence.
+
 ## Writing style
 
 ### Voice & tone
@@ -17,6 +21,18 @@ This guide establishes standards for writing Warp documentation. It covers voice
 - **State instructions explicitly**: Name the action, where to perform it, and the result to check. Do not expect readers to infer a required action from an example, a section name, or a phrase such as "apply best practices." Follow this rule in documentation, skills, templates, and writing guidelines. Link to background information without using the link as a substitute for the instruction.
 
 Our reference points are the GitHub and Vercel docs: short declarative sentences, concrete examples, restrained formatting, and no selling.
+
+Apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for names. Use `.agents/references/writing-examples.md` for examples of how to apply the writing rules.
+
+#### Reader goals, control, and evidence
+
+Start with the problem or decision the reader faces, then explain the action and its consequence. For configurable workflows, name what the reader controls and how they can check the result. A feature list or a source-code description cannot establish who needs a page.
+
+Connect measurement to a decision: establish a baseline, compare a configuration on comparable work, then decide whether to keep the change. Do not equate automation or token consumption with useful output.
+
+Use a concrete example to explain the mechanism, not an adjective to imply a benefit. Keep limitations beside the choice they affect. A polished sentence with an unsupported claim still needs correction.
+
+Borrow directness and explicit reasoning from the reference writing, not an author's identity or personal experiences. Procedures use second-person instructions; references give precise lookup information. Neither needs a founder's anecdote, a slogan, or every positioning pillar.
 
 #### Define, show, link
 Introduce a concept in one to three plain sentences, give a concrete example, then link out for depth. Repeat that pattern instead of front-loading the page with context.
@@ -114,8 +130,8 @@ Apply the [reader-understanding test](#reader-understanding-test) before cutting
 
 #### Active vs. passive voice
 Use active voice whenever possible. Active voice is clearer and more direct.
-- ✅ "Warp indexes your codebase to help Agents understand your code."
-- ❌ "Your codebase is indexed by Warp to help Agents understand your code."
+- ✅ "Warp indexes your codebase to help agents understand your code."
+- ❌ "Your codebase is indexed by Warp to help agents understand your code."
 
 Passive voice is acceptable when the action's recipient is more important than the agent, or when the agent is unknown or irrelevant:
 - ✅ "A critical security vulnerability was discovered in the authentication module." (emphasis on the vulnerability, not who found it)
@@ -267,22 +283,26 @@ Search engines and AI agents give extra weight to the first paragraph. Lead with
 - Use bulleted lists for features, benefits, or non-sequential items
 - Use numbered lists only for step-by-step processes
 - End each numbered step in a procedure with a period
-- Bold the key term or feature name at the start of each list item
+- Bold the key term or feature name at the start of each feature-list item, except agent names and non-clickable UI field labels
 - Follow the bold term with a dash and explanation
 - Closing link lists start with the link, not a bold term. See [Closing section](#closing-section) for their format.
 
 Example:
 ```markdown
-* **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code
+* **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code
 * **Code Review** - Review, edit, and manage Git diffs in real time
 ```
 
 ### Emphasis
 Use formatting consistently to distinguish different types of content:
-- **Bold** — UI elements, key terms on first use in a list, feature names in context
+- **Bold** — clickable UI controls and feature-list lead terms; not agent names or non-clickable field labels
 - *Italic* — introducing a new term inline (not a feature name), titles of external works
 - `Backticks` — code, commands, file paths, keyboard keys, config values, CLI flags
 - Underline — avoid (poor web accessibility, looks like a link)
+
+Do not bold agent names in explanatory prose or list lead terms. Write "the foreman routes the request" or "foreman - Routes requests," not a bold role name. Use lowercase for generic agents and default roles; proper feature names keep their capitalization. Exact UI strings, configured names, and code identifiers retain their literal spelling.
+
+Use quotation marks for a non-clickable UI field label, such as "Foreman name." Bold identifies an actual clickable UI control, not a label merely because it appears on screen. Keep the bold feature-list lead terms defined above; they do not make an agent name or field label an exception.
 
 ### Code examples
 - Always specify the language identifier for syntax highlighting (`bash`, `yaml`, `json`, etc.)
@@ -467,6 +487,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
 - Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
 - Use quotation marks, not bold, for a field or label name that is not itself clickable. The interactive control next to it (the dropdown, the input, the option you choose from it) still gets bold.
+- Agent names in explanatory prose and lists remain unbolded; naming an agent does not identify a clickable control.
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
@@ -539,7 +560,7 @@ These rules apply regardless of content type:
   - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
   - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
 - **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
-- **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
+- **Use one positioning source**: Follow `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
 
 #### Check connected procedures
 
@@ -860,7 +881,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
 - **Warp Drive** - Shared workspace for saving and organizing commands, workflows, and environment variables across your team.
-- **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
+- **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
 - **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
@@ -950,16 +971,16 @@ The platform is not something you address — it runs and coordinates agents, an
 
 ### Warp Factories terminology
 
-This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+**Warp Factories** names the infrastructure platform and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun. Use `.agents/rules/warp-positioning.md` for the platform's positioning and its distinction from a customer's workflow.
 
-- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
 - ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
-- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+- ❌ "Factories" on its own to mean the platform → write "Warp Factories"
 
 Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
 
-**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — "Factory name," "Foreman name," "Factory integrations," "Add your Factory to your team," "Factory running!", and the **Factory definition** sidebar label — retain their displayed spelling. Non-clickable labels remain quoted rather than bold.
 
 See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 
