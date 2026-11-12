@@ -9,6 +9,8 @@ Draft a reference documentation page with structured, exhaustive information for
 
 ## Workflow
 
+Read and apply `.agents/references/compliance-claims-policy.md` before drafting, including its omission and internal-reporting rules.
+
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **reference template** at `.agents/templates/reference.md`.
 
 ## Frontmatter description

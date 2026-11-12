@@ -1,15 +1,17 @@
 ---
 title: How Warp Factories work
 description: >-
-  A factory's foreman routes each work item through triage, planning,
-  implementation, and review, with humans making the key decisions.
+  Build workflows on Warp Factories infrastructure, configure routing and human
+  checkpoints, and compare changes with Scorers and benchmarks.
 sidebar:
   label: "How factories work"
 ---
 
-A factory is a team of cloud agents connected to your repositories. The **foreman agent** coordinates a factory's work and communicates with you through the tool where the request started, such as Slack or Linear. It dispatches the factory's other agents, each of which handles a stage of the software development lifecycle, and people make the key decisions along the way.
+Warp Factories provides the infrastructure for development workflows you define and configure. Your [definition files](/factories/factory-as-code/) connect repositories, agents, and automations. Use Scorers to check runs against criteria you define, and benchmarks to compare configurations on the same tasks. See [Measure and improve](/factories/measure-and-improve/).
 
-A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
+The foreman agent routes requests according to the workflow's instructions and communicates through the tool where work started, such as Slack or Linear. The default workflow covers triage, planning, implementation, and review, with human decision points you can configure.
+
+A work item is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
 ![Warp Factories system diagram showing work sources, automations, the foreman and stage agents, human handoff, the factory definition, platform execution, the factory dashboard, and the measure-and-improve loop](../../../assets/agent-platform/factories-work-item-flow.png)
 

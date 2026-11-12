@@ -72,6 +72,8 @@ review focus areas, this pass is the human-review-blocking gate defined in
 
 ## Review Instructions
 
+Read and apply `.agents/references/compliance-claims-policy.md`. Flag customer-facing HIPAA references, implications of HIPAA-regulated-workload or HIPAA business associate agreement support, and other compliance promises without current Security or Legal approval as critical accuracy findings and request changes. Existing docs, source code, general approvals, and public `VERIFY` markers do not satisfy that policy.
+
 Review this documentation PR for the docs repository.
 
 Focus on:
