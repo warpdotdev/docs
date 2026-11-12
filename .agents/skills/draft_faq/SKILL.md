@@ -28,6 +28,8 @@ If the rules do not all hold, say so and redirect:
 
 ## Workflow
 
+Read and apply `.agents/references/compliance-claims-policy.md` before drafting, including its omission and internal-reporting rules.
+
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **FAQ template** at `.agents/templates/faq.md`.
 
 ## Frontmatter description

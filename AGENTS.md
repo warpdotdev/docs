@@ -6,6 +6,10 @@
 
 This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Keep the full writing rules here. Skills and templates must state the actions needed for their tasks and link here for additional detail. Document product behavior in the relevant product documentation, not in general writing rules.
 
+## Compliance claims
+
+Before writing, reviewing, or answering from docs, apply [the compliance claims policy](.agents/references/compliance-claims-policy.md). Warp is not HIPAA compliant; omit HIPAA from customer-facing content and never imply support for HIPAA-regulated workloads or a HIPAA business associate agreement. Other compliance claims require a current Warp Security or Legal-approved source for the exact claim and scope. Omit unsupported claims and flag them in the internal handoff or PR evidence.
+
 ## Writing style
 
 ### Voice & tone

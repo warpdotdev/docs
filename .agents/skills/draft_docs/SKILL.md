@@ -118,6 +118,8 @@ Once the content type is identified:
 Read 2-3 strong examples in the target section to match existing patterns and conventions.
 
 ### 6. Research source code (if needed)
+Before verifying claims, read and apply `.agents/references/compliance-claims-policy.md`. Omit HIPAA and unsupported compliance promises from customer-facing content; record missing Security or Legal approval in the internal handoff or PR evidence, not a public `VERIFY` marker. This exception overrides the generic source and marker options below.
+
 For technical accuracy, optionally look in Warp's source repositories:
 - **warp-internal** - Client-side code (Rust, Swift, etc.)
 - **warp-server** - Server-side code (Go)
