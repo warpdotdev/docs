@@ -9,8 +9,10 @@ Apply the tone and concision rules from this repository's AGENTS.md → Voice &
 tone section to tighten the draft below.
 
 Rules:
-- Preserve every technical claim in the draft. Do not drop, soften, or distort
-  any technical fact.
+- Preserve technical behavior, required steps, and constraints. Don't preserve
+  an unsupported assurance merely because it appears in the draft: narrow
+  guarantees such as "ensures correctness" to the action or check described.
+  Don't infer new behavior while doing so.
 - Do not introduce new claims, examples, or information that isn't already in
   the draft.
 - Cut buzzwords, meta-openers, restated cause-and-effect, hedging stacks, and
