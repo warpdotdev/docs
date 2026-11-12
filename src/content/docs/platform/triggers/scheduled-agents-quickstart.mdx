@@ -9,7 +9,7 @@ sidebar:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-Scheduled agents are cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the {VARS.WEB_APP}; no CLI or custom code required.
+Schedule a standalone cloud agent in the {VARS.WEB_APP} to triage GitHub bug reports each week. Use the prebundled skill to check whether issues have enough detail to investigate and request missing information.
 
 This is a standalone schedule, not a factory automation. For recurring factory work, [schedule a factory automation](https://docs.warp.dev/factories/automations/#schedule-a-factory-automation).
 
