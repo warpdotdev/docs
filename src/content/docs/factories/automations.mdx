@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: Factory automations
 ---
+import { VARS } from '@data/vars';
 
 An **automation** starts factory runs from a trigger and routes them to an agent. Filters narrow which events start work. For example, an automation can send newly opened pull requests to a review agent, but only for one repository's `main` branch.
 
@@ -56,6 +57,25 @@ To edit an existing automation's filters:
 
 {/* VISUAL: An automation's trigger editor with More filters expanded. */}
 
+
+## Schedule a factory automation
+
+Use a scheduled automation for recurring factory work, such as a weekly repository report. You need permission to edit automations and an existing [factory agent](/factories/factory-agents/) with the repositories, tools, and credentials the task needs.
+
+If your factory definition is repository-managed, edit or add an `automations/NAME/automation.md` file using the [schedule schema](/factories/factory-as-code/#triggersschedule), then commit and push it. The Automations page is read-only for those definitions.
+
+For automations managed in the web app:
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, expand your factory and click **Automations**. Open an existing automation to reuse it, or click **New** and give it a name.
+2. Under "Agents," choose the existing agent that will handle the task. In "Agent prompt," enter instructions for each run. For a controlled first test, use: “List the repository's top-level files and report the current branch. Do not modify files, create issues, or open pull requests.”
+3. In "Triggers," click **Add trigger** > **Scheduled** and choose **Hourly**, **Daily**, **Weekly**, or **Custom (cron)**. Set the time or cron expression and check "Next run."
+4. Click **Save**, then reopen the automation. Confirm the schedule is present before clicking **Run now**.
+5. In the automation's **Runs** tab, open the test run. Confirm its output lists the repository files and branch, rather than only repeating the prompt. Once that works, replace the test instructions with your recurring task and save.
+6. To stop future scheduled runs, click **Pause** on the automation and confirm its status is “Paused.” Pausing doesn't cancel runs already started. Click **Resume** to enable it again.
+
+Daily and weekly controls show your browser's local timezone. Warp saves schedules as UTC cron expressions, so the local firing time can shift when daylight saving time changes. Custom cron expressions use UTC; for example, `0 9 * * 1` runs every Monday at 09:00 UTC. Recheck the next run after editing a schedule or changing timezone.
+
+If you reuse an automation, review its other triggers and instructions before saving: those triggers also use the updated instructions.
 
 ## Filters in definitions as code
 

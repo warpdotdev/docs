@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: "Linear"
 ---
+import { VARS } from '@data/vars';
 
 Connect Linear to your factory so your team can send issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks it up with the issue's full context, then keeps the issue updated as the work moves through [its stages](/factories/how-factories-work/).
 
@@ -14,11 +15,18 @@ When the factory needs an answer, reply in Linear, or open the live run to steer
 ## Prerequisites
 
 * A factory with the agents and repositories needed for Linear work. See the [Warp Factories quickstart](/factories/quickstart/).
-* A Linear account that can authorize the Warp app for the workspace.
+* A Linear workspace admin to authorize the Warp app and permission to connect workspace integrations in Warp.
 * A Warp account linked to your Linear user to start agent sessions.
-* Repository access through the factory's [GitHub connection](/platform/integrations/github/) for code changes and pull requests.
+* Repository access through the factory's [GitHub connection](/factories/integrations/github/) for code changes and pull requests.
 
-For workspace-level installation, reconnection, and removal steps, see the [Linear integration setup guide](/platform/integrations/linear/).
+## Install Linear for your workspace
+
+Authorize the workspace connection once, then select the Linear teams each factory handles. You don't need a standalone Oz environment for factory routing.
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open the top-level **Integrations** page and open **Linear**. If it already shows “Connected,” continue with [factory team selection](#connect-linear).
+2. Click **Connect**. In the Linear authorization tab, choose the intended workspace, review the requested access, and authorize Warp.
+3. Return to Warp and confirm Linear shows “Connected.” If it doesn't, finish authorization in the Linear tab, then return to Warp again.
+4. [Connect Linear to the factory](#connect-linear) and select the teams whose requests it handles. Workspace authorization alone doesn't select those teams.
 
 ## Permissions
 
@@ -41,16 +49,18 @@ These scope meanings follow [Linear's OAuth reference](https://linear.app/develo
 
 You connect Linear either while creating a factory, at the **Connect your issue trackers** step, or afterward from the factory's **Settings**. Either way you do the same two things:
 
-1. **Authorize Warp for your Linear workspace.** This is Linear's own OAuth flow, and it's only needed once per workspace.
-2. **Choose which Linear teams trigger this factory.**
+1. [Authorize Warp for your Linear workspace](#install-linear-for-your-workspace) if it isn't already connected.
+2. In the factory's **Settings** > **Integrations**, connect **Linear**, select the Linear teams this factory handles, then click **Enable**. During factory creation, select those teams before finishing setup.
 
 Warp then adds a default automation that routes new [agent sessions](#route-agent-sessions) from those teams to your factory. Issue and comment activity doesn't start work until you [add triggers](#configure-linear-triggers) for it.
 
 ## Route agent sessions
 
-If Warp can't identify the session creator, Linear shows an authentication prompt instead of starting work.
+If Warp can't identify the session creator, Linear shows an authentication prompt instead of starting work. Complete that prompt with your own Warp account, then retry the request.
 
-When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. If a session doesn't match any automation, the [Linear integration](/platform/integrations/linear/) handles it with its default behavior.
+When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. If a session doesn't match any automation, the [standalone Linear integration](https://docs.warp.dev/platform/integrations/linear/) handles it with its default behavior.
+
+Test routing on an issue in a selected team: mention Warp with “Summarize this issue without changing it.” Confirm the run appears under the factory's matching automation and the summary returns in the Linear session.
 
 <figure style={{ maxWidth: "563px" }}>
 ![A Linear issue with a comment mentioning the Warp app to request a tech spec, which starts an agent session.](../../../../assets/factories/linear-agent-session.png)
@@ -129,10 +139,28 @@ Only agent sessions require a linked Warp account. Issue and comment events from
 
 Connecting Linear doesn't grant repository access. Branches and pull requests use the factory's code-host credentials, and the pull request still waits for a person to review and merge.
 
+## Reconnect Linear
+
+If the workspace connection is no longer authorized, an admin repeats the [workspace installation procedure](#install-linear-for-your-workspace) from **Connect**. Confirm the expected Linear workspace and team access on the consent screen.
+
+If Warp still shows “Connected” but teams don't load, first check the app's team access in Linear and reload Warp. Don't remove a working workspace connection to change one factory's team selection. If the connection must be replaced, [remove it](#remove-linear), then authorize it again; this interrupts every factory using that workspace connection.
+
+After reconnecting, confirm the intended teams are still selected in the factory's **Settings** > **Integrations** and repeat the [routing test](#route-agent-sessions). Reauthorization doesn't prove a factory's automation filters match.
+
+## Remove Linear
+
+Removing the shared connection affects every factory using it, not just the factory you are viewing. You need permission to manage workspace integrations.
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open the top-level **Integrations** page and open **Linear**.
+2. Click **Remove Linear**, review the scope in the confirmation, then click **Delete**.
+3. Confirm Warp reports that the Linear integration was removed and the connection no longer shows “Connected.”
+
+This removes Warp's workspace connection. It doesn't uninstall the app in Linear or disconnect personal accounts. To revoke the provider grant too, a Linear admin removes Warp's access in Linear; see the [shared Linear uninstallation instructions](https://docs.warp.dev/platform/integrations/linear/#uninstallation-instructions). No factory can route new work through a removed connection. Reconnecting requires authorization and a routing test; don't assume removal resets factory definitions.
+
 ## Troubleshooting
 
 * **An agent session shows an authentication prompt** - Complete the prompt to link your Linear user to your Warp account, then retry the request.
-* **Teams or filters don't load** - Reconnect Linear by following the [Linear integration setup guide](/platform/integrations/linear/), then confirm the connection can access the workspace and team you expect.
+* **Teams or filters don't load** - Follow [Reconnect Linear](#reconnect-linear), then confirm the connection can access the workspace and team you expect.
 * **An event doesn't start work** - Confirm the automation is enabled, the event type matches, and every filter matches the issue's current values or the state change.
 * **One action starts multiple runs** - Look for overlapping agent-session and comment triggers, then narrow or remove one.
 * **A reply doesn't resume a waiting run** - [Check delivery and forward the answer](#replying-to-a-waiting-run). A comment trigger doesn't associate a label-started run with the issue.
@@ -141,4 +169,5 @@ Connecting Linear doesn't grant repository access. Branches and pull requests us
 ## Related pages
 
 * [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
-* [Linear integration](/platform/integrations/linear/) - Install or remove the workspace app
+* [Connect your factory](/factories/connect-your-factory/) - Add other sources of factory work
+* [Standalone Linear integration](https://docs.warp.dev/platform/integrations/linear/) - Configure Linear-triggered runs outside a factory

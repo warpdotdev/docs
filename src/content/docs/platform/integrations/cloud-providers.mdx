@@ -1,13 +1,13 @@
 ---
 title: Cloud providers
 description: >-
-  Connect cloud agents to your AWS and GCP services.
+  Configure AWS and GCP federation for factory runs or standalone cloud agents using short-lived OIDC credentials.
 sidebar:
   label: "AWS, GCP, and other cloud providers"
 ---
 import { VARS } from '@data/vars';
 
-Cloud agents can securely access AWS, GCP, and other cloud providers using short-lived OpenID Connect (OIDC) credentials. Configure your cloud agent environment to automatically authenticate to your cloud provider without storing long-lived keys, using Warp's built-in OIDC federation support.
+Cloud agents access AWS, GCP, and other cloud providers using short-lived OpenID Connect (OIDC) credentials instead of long-lived keys. For a factory, [configure its default environment](#configure-a-factory-environment) from the factory's settings. For standalone runs, configure an environment in the {VARS.WEB_APP}.
 
 ---
 
@@ -17,6 +17,33 @@ Cloud agents can securely access AWS, GCP, and other cloud providers using short
 * A cloud provider account
 
 Follow the section for your cloud provider.
+
+## Configure a factory environment
+
+Configure cloud access from your factory's **Settings** > **Integrations** in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. These settings apply to the factory's default environment; you don't need to create a separate environment.
+
+You need permission to edit the factory's cloud-provider settings and an administrator who can configure federation in your cloud account. Reuse an existing trusted provider and role or pool when their access matches the factory's needs. Otherwise, create them with the shared [AWS](#aws) or [GCP](#gcp) instructions below.
+
+### Configure AWS for a factory
+
+1. In AWS, create or reuse the [OIDC identity provider](#step-1-create-an-oidc-identity-provider) and [IAM role](#step-2-configure-an-iam-role). Restrict the role's trust to the intended Warp team or principals and grant only the resource permissions the task needs.
+2. In the factory's **Settings** > **Integrations**, open **Amazon Web Services** and click **Set up**. To edit saved settings, choose **Connection Settings** from the connection's menu.
+3. In "Role ARN," enter the IAM role ARN, then click **Save**.
+4. Confirm the “Amazon Web Services connected” notification. Reopen **Connection Settings** and confirm the saved role ARN.
+5. Start a controlled factory run using an agent whose runtime includes the AWS CLI. Ask it to run `aws sts get-caller-identity` and report whether the returned role and account match the authorized test account. Don't print tokens or credentials.
+
+Saving confirms the configuration, not cloud access. If the read-only check fails, review the role's trust conditions and permissions; don't broaden the trust policy to bypass a mismatch.
+
+### Configure GCP for a factory
+
+1. In Google Cloud, create or reuse a [Workload Identity Pool and Provider](#step-1-create-a-workload-identity-pool-and-provider) and configure [IAM policies](#step-2-configure-iam-policies) for the resources the factory needs. Keep the Warp team restriction on the provider.
+2. In the factory's **Settings** > **Integrations**, open **Google Cloud** and click **Set up**. To edit saved settings, choose **Connection Settings** from the connection's menu.
+3. Enter "Project number," "Workload Identity Federation pool ID," and "Workload Identity Federation provider ID" for the pool you configured.
+4. Leave "Service account to impersonate (optional)" empty for direct federated access. If your cloud administrator configured service account impersonation, enter that service account's email. Click **Save**.
+5. Confirm the “Google Cloud connected” notification. Reopen **Connection Settings** and confirm the saved values.
+6. Start a controlled factory run using an agent whose runtime includes `gcloud`. Ask it to perform a non-mutating operation permitted by the test account's policy, such as listing Compute Engine instances when you granted the viewer role in the [IAM example](#step-2-configure-iam-policies). Confirm the result belongs to the authorized test project. Don't print access tokens or credential files.
+
+If saving succeeds but the access check fails, confirm the project number, pool, provider, attribute condition, and IAM grant. An optional service account email doesn't itself grant permission to impersonate that account.
 
 ---
 
@@ -125,7 +152,7 @@ To allow multiple specific principals, use a list of subjects:
 
 ### Step 3: Enable AWS federation in your cloud agent environment
 
-Finally, configure the cloud agent environment to use your new AWS role.
+For standalone runs, configure the cloud agent environment to use your new AWS role. For a factory's default environment, use [factory AWS settings](#configure-aws-for-a-factory) instead.
 
 1. Open the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 2. Create or edit an environment. See [Environments](/platform/oz-web-app/#environments) for instructions.
@@ -133,7 +160,7 @@ Finally, configure the cloud agent environment to use your new AWS role.
 4. Save the environment.
 
 :::caution
-Currently, AWS federation can only be configured in the {VARS.WEB_APP}, not the CLI.
+Standalone environment AWS federation is configured in the {VARS.WEB_APP}, not the CLI.
 :::
 
 Agents running in this environment will now automatically assume the configured role when using
@@ -211,7 +238,7 @@ for the full syntax supported.
 
 ### Step 3: Enable Workload Identity Federation in your cloud agent environment
 
-Finally, configure the cloud agent environment to use your Workload Identity Federation provider.
+For standalone runs, configure the cloud agent environment to use your Workload Identity Federation provider. For a factory's default environment, use [factory GCP settings](#configure-gcp-for-a-factory) instead.
 
 1. Open the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 2. Create or edit an environment. See [Environments](/platform/oz-web-app/#environments) for instructions.
@@ -219,7 +246,7 @@ Finally, configure the cloud agent environment to use your Workload Identity Fed
 4. Save the environment.
 
 :::caution
-Currently, Workload Identity Federation can only be configured in the {VARS.WEB_APP}, not the CLI.
+Standalone environment Workload Identity Federation is configured in the {VARS.WEB_APP}, not the CLI.
 :::
 
 Agents running in this environment will now automatically configure
@@ -388,3 +415,8 @@ The following OIDC token references an agent running as a specific Warp user:
     "nbf": 1775206575
 }
 ```
+
+## Related pages
+
+* [Environments for factory agents](https://docs.warp.dev/factories/environments/) - Choose factory defaults or an existing environment
+* [Configuring cloud agent environments](https://docs.warp.dev/factories/environments/configuring-environments/) - Manage standalone environments
