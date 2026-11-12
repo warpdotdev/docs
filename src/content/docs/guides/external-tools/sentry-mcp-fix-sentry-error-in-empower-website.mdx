@@ -2,7 +2,7 @@
 title: "Sentry MCP: fix Sentry error in Empower website"
 description: >-
   Connect the Sentry MCP server to Warp, fetch live error data, diagnose stack
-  traces, and auto-generate fixes for production issues.
+  traces, and verify a proposed fix before deploying it.
 sidebar:
   label: "Sentry MCP: fix Sentry error in Empower website"
 tags:
@@ -62,14 +62,13 @@ You’ll learn how to:
 
    We're using the [**Empower Plant** repository](https://github.com/sentry-demos/empower) — Sentry’s official demo project. This fake e-commerce app includes a React frontend and multiple backends, each containing intentional bugs for testing.
 
-   Run the app locally:
+   Follow the repository's [local setup instructions](https://github.com/sentry-demos/empower/tree/master#local-setup--development), including its toolchain and `local.env`. Use a Sentry test project you control. From the repository root, start the local React and Flask services:
 
    ```bash
-   npm install
-   npm start
+   ./deploy react flask --env=local
    ```
 
-   Open the site in your browser and trigger a few known errors.
+   Review the configuration first: local frontends can contact remote backends that you haven't started locally. Open the local address printed by setup and record the steps for one error.
 
 3. #### Capture the error in Sentry
 
@@ -98,11 +97,13 @@ You’ll learn how to:
 
    > The issue was caused by calling `.toUpperCase()` on an array instead of a string.
 
-   Warp’s agent automatically writes a fix — changing the code to handle the array properly.
+   In the recorded example, the agent proposes a change to handle the array. Verify the cause against your checkout and event; removing an exception doesn't establish that the returned value is correct.
 
 5. #### Apply the generated fix
 
    Warp produces a suggested code change inline. Review the diff and apply it automatically with one click.
+
+   Add a regression check that fails before the patch and passes after it. Run the changed subproject's documented checks and repeat the original local reproduction, checking the application result as well as the exception. Keep deployment and Sentry issue-state changes as separate decisions.
 
 6. #### Integrate into your workflow
 
