@@ -1,59 +1,68 @@
 ---
-title: "Set coding best practices"
+title: "Setting coding best practices"
 description: >-
-  Use Warp Rules to enforce coding style, TypeScript conventions, and
-  documentation quality across AI-generated code.
+  Write project Rules that name your coding conventions and required checks,
+  then verify the agent's changes before approval.
 sidebar:
   label: "Set coding best practices"
 tags:
   - "rules"
-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
-import { Steps } from '@astrojs/starlight/components';
 
-Learn how to use Warp’s Rules to enforce coding style, documentation quality, and consistency across projects.
+Tell the agent which conventions to follow and which checks to run, then verify the result. Warp Rules are instructions, not enforcement: a formatter changes formatting, a linter checks configured patterns, and tests check the behavior they cover.
 
-<VideoEmbed url="https://youtu.be/AuM2OIvXlnY?si=rxnQH5TH-5vj0LMf" title="Setting coding best practices with rules video" />
+<VideoEmbed url="https://youtu.be/AuM2OIvXlnY?si=rxnQH5TH-5vj0LMf" title="Setting coding best practices with Rules" />
 
----
+## Prerequisites
 
-## Intro
+* A repository with [project Rules](/agents/capabilities/rules/#project-rules), stored in `AGENTS.md` or an existing `WARP.md`.
+* The repository's documented formatter, lint, and test commands, including any setup they require.
 
-This tutorial teaches you how to create coding Rules that make AI follow your team’s **best practices** automatically.\
-\
-By specifying formatting, style preferences, and documentation standards, Warp ensures consistent, high-quality code across your repositories.
+## 1. Name a convention and its check
 
----
+Open the repository's Rules file and add expectations that someone reviewing a diff can verify. For example:
 
-<Steps>
+```markdown title="Example project Rules"
+Follow the existing TypeScript conventions in the package you change.
+Document non-obvious behavior; don't add comments that repeat the code.
+Read package scripts and CI configuration before choosing checks.
+Run the formatter, lint, and tests relevant to the changed package.
+Report exact commands and results, including any checks you couldn't run.
+Leave changes for human review. Do not merge.
+```
 
-1. #### The problem
+Replace broad check instructions with exact commands once you've verified them in your repository. Don't add `npm run lint` or another script unless it exists.
 
-   Developers often have different habits — formatting styles, TypeScript conventions, or comment quality.\
-   Without clear rules, AI-generated code can be inconsistent or hard to maintain.
+## 2. Try one bounded change
 
-2. #### The Rule setup
+Give the agent a small task from your backlog. Name the files it may change and the behavior you expect. Keep the instructions to stop for review inside the prompt:
 
-   Define Rules that enforce formatting, type preferences, and doc quality.
+```text
+Fix the failing test I attached. Keep changes to the affected implementation
+and its tests. Follow the project Rules and run the relevant repository
+checks. Report their exact results, and stop with the diff for my review.
+Do not commit, push, or merge.
+```
 
-   **Example Rule**
+Inspect the diff and command output. A statement that the agent "followed best practices" isn't evidence that a check ran or that the behavior is correct.
 
-   ```
-   Rule: Code Authoring Standards
-   - Always format and check work before returning results.
-   - Prefer `types` over `interfaces` in TypeScript.
-   - Apply concise, human-readable JS Docs using the Hemingway test.
-   ```
+## 3. Enforce requirements outside the prompt
 
-   :::note
-   The **Hemingway test** ensures code comments are simple and clear — short sentences, active voice, and no unnecessary complexity.
-   :::
+Configure formatters, linters, and tests in the repository and CI. Use repository permissions, required checks, and approval rules for actions that must be restricted. [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) control tool access; Rules don't grant or revoke it.
 
-3. #### Benefits
+If the agent misses a check, first confirm it had the command, toolchain, and access it needed. Then clarify the instruction and repeat a small task before applying it across projects.
 
-   * Encourages readable, maintainable code
-   * Improves documentation clarity
-   * Prevents style drift across AI contributions
+## Troubleshooting
 
-</Steps>
+**The instruction is followed inconsistently.** Replace vague phrases such as "high-quality code" with an observable criterion and a relevant check. Verify which Rules file applied.
+
+**Checks pass but the change is wrong.** Add coverage for the missing behavior and review the acceptance criteria. Passing configured checks doesn't establish correctness outside their coverage.
+
+## Next steps
+
+You have instructions to test against a diff and checks to enforce separately.
+
+* [Rules for agents](/agents/capabilities/rules/) - Manage global and project instructions
+* [Creating project Rules for an existing project](/guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind/) - Keep the file short and verify one edit
+* [Structuring your factory](/factories/guides/structuring-your-factory/) - Apply instruction and permission boundaries to a factory workflow

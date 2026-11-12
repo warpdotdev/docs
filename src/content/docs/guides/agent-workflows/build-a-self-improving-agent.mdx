@@ -1,8 +1,8 @@
 ---
 title: Build a self-improving agent
 description: >-
-  Build an outer loop where a scheduled agent reviews past runs, learns from
-  corrections, and proposes skill file updates.
+  Collect maintainer corrections, propose scoped skill updates, and compare
+  them with the current instructions before human review.
 sidebar:
   label: "Build a self-improving agent"
 tags:
@@ -13,9 +13,9 @@ tags:
 ---
 import { VARS } from '@data/vars';
 
-A self-improving agent is the outer loop of the [software factory](/guides/agent-workflows/set-up-a-software-factory) you've built in the previous guides. It watches how maintainers correct the inner-loop agents — relabeled issues, edited comments, changed code — and opens a pull request to improve the skill files that drive those agents. Every correction from a teammate becomes a proposed improvement to the factory.
+Use maintainer corrections to identify recurring triage mistakes and propose a scoped change to the instructions. A correction is evidence to investigate, not automatically a general rule: it may depend on missing context or a decision that only applies to one issue.
 
-This guide shows how to build the outer loop for a triage agent. The same pattern applies to any agent role.
+This extends the [GitHub-owned workflow series](/guides/agent-workflows/set-up-a-software-factory/) with a scheduled collector and proposal step. For a workflow configured on Warp Factories, use the [factory quickstart](/factories/quickstart/) and its separate [Self-improvement configuration](/factories/measure-and-improve/self-improvement/).
 
 :::note
 The outer loop proposes improvements; it doesn't apply them silently. Every change to a skill file goes through a normal pull request review before merging. The team decides what improves; the agent proposes it.
@@ -27,13 +27,9 @@ The outer loop proposes improvements; it doesn't apply them silently. Every chan
 * A Warp account (<a href={VARS.GET_STARTED_URL}>get started with Warp</a>)
 * A cloud environment with access to your repository ([create one](/factories/environments/))
 
-## Why principles beat rules
+## Scope the proposed change
 
-Most agent skills start as a list of rules, but rules overfit. They break when a situation arrives that the rules didn't anticipate, and a longer rule list makes the skill harder to maintain.
-
-Effective skill files describe **principles**: durable ideas about how to approach a class of situation. A principle, e.g., "confirm that a bug report includes enough context for a fresh contributor to reproduce the issue", transfers to situations the original rules didn't cover. 
-
-When the outer loop proposes a skill update, it should always aim for a principle that generalizes, not a new rule that handles one more edge case.
+Look for a recurring mistake before generalizing a correction. For example, "confirm that a bug report includes enough context for a fresh contributor to reproduce the issue" can guide triage across reports. Keep repository-specific exceptions in the companion skill, and preserve explicit permission and approval requirements.
 
 ## 1. Collect correction signals
 
@@ -66,8 +62,9 @@ The [`update-triage`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents
    For each correction:
    1. Identify what the triage agent did (the original label or comment).
    2. Identify what the maintainer did instead (the correction).
-   3. Ask: why would the triage agent have gotten this wrong?
-   4. Ask: what principle would prevent this class of error in the future?
+   3. Read the surrounding issue and discussion for context.
+   4. Look for recurring mistakes before proposing a generalization.
+   5. Propose one scoped change and identify cases it must not affect.
 
    ## What to update
 
@@ -76,6 +73,8 @@ The [`update-triage`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents
 
    Commit changes to a branch named oz-agent/update-triage.
    Do not push directly to main. Open a pull request for human review.
+   Include the supporting corrections and a baseline-versus-candidate test
+   plan. Do not claim improvement from the corrections alone.
    ```
 
 2. For the complete implementation, including the correction-collection script, write-surface restrictions, and PR-opening workflow, use the [`update-triage` skill from `warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/update-triage/SKILL.md) as your reference.
@@ -102,27 +101,25 @@ See [Scheduled agents](/platform/triggers/scheduled-agents) for the full referen
 
 ## 4. Review the proposed skill changes
 
-Each time the outer loop runs, it opens a pull request with proposed changes to the `triage-issue-local` companion skill. Review that PR the same way you would review any other code change:
+When a run finds a supported change, review the proposed update to `triage-issue-local`. Don't require a change when the feedback doesn't support one.
 
 * Does the proposed principle generalize correctly, or is it another specific rule in disguise?
 * Is the change scoped to the companion skill rather than the shared base skill?
 * Does it improve the agent's reasoning, or does it just patch one edge case?
 
-Merge the PR when the improvement is sound. Close it if the proposal is too narrow or incorrect.
+Before deciding whether to merge, test the current instructions and candidate on the same representative issues from the same starting state. Include clear, ambiguous, and out-of-scope reports. Keep some issues out of the proposal process as held-out cases to check whether the change generalizes.
 
-Over time, the companion skill accumulates a clear description of how your team thinks about issue triage — not as a list of rules, but as a set of principles that a new maintainer or a new agent can learn from.
+Record expected labels and questions, actual results, regressions, and cost for both versions. Use read-only trials or a test repository so comparisons don't relabel live issues. Human review decides whether the evidence supports keeping the change. Close or revise proposals that fix one case while harming others.
+
+This comparison is a step you add to your process; the collector and schedule above don't run an evaluation automatically.
 
 ## Productivity tips
 
 * **Give feedback in the right place** — The outer loop collects signals from GitHub. If you want the triage agent to learn from a correction, add a comment to the issue explaining why the original label was wrong. That comment becomes signal for the next outer-loop run.
 * **Apply the pattern to other agent roles** — The [`update-pr-review`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/update-pr-review/SKILL.md) and [`update-dedupe`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents/skills/update-dedupe/SKILL.md) skills from `warpdotdev/oz-for-oss` apply the same outer-loop pattern to the PR reviewer and deduplication agents.
-* **Don't skip the PR review** — The value of the outer loop is compounding improvement, not speed. A bad skill change that merges silently creates more work than it saves. Every proposed change should get a review.
 
 ## Next steps
 
 * [Self-improvement in Warp Factories](/factories/measure-and-improve/self-improvement/) - The managed version of this outer loop, run inside a factory
 * [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) - The inner loop the outer loop improves
-* [Warp Factories quickstart](https://docs.warp.dev/factories/quickstart/) - Set up a factory and send your first work item
 * [Scheduled agents](/platform/triggers/scheduled-agents) - Full reference for running cloud agents on a cadence
-* [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) - The complete reference implementation including all outer-loop skills
-* [Skills](/agents/capabilities/skills) - How skill files work in Warp and the {VARS.WARP_AUTOMATION_PLATFORM}

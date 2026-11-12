@@ -1,232 +1,92 @@
 ---
-title: "Create project Rules for an existing project"
+title: "Creating project Rules for an existing project"
 description: >-
-  Create and maintain an AGENTS.md project rules file so coding agents always
-  understand your project's setup, commands, architecture, and conventions.
+  Create a short AGENTS.md with verified project commands, edit one
+  repository convention, and check that the agent follows it.
 sidebar:
   label: "Create project Rules for an existing project"
 tags:
   - "rules"
-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
-import { Steps, FileTree } from '@astrojs/starlight/components';
 
-:::note
-This educational module is built **only** from the transcript. It shows how to create and maintain a `Warp.md` file so Warp agents always understand your project’s setup, commands, architecture, and structure.
-:::
+Give the agent the project commands and conventions it needs for your next change, without copying your application's architecture into every request. Create or edit a short `AGENTS.md`, then test one instruction on a bounded task.
 
-<VideoEmbed url="https://youtu.be/SCYovBn4TnM?si=7wZEuTQAFUpcoFJx" title="Creating project rules for an Astro TypeScript Tailwind project video" />
+<VideoEmbed url="https://youtu.be/SCYovBn4TnM?si=7wZEuTQAFUpcoFJx" title="Creating project rules for an Astro TypeScript Tailwind project" />
 
----
+The video uses an Astro application as its example. The steps below work with an existing repository; its own files determine which commands and conventions belong in your Rules.
 
-## What Project Rules are
+## Prerequisites
 
-A **Project Rules** file (`Warp.md`) acts as your project’s AI onboarding guide. Instead of re‑explaining your setup on every prompt, you document it once and Warp will always have that context. The transcript demo walks through creating the file, opening it in a side editor, and organizing it with standard Markdown headings for clear sections.
+* An existing Git repository open in Warp. If you're new to Agent Mode, start with [Coding in Warp](/getting-started/quickstart/coding-in-warp/).
+* Access to the repository's setup instructions, package scripts, and required checks.
 
----
+## 1. Open or create the project rules
 
-## Generate `Warp.md`
+In the Warp app, navigate to your repository. If it already has project Rules, enter `/open-project-rules` in the agent input to open the file.
 
-Run the following **verbatim** prompts in Warp to create and verify your rules file, then open it in the editor:
+For a repository without project Rules, enter `/init` and choose the option to generate `AGENTS.md`. Review the generated content before keeping it. If the setup offers to link an existing instruction file, inspect that file rather than creating a competing copy.
 
-```
-/init
-```
+Warp uses `AGENTS.md` for new project Rules. Existing `WARP.md` files remain supported and take precedence when both files exist in the same directory. Use uppercase filenames. See [Rules for agents](/agents/capabilities/rules/#project-rules) for discovery and precedence.
 
-```
-/open-project-rules
-```
+## 2. Keep commands you can verify
 
-* `/init` generates a starter `Warp.md` in your project root.
-* `/open project rules` opens it in a side editor where you can scroll and edit the content.
+Compare every generated command with the repository's README, package scripts, and CI configuration. Remove guesses and details the agent can look up when needed.
 
-You'll get something that looks like this:
+For example, this docs repository defines `npm run build` in `package.json` and keeps its public content under `src/content/docs/`. A short starting file for that repository could contain:
 
-````markdown
-# WARP.md
+```markdown title="AGENTS.md example for warpdotdev/docs"
+# Project instructions
 
-This file provides guidance to WARP (warp.dev) when working with code in this repository.
+Public documentation lives in src/content/docs/ as MDX.
+Read the existing page and its related pages before editing.
+Keep published page paths unchanged unless a move is approved.
 
-## Project Overview
+## Validation
 
-Share Your Brewfiles is an Astro-based website that allows developers to share and discover their Homebrew package lists (Brewfiles). The platform generates personality profiles based on package usage patterns and provides a leaderboard of popular packages.
-
-## Core Architecture
-
-* **Frontend**: Astro 4 with React 18 components, TypeScript, and Tailwind CSS
-* **Backend**: Astro API routes with Firebase integration
-* **Database**: Firebase Firestore for storing brewfiles, user data, and personality summaries
-* **Deployment**: Vercel with serverless functions
-* **Styling**: Custom Tailwind configuration with dark theme and gradient animations
-
-## Key Components
-
-### API Routes (`src/pages/api/`)
-* `getBrewfiles.json.ts` - Retrieves all brewfiles or a specific brewfile by ID, triggers personality generation
-* `uploadBrewfile.ts` - Handles brewfile uploads with GitHub OAuth integration
-* `getRankedPackages.json.ts` - Generates leaderboard data for popular packages
-* `updatePersonality.ts` - Updates personality summaries for users
-* `exchangeCodeForAccessToken.ts` - GitHub OAuth token exchange
-* `logSearch.json.ts` - Analytics for search functionality
-
-### Core library functions (`src/lib/`)
-* `generatePersonality.ts` - Complex algorithm that analyzes brewfile packages and assigns personality types (15 different personalities)
-* `personalityBuckets.ts` - Defines personality type metadata and descriptions
-* `validateBrewfileData.ts` - Data validation for brewfile uploads
-* `totalBrewData.ts` - Aggregates package statistics for leaderboards
-
-### Type System (`src/types/`)
-* `brews.ts` - Main data structures for brewfiles, users, and entries
-* `personality.ts` - Personality analysis types and enums
-* `packageEntry.ts` - Package metadata structures
-
-## Development Commands
-
-### Setup
-```bash
-# Install dependencies
-npm install
-
-# Set up environment (Firebase config is public but consider security)
-# No additional env setup needed for development
-
-# Development server
-npm run dev
+Run npm run build after changing MDX.
+Report the command and its result. If a check cannot run, say why.
 ```
 
-### Development Workflow
-```bash
-# Start development server with Astro
-npm run dev
+Use commands verified in your own repository, not this example's build command. Keep full architecture explanations in their owning documentation and link them when the agent needs them.
 
-# Build for production
-npm run build
+## 3. Add one convention and try a change
 
-# Preview production build
-npm run preview
+Edit the Rules file to add an instruction you can observe. For the docs example, add:
 
-# Run Astro CLI commands
-npm run astro
+```markdown
+Use sentence case for headings.
 ```
 
-### Testing API Endpoints
-```bash
-# Test brewfile retrieval
-curl "http://localhost:4321/api/getBrewfiles.json"
+Then start a fresh conversation in that repository and send:
 
-# Test specific brewfile by ID
-curl "http://localhost:4321/api/getBrewfiles.json?id=DOCUMENT_ID"
-
-# Test package rankings
-curl "http://localhost:4321/api/getRankedPackages.json"
+```text
+Add a "Local development" section to README.md using the setup instructions
+in CONTRIBUTING.md. Change only README.md. Follow the project Rules, run
+the documented check, and report the exact command and result. Do not commit
+or push; leave the diff for me to review.
 ```
 
-## Architecture Notes
+Use this request only in a repository with `CONTRIBUTING.md`; otherwise name its actual setup document. Inspect the heading, compare the instructions with that source, and check the reported command in the conversation. Correct the rule if it was ambiguous, then retry a fresh small task.
 
-### Personality generation system
-The core feature analyzes brewfile packages against a curated dictionary (`labelledBrewfiles.ts`) that categorizes packages by:
-- Developer type (Backend, Frontend, DevOps, Security, Data, General)
-- Package characteristics (AI tools, organization tools, customization, popularity rank)
-- Legacy/modern status
+Rules guide the agent; they don't enforce formatting or guarantee a passing build. Keep formatter, linter, test, and approval requirements in your repository's checks and access controls.
 
-The system calculates percentage distributions and applies complex rules to assign one of 15 personality types (Minimalist, Golden Retriever, Pragmatist, Trendy, AI, Architect, Artist, Traditionalist, Retro, Bob the Builder, Marie Kondo, Crazy Scientist, Trailblazer, Security, Wallflower).
+## 4. Scope specialized instructions
 
-### Firebase Integration
-- Uses Firestore for data persistence
-- Collection: `brewfiles` stores user brewfiles with personality summaries
-- Real-time personality generation happens asynchronously after uploads
-- GitHub OAuth integration for user authentication
+Keep shared instructions in the root file. Add a subdirectory's `AGENTS.md` only for guidance specific to that area.
 
-### Path alias system
-Uses TypeScript path mapping with `@/*` pointing to `./src/*` for clean imports.
+Warp includes applicable project Rules based on your working directory. Rules for files edited elsewhere are included on a best-effort basis, so inspect which instructions the agent used rather than assuming every file is loaded. See [project Rules discovery](/agents/capabilities/rules/#project-rules).
 
-### Astro Configuration
-- Server-side rendering with Vercel adapter
-- React integration for interactive components
-- Sitemap generation for SEO
-- Prefetch enabled for performance
+## Troubleshooting
 
-## Development environment setup
+**The agent follows an older instruction.** Check whether a `WARP.md` shadows `AGENTS.md` in the same directory and inspect any applicable subdirectory Rules. Edit the file the agent actually uses.
 
-### Prerequisites
-- Node.js (version compatible with Astro 4)
-- Access to Firebase project (config is in source but consider security implications)
-- GitHub OAuth app for testing upload functionality
+**A generated command fails.** Verify the command and prerequisites against the repository's scripts and CI. Correct the Rules file rather than asking the agent to keep retrying a nonexistent command.
 
-### Local development notes
-- The site uses server-side rendering so API routes work in development
-- Firebase config is currently in source code - be aware of security implications
-- GitHub OAuth integration requires valid access tokens for uploads
-- Personality generation is computationally expensive with large datasets
+## Next steps
 
-### Custom Tailwind configuration
-- Dark theme with custom color palette (`bkg: #111111`)
-- Custom accent colors (teal, orange, green, pink, blue variants)
-- Marquee animations for scrolling elements
-- Responsive typography with fluid scaling
-- Container queries support
+You have a short project Rules file and a small diff to check against it.
 
-## File structure navigation
-<FileTree>
-- src/
-  - pages/
-    - api/ Astro API routes (serverless functions)
-    - index.astro Homepage with hero and marquee
-    - brewfiles.astro Search and browse brewfiles
-    - leaderboard.astro Package popularity rankings
-  - components/ Astro and React components
-  - lib/ Core business logic and utilities
-  - types/ TypeScript type definitions
-  - data/ Static data and package dictionaries
-  - firebase/ Firebase configuration
-</FileTree>
-
-## Common development tasks
-
-### Adding new personality types
-1. Update `DeveloperPersonalityType` enum in `src/types/personality.ts`
-2. Add detection function in `src/lib/generatePersonality.ts`
-3. Update `personalityBuckets.ts` with new personality metadata
-4. Add corresponding image to `public/images/`
-
-### Modifying package analysis
-- Update `labelledBrewfiles.ts` to modify package categorization
-- Adjust percentage thresholds in personality detection functions
-- Test with different brewfile compositions
-
-### API route development
-- All routes in `src/pages/api/` become serverless functions on Vercel
-- Use `export const prerender = false;` for dynamic routes
-- Handle errors consistently with try/catch blocks
-````
-
----
-
-## Keep the file lean and intentional
-
-<Steps>
-
-1. #### Start lean
-
-   Everything in `warp.md` is **prepended to your prompt**. A longer file consumes more tokens and can increase compute cost. Keep only what truly matters.
-
-2. #### Iterate and maintain
-
-   Start with `/init` boilerplate, then treat the file as a **living document**. Add the rules that help your team ship faster (e.g., branching, PR guidelines) and prune anything redundant.
-
-</Steps>
-
-:::caution
-If the file grows large (e.g., **500+ lines**), run it through a **prompt optimizer** to catch duplication, remove overlaps, and slim it down — exactly as advised in the transcript.
-:::
-
----
-
-## Use sub‑directory Rules for monorepos
-
-For large repos, you can generate localized rule files in sub‑trees. Navigate into a subfolder and run `/init` again to create a **directory‑scoped `Warp.md`** tailored to that area:
-
-:::tip
-Going forward, when you give Warp a task, it will carry this context automatically — no re‑explaining needed.
-:::
+* [Rules for agents](/agents/capabilities/rules/) - Look up discovery and precedence
+* [Setting coding best practices](/guides/configuration/how-to-set-coding-best-practices/) - Separate instructions from enforced checks
+* [Reviewing agent-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Inspect the result before committing

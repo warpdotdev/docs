@@ -9,8 +9,6 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 The **Warp Agent** is Warp's built-in coding agent. It works through multi-step tasks on its own, running commands in a real terminal and using the output to decide what to do next. You stay in the loop, approving actions and reviewing diffs before anything lands.
 
-This page covers where to run the agent, the third-party CLI agents Warp supports, and the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), which runs and coordinates agents at scale.
-
 ---
 
 ## Where to use the Warp Agent
@@ -54,15 +52,13 @@ Separately from the Warp Agent, Warp gives third-party CLI coding agents first-c
 
 The [**{VARS.WARP_AUTOMATION_PLATFORM}**](/platform/overview/) is Warp's programmable system for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
 
-To automate an entire workflow rather than a single task, use [Warp Factories](/factories/). Built on the {VARS.WARP_AUTOMATION_PLATFORM}, a factory runs a team of cloud agents that triage, spec, implement, review, and verify work.
-
-The {VARS.WARP_AUTOMATION_PLATFORM} tab covers the platform in full.
+To repeat a customer-defined workflow, use [Warp Factories](/factories/). It provides infrastructure for configuring the triggers, instructions, tools, and human checkpoints your process needs. Start with one task, such as reviewing incoming pull requests; a factory doesn't require every development stage.
 
 ---
 
 ## Privacy and security
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers. No customer AI data is retained, stored, or used for training.
+Review [Warp's security information](https://www.warp.dev/legal/security) and [data handling documentation](/support-and-community/privacy-and-security/privacy/) for the inference and deployment path you use.
 
 You can disable Warp's AI features entirely in **Settings** > **Agents** > **Warp Agent**.
 

@@ -1,92 +1,49 @@
 ---
 title: Enterprise overview
 description: >-
-  Warp Enterprise provides the security, control, and collaboration features
-  organizations need to deploy Warp across their engineering teams at scale.
+  Plan your Warp rollout: choose access controls, inference configuration,
+  deployment requirements, and usage reporting for your organization.
 ---
 import { VARS } from '@data/vars';
 
-Warp Enterprise is built for organizations that want to accelerate software development with agents while maintaining security, compliance, and administrative control. It brings Warp's **Agentic Development Environment** to your entire engineering organization with the governance features IT and security teams require.
+Plan how your organization will use Warp before rolling it out: who can access it, which inference configuration is allowed, where cloud work executes, and how you'll track usage. Start with those decisions, then configure the controls your developers need.
 
-Warp supports interactive development, cloud automation, and customer-defined software factories:
+## Choose the workflow you're deploying
 
-* **Warp Terminal** - A modern terminal designed for agentic development where developers run commands, collaborate with agents, and orchestrate autonomous work from the command line.
-* **{VARS.WARP_AUTOMATION_PLATFORM}** - Warp's programmable system for running and coordinating agents at scale. The {VARS.WARP_AUTOMATION_PLATFORM} powers all agents in Warp, whether they run locally or in the cloud, and provides the orchestration, tracking, and control plane for scalable agent workflows.
-* [**Warp Factories**](/factories/) - Open, flexible infrastructure for building and operating your own software factories. Define workflows as code and use evaluation and benchmarks to measure and improve their results.
+* **Interactive development** - Developers work with agents, commands, and code review in the [Warp app](/getting-started/quickstart/installation-and-setup/)
+* **Standalone automation** - Run a bounded task from a schedule, integration, CLI, or API on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/)
+* **Repeatable development workflows** - Build your own workflow on [Warp Factories](/factories/), choosing its instructions, tools, and human decision points
 
-## Who Warp Enterprise is for
+These paths share some infrastructure but not every setup or compatibility rule. Use the reference for the path you choose rather than assuming a local credential or setting applies to cloud work.
 
-Warp Enterprise serves three primary audiences:
+## Configure access and administration
 
-* **IT admins and platform teams** - Deploy and manage Warp across your organization with SSO, centralized administration, and usage visibility
-* **Engineering managers** - Give your teams powerful agent development tools while enforcing coding standards and best practices through shared team resources
-* **Professional developers** - Accelerate your work across the entire SDLC with state-of-the-art agents, team knowledge sharing, and collaborative workflows that keep you in control
+Start with [Getting started for enterprise](/enterprise/getting-started/getting-started-enterprise/) to plan onboarding. Configure [SSO](/enterprise/security-and-compliance/sso/) for your identity provider, then use the [Admin Panel](/enterprise/team-management/admin-panel/) to manage settings and access.
 
-## Key capabilities
+Check [roles and permissions](/enterprise/team-management/roles-and-permissions/) and [workspaces](/enterprise/team-management/workspaces/) before assigning administration. Repository access, agent tool permissions, and organization membership are separate controls.
 
-### Enterprise administration
-* **Single Sign-On (SSO)** - Authenticate via your existing identity provider (Okta, Microsoft Entra ID, Google Workspace, and more)
-* **Centralized Admin Panel** - Manage team settings, user permissions, and feature controls from one location
-* **User roles and permissions** - Control access with Team Owner, Team Admin, and Member roles
-* **Usage visibility** - Monitor team adoption and agent usage across your organization, and pull usage data programmatically with the [Analytics API](/enterprise/enterprise-features/analytics-api/)
+## Choose inference and deployment
 
-### Security and compliance
-* **SOC 2 Type II certified** - Meets enterprise security and compliance requirements
-* **Zero Data Retention (ZDR)** - No customer data is retained, stored, or used for training by contracted LLM providers
-* **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp) for security review and audit
-* **Bring Your Own LLM (BYOLLM)** - Route inference through your own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise)
-* **Team-managed API keys and endpoints** - Share provider API keys and custom endpoints across your Business or Enterprise team for both interactive sessions and cloud agents
-* **Flexible deployment** - Choose Warp-hosted or hybrid deployment models
-* **Telemetry controls** - Configure what data is collected at the team level
+For centrally managed provider credentials, review [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). For inference through your cloud provider, review [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/). Confirm the provider, model, local-versus-cloud support, and plan requirements for the configuration you select.
 
-### Team collaboration
-* **Warp Drive team workspace** - Share Workflows, Notebooks, Prompts, Plans, Rules, and Environment Variables across your team
-* **Codebase Context** - Team-level code indexing helps agents understand your repositories and generate accurate, context-aware responses
-* **MCP integrations** - Connect to your team's tools (Linear, Sentry, Figma, GitHub, and more) for context-aware agent responses
-* **Session sharing** - Collaborate on terminal sessions and conversations with shareable links
+Use [Architecture and deployment](/enterprise/enterprise-features/architecture-and-deployment/) to decide whether Warp-hosted execution or a supported self-hosted setup fits your network and data requirements. For factory execution and credential boundaries, see [Infrastructure and security](/factories/infrastructure-and-security/).
 
-### Agent capabilities
-* **State-of-the-art agents** - Multi-model agents with full terminal access, code editing, and autonomous task execution
-* **Cloud agents** - Run agents in the cloud for unlimited parallelization, background automation, and long-running workflows. Perfect for PR reviews, scheduled tasks, and distributed work across multiple repositories
-* **Integrated control plane** - Launch, orchestrate, and manage local, cloud, and autonomous agents from a unified interface. Track all agent activity across your team from the {VARS.DASHBOARD}
-* **Agent Profiles** - Customize agent behavior, models, autonomy levels, and permissions
-* **Rules and guardrails** - Enforce coding standards, tech stack preferences, and security practices through team-wide or project-specific rules
-* **Multi-agent support** - Support for all major models and CLI coding agents ({VARS.WARP_AUTOMATION_PLATFORM}, Claude Code, Codex, Copilot)
+Ask your security team to review the current [Warp Security information](https://www.warp.dev/legal/security) and [Trust Center](/enterprise/security-and-compliance/trust-center/). Evaluate the exact data and contractual scope for your deployment rather than inferring it from a feature name.
 
-## What this section covers
+## Share instructions and enforce checks
 
-This section organizes Enterprise documentation to help you deploy, secure, and scale Warp across your organization:
+Use [Rules](/agents/capabilities/rules/), [skills](/agents/capabilities/skills/), and [Warp Drive](/knowledge-and-collaboration/warp-drive/) to share project conventions and runbooks. Rules instruct the agent; they don't enforce coding standards or security policy.
 
-* **Getting started** - Installation, SSO setup, and onboarding for admins and developers
-* **Security and compliance** - Security overview and SSO configuration
-* **Enterprise features** - Bring Your Own LLM (BYOLLM), team-managed API keys and endpoints for Business and Enterprise plans, and the Analytics API
-* **Team management** - Admin panel, roles and permissions, and access controls
+Configure [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) for tool access, and keep required formatters, tests, approvals, and merge restrictions in your repository and CI. Trial a small change and inspect its diff and verification before expanding the rollout.
 
-## Getting started
+## Measure usage and results
 
-:::note
-Warp Enterprise is available through annual contracts. [Contact our sales team](https://www.warp.dev/contact-sales) to learn more or start a trial.
-:::
+Use team usage reporting and the [Analytics API](/enterprise/enterprise-features/analytics-api/) to inspect adoption and usage. For factories, compare output quality and cost on representative work before changing a model or workflow; see [Measure and improve a factory](/factories/measure-and-improve/).
 
-**For IT admins**: Start with the [Admin Panel](/enterprise/team-management/admin-panel/) to manage team settings, configure agent policies, and enforce security controls. See [Roles and permissions](/enterprise/team-management/roles-and-permissions/) for user access details.
+Enterprise contract and billing questions belong with your account team. See [Enterprise billing](/enterprise/support-and-resources/billing/) or <a href={VARS.CONTACT_SALES_URL}>contact sales</a> for requirements specific to your organization.
 
-**For developers**: Jump to [Getting started for developers](/enterprise/getting-started/getting-started-developers/) to download Warp, log in, and start using key features like Codebase Context and Warp Drive. Or try the [Enterprise quickstart](/enterprise/getting-started/quickstart/) for a 10-minute walkthrough.
+## Related pages
 
-**For security teams**: Review our [Security page](https://www.warp.dev/legal/security) and [Privacy documentation](/support-and-community/privacy-and-security/privacy/) to understand how Warp handles data, encryption, and compliance.
-
-## Why enterprises choose Warp
-
-Organizations adopt Warp Enterprise to:
-
-* **Accelerate development velocity** - Agents automate tedious tasks across the SDLC, from environment setup to incident response, so developers focus on what matters
-* **Maintain security and control** - Deploy on your infrastructure, route inference through your cloud accounts, and keep developers in control with full visibility and guardrails
-* **Scale best practices** - Share team knowledge, coding standards, and operational runbooks through Warp Drive to compound productivity gains across teams
-* **Reduce context switching** - Keep developers in flow with a terminal-first environment that integrates agents, code editing, and tool integrations in one place
-* **Get scaffolding built in** - Deploy agents at scale without building custom infrastructure—Warp provides orchestration, tracking, and collaboration out of the box
-
-## Support and resources
-
-* **Documentation** - Comprehensive guides throughout this enterprise section
-* **Contact sales** - [Schedule a demo or start a trial](https://www.warp.dev/contact-sales)
-* **Support** - Enterprise customers receive priority support via dedicated Slack/Teams channels
-* **Warp Guides** - Video tutorials and training in the [Guides section](/guides/)
+* [Getting started for developers](/enterprise/getting-started/getting-started-developers/) - Onboard developers after access is configured
+* [Enterprise quickstart](/enterprise/getting-started/quickstart/) - Try the development workflow
+* [Warp Factories overview](/factories/) - Configure and test a repeatable workflow

@@ -1,60 +1,149 @@
 ---
-title: "Create a production-ready Docker setup"
+title: "Generating and verifying a Docker setup"
 description: >-
-  Use Agents in Warp to generate optimized Dockerfiles, docker-compose
-  configs, and .dockerignore files for multi-stage production deployments.
+  Generate Docker files for a bounded service, review runtime and secret
+  choices, then build and test the container before deployment.
 sidebar:
-  label: "Create a production-ready Docker setup"
+  label: "Generate and verify a Docker setup"
 tags:
   - "docker"
-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
-import { Steps } from '@astrojs/starlight/components';
 
-Learn how to use Warp’s AI to automatically build a clean, multi-stage Docker setup for both development and production.
+Ask the agent to containerize one service, then verify its build and application behavior. Generated Docker files are a starting point; production readiness also depends on your deployment, access, data, and operational requirements.
 
-<VideoEmbed url="https://youtu.be/zdQdEauSF6Q?si=CoOdDjiffiw-et6r" title="Creating a production-ready Docker setup with Warp video" />
+<VideoEmbed url="https://youtu.be/zdQdEauSF6Q?si=CoOdDjiffiw-et6r" title="Generating Dockerfiles and Compose configuration with Warp" />
 
-This tutorial shows how to create a **complete Docker environment** in minutes using Warp.\
-Warp’s AI can analyze your entire codebase, generate **Dockerfiles**, **.dockerignore**, and **docker-compose.yml** — all optimized for small image size and multi-service orchestration.
+## Prerequisites
 
-Although this example uses a generic web app, the same pattern applies to **Python**, **Node.js**, **Go**, and other ecosystems.
+* [Docker Engine with Compose](https://docs.docker.com/compose/install/) running locally.
+* A service whose startup command and expected behavior you know. Use the small Node.js example below to practice without databases or credentials.
+* Warp with a repository open. For a first agent-assisted change, follow [Coding in Warp](/getting-started/quickstart/coding-in-warp/).
 
-<Steps>
+## 1. Define the service and success check
 
-1. #### The challenge
+Create `server.mjs` in an empty practice directory:
 
-   You’ve built your app and suddenly realize — it should have been containerized from the start.\
-   Manually configuring Docker files, image sizes, and environment variables takes time and breaks flow.
+```js title="server.mjs"
+import { createServer } from 'node:http';
 
-2. #### The prompt
+createServer((request, response) => {
+  if (request.url === '/health') {
+    response.writeHead(200, { 'Content-Type': 'application/json' });
+    response.end(JSON.stringify({ status: 'ok' }));
+    return;
+  }
+  response.writeHead(404);
+  response.end();
+}).listen(3000, '0.0.0.0');
+```
 
-   Use this prompt inside Warp’s AI input:
+This service has no package dependencies or build step. It listens on port 3000, returns `{"status":"ok"}` from `/health`, and returns 404 for other paths. For an existing application, record its real startup, build, and test commands instead.
 
-   ```
-   "Analyze my entire project directory structure, package files, and configuration to generate a complete production-ready Docker setup. I need:
+## 2. Request only the Docker files you need
 
-   A multi-stage Dockerfile optimized for my specific language/framework with proper layer caching, security best practices, and minimal image size
-   A docker-compose.yml for both development and production environments with all necessary services, networks, volumes, and environment variable handling
-   A comprehensive .dockerignore file that excludes unnecessary files but keeps what's needed for the build
-   Startup scripts and health check configurations
-   Documentation explaining each Docker command and why specific choices were made
+In Warp's agent input, send:
 
-   Please detect my project type automatically and configure everything accordingly. Include comments explaining the optimization decisions."
+```text
+Containerize only server.mjs in this directory. Create Dockerfile,
+compose.yaml, and .dockerignore for local testing. The service uses Node.js,
+has no package dependencies or compile step, and listens on port 3000.
+Use a supported Node image and a non-root runtime user. Bind the host port
+to localhost. Add a health check that verifies /health returns status ok.
 
-   ```
-   Warp will detect frameworks, infer services, and produce a ready-to-run setup.
+Don't add databases, credentials, deployment scripts, or change application
+behavior. Explain the base image and startup choices. Stop with the diff
+for my review; don't deploy or push an image.
+```
 
-3. #### Review and customize
+For a compiled application, ask for separate build and runtime stages when needed. Don't add stages or dependency installs to this example merely to make it look like a production template.
 
-   Warp outputs:
+## 3. Review the generated configuration
 
-   * Optimized base images
-   * Cached build layers
-   * Correct dependency stages
-   * Unified environment management
+For this service, a Dockerfile can be as small as:
 
-   You can easily adjust service names or ports in the generated compose file.
+```dockerfile title="Dockerfile"
+FROM node:24-alpine
+WORKDIR /app
+COPY --chown=node:node server.mjs ./
+USER node
+EXPOSE 3000
+CMD ["node", "server.mjs"]
+```
 
-</Steps>
+Use a Compose service named `web` so the checks below address the same service:
+
+```yaml title="compose.yaml"
+services:
+  web:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/health').then(async r => { if (!r.ok || (await r.json()).status !== 'ok') process.exit(1); }).catch(() => process.exit(1));"
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+```
+
+Keep unrelated files and credentials out of the build context:
+
+```text title=".dockerignore"
+.git
+node_modules
+.env
+.env.*
+*.log
+```
+
+For your application, review the base image's supported version and vulnerability findings, build dependencies versus runtime dependencies, file ownership, and startup command. Check that required files aren't excluded and secrets aren't copied into image layers. A local `.env` file isn't a production secret-management strategy.
+
+## 4. Build and check the running service
+
+From the practice directory, run:
+
+```bash
+docker compose config --quiet
+docker compose build
+docker compose up -d --wait
+docker compose ps
+curl --fail http://127.0.0.1:3000/health
+curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:3000/missing
+```
+
+Confirm `web` is healthy, `/health` returns `{"status":"ok"}`, and `/missing` returns 404. The health check tests one endpoint, not every application behavior. For an existing app, also run its repository checks and exercise a representative request through the container.
+
+Inspect startup logs if a check fails:
+
+```bash
+docker compose logs web
+```
+
+Stop the practice stack when finished:
+
+```bash
+docker compose down
+```
+
+Before deploying a real service, review image provenance and pinning, secrets delivery, network exposure, persistence and recovery, resource limits, and rollout and rollback procedures with the service owner. Don't treat this local example as a deployment policy.
+
+## Troubleshooting
+
+**The build can't pull an image.** Check the image tag, registry access, and network connection. Don't substitute an unreviewed image to bypass the failure.
+
+**The container runs but isn't healthy.** Inspect `docker compose logs web`, the health-check command, listening address, and port. The app must listen on `0.0.0.0` inside the container for the published port to work.
+
+**Port 3000 is already in use.** Change only the host port in Compose, for example to `127.0.0.1:3001:3000`, and use port 3001 in the host-side curl checks.
+
+## Next steps
+
+You have a bounded Docker setup and separate checks for configuration, startup, and HTTP behavior.
+
+* [Docker's Node.js guide](https://docs.docker.com/guides/nodejs/) - Extend the example to an application with dependencies
+* [Reviewing agent-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Review generated configuration before committing
+* [Coding in Warp](/getting-started/quickstart/coding-in-warp/) - Refine the diff and run repository checks
