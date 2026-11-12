@@ -33,6 +33,7 @@ agents/
   foreman/
     agent.md
     skills/
+      shared.yaml
       incident-triage/
         SKILL.md
   reviewer/
@@ -53,6 +54,7 @@ scorers/
   tests-run/
     scorer.md
 skills/
+  shared.yaml
   repository-conventions/
     SKILL.md
 webhooks/
@@ -908,7 +910,75 @@ On a Warp-managed factory, creating a webhook in the dashboard writes this file 
 ## Skills
 
 **Optional resource.**
-A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. See [Factory skills](/factories/factory-skills/) for placement and [Skills for agents](/agents/capabilities/skills/) for the file format.
+A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. To reuse skills elsewhere in the same repository or in an external repository, add a YAML reference file instead of copying the skill folders. See [Factory skills](/factories/factory-skills/) for placement and [Skills for agents](/agents/capabilities/skills/) for the file format.
+
+### Skill reference files
+
+Reference files select skills from one source repository. Place a `.yaml` or `.yml` file directly in `skills/` to share its selected skills with every agent, or directly in `agents/<name>/skills/` to scope them to that agent. The file name is a label; YAML files nested inside a skill folder aren't reference files.
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `source` | Yes | Repository shorthand, `[<host>:]<owner>/<repo>[@<ref>]`, or a mapping with `owner`, `repo`, optional `codeForge`, and optional `ref`. |
+| `include` | Yes | Non-empty list of skill names, repository-relative paths, or globs to load. |
+| `exclude` | No | Names, paths, or globs removed from the included skills. |
+
+The host is `github.com`, `gitlab.com`, or `dev.azure.com`; mapping-form `codeForge` uses `GITHUB`, `GITLAB`, or `AZURE_DEVOPS`. Omit the forge only when the factory uses exactly one code forge. An explicit forge must be among the factory's [code forges](#codeforges).
+
+#### Shared skills in the same repository
+
+Suppose `acme/payments-service` contains the factory definition in `factory/` and shared skills in `.agents/skills/`. This reference file gives every factory agent the repository's review procedure:
+
+```yaml title="factory/skills/shared.yaml"
+source: github.com:acme/payments-service
+include:
+  - .agents/skills/code-review/SKILL.md
+```
+
+Paths are relative to the source repository root, not to the reference file or `factory.yaml`. A path can name a skill folder or its `SKILL.md`; absolute paths and `..` segments aren't supported.
+
+#### Skills in an external repository
+
+This agent-level reference loads selected skills from `acme/shared-skills` for the reviewer:
+
+```yaml title="agents/reviewer/skills/shared.yaml"
+source: github.com:acme/shared-skills@v1.4.0
+include:
+  - safe-secrets
+  - skills/release-notes/SKILL.md
+  - "frontend/*"
+exclude:
+  - "frontend/legacy-*"
+```
+
+A plain name such as `safe-secrets` matches the `name` in `SKILL.md` frontmatter in the repository's [standard skill folders](/agents/capabilities/skills/#project-skills). A glob without `/` matches skill names; a glob with `/` matches skill folder paths. `*` matches within one path segment, `**` across segments, and `?` and `[...]` are also supported. Quote entries that start with `*`.
+
+Only the selected skill folders, including their supporting files, load as skills. Referencing a repository doesn't add it to the agent's workspace. Public source repositories need no additional setup; a private source repository must be attached in the factory's [`repositories`](#repositories).
+
+#### Pin skills to a commit
+
+Without a ref, each run loads the latest commit on the source repository's default branch. A ref can name a branch, tag, or commit; a branch wins when a branch and tag share a name.
+
+To load a particular version of a skill file, pin its source to a full 40-character lowercase commit SHA:
+
+```yaml title="skills/pinned.yaml"
+source: github.com:acme/shared-skills@0123456789abcdef0123456789abcdef01234567
+include:
+  - skills/release-notes/SKILL.md
+```
+
+Replace the example SHA with the commit containing the file version you want. The SHA pins the source repository revision, including the skill's supporting files, not a Git blob or an individual file hash. Short SHAs and 64-character SHAs aren't supported as commit pins.
+
+The equivalent mapping form keeps the repository and revision separate:
+
+```yaml title="skills/pinned.yaml"
+source:
+  codeForge: GITHUB
+  owner: acme
+  repo: shared-skills
+  ref: "0123456789abcdef0123456789abcdef01234567"
+include:
+  - skills/release-notes/SKILL.md
+```
 
 ## Example factory definition
 
