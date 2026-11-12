@@ -31,7 +31,7 @@ If you haven't opted out of **Help improve Warp**, Warp may collect:
 
 Turning off **Help improve Warp** stops analytics and eligible AI interaction and console-content collection for service improvement, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** controls crash reporting separately.
 
-Provider Zero Data Retention (ZDR) is separate: it applies to covered Warp-managed inference across plans, with [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention). Turning off analytics doesn't change a provider's retention requirements. For the Warp-wide distinction between inference, analytics, and storage, start with the [Security overview](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why).
+Turning off analytics doesn't change a provider's retention requirements. See the [Security overview](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why) for the separate provider ZDR, analytics, and storage policies, or [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) for factory configuration.
 
 Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience. Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
@@ -45,7 +45,7 @@ You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)
 
-With analytics off, product data can still persist. Personal Terminal conversations follow the separate [cloud conversation setting](/agents/local-agents/cloud-conversations/). Factory transcripts, prompt attachments, and uploaded artifacts remain available for past runs independently of both settings; see [factory storage boundaries](/factories/infrastructure-and-security/#provider-retention-and-run-storage). Shared sessions follow their own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access).
+With analytics off, product data can still persist. Personal Terminal conversations follow the separate [cloud conversation setting](/agents/local-agents/cloud-conversations/). Factory transcripts, prompt attachments, and uploaded artifacts remain available for past runs independently of both settings; see [factory storage boundaries](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference). Shared sessions follow their own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access).
 
 ### Delete your account and data
 

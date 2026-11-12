@@ -117,9 +117,9 @@ See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrati
 
 ## LLM inference and BYOLLM
 
-The Warp Agent sends inference requests through Warp. Warp-managed inference has [provider Zero Data Retention (ZDR) coverage with model-specific exceptions](/agents/inference/model-choice/#zero-data-retention-policies). Turning off analytics doesn't remove provider retention requirements or disable stored run transcripts, attachments, and artifacts.
+The Warp Agent sends inference requests through Warp. Review [factory ZDR coverage and configuration](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) independently of where commands run.
 
-For customer-supplied inference, verify ZDR with your provider for the specific account, model, and configuration. Self-hosting execution doesn't establish ZDR or move run data; review [inference and storage boundaries](/factories/infrastructure-and-security/#provider-retention-and-run-storage) independently.
+For customer-supplied inference, verify ZDR with your provider for the specific account, model, and configuration. Self-hosting execution doesn't establish ZDR or move run data.
 
 Teams that want inference routed and billed through their own accounts can use [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) or [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). Plan requirements and cloud agent support vary by option; see [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs).
 

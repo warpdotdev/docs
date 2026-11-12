@@ -22,13 +22,13 @@ Warp's security philosophy centers on **transparency and developer control**:
 
 ### Zero Data Retention (ZDR)
 
-Provider Zero Data Retention (ZDR) governs whether an inference provider retains prompts and responses. Warp's provider ZDR agreements cover Warp-managed inference across all plans, in both Terminal and factory runs, except for the [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Covered inference isn't used by the provider for model training.
+Provider Zero Data Retention (ZDR) governs whether an inference provider retains prompts and responses. Warp has provider ZDR agreements for supported Warp-managed models across all plans. Covered providers don't use those prompts and responses for model training. Some models require retention; [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists every known model exception.
 
 For example, turning off **Help improve Warp** doesn't make a retention-required model ZDR-covered. Check the complete exception list on the model-choice page before choosing a model.
 
 For [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), verify ZDR with your provider for the specific account, model, and configuration. Warp's agreements don't establish ZDR for customer-managed inference. Claude Code and Codex calls made directly to their providers also use your provider terms, not Warp's.
 
-Review [Terminal model and privacy settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory inference settings](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr) for the product you use. Factory users don't need to configure Terminal to review factory inference.
+Review [Terminal model and privacy settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) for local use. For factory defaults, manual controls on self-serve plans, and limits on confirmed coverage for auxiliary requests, use [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference). A selected model alone doesn't establish coverage for every request.
 
 ### Warp analytics and improvement collection
 
@@ -44,7 +44,7 @@ Product features store data independently of provider ZDR and analytics preferen
 * **Factory run data** - Transcripts, prompt attachments, and uploaded artifacts persist so you can inspect past runs. They use Warp-managed storage unless an Enterprise admin configures [self-hosted agent data storage](/factories/self-hosting/data-storage/). Categories are mapped independently; unmapped categories remain with Warp.
 * **Shared sessions and snapshots** - Sharing a live session and saving a workspace snapshot have their own storage behavior. See [shared-session retention and access](/agents/local-agents/session-sharing/#data-retention-and-access) and [workspace snapshot controls](/platform/handoff/snapshots/).
 
-Self-hosting factory execution changes where commands run, not whether inference is ZDR-covered or where run data is stored. Evaluate [inference and storage separately](/factories/infrastructure-and-security/#provider-retention-and-run-storage).
+Self-hosting factory execution changes where commands run, not whether inference is ZDR-covered or where run data is stored. Evaluate [inference and storage separately](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
 
 ### Disabling telemetry
 
@@ -63,7 +63,7 @@ If a control is managed by your organization, ask an admin to review the [Admin 
 
 * **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
-* **Agent requests** - Warp-managed inference uses provider ZDR across plans, with the [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention). Customer-managed inference uses your provider terms.
+* **Agent requests** - Provider retention depends on the model and inference configuration described [above](#zero-data-retention-zdr).
 * **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Your provider's terms govern provider retention; conversation and run storage remain separate.
 * **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
 * **Self-hosted cloud agent execution** - Repository checkouts and execution workspaces stay on your infrastructure. Prompts, transcripts, attachments, and uploaded artifacts can contain code context. Inference and run-data storage have [separate boundaries](/factories/infrastructure-and-security/).

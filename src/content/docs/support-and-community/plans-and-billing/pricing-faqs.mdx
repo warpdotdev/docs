@@ -41,7 +41,7 @@ Warp offers two options for larger teams and organizations:
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
 :::
 
-For Warp-managed model traffic (requests Warp routes to OpenAI, Anthropic, Google, or xAI on your behalf), all plans are covered by Warp's Zero Data Retention (ZDR) agreements with the underlying model providers. Traffic you route through your own API key or a custom inference endpoint is governed by that provider's data-retention policies, not Warp's agreements. Admin-configurable data controls — including team-wide retention policies and training opt-outs — are available on Business and Enterprise.
+Provider ZDR and analytics opt-out are separate from your plan's model controls. See [Warp's security policy](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) and [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) for coverage, exceptions, and what self-serve teams can configure.
 
 ### What counts as a team member and how does billing work for members?
 
@@ -242,11 +242,11 @@ Yes. Warp has obtained a SOC 2 Type 2 attestation from an accredited third party
 
 ### Does Warp have Zero Data Retention policies with LLM providers?
 
-Yes. Provider Zero Data Retention (ZDR) covers Warp-managed inference across plans, in both Terminal and factory runs, except for the [models requiring provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). For your own keys, endpoints, or direct Claude Code and Codex calls, verify ZDR with the provider for your specific account, model, and configuration.
+Yes. Warp has provider Zero Data Retention (ZDR) agreements for supported Warp-managed models across plans, with [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention). See the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) for the policy, including customer-managed inference.
 
 ### How can I enable Zero Data Retention in Warp?
 
-Provider ZDR isn't enabled by turning off analytics. Choose covered inference and review the [Terminal settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory settings](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr) for your workflow.
+Provider ZDR isn't enabled by turning off analytics. Choose covered inference and review the [Terminal settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) for your workflow.
 
 **Help improve Warp** controls analytics and improvement collection. Turning it off doesn't change provider retention requirements or disable product storage, including factory transcripts, attachments, and artifacts. Start with the [Security overview](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why) to review these three separate controls.
 

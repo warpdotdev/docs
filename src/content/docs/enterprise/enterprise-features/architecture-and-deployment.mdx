@@ -53,7 +53,7 @@ Warp-hosted agents can be triggered by:
 
 * You want the simplest path to scalable cloud agent execution.
 * You need to run many tasks in parallel without building sandboxing infrastructure.
-* Your security requirements permit Warp-hosted compute after a separate review of [inference and storage](/factories/infrastructure-and-security/#provider-retention-and-run-storage).
+* Your security requirements permit Warp-hosted compute after a separate review of [inference and storage](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
 
 ## Self-hosted execution
 
@@ -68,7 +68,7 @@ Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
 Self-hosted deployments use a split architecture:
 
 * **Execution plane (customer-hosted)** - Repository checkouts, commands, and workspaces stay on your infrastructure. Code context, tool output, and uploaded files can still become prompts or stored run data (see [What transits Warp's servers](#what-transits-warps-servers)).
-* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. Provider retention and product storage are [separate from execution hosting](/factories/infrastructure-and-security/#provider-retention-and-run-storage).
+* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. Provider retention and product storage are [separate from execution hosting](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
 
 ### Deployment modes
 
