@@ -105,11 +105,11 @@ You can update or replace your keys anytime by opening **Settings** and searchin
 
 ### Zero Data Retention (ZDR) and BYOK
 
-Warp is **SOC 2 compliant** and has provider Zero Data Retention (ZDR) agreements with its contracted LLM providers for supported Warp-managed inference. Some models [require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Warp's agreements don't establish ZDR for requests through your own key.
+Warp has a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security). Warp's [ZDR agreements with contracted LLM providers](/agents/inference/model-choice/#zero-data-retention-policies) apply to covered Warp-managed inference, with [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention), not requests through your own key.
 
-BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp does not use this content for training. Warp's account-level privacy and telemetry settings still apply; [conversation storage](/enterprise/security-and-compliance/security-overview/#product-storage) is separate from analytics.
+Provider-side retention for BYOK depends on your provider account settings. Verify ZDR with your provider for the specific account, model, and configuration; Warp cannot enforce provider ZDR for BYOK.
 
-On the provider side, retention depends on your provider account's settings, the model, and the request configuration. Verify ZDR for that specific combination. Warp cannot enforce provider ZDR for your keys. If your provider account doesn't have ZDR enabled, the provider may retain requests under its terms, even when **Help improve Warp** is off.
+BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp-side retention and analytics handling follow the same account-level privacy and telemetry settings as Warp-billed traffic, including organization-enforced settings. Turning off **Help improve Warp** doesn't change your provider's terms or disable [conversation storage](/enterprise/security-and-compliance/security-overview/#product-storage).
 
 ### BYOK on Business and Enterprise plans
 
