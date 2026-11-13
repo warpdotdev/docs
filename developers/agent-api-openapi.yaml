@@ -88,6 +88,27 @@ paths:
           required: false
           schema:
             type: string
+        - name: sort_by
+          in: query
+          description: Field used to sort factories. Title comparisons are case-insensitive.
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - title
+            default: updated_at
+        - name: sort_order
+          in: query
+          description: Direction used to sort factories.
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
         - name: limit
           in: query
           description: 'Maximum number of factories to return (default 50, max 100).'
@@ -98,7 +119,14 @@ paths:
             maximum: 100
         - name: cursor
           in: query
-          description: Opaque cursor returned by a previous list response.
+          description: |
+            To get the next page, pass `page_info.next_cursor` from the previous
+            response and keep the same sorting. Omitted `sort_by` and `sort_order`
+            use their defaults (`updated_at` and `desc`), even when a cursor is
+            provided. If the resolved sorting differs from the cursor, the
+            request returns HTTP 400. For example, after requesting
+            `sort_by=title&sort_order=asc`, repeat both parameters with
+            `cursor=<next_cursor>` to continue in ascending title order.
           required: false
           schema:
             type: string
@@ -109,6 +137,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListFactoriesResponse'
+        '400':
+          description: 'Invalid limit, sort parameters, or cursor, including a cursor that does not match the requested sorting.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
           description: Authentication required
           content:
@@ -5791,8 +5825,496 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/factory/{uid}/factory-roles/{user_uid}':
+    parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory
+        required: true
+        schema:
+          type: string
+      - name: user_uid
+        in: path
+        description: The public UID of the user. The user must be a member of the team that owns the Factory.
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get a user's Factory permission role on a Factory
+      description: |
+        Return the user's effective and assigned Factory permission roles on the given Factory.
+      operationId: getFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The user's Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    put:
+      summary: Set a user's Factory permission role on a Factory
+      description: |
+        Set the user's Factory permission role on the given Factory. Requires permission to manage Factory roles.
+      operationId: setFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetFactoryRoleRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  role: USER
+      responses:
+        '200':
+          description: The user's updated Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/factory/{uid}/factory-roles':
+    parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory
+        required: true
+        schema:
+          type: string
+    get:
+      summary: List Factory permission roles on a Factory
+      description: |
+        Return the effective and assigned Factory permission roles of each team member on the given Factory, ordered by user UID.
+      operationId: listFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Factory permission roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    patch:
+      summary: Update Factory permission roles on a Factory
+      description: |
+        Set the same Factory permission role on the given Factory for each selected user. Requires permission to manage Factory roles.
+      operationId: updateFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFactoryRolesRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  user_uids:
+                    - user_uid_1
+                    - user_uid_2
+                  role: USER
+      responses:
+        '200':
+          description: Every team member's Factory permission roles on the given Factory after the update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/team/{team_uid}/factory-roles/{user_uid}':
+    parameters:
+      - name: team_uid
+        in: path
+        description: The public UID of the team
+        required: true
+        schema:
+          type: string
+      - name: user_uid
+        in: path
+        description: The public UID of the user. The user must be a member of the team.
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get a user's team-wide Factory permission role
+      description: |
+        Return the user's team-wide effective and assigned Factory permission roles. Requires permission to manage Factory roles.
+      operationId: getTeamFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The user's team-wide Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    put:
+      summary: Set a user's team-wide Factory permission role
+      description: |
+        Set the user's team-wide Factory permission role. A Factory-specific role takes precedence. Requires permission to manage Factory roles.
+      operationId: setTeamFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetFactoryRoleRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  role: USER
+      responses:
+        '200':
+          description: The user's updated team-wide Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/team/{team_uid}/factory-roles':
+    parameters:
+      - name: team_uid
+        in: path
+        description: The public UID of the team
+        required: true
+        schema:
+          type: string
+    get:
+      summary: List team-wide Factory permission roles
+      description: |
+        Return the team-wide effective and assigned Factory permission roles of each team member, ordered by user UID. Requires permission to manage Factory roles.
+      operationId: listTeamFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Team-wide Factory permission roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    patch:
+      summary: Update team-wide Factory permission roles
+      description: |
+        Set the same team-wide Factory permission role for each selected user. A Factory-specific role takes precedence. Requires permission to manage Factory roles.
+      operationId: updateTeamFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFactoryRolesRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  user_uids:
+                    - user_uid_1
+                    - user_uid_2
+                  role: USER
+      responses:
+        '200':
+          description: Every team member's team-wide Factory permission roles after the update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/team/{team_uid}/default-factory-role':
+    parameters:
+      - name: team_uid
+        in: path
+        description: The public UID of the team
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get the team default Factory permission role
+      description: |
+        Return the team default and the role that members inherit if they have no assigned role. Requires permission to manage Factory roles.
+      operationId: getTeamDefaultFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The team default Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultFactoryRoleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    put:
+      summary: Set the team default Factory permission role
+      description: |
+        Set the team default. Send null to remove the team default. This operation fails if the workspace has a default. Requires permission to manage Factory roles.
+      operationId: setTeamDefaultFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDefaultFactoryRoleRequest'
+            examples:
+              assign:
+                summary: Set the default
+                value:
+                  stored_default_role: USER
+              clear:
+                summary: Clear the default
+                value:
+                  stored_default_role: null
+      responses:
+        '200':
+          description: The updated team default Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultFactoryRoleResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
 components:
   schemas:
+    FactoryRole:
+      type: string
+      description: Factory permission role. ADMIN comes from a team or workspace admin role and cannot be assigned.
+      enum:
+        - USER
+        - EDITOR
+        - ADMIN
+    FactoryUserRole:
+      type: object
+      required:
+        - user_uid
+        - effective_role
+        - assigned_role
+      properties:
+        user_uid:
+          type: string
+          description: Public UID of the user.
+        effective_role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: The Factory permission role that applies to the user.
+        assigned_role:
+          oneOf:
+            - $ref: '#/components/schemas/FactoryRole'
+            - type: 'null'
+          description: |
+            The role set for the user at this level: on the given Factory for Factory
+            endpoints, or team-wide for team endpoints. Null when no role is set at
+            this level, in which case the user falls back to the next level.
+    FactoryUserRoleResponse:
+      allOf:
+        - $ref: '#/components/schemas/FactoryUserRole'
+        - type: object
+          required:
+            - can_manage
+          properties:
+            can_manage:
+              type: boolean
+              description: Whether the caller can change this role.
+    FactoryUserRolesResponse:
+      type: object
+      required:
+        - roles
+        - can_manage
+      properties:
+        roles:
+          type: array
+          description: Team members and their Factory permission roles.
+          items:
+            $ref: '#/components/schemas/FactoryUserRole'
+        can_manage:
+          type: boolean
+          description: Whether the caller can change these roles.
+    SetFactoryRoleRequest:
+      type: object
+      required:
+        - role
+      properties:
+        role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: USER or EDITOR. ADMIN cannot be assigned.
+    UpdateFactoryRolesRequest:
+      type: object
+      required:
+        - user_uids
+        - role
+      properties:
+        user_uids:
+          type: array
+          minItems: 1
+          maxItems: 1000
+          description: Public UIDs of the users to update. Each user must be a member of the team. Duplicate UIDs are applied once.
+          items:
+            type: string
+            minLength: 1
+        role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: USER or EDITOR. ADMIN cannot be assigned.
+    SetDefaultFactoryRoleRequest:
+      type: object
+      required:
+        - stored_default_role
+      properties:
+        stored_default_role:
+          oneOf:
+            - $ref: '#/components/schemas/FactoryRole'
+            - type: 'null'
+          description: USER or EDITOR. Send null to remove the team default. You must send this field.
+    DefaultFactoryRoleSource:
+      type: string
+      description: |
+        Where effective_default_role comes from.
+          - TEAM_DEFAULT: The team default, stored_default_role.
+          - WORKSPACE_DEFAULT: The workspace default, which takes precedence over the team default.
+          - SYSTEM_DEFAULT: EDITOR. Applies when no default is set, or when the team does not have an enterprise plan.
+      enum:
+        - TEAM_DEFAULT
+        - WORKSPACE_DEFAULT
+        - SYSTEM_DEFAULT
+    DefaultFactoryRoleResponse:
+      type: object
+      required:
+        - stored_default_role
+        - effective_default_role
+        - source
+        - can_edit
+      properties:
+        stored_default_role:
+          oneOf:
+            - $ref: '#/components/schemas/FactoryRole'
+            - type: 'null'
+          description: |
+            The team default that an admin set. Null when no admin set a team default.
+            Members inherit this role only if source is TEAM_DEFAULT.
+        effective_default_role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: The role that members inherit if they have no assigned role.
+        source:
+          $ref: '#/components/schemas/DefaultFactoryRoleSource'
+        can_edit:
+          type: boolean
+          description: Whether the caller can change the team default.
     BuiltinNetworkPolicy:
       type: object
       description: One published Warp-managed network policy version.
@@ -12995,6 +13517,9 @@ components:
       additionalProperties: false
       description: Optional execution overrides for a configuration that runs the production Factory definition.
       properties:
+        computer_use_model:
+          type: string
+          description: Optional computer-use model override for the entire trial tree. Omitted or empty preserves agent defaults without enabling computer use or changing harnesses.
         display_name:
           $ref: '#/components/schemas/BenchmarkOptionalName'
         harness:
@@ -13395,6 +13920,9 @@ components:
         - harness_auth_secret_name
         - agent_configs
       properties:
+        computer_use_model:
+          type: string
+          description: Frozen explicit computer-use model override for the trial tree. Omitted or empty preserves agent defaults.
         uid:
           type: string
           description: 'stable Run-local public configuration identity, without exposing its stored integer ID.'
@@ -14786,6 +15314,30 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Error'
+    FactoryPermissionInvalidRequest:
+      description: 'Invalid request, role, or target team member'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryPermissionDenied:
+      description: 'Human caller required, insufficient authority, or feature unavailable'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryPermissionNotFound:
+      description: Resource not found or not visible to the caller
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryPermissionInternalError:
+      description: Internal server error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
     FactoryBranchStatusResponse:
       description: Current observation of the tracked Branch
       headers:
@@ -14885,6 +15437,10 @@ tags:
     summary: Benchmarks
     parent: factory
     description: 'Operations for managing benchmark suites, tasks, runs, trials, and results'
+  - name: factory-permissions
+    summary: Permissions
+    parent: factory
+    description: Operations for viewing and managing Factory permission roles
   - name: networking
     summary: Networking
     parent: agent

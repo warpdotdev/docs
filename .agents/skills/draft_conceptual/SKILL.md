@@ -9,6 +9,8 @@ Draft a conceptual documentation page that explains what a feature or concept is
 
 ## Workflow
 
+Read and apply `.agents/references/compliance-claims-policy.md` before drafting, including its omission and internal-reporting rules.
+
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.agents/templates/conceptual.md`.
 
 ## Frontmatter description
