@@ -1,12 +1,12 @@
 ---
 title: Security overview
 description: >-
-  Review provider Zero Data Retention, analytics controls, product storage,
-  and security boundaries across Warp.
+  Review Warp's enterprise security architecture, organization controls,
+  and deployment boundaries.
 ---
 import { VARS } from '@data/vars';
 
-Evaluate provider retention, Warp's analytics collection, and product storage separately when choosing how to use Warp. These controls apply to different copies of your data; turning off analytics doesn't disable storage needed for a product feature.
+Evaluate Warp's security architecture, organization controls, and deployment boundaries for your team. For the Warp-wide policy on provider retention, analytics, and product storage, see [Privacy and data control](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
 ## Transparency and control
 
@@ -24,29 +24,15 @@ Warp's security philosophy centers on **transparency and developer control**:
 
 ### Zero Data Retention (ZDR)
 
-Provider Zero Data Retention (ZDR) governs whether an inference provider retains prompts and responses. Warp has provider ZDR agreements for supported Warp-managed models across all plans. Covered providers don't use those prompts and responses for model training. Some models require retention; [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists every known model exception.
-
-Warp-managed inference uses Warp's provider account, not your own. Turning off **Help improve Warp** doesn't make a retention-required model ZDR-covered.
-
-For [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), verify ZDR with your provider for the specific account, model, and configuration. Warp's agreements don't establish ZDR for customer-managed inference. Claude Code and Codex calls made directly to their providers also use your provider terms, not Warp's.
-
-Follow the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) for configuration steps, plan controls, and coverage limits.
+Provider ZDR concerns what AI providers retain, not what Warp stores. See the [Warp-wide provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) for its scope and the boundary for requests through your own provider account. [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists the model exceptions.
 
 ### Warp analytics and improvement collection
 
-**Help improve Warp** controls product analytics and eligible collection of AI interactions and console content for service improvement. Turning it off stops that analytics and improvement collection, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
-
-Neither setting changes a model provider's retention requirements or turns off product storage. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting) for the controls and collected event types.
+Review [Warp's analytics and improvement controls](/support-and-community/privacy-and-security/privacy/#warp-analytics-and-improvement-collection) separately from provider retention and storage. Admins manage organization-enforced settings through the [Admin Panel](/enterprise/team-management/admin-panel/#privacy-settings).
 
 ### Product storage
 
-Product features store data independently of provider ZDR and analytics preferences:
-
-* **Terminal conversations** - **Store AI conversations in the cloud** controls cloud sync of your personal Terminal conversations. Turning it off doesn't disable factory or other cloud agent run storage. See [Cloud-synced conversations](/agents/local-agents/cloud-conversations/).
-* **Factory run data** - Transcripts, prompt attachments, and uploaded artifacts persist so you can inspect past runs. They use Warp-managed storage unless an Enterprise admin configures [self-hosted agent data storage](/factories/self-hosting/data-storage/). Categories are mapped independently; unmapped categories remain with Warp.
-* **Shared sessions and snapshots** - Sharing a live session and saving a workspace snapshot have their own storage behavior. See [shared-session retention and access](/agents/local-agents/session-sharing/#data-retention-and-access) and [workspace snapshot controls](/platform/handoff/snapshots/).
-
-Self-hosting factory execution changes where commands run, not whether inference is ZDR-covered or where run data is stored. Evaluate [inference and storage separately](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
+See [product storage boundaries](/support-and-community/privacy-and-security/privacy/#product-storage) for Terminal conversations, factory run history, shared sessions, and snapshots. Enterprise admins can configure [self-hosted agent data storage](/factories/self-hosting/data-storage/) separately from execution hosting.
 
 ### Disabling telemetry
 
@@ -58,8 +44,8 @@ Follow [Privacy and data control](/support-and-community/privacy-and-security/pr
 
 * **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
-* **Agent requests** - Provider retention depends on the model and inference configuration described [above](#zero-data-retention-zdr).
-* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. See [customer-managed inference](#zero-data-retention-zdr) for retention.
+* **Agent requests** - Provider retention depends on the model and provider account. See the [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr).
+* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. See [retention for requests through your provider account](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr).
 * **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
 * **Self-hosted cloud agent execution** - Repository checkouts and execution workspaces stay on your infrastructure. Prompts, transcripts, attachments, and uploaded artifacts can contain code context. Inference and run-data storage have [separate boundaries](/factories/infrastructure-and-security/).
 
@@ -83,7 +69,7 @@ See [Secret Redaction documentation](/support-and-community/privacy-and-security
 
 ### Data retention
 
-* **Inference and product data** - See [provider retention](#zero-data-retention-zdr) and [feature-specific storage](#product-storage) above
+* **Inference and product data** - See [provider retention](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) and [feature-specific storage](/support-and-community/privacy-and-security/privacy/#product-storage)
 * **Telemetry data** - When collected, Warp retains telemetry data indefinitely for analytics and debugging
 * **User accounts** - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations
 
@@ -117,7 +103,7 @@ Enterprise teams can self-host cloud agent execution to control where agents run
 
 Self-hosted deployments use a split architecture:
 * **Execution plane (customer-hosted)** - Repository clones, build artifacts, runtime secrets, and container filesystem state stay on your infrastructure
-* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. Transcripts can contain code context and persist as product data independently of [provider ZDR](#zero-data-retention-zdr). Claude Code and Codex call their providers directly.
+* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. Transcripts can contain code context and persist as product data independently of [provider ZDR](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr). Claude Code and Codex call their providers directly.
 
 Two deployment modes are available:
 * **Unmanaged** - Use `oz agent run` to run agents in your existing orchestrator or CI environment. Supports Linux, macOS, and Windows with no Docker dependency.

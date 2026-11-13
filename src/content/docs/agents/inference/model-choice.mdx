@@ -73,7 +73,7 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.
 
 :::caution
-Some Anthropic models require provider retention even when analytics is off. Check [models requiring provider retention](#models-requiring-provider-retention) before selecting a model.
+Some Anthropic models require data retention regardless of your **Help improve Warp** setting. Check [models requiring provider retention](#models-requiring-provider-retention) before selecting a model.
 :::
 
 #### Google
@@ -157,24 +157,24 @@ Edit your default profile or any other profile directly in **Settings** > **Agen
 
 ### Reviewing inference and privacy in Terminal
 
-Before sending sensitive content:
+Before sending sensitive content through Warp Terminal:
 
 1. In the Warp app's prompt input, click the model name and choose a model outside the [exception list](#models-requiring-provider-retention).
 2. In **Settings** > **Agents** > **Profiles**, review the active profile's base model. For a [custom router](/agents/inference/custom-routers/), review every target and its default.
 3. In **Settings** > **Agents** > **Warp Agent**, review personal keys, endpoints, and subscriptions, plus any [team configuration](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). Search Settings for `API keys` to find personal keys. For customer-managed inference, verify provider ZDR; review [BYOK fallback](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior) if enabled.
-4. In **Settings** > **Privacy**, review **Help improve Warp**, **Send crash reports**, and **Store AI conversations in the cloud** separately. See [analytics and storage controls](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why).
+4. In **Settings** > **Privacy**, review **Help improve Warp**, **Send crash reports**, and **Store AI conversations in the cloud** separately. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
 Confirm the model displayed before your next prompt. For factories, use [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) instead.
 
 ### Zero data retention policies
 
-Warp has provider Zero Data Retention (ZDR) agreements for supported Warp-managed models on all plans. The [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) explains the policy.
+Warp has provider Zero Data Retention (ZDR) agreements for supported Warp-managed models on all plans. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) for the policy.
 
 Current Auto selections and fallback chains for other models don't introduce the exceptions below. For separate model settings and coverage limits in factories, use [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
 
 #### Models requiring provider retention
 
-Anthropic requires retention for these models, including their effort variants, for safety, abuse monitoring, and compliance:
+Anthropic requires data retention for safety, abuse monitoring, and compliance. This requirement applies to the following models at every effort level:
 
 * Claude Fable 5
 * Claude Fable 5.1
@@ -182,4 +182,4 @@ Anthropic requires retention for these models, including their effort variants, 
 
 These models aren't covered by provider ZDR even when **Help improve Warp** is off. For Enterprise teams, they are disabled by default and a workspace admin must enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
 
-For your own provider account, [verify retention with your provider](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr); selecting a model outside this list doesn't establish ZDR for that account.
+If you use your own provider account, [verify retention with your provider](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr). Choosing a model outside this list doesn't mean your account has ZDR.

@@ -401,6 +401,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
+						{ label: 'Zero data retention (ZDR)', link: '/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference' },
 						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 					],
 				},

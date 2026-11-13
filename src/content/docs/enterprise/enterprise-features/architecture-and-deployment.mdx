@@ -27,7 +27,7 @@ The [stack overview](/platform/architecture/#stack-overview) reference describes
 
 * **Warp terminal (client)** ↔ **Warp backend (control plane)** ↔ **LLM providers**
 * The Warp backend handles task orchestration, observability, and LLM inference routing.
-* Provider retention follows the [model and provider-account configuration](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr), not the execution host.
+* What your AI provider retains depends on the [model and provider account you use](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr), not where the agent runs.
 * The **execution plane** is where source code is accessed, commands run, and build artifacts are produced. This can run on Warp's infrastructure or yours.
 
 ## Warp-hosted (SaaS)
@@ -57,7 +57,7 @@ Warp-hosted agents can be triggered by:
 
 ## Self-hosted execution
 
-For organizations that need repository checkouts and command execution on their own infrastructure, Warp supports self-hosted execution. Code context can still transit Warp in prompts and run data.
+For organizations that need repository checkouts and command execution on their own infrastructure, Warp supports self-hosted execution. Prompts and run records can still include code from your repository and pass through Warp's servers.
 
 :::note
 Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
@@ -68,7 +68,7 @@ Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
 Self-hosted deployments use a split architecture:
 
 * **Execution plane (customer-hosted)** - Repository checkouts, commands, and workspaces stay on your infrastructure. Code context, tool output, and uploaded files can still become prompts or stored run data (see [What transits Warp's servers](#what-transits-warps-servers)).
-* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. See [What transits Warp's servers](#what-transits-warps-servers) for the data it receives.
+* **Control plane (Warp-hosted)** - Warp coordinates runs and sends the Warp Agent's model requests to the configured provider. See [What transits Warp's servers](#what-transits-warps-servers) for the data it receives.
 
 ### Deployment modes
 
@@ -96,7 +96,7 @@ Self-hosted agents require **outbound-only** network access. No inbound network 
 ### When to use
 
 * Compliance or security requirements prevent using Warp-hosted compute.
-* You need to keep repository checkouts on your infrastructure while allowing code context in prompts and run data to transit Warp.
+* You need to keep repository checkouts on your infrastructure while allowing prompts and run records that include code to pass through Warp's servers.
 
 ## Hybrid deployments
 
@@ -120,18 +120,18 @@ Understanding what data stays where is critical for security and compliance deci
 
 ### What stays on customer infrastructure (self-hosted)
 
-* **Source code** - Repository checkouts and version history; code excerpts can still appear in prompts and transcripts
+* **Source code** - Repository checkouts and version history remain on your infrastructure. Code excerpts can still appear in prompts and transcripts.
 * **Build artifacts** - Compiled outputs and generated files unless uploaded as run artifacts
-* **Shell commands** - Execute locally; command output can appear in stored transcripts
+* **Shell commands** - Commands run on your infrastructure. Their output can appear in stored transcripts.
 * **Runtime secrets** - Environment variables and credentials
-* **Execution logs** - Local runtime logs; uploaded diagnostics and run records are separate
+* **Execution logs** - Runtime logs remain on your infrastructure unless uploaded as diagnostics or included in run records.
 
 ### What transits Warp's servers
 
 * **Task orchestration** - Scheduling, routing, and lifecycle management
 * **Observability data** - Run status, duration, and metadata
 * **LLM inference** - The Warp Agent routes prompts and responses through Warp to the configured provider. Claude Code and Codex call their providers directly.
-* **Run data** - Transcripts, prompt attachments, and uploaded artifacts persist independently of the execution workspace. Configure their location through [self-hosted agent data storage](/factories/self-hosting/data-storage/).
+* **Run data** - Transcripts, prompt attachments, and uploaded artifacts remain stored after the execution workspace is removed. Enterprise admins can configure where this data is stored through [self-hosted agent data storage](/factories/self-hosting/data-storage/).
 * **Session sharing data** - Live session sharing has its own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access)
 
 ## Choosing a deployment model
@@ -146,7 +146,7 @@ Consider the following when selecting a deployment model:
 * You need maximum parallelization and scalability.
 
 **Self-hosted** is right if:
-* Compliance requirements mandate local checkout and execution while permitting code context in prompts and stored run data.
+* Compliance requirements mandate repository checkouts and command execution on your infrastructure while allowing prompts and stored run records to include code.
 * You need to integrate with existing CI/CD or infrastructure tooling.
 * You want full control over the execution environment.
 

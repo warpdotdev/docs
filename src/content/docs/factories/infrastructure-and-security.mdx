@@ -11,7 +11,7 @@ Warp Factories separates execution, inference, and credential boundaries. You ch
 
 ## Zero Data Retention (ZDR) for factory inference
 
-Provider Zero Data Retention (ZDR) covers whether the AI provider keeps your prompts and responses. Warp's [provider ZDR policy](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference; it is separate from where your agent runs commands.
+Provider Zero Data Retention (ZDR) covers whether the AI provider keeps your prompts and responses. Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference; it is separate from where your agent runs commands.
 
 ### Choose inference covered by provider ZDR
 
@@ -28,7 +28,7 @@ Provider ZDR doesn't stop Warp from saving data needed to operate your factory:
 * **Run history** - Warp stores transcripts, prompt attachments, and uploaded artifacts so you can revisit runs, even with analytics off. Destroying a sandbox doesn't delete these records.
 * **Personal Terminal sync** - **Store AI conversations in the cloud** controls personal Terminal conversations, not factory run storage.
 
-To change team content collection for improvement, follow the [browser procedure in the Admin Panel](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-a-browser), including plan and workspace restrictions. Personal analytics and crash preferences are separate; see [analytics and storage controls](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why). Enterprise admins can configure [self-hosted storage](/factories/self-hosting/data-storage/) independently for each run-data category; unmapped categories remain with Warp.
+To change team content collection for improvement, follow the [browser procedure in the Admin Panel](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-a-browser), including plan and workspace restrictions. Personal analytics and crash preferences are separate; see [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage). Enterprise admins can configure [self-hosted storage](/factories/self-hosting/data-storage/) independently for each run-data category; unmapped categories remain with Warp.
 
 ### Configure your factory
 
