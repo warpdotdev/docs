@@ -1,6 +1,636 @@
 {
-  "claims": [],
-  "page_sha256": "0724aa6418184c38281c3b5c7d3045a003b4045bd9aad01b3a74105e52e0096b",
+  "claims": [
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:b94decdb644a63e730d7c12f7fe1d5a48573a1b9ac3446ec3f83ec9fb6eeeba2",
+      "claim_id": "sha256:b7a8562eec148e4ab916c0e4985951117c39071742dbd996e7eef5a42ad6a7ef",
+      "entity": "enterprise-plan",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "usage-pool",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise plans use a contract-specific shared team pool rather than the per-seat allowances on self-serve plans.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Credit allocation",
+        "heading_anchor": "credit-allocation",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "contract-specific-shared-team"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:a9ff311fd2bce531bd2780dc4479bc9bbed536d81932474d20a859d089321f55",
+      "claim_id": "sha256:f97bf9a06cec782c2ef58e4a0f3fa58d354ded02e6e673176e909f5944c76a11",
+      "entity": "enterprise-usage",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "local-cloud-share-pool",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Local and cloud usage draw from the shared Enterprise pool.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "How credits are consumed",
+        "heading_anchor": "how-credits-are-consumed",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:ef0c6350c926143db63e9af7048ceebea66d6da6b92c72ac4d81479c2369be9a",
+      "claim_id": "sha256:627505b8860e84c511de14e535b082a7bda6b04bd5792520bfa59584c5829519",
+      "entity": "platform-usage",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "measured-time",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Platform usage measures billable active time, not the run's total duration.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Cloud agent billing",
+        "heading_anchor": "cloud-agent-billing",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "billable-active-time"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:d7c7923b9bd20e6aad054e7ca92775f41f51f518f1c5b3a0d78c480ff450c590",
+      "claim_id": "sha256:b4a4c78a68d4f382b6a13655fb80e03c2169f67f016a6d3290b1214150419247",
+      "entity": "self-hosted-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "incurs-warp-hosted-compute-charge",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Self-hosted runs do not incur Warp-hosted compute charges, but platform charges still apply.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Cloud agent billing",
+        "heading_anchor": "cloud-agent-billing",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:4459cfbc5f76891989eec97a3f6c37abb33a10cc9a7c66dbb1dc4cb351289a34",
+      "claim_id": "sha256:86ae16704f1191ec14047196b22f828a0250e9bf54b8f34174b55368259f5ef4",
+      "entity": "self-hosted-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "incurs-platform-charge",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Self-hosted runs do not incur Warp-hosted compute charges, but platform charges still apply.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Cloud agent billing",
+        "heading_anchor": "cloud-agent-billing",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:c47cc5ff1b21904ff61e29b9851a9910689595993870fb51db870b6a0ae33639",
+      "claim_id": "sha256:99d6308069b7a2d8a111ca5d617c0ef14285202062ac3861dd6173c56971fc4b",
+      "entity": "agent-api-key-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "funding-source",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Agent API key runs use shared team usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "How credits are consumed",
+        "heading_anchor": "how-credits-are-consumed",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "shared-team-usage"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:1a37c1b8e6f9aea93d3144734d483941dd17f58ee95b64ea5c048357bed5c0b1",
+      "claim_id": "sha256:7eb48fbde945986e57840e833380374f2c7b6ce894d6f9ac1b897b3060abf48a",
+      "entity": "user-created-schedule",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-run-identity",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "User-created schedules run as their creator by default, or as a cloud agent when configured to do so.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "How credits are consumed",
+        "heading_anchor": "how-credits-are-consumed",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "creator"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:5bdc157436109c03d964fce49f554d314b42367e4084a97ecaabecc2fe4dd081",
+      "claim_id": "sha256:b2c613914ecf411108aaa210e9db17fc13eb32f524804aa2216315a62e2ac2f7",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "your cloud provider bills inference directly rather than consuming Warp-provided inference usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "BYOLLM billing",
+        "heading_anchor": "byollm-billing",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:cd99614c858eabc7f4f9d0716afd8373706459e65a954b7c6299950a279a41d9",
+      "claim_id": "sha256:cf4ba0ac0ef4e9a85779c1162ecb538f775731af6e25748ce6f9c1c9fb57843f",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "platform-charges-apply",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Applicable platform and Warp-hosted compute charges remain.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "BYOLLM billing",
+        "heading_anchor": "byollm-billing",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:9e6f7c6ff34ae926d3aa6a75feb890976cd4167e57ff30140445fd3fe2a782dd",
+      "claim_id": "sha256:897dbb407b54116fc102b1cafbb01573601045cf41523251b811a48d4dff16f1",
+      "entity": "byollm-fallback",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If a BYOLLM request falls back to Warp-provided inference, that request consumes usage at your contract's applicable rate.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "BYOLLM billing",
+        "heading_anchor": "byollm-billing",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:130fc9116d2e3a98f6734447bfd5bda76ac387a8d0bbe83e15a6c65f32280995",
+      "claim_id": "sha256:c2832dcad4bac0622bc08571cd04868a41083a9aa7946f04bbb0a714fe7cc1e3",
+      "entity": "enterprise-spending-limits",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "categories",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise administrators can set monthly spending limits across the following four categories:\n\n* **Cloud spending limit** - Cap monthly spend on cloud agent usage.\n* **Local spending limit** - Cap monthly spend on local agent usage in the Warp app.\n* **Total spending limit** - Cap combined monthly spend across both cloud and local agents.\n* **Per-user spending limit** - Cap monthly spend for any individual user.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Monthly spending limits",
+        "heading_anchor": "monthly-spending-limits",
+        "line_end": 69,
+        "line_start": 64,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "cloud",
+          "local",
+          "total",
+          "per-user"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:85b7feb582208645546baad68100f60f785ad8e47edfa490f13cd3756ee61668",
+      "claim_id": "sha256:2612d1f064e485ec731fdc45ddd813225d1a2949cc2dd6a203cd4b7d5e79f1ab",
+      "entity": "enterprise-spending-limits",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "caps-usage-not-purchases",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "These Enterprise limits cap usage, not purchases.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Monthly spending limits",
+        "heading_anchor": "monthly-spending-limits",
+        "line_end": 74,
+        "line_start": 74,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:e6f7b01a903a603493b029818663a5e19a9a84bf8a8315da9ca5e470b18eec59",
+      "claim_id": "sha256:a2b53749b4114018f30ce9addad6742ddd8f7cd1040b55c4192a91714db52021",
+      "entity": "enterprise-spending-limits",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "blocks-at-cap",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "agent usage is blocked at the cap.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Monthly spend alerts",
+        "heading_anchor": "monthly-spend-alerts",
+        "line_end": 83,
+        "line_start": 83,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:064c22ad93e000f1ac7cf37278a2836a6e317743a01ce9f073a264c57bf6b153",
+      "claim_id": "sha256:e0f5e386ec7923b10bcf7956a992a4c062dfa2f13296f486bc85c4d0a056a78c",
+      "entity": "enterprise-credit-pool",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "depletion-alerts",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For enterprises with credit pools, administrators receive alerts as the team credit pool approaches full consumption.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "content_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+        "heading": "Credit pool depletion alerts",
+        "heading_anchor": "credit-pool-depletion-alerts",
+        "line_end": 87,
+        "line_start": 87,
+        "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
   "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
   "schema_version": 1
 }

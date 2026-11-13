@@ -1,5 +1,317 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:978409652f30acb42304fb9a67f11b06209ab9b790a121e84e72f1a568d13540",
+      "claim_id": "sha256:314489d0d1ca23ee146afc57fd8f742f09f6010720d6e24c91c8ebde02acbca5",
+      "entity": "enterprise-support",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "dedicated-channels",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A private channel shared with Warp engineers for real-time assistance, bug reports, and feature discussions.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Enterprise support channels",
+        "heading_anchor": "enterprise-support-channels",
+        "line_end": 14,
+        "line_start": 14,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "slack",
+          "teams"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:77b1f0199564c9827022ae7532d45087db937ba23aa8c1f27885d14678781ece",
+      "claim_id": "sha256:c9e7c3f8f4c028ae41e9221a70eb6991677ebf48e22ca29c507278badcab3db8",
+      "entity": "enterprise-support",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "monitoring-hours",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp engineers monitor these channels during business hours.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Enterprise support channels",
+        "heading_anchor": "enterprise-support-channels",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "business-hours"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:2c5660c45a6f49b92726f222e82651de04b0ef1c705d83b619a0439e61adcb4f",
+      "claim_id": "sha256:5aeedfc6fb976c225c20f3534dc476315b513910ebbbd03ab651c19b3b28f24b",
+      "entity": "warp-log-files",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "contains-console-input-output",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's logs do not contain console input or output.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Gathering logs",
+        "heading_anchor": "gathering-logs",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:1457ef08054192e240ae71ddd9d4e0d7d03435de22c012246bbb09be54b53e44",
+      "claim_id": "sha256:4c8dec2403975cf8c5bc41f1f114dc125b82c3a3e577944114f31ad42555ddae",
+      "entity": "enterprise-ugc-collection",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "usually-disabled",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Most Enterprise teams have user-generated content (UGC) collection disabled",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Reporting bugs",
+        "heading_anchor": "reporting-bugs",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:41737895caaa2a0bb4e4e8536514bfebe379e2ed05b18a014831509b3d036c43",
+      "claim_id": "sha256:141afe2ad6d39db55d8ba1c5709a38e01756ebc0a31f77ee40a5ec4f941aa76d",
+      "entity": "warp-log-files",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`~/Library/Logs/warp.log*`",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Gathering logs",
+        "heading_anchor": "gathering-logs",
+        "line_end": 39,
+        "line_start": 39,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/Library/Logs/warp.log*",
+        "type": "path"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:2d98f7346ae5b74e91198b3326878d2ecc7e3f64b6409e033ec5e509f70cf8ef",
+      "claim_id": "sha256:9543da3b22be626721aa442466880b8099c3ad6fb8e2ade85745b3d6bd9cba36",
+      "entity": "warp-log-files",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "windows"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`%LOCALAPPDATA%\\warp\\Warp\\data\\logs\\warp.log*`",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Gathering logs",
+        "heading_anchor": "gathering-logs",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "%LOCALAPPDATA%\\warp\\Warp\\data\\logs\\warp.log*",
+        "type": "path"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d285f03af61c36637898476bdca2e4318de0ca11387db52d79c60122d3c47536",
+      "claim_id": "sha256:bcd1e54f8560b1ac3310ba22ec79c1062e13e33f9b07892ef50fe536a2be906e",
+      "entity": "warp-log-files",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "linux"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`~/.local/state/warp-terminal/warp.log*`",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "content_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+        "heading": "Gathering logs",
+        "heading_anchor": "gathering-logs",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/.local/state/warp-terminal/warp.log*",
+        "type": "path"
+      }
+    }
+  ],
   "page_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
   "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
   "schema_version": 1

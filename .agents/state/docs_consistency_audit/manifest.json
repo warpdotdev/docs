@@ -1,12 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/enterprise/support-and-resources/billing.mdx",
-    "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
-    "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
-    "src/content/docs/enterprise/team-management/admin-panel.mdx",
-    "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
-    "src/content/docs/enterprise/team-management/teams.mdx",
     "src/content/docs/enterprise/team-management/workspaces.mdx",
     "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
     "src/content/docs/factories/api-and-sdk/index.mdx",
@@ -7122,36 +7116,43 @@
           "line_start": 45
         },
         {
-          "anchor": "the-platform-behind-the-agent",
-          "character_count": 662,
-          "heading": "The platform behind the agent",
+          "anchor": "automate-and-coordinate-agent-work",
+          "character_count": 562,
+          "heading": "Automate and coordinate agent work",
           "line_end": 62,
           "line_start": 53
+        },
+        {
+          "anchor": "build-a-software-factory",
+          "character_count": 424,
+          "heading": "Build a software factory",
+          "line_end": 70,
+          "line_start": 63
         },
         {
           "anchor": "privacy-and-security",
           "character_count": 353,
           "heading": "Privacy and security",
-          "line_end": 72,
-          "line_start": 63
+          "line_end": 80,
+          "line_start": 71
         },
         {
           "anchor": "where-to-go-next",
           "character_count": 831,
           "heading": "Where to go next",
-          "line_end": 82,
-          "line_start": 73
+          "line_end": 90,
+          "line_start": 81
         },
         {
           "anchor": "open-source",
           "character_count": 268,
           "heading": "Open source",
-          "line_end": 85,
-          "line_start": 83
+          "line_end": 93,
+          "line_start": 91
         }
       ],
-      "character_count": 6043,
-      "extraction_status": "unchanged",
+      "character_count": 6368,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7174,30 +7175,35 @@
           "text": "Third-party CLI agents"
         },
         {
-          "anchor": "the-platform-behind-the-agent",
+          "anchor": "automate-and-coordinate-agent-work",
           "line_start": 53,
-          "text": "The platform behind the agent"
+          "text": "Automate and coordinate agent work"
+        },
+        {
+          "anchor": "build-a-software-factory",
+          "line_start": 63,
+          "text": "Build a software factory"
         },
         {
           "anchor": "privacy-and-security",
-          "line_start": 63,
+          "line_start": 71,
           "text": "Privacy and security"
         },
         {
           "anchor": "where-to-go-next",
-          "line_start": 73,
+          "line_start": 81,
           "text": "Where to go next"
         },
         {
           "anchor": "open-source",
-          "line_start": 83,
+          "line_start": 91,
           "text": "Open source"
         }
       ],
       "path": "src/content/docs/agents/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/",
-      "source_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+      "source_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
       "title": "Agents overview"
     },
     "src/content/docs/agents/inference/bring-your-own-api-key.mdx": {
@@ -7707,7 +7713,7 @@
         }
       ],
       "character_count": 9013,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8022,7 +8028,7 @@
         }
       ],
       "character_count": 10905,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13642,7 +13648,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1079,
+          "character_count": 1170,
           "heading": "",
           "line_end": 16,
           "line_start": 7
@@ -13670,7 +13676,7 @@
         },
         {
           "anchor": "agent-capabilities",
-          "character_count": 936,
+          "character_count": 1042,
           "heading": "Agent capabilities",
           "line_end": 55,
           "line_start": 48
@@ -13704,8 +13710,8 @@
           "line_start": 87
         }
       ],
-      "character_count": 7670,
-      "extraction_status": "unchanged",
+      "character_count": 7867,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -13766,7 +13772,7 @@
       "path": "src/content/docs/enterprise/index.mdx",
       "role": "canonical-overview",
       "route": "/enterprise/",
-      "source_sha256": "31acfaf2b81ab497df3027d074bfcf7702134e02072799f952e5a68479b581ca",
+      "source_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
       "title": "Enterprise overview"
     },
     "src/content/docs/enterprise/security-and-compliance/security-overview.mdx": {
@@ -13948,7 +13954,7 @@
         }
       ],
       "character_count": 13793,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -14286,7 +14292,7 @@
         }
       ],
       "character_count": 3685,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -14334,6 +14340,1071 @@
       "route": "/enterprise/security-and-compliance/trust-center/",
       "source_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
       "title": "Warp Trust Center"
+    },
+    "src/content/docs/enterprise/support-and-resources/billing.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 259,
+          "heading": "",
+          "line_end": 13,
+          "line_start": 9
+        },
+        {
+          "anchor": "how-credits-work",
+          "character_count": 315,
+          "heading": "How credits work",
+          "line_end": 21,
+          "line_start": 16
+        },
+        {
+          "anchor": "credit-allocation",
+          "character_count": 265,
+          "heading": "Credit allocation",
+          "line_end": 29,
+          "line_start": 22
+        },
+        {
+          "anchor": "cloud-agent-billing",
+          "character_count": 353,
+          "heading": "Cloud agent billing",
+          "line_end": 33,
+          "line_start": 30
+        },
+        {
+          "anchor": "how-credits-are-consumed",
+          "character_count": 470,
+          "heading": "How credits are consumed",
+          "line_end": 41,
+          "line_start": 34
+        },
+        {
+          "anchor": "byollm-billing",
+          "character_count": 444,
+          "heading": "BYOLLM billing",
+          "line_end": 47,
+          "line_start": 42
+        },
+        {
+          "anchor": "managing-billing",
+          "character_count": 332,
+          "heading": "Managing billing",
+          "line_end": 57,
+          "line_start": 48
+        },
+        {
+          "anchor": "spending-controls",
+          "character_count": 233,
+          "heading": "Spending controls",
+          "line_end": 61,
+          "line_start": 58
+        },
+        {
+          "anchor": "monthly-spending-limits",
+          "character_count": 1178,
+          "heading": "Monthly spending limits",
+          "line_end": 80,
+          "line_start": 62
+        },
+        {
+          "anchor": "credit-pool-depletion-alerts",
+          "character_count": 320,
+          "heading": "Credit pool depletion alerts",
+          "line_end": 90,
+          "line_start": 85
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 1030,
+          "heading": "Related pages",
+          "line_end": 100,
+          "line_start": 91
+        }
+      ],
+      "character_count": 5680,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "usage-under-your-contract",
+          "line_start": 14,
+          "text": "Usage under your contract"
+        },
+        {
+          "anchor": "how-credits-work",
+          "line_start": 16,
+          "text": "How credits work"
+        },
+        {
+          "anchor": "credit-allocation",
+          "line_start": 22,
+          "text": "Credit allocation"
+        },
+        {
+          "anchor": "cloud-agent-billing",
+          "line_start": 30,
+          "text": "Cloud agent billing"
+        },
+        {
+          "anchor": "how-credits-are-consumed",
+          "line_start": 34,
+          "text": "How credits are consumed"
+        },
+        {
+          "anchor": "byollm-billing",
+          "line_start": 42,
+          "text": "BYOLLM billing"
+        },
+        {
+          "anchor": "managing-billing",
+          "line_start": 48,
+          "text": "Managing billing"
+        },
+        {
+          "anchor": "spending-controls",
+          "line_start": 58,
+          "text": "Spending controls"
+        },
+        {
+          "anchor": "monthly-spending-limits",
+          "line_start": 62,
+          "text": "Monthly spending limits"
+        },
+        {
+          "anchor": "monthly-spend-alerts",
+          "line_start": 81,
+          "text": "Monthly spend alerts"
+        },
+        {
+          "anchor": "credit-pool-depletion-alerts",
+          "line_start": 85,
+          "text": "Credit pool depletion alerts"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 91,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/enterprise/support-and-resources/billing.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/support-and-resources/billing/",
+      "source_sha256": "56a2df7a603e88f43c9e940e6f4c0c02d93a3e2504c09e401ec45197dd44f570",
+      "title": "Enterprise billing"
+    },
+    "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 239,
+          "heading": "",
+          "line_end": 9,
+          "line_start": 7
+        },
+        {
+          "anchor": "enterprise-support-channels",
+          "character_count": 558,
+          "heading": "Enterprise support channels",
+          "line_end": 20,
+          "line_start": 10
+        },
+        {
+          "anchor": "reporting-bugs",
+          "character_count": 1054,
+          "heading": "Reporting bugs",
+          "line_end": 34,
+          "line_start": 21
+        },
+        {
+          "anchor": "gathering-logs",
+          "character_count": 625,
+          "heading": "Gathering logs",
+          "line_end": 46,
+          "line_start": 35
+        },
+        {
+          "anchor": "requesting-features",
+          "character_count": 425,
+          "heading": "Requesting features",
+          "line_end": 53,
+          "line_start": 47
+        },
+        {
+          "anchor": "specialized-contacts",
+          "character_count": 395,
+          "heading": "Specialized contacts",
+          "line_end": 62,
+          "line_start": 54
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 136,
+          "heading": "Related resources",
+          "line_end": 65,
+          "line_start": 63
+        }
+      ],
+      "character_count": 3582,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "enterprise-support-channels",
+          "line_start": 10,
+          "text": "Enterprise support channels"
+        },
+        {
+          "anchor": "reporting-bugs",
+          "line_start": 21,
+          "text": "Reporting bugs"
+        },
+        {
+          "anchor": "gathering-logs",
+          "line_start": 35,
+          "text": "Gathering logs"
+        },
+        {
+          "anchor": "requesting-features",
+          "line_start": 47,
+          "text": "Requesting features"
+        },
+        {
+          "anchor": "specialized-contacts",
+          "line_start": 54,
+          "text": "Specialized contacts"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 63,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/support-and-resources/feedback-and-feature-requests.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/support-and-resources/feedback-and-feature-requests/",
+      "source_sha256": "afe0353b20776008f70974e177a3adce48052faa79a0a9de416f1f4dddbb4e96",
+      "title": "Feedback and feature requests"
+    },
+    "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 181,
+          "heading": "",
+          "line_end": 8,
+          "line_start": 6
+        },
+        {
+          "anchor": "cant-open-warp-from-your-sso-provider",
+          "character_count": 419,
+          "heading": "Can't open Warp from your SSO provider",
+          "line_end": 20,
+          "line_start": 11
+        },
+        {
+          "anchor": "previously-logged-in-with-another-method",
+          "character_count": 591,
+          "heading": "Previously logged in with another method",
+          "line_end": 33,
+          "line_start": 21
+        },
+        {
+          "anchor": "cant-sign-up-or-log-in",
+          "character_count": 460,
+          "heading": "Can't sign up or log in",
+          "line_end": 42,
+          "line_start": 36
+        },
+        {
+          "anchor": "browser-specific-issues",
+          "character_count": 489,
+          "heading": "Browser-specific issues",
+          "line_end": 52,
+          "line_start": 43
+        },
+        {
+          "anchor": "proxy-issues",
+          "character_count": 612,
+          "heading": "Proxy issues",
+          "line_end": 71,
+          "line_start": 53
+        },
+        {
+          "anchor": "flagged-as-fraudulent",
+          "character_count": 305,
+          "heading": "Flagged as fraudulent",
+          "line_end": 75,
+          "line_start": 72
+        },
+        {
+          "anchor": "requesting-an-appeal",
+          "character_count": 309,
+          "heading": "Requesting an appeal",
+          "line_end": 85,
+          "line_start": 80
+        },
+        {
+          "anchor": "browser-doesnt-open-when-signing-in",
+          "character_count": 522,
+          "heading": "Browser doesn't open when signing in",
+          "line_end": 98,
+          "line_start": 86
+        },
+        {
+          "anchor": "getting-help",
+          "character_count": 206,
+          "heading": "Getting help",
+          "line_end": 103,
+          "line_start": 99
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 411,
+          "heading": "Related resources",
+          "line_end": 108,
+          "line_start": 104
+        }
+      ],
+      "character_count": 4849,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 6,
+          "text": ""
+        },
+        {
+          "anchor": "sso-login-issues",
+          "line_start": 9,
+          "text": "SSO login issues"
+        },
+        {
+          "anchor": "cant-open-warp-from-your-sso-provider",
+          "line_start": 11,
+          "text": "Can't open Warp from your SSO provider"
+        },
+        {
+          "anchor": "previously-logged-in-with-another-method",
+          "line_start": 21,
+          "text": "Previously logged in with another method"
+        },
+        {
+          "anchor": "common-login-issues",
+          "line_start": 34,
+          "text": "Common login issues"
+        },
+        {
+          "anchor": "cant-sign-up-or-log-in",
+          "line_start": 36,
+          "text": "Can't sign up or log in"
+        },
+        {
+          "anchor": "browser-specific-issues",
+          "line_start": 43,
+          "text": "Browser-specific issues"
+        },
+        {
+          "anchor": "proxy-issues",
+          "line_start": 53,
+          "text": "Proxy issues"
+        },
+        {
+          "anchor": "flagged-as-fraudulent",
+          "line_start": 72,
+          "text": "Flagged as fraudulent"
+        },
+        {
+          "anchor": "false-positives",
+          "line_start": 76,
+          "text": "False positives"
+        },
+        {
+          "anchor": "requesting-an-appeal",
+          "line_start": 80,
+          "text": "Requesting an appeal"
+        },
+        {
+          "anchor": "browser-doesnt-open-when-signing-in",
+          "line_start": 86,
+          "text": "Browser doesn't open when signing in"
+        },
+        {
+          "anchor": "getting-help",
+          "line_start": 99,
+          "text": "Getting help"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 104,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/support-and-resources/troubleshooting-login/",
+      "source_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
+      "title": "Troubleshooting login"
+    },
+    "src/content/docs/enterprise/team-management/admin-panel.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 274,
+          "heading": "",
+          "line_end": 13,
+          "line_start": 10
+        },
+        {
+          "anchor": "what-is-the-admin-panel",
+          "character_count": 863,
+          "heading": "What is the Admin Panel?",
+          "line_end": 27,
+          "line_start": 14
+        },
+        {
+          "anchor": "for-team-admins",
+          "character_count": 431,
+          "heading": "For team admins",
+          "line_end": 43,
+          "line_start": 30
+        },
+        {
+          "anchor": "how-settings-enforcement-works",
+          "character_count": 403,
+          "heading": "How settings enforcement works",
+          "line_end": 57,
+          "line_start": 52
+        },
+        {
+          "anchor": "setting-enforcement-levels",
+          "character_count": 671,
+          "heading": "Setting enforcement levels",
+          "line_end": 74,
+          "line_start": 58
+        },
+        {
+          "anchor": "testing-before-enforcement",
+          "character_count": 443,
+          "heading": "Testing before enforcement",
+          "line_end": 87,
+          "line_start": 75
+        },
+        {
+          "anchor": "plan-limitations",
+          "character_count": 90,
+          "heading": "Plan limitations",
+          "line_end": 91,
+          "line_start": 88
+        },
+        {
+          "anchor": "free-tier",
+          "character_count": 150,
+          "heading": "Free tier",
+          "line_end": 97,
+          "line_start": 92
+        },
+        {
+          "anchor": "business-plans",
+          "character_count": 183,
+          "heading": "Business plans",
+          "line_end": 103,
+          "line_start": 98
+        },
+        {
+          "anchor": "enterprise-plans",
+          "character_count": 570,
+          "heading": "Enterprise plans",
+          "line_end": 113,
+          "line_start": 104
+        },
+        {
+          "anchor": "general-ai-settings",
+          "character_count": 478,
+          "heading": "General AI settings",
+          "line_end": 133,
+          "line_start": 122
+        },
+        {
+          "anchor": "autonomy-settings",
+          "character_count": 968,
+          "heading": "Autonomy settings",
+          "line_end": 154,
+          "line_start": 134
+        },
+        {
+          "anchor": "directory-and-command-control",
+          "character_count": 1058,
+          "heading": "Directory and command control",
+          "line_end": 180,
+          "line_start": 155
+        },
+        {
+          "anchor": "privacy-settings",
+          "character_count": 991,
+          "heading": "Privacy settings",
+          "line_end": 201,
+          "line_start": 181
+        },
+        {
+          "anchor": "code-settings",
+          "character_count": 640,
+          "heading": "Code settings",
+          "line_end": 216,
+          "line_start": 202
+        },
+        {
+          "anchor": "models-settings",
+          "character_count": 1368,
+          "heading": "Models settings",
+          "line_end": 228,
+          "line_start": 217
+        },
+        {
+          "anchor": "billing-settings",
+          "character_count": 569,
+          "heading": "Billing settings",
+          "line_end": 236,
+          "line_start": 229
+        },
+        {
+          "anchor": "sharing-settings",
+          "character_count": 694,
+          "heading": "Sharing settings",
+          "line_end": 253,
+          "line_start": 237
+        },
+        {
+          "anchor": "platform-settings",
+          "character_count": 2539,
+          "heading": "Platform settings",
+          "line_end": 282,
+          "line_start": 254
+        },
+        {
+          "anchor": "multi-admin-functionality",
+          "character_count": 144,
+          "heading": "Multi-admin functionality",
+          "line_end": 286,
+          "line_start": 283
+        },
+        {
+          "anchor": "promoting-and-demoting-admins",
+          "character_count": 542,
+          "heading": "Promoting and demoting admins",
+          "line_end": 300,
+          "line_start": 287
+        },
+        {
+          "anchor": "initial-enterprise-setup",
+          "character_count": 748,
+          "heading": "Initial enterprise setup",
+          "line_end": 315,
+          "line_start": 303
+        },
+        {
+          "anchor": "adjusting-policies-for-different-teams",
+          "character_count": 314,
+          "heading": "Adjusting policies for different teams",
+          "line_end": 324,
+          "line_start": 316
+        },
+        {
+          "anchor": "responding-to-security-incidents",
+          "character_count": 544,
+          "heading": "Responding to security incidents",
+          "line_end": 335,
+          "line_start": 325
+        },
+        {
+          "anchor": "users-cant-see-new-settings",
+          "character_count": 386,
+          "heading": "Users can't see new settings",
+          "line_end": 347,
+          "line_start": 338
+        },
+        {
+          "anchor": "setting-is-grayed-out-in-admin-panel",
+          "character_count": 375,
+          "heading": "Setting is grayed out in Admin Panel",
+          "line_end": 356,
+          "line_start": 348
+        },
+        {
+          "anchor": "command-allowlist-not-working",
+          "character_count": 418,
+          "heading": "Command allowlist not working",
+          "line_end": 366,
+          "line_start": 357
+        },
+        {
+          "anchor": "support",
+          "character_count": 390,
+          "heading": "Support",
+          "line_end": 375,
+          "line_start": 367
+        }
+      ],
+      "character_count": 18197,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 10,
+          "text": ""
+        },
+        {
+          "anchor": "what-is-the-admin-panel",
+          "line_start": 14,
+          "text": "What is the Admin Panel?"
+        },
+        {
+          "anchor": "accessing-the-admin-panel",
+          "line_start": 28,
+          "text": "Accessing the Admin Panel"
+        },
+        {
+          "anchor": "for-team-admins",
+          "line_start": 30,
+          "text": "For team admins"
+        },
+        {
+          "anchor": "for-team-members",
+          "line_start": 44,
+          "text": "For team members"
+        },
+        {
+          "anchor": "how-settings-enforcement-works",
+          "line_start": 52,
+          "text": "How settings enforcement works"
+        },
+        {
+          "anchor": "setting-enforcement-levels",
+          "line_start": 58,
+          "text": "Setting enforcement levels"
+        },
+        {
+          "anchor": "testing-before-enforcement",
+          "line_start": 75,
+          "text": "Testing before enforcement"
+        },
+        {
+          "anchor": "plan-limitations",
+          "line_start": 88,
+          "text": "Plan limitations"
+        },
+        {
+          "anchor": "free-tier",
+          "line_start": 92,
+          "text": "Free tier"
+        },
+        {
+          "anchor": "business-plans",
+          "line_start": 98,
+          "text": "Business plans"
+        },
+        {
+          "anchor": "enterprise-plans",
+          "line_start": 104,
+          "text": "Enterprise plans"
+        },
+        {
+          "anchor": "admin-panel-sections",
+          "line_start": 114,
+          "text": "Admin Panel sections"
+        },
+        {
+          "anchor": "ai-settings",
+          "line_start": 118,
+          "text": "AI settings"
+        },
+        {
+          "anchor": "general-ai-settings",
+          "line_start": 122,
+          "text": "General AI settings"
+        },
+        {
+          "anchor": "autonomy-settings",
+          "line_start": 134,
+          "text": "Autonomy settings"
+        },
+        {
+          "anchor": "directory-and-command-control",
+          "line_start": 155,
+          "text": "Directory and command control"
+        },
+        {
+          "anchor": "privacy-settings",
+          "line_start": 181,
+          "text": "Privacy settings"
+        },
+        {
+          "anchor": "code-settings",
+          "line_start": 202,
+          "text": "Code settings"
+        },
+        {
+          "anchor": "models-settings",
+          "line_start": 217,
+          "text": "Models settings"
+        },
+        {
+          "anchor": "billing-settings",
+          "line_start": 229,
+          "text": "Billing settings"
+        },
+        {
+          "anchor": "sharing-settings",
+          "line_start": 237,
+          "text": "Sharing settings"
+        },
+        {
+          "anchor": "platform-settings",
+          "line_start": 254,
+          "text": "Platform settings"
+        },
+        {
+          "anchor": "multi-admin-functionality",
+          "line_start": 283,
+          "text": "Multi-admin functionality"
+        },
+        {
+          "anchor": "promoting-and-demoting-admins",
+          "line_start": 287,
+          "text": "Promoting and demoting admins"
+        },
+        {
+          "anchor": "common-admin-workflows",
+          "line_start": 301,
+          "text": "Common admin workflows"
+        },
+        {
+          "anchor": "initial-enterprise-setup",
+          "line_start": 303,
+          "text": "Initial enterprise setup"
+        },
+        {
+          "anchor": "adjusting-policies-for-different-teams",
+          "line_start": 316,
+          "text": "Adjusting policies for different teams"
+        },
+        {
+          "anchor": "responding-to-security-incidents",
+          "line_start": 325,
+          "text": "Responding to security incidents"
+        },
+        {
+          "anchor": "troubleshooting",
+          "line_start": 336,
+          "text": "Troubleshooting"
+        },
+        {
+          "anchor": "users-cant-see-new-settings",
+          "line_start": 338,
+          "text": "Users can't see new settings"
+        },
+        {
+          "anchor": "setting-is-grayed-out-in-admin-panel",
+          "line_start": 348,
+          "text": "Setting is grayed out in Admin Panel"
+        },
+        {
+          "anchor": "command-allowlist-not-working",
+          "line_start": 357,
+          "text": "Command allowlist not working"
+        },
+        {
+          "anchor": "support",
+          "line_start": 367,
+          "text": "Support"
+        }
+      ],
+      "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/team-management/admin-panel/",
+      "source_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+      "title": "Admin Panel for teams"
+    },
+    "src/content/docs/enterprise/team-management/roles-and-permissions.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 418,
+          "heading": "",
+          "line_end": 13,
+          "line_start": 7
+        },
+        {
+          "anchor": "managing-admins",
+          "character_count": 162,
+          "heading": "Managing admins",
+          "line_end": 25,
+          "line_start": 22
+        },
+        {
+          "anchor": "promoting-or-demoting-admins",
+          "character_count": 351,
+          "heading": "Promoting or demoting admins",
+          "line_end": 37,
+          "line_start": 26
+        },
+        {
+          "anchor": "permission-details",
+          "character_count": 22,
+          "heading": "Permission details",
+          "line_end": 39,
+          "line_start": 38
+        },
+        {
+          "anchor": "what-admins-can-do",
+          "character_count": 559,
+          "heading": "What admins can do",
+          "line_end": 48,
+          "line_start": 40
+        },
+        {
+          "anchor": "settings-enforcement",
+          "character_count": 621,
+          "heading": "Settings enforcement",
+          "line_end": 66,
+          "line_start": 57
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 362,
+          "heading": "Related resources",
+          "line_end": 81,
+          "line_start": 77
+        }
+      ],
+      "character_count": 4211,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "user-roles",
+          "line_start": 14,
+          "text": "User roles"
+        },
+        {
+          "anchor": "managing-admins",
+          "line_start": 22,
+          "text": "Managing admins"
+        },
+        {
+          "anchor": "promoting-or-demoting-admins",
+          "line_start": 26,
+          "text": "Promoting or demoting admins"
+        },
+        {
+          "anchor": "permission-details",
+          "line_start": 38,
+          "text": "Permission details"
+        },
+        {
+          "anchor": "what-admins-can-do",
+          "line_start": 40,
+          "text": "What admins can do"
+        },
+        {
+          "anchor": "what-members-can-do",
+          "line_start": 49,
+          "text": "What members can do"
+        },
+        {
+          "anchor": "settings-enforcement",
+          "line_start": 57,
+          "text": "Settings enforcement"
+        },
+        {
+          "anchor": "resource-sharing-controls",
+          "line_start": 67,
+          "text": "Resource sharing controls"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 77,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/team-management/roles-and-permissions/",
+      "source_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+      "title": "Roles and permissions"
+    },
+    "src/content/docs/enterprise/team-management/teams.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "what-is-a-team",
+          "character_count": 656,
+          "heading": "What is a team?",
+          "line_end": 19,
+          "line_start": 10
+        },
+        {
+          "anchor": "creating-a-team",
+          "character_count": 700,
+          "heading": "Creating a team",
+          "line_end": 34,
+          "line_start": 20
+        },
+        {
+          "anchor": "inviting-team-members",
+          "character_count": 402,
+          "heading": "Inviting team members",
+          "line_end": 42,
+          "line_start": 35
+        },
+        {
+          "anchor": "restricting-team-invites-by-domain",
+          "character_count": 519,
+          "heading": "Restricting team invites by domain",
+          "line_end": 54,
+          "line_start": 43
+        },
+        {
+          "anchor": "leaving-and-deleting-teams",
+          "character_count": 813,
+          "heading": "Leaving and deleting teams",
+          "line_end": 73,
+          "line_start": 59
+        },
+        {
+          "anchor": "purchased-usage-when-membership-changes",
+          "character_count": 543,
+          "heading": "Purchased usage when membership changes",
+          "line_end": 77,
+          "line_start": 74
+        },
+        {
+          "anchor": "team-discoverability",
+          "character_count": 458,
+          "heading": "Team discoverability",
+          "line_end": 87,
+          "line_start": 78
+        },
+        {
+          "anchor": "transferring-team-ownership",
+          "character_count": 588,
+          "heading": "Transferring team ownership",
+          "line_end": 101,
+          "line_start": 88
+        },
+        {
+          "anchor": "team-roles-and-permissions",
+          "character_count": 740,
+          "heading": "Team roles and permissions",
+          "line_end": 113,
+          "line_start": 102
+        },
+        {
+          "anchor": "permissions-overview",
+          "character_count": 607,
+          "heading": "Permissions overview",
+          "line_end": 130,
+          "line_start": 114
+        },
+        {
+          "anchor": "multi-admin-support",
+          "character_count": 742,
+          "heading": "Multi-admin support",
+          "line_end": 147,
+          "line_start": 131
+        },
+        {
+          "anchor": "related-resources",
+          "character_count": 583,
+          "heading": "Related resources",
+          "line_end": 154,
+          "line_start": 148
+        }
+      ],
+      "character_count": 7810,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "what-is-a-team",
+          "line_start": 10,
+          "text": "What is a team?"
+        },
+        {
+          "anchor": "creating-a-team",
+          "line_start": 20,
+          "text": "Creating a team"
+        },
+        {
+          "anchor": "inviting-team-members",
+          "line_start": 35,
+          "text": "Inviting team members"
+        },
+        {
+          "anchor": "restricting-team-invites-by-domain",
+          "line_start": 43,
+          "text": "Restricting team invites by domain"
+        },
+        {
+          "anchor": "joining-a-team",
+          "line_start": 55,
+          "text": "Joining a team"
+        },
+        {
+          "anchor": "leaving-and-deleting-teams",
+          "line_start": 59,
+          "text": "Leaving and deleting teams"
+        },
+        {
+          "anchor": "purchased-usage-when-membership-changes",
+          "line_start": 74,
+          "text": "Purchased usage when membership changes"
+        },
+        {
+          "anchor": "team-discoverability",
+          "line_start": 78,
+          "text": "Team discoverability"
+        },
+        {
+          "anchor": "transferring-team-ownership",
+          "line_start": 88,
+          "text": "Transferring team ownership"
+        },
+        {
+          "anchor": "team-roles-and-permissions",
+          "line_start": 102,
+          "text": "Team roles and permissions"
+        },
+        {
+          "anchor": "permissions-overview",
+          "line_start": 114,
+          "text": "Permissions overview"
+        },
+        {
+          "anchor": "multi-admin-support",
+          "line_start": 131,
+          "text": "Multi-admin support"
+        },
+        {
+          "anchor": "related-resources",
+          "line_start": 148,
+          "text": "Related resources"
+        }
+      ],
+      "path": "src/content/docs/enterprise/team-management/teams.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/team-management/teams/",
+      "source_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+      "title": "Team management in Warp"
     },
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx": {
       "candidate_sections": [
@@ -14416,6 +15487,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "bb1d0e5daaca849adebaadfaea37863ffce549a4"
+    "docs": "f47b54c52fbc616e85fdb0429145a9908a31df4f"
   }
 }

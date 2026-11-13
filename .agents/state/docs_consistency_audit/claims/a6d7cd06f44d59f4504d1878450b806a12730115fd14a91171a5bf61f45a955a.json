@@ -26,11 +26,11 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
         "heading": "Privacy and security",
         "heading_anchor": "privacy-and-security",
-        "line_end": 65,
-        "line_start": 65,
+        "line_end": 73,
+        "line_start": 73,
         "path": "src/content/docs/agents/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/",
@@ -69,11 +69,11 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
         "heading": "Privacy and security",
         "heading_anchor": "privacy-and-security",
-        "line_end": 65,
-        "line_start": 65,
+        "line_end": 73,
+        "line_start": 73,
         "path": "src/content/docs/agents/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/",
@@ -112,7 +112,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -155,7 +155,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
         "heading": "What makes the Warp Agent different",
         "heading_anchor": "what-makes-the-warp-agent-different",
         "line_end": 28,
@@ -198,11 +198,11 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
         "heading": "Open source",
         "heading_anchor": "open-source",
-        "line_end": 85,
-        "line_start": 85,
+        "line_end": 93,
+        "line_start": 93,
         "path": "src/content/docs/agents/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/",
@@ -216,9 +216,187 @@
         ],
         "type": "enum"
       }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:dc7e487ab8bafd048966eaca01ef298fa9ee29f28d1cd5795d98bc53da0cedf4",
+      "claim_id": "sha256:3dfda7c05be50ab14837ac288b2e3a5800f02d4bc528782e1d5bc64905d86f17",
+      "entity": "warp-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-surfaces",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You reach the same agent three ways.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "heading": "Where to use the Warp Agent",
+        "heading_anchor": "where-to-use-the-warp-agent",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "warp-app",
+          "terminal-cli",
+          "cloud"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:a858e5de310bb0e08bd7e87f88b12f4c42e8796d70757e1e3d1a263d1faa3816",
+      "claim_id": "sha256:5e194865edeed638347e0c31e442c99ceaada66c3c68544395ff65a0ee1c05d7",
+      "entity": "warp-agent-actions",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "approval-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Set how much it does on its own with [Agent Profiles and permissions]",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "heading": "What makes the Warp Agent different",
+        "heading_anchor": "what-makes-the-warp-agent-different",
+        "line_end": 31,
+        "line_start": 31,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:95447d159c257ba544fa2203393d526710d4e1db7f01e2870c71666bf61acd84",
+      "claim_id": "sha256:f4629a9198997ae218c37394d37324642e630213d1389faa62d856f2f56863bb",
+      "entity": "agent-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "identical-across-surfaces",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "[Rules](/agents/capabilities/rules/), [Skills](/agents/capabilities/skills/), [MCP servers](/agents/capabilities/mcp/), and [Codebase Context](/agents/capabilities/codebase-context/) apply the same way in the app, the CLI, and the cloud.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "heading": "What makes the Warp Agent different",
+        "heading_anchor": "what-makes-the-warp-agent-different",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:53479d746282938859f09d02cee09eb159528551160c190444ee030eba220a3f",
+      "claim_id": "sha256:c9b1d44581e7bb4b973757fc51065a22c6e6de517525d2ffd50cda3ac0a0b820",
+      "entity": "cloud-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-open-local-session",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "without keeping a session open.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "heading": "Where to use the Warp Agent",
+        "heading_anchor": "where-to-use-the-warp-agent",
+        "line_end": 22,
+        "line_start": 22,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+  "page_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
   "path": "src/content/docs/agents/index.mdx",
   "schema_version": 1
 }
