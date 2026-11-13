@@ -401,7 +401,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						{ label: 'Zero data retention (ZDR)', link: '/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference' },
 						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 					],
 				},
@@ -442,6 +441,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							label: 'Infrastructure',
 							items: [
 								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
+								{ label: 'Zero data retention (ZDR)', link: '/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference' },
 								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
