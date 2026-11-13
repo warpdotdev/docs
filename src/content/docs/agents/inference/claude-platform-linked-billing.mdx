@@ -5,27 +5,26 @@ description: >-
   for teams, and manage Anthropic spending separately from Warp usage.
 ---
 
-Connect your Claude organization to Warp through OAuth without creating or sharing an API key. With Claude linked billing, Anthropic bills eligible Claude usage directly to your organization at its Anthropic API rates. Warp platform charges remain separate.
+Connect your Claude organization to Warp through OAuth to pay Anthropic directly for eligible Claude usage at your organization's API rates. No API key is needed.
+
+Claude linked billing is available only on Warp Enterprise, with an active agreement and access to the feature. Contact your Warp account team if the connection controls aren't available.
 
 ## How linked billing works
 
-Your Warp workspace shares one connection to a Claude organization. Teams that enable linked billing use that organization's Anthropic API billing for eligible Claude usage instead of their Warp balance. Other teams keep their existing billing method.
-
-Linked billing changes how Claude inference is paid for, not all costs of using Warp. Warp still bills [platform usage and other applicable charges](#other-warp-charges). If linked funds run out, eligible requests can [fall back to Warp billing](#if-linked-funds-run-out), subject to available Warp funding and spend limits.
-
-## Before you connect
-
-* An active Warp Enterprise agreement and access to linked billing. Contact your Warp account team if the connection controls aren't available.
-* Permission to manage billing for your Warp workspace. Workspace owners and admins have this permission.
-* A Claude organization with Anthropic API billing and access to linked billing. You need an Owner, Admin, or Billing role in that organization to approve the connection.
-
-Claude Pro, Max, Team, and Enterprise subscriptions and their included usage don't fund linked billing.
+Your workspace shares one connection to a Claude organization. Each team opts in separately to charge its Claude usage to that organization instead of its Warp balance. Teams that don't opt in keep their existing billing method.
 
 ## Supported Claude usage
 
-For teams that turn it on, linked billing covers Claude usage through the Warp Agent in the desktop app, CLI, web, and cloud, including subagents and factory runs billed to that team. It doesn't change billing for Claude Code or other tools that connect directly to Anthropic.
+Linked billing covers the Warp Agent on desktop, CLI, web, and cloud, including subagents and factory runs billed to the team. It doesn't apply to Claude Code or other tools that connect directly to Anthropic.
 
 Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or custom endpoints. Your team's existing model access, data residency, and retention restrictions still apply.
+
+## Before you connect
+
+* Permission to manage billing for your Warp workspace. Workspace owners and admins have this permission.
+* A Claude organization with Anthropic API billing and linked billing access. You need an Owner, Admin, or Billing role to approve the connection.
+
+Claude Pro, Max, Team, and Enterprise subscriptions and their included usage don't fund linked billing.
 
 ## Connecting your workspace
 
@@ -36,31 +35,27 @@ Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or 
 
 ## Enabling a team
 
-After the workspace is connected, a team admin or workspace admin can turn on linked billing for a team.
+A team or workspace admin can enable linked billing after the workspace is connected:
 
-1. In the Enterprise Admin Panel, select the team and click **Models**.
+1. In the Enterprise Admin Panel, select the team and click **Models**. Remove any custom Claude endpoint configuration.
 2. In the "Anthropic" settings, select **Linked billing**, then click **Save**. If the panel instead shows **Use linked billing**, click that button.
 3. If the team has a saved Anthropic API key, review the removal warning and click **Remove key and save** to switch. You'll need to enter the key again to switch back.
 
-The team's eligible Claude usage is now billed to the linked organization. Members can't override this choice with personal Anthropic keys. If the team uses a custom Claude endpoint, remove that configuration before enabling linked billing. Other providers' settings don't change.
-
-Turning on linked billing also enables [fallback to Warp billing](#if-linked-funds-run-out).
+Linked billing is now enabled for the team, including [fallback to Warp billing](#if-linked-funds-run-out). Members can't override this choice with personal Anthropic keys.
 
 ## Managing spending
 
-Use [Claude Console's Linked Platforms page](https://platform.claude.com/linked-platforms) to manage the connection's spending limit. The workspace's "Claude Linked Billing" section also links to the Console connection.
+Use [Claude Console's Linked Platforms page](https://platform.claude.com/linked-platforms) to manage the connection's spending limit.
 
 ### If linked funds run out
 
-If Anthropic declines a request because linked funds have run out, Warp can pay for that request from your team's Warp balance. A Claude spending limit triggers this fallback only if Anthropic declines the request for lack of funds.
+If Anthropic declines a request for lack of linked funds, Warp can charge that request to your team's Warp balance. Normal Warp spend limits apply; if Warp funding isn't available, the request stops.
 
-Fallback is subject to normal Warp spend limits. If Warp funding isn't available, the request stops. Warp doesn't restart a response that has already begun.
-
-Connection problems, rate limits, and other errors don't switch you to Warp billing. Follow the error message and check the connection in Claude Console or your workspace settings.
+Connection problems, rate limits, and other errors don't switch billing. Warp doesn't restart a response that has already begun.
 
 ### Other Warp charges
 
-You aren't charged by both Anthropic and Warp for the same inference. Warp bills fallback inference. Other-provider usage, tools, platform usage, and Warp-hosted compute can also incur charges under your [Enterprise billing terms](/enterprise/support-and-resources/billing/).
+Anthropic and Warp don't both bill the same inference. Warp bills fallback inference. Other-provider usage, tools, platform usage, and Warp-hosted compute can also incur charges under your [Enterprise billing terms](/enterprise/support-and-resources/billing/).
 
 A spending limit in Claude Console doesn't limit these separate Warp charges. Usage already incurred remains billable.
 
@@ -68,15 +63,18 @@ A spending limit in Claude Console doesn't limit these separate Warp charges. Us
 
 To renew the connection, return to the workspace's **AI** settings and click **Reconnect**.
 
-To stop using linked billing for one team, open that team's **Models** settings, select **Default**, and click **Save**. If the panel shows **Stop using linked billing**, click that button instead. New requests use Warp billing or permitted API keys. Other teams and the workspace connection aren't affected.
+To stop linked billing for one team, open its **Models** settings, select **Default**, and click **Save**, or click **Stop using linked billing** if shown.
 
 To stop linked billing for every team in the workspace:
 
 1. In the workspace's **AI** settings, click **Disconnect from Warp** and confirm.
-2. Check each team's **Models** settings. Linked billing is now off for every team, and new requests use Warp billing or permitted API keys. Requests already in progress keep their original billing method.
-3. To revoke the authorization in Claude Console too, open **Linked Platforms** and unlink Warp. Disconnecting in Warp alone doesn't remove that authorization.
+2. Check each team's **Models** settings to confirm linked billing is off.
 
-Before connecting a different Claude organization, unlink the existing one in Claude Console. After disconnecting and linking again, enable each team that should resume linked billing.
+New requests use Warp billing or permitted API keys. Requests already in progress keep their original billing method.
+
+Disconnecting in Warp doesn't revoke the authorization in Claude Console. To revoke it or connect a different organization, open **Linked Platforms** in Claude Console and unlink Warp.
+
+After disconnecting and linking again, enable each team that should resume linked billing.
 
 ## Related pages
 
