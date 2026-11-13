@@ -29,10 +29,18 @@ change is provably a mechanical config update.
    node .agents/skills/afdocs-audit/scripts/afdocs_audit.mjs --output /tmp/afdocs-report.json
    ```
 2. Read the report and cross-reference against `afdocs-audit/references/known-exceptions.md` to identify which issues are genuine (vs. allowlisted).
+3. Proceed only after a successful audit with `scan_reliability.status: complete`
+   and after reporting its provenance, findings, and exceptions. Invalid,
+   partial, or failed scans are observations, not inputs to automatic fixes.
+   With scheduled standing authorization or an explicit repair request, fix
+   understood repo issues without asking for selection, even if no new
+   regression occurred. Include warnings as well as failures.
 
 ## Fix procedures by check
 
-For each failing or warning check, follow the procedure below. Skip checks listed in `known-exceptions.md`.
+For each failing or warning check, follow the procedure below. Skip a finding
+only after verifying that its affected URL and diagnostics match
+`known-exceptions.md`; a listed check ID alone is not an exception.
 
 ### llms-txt-directive-html (Content Discoverability)
 
@@ -202,16 +210,24 @@ This skill maintains **one** long-lived fixes PR rather than one per run — see
    gh pr list --repo warpdotdev/docs --state open \
      --search 'AFDocs fixes in:title' --json number,headRefName
    ```
-2. Check out the standing branch. If the PR exists, continue on its branch and rebase; otherwise create it from `main`:
+2. Fetch the standing branch if it exists and preserve its pending fixes. Create
+   it from current `origin/main` only when it is absent. Merge current `main`
+   into the shared branch; never rebase, reset, or force-push another run's work:
    ```bash
    git fetch origin
-   git checkout afdocs-fixes 2>/dev/null || git checkout -b afdocs-fixes origin/main
-   git rebase origin/main
+   # Check out the existing local/remote afdocs-fixes branch, or create it from origin/main.
+   git merge origin/main
    ```
-3. Apply the fixes for each failing check (skip allowlisted checks). If a fix on the existing branch already addresses a check that is still failing, do not duplicate it — the audit may have run before the PR merged.
+3. Apply understood fixes for genuine failing **and warning** checks, plus
+   verified audit-tooling defects. Skip only verified exceptions, not every
+   occurrence of an exception's check ID. Diagnose source and generated output
+   before changing content. If a fix on the existing branch already addresses
+   a finding, do not duplicate it — the audit may have run before the PR merged.
 4. Validate with the ordered repository checks in `AGENTS.md`.
 5. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
-6. Push. If the PR already exists the push updates it; otherwise open one with `gh pr create`.
+6. Push. If the PR already exists the push updates it; otherwise open a draft
+   PR with `gh pr create --draft`. Report fixed, pending, and deferred findings
+   with reasons; do not claim deployed improvements from a local build.
 
 Never leave two open AFDocs PRs. If you find more than one, consolidate onto `afdocs-fixes` and close the extras with a comment pointing at the survivor.
 
