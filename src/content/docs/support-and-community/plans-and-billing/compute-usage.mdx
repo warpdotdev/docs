@@ -1,0 +1,29 @@
+---
+title: Compute usage
+description: >-
+  Warp-hosted compute charges depend on the sandbox's rate and metered lifetime,
+  including setup, execution, and idle time.
+---
+import { VARS } from '@data/vars';
+
+Compute usage pays for the sandbox used by an agent on Warp-hosted compute. Its cost is the sandbox's rate multiplied by its metered lifetime, not its CPU utilization or billable agent hours. Find the rates by operating system and shape in [Usage and billing](/support-and-community/plans-and-billing/credits/#hosted-compute-rates).
+
+## When compute charges apply
+
+Cloud runs on Warp-hosted compute incur compute charges, whether started from the Warp app, an integration, the CLI, or the {VARS.WARP_PLATFORM_API}.
+
+Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/self-hosting/) do not incur Warp-hosted compute charges. [Platform charges](/support-and-community/plans-and-billing/platform-credits/) can still apply.
+
+## Compute metering
+
+For a newly created sandbox, compute is metered from creation to destruction. This includes setup, command execution, and idle time while the sandbox remains running. If a run receives a prewarmed sandbox, that run's metering starts when the sandbox is assigned to it.
+
+Elapsed time is charged proportionally, including partial minutes; it isn't rounded up to whole minutes or hours. Compute can continue after the agent stops responding if the sandbox stays available. Compute charges are recorded when the sandbox is finalized.
+
+For example, if a sandbox exists for 10 minutes and the agent has 6 billable minutes, compute uses the 10-minute lifetime. Platform usage uses the 6 billable agent minutes. See the [example cloud run](/support-and-community/plans-and-billing/credits/#example-cloud-run) for the combined charge.
+
+## Related pages
+
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, platform, and compute rates
+* [Runners for Warp Factories](/factories/runners/) - Operating systems, architectures, and instance shapes
+* [Platform usage](/support-and-community/plans-and-billing/platform-credits/) - Billable agent time and eligibility
