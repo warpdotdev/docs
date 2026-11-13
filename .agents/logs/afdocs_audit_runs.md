@@ -1,5 +1,20 @@
 # AFDocs audit run log
 
+## 2026-11-13 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 90/100 (A-)
+- **Reliability**: complete sampled scan at 08:02:42 UTC; 50 of 420 discovered pages sampled. All reported fetch-error, rate-limit, and discovery-warning counts are zero. Bot protection passed across 531 native requests, with no challenges, stalled bodies, blocked responses, or failed requests. This is a complete sample, not an exhaustive audit of every page.
+- **Checks**: 28 total — 23 pass, 2 fail, 1 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 2 checks. `llms-txt-links-markdown` flags the two intentional OpenAPI YAML/JSON links among 16 tested links; machine-readable specifications do not need Markdown variants. `content-negotiation` reflects Vercel's static-serving limitation (0/50 Accept-header requests returned Markdown); explicit `.md` URLs passed 50/50. No hosting-policy or representation changes are needed for these exceptions.
+- **Oz run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1d3eb-afa8-7435-8a67-9dc5a744342b
+- **Comparison**: Score-drop regression against the most recent complete comparable entry, 2026-11-06: 92/100, v0.6.0, native afdocs CLI score. Score decreased by 2; no newly failing check IDs. The additional warning is sample-dependent page size, not a demonstrated content change. Partial, blocked, legacy, and compatibility entries are excluded from this native-score comparison and its future baselines.
+- **Remaining**: One warning, `page-size-html`, on `/changelog/2025/`: 215,513 HTML characters convert to 57,745 characters, above the 50,000-character warning threshold and below the 100,000-character failure threshold. The known-exception reference explicitly names `/changelog/2026/`, not this archive; the exception has not been silently expanded.
+- **Interaction effects**: None reported. Diagnostic effects do not add a score penalty.
+- **Owner action**: Review whether the 2025 changelog's size warrants an explicit accepted exception. No automatic splitting, redesign, or rewriting of this historical archive. No understood, bounded repo-fixable finding remains, so `afdocs-fix` was not read or invoked.
+- **Validation**: Required repo-local audit command exited 0; retained report JSON parsed and all 28 statuses reconciled with its summary. Full original check diagnostics and the exit-code receipt are retained as run artifacts. No source fixes were made, so the ordered public-doc build/test suite was not run. Trunk is unavailable; no lint or formatting success is claimed.
+- **Notes**: Node.js 24.0.0, npm 11.3.0, GitHub repository access, and connected Slack MCP channel access verified. The attempted standing-branch fetch reported a missing ref; a successful remote-head query confirmed the branch absent, and the current-main log and open-PR lookup were read before writing. Created the standing branch from current `main` in an isolated log worktree, preserving all prior entries. Only this log is staged. No public-doc, CDN/WAF, standalone schedule, merge, or deployment changes. One actionable regression notification is eligible, subject to a full-UTC-day Slack history check and same-title deduplication; delivery is recorded in run output.
+
 ## 2026-11-06 — valid
 - **Spec**: v0.6.0 — native afdocs CLI score
 - **Score**: 92/100 (A-)
