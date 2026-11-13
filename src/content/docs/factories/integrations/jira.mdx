@@ -16,24 +16,30 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 * A Jira site admin to install the Warp app and connect the site to your Warp workspace.
 * A factory in the connected workspace and permission to edit its [definition](/factories/factory-as-code/).
 
+## Install Warp for Jira
+
+Connect the Jira site to your Warp workspace before selecting projects for a factory. You need permission to connect workspace integrations in Warp and a Jira site admin to install the app.
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open the top-level **Integrations** page, open **Jira**, and click **Connect**. You can also start Jira setup while creating a factory. Reuse an already connected site instead of installing it again.
+2. Open the installation link, choose your Jira Cloud site, review the requested permissions, and install the Warp app.
+3. In Jira, open **Apps** > **Manage apps**, find **Warp**, and click **Configure** or **Get Started**.
+4. On the app configuration page, click **Connect to Warp**. Sign in to Warp if prompted and finish connecting the site to your workspace.
+5. Return to the Jira configuration page and confirm it says “Connected to Warp.” Return to Warp and continue with [factory project selection](#connect-jira-and-add-an-automation).
+
+If you aren't a Jira site admin, choose **Someone else** during setup and email the request or copy the approval link to a site admin. The link expires after seven days; resend or revoke it while the request is pending. The site admin installs the app, opens its **Configure** or **Get Started** page, verifies the named workspace and requester, and clicks **Approve** only for the expected request. Once the site is connected, return to Warp to select the factory's projects.
+
 ## Connect Jira and add an automation
 
-1. **Open Jira setup.** Choose **Jira** while creating a factory. To connect it later, open the top-level **Integrations** page in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, find **Jira**, and click **Connect**.
-2. **Install Warp for Jira and connect the site.** A Jira site admin installs the app on the Jira Cloud site. In Jira, open **Apps** > **Manage apps** > **Warp** > **Configure**, then click **Connect to Warp**. Once connected, Jira is available to every factory in the workspace. See the [Jira installation steps](/platform/integrations/jira/#setup) for the full app flow.
-
-If you aren't a Jira site admin, choose **Someone else** during setup and email the request or copy the approval link to a site admin. The link expires after seven days, and you can resend or revoke it while the request is pending.
-
-3. **Connect Jira to the factory.** In the factory dashboard, open **Settings** > **Integrations**, connect **Jira**, select the projects this factory works with, then click **Enable**. If you connected Jira while creating the factory, select the projects before finishing setup. Each factory opts in separately even though the Jira site is connected to the workspace.
-
-4. **Configure the Jira automation.** In the factory dashboard, open **Automations**. If you selected Jira projects during factory creation, edit the existing Jira automation. Otherwise, add a trigger for **Jira** > **Agent session created**. Choose the agent that handles the work, select the projects, and optionally add keywords to narrow which sessions start runs.
-
-5. **Test the connection.** Assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
+1. [Install Warp for Jira and connect the site](#install-warp-for-jira) if it isn't already connected to your workspace.
+2. In the factory dashboard, open **Settings** > **Integrations**, connect **Jira**, select the projects this factory works with, then click **Enable**. If you connected Jira while creating the factory, select the projects before finishing setup. Each factory opts in separately even though the Jira site is connected to the workspace.
+3. In the factory dashboard, open **Automations**. If you selected Jira projects during factory creation, edit the existing Jira automation. Otherwise, add a trigger for **Jira** > **Agent session created**. Choose the agent that handles the work, select the projects, and optionally add keywords to narrow which sessions start runs.
+4. Assign or mention **Warp** on a test work item with a read-only instruction, such as “Summarize this work item without changing it.” Confirm the run appears under the matching automation and the summary returns in the Jira agent session. If Jira asks you to authenticate, [link your own account](#connecting-your-jira-account-to-warp), then retry.
 
    The **Warp** agent must be available on your Jira site to assign or mention it. Jira lists it among Atlassian's Rovo agents.
 
    {/* VISUAL: A Jira work item assigned to Warp, showing the resulting agent session. */}
 
-The standalone Jira integration uses the `warp-agent` label to start cloud agent runs. Factories use an automation instead.
+The [standalone Jira integration](https://docs.warp.dev/platform/integrations/jira/) uses the `warp-agent` label to start cloud agent runs. Factories use an automation instead.
 
 ### Configure the automation as code
 
@@ -55,6 +61,17 @@ Handle the Jira assignment and return a concise result.
 ```
 
 This automation sends Jira sessions from the `ENG` project to the agent named `foreman` when their assignment text contains `investigate` or `fix`. Commit and push the files to apply them. See [definitions as code](/factories/factory-as-code/) for the full syntax.
+
+## Connecting your Jira account to Warp
+
+Each teammate links their own Jira account so Warp can identify who requested work. Personal linking doesn't require Jira admin access.
+
+1. In Jira, follow the connection link from Warp's authentication prompt, or open your profile's **Personal settings** and the **Warp Account** app page.
+2. Click **Connect Warp account**. In the Warp page that opens, sign in with your Warp account if prompted and finish connecting.
+3. Confirm the Warp page says “Jira account connected.” Reload the Jira personal settings page and confirm it says “Warp account connected.”
+4. Retry your factory assignment or mention and confirm its run appears under the matching automation.
+
+To unlink your personal account, click **Disconnect** on the Jira personal settings page. This removes your account link, not the site's Warp app or the factory's project selection. A Jira site admin manages [app uninstallation](#permissions) separately.
 
 ## Filter which sessions start runs
 
@@ -96,7 +113,7 @@ The [Warp Marketplace listing](https://marketplace.atlassian.com/apps/2476990014
 
 [Jira scopes](https://developer.atlassian.com/platform/forge/manifest-reference/scopes-product-jira/) don't override Jira permissions or issue-security rules.
 
-* **A connected Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
+* **A connected Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
 * **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
 Warp's built-in Jira tools use a person's linked Jira account:
@@ -116,7 +133,7 @@ To withdraw the app's site access, a site admin manages or uninstalls it in [Atl
 
 * **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace. If someone else is completing setup, confirm that their setup link is still active.
 * **No run starts** - Confirm an enabled `agent_session_created` automation exists, its agent is available, and its project and keyword filters match the assignment.
-* **Jira asks you to connect an account** - [Link your own Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp), then retry the assignment or mention. Installing the app and connecting the site doesn't link every teammate's account.
+* **Jira asks you to connect an account** - [Link your own Jira account to Warp](#connecting-your-jira-account-to-warp), then retry the assignment or mention. Installing the app and connecting the site doesn't link every teammate's account.
 * **Jira tools say the automation's creator needs to connect** - The automation creator must link their Jira account to Warp using the tool response's **Connect Warp** link.
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
 * **A Jira update fails** - Confirm the app can access the work item's project and that the requested action or workflow transition is valid.
