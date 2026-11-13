@@ -140,6 +140,8 @@ The onboarding tools from `list_teams` through `create_factory` require browser 
 | `start_connection` | Starts or checks setup for GitHub, GitLab, Slack, Linear, or Jira. |
 | `get_connection_status` | Checks whether a browser authorization flow completed. |
 | `create_factory` | Creates a factory with the selected repositories, integrations, and optional factory agents. |
+| `attach_integration` | Adds Slack, Linear, or Jira to an existing factory, keeping the integrations it already has. |
+| `start_factory_learning` | Starts a factory's learning run, which inspects its definition, integrations, and repository conventions, then writes factory-specific skills. Uses credits. |
 | `list_tasks` | Lists the tasks in one factory, with filters such as creator, stage, and date. |
 | `search_task` | Searches task titles across all factories you can access. |
 | `get_task` | Reads a task's status, run history, and outputs. Accepts a task ID or a reference such as a URL, issue, pull request, or branch. With `start_working=true`, also returns local setup guidance. |
@@ -147,6 +149,7 @@ The onboarding tools from `list_teams` through `create_factory` require browser 
 | `get_conversation` | Reads a task's foreman conversation. |
 | `send_task` | Creates a new task, or hands work back to an existing one. |
 | `list_notification_routes` | Lists the notification destinations available to you in a factory. |
+| `list_inbox` | Lists your unresolved Factory Inbox items, such as pull request reviews and questions waiting on you. |
 | `complete_task` | Marks a task complete. |
 
 ## Related pages
