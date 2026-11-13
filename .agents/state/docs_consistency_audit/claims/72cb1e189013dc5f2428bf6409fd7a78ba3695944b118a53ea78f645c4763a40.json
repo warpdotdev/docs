@@ -5,7 +5,7 @@
       "claim_content_fingerprint": "sha256:249a03cfda30c1f6c888af5b3f648c4e87d87ca5be1caf1f75c2f13fad892756",
       "claim_id": "sha256:882f4a4134e8723bc27b9e242bd35619766cbb5706ffa9292ee9cbb788b38ed4",
       "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "used-for-training",
       "qualifiers": {
@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
         "heading": "Is my data used for model training?",
         "heading_anchor": "is-my-data-used-for-model-training",
         "line_end": 24,
@@ -48,7 +48,7 @@
       "claim_content_fingerprint": "sha256:a5504baa122504b080172bcb17056ba35f6beefb7926ee52146eb2523bbe103a",
       "claim_id": "sha256:810fdee2c80ecd55639ecf91e5e22fab2596dba8df365d363bf9d54c79a758a4",
       "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "retained-by-model-provider",
       "qualifiers": {
@@ -71,7 +71,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
         "heading": "Is my data used for model training?",
         "heading_anchor": "is-my-data-used-for-model-training",
         "line_end": 24,
@@ -93,7 +93,7 @@
       "claim_content_fingerprint": "sha256:c3822182786d6fdcbdf4fb819c56615820a728fee8bb0dc2e24bada1385bb6e1",
       "claim_id": "sha256:980c4e550c83668dabec79297e97310e7eafd897d9eed1e447f07aa00fb99f03",
       "entity": "warp-managed-inference",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "zero-data-retention-available",
       "qualifiers": {
@@ -116,7 +116,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
         "heading": "Is my data used for model training?",
         "heading_anchor": "is-my-data-used-for-model-training",
         "line_end": 24,
@@ -135,12 +135,202 @@
     },
     {
       "category": "plan-gating",
-      "claim_content_fingerprint": "sha256:4773c3bfa4dcfe93c764926fa38fd3d868ca47df752b5f9a82056145325febb2",
-      "claim_id": "sha256:bb50e2ab42dec3819a61ddf9485f0423f01c42881d0f278caf864f62eee0dfda",
+      "claim_content_fingerprint": "sha256:4f40d65697d8e9dca19598a7cc7d5747169555758ca4ed0bef70ea8183e3b400",
+      "claim_id": "sha256:e9ba0541e64bf12f050cee7b151217df59fb4cbe6cc467c8ef1805cfdc551a5d",
       "entity": "byok",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "available",
+      "qualifiers": {
+        "actors": [
+          "individuals",
+          "organizations-up-to-10-employees"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "subject-to-terms-of-service"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "build",
+          "free",
+          "max"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "BYOK)](/agents/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "Can I use my own LLM API key?",
+        "heading_anchor": "can-i-use-my-own-llm-api-key",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:40fe4d0ed30aa8546077ecde0f5e4bcc8ec9efb46f6f224ef099124937b90a65",
+      "claim_id": "sha256:5cd661567f0f87b507f27780f8f8858d347cae50cfd0c50fed066fc6feb618f3",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which also work for cloud agents.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "Can I use my own LLM API key?",
+        "heading_anchor": "can-i-use-my-own-llm-api-key",
+        "line_end": 34,
+        "line_start": 34,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:89d542032bc2d0a5f0b835b4af2dbb0016900fcc9fd93cb3ed8660c4db59139a",
+      "claim_id": "sha256:319808bc826d12eac0795c7d064d3b597121b41fde67ebae58e0b171ba1a8aa8",
+      "entity": "claude-consumer-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp doesn't support connecting a Claude consumer subscription.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "Can I use a ChatGPT or Claude subscription with Warp?",
+        "heading_anchor": "can-i-use-a-chatgpt-or-claude-subscription-with-warp",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:7b2f99fa1220a6b8ea0a3904c3d4f45ea538907b8af0c935fbd781eb222b107c",
+      "claim_id": "sha256:49966e22ba221fadd4cff2f8232610792b0fe196cfd2521ebcc1a8dec35a4c02",
+      "entity": "warp-provided-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "rate-basis",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "self-serve-dollar-billed"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On plans billed in dollars, Warp-provided inference is priced at public API rates.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "Billing",
+        "heading_anchor": "billing",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "public-api-rates"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:441dc1909edc9150dd368e4b4db46b1051167262fec272c6ee1f4fe603780333",
+      "claim_id": "sha256:d2c1b7e0b4e09e01acc6f79731d795e52716e3f4b5c135a3f291c46dcdfb5ce0",
+      "entity": "free-plan-usage-purchases",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-subscription",
       "qualifiers": {
         "actors": [],
         "architectures": [],
@@ -157,29 +347,117 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "BYOK is one way to keep using the Warp Agent on the Free plan.",
+      "quote": "purchase usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing.",
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
-        "heading": "Can I use my own LLM API key?",
-        "heading_anchor": "can-i-use-my-own-llm-api-key",
-        "line_end": 32,
-        "line_start": 32,
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "Billing",
+        "heading_anchor": "billing",
+        "line_end": 48,
+        "line_start": 48,
         "path": "src/content/docs/agents/getting-started/faqs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/getting-started/faqs/",
         "visibility": "public"
       },
       "source_class": "faq",
-      "topic": "plan-gating",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:ee714dd5aa44ffabbbeeb689e51dcd3b053d607f0d25a57014e66be16b6cc296",
+      "claim_id": "sha256:880f3415539e253051ae14ada1e113eaa0111f871d12c585a713f6c4cabc3aa2",
+      "entity": "free-plan-usage-purchases",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "priced-at-premium",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Purchases are priced at a premium.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "Billing",
+        "heading_anchor": "billing",
+        "line_end": 48,
+        "line_start": 48,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:b9c1fce523dce38f428a4dd49086aeee2514090466fc8137eed2324d8858b7da",
+      "claim_id": "sha256:669f9fe92152489092672f4427bf919f809b1024f9bff0241d22877f99eab0d3",
+      "entity": "message-token-limit",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "input-includes-context",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "your input (plus attached context) exceeds the maximum context window of the model you're using.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "heading": "\"Message token limit exceeded\" error",
+        "heading_anchor": "message-token-limit-exceeded-error",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "product-behavior",
       "value": {
         "normalized": true,
         "type": "boolean"
       }
     }
   ],
-  "page_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+  "page_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
   "path": "src/content/docs/agents/getting-started/faqs.mdx",
   "schema_version": 1
 }

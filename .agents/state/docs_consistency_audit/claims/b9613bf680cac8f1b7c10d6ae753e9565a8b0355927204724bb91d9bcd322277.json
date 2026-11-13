@@ -1,6 +1,720 @@
 {
-  "claims": [],
-  "page_sha256": "5ca50027057a6d9964d780a5dc99b116d51fd1e72f90a0cc3cfd7f4322d3bce2",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:4f5622c894ac28b125c39a2e26f0b5332c5699dd4807ce305dc6dea9603640b6",
+      "claim_id": "sha256:76bf6808f248bed00b7768a1cb49bb9cb78cbe1e33a00667c8ec2e2afc014834",
+      "entity": "mcp-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "transport-support",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp supports a variety of connection protocols, including Streamable HTTP and SSE, along with custom headers and environment variables.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 10,
+        "line_start": 10,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "streamable-http",
+          "sse",
+          "command"
+        ],
+        "raw": [
+          "streamable-http",
+          "sse",
+          "command"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5b53a22b76047c7cfb9052bbe046d26dc60e16c5b2a075994f4d51bc4334bf9b",
+      "claim_id": "sha256:5da85458f0d31c90e632509dea6e430dc480eae8d97f2c99b48f20f7808a75bf",
+      "entity": "mcp-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "restart-running-servers",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If you close Warp with an MCP server running, it will run again on next start of Warp.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "How to access MCP Server settings",
+        "heading_anchor": "how-to-access-mcp-server-settings",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:70ad91535d926c5116993c8ccaaecf5f3d83c36e0bcc3d299a3fa8d1a1e0480c",
+      "claim_id": "sha256:fc52207fc5c1334235e4c62a72da665a2904a36e3cc27e21c7ff4b0ba399ea56",
+      "entity": "mcp-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "restart-stopped-servers",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "MCP servers that are stopped will remain so on next launch of Warp.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "How to access MCP Server settings",
+        "heading_anchor": "how-to-access-mcp-server-settings",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fc907af795e2dd1982141db2c6a42c86831fb0758b11b3cbf01ef2d061c79037",
+      "claim_id": "sha256:34f78c9c8a73a6e0a732b0022cbeb58d8765732651613f4b39533993096626a7",
+      "entity": "mcp-command-server",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "working-directory-required",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| `working_directory` | string    | No",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Adding an MCP Server",
+        "heading_anchor": "adding-an-mcp-server",
+        "line_end": 60,
+        "line_start": 60,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8b3619d77df406dc4181522a2068495a1929db0a63d882aab3caffa2058ede3c",
+      "claim_id": "sha256:d76def612e2f1f8658e3215602d49fe4a3336e7b8d32ce3355c8f337b0cb62f4",
+      "entity": "mcp-file-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "warp-global-location",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Warp | `~/.warp/.mcp.json` | `.warp/.mcp.json` at project root | On by default |",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 119,
+        "line_start": 119,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/.warp/.mcp.json",
+        "raw": "~/.warp/.mcp.json",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e7d724f8555868d02e9108f5388096e3e9ac5cc4a78a448c99f2d35790e5a0b9",
+      "claim_id": "sha256:19460ebd132f6cfabc8e6c26d1ef85d396a414ec6391218e3845e97554161761",
+      "entity": "mcp-file-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "claude-global-location",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Claude Code | `~/.claude.json` | `.mcp.json` at project root | Requires toggle |",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 120,
+        "line_start": 120,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/.claude.json",
+        "raw": "~/.claude.json",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c900a64266e0d2cd41793af618edcfb942902736109ac8b3a505527832f07644",
+      "claim_id": "sha256:a14e69fba5df58b95bf1de5724698f361a20410791db76175a1379b10ac6be97",
+      "entity": "mcp-file-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "codex-global-location",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Codex | `~/.codex/config.toml` | `.codex/config.toml` at project root | Requires toggle |",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 121,
+        "line_start": 121,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/.codex/config.toml",
+        "raw": "~/.codex/config.toml",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a04031ed92e7343cb8cb22151447bea6e4db13b9f26df9375bdb078a82293045",
+      "claim_id": "sha256:6da05d1937953a7e0afe12063f78e4233e374c7c93a5c35f99ed577800ca96e3",
+      "entity": "mcp-global-warp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "auto-spawn-default",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Global Warp servers auto-spawn by default.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6b4789b44ed630eb2f44f46172806feba866a36d2c2c17758ac158916be5e368",
+      "claim_id": "sha256:f1bb0f23f8a710865cb92d15b15aab86a99eba20d920a38270112b78afc45454",
+      "entity": "mcp-global-third-party",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "auto-spawn-requires-toggle",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Global servers from all other providers auto-spawn only when **Auto-spawn servers from third-party agents** is enabled.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5c00a50463698e1538be94238076488cf984b236eeb3cc636c4ff0d51fd4b854",
+      "claim_id": "sha256:b922f1b4e0c1c570df6b23a2d813ac68c3749970ef089effce85419b7b2edf12",
+      "entity": "mcp-project-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-explicit-approval",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Project-scoped servers from any provider require explicit approval.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e4dadfd6f099f604cc5c13ddc90ddf4877add829a05fdbc56b8ea1359b80ad34",
+      "claim_id": "sha256:9493ec9436a179fee332119f6b12aff25507432f48f90a66f55da312b620f6c4",
+      "entity": "mcp-project-servers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "approval-persists-after-restart",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "These are session-scoped \u2014 after restarting Warp, toggle them on again if you still trust the repo.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Auto-spawn behavior",
+        "heading_anchor": "auto-spawn-behavior",
+        "line_end": 142,
+        "line_start": 142,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0d4f04a51da6a8aac856473bb671f6e0afa0fc85e2e944e070dcfa546e16f9c9",
+      "claim_id": "sha256:c5ea9f7d401f0efc26bbf3926114e9ab659476566238474f8e7ec6301a783cdc",
+      "entity": "mcp-config-edits",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-approval",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp prevents edits to MCP config files unless you explicitly approve the change.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Security mitigations",
+        "heading_anchor": "security-mitigations",
+        "line_end": 159,
+        "line_start": 159,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4daf302f07a0ba922f13c1ae9b88168f505d703fddea46c3d8827a37e0fa0b67",
+      "claim_id": "sha256:bbcb694a82fbb03939c0cb0a88dfb56effb8df218b9aca7f43fb38998c9354f4",
+      "entity": "mcp-sharing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "scrubs-env-values",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When sharing, sensitive values in the `env` configuration will be automatically scrubbed and replaced with variables.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Sharing MCP servers",
+        "heading_anchor": "sharing-mcp-servers",
+        "line_end": 174,
+        "line_start": 174,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a87a02b1b2e10be32190c7e0f841963b9ecbc7cff71743cdff74b733e8fe6c48",
+      "claim_id": "sha256:82baa5cfdd271830453be8b3fe760ca5870bb05f87f03eec841735a39520e532",
+      "entity": "mcp-oauth",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "new-machine-reauthentication",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Re-authentication is required when opening Warp on a new machine.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Authentication in MCP servers",
+        "heading_anchor": "authentication-in-mcp-servers",
+        "line_end": 190,
+        "line_start": 190,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4ae239b8fc105cd628d64d4290e89b09dc266c0877a49e6842e45a95e04a34ef",
+      "claim_id": "sha256:2e8d4e3af569ebf4d9bb36e0df326f4e8d8e33c1022e01a788924d370d33215d",
+      "entity": "mcp-logs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-locally",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp saves the MCP logs locally on your computer.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/mcp",
+        "canonical_route": "/agents/capabilities/mcp",
+        "content_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
+        "heading": "Where MCP logs are stored",
+        "heading_anchor": "where-mcp-logs-are-stored",
+        "line_end": 221,
+        "line_start": 221,
+        "path": "src/content/docs/agents/capabilities/mcp.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/mcp/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "a696c4159f0c3a9f4c10022776a90f20f9785841272eed614128ae3529922dda",
   "path": "src/content/docs/agents/capabilities/mcp.mdx",
   "schema_version": 1
 }

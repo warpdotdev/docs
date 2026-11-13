@@ -1,6 +1,761 @@
 {
-  "claims": [],
-  "page_sha256": "0ee3deac74ea40f27ee564312dabafc420272794165560fd6cc8860531d5c29a",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:2d4293fd8188bd337616125c444d9f85c2840c31c22d3e293cc1407530a56e60",
+      "claim_id": "sha256:446c44a1900a9a6f4b703e8f7b9f61db5c52d10245d13e3bd47382933070bb0c",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "availability",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Agent Memory is in **research preview** and is enabled per team for design partners.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "team-enabled-design-partners"
+        ],
+        "raw": [
+          "team-enabled-design-partners"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9de9d37581630aa227ac9dfdf0f75e4ee34aaf417a34d35323dc41516028a4fe",
+      "claim_id": "sha256:0219aace3c77bf98a7535de8bb7c41a30d5128c85b6d6c9329347254100c499a",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "shared-harnesses",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "One memory system is shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "warp-agent",
+          "claude-code",
+          "codex"
+        ],
+        "raw": [
+          "warp-agent",
+          "claude-code",
+          "codex"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:558afc183825401ff10f6864cb153e8435f790813de40e4a5129c25ba62224d0",
+      "claim_id": "sha256:74014bd2d08dafd25b43968494b393a1577ff4fcf6c8e371d0c02de322d4d166",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "third-party-local-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Running third-party harnesses locally isn't supported during the research preview.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Where Agent Memory runs",
+        "heading_anchor": "where-agent-memory-runs",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:59c6d39cf0137a9bfc6495482c4e8ea97a99dd0aee231fe11c2df0d901e91501",
+      "claim_id": "sha256:91215cfddc0d19692dc07671dab348a577aee3aa8f579197b9460a2292cca4d9",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "local-warp-agent-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* The local Warp Agent.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Where Agent Memory runs",
+        "heading_anchor": "where-agent-memory-runs",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b46f999b61ef31adc48194eb740e894ec4d44cb37036b23ce5b2d131a748c274",
+      "claim_id": "sha256:9c4297a877575b597ebacd48c6a13e91609a72e8a8bc25e2bd21a6a9e3778cd7",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "creation-timing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Memory creation runs after a conversation ends.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "after-conversation-ends"
+        ],
+        "raw": [
+          "after-conversation-ends"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:48921f7254b6d18162c4c012d70260c685824e6e209c602b823be8653dd01e2f",
+      "claim_id": "sha256:7ff6cc62a0e47b10ffccf30605e5b849d5372db153ec77dfffeb4048e415ac50",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retrieval-timing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Retrieval runs in the background during a run.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "background-during-run"
+        ],
+        "raw": [
+          "background-during-run"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:100c2dbe7351384230340bc2417e7477a3aa5568afcd540412bc3da83b48fc75",
+      "claim_id": "sha256:cac6ff4d67f4f52854e5ad386c03a04dadc129054ca5a7621096b7b42e279455",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "active-task-token-consumption",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Neither consumes tokens or adds latency to the active task.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0ed69e2dee0bb40d8289f45f88e9c5d7d40809e4a1a59c22c0ba508f8d8fabeb",
+      "claim_id": "sha256:8a0cb175fd84c8ecaace8f9a469a8175d33e22c6665d2998d0884b46a97db9e7",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "automatic-creation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When a conversation finishes, Warp extracts durable facts, learnings, and outcomes from the transcript and writes them as memories.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Automatic memory creation from conversations",
+        "heading_anchor": "automatic-memory-creation-from-conversations",
+        "line_end": 70,
+        "line_start": 70,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:85cc40e20b094a1fd029af848804f82dbe3a8dfd21bd47af46d67285d569689c",
+      "claim_id": "sha256:71bc99b52d2ab80ece95281bf962f34ad65d9814840d082372b320e14be48fe6",
+      "entity": "memory-stores",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "owner-types",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Personal stores** - Owned by a user. Hold memories about preferences, working notes, and individual patterns.\n* **Agent stores** - Owned by an agent. A new agent gets one by default as its auto-memory store (see below).\n* **Team stores** - Owned by a team. Hold shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Attach a team store to any agent the team uses so everyone's work draws on the same knowledge.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Memory stores",
+        "heading_anchor": "memory-stores",
+        "line_end": 56,
+        "line_start": 54,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "personal",
+          "agent",
+          "team"
+        ],
+        "raw": [
+          "personal",
+          "agent",
+          "team"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:41b6f87c5f58f0cf79cda53387b521f3467e116f92fee0d43bc32f1155b39f14",
+      "claim_id": "sha256:61fe7d7da4580a356725907ababf30dc4b7141ed5696ddc2557896ba1ec51f5d",
+      "entity": "memory-stores",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "multi-agent-attachment",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "a store can be attached to a single agent or to several agents that need the same knowledge.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Memory stores",
+        "heading_anchor": "memory-stores",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5553e4873d53793f677957083c1ffadc3262aa6751ad8f8517ab4533f1920d77",
+      "claim_id": "sha256:680b4b791667ebf1dd815c722bc2f5d0eb5fe3d11a0b6fe78c431a40b184c15d",
+      "entity": "agent-auto-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Auto-memory** is on by default.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Auto-memory for new agents",
+        "heading_anchor": "auto-memory-for-new-agents",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f9af53ae1a3084170068adcc34ed1da71a530bae3473910b9bbc8bd3c4ec9e1d",
+      "claim_id": "sha256:0eb6d3e1416f1624b1174077a1d7da3910276445b3eff81e6db6a111f58cb21f",
+      "entity": "agent-auto-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stores-per-agent",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Each agent has a single auto-memory store.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Auto-memory for new agents",
+        "heading_anchor": "auto-memory-for-new-agents",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 1,
+        "raw": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3e59bf85cd5fe415d05c4e1bcb142a87bfaf24c73a62d0a4276933198515ad48",
+      "claim_id": "sha256:162db8b8b02d910b75c2e96e7a16955c2689c0146d88899a861503cd97f6b42a",
+      "entity": "memory-store-attachments",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "access-levels",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Attach stores to agents with read-only or read-write access.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Attaching memory to your agents",
+        "heading_anchor": "attaching-memory-to-your-agents",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "read-only",
+          "read-write"
+        ],
+        "raw": [
+          "read-only",
+          "read-write"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2d20d24ca8d167d235c178494a0408a8e58ce12b90de6be0d861572b3a1bfc3d",
+      "claim_id": "sha256:dc8037f124badac35e61e69bfc1b31fb8400ab8f11ddcd2975d21adf9aee15bc",
+      "entity": "memory-store-attachments",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "instructions-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Instructions are required on every attachment so the agent knows the purpose of each store.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Attaching memory to your agents",
+        "heading_anchor": "attaching-memory-to-your-agents",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9e310744eb81c2650f8c0dea2f81527014acd6d5a6354851897aa21cb48e7856",
+      "claim_id": "sha256:3f5eba83d3862c4b4fcfad4c3c91984fb058a1be248a795349a8287806abdda9",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "api-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "These capabilities aren't part of the research preview yet, but they're on the way:\n\n* **Programmatic API access**",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Coming soon",
+        "heading_anchor": "coming-soon",
+        "line_end": 88,
+        "line_start": 86,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4a69ce8a65ab6f6af341bf4bd0e857b9c83765b1ea5c7978137ca6a89b9f7dcd",
+      "claim_id": "sha256:16e2fa75170155fd16d6f4f9f0546380dce1e582e6834b03cea241281a903550",
+      "entity": "agent-memory",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "self-hosting-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "research-preview"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Self-hosting support** - Run Agent Memory on a [self-hosted {VARS.WARP_AUTOMATION_PLATFORM}](/factories/self-hosting/) instance to meet security, privacy, and compliance requirements.",
+      "source": {
+        "canonical_identity": "route:/agents/agent-memory",
+        "canonical_route": "/agents/agent-memory",
+        "content_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
+        "heading": "Coming soon",
+        "heading_anchor": "coming-soon",
+        "line_end": 89,
+        "line_start": 89,
+        "path": "src/content/docs/agents/agent-memory/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/agent-memory/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "2e8a4fc048f930c072a00a5975856cbd4325ff6220d00c79c39959cbeb651fa1",
   "path": "src/content/docs/agents/agent-memory/index.mdx",
   "schema_version": 1
 }

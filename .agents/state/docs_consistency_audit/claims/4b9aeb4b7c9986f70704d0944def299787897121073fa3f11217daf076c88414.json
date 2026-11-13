@@ -1,5 +1,133 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:947ec8eb9fd3cdf101c4d496b9a3b586482b4201aa60b70f8463f96d441a2bb4",
+      "claim_id": "sha256:64e0a8ce72ebe149afad5c7e955a4536d2251eadf8a9952ad3b7393a32616296",
+      "entity": "sso-existing-accounts",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "linking-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If you have an existing Warp account from before your organization enabled SSO, [link your Warp account to SSO first](https://app.warp.dev/link_sso).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/quickstart.mdx",
+        "content_sha256": "62916288216d92edc5c19b03bd18c4c141d93c70a7dc80d9ce9fb4f1bdd0b99b",
+        "heading": "1. Log in via SSO",
+        "heading_anchor": "1-log-in-via-sso",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/enterprise/getting-started/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:19b268f9a2f9b2904fad8f74e5e6e1c15892a0966b9162ac02564c6aa95a5d76",
+      "claim_id": "sha256:ec0f5bf20a1f54b3d935db733b547184759e871b176e3a48a6f7a0855faca6a6",
+      "entity": "codebase-indexing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "automatic-on-repo-navigation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "enterprise-quickstart"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp automatically detects the repo and begins indexing.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/quickstart.mdx",
+        "content_sha256": "62916288216d92edc5c19b03bd18c4c141d93c70a7dc80d9ce9fb4f1bdd0b99b",
+        "heading": "Index your codebase",
+        "heading_anchor": "index-your-codebase",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/enterprise/getting-started/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f86cc1c05b77f80524146c5f85134ef96d42b4f9608a9d8d0be8a3122dc8e496",
+      "claim_id": "sha256:1f0f1190ac2a36620f9d2baea1f037badee6089e166c26e38a9ebab5e0671a8a",
+      "entity": "oz-agent-run-cloud",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "environment-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "oz agent run-cloud --env my-env --prompt \"Review the open PRs in this repo\"",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/getting-started/quickstart.mdx",
+        "content_sha256": "62916288216d92edc5c19b03bd18c4c141d93c70a7dc80d9ce9fb4f1bdd0b99b",
+        "heading": "Run a cloud agent",
+        "heading_anchor": "run-a-cloud-agent",
+        "line_end": 89,
+        "line_start": 89,
+        "path": "src/content/docs/enterprise/getting-started/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/getting-started/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--env",
+        "type": "flag"
+      }
+    }
+  ],
   "page_sha256": "62916288216d92edc5c19b03bd18c4c141d93c70a7dc80d9ce9fb4f1bdd0b99b",
   "path": "src/content/docs/enterprise/getting-started/quickstart.mdx",
   "schema_version": 1

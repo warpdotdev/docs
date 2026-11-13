@@ -1,6 +1,318 @@
 {
-  "claims": [],
-  "page_sha256": "610c7337a34602dac149af2af16c92ca3a8c6f501717f4cde9dd0b8bfba65170",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:61965b91a1d0bce8b8257c301eac7ac2b77939bd72c6bbf38503940accf5ee86",
+      "claim_id": "sha256:0c79b9b9dc5dc9b6e12bbc8285e2a3068c2177cc3a5cd7e98ecb64fd8e7e841f",
+      "entity": "chatgpt-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop-app"
+        ],
+        "exceptions": [
+          "eligible-openai-models"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Connect a ChatGPT subscription to use eligible OpenAI models with the Warp Agent in the Warp app.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 10,
+        "line_start": 10,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:66740e0a6c7fe0961d35119652b52365b1c7c134a3e9c55a5fbe99b4574cd5ca",
+      "claim_id": "sha256:eecc9011c108f7a3b4b81b2c7b2a00dd9853426c22bd38cca52515db143deecb",
+      "entity": "chatgpt-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop-app"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Connected requests count toward your ChatGPT limits instead of consuming Warp-provided inference usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 10,
+        "line_start": 10,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:69445db6e48b0b2ddbc514f4e5378a6775b1e4c699746315e9007704dfc7c127",
+      "claim_id": "sha256:a515545f73c8f0980f5476bdd9a252d74941714d8c4789d64775ed13fdf45ef4",
+      "entity": "openai-api-key",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "takes-precedence-over-chatgpt-subscription",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A saved OpenAI API key takes precedence over the ChatGPT connection.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "Use your ChatGPT subscription",
+        "heading_anchor": "use-your-chatgpt-subscription",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:190341d1cc06c64354f7715a21868d1fe68febfdd3f0a20dff1bdb4f5312a9f6",
+      "claim_id": "sha256:d49b5ee348936cb03ca89ad6bebd0a0f4d9036ca847fd368a3d6c7006a8f9c2e",
+      "entity": "auto-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "customer-chatgpt-subscription"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Auto** models use Warp-provided inference and consume your available Warp usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "Use your ChatGPT subscription",
+        "heading_anchor": "use-your-chatgpt-subscription",
+        "line_end": 45,
+        "line_start": 45,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:e095db2f77b0a614a146bfafbf51b92688fb3651577bc47726d6758d2b966ffd",
+      "claim_id": "sha256:c5b5864e3010e7804422a994f524d3ac7aee89c4ada5c4f68701b19acba50c46",
+      "entity": "chatgpt-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A ChatGPT subscription doesn't fund cloud agent runs.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "Use your ChatGPT subscription",
+        "heading_anchor": "use-your-chatgpt-subscription",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:7d217b174bdac38cbae61d5647089926ce3d935095650c7d90b24e88ef7ebfbc",
+      "claim_id": "sha256:4aa67148ae0cea3c40354fbbace13a70e151564c8b0b1d8937e9aebc7430d126",
+      "entity": "customer-supplied-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-platform-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On Business and Enterprise, local runs that use a ChatGPT subscription also incur [platform charges]",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "Use your ChatGPT subscription",
+        "heading_anchor": "use-your-chatgpt-subscription",
+        "line_end": 48,
+        "line_start": 48,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:0e2a9fb783a77c559f7e69413acb7365f719e10268699dddab7300217ac0afe6",
+      "claim_id": "sha256:4b611e6fb594096c67b9993c99c202b75b159609abf5575ba29d54b66feaf85a",
+      "entity": "chatgpt-warp-fallback",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "applies-for-rest-of-conversation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "user-selects-continue-with-warp-credits"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "consumes Warp usage for the rest of that conversation.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "content_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+        "heading": "Use your ChatGPT subscription",
+        "heading_anchor": "use-your-chatgpt-subscription",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/chatgpt-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
   "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
   "schema_version": 1
 }

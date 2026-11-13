@@ -2,7 +2,53 @@
   "claims": [
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:aed7fb98e75c82ac73daacebb3e848498bae62631ef64637fa9d763316d2f706",
+      "claim_content_fingerprint": "sha256:27f957f4a13cb1e19d8e292724d9acee4847f0d7373910f60dcda5756e65af65",
+      "claim_id": "sha256:766696a49994a5f17d86e6d7da5b0c37e9037e7f118c7266985d89469d6351e4",
+      "entity": "computer-use-pr-artifacts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "automatically-attached",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "are attached to the PR description automatically.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 12,
+        "line_start": 12,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:9be7b4c0066136ec891baba16596ad7b5e4cb05f37f25139887116941383357b",
       "claim_id": "sha256:26ce53eb5977ef6def7cc94d8999f4fc7528b19ee1c431c6a69b3ae24292e781",
       "entity": "computer-use-pr-artifacts",
       "extraction_confidence": 0.95,
@@ -26,11 +72,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "b8606682976e14ef36664d16cbe9faced3c3fbf660331eb8a63d154c056a53c1",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
         "heading": "What gets attached",
         "heading_anchor": "what-gets-attached",
-        "line_end": 17,
-        "line_start": 17,
+        "line_end": 16,
+        "line_start": 16,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -40,11 +86,426 @@
       "topic": "product-behavior",
       "value": {
         "normalized": 10,
+        "raw": 10,
         "type": "integer"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:cbf8dab2259d967a43851930596c48cea2e93136bb2583fe2a2ce1b76fec7128",
+      "claim_id": "sha256:ac4a6cd9ff0bfd3d6ee5898d37e1137a511cd1f53a975a10110128fb29288bd8",
+      "entity": "computer-use-pr-artifacts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "attachment-timing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "once a screenshot or recording artifact is associated with the run, the agent includes it the next time it creates or updates a pull request.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "What gets attached",
+        "heading_anchor": "what-gets-attached",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "next PR creation or update after association with the run",
+        "raw": "next PR creation or update after association with the run",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:9f304e2ddf009abd7c7477337a2a26582a46ee1585011a5b11dac7f8a00c4ac7",
+      "claim_id": "sha256:8b42802b9402d9bf96804994b88fed92a2c11309c28756f52c8ae7682fd8c410",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "default-mode",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Link only (default)** - Screenshots and recordings are attached as private links to a media page that shows one capture.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Attachment modes",
+        "heading_anchor": "attachment-modes",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "link-only"
+        ],
+        "raw": [
+          "link-only"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:eca21c5bf2aea8645212d2c098003530fc6151e34d7d02cdf622295fd513e368",
+      "claim_id": "sha256:42877432af5fc6bd09001b58cca03ef9b28e0423e7e3e0dc70f2d2e2e9f50fc5",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "checks-viewer-access",
+      "qualifiers": {
+        "actors": [
+          "link-only-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp checks each viewer's access when they open the link.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Attachment modes",
+        "heading_anchor": "attachment-modes",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:1e112ae72a3e0a94d9eb41c60258fcdf82472def258ea9b07d19534f325c3ea0",
+      "claim_id": "sha256:bc8674fd0edc8cea442447091a6e1b02c00548d46075714b785923ebac064673",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "publicly-downloadable",
+      "qualifiers": {
+        "actors": [
+          "embed-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "In **Embed** mode, attached screenshots and recordings become publicly downloadable by anyone with the URL",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Attachment modes",
+        "heading_anchor": "attachment-modes",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:284bbfd177ddef582741fbdf474328ac662044e4c683e36a4d39fa802c692224",
+      "claim_id": "sha256:582528db957b0cebf4b96fb25c8cce056145666e3ba6564e8b4cba04ee801159",
+      "entity": "computer-use-pr-artifacts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "automatically-attached",
+      "qualifiers": {
+        "actors": [
+          "disabled-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Disabled** - No screenshots or recordings are attached to pull requests.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Attachment modes",
+        "heading_anchor": "attachment-modes",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:28e24477926c8ec2f67a292f522ade5c663526a05b2a7a87a26d69a207b659b8",
+      "claim_id": "sha256:0d0ed815040ab3e73730f9c88dbb395b49ea16717446bee82ef29306633cd825",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "configuration-actor",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team admins control the attachment mode from the [Admin Panel](https://app.warp.dev/admin/):",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Changing the attachment mode",
+        "heading_anchor": "changing-the-attachment-mode",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "team-admin"
+        ],
+        "raw": [
+          "team-admin"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:40f02896d568665ccb76b07531c318dcb99fd53aaaaa264d2d1261828b4f534a",
+      "claim_id": "sha256:288d7e0fecf2c39e53e943a2fce907eb2c36a98734cfdbc7ecf9a528216c19e4",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "shareable-runs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The agent receives links for captures from its current run and chooses the relevant ones. Captures from child agents stay with those child runs, so each child agent must share its own links.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Sharing captures outside pull requests",
+        "heading_anchor": "sharing-captures-outside-pull-requests",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "current run; child runs must share their own links",
+        "raw": "current run; child runs must share their own links",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:812086d8df49d19ac52f693e5b7cc366f003835fb4ba32254d2e50a8c4ce62fd",
+      "claim_id": "sha256:e60e40cb601e8d717bc5459aff0c1606654b15aa94adc88a19ceba1245f32bbd",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "embed-request-publishes-media",
+      "qualifiers": {
+        "actors": [
+          "embed-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Requesting those URLs makes the media public to anyone with the link.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Sharing captures outside pull requests",
+        "heading_anchor": "sharing-captures-outside-pull-requests",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:4d5574a787d4ea23c79caf06381dd1d4007d970a8cbb73e790b25dbc84a1393f",
+      "claim_id": "sha256:ed8a69b88f1a79d3c262d32a255b76341a246eee2466d63d52d878d473b19c3d",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "can-get-sharing-links",
+      "qualifiers": {
+        "actors": [
+          "disabled-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Disabled** - The agent can't get links for sharing captures.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "heading": "Sharing captures outside pull requests",
+        "heading_anchor": "sharing-captures-outside-pull-requests",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
       }
     }
   ],
-  "page_sha256": "b8606682976e14ef36664d16cbe9faced3c3fbf660331eb8a63d154c056a53c1",
+  "page_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
   "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
   "schema_version": 1
 }

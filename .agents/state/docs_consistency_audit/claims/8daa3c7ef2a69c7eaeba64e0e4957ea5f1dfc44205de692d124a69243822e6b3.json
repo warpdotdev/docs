@@ -1,5 +1,223 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:038d3e831467cfd3bb4d251b4ed8ec876fcfd077a51450561dc9a7b1bde120a1",
+      "claim_id": "sha256:a75af5656eba9ecdd500e16040b501fb400c28d6dcb63242f1773ac0addc64f5",
+      "entity": "sso-login",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "idp-initiated-login-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When launching Warp directly from Okta or another SSO provider's app dashboard, you may see an error like \"Unable to process request due to missing initial state.\" This is a known limitation with the authentication flow.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "content_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
+        "heading": "Can't open Warp from your SSO provider",
+        "heading_anchor": "cant-open-warp-from-your-sso-provider",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/troubleshooting-login/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:dac4297046759866c2d87f167915e735525d58650294c3646812e06f561d6d4f",
+      "claim_id": "sha256:4adce4c610fdbe4703bf6143283d94893113a9575dff842efc744e12bbb748ff",
+      "entity": "sso-existing-accounts",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "linking-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Click **Link SSO** to connect your existing account.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "content_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
+        "heading": "Previously logged in with another method",
+        "heading_anchor": "previously-logged-in-with-another-method",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/troubleshooting-login/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:ba2f3578a8c8c898c7bd6bec636eca0ff481d97b3cda4be1bef1a963cbdd3877",
+      "claim_id": "sha256:4088e705206b3485e8412c2bb3d0424bec99f15295e6f264a308308384a64958",
+      "entity": "safari-authentication",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-cookies",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Firebase Auth requires cookies to track login state.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "content_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
+        "heading": "Browser-specific issues",
+        "heading_anchor": "browser-specific-issues",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/troubleshooting-login/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d3721c685ea589e35818358ed7b56ddc89ec8d7d655dfc8522116cc228d9f0da",
+      "claim_id": "sha256:c380365b0bb44623ca45719806824167762ef80742f0e23ca64005b69e8af680",
+      "entity": "fraud-appeals",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "response-duration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "enterprise-faster-resolution"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Appeals may take 5\u201310 days.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "content_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
+        "heading": "Requesting an appeal",
+        "heading_anchor": "requesting-an-appeal",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/troubleshooting-login/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": {
+          "maximum": 864000,
+          "minimum": 432000
+        },
+        "type": "range"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:fe4007146e5913813454d3a947ad7479ff0451d82a1d9b33646f829d61a2be45",
+      "claim_id": "sha256:4aefd47e38c1269d8285fb170affb1a511995e37971c446334fee651909a89cb",
+      "entity": "login-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "manual-paste-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Paste the token into Warp.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "content_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
+        "heading": "Browser doesn't open when signing in",
+        "heading_anchor": "browser-doesnt-open-when-signing-in",
+        "line_end": 93,
+        "line_start": 93,
+        "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/support-and-resources/troubleshooting-login/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "2135a24098ef43d7e09d19957cbf805a076a7b368f7c5816d9eb10397a9e6b5a",
   "path": "src/content/docs/enterprise/support-and-resources/troubleshooting-login.mdx",
   "schema_version": 1

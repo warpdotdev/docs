@@ -1,6 +1,521 @@
 {
-  "claims": [],
-  "page_sha256": "3e56106dd9faed2ffbb9ffe0153452a34acece41f36b4986078ecc13464ca5d9",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:b91cbbbc874ca73a6d12dad4a712b991931d56685ae6bdb5ecf29ee9fb680a7e",
+      "claim_id": "sha256:4e83d5eebcee473ad1345cd97b805ac4b22c9d032c54527075d4fc8b38b16f42",
+      "entity": "new-terminal-sessions",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-mode",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Terminal mode is the default when you open a new tab or pane.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Terminal mode (default)",
+        "heading_anchor": "terminal-mode-default",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "terminal"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3e7fd6d90976f5307a205991f909e964fa0f9d0c2f09b81a74e360d3f07b32be",
+      "claim_id": "sha256:aa3f1992f8f4cf73c0481e13b6c770a98950fd075212d15572c269ff2845ad48",
+      "entity": "agent-toolbelt",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "layout-persists-across-restarts",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your layout persists across app restarts.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Customizing the input toolbelt",
+        "heading_anchor": "customizing-the-input-toolbelt",
+        "line_end": 92,
+        "line_start": 92,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c0beed0695d5f0512e59e6e8dc531b820d7cc98b92c0e8d44b367ea951f9589b",
+      "claim_id": "sha256:1ca259e7641296aceb6899cc321891f9abe27b5351e1c29180cc4e9c8e4df47d",
+      "entity": "agent-conversation-blocks",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "appear-in-terminal-block-list",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "only appear within that specific conversation and don't appear in the terminal block list.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Customizing the input toolbelt",
+        "heading_anchor": "customizing-the-input-toolbelt",
+        "line_end": 101,
+        "line_start": 101,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:28520f5845815b397a65a448d3e3c9fd794efc6d1baa41138b7780ed35ec5cbd",
+      "claim_id": "sha256:a4fe9a9920e2f5b6d0663fb83b5870572b5347c5c862d51033ef706a3f4dfbcc",
+      "entity": "agent-conversation-commands",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "automatically-included-as-context",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Commands executed within an agent conversation are included as context for subsequent prompts.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Customizing the input toolbelt",
+        "heading_anchor": "customizing-the-input-toolbelt",
+        "line_end": 105,
+        "line_start": 105,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:299a8732f9dddadae2733915bf1c75593feed0c6bd2535a7d1f80647b792cfbf",
+      "claim_id": "sha256:9980ef085b5237199801b4bb71ed815ce6359dab87a62bed942b6ac8c3369a4b",
+      "entity": "cloud-agent-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-in-cloud",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cloud agent conversations are always stored in the cloud.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Cloud agent conversations",
+        "heading_anchor": "cloud-agent-conversations",
+        "line_end": 128,
+        "line_start": 128,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:70d79bc5590b58cbb4f3a4815277fdcee8d0c72414d6da21738b597c6a1479f8",
+      "claim_id": "sha256:0ac1c96773bb093358f5336003d4e99b04e1ed9fcad8c8ecf1bc8b35b65cec49",
+      "entity": "input-autodetection",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "new-warp-users"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Auto-detection is enabled by default for new Warp users.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Defaults for new vs existing users",
+        "heading_anchor": "defaults-for-new-vs-existing-users",
+        "line_end": 183,
+        "line_start": 183,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1f4dd8f62d0e360e8023b066e0ee09e14cdda61359b45e697f1b15d9114df5e5",
+      "claim_id": "sha256:de43e56a38483ec4951d90708019e19f0d841ce72e5b2f26412c8d19341bd642",
+      "entity": "input-autodetection",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "pre-terminal-and-agent-modes-users"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For users who had Warp before Terminal and Agent modes were introduced, auto-detection is disabled by default",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Defaults for new vs existing users",
+        "heading_anchor": "defaults-for-new-vs-existing-users",
+        "line_end": 183,
+        "line_start": 183,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:dcdaa3a49a18ec370f66f7be59348f7ad47178898fb8d6c2b87e559a66a8c072",
+      "claim_id": "sha256:b3bd70b97b1a8e6c2d2e632e8cc3ee865241084b2a78230125e2fed4fce52240",
+      "entity": "input-autodetection",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "independent-mode-toggles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can control auto-detection separately for terminal mode and agent conversation view.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Settings",
+        "heading_anchor": "settings",
+        "line_end": 159,
+        "line_start": 159,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fa0bc457be0902b44525e67d59af8ed04a4075a5c9ff2ddeabb072a5955a23a6",
+      "claim_id": "sha256:fe0f4554c15f91ecede818f85a78a3a86b7f99b08af235fcc4f45e6ad01b1758",
+      "entity": "agent-input",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bang-prefix-forces-shell",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "In agent view, prepend `!` to your input to force it to run as a shell command",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Override methods",
+        "heading_anchor": "override-methods",
+        "line_end": 170,
+        "line_start": 170,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c0f68e282ffc6cd448b6da9d64e0007e8e5b8aff7ffeed59ecb81ee5e1cd6205",
+      "claim_id": "sha256:b01482ddf32e1ff306f4b6fc9557aa699176005e71e6fbcd043c0f5162183745",
+      "entity": "terminal-agent-quicksend",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "creates-new-conversation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "terminal-mode"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Pressing Enter will send your input directly to the agent in a new conversation",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 150,
+        "line_start": 150,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:33236bfbef356d88e5f3caa86c2aa84fdd269dacb8f4037ce00f258bf2210211",
+      "claim_id": "sha256:4e948f2665ce2c08d22a4f6b21baa4f615f4d81f53705280a2bc209a8c8de786",
+      "entity": "agent-slash-commands",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "terminal-mode-has-full-command-set",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Terminal mode exposes a reduced set focused on quick actions.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Using slash commands",
+        "heading_anchor": "using-slash-commands",
+        "line_end": 267,
+        "line_start": 267,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e25cdfd4cd87a24b7a4bbdcccc7a2ed22d37674f39e1c6e12ab60631992e20c4",
+      "claim_id": "sha256:ea12bc54c48c55b7c83cb5e5bda7e66716132f5afb832ae3050f2415a003835e",
+      "entity": "fork-and-compact",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "automatically-summarizes-conversation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use `/fork-and-compact` to fork and automatically summarize the conversation.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "canonical_route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes",
+        "content_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
+        "heading": "Forking conversations",
+        "heading_anchor": "forking-conversations",
+        "line_end": 285,
+        "line_start": 285,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "cd35fb2146cfac325ec2f48d2982bd00179aa6ad632d096232c1162f64c051fb",
   "path": "src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx",
   "schema_version": 1
 }

@@ -1,5 +1,220 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:695e4fa23a01354fa060d278acc1d6e719d0c4b77be432023261538b8a44694a",
+      "claim_id": "sha256:70c283f48345860c226207981d2c102c3cb9c2562965d5e40a859e6e14d44401",
+      "entity": "warp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "soc-2-type-ii-certified",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp is **SOC 2 Type II certified**",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+        "heading": "SOC 2 Type II",
+        "heading_anchor": "soc-2-type-ii",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:d3bd5514f044a996c5a86e3280e7adff7efcb6979f38a506ff489ceb7e112bea",
+      "claim_id": "sha256:8d1791273a182eb8111d478da80f6c162c51ca8c1657160451e43b91b8cbb3f0",
+      "entity": "soc-2-reports",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-upon-request",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise customers can request SOC 2 reports directly through the [Trust Center portal](https://trust.warp.dev), through their account manager, or by emailing [security@warp.dev](mailto:security@warp.dev).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+        "heading": "SOC 2 Type II",
+        "heading_anchor": "soc-2-type-ii",
+        "line_end": 23,
+        "line_start": 23,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:53b504d86da297c4bf8a0e519a6959958cb0e72b8f3a45fb557a848a18859c1b",
+      "claim_id": "sha256:ef93b48fce40e09f035de9db40420180d27aec877d562ef2414456b94701d94f",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "meaning they do not store or train on your data.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+        "heading": "Subprocessors",
+        "heading_anchor": "subprocessors",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:09338c7e76bea229ca44c1082f1adc244eb1417c6bb9221b0972ffc4cdf0a1ba",
+      "claim_id": "sha256:8ad2c8458c2bd656d81c99427cca2ac4e56507e583d568052c18bd81ff981dca",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [
+          "model-providers"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "meaning they do not store or train on your data.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+        "heading": "Subprocessors",
+        "heading_anchor": "subprocessors",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:05662ce61cd8e555a7c9f66dbb9db5a71b2db780463cd188260320eaa8cc1bd2",
+      "claim_id": "sha256:6c567af735771f47768ea06bb93b0b2b1f586446a8fba5b1f9e13bb2ebd3bad8",
+      "entity": "warp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "regular-security-assessments",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp conducts regular security assessments as part of its SOC 2 program.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+        "heading": "Penetration testing and vulnerability management",
+        "heading_anchor": "penetration-testing-and-vulnerability-management",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
   "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
   "schema_version": 1

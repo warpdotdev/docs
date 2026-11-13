@@ -1,6 +1,786 @@
 {
-  "claims": [],
-  "page_sha256": "d4ebe4f4d3ee86f97bc4973f9149bb00d06e84077806dd1220be56d4a39aff43",
+  "claims": [
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:fe4ced59b7edd6c6cf5f56100568b2a1a1ef18c6ad478b4a33409e1f44e58244",
+      "claim_id": "sha256:7269c359d7553e4f99576d1dd10101f4c4b402d33fb334bc45dc1e22244fe6e8",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "minimum-plan",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Gemini Enterprise BYOLLM is only available on Warp's Enterprise plan.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": "ENTERPRISE",
+        "type": "plan"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:9b58f525cd3b2f4215ba7389df5426bc236d2096ce820d0edf911600a33f244d",
+      "claim_id": "sha256:b46a4c5ae6a17bb5928892f8e6af15c9dd98797d1637a405eddf8e6ab44e5f3f",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-agents-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "[Cloud agent](/platform/) runs don't route through Gemini Enterprise yet",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:659b7085d410a7bf3deddc8b4b224f6f2962f16ec130379842cf677f452bb7bd",
+      "claim_id": "sha256:040a05643ee7bc0417ec357255e28698569d37bf805742437685d04f7ac075ba",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-model-providers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Route native Gemini models and Claude partner models available on Vertex AI through your project.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 26,
+        "line_start": 26,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "google",
+          "anthropic"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:aca7bc3cc647d7299c927452f3eb24b512273f615253ad3b933cbedda3de3c7d",
+      "claim_id": "sha256:76612930967fdae66a409dfd2175d161a926b9c78a8db53e220f6106a0800207",
+      "entity": "gemini-enterprise-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "authentication",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp uses the member's signed-in Warp session to issue a short-lived OIDC identity token, then exchanges it through Google Workload Identity Federation for temporary Google Cloud credentials.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "workload-identity-federation-from-warp-session",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8ace1874723d200383fc00779a2d8d137ee6cae33bbdfab4add2b2e9c23056cf",
+      "claim_id": "sha256:775472286e0e085b2632893421d88e938c5c2ea276f015b435fab5de5d5891ee",
+      "entity": "gemini-enterprise-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "refresh-before-expiration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Tokens are held in memory and refreshed automatically about five minutes before they expire.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Credential lifecycle",
+        "heading_anchor": "credential-lifecycle",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 300,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:825e91cddc548fc98d02bd2f8979af6cb865aae79a81ab46abe649320e97f6a0",
+      "claim_id": "sha256:716f88eb86a6aca17cedce28a6f012ce7b6918222acfbb48c94a0142483ac72c",
+      "entity": "byollm-cloud-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's servers never persist or log the access token.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Credential lifecycle",
+        "heading_anchor": "credential-lifecycle",
+        "line_end": 49,
+        "line_start": 49,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:23ad41547b44ac504c8cfe609d3fefb3141e774102a614e26cf9cf6c12e50205",
+      "claim_id": "sha256:5804adb5d9bfd46fa3824b953caa98fe89bc5b3ac337d1df5a7487b16e9072e5",
+      "entity": "gemini-enterprise-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "long-lived-keys-uploaded",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Service account keys, refresh tokens, and credential files are never uploaded to Warp.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Credential security",
+        "heading_anchor": "credential-security",
+        "line_end": 357,
+        "line_start": 357,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:a24552ebf8eb7c530d8785d6ede18a6c9f1d12f322dda85f7786d8f925ea9845",
+      "claim_id": "sha256:c55da8574d0c570d3522aeed2dacc165dbcfede609453e0309eaf20028037f0c",
+      "entity": "gemini-enterprise-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "access-token-sent-to-warp",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Eligible agent requests carry that access token, and Warp's backend uses it to call Vertex AI in your project with the configured location and model reference.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 39,
+        "line_start": 39,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:3f4e55db045eb387f8b055a8b1b850236414c7ae5049ec77911cfb114c07831e",
+      "claim_id": "sha256:d1058d283c2d278ba7f25597ed1e4efd629aa403b0d575dc3cf933a769ee070c",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "local-gcloud-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No local Google tooling or configuration is required.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Do members need the gcloud CLI installed?",
+        "heading_anchor": "do-members-need-the-gcloud-cli-installed",
+        "line_end": 402,
+        "line_start": 402,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:fd097bfec56e52779abd5f9296e22ecf718d2b594bf760def73bfdb5f2fdd906",
+      "claim_id": "sha256:a1da99ea0a675d593a9b5eb7593dfd0fcc8b755cac3b928f69b62c1b44ff7539",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "sign-in-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Gemini Enterprise isn't available to logged-out users.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Using Gemini Enterprise as a team member",
+        "heading_anchor": "using-gemini-enterprise-as-a-team-member",
+        "line_end": 313,
+        "line_start": 313,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:55f1591616ae86084dc44bffcf7494c04ea39bcdc4870ccb5eaf50d9e0a23580",
+      "claim_id": "sha256:2b488f9da80a338a31cb1f8432057e278c463f21c67ab14d8edd41d011d14be5",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "host-priority",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "1. AWS Bedrock\n2. Gemini Enterprise\n3. Direct API",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Host priority",
+        "heading_anchor": "host-priority",
+        "line_end": 330,
+        "line_start": 328,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "aws-bedrock",
+          "gemini-enterprise",
+          "direct-api"
+        ],
+        "type": "ordered-list"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:4668b3a81d8373ce083bc35ba93be866fd04a0884b0bcdc86b28d2c353d2c6de",
+      "claim_id": "sha256:ce6c5e1c16319503acaaf21ebc0904895c89fba7ac3e21d29a87cfba8bc254f7",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "host-priority-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The priority is fixed and not admin-configurable.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Host priority",
+        "heading_anchor": "host-priority",
+        "line_end": 332,
+        "line_start": 332,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:64629c01ec29caa9f27fcca574aa8d3088446dc6012c3d17fa405ee1df78523b",
+      "claim_id": "sha256:f9a5d19020ade0e508b74121be65a7a26f84e5a1764001a60b04e6031ee2b64d",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "disabling-any-direct-model-disables-auto",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Auto model selection is disabled if an admin disables **any** Direct API model, regardless of Gemini Enterprise configuration.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Auto model selection",
+        "heading_anchor": "auto-model-selection",
+        "line_end": 340,
+        "line_start": 340,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:3f341c263b7900cf0fd04bc945c636780a0049e50afaf0fd19142ab33a686814",
+      "claim_id": "sha256:c9efe87356d86f1f767f3dd6a9de0ca1944704862cb99a95ef6678dd03c647cc",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Google Cloud bills your project; the request does not consume Warp-provided inference usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 346,
+        "line_start": 346,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:cfa44dbf35c68eb9e70586ee4e0a6a4e737327035b2272205c510cae8b6a2611",
+      "claim_id": "sha256:692c4dd826fd6b294414ab3044ebc7ade3dffaac1769740f35ea8e79402f1260",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "platform-charges-apply",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Local agent runs using Gemini Enterprise incur [platform usage](/support-and-community/plans-and-billing/platform-credits/).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 347,
+        "line_start": 347,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:a2e1f0814f3e8a2fdc4bfd172865e29c33e4b455f91b4dde4f08dcd3194f61b6",
+      "claim_id": "sha256:1ff2871a1c4e74c048b0c093e82d478483ccc2f3737097e411c506060e4f3ff8",
+      "entity": "byollm-direct-api-fallback",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A request that falls back to a Direct API model consumes Warp-provided inference usage at the normal rate.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 348,
+        "line_start": 348,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:f19dd4df979f56956d35564aa391a1ff73887b22960b4dcb77b98a6c1044c5ca",
+      "claim_id": "sha256:4efe8340768b47e573d29a8e67c24847ed603e1239430d8d1648a1d10d513101",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "warp-enforces-provider-zdr",
+      "qualifiers": {
+        "actors": [
+          "gemini-enterprise"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp cannot enforce ZDR for requests routed through your infrastructure.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 367,
+        "line_start": 367,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c86aa160f78e49a8c06ef1162d8a3b880d1149904542e9a37dc1fc549d1df919",
+      "claim_id": "sha256:bfc3fef07a9cc38f41f474d8086c818052362faf71936af7574aacad7f0b7694",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The default location is `global`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "content_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
+        "heading": "3. Configure routing in the Admin Panel (Warp admin)",
+        "heading_anchor": "3-configure-routing-in-the-admin-panel-warp-admin",
+        "line_end": 213,
+        "line_start": 213,
+        "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/byollm-gemini-enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "global",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "367447eda8577a5a8fa39c6a9d95bb8053f5ced4f9ce43d0096702edf858d0c1",
   "path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
   "schema_version": 1
 }

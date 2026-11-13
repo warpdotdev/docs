@@ -1,6 +1,913 @@
 {
-  "claims": [],
-  "page_sha256": "9fa66c10f2a84e5d99642ce8eb1497ee405aca9bda466adaba09bba52c34541b",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:26ed2f3347537de11ef03ae2cbf18554d79da84e28125ef1cf6ada938828b2b5",
+      "claim_id": "sha256:d6a63fd86f60d1e32555a8a59db54d21d940f2c4266657b1bf0faaf9ea58a96c",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team-managed API keys and endpoints are available on Warp's Business and Enterprise plans.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:09dabb2c0f4e0ab38e7e80aef224a0eb5be5499a0db9787d17011b2523bba2dd",
+      "claim_id": "sha256:e09173987d0269389b05c4d41341d5b458e533194e79d42bd02d9b8a7fe3e627",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Business and Enterprise admins can configure shared provider API keys and OpenAI-compatible endpoints for local and [cloud Warp Agent runs](/platform/).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:eead22d20c1eec187460be4c4acf00f60bf960e1685d1612a1ee450b14a4a99f",
+      "claim_id": "sha256:a202986b2b93865659810caca5ae1fde3036709067aa4b923666179915303cdc",
+      "entity": "team-managed-providers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "credential-storage",
+      "qualifiers": {
+        "actors": [
+          "team-managed-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "team-managed configuration is stored securely by Warp and is available to cloud agents.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": "server-side",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b1c1e7dc956c1ff616eca0cfe4fefa17f16eeff8fd76ef61d0120415ea41d3dc",
+      "claim_id": "sha256:648fd9603b2bae00e2eedfe107b424867e3dc32965e0b144ac06e7e0320bd8cd",
+      "entity": "team-managed-first-party-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-providers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Configure API keys for OpenAI, Anthropic, and Google",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 23,
+        "line_start": 23,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "openai",
+          "anthropic",
+          "google"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b1ef86e85e70f045377e7365ce0984fed6737bcce489d8eb9c31ebd1d154b3e0",
+      "claim_id": "sha256:fecc9d0c6ea4946a5bc06bf63ccbf874ee0d0845fecd70d7c760b5564bf099bf",
+      "entity": "team-managed-endpoints",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "required-protocol",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The admin adds one or more OpenAI-compatible Chat Completions endpoints.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "First-party keys and custom endpoints",
+        "heading_anchor": "first-party-keys-and-custom-endpoints",
+        "line_end": 45,
+        "line_start": 45,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "openai-compatible-chat-completions",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:406586c99dac765b64e3d661c62c743e637413f1ca427f47d34c568517f255de",
+      "claim_id": "sha256:4f1c6cf98ae2e677aeafca20678b9883da691e9a8a100104aa6ac8ed5a6e3bb5",
+      "entity": "provider-key-routing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "precedence",
+      "qualifiers": {
+        "actors": [
+          "member-keys-allowed"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If a member has their own key for a provider, requests route through the member's key; otherwise the team key is used; otherwise Warp-managed inference is used (if allowed).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Member key precedence",
+        "heading_anchor": "member-key-precedence",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "member-key",
+          "team-key",
+          "warp-managed-if-allowed"
+        ],
+        "type": "ordered-list"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:261c95d3fd19f7e5dacdc19ac14b2af3a19b46660a379b3c1c8e071a1e314480",
+      "claim_id": "sha256:8b1841ee5b57ed3183491402f386674c3bec99963fa12aeabd84c9a881d8c4ca",
+      "entity": "personal-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Personal keys and endpoints stored on a member's device aren't copied to cloud runs.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Cloud agents",
+        "heading_anchor": "cloud-agents",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:dacfb66f27f348dd65864c16f022f463166ff63d88df270f9416a50c00ec362a",
+      "claim_id": "sha256:2391533b6b541e1419e1c25cc6dd63f91c5e9b116e4cbeb2bed51f5966e55dd4",
+      "entity": "team-managed-inference-endpoints",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "reachable-from-hosted-services",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A team endpoint's base URL must be reachable from Warp's hosted services, even with self-hosted workers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Configure keys and endpoints",
+        "heading_anchor": "configure-keys-and-endpoints",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:480afbb30c83059a970e100cf9f0c181be294f381d4277cbc14eb7635feef2a1",
+      "claim_id": "sha256:300475d01c5b0bba4c12bb2961434c8265739554766bb3c04be844e867ce9735",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "disables-warp-models-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, members can still choose Warp-managed models even when team providers are configured.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Keep inference on your team's providers",
+        "heading_anchor": "keep-inference-on-your-teams-providers",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c6b5e5a4230eeb96576976646e5c69d39c6b2fba44af561b322cc5cbee2009a1",
+      "claim_id": "sha256:1c29d33db7a5040303beeb03331af74557db75b2b9d81204f0e0b40007f5614f",
+      "entity": "disabled-member-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "saved-keys-preserved",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "their saved keys are preserved for when it's turned back on.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Configure keys and endpoints",
+        "heading_anchor": "configure-keys-and-endpoints",
+        "line_end": 72,
+        "line_start": 72,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9a7566f3c261fe83c0f9a1ab00589b4581d35f0d09e77d632f00f15eb372df96",
+      "claim_id": "sha256:e43f464d14fbe039b58f6389c2bad5fb706bb9302a3e889b0a345b80c5d35e09",
+      "entity": "auto-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "team-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Auto** consumes Warp usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3a2c1afa2dc33c293528e3ed0c543598c684e3086f6f0da3a6adf85ee62bfe9f",
+      "claim_id": "sha256:11d90a8835c671bac24fb7eda41b97f3f485382aaf13fa1899d71a3ccbe362b5",
+      "entity": "customer-supplied-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-platform-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Customer-supplied inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/) for local Business and Enterprise runs and all cloud runs.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 97,
+        "line_start": 97,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5da69ad0e13dac769ea972f6b6d516e1b0348c2d559321f2a300331e7315a798",
+      "claim_id": "sha256:634a30cfeb33c2372107f62135ca0d83c020c8b5ab3aa1ab44e9af81acbcda7c",
+      "entity": "customer-supplied-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-platform-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Customer-supplied inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/) for local Business and Enterprise runs and all cloud runs.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 97,
+        "line_start": 97,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:dbd9290d872d8e22eee7eb8df46e826cf955696c7cf554e4cc55132a17f0601c",
+      "claim_id": "sha256:a98459187494f06adc436912ff87e42ece4b62eb90269e069561699114a473ab",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your provider or endpoint bills team-routed inference directly rather than consuming Warp-provided inference usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a18ef03f8f09f6f09e1782a9dbaab3b36f5c21138d12b7c4154dafa957fa888c",
+      "claim_id": "sha256:ed3a7d6d06d206b72daa3c7f5fbd6739bc7d9d2776d3e39b3e55e6303db45c59",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-custom-endpoint-models",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Routers cannot target endpoint models.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fed0bca5a439172095c04680c0d5bdf3abfffbd3e04844e4e60dda6cef411ce7",
+      "claim_id": "sha256:94bf5e69897bf2a248dbc6db46a2e278b75070297e47e9500f17ff3bbc72ec3d",
+      "entity": "team-managed-providers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "credentials-delivered-to-member-or-agent",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp uses the stored credentials to call your provider without delivering them to member devices or cloud agent environments.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Security and data handling",
+        "heading_anchor": "security-and-data-handling",
+        "line_end": 107,
+        "line_start": 107,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:25dfa6a81201114766c13f9dc9f6dffb50275f49d73e2efc18cf85e57958d4ed",
+      "claim_id": "sha256:53d9770b63295803d1520053bc364e69d697be71bace510de26c843c6ebb4319",
+      "entity": "team-managed-providers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "encrypted-at-rest",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp encrypts team API keys and endpoint URLs at rest.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Security and data handling",
+        "heading_anchor": "security-and-data-handling",
+        "line_end": 105,
+        "line_start": 105,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d9dc0d55e9e593b05d0b50dae2119a7b664ba34cee12daabbce8d36d3ebfa30a",
+      "claim_id": "sha256:feb9133a940a9febc984441e6830be3a07f0ce8cbb89d15133b8146d9ff8dc55",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "warp-enforces-provider-zdr",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "team-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp **cannot enforce ZDR** for requests sent through your keys or endpoints.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 114,
+        "line_start": 114,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3c1f6fa9d38bc110bd3550f478683523502586cd2ac3a944e802af21e5eb34b8",
+      "claim_id": "sha256:14e04d9b23d71d788cac34334a733d5e84aa88c8a64ae5ae83bee6ff16678d54",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [
+          "contracted-model-providers"
+        ],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 111,
+        "line_start": 111,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9952e8bde65aaaab8505ccaa54b39f42d5a9facd92e5439a4737be03c26ad955",
+      "claim_id": "sha256:09f2bc91eec963eeb63e94785da74f591c11baecdede32cd826c19053d866fd5",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-agents-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| **[BYOLLM \u2014 AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "How team-managed providers differ from self-serve BYOK and BYOLLM",
+        "heading_anchor": "how-team-managed-providers-differ-from-self-serve-byok-and-byollm",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ecfd9af6b9a563796275d2e21d5fa2e404e9d58505a288fcf911c2c1ed54fd27",
+      "claim_id": "sha256:5355b04e320a7b8230aaf1f10446fb8be8d258dce85312615bdd9dd8f21f9e75",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-agents-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "content_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
+        "heading": "How team-managed providers differ from self-serve BYOK and BYOLLM",
+        "heading_anchor": "how-team-managed-providers-differ-from-self-serve-byok-and-byollm",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/team-managed-keys-and-endpoints/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "18d534eb3c0d283a05cd5a253e42f7d643a92388448fc537cdf3ea7dc21d62b0",
   "path": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
   "schema_version": 1
 }

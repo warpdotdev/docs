@@ -1,6 +1,384 @@
 {
-  "claims": [],
-  "page_sha256": "8dfaa5e8a7623f998365ed7b006a900300a2fb396c2d4fa0e28fb68ddc365e93",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:d0ecea3f35dbb578f1fec2119dc622547c3671b3212c7d344e91c1644857bb75",
+      "claim_id": "sha256:11afa2d7bf721d9cb58fbf91a3914b026318c4b7d4db7141db95bf681d302c46",
+      "entity": "oz-federate",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-running-agent-session",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This command can only be called from inside a running agent session",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1aa78f7d0fc847631199f61f21e0e0776c6d3a7ad3921e2e8be920ee7a50157b",
+      "claim_id": "sha256:38abf658c58c94ecea59077fd6d22a2253483faf4225c26a7ba218230284f13e",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-run-id-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cloud agent\n  runs set `OZ_RUN_ID` to the current run ID, but you must still pass this flag.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Flags",
+        "heading_anchor": "flags",
+        "line_end": 44,
+        "line_start": 43,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cc62fc3a32be867a3a28ef3f3e8fcfa23c4b108e46d0a60adfc7d6b50aa68439",
+      "claim_id": "sha256:d66301a9638342f927f3e26d41cc0df9e0edf65084b823ce99a02c221b221d58",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "token-duration-range",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Requested token lifetime from 5 minutes to 3 hours.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Flags",
+        "heading_anchor": "flags",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": {
+          "maximum": null,
+          "minimum": null
+        },
+        "type": "range"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3adc5a87765b127199ff2dc4ab92f9c433d0265ce3cfe9880da99cb125430234",
+      "claim_id": "sha256:f099cf0bcdc9bc8ae58eb613823bf0eadfc68a9c3b9512912509831f584c2436",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-token-duration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "defaults to `1h`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Flags",
+        "heading_anchor": "flags",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "1h",
+        "type": "duration"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3aec5b587ad57068d5b180ef5a7c56a9bb5f9e8627d7485850a3d4079d6807c5",
+      "claim_id": "sha256:0ae96ba6481ee7aee69d26806efdbd1a91cbef4d451b718b2d2bb865a1ce0a14",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-subject-template",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Defaults to `principal`",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Flags",
+        "heading_anchor": "flags",
+        "line_end": 48,
+        "line_start": 48,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "principal"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e893243e4b1a0919d1a460fe06f1c56447da6e846777b161f21b174ae6b9092e",
+      "claim_id": "sha256:51a2cf98afd4a17c62a53778406f74eee76285b2e68500431ee582393a39f278",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "subject-component-separator",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The command joins\ncomponents in the order you supply them and separates them with commas.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Subject template components",
+        "heading_anchor": "subject-template-components",
+        "line_end": 56,
+        "line_start": 55,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "comma",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c8b7ffadb4787c339c534ba2681425971022b9103b4e7254622e1fe6712f7447",
+      "claim_id": "sha256:e57e029eb0139dfaba4af0ddc0a0762e59f53279adc8cbd0ca45ab5dfef26038",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "unavailable-component-fails",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It fails if a component\nisn't available for the current principal or run.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Subject template components",
+        "heading_anchor": "subject-template-components",
+        "line_end": 57,
+        "line_start": 56,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0b14d85239da7311999c1445d08fa2bbd5dfdcf78c31b559854dd991616932ca",
+      "claim_id": "sha256:540b025051d428aa2f68b4f2a3e721a33bcfb7f4da7599ba0d49b6a7c9447eb9",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "subject-value-escaping",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Colons and commas within component values become\nunderscores.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Subject template components",
+        "heading_anchor": "subject-template-components",
+        "line_end": 58,
+        "line_start": 57,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "colon and comma become underscore",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:674674902531dd5fd9b4d11960e9e51c0e99dc173a9e20058bc5f8dd94292e9d",
+      "claim_id": "sha256:18b5690acfb852b170672dcdee8266f1ddcae9602e2e4ac38e9d1476149b6ce5",
+      "entity": "oz-federate-issue-token",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "excluded-subject-components",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "except `user` and\n`service_account`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "content_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
+        "heading": "Subject template components",
+        "heading_anchor": "subject-template-components",
+        "line_end": 62,
+        "line_start": 61,
+        "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/federate/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "user",
+          "service_account"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "page_sha256": "31f258cd2c493b25c7316f3aa760fc9db1f9bd8a287b57de84bb3a9b24e2f5ca",
   "path": "src/content/docs/agents/cli/oz-cli/federate.mdx",
   "schema_version": 1
 }

@@ -1,6 +1,797 @@
 {
-  "claims": [],
-  "page_sha256": "68fd5a02a8640b8ff62ddd10fa11100ee600b0ebdeb876d385b4d9055668ff9a",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:b7ee1cbca8a84b9fbed0b83485004e7a28c29b4017e302f921a48f9fb0cc49a6",
+      "claim_id": "sha256:3abb9eaeddb084f0bba10a95956bb94f3e8c85a22402b3e74fa3bcfeb793c3e9",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uses-conversation-sticky-model",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "very-short-trivial-prompts-do-not-lock-choice"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp chooses a model when you start a conversation and keeps using it for the rest of that conversation.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:058547bc191b60bd7b1aa1d2af8105ce6bcc3b19219d45e2358dff630860d54f",
+      "claim_id": "sha256:af83187a8c31a6c3ff991bad12644ada1194b22a36464a5de162369892634331",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-auto-model-targets",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It can't route to an Auto model or to another router.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d477b683034cef4ec18821c7dbbd83d0344e7b42a502eba0136079254fc605e8",
+      "claim_id": "sha256:c23ae31086abf3fb23d0162558d18cf3135874986fd5109fc32789d3bff8337a",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-custom-endpoint-models",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can't route to an Auto model, another router, or a model from a [custom inference endpoint]",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Author a router as a file",
+        "heading_anchor": "author-a-router-as-a-file",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:f72844157f84184e339ddf91e22a737bcaa012a40af33c43782d1905002ef678",
+      "claim_id": "sha256:5b56acbae62b5b85e28505fedc73598530b5bbfaee5a39955e0736dddb8fbd22",
+      "entity": "custom-router-rules",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "first-match-wins",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp evaluates rules from top to bottom, and the first rule that matches wins.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Rule-based routing",
+        "heading_anchor": "rule-based-routing",
+        "line_end": 45,
+        "line_start": 45,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8988154145732d3f0691f08794b34770a67e9f7538ad521eebf6b9bffc462183",
+      "claim_id": "sha256:18402976915453bf948381cb6f79d5ad80b7abe52a5ca39e4a9b23cc7fae6aef",
+      "entity": "custom-router-rules",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If no rule matches, Warp uses the required default model.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Rule-based routing",
+        "heading_anchor": "rule-based-routing",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:7d7f13dec2d759cd3f823ef261f227a93878ec7f17482095b6e6906923225f62",
+      "claim_id": "sha256:1e88cf115f4be629215d78ffde9c98eb0e0b947f0b85afdcbe2a23de3783a122",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "configuration-directory",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Custom routers are stored as YAML files in `~/.warp/custom_model_routers/`, with one router per file.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Author a router as a file",
+        "heading_anchor": "author-a-router-as-a-file",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/.warp/custom_model_routers/",
+        "type": "path"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d40f71b564ddfd46b88efc2c0769e1c6e6ab3977c3401136bdabb5689d43717e",
+      "claim_id": "sha256:9246bc494e7ae48084e60b80f6969973122c5d3b7279907f493967af940887e0",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-restart-for-file-changes",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "reloads automatically when you add, edit, or remove one, with no restart required.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Author a router as a file",
+        "heading_anchor": "author-a-router-as-a-file",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:25d3dc89efcb32b1360ad8e4549f316efa1a4a9c03fa93f3a42392d4f149b823",
+      "claim_id": "sha256:235ea036690c5091db1bbb884361852e66b085347c410e20fe19582153291593",
+      "entity": "team-synced-custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [
+          "team-admin"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team-synced routers are an Enterprise feature, and only admins can create or edit them.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Team-synced routers",
+        "heading_anchor": "team-synced-routers",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:138e9c5d82ec55bc033cd435be74cfb0d2834f3a33839c04c6e28cb36600d3ef",
+      "claim_id": "sha256:884e361fa6101b6de2e825c42af5e12c3c84375f467ddf965298523ef8a71eb8",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-byok",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "After the router selects a model, Warp applies your API keys as it would when selecting that model directly.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Using your own API keys (BYOK)",
+        "heading_anchor": "using-your-own-api-keys-byok",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:19623a428409c9af9530d93ed3426e6e70d21b2cc70b36bcfb72faf8acf58f23",
+      "claim_id": "sha256:d0c598731a95d27ebef1ea721bfbf8f4ccbfb123a4c88fe754649a0e2d2b930b",
+      "entity": "auto-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's built-in Auto models use Warp-provided inference even when BYOK is configured.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Using your own API keys (BYOK)",
+        "heading_anchor": "using-your-own-api-keys-byok",
+        "line_end": 126,
+        "line_start": 126,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:22b1a50ed261597d7dcedff590d0fa3396199df91e292b7c25932aadcccd4b18",
+      "claim_id": "sha256:cfcbfc52900a897e1929433520f5e076bfa3bee45e36261a9a3a1a24f7f43660",
+      "entity": "personal-provider-key",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "takes-precedence-over-team-key",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "a member's own key for a provider takes precedence over the team's.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Using your own API keys (BYOK)",
+        "heading_anchor": "using-your-own-api-keys-byok",
+        "line_end": 129,
+        "line_start": 129,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:631198824541360c479aeece870f242cf89f9156f627f048eef390c5fd0959eb",
+      "claim_id": "sha256:79e3b7dd3f64c05ae5549f4dc0e8481570ce7de7b7362c0c8d6cba306ace972c",
+      "entity": "custom-router-unavailable-model",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "falls-back-to-router-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If a router targets a model you don't have access to or that's disabled for your organization, Warp falls back to the router's default model.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Model availability and fallback",
+        "heading_anchor": "model-availability-and-fallback",
+        "line_end": 134,
+        "line_start": 134,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:f1e6915435d9c7eaf55b959901a9aceda8e19ff780ec1825127487d63fd79399",
+      "claim_id": "sha256:9b4e23c5e08dfea8b9b1b525e988433e99b065a7dd3957e3cc679d85406a50d4",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "appear-in-model-picker",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A custom router appears in the [model picker](/agents/inference/model-choice/#how-to-change-models) as its own entry, alongside Warp's built-in Auto models and individual models.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:bc58b3e0a75b4f8fe9e80a3d5bf85f03ad0b38e7e5aaac94277e7119c51d83b2",
+      "claim_id": "sha256:ae4cc5f2776e1807f487811d826228c526a4454a34e8918258044223b4a04950",
+      "entity": "custom-routers",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "complexity-levels",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp classifies each task as easy, medium, or hard and routes to the model you assigned to that level.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Complexity-based routing",
+        "heading_anchor": "complexity-based-routing",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "easy",
+          "medium",
+          "hard"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:32ff380619c043eccc5ab932e46dea06c93448f74e8263cf6b4747f75a3283a9",
+      "claim_id": "sha256:dad9a3db89a19ca66394d74d837ad4f74b4751ed5322baef7ff244940d959435",
+      "entity": "complexity-router",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "unset-level-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You also set a default model, which Warp uses for any level you leave unset or when it can't determine complexity.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Complexity-based routing",
+        "heading_anchor": "complexity-based-routing",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8416d3d8ecb911202ee42bf236f4d03a7fa170f09ea0a8c00ee888eb0d45bda8",
+      "claim_id": "sha256:a6ae0419febe695d3a08a4435bf14ed6622bf36cc95b3da9bab20c1d6ae33889",
+      "entity": "custom-router-parse-failure",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "skips-only-invalid-file",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If a file can't be parsed, Warp shows a non-blocking error identifying the file and skips it; your other routers keep working.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Author a router as a file",
+        "heading_anchor": "author-a-router-as-a-file",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:e71024d1daab5e69c87a930415f804245f3d5d2cbadf296df269da2eac4c55d5",
+      "claim_id": "sha256:ecc80837f41840c1052510b70ab5cc7fcf74dede25cc5dd0f7ba22d75c797fb7",
+      "entity": "custom-router-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uses-provider-billing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [
+          "requests-without-matching-key"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your provider bills inference covered by a matching key; requests without a matching key use Warp-provided inference.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Using your own API keys (BYOK)",
+        "heading_anchor": "using-your-own-api-keys-byok",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:01774319955a93d380bc1afb484e5c1e283dab4ae80861727c16eafd1e93bc0c",
+      "claim_id": "sha256:08301962cb7d7d46ad6253a31e8ac0eb097f055ba81894ccfaac6cf8f77a9576",
+      "entity": "custom-router-unusable-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uses-built-in-fallback",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If no usable model remains, Warp falls back to a built-in default and tells you.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-routers",
+        "canonical_route": "/agents/inference/custom-routers",
+        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "heading": "Model availability and fallback",
+        "heading_anchor": "model-availability-and-fallback",
+        "line_end": 134,
+        "line_start": 134,
+        "path": "src/content/docs/agents/inference/custom-routers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-routers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
   "path": "src/content/docs/agents/inference/custom-routers.mdx",
   "schema_version": 1
 }

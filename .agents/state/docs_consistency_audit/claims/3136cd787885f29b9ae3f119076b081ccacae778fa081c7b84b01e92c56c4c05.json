@@ -1,6 +1,781 @@
 {
-  "claims": [],
-  "page_sha256": "e387dd06e5aa3b5243e7a0b953d77196f3145538ceb3a99d6400aa83c0bb07f1",
+  "claims": [
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:3f7d8646e0a278a470fa9991b8da005aa73e474fc9b8eeb92998813a2b9552be",
+      "claim_id": "sha256:5eac2744711ae27ee130ae0722b449343de54d2b5a8268061f9c1d9f9b0d4b22",
+      "entity": "admin-panel",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "modification-requires-admin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Regular team members can view settings that affect them but cannot modify organization-wide policies.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "What is the Admin Panel?",
+        "heading_anchor": "what-is-the-admin-panel",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:e28891a1366aaad2955caec9510a366ffea375b9c8d6ac987523ad40c29be1f5",
+      "claim_id": "sha256:82541dd7f8fcdfeab77c07748cbf3f5463be2276d1734965e83382f68647ce5a",
+      "entity": "team-enforced-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "user-override-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Users cannot override these settings",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Setting enforcement levels",
+        "heading_anchor": "setting-enforcement-levels",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8f8d71fc683172229836adc7d9939bb61ef0af2e51800095762213d4d284b88d",
+      "claim_id": "sha256:a4e6aea7d4596005d23df61df26d89e9b0446627d7485d34a49c6bbf1d30e95e",
+      "entity": "team-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "changes-effective-immediately",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Changes made in the Admin Panel take effect immediately for all team members.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Testing before enforcement",
+        "heading_anchor": "testing-before-enforcement",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:0ea9950a4139ac94b8104c699871545906d4b4edd6cde6fcd7453155987145ee",
+      "claim_id": "sha256:df4fe9d43aec1f07709388276638eb4fc2bf7c02c7010e92af08ee53931d33e8",
+      "entity": "team-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "restart-forces-refresh",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Ask users to restart Warp to force a settings refresh.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Users can't see new settings",
+        "heading_anchor": "users-cant-see-new-settings",
+        "line_end": 344,
+        "line_start": 344,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:fefd98701f0dfd1d2d17491874da1696b07fe5e249a96295be113863b5d5d6d0",
+      "claim_id": "sha256:333f89632840e8b3382d88ed9508f0122340112956df7453178e705424a07a20",
+      "entity": "codebase-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-repositories",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Limited Codebase Context (2 repositories)",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Free tier",
+        "heading_anchor": "free-tier",
+        "line_end": 94,
+        "line_start": 94,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": 2,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:f8e3cdca9b474fff8acaa23dba827958b1cab876bee95c32f88854b8865f5a7d",
+      "claim_id": "sha256:354cd859902b21002bf8e32e227de31b5efa62b6941556fb20346fd37b70cb00",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No BYOLLM support",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Free tier",
+        "heading_anchor": "free-tier",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:6a62054c31b1b1116cb491db039f8165e8274d7974e3f9e08890b34678df7c8f",
+      "claim_id": "sha256:80dd86a94b178403b016908e3ed03637ebc4cae3226e459e24fa2a5097667cbb",
+      "entity": "command-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "precedence-over-allowlist",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Command denylist rules take precedence over allowlist rules and agent autonomy settings.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Directory and command control",
+        "heading_anchor": "directory-and-command-control",
+        "line_end": 178,
+        "line_start": 178,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:c503026cb51983c7c18e3ef9920bbcaa18b5d3f3ac565a96170c404a724d0ac0",
+      "claim_id": "sha256:680d1541f3a89516158b9dd7cab064300dc23f532edc01dbac1fb50f03da8e6e",
+      "entity": "prompt-summarization-cache",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "zdr-covered",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Zero Data Retention agreements cover caching (short-lived)",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "General AI settings",
+        "heading_anchor": "general-ai-settings",
+        "line_end": 132,
+        "line_start": 132,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:fdfe47ccf3e8e72745c14048e3337475ec9b626513bf5ec69aeca8c2ef7b4864",
+      "claim_id": "sha256:b496c1831cc0a78a2dca884177410d5d45e74b807278027cc9ebbd4105769cec",
+      "entity": "secret-redaction",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "masks-before-provider-transmission",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Automatically detects and redacts sensitive information before sending data to LLM providers:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Privacy settings",
+        "heading_anchor": "privacy-settings",
+        "line_end": 194,
+        "line_start": 194,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:ecea36a69d3024976860e0136d6647deffcf464575718f3d492152b429de83ee",
+      "claim_id": "sha256:e4f3364b64d9c3b6da7e9dab91e19f23a2a78777af19e8d039835684564e2b26",
+      "entity": "enterprise-secret-redaction",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise plans enable this by default",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Privacy settings",
+        "heading_anchor": "privacy-settings",
+        "line_end": 195,
+        "line_start": 195,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:f6bc705be078b61c611c05da7c8e8fb7025a0a735c6e536597dbd906800cde42",
+      "claim_id": "sha256:f84e24cc0bf74aa469af945c135dfde58afa20badb70030d8b8983cc7b8e57b1",
+      "entity": "enterprise-secret-redaction",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-custom-regex",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Supports custom regex patterns for organization-specific secrets",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Privacy settings",
+        "heading_anchor": "privacy-settings",
+        "line_end": 197,
+        "line_start": 197,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c1d4cc29e4d677eff9878b771f657dbea9564cb4345bc2dd2cb66e8d07add1a9",
+      "claim_id": "sha256:87442374a9fc46e89e148bea9bb512ffeb1c728fd4afcab7319d55eeb2c78e37",
+      "entity": "codebase-indexing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-files-per-repository",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Up to 200,000 files per repository",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Code settings",
+        "heading_anchor": "code-settings",
+        "line_end": 214,
+        "line_start": 214,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 200000,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:ebb2df2c57868e286aef7fd99d606cc7130a732c2cee7e703ddf946d83f5d3ff",
+      "claim_id": "sha256:63efde824e010005dd43817a5213194031449075e4d8d822297907d305b00a9f",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "sharing provider keys and custom endpoints across the team for both interactive sessions and cloud agents.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Models settings",
+        "heading_anchor": "models-settings",
+        "line_end": 221,
+        "line_start": 221,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:8eae7a2e1129b32de30292864728c81eb509f1f097c67a7e123b0415f9ec57b0",
+      "claim_id": "sha256:d173c9325a1d7625361671700329d0cafaa6025a9a9a0fd6a06188e9ee01ec88",
+      "entity": "provider-retention-required-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enterprise-enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For Enterprise teams, these models are **disabled by default**.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Models settings",
+        "heading_anchor": "models-settings",
+        "line_end": 227,
+        "line_start": 227,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:d5f2a83529efb3e598ff2c7654744592b7dd2e6b2c3619e8e6e4444b677df064",
+      "claim_id": "sha256:04942469ee37db154f25d5ad3cee2a6310022895f7854b83180719873e15c454",
+      "entity": "provider-retention-required-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enable-requires-workspace-admin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A workspace admin must explicitly enable them before team members can use them.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Models settings",
+        "heading_anchor": "models-settings",
+        "line_end": 227,
+        "line_start": 227,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:877a607220676dbe853aff25ebb8363578a24703778a28ce965e89b9d5348a1e",
+      "claim_id": "sha256:db1e6baac318dd56a65df107360f30f4662d31c2b7656614e0f92246725da60c",
+      "entity": "github-mention-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uses-installation-access-not-mentioner",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "their repository access comes from the app installation rather than the person who wrote the mention.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Platform settings",
+        "heading_anchor": "platform-settings",
+        "line_end": 280,
+        "line_start": 280,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:54eee43f2d1942d1133bbc4498fe60e5869f514c063e3a035adc187a72390fcf",
+      "claim_id": "sha256:67ffe5caa45be05372cce032b8512e6b4276596b4c4164aa8ff4debe7e1ba689",
+      "entity": "personal-integration-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uses-user-github-authorization",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Platform settings",
+        "heading_anchor": "platform-settings",
+        "line_end": 280,
+        "line_start": 280,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:bbe1563ee276cdc788033d6e4cea93198955e45460b9b31eabbbfe2151951808",
+      "claim_id": "sha256:d946e4b083a62d7e30121a0a02ea6c2ada7d06bd52fea1ff58ac35725a23a876",
+      "entity": "team-admin",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-transfer-ownership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team Admins have the same permissions except they can't transfer ownership.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "content_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
+        "heading": "Promoting and demoting admins",
+        "heading_anchor": "promoting-and-demoting-admins",
+        "line_end": 298,
+        "line_start": 298,
+        "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/admin-panel/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "80aaf8418750ecdfd0e4da35aa4f021aa1262643ffff95c6f71e61af6c01645c",
   "path": "src/content/docs/enterprise/team-management/admin-panel.mdx",
   "schema_version": 1
 }
