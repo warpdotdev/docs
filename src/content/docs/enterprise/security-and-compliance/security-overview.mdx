@@ -18,17 +18,19 @@ Warp's security philosophy centers on **transparency and developer control**:
 * **Team-level enforcement** - Admins can configure telemetry and data collection policies for the entire organization
 * **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), so security teams can audit the codebase directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the source repository and the security reporting process.
 
-## What telemetry does Warp collect and why?
+<span id="what-telemetry-does-warp-collect-and-why" />
+
+## Provider retention, analytics, and storage
 
 ### Zero Data Retention (ZDR)
 
 Provider Zero Data Retention (ZDR) governs whether an inference provider retains prompts and responses. Warp has provider ZDR agreements for supported Warp-managed models across all plans. Covered providers don't use those prompts and responses for model training. Some models require retention; [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists every known model exception.
 
-For example, turning off **Help improve Warp** doesn't make a retention-required model ZDR-covered. Check the complete exception list on the model-choice page before choosing a model.
+Warp-managed inference uses Warp's provider account, not your own. Turning off **Help improve Warp** doesn't make a retention-required model ZDR-covered.
 
 For [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), verify ZDR with your provider for the specific account, model, and configuration. Warp's agreements don't establish ZDR for customer-managed inference. Claude Code and Codex calls made directly to their providers also use your provider terms, not Warp's.
 
-Review [Terminal model and privacy settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) for local use. For factory defaults, manual controls on self-serve plans, and limits on confirmed coverage for auxiliary requests, use [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference). A selected model alone doesn't establish coverage for every request.
+Follow the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) for configuration steps, plan controls, and coverage limits.
 
 ### Warp analytics and improvement collection
 
@@ -48,14 +50,7 @@ Self-hosting factory execution changes where commands run, not whether inference
 
 ### Disabling telemetry
 
-Users can opt out of telemetry individually:
-
-1. In the Warp app, open **Settings** > **Privacy**.
-2. Toggle off **Help improve Warp** to stop analytics and improvement collection. Toggle off **Send crash reports** separately if you don't want to send crash reports.
-
-With telemetry disabled, Warp stops collecting usage and interaction data for analytics purposes.
-
-If a control is managed by your organization, ask an admin to review the [Admin Panel privacy settings](/enterprise/team-management/admin-panel/#privacy-settings).
+Follow [Privacy and data control](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting) to change your collection preferences. If your organization manages a control, ask an admin to review the [Admin Panel privacy settings](/enterprise/team-management/admin-panel/#privacy-settings).
 
 ## Data handling and privacy
 
@@ -64,7 +59,7 @@ If a control is managed by your organization, ask an admin to review the [Admin 
 * **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
 * **Agent requests** - Provider retention depends on the model and inference configuration described [above](#zero-data-retention-zdr).
-* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Your provider's terms govern provider retention; conversation and run storage remain separate.
+* **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. See [customer-managed inference](#zero-data-retention-zdr) for retention.
 * **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
 * **Self-hosted cloud agent execution** - Repository checkouts and execution workspaces stay on your infrastructure. Prompts, transcripts, attachments, and uploaded artifacts can contain code context. Inference and run-data storage have [separate boundaries](/factories/infrastructure-and-security/).
 
@@ -88,8 +83,7 @@ See [Secret Redaction documentation](/support-and-community/privacy-and-security
 
 ### Data retention
 
-* **Provider ZDR** - Applies to covered inference, not all models or product storage; see [model retention policies](/agents/inference/model-choice/#zero-data-retention-policies)
-* **Product data** - Retention depends on the feature; use the [storage references above](#product-storage) rather than treating provider ZDR as a deletion policy
+* **Inference and product data** - See [provider retention](#zero-data-retention-zdr) and [feature-specific storage](#product-storage) above
 * **Telemetry data** - When collected, Warp retains telemetry data indefinitely for analytics and debugging
 * **User accounts** - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations
 

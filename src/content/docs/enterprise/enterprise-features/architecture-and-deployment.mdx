@@ -27,7 +27,7 @@ The [stack overview](/platform/architecture/#stack-overview) reference describes
 
 * **Warp terminal (client)** ↔ **Warp backend (control plane)** ↔ **LLM providers**
 * The Warp backend handles task orchestration, observability, and LLM inference routing.
-* Warp-managed inference has [provider Zero Data Retention (ZDR) coverage with model-specific exceptions](/agents/inference/model-choice/#zero-data-retention-policies). Customer-managed inference uses your provider terms.
+* Provider retention follows the [model and provider-account configuration](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr), not the execution host.
 * The **execution plane** is where source code is accessed, commands run, and build artifacts are produced. This can run on Warp's infrastructure or yours.
 
 ## Warp-hosted (SaaS)
@@ -68,7 +68,7 @@ Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
 Self-hosted deployments use a split architecture:
 
 * **Execution plane (customer-hosted)** - Repository checkouts, commands, and workspaces stay on your infrastructure. Code context, tool output, and uploaded files can still become prompts or stored run data (see [What transits Warp's servers](#what-transits-warps-servers)).
-* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. Provider retention and product storage are [separate from execution hosting](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
+* **Control plane (Warp-hosted)** - Warp coordinates runs and routes Warp Agent inference. See [What transits Warp's servers](#what-transits-warps-servers) for the data it receives.
 
 ### Deployment modes
 
@@ -130,8 +130,8 @@ Understanding what data stays where is critical for security and compliance deci
 
 * **Task orchestration** - Scheduling, routing, and lifecycle management
 * **Observability data** - Run status, duration, and metadata
-* **LLM inference** - The Warp Agent routes prompts and responses through Warp to the configured provider. Verify [provider ZDR coverage and exceptions](/agents/inference/model-choice/#zero-data-retention-policies) separately. Claude Code and Codex call their providers directly.
-* **Run data** - Transcripts, prompt attachments, and uploaded artifacts persist independently of analytics preferences and personal Terminal sync settings. [Self-hosted agent data storage](/factories/self-hosting/data-storage/) changes storage mappings separately from compute.
+* **LLM inference** - The Warp Agent routes prompts and responses through Warp to the configured provider. Claude Code and Codex call their providers directly.
+* **Run data** - Transcripts, prompt attachments, and uploaded artifacts persist independently of the execution workspace. Configure their location through [self-hosted agent data storage](/factories/self-hosting/data-storage/).
 * **Session sharing data** - Live session sharing has its own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access)
 
 ## Choosing a deployment model
@@ -142,7 +142,7 @@ Consider the following when selecting a deployment model:
 
 **Warp-hosted** is right if:
 * You want zero infrastructure management for agent execution.
-* Your security team has reviewed Warp-hosted compute, inference, and product storage as separate boundaries.
+* Your security requirements permit Warp-hosted compute.
 * You need maximum parallelization and scalability.
 
 **Self-hosted** is right if:

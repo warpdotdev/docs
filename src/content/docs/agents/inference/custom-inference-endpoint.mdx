@@ -83,11 +83,9 @@ Other features use their own inference configuration and are unaffected by a per
 
 ## Zero Data Retention (ZDR)
 
-Warp's [provider ZDR agreements](/agents/inference/model-choice/#zero-data-retention-policies) don't establish ZDR for your endpoint. Verify ZDR with the endpoint provider and any upstream model providers for the specific account, model, and configuration.
+Warp cannot enforce provider ZDR for your endpoint. Verify retention with the endpoint provider and any upstream model providers for the specific account, model, and configuration; their terms apply to those requests.
 
-Custom inference endpoint prompts and responses transit Warp's backend (see [How it works](#how-it-works)). Turning off **Help improve Warp** stops analytics and improvement collection, not provider retention or [product storage](/enterprise/security-and-compliance/security-overview/#product-storage).
-
-Warp cannot enforce provider ZDR for a custom endpoint. Without provider ZDR, requests may be retained according to the endpoint and upstream providers' terms.
+Prompts and responses still [transit Warp's backend](#how-it-works). Review [Warp's separate analytics and storage controls](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why); they don't change your provider's terms.
 
 ## Centrally managed configuration
 

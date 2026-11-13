@@ -108,9 +108,9 @@ Warp uses the stored credentials to call your provider without delivering them t
 
 ### Zero Data Retention (ZDR)
 
-Warp's [provider ZDR agreements](/agents/inference/model-choice/#zero-data-retention-policies) don't establish ZDR for requests through your team's keys or endpoints. Verify ZDR with the provider for the specific account, model, and configuration, including upstream providers behind a gateway. Warp cannot enforce provider ZDR for these requests; without it, requests may be retained according to your providers' terms.
+Your provider's terms govern requests through your team's keys or endpoints, not Warp's ZDR agreements. Verify retention for the specific account, model, and configuration, including upstream providers behind a gateway. Warp cannot enforce provider ZDR for these requests.
 
-Warp analytics and [product storage](/enterprise/security-and-compliance/security-overview/#product-storage) remain separate. Disabling UGC collection doesn't change provider retention or disable factory transcripts, prompt attachments, and uploaded artifacts.
+Disabling UGC collection doesn't disable run storage. See the [separate analytics and storage controls](/enterprise/security-and-compliance/security-overview/#what-telemetry-does-warp-collect-and-why) or [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
 
 <span id="related-resources" />
 

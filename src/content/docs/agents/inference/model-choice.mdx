@@ -170,7 +170,7 @@ Confirm the model displayed before your next prompt. For factories, use [factory
 
 Warp has provider Zero Data Retention (ZDR) agreements for supported Warp-managed models on all plans. The [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) explains the policy.
 
-Current Auto selections and fallback chains for other models don't introduce these exceptions. Routes can change, and a primary model selection doesn't control every auxiliary request. For Computer Use, Scorers, Self-improvement, and the limits of confirmed factory coverage, use [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
+Current Auto selections and fallback chains for other models don't introduce the exceptions below. For separate model settings and coverage limits in factories, use [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
 
 #### Models requiring provider retention
 
@@ -182,4 +182,4 @@ Anthropic requires retention for these models, including their effort variants, 
 
 These models aren't covered by provider ZDR even when **Help improve Warp** is off. For Enterprise teams, they are disabled by default and a workspace admin must enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
 
-For your own keys, endpoints, subscriptions, or direct Claude Code and Codex calls, verify ZDR with the provider for your specific account, model, and configuration rather than applying Warp's agreements to that traffic.
+For your own provider account, [verify retention with your provider](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr); selecting a model outside this list doesn't establish ZDR for that account.
