@@ -6,6 +6,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.11.12 (v0.2026.11.11.08.17)
+
+**Improvements**
+
+* Billing labels consistently distinguish included personal usage from included team usage. ([#16806](https://github.com/warpdotdev/warp/pull/16806))
+
+**Bug fixes**
+
+* Fixed Codex and Claude authentication commands being mistaken for active agent sessions. ([#16723](https://github.com/warpdotdev/warp/pull/16723))
+
+**Oz updates**
+
+* Factories can defer repository checkouts until an agent needs them when configured in factory files. ([#16811](https://github.com/warpdotdev/warp/pull/16811))
+* MCP tool calls made by Codex, Claude Code, and Pi cloud agents now appear in run transcripts as the MCP calls they are, so Slack replies, Linear/Jira updates, and Factory actions are labelled and surfaced the same way as for Warp's own agent. ([#16790](https://github.com/warpdotdev/warp/pull/16790))
+* Parent agents receive available child failure, blocked, and cancellation context instead of status-only lifecycle events. ([#14888](https://github.com/warpdotdev/warp/pull/14888))
+* Clarify cloud-agent completion reporting and child-to-parent result handoffs. ([#16732](https://github.com/warpdotdev/warp/pull/16732))
+
 ### 2026.11.05 (v0.2026.11.04.08.17)
 
 **Bug fixes**
