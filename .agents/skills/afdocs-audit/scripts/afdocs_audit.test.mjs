@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 import {
 	assessBotProtection,
@@ -98,6 +103,99 @@ test('uses the native CLI score after afdocs supplies every v0.6 check', () => {
 	assert.equal(report.score, 91);
 	assert.equal(report.legacy_cli_score, null);
 	assert.equal(report.score_method, 'native afdocs CLI score');
+});
+
+function runCli(t, { compatibility = false, partial = false, blocked = false } = {}) {
+	const directory = mkdtempSync(join(tmpdir(), 'afdocs-cli-'));
+	t.after(() => rmSync(directory, { recursive: true, force: true }));
+	const output = join(directory, 'report.json');
+	const raw = {
+		url: 'https://docs.example.com',
+		score: 91,
+		results: [
+			'bot-protection-interference',
+			'page-size-transfer',
+			'single-fetch-completeness',
+			'markdown-link-portability',
+			...(compatibility ? [] : ['embedded-data-serialization']),
+		].map((id) => ({
+			id, category: 'content-structure', status: 'pass', message: 'Passed',
+			details: { fetchErrors: partial ? 1 : 0 },
+		})),
+	};
+	const preload = `
+		import childProcess from 'node:child_process';
+		import { syncBuiltinESMExports } from 'node:module';
+		childProcess.execFileSync = () => {
+			if (${blocked}) throw new Error('The CLI must not run after a firewall challenge');
+			return ${JSON.stringify(JSON.stringify(raw))};
+		};
+		syncBuiltinESMExports();
+		globalThis.fetch = async (url) => {
+			const path = new URL(url).pathname;
+			if (path === '/llms.txt') return new Response('Documentation index', {
+				status: ${blocked ? 429 : 200},
+				headers: ${JSON.stringify(blocked ? { 'x-vercel-mitigated': 'challenge' } : {})},
+			});
+			const bodies = {
+				'/sitemap-index.xml': '<urlset><url><loc>https://docs.example.com/page/</loc></url></urlset>',
+				'/page/': '<main><p>Reference content</p></main>',
+				'/page.md': '# Reference content',
+			};
+			if (!(path in bodies)) throw new Error('Unexpected fetch: ' + url);
+			const response = new Response(bodies[path], {
+				headers: { 'content-type': path.endsWith('.md') ? 'text/markdown' : 'text/html' },
+			});
+			Object.defineProperty(response, 'url', { value: String(url) });
+			return response;
+		};
+	`;
+	const result = spawnSync(process.execPath, [
+		'--import', `data:text/javascript,${encodeURIComponent(preload)}`,
+		fileURLToPath(new URL('./afdocs_audit.mjs', import.meta.url)),
+		'--url', raw.url, '--output', output,
+	], { encoding: 'utf8', timeout: 10_000 });
+	assert.equal(result.error, undefined);
+	assert.equal(result.status, blocked ? 2 : 0, result.stderr);
+	return { ...result, report: JSON.parse(readFileSync(output, 'utf8')) };
+}
+
+test('CLI prints native score provenance and complete scan reliability', (t) => {
+	const { stdout, report } = runCli(t);
+	assert.match(stdout, /Spec: v0\.6\.0\n/);
+	assert.ok(stdout.includes(`Score method: ${report.score_method}`));
+	assert.match(stdout, /Score: 91\/100/);
+	assert.match(stdout, /Reliability: complete/);
+	assert.doesNotMatch(stdout, /compatibility audit|Legacy 23-check CLI score:/);
+});
+
+test('CLI identifies compatibility estimates separately from the legacy score', (t) => {
+	const { stdout, report } = runCli(t, { compatibility: true });
+	assert.match(report.score_method, /compatibility estimate/);
+	assert.ok(stdout.includes(`Score method: ${report.score_method}`));
+	assert.match(stdout, /Legacy 23-check CLI score: 91\/100/);
+	assert.match(stdout, /Reliability: complete/);
+});
+
+test('CLI preserves partial-scan warnings and suppresses firewall-blocked scores', (t) => {
+	const partial = runCli(t, { partial: true });
+	assert.equal(partial.report.scan_reliability.status, 'partial');
+	assert.match(partial.stdout, /Reliability: partial/);
+	assert.doesNotMatch(partial.stdout, /All checks passed/);
+	const blocked = runCli(t, { blocked: true });
+	assert.equal(blocked.report.status, 'invalid');
+	assert.equal(blocked.report.score, undefined);
+	assert.doesNotMatch(blocked.stdout, /Score:/);
+	assert.match(blocked.stderr, /audit INVALID/);
+});
+
+test('does not label an estimated score as native when the CLI omits its score', () => {
+	const report = buildReport({
+		results: [{ ...legacyResult, status: 'warn' }],
+	});
+	assert.equal(report.score, 50);
+	assert.match(report.score_method, /compatibility estimate/);
+	assert.equal(report.legacy_cli_score, null);
 });
 
 test('retains page-level diagnostics and excludes fetch-interrupted scans from complete baselines', () => {
