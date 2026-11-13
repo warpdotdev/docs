@@ -49,13 +49,78 @@ The foreman uses `run_agents` to dispatch configured factory agents. It receives
 2. It sets `remote` to run the child in the cloud.
 3. For each child, it supplies the selected agent's UID in `agent_run_configs[].agent_identity_uid`.
 
-The `name` field only labels the child run. Unless overridden, the run uses the selected agent's environment, runner, host, harness, and model.
+The `name` field only labels the child run. By default, the run uses the environment, runner, host, harness, and model of the selected agent. To change these settings for one dispatch, see [Change settings for one dispatch](#change-settings-for-one-dispatch).
 
 You can start child agents without factory configuration through [multi-agent orchestration](/platform/orchestration/) from any Warp conversation. For scheduled or event-driven work, use [factory automations](/factories/automations/). The foreman coordinates the work they start.
 
+### Change settings for one dispatch
+
+The `run_agents` call can change some settings of a configured agent. The changes apply only to the child runs that the call starts. The saved agent configuration does not change.
+
+Each field in an `agent_run_configs[]` entry applies to one child:
+
+* `agent_identity_uid` - The UID of the configured agent that does the task.
+* `prompt` - The task for this child. The child receives the `base_prompt` text, then this text.
+* `name` and `title` - Labels for the child run.
+* `metadata` - Values for setup scripts and the agent. See [Select a setup profile for each task](#select-a-setup-profile-for-each-task).
+
+These fields apply to all children in the call. Each field replaces a setting from the agent configuration:
+
+* `remote.environment_id` - The [environment](/platform/environments/), which supplies the repositories, toolchain, and workspace setup.
+* `remote.runner_id` - The UID of the [runner](/factories/runners/), which selects the operating system, CPU architecture, instance size, and sandbox image.
+* `remote.worker_host` - The host. Use `warp` for Warp-hosted workers, or use the ID of a [self-hosted worker](/factories/self-hosting/).
+* `remote.harness` - The [harness](/platform/harnesses/), such as Claude Code or Codex.
+* `model_id` - The model. A model for a third-party harness also needs `remote.harness`.
+
+If the call does not set one of these fields, the child runs use the setting from the agent configuration. The call-level `metadata` field sets default metadata for all children in the call.
+
+A call gives the same settings to all of its children. To use a different runner or environment for some children, start those children with a different `run_agents` call.
+
+The environment and the runner are separate settings. If the call sets only the environment, the child runs keep the runner from the agent configuration. If the agent configuration has no runner, the child runs use the default runner of the environment.
+
+### Select a runner for a task
+
+Use a different runner when a task needs more compute or a different operating system. You do not need a separate agent for the task.
+
+1. Find the UID of the runner. To list runners and their UIDs, run `oz runner list` in the {VARS.WARP_AGENT_CLI}. See [List runners](/factories/runners/#list-runners).
+2. In the foreman instructions, tell the foreman which tasks use the runner. Tell the foreman to put the runner UID in `remote.runner_id`.
+
+   ```text
+   Select the configured implementation agent from the list of available agents.
+   Set agent_identity_uid to the UID of that agent.
+
+   For full builds and integration tests, set remote.runner_id to LARGE_RUNNER_UID.
+   For all other tasks, do not set remote.runner_id.
+
+   Keep the configured environment, host, harness, and model.
+   ```
+
+   Change `LARGE_RUNNER_UID` to the runner UID from step 1.
+
+   For a full build, the foreman sends this `run_agents` call. `IMPLEMENTATION_AGENT_UID` is the UID from the list of available agents. The `runner_id` field in `remote` selects the runner for all children in the call.
+
+   ```json
+   {
+     "summary": "Run the full build on the large runner",
+     "base_prompt": "Implement the task and verify the change.",
+     "remote": {
+       "runner_id": "LARGE_RUNNER_UID"
+     },
+     "agent_run_configs": [
+       {
+         "name": "full-build",
+         "agent_identity_uid": "IMPLEMENTATION_AGENT_UID",
+         "prompt": "Run the full build and fix the failing integration tests."
+       }
+     ]
+   }
+   ```
+
+The child run uses the large runner, and the environment, host, harness, and model from the agent configuration.
+
 ### Select a setup profile for each task
 
-Run metadata is a set of string keys and values for one run. The foreman sends these inputs when it starts a child run. Each child can have different values without a new agent, environment, or runner configuration.
+Run metadata is a set of string keys and values for one run. The foreman sends these inputs when it starts a child run. Children that use the same agent configuration can receive different values. Metadata does not change the agent settings. To change a setting such as the runner, see [Change settings for one dispatch](#change-settings-for-one-dispatch).
 
 For Warp-hosted and self-hosted runs, Warp makes these inputs available as `WARP_METADATA_*` environment variables. For setup that starts with each run, Warp sets these variables before the setup commands start. Your scripts can read these variables to select a test group or a build target. Metadata does not select commands or install tools.
 
@@ -97,10 +162,9 @@ The setup example uses `backend` and `frontend` profiles with the same implement
    Put setup_profile in the metadata for that child.
 
    Keep the configured environment, runner, host, harness, and model.
-   If a different configuration is necessary for the task, change the configuration.
    ```
 
-   Use this `run_agents` call for `backend` work. Change `IMPLEMENTATION_AGENT_UID` to the UID from the list of available agents. The `remote: {}` field starts the child in the cloud.
+   For `backend` work, the foreman sends this `run_agents` call. `IMPLEMENTATION_AGENT_UID` is the UID from the list of available agents. The `remote: {}` field starts the child in the cloud.
 
    ```json
    {
