@@ -7,37 +7,17 @@ sidebar:
   label: "About infrastructure and security"
 ---
 
-Warp Factories separates execution, inference, and credential boundaries. You choose where code runs, which providers serve inference, and which credentials each agent receives. Warp coordinates the work. Transcripts and artifacts use Warp-managed storage unless you configure [self-hosted agent data storage](/factories/self-hosting/data-storage/).
+Warp Factories lets you choose where code runs, which providers serve inference, where run data is stored, and which credentials each agent receives. Warp coordinates the work.
 
-## Zero Data Retention (ZDR) for factory inference
+<span id="zero-data-retention-zdr-for-factory-inference" />
 
-Provider Zero Data Retention (ZDR) covers whether the AI provider keeps your prompts and responses. Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference; it is separate from where your agent runs commands.
+## Provider retention
 
-### Choose inference covered by provider ZDR
+<span id="choose-inference-covered-by-provider-zdr" />
+<span id="understand-collection-and-storage" />
+<span id="configure-your-factory" />
 
-* **Warp-managed inference** - Choose models outside the [retention-required exception list](/agents/inference/model-choice/#models-requiring-provider-retention). Apply that choice to each agent and any separate model settings or overrides, not only the foreman.
-* **Your provider account** - For your own keys, endpoints, BYOLLM, or direct Claude Code or Codex calls, verify ZDR with the provider for the specific account, model, and configuration. Warp's agreements don't establish ZDR for those requests, even if you avoid the listed models.
-
-Current Auto selections, non-Fable fallback chains, and automatic Computer Use selection avoid the listed exceptions, but routes can change. Coverage of every background AI request remains unconfirmed. If your policy requires ZDR for every request, ask Warp to confirm coverage for your configuration before sending sensitive work.
-
-### Understand collection and storage
-
-Provider ZDR doesn't stop Warp from saving data needed to operate your factory:
-
-* **Improvement collection** - **Help improve Warp** controls Warp's analytics and eligible content collection for service improvement. It doesn't change provider retention.
-* **Run history** - Warp stores transcripts, prompt attachments, and uploaded artifacts so you can revisit runs, even with analytics off. Destroying a sandbox doesn't delete these records.
-* **Personal Terminal sync** - **Store AI conversations in the cloud** controls personal Terminal conversations, not factory run storage.
-
-To change team content collection for improvement, follow the [browser procedure in the Admin Panel](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-a-browser), including plan and workspace restrictions. Personal analytics and crash preferences are separate; see [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage). Enterprise admins can configure [self-hosted storage](/factories/self-hosting/data-storage/) independently for each run-data category; unmapped categories remain with Warp.
-
-### Configure your factory
-
-Self-serve teams can change models and overrides manually, but don't have a team-wide model-blocking control. Business supports shared provider keys and endpoints; Enterprise adds [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
-
-Choose the procedure for where your definition is managed. Both work in a browser without installing Warp Terminal:
-
-* [Reviewing a dashboard-managed factory](/factories/factory-agents/configuration/#reviewing-a-dashboard-managed-factory).
-* [Reviewing a GitHub-backed factory](/factories/factory-agents/configuration/#reviewing-a-github-backed-factory).
+Provider retention is separate from execution hosting and saved run data. For coverage limits, collection controls, and browser setup procedures, see [Zero data retention (ZDR) for factory inference](/factories/zero-data-retention/).
 
 ## Control plane and execution plane
 
@@ -100,7 +80,6 @@ The worker backend sets isolation and scheduling on your infrastructure:
 
 For backend selection guidance, including Command and one-shot Direct options, see [Choosing a managed backend](/factories/self-hosting/#choosing-a-managed-backend).
 
-
 ## Choose inference independently
 
 Execution hosting doesn't select inference. Configure that boundary separately.
@@ -116,7 +95,7 @@ Factory agents execute as cloud agents. For runs using the Warp Agent, support v
 | **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Supported on Enterprise | The AWS account, IAM role, available Claude models, and provider billing | Warp assumes your IAM role through OIDC; inference runs in your AWS account |
 | **[BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Not supported for factory runs | Interactive inference in your Google Cloud project | Gemini Enterprise BYOLLM currently supports interactive agent requests only |
 
-Personal BYOK and personal custom inference endpoints are stored on a member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint. Auto continues to use Warp-managed inference. Check [provider ZDR coverage](#choose-inference-covered-by-provider-zdr) separately, including any upstream providers behind a gateway.
+Personal BYOK and personal custom inference endpoints are stored on a member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint. Auto continues to use Warp-managed inference. Check [provider ZDR coverage](/factories/zero-data-retention/#choose-inference-covered-by-provider-zdr) separately, including any upstream providers behind a gateway.
 
 Claude Code and Codex call their providers directly from the execution environment using their own [harness authentication](/factories/harnesses/authentication/), not the Warp Agent's inference configuration.
 
@@ -170,6 +149,7 @@ Warp meters hosted compute, Warp-provided inference, and [platform usage](/suppo
 
 ## Related pages
 
+* [Zero data retention (ZDR) for factory inference](/factories/zero-data-retention/) - Review coverage, collection, and saved run data
 * [Deployment patterns for Warp Factories](/factories/deployment-patterns/) - Compare execution models
 * [Runners for Warp Factories](/factories/runners/) - Configure compute and worker compatibility
 * [Self-hosting overview](/factories/self-hosting/) - Review managed backends and setup requirements

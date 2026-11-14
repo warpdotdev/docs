@@ -441,7 +441,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							label: 'Infrastructure',
 							items: [
 								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
-								{ label: 'Zero data retention (ZDR)', link: '/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference' },
+								{ slug: 'factories/zero-data-retention', label: 'Zero data retention (ZDR)' },
 								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },

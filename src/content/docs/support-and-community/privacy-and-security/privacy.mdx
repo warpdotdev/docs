@@ -23,7 +23,7 @@ Warp-managed inference uses Warp's provider account, not your own. Turning off *
 
 For [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), you'll need to verify ZDR with your provider for your specific account, model, and configuration. Warp's agreements don't establish ZDR for requests through your provider account. Claude Code and Codex calls made directly to their providers also use your provider terms, not Warp's.
 
-For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal). The factory procedures work in a browser without installing Warp Terminal.
+For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/zero-data-retention/) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal). The factory procedures work in a browser without installing Warp Terminal.
 
 ### Warp analytics and improvement collection
 
@@ -39,7 +39,7 @@ Product features store data independently of provider ZDR and analytics preferen
 * **Factory run data** - Warp stores transcripts, prompt attachments, and uploaded artifacts so you can inspect past runs. Enterprise admins can configure [self-hosted agent data storage](/factories/self-hosting/data-storage/) separately for each category. Categories without a self-hosted storage configuration remain with Warp.
 * **Shared sessions and snapshots** - Sharing a live session and saving a workspace snapshot have their own storage behavior. See [shared-session retention and access](/agents/local-agents/session-sharing/#data-retention-and-access) and [workspace snapshot controls](/platform/handoff/snapshots/).
 
-Self-hosting factory execution changes where commands run, not the provider's retention rules or where run data is stored. Review [factory inference and storage separately](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
+Self-hosting factory execution changes where commands run, not the provider's retention rules or where run data is stored. Review [factory inference and storage separately](/factories/zero-data-retention/).
 
 ## Transparency and control
 
@@ -74,7 +74,7 @@ Without the Warp app, Business and Enterprise admins can change [team content co
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)
 
-These settings don't disable product storage. Personal Terminal conversations follow the separate [cloud conversation setting](/agents/local-agents/cloud-conversations/); factory run history follows [factory storage boundaries](/factories/infrastructure-and-security/#understand-collection-and-storage). Shared sessions have their own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access).
+These settings don't disable product storage. Personal Terminal conversations follow the separate [cloud conversation setting](/agents/local-agents/cloud-conversations/); factory run history follows [factory storage boundaries](/factories/zero-data-retention/#understand-collection-and-storage). Shared sessions have their own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access).
 
 ### Delete your account and data
 

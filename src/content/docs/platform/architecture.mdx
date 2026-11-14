@@ -106,7 +106,7 @@ Every run moves a few distinct classes of data, and each class has its own bound
 
 [Managed self-hosting](/factories/self-hosting/) moves the execution boundary: checkout, builds, and command execution stay on your infrastructure, and no Warp-hosted sandbox is involved. The control plane still coordinates runs, holds control-plane data, routes inference for the Warp Agent, and stores run data.
 
-Moving compute doesn't automatically move run-data storage. For factory configuration, follow [factory ZDR guidance](/factories/infrastructure-and-security/#zero-data-retention-zdr-for-factory-inference).
+Moving compute doesn't automatically move run-data storage. For factory configuration, follow [factory ZDR guidance](/factories/zero-data-retention/).
 
 ![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, Warp-managed run-data storage, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
