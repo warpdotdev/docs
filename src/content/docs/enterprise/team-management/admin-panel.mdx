@@ -33,7 +33,7 @@ Access the Admin Panel in two ways:
 
 **Option 1: Direct URL**
 1. Navigate to the [Warp Admin Panel](https://app.warp.dev/admin/).
-2. Log in with your SSO credentials.
+2. Sign in to your Warp account.
 3. The Admin Panel opens with all organization settings.
 
 **Option 2: From Warp Settings**
@@ -65,7 +65,7 @@ In multi-team workspaces, workspace admins can enforce supported settings across
 **Respect user setting**
 * Allows individual team members to control the setting themselves
 * Admins set a default, but users can customize
-* Use for preferences that don't impact security or compliance (e.g., AI model selection)
+* Use when members are allowed to choose their own preference; this doesn't restrict model availability
 
 **Tier restricted**
 * Setting is locked based on billing plan
@@ -129,7 +129,7 @@ Configure how agents behave across your organization, including autonomy levels 
 **Prompt summarization caching**
 * When conversations become long, the LLM provider caches summaries temporarily
 * Improves performance for extended agent interactions
-* Zero Data Retention agreements cover caching (short-lived)
+* Provider retention follows the selected model and inference configuration; see [model retention policies](/agents/inference/model-choice/#zero-data-retention-policies)
 
 #### Autonomy settings
 
@@ -184,11 +184,27 @@ Manage data collection and security policies to meet your organization's complia
 
 **User-generated content (UGC) data collection**
 Controls how Warp collects and uses user-generated content to improve the service:
-* **Disabled** - Warp collects no UGC data from your organization
+* **Disabled** - Warp doesn't collect UGC for service improvement
 * **Enabled** - Allow data collection for service improvement
 * **Respect User Setting** - Let individual users decide
 
-Enterprise teams with Zero Data Retention agreements can disable this completely.
+This controls team content collection for service improvement. Personal analytics and crash-report preferences are separate. It doesn't change [provider retention requirements](/agents/inference/model-choice/#models-requiring-provider-retention) or disable product storage.
+
+{/* TODO(factory-plans): Revisit browser collection controls with the factory plans documentation update. Confirm plan eligibility, team-wide versus individual opt-out scope, and the browser route for customers without Terminal. Keep Factory plan names distinct from Terminal plan names. */}
+
+#### Changing improvement collection in a browser
+
+Business and Enterprise team admins can configure the team's content collection without installing Warp Terminal:
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/) for the team and go to **Privacy**.
+2. In the "UGC Data Collection" dropdown, choose **Disabled** to stop team content collection for improvement, or **Respect User Setting** to defer to individual preferences.
+3. After the update succeeds, reload the page and confirm the selected value persists.
+
+If the control is locked by a workspace policy, ask a workspace admin to review it. If your plan doesn't permit changes, or you need a personal browser-only opt-out, contact [privacy@warp.dev](mailto:privacy@warp.dev) to confirm the available options. This isn't a provider ZDR control or a way to delete saved runs.
+
+**Cloud conversation storage**
+
+Controls cloud sync of personal Terminal conversations. Disabling it doesn't disable factory or other cloud agent run storage. See [product storage](/support-and-community/privacy-and-security/privacy/#product-storage) for run-data categories and storage options.
 
 **Enterprise secret redaction**
 Automatically detects and redacts sensitive information before sending data to LLM providers:
@@ -216,15 +232,17 @@ When enabled, agents understand your code patterns, architecture, and convention
 
 ### Models settings
 
-Control which LLM models are available to your team and how inference is routed. From the **Models** page, admins can enable or disable individual models and configure [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) routing through AWS Bedrock or [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/).
+Use the **Models** page for the controls included in your plan:
 
-From the **Models** page, admins can also configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) in the **Bring Your Own Keys & Endpoints** card, sharing provider keys and custom endpoints across the team for both interactive sessions and cloud agents.
-
-From the **Models** page, admins can also create team-synced [custom routers](/agents/inference/custom-routers/) that route each task to a model based on complexity or rules. Team-synced routers appear in the model picker for every team member.
+* **Enterprise model restrictions** - Admins can enable or disable individual models and configure [BYOLLM routing](/enterprise/enterprise-features/bring-your-own-llm/). Self-serve plans don't include a team-wide model-blocking control.
+* **Business and Enterprise provider credentials** - Configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud Warp Agent runs. Sharing credentials isn't a model restriction.
+* **Enterprise custom routers** - Share [routing rules](/agents/inference/custom-routers/#team-synced-routers) with the team. A router's choices are separate from enforced model availability.
 
 **Models with provider-specific data retention requirements**
 
-Some models require data retention from the model provider and are therefore not available under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
+Some models require provider retention and aren't covered by [Zero Data Retention (ZDR)](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr), even when UGC collection is disabled. Review the complete [exception list on the model-choice page](/agents/inference/model-choice/#models-requiring-provider-retention). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
+
+Disabling UGC collection isn't a model restriction. Self-serve customers must review their selected models and overrides using the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/zero-data-retention/).
 
 ### Billing settings
 

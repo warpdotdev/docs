@@ -105,15 +105,11 @@ You can update or replace your keys anytime by opening **Settings** and searchin
 
 ### Zero Data Retention (ZDR) and BYOK
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** policies with all of its contracted LLM providers. No customer AI data is retained, stored, or used for training by the model providers.
+Warp has a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security). Its [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models accessed through Warp's provider accounts, but not to requests made through your own key.
 
-BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
+Provider-side retention for BYOK depends on your provider account settings. Verify ZDR with your provider for the specific account, model, and configuration. Warp cannot enforce provider ZDR for BYOK.
 
-However, when you use your own API key:
-
-* Data retention policies on the **provider side** depend on your provider’s account settings.
-* Warp cannot enforce ZDR for requests sent through your API keys.
-* If your Anthropic, OpenAI, or Google account does not have ZDR enabled, your requests may be retained by the provider according to their terms.
+BYOK prompts and responses [pass through Warp's backend](#how-byok-works). Warp applies your account's privacy settings to this content, including any settings enforced by your organization. **Help improve Warp** controls collection for analytics and improvement. **Store AI conversations in the cloud** controls [cloud storage of your personal Terminal conversations](/agents/local-agents/cloud-conversations/). Neither setting changes your provider's retention rules. See the [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) for details.
 
 ### BYOK on Business and Enterprise plans
 

@@ -20,15 +20,15 @@ Warp can sync your [agent conversations](/agents/local-agents/interacting-with-a
 
 ## Enabling cloud conversations
 
-Cloud conversation sync is controlled by a setting in Warp:
+To control whether your personal Warp Terminal conversations sync to the cloud:
 
-1. Open **Settings** > **Privacy**
-2. Enable **Store AI conversations in the cloud**
+1. In the Warp app, open **Settings** > **Privacy**.
+2. Toggle **Store AI conversations in the cloud** on or off.
 
-When enabled, your Agent conversations automatically sync to the cloud as you interact with the Agent. When disabled, conversations are stored locally on your machine only.
+When **Store AI conversations in the cloud** is on, your personal Terminal conversations sync as you interact with the agent. When it's off, those conversations are stored only on your device. The **Help improve Warp** toggle controls collection for analytics and improvement, not conversation sync. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
 :::caution
-If cloud conversations are disabled, conversation data is lost when you log out and cannot be shared with others. Cloud agent conversations are always stored in the cloud regardless of this setting.
+If personal cloud conversation sync is disabled, local conversation data is lost when you log out and cannot be shared with others. Factory and other cloud agent runs still store their transcripts, attachments, and artifacts independently of this setting.
 :::
 
 ## How it works
@@ -93,7 +93,7 @@ Cloud-synced conversations store snapshots of conversation data. For real-time c
 
 ## Cloud agent conversations
 
-[Cloud agents](/platform/) run in the cloud, and their conversations are automatically stored regardless of your local cloud conversations setting.
+Conversations from [cloud agents](/platform/), including factory agents, are stored even if you turn off personal conversation sync or analytics. By default, run data is stored by Warp. Enterprise admins can instead configure [self-hosted agent data storage](/factories/self-hosting/data-storage/). Provider ZDR does not prevent storage of these conversations.
 
 ### Accessing cloud agent conversations
 
@@ -110,13 +110,12 @@ This is useful when a cloud agent completes a task and you want to review what i
 
 ### Enterprise controls
 
-Enterprise administrators can disable cloud conversation storage for their organization through the [Admin Panel](/knowledge-and-collaboration/admin-panel/).
+Enterprise administrators can disable cloud sync for personal Warp Terminal conversations through the [Admin Panel](/enterprise/team-management/admin-panel/#privacy-settings).
 
-When cloud conversation storage is disabled by your organization:
+When your organization disables this setting:
 
-* Conversations are stored locally only and not synced to the cloud
-* You cannot share conversations or access them across devices
-* Cloud agent conversations are still accessible through the Warp dashboard
+* Your personal Terminal conversations remain on your device and cannot be shared or accessed across devices.
+* Cloud agent conversations remain accessible through the Warp dashboard.
 
 ### Storage limits
 

@@ -83,17 +83,9 @@ Other features use their own inference configuration and are unaffected by a per
 
 ## Zero Data Retention (ZDR)
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with all of its contracted LLM providers.
+Warp cannot enforce provider ZDR for your endpoint. You'll need to verify retention with the endpoint provider and any upstream model providers for your specific account, model, and configuration. Those providers' terms apply to these requests.
 
-Custom inference endpoint prompts and responses transit Warp's backend (see [How it works](#how-it-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
-
-When you use a custom inference endpoint:
-
-* Data retention on the **provider side** is determined by your endpoint provider and any upstream model providers they route to.
-* Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.
-* If your endpoint provider does not have ZDR with the underlying model provider, your requests may be retained according to their terms.
-
-Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a custom inference endpoint.
+Prompts and responses still [transit Warp's backend](#how-it-works). Review [Warp's separate analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage). These controls don't change your provider's terms.
 
 ## Centrally managed configuration
 

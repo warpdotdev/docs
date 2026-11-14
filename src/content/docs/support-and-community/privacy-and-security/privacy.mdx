@@ -1,14 +1,45 @@
 ---
 title: Privacy and data control
 sidebar:
-  label: "Privacy"
+  label: "Privacy and ZDR"
 description: >-
-  Warp's approach to privacy and your control over your data
+  Review Warp's provider Zero Data Retention policy, analytics controls, and
+  conversation storage across Terminal, cloud agents, and factories.
 ---
+
+Provider retention, Warp's improvement collection, and conversation storage are separate. For example, turning off analytics doesn't stop a factory from saving its run history.
 
 :::note
 If you have questions, reach out at [privacy@warp.dev](mailto:privacy@warp.dev). For security-related issues, email [security@warp.dev](mailto:security@warp.dev).
 :::
+
+## Provider retention, analytics, and storage
+
+### Zero Data Retention (ZDR)
+
+Provider Zero Data Retention (ZDR) governs whether an AI provider retains prompts and responses. Warp has provider ZDR agreements for supported Warp-managed models across all plans. Providers covered by these agreements don't use those prompts and responses for model training. Some models require retention. [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists the model exceptions.
+
+Warp-managed inference uses Warp's provider account, not your own. Turning off **Help improve Warp** doesn't change a model provider's retention requirements.
+
+For [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), you'll need to verify ZDR with your provider for your specific account, model, and configuration. Warp's agreements don't establish ZDR for requests through your provider account. Claude Code and Codex calls made directly to their providers also use your provider terms, not Warp's.
+
+For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/zero-data-retention/) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal). The factory procedures work in a browser without installing Warp Terminal.
+
+### Warp analytics and improvement collection
+
+The **Help improve Warp** toggle controls product analytics and eligible collection of AI interactions and console content for service improvement. Turning it off stops that analytics and improvement collection, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
+
+Neither setting changes a model provider's retention requirements or turns off product storage. See [what Warp collects](#what-telemetry-data-does-warp-collect-and-why) and [how to change collection preferences](#how-to-disable-telemetry-and-crash-reporting).
+
+### Product storage
+
+Product features store data independently of provider ZDR and analytics preferences:
+
+* **Terminal conversations** - **Store AI conversations in the cloud** controls cloud sync of your personal Terminal conversations. Turning it off doesn't disable factory or other cloud agent run storage. See [Cloud-synced conversations](/agents/local-agents/cloud-conversations/).
+* **Factory run data** - Warp stores transcripts, prompt attachments, and uploaded artifacts so you can inspect past runs. Enterprise admins can configure [self-hosted agent data storage](/factories/self-hosting/data-storage/) separately for each category. Categories without a self-hosted storage configuration remain with Warp.
+* **Shared sessions and snapshots** - Sharing a live session and saving a workspace snapshot have their own storage behavior. See [shared-session retention and access](/agents/local-agents/session-sharing/#data-retention-and-access) and [workspace snapshot controls](/platform/handoff/snapshots/).
+
+Self-hosting factory execution changes where commands run, not the provider's retention rules or where run data is stored. Review [factory inference and storage separately](/factories/zero-data-retention/).
 
 ## Transparency and control
 
@@ -24,18 +55,10 @@ Our philosophy is complete transparency and control over any data leaving your m
 
 Warp collects high-level telemetry and usage data to discover product quality issues and guide feature prioritization.
 
-If you haven't opted out of "Help improve Warp", we may collect:
+If you haven't opted out of **Help improve Warp**, Warp may collect:
 
 1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the full list of tracked events in the [exhaustive telemetry table](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table) below. These are all high level metrics and do not include any user generated content.
 2. AI interactions and console inputs that power our [AI features](/agents/). Configurable [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) is disabled by default and masks content that matches your patterns before AI requests are sent. Telemetry payload redaction is separate and applies built-in patterns to telemetry regardless of the Secret Redaction setting.
-
-:::note
-Telemetry must be enabled to use AI features on the Free plan, while paid plans can opt out at any time and continue using Warp, including AI.
-:::
-
-:::caution
-Business and Enterprise plans are covered by our Zero Data Retention (ZDR) agreement. No AI interaction or console data is ever collected.
-:::
 
 Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience. Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
@@ -43,12 +66,15 @@ You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy
 
 ### How to disable telemetry and crash reporting
 
-1. Navigate to **Settings** > **Privacy**, or open the [Command Palette](/terminal/command-palette/) and search for "privacy"
-2. Toggle off "Help improve Warp", "Send crash reports", or both
+Without the Warp app, Business and Enterprise admins can change [team content collection for improvement in a browser](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-a-browser). That control is separate from personal analytics and crash preferences. For a personal browser-only opt-out or a plan-locked control, ask [privacy@warp.dev](mailto:privacy@warp.dev) which options are available.
+
+1. In the Warp app, open **Settings** > **Privacy**.
+2. Toggle off **Help improve Warp** to stop analytics and improvement collection. Review **Send crash reports** separately.
+3. Review **Store AI conversations in the cloud** for personal Terminal conversation sync. If your organization manages a control, ask an admin to review it.
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)
 
-With telemetry disabled, no console interactions are ever persisted on Warp's servers. Each request contains a `X-Warp-Telemetry-Enabled` header to specify whether telemetry is disabled, and even if this is missing from the request, our server assumes it's disabled.
+These settings don't disable product storage. Personal Terminal conversations follow the separate [cloud conversation setting](/agents/local-agents/cloud-conversations/); factory run history follows [factory storage boundaries](/factories/zero-data-retention/#understand-collection-and-storage). Shared sessions have their own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access).
 
 ### Delete your account and data
 

@@ -22,7 +22,7 @@ Self-hosted factory workers run repository checkouts and agent workloads on your
 * Run attachments and artifacts.
 * The Warp Agent's LLM inference requests and responses, which include code context from the agent's interactions.
 
-Code content can appear in transcripts, artifacts, and LLM prompts even though repository checkouts stay on your infrastructure. Run data is stored separately from the execution workspace; see [Self-hosted agent data storage](/factories/self-hosting/data-storage/). For retention and provider boundaries, see [Security overview](/enterprise/security-and-compliance/security-overview/) and [LLM inference and BYOLLM](#llm-inference-and-byollm).
+Code content can appear in transcripts, artifacts, and LLM prompts even though repository checkouts stay on your infrastructure. Run data is stored separately from the execution workspace; see [Self-hosted agent data storage](/factories/self-hosting/data-storage/). For retention and provider boundaries, see [Privacy and data control](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) and [LLM inference and BYOLLM](#llm-inference-and-byollm).
 
 ---
 
@@ -117,11 +117,13 @@ See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrati
 
 ## LLM inference and BYOLLM
 
-The Warp Agent sends inference requests through Warp. With Warp-managed inference, requests go to contracted providers covered by [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. With customer-supplied inference, provider-side retention follows your team's agreement with that provider.
+The Warp Agent sends inference requests through Warp. Review [factory ZDR coverage and configuration](/factories/zero-data-retention/) independently of where commands run.
+
+For customer-supplied inference, verify ZDR with your provider for the specific account, model, and configuration. Self-hosting execution doesn't establish ZDR or move run data.
 
 Teams that want inference routed and billed through their own accounts can use [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) or [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). Plan requirements and cloud agent support vary by option; see [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs).
 
-Claude Code and Codex send inference requests directly to their providers under your provider agreement. Their [authentication](/factories/harnesses/authentication/) and network access are separate from the Warp Agent's inference configuration.
+Claude Code and Codex send inference requests directly to their providers under your provider agreement. Verify retention for the account, model, and configuration used by their [authentication](/factories/harnesses/authentication/), separately from the Warp Agent's inference configuration.
 
 ---
 
@@ -131,6 +133,6 @@ Claude Code and Codex send inference requests directly to their providers under 
 * [Unmanaged execution](/platform/unmanaged-execution/) - Run standalone agents from your own CI or scheduler
 * [About factory infrastructure and security](/factories/infrastructure-and-security/) - Choose execution, inference, and credential boundaries
 * [Data security and boundaries](/platform/architecture/#data-security-and-boundaries) - Review where each class of data lives and travels
-* [Security overview](/enterprise/security-and-compliance/security-overview/) - Review Warp's security model and ZDR
+* [Privacy and data control](/support-and-community/privacy-and-security/privacy/) - Review provider ZDR, analytics, and storage
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - Route inference through your own cloud provider accounts
 * [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and configuration

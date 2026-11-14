@@ -20,7 +20,7 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 
 To send work to a factory's foreman, click **New Chat** in the sidebar. In the dropdown below the prompt input, choose your factory, enter a request, then click the send arrow.
 
-A factory opens on its **Dashboard** page, covered next. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
+A factory opens on its **Dashboard** page, covered next. Use **Factory definition** to edit a Warp-managed definition; edit a GitHub-backed definition in its repository instead. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
 To create credentials or grant agents access, see [managing secrets for factory agents](/factories/secrets/).
 
@@ -69,7 +69,7 @@ The automation editor doesn't change execution settings; an automation only over
 **Factory definition** is the factory dashboard's view of the definition files that [definitions as code](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
 
 * **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
-* **Managed in GitHub** - The tab doesn't appear. Edit the definition through pull requests in your repository, and **Settings** links back to it.
+* **Managed in GitHub** - Edit the definition through pull requests in your repository; **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
 When an agent proposes a change to a Warp-managed definition, a spec review for the branch appears on [Home](/factories/factory-home/) when the **Waiting on you** filter is selected. Open the spec review to comment on the diff, select **Request changes** to send feedback to the agent, or select **Approve & merge** to merge the change.
