@@ -196,6 +196,18 @@ github:
 
 Checks use the pull request's changed paths to decide whether validation is needed, then validate its complete head snapshot. Base-only edits and advances to the base or production branch don't refresh unchanged pull request checks. See [factory-definition pull request checks](/factories/integrations/github/#factory-definition-pull-request-checks).
 
+#### `github.mcpEnabled`
+
+**Optional.** Boolean; defaults to `false` when omitted from the definition.
+Set to `true` to use managed GitHub MCP tools instead of the GitHub CLI for new Warp-hosted runs. New factories are created with this setting enabled; existing factories aren't opted in automatically.
+
+```yaml title="factory.yaml"
+github:
+  mcpEnabled: true
+```
+
+See [GitHub MCP](/factories/integrations/github/#github-mcp) for setup, the Integrations toggle, and run behavior.
+
 ### `codeForges`
 
 **Optional.**
