@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 ### How can I upgrade and subscribe to a Warp plan?
 
-Scale includes a shared monthly team allowance; existing Build, Max, and Business subscriptions include usage per seat. For Warp Factories, follow [upgrading to Scale](/support-and-community/plans-and-billing/plans-pricing-refunds/#upgrading-to-scale). For other subscriptions, use the paths below.
+Warp Factories Scale includes a shared monthly team allowance. For factory subscriptions, follow [upgrading to Scale](/support-and-community/plans-and-billing/plans-pricing-refunds/#upgrading-to-scale). For Terminal and agent subscriptions, use the paths below.
 
 You can subscribe to a Warp paid plan as an individual or as part of a team. To upgrade:
 
@@ -21,21 +21,21 @@ After entering your payment details, you’ll receive an invoice and confirmatio
 
 ### How can I get the most out of my Warp plan?
 
-Compare [Start, Scale, Enterprise, and existing Warp plans](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans) against the controls and funding your team needs. See [Warp pricing](https://www.warp.dev/pricing) for current prices and limits. Check **Settings** > **Billing and usage** in the Warp app for your existing account's allowance.
+Choose between [Terminal and agent plans](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-terminal-and-agent-plans) and [Warp Factories plans](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans) for the work you need to do. For the latest plans and offerings, see [Warp pricing](https://www.warp.dev/pricing). Check **Settings** > **Billing and usage** in the Warp app for your account's allowance.
 
 ### How can I subscribe to a Warp Enterprise plan?
 
-Enterprise offers custom pricing, shared usage pools, and terms. Existing contracts retain their terms. See [Enterprise billing](/enterprise/support-and-resources/billing/). For a monthly team subscription instead, compare [Scale](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
+Enterprise offers custom pricing, shared usage pools, and terms. Existing contracts retain their terms. See [Enterprise billing](/enterprise/support-and-resources/billing/). For Warp Factories, see [factory plans and funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
 
 :::tip
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
 :::
 
-For provider data handling, see [privacy](/support-and-community/privacy-and-security/privacy/). Compare admin data controls in the [plan reference](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
+For provider data handling, see [privacy](/support-and-community/privacy-and-security/privacy/).
 
 ### What counts as a team member and how does billing work for members?
 
-In Warp, a _team member_ is any seat with access to your Team — including the shared Warp Drive, Notebooks, Workflows, and other team resources. Every plan lets you invite unlimited Warp Drive collaborators, but paid-plan features and credit allocation are governed by your plan's seat limit (see [Are there new seat limits per plan?](#are-there-new-seat-limits-per-plan) below). Upgrading applies to your entire team, including your own account and all active members.
+For Terminal and agent subscriptions, a _team member_ is any seat with access to your team, including shared Warp Drive resources. Paid subscriptions apply to the team, including your own account and all active members. See [Warp pricing](https://www.warp.dev/pricing) for current plan limits.
 
 On the Free plan, you can share a limited number of Notebooks and Workflows with other Free users. If your team exceeds that limit, you’ll be prompted to [upgrade to a plan](https://app.warp.dev/upgrade).\
 \
@@ -126,7 +126,7 @@ Included usage resets monthly, including on annual subscriptions. In the Warp ap
 
 ### How do credits work for multi-seat teams?
 
-Scale has a shared team allowance; existing Build, Max, and Business subscriptions have per-seat allowances. New purchases enter a shared team balance. See [included and purchased usage](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) for spending order and [factory funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs) for runs that cannot use a personal allowance.
+Warp Factories Scale has a shared team allowance; Terminal and agent subscriptions on Build, Max, and Business have per-seat allowances. New purchases enter a shared team balance. See [included and purchased usage](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) for spending order and [factory funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs) for runs that cannot use a personal allowance.
 
 Admins manage the team's monthly spend limit and auto-reload. See [team usage and purchases](/support-and-community/plans-and-billing/add-on-credits/#tracking-purchases-and-team-usage). Enterprise pools and spending controls follow the [Enterprise agreement](/enterprise/support-and-resources/billing/).
 
@@ -380,7 +380,7 @@ Here's how custom inference endpoints differ from BYOK and BYOLLM:
 
 * **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
 * **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control or that your team runs.
-* **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today, with Azure Foundry coming soon) and handles the routing, orchestration, governance, and observability.
+* **BYOLLM** is managed inference through your cloud provider. [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) supports factory runs; [Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/) supports interactive sessions only and is not a general-purpose Vertex AI integration.
 
 For setup and details, see [Custom inference endpoint](/agents/inference/custom-inference-endpoint/).
 

@@ -1,35 +1,37 @@
 ---
 title: Plans, pricing, and refunds
 description: >-
-  Compare Warp Factories plans, check shared and per-seat usage allowances,
-  and review subscription and usage refund policies.
+  Find Warp Terminal, agent, and Warp Factories plan guidance, understand usage
+  funding, and review subscription and usage refund policies.
 sidebar:
   label: "Plans, pricing, and refunds"
 ---
 
-## Warp plans and pricing
+Warp Terminal and agent plans are separate from Warp Factories plans. For the latest plans and offerings, see [Warp pricing](https://www.warp.dev/pricing).
 
-Warp Factories offers Start, Scale, and Enterprise plans. Choose a plan based on who manages your factory, where its definition and runs live, and how your team funds usage. See [Warp pricing](https://www.warp.dev/pricing) for current prices, rates, allowances, and seat limits.
+<span id="warp-plans-and-pricing" />
 
-## Warp Factories plans
+## Warp Terminal and agent plans
 
-| Plan | Capabilities | Funding |
-| --- | --- | --- |
-| **Start** | Run workflows with the Warp Agent using Warp-hosted definition repositories and sandboxes. Manage factories, score runs, run benchmarks, and configure model routers. | Usage-based entry for small teams, without a monthly shared allowance. Add usage as needed. |
-| **Scale** | Adds Claude Code, Codex, and Pi; a factory-definition repository you own; [SAML SSO](/enterprise/security-and-compliance/sso/); team and per-user usage metrics; data controls; and team-managed inference keys and endpoints. | Monthly team subscription with a shared included-usage allowance, not an allowance per seat. |
-| **Enterprise** | Adds multi-team workspaces, advanced admin and spending controls, the [Analytics API](/enterprise/enterprise-features/analytics-api/), and customer-hosted workers and run-data storage. | Custom shared pools, rates, and billing terms set by your contract. |
-
-Scale's data controls include admin settings for data collection and cloud conversation storage. [Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) configure inference for the Warp Agent. Third-party harnesses use separate [harness authentication](/factories/harnesses/authentication/).
-
-Hosting your factory definition in your own repository does not move execution or run data to your infrastructure. Enterprise teams configure [self-hosted workers](/factories/self-hosting/) and [agent data storage](/factories/self-hosting/data-storage/) separately.
+Choose a Terminal and agent plan for interactive work in Warp. Free, Build, Max, Business, and Enterprise have their own billing terms.
 
 ### Existing Warp plans
 
-Existing accounts can show Free, Build, Max, or Business in Warp billing surfaces. Free is the usage-based entry tier shown as Start in Warp Factories. Build, Max, and Business subscriptions retain their plan-specific per-seat allowances; they do not become Scale's shared team allowance.
+Build, Max, and Business subscriptions retain their plan-specific per-seat allowances. Check **Settings** > **Billing and usage** in the Warp app for your account's allowance. Existing Enterprise contracts retain their agreed pools and terms.
 
-Existing paid plans can include factory capabilities. Check your account's controls and allowance rather than assuming a plan name changes your terms.
+## Warp Factories plans
 
-## Funding factory runs
+Choose a factory plan for your team's automated workflows:
+
+* **Start** - For small teams getting started with Warp-hosted factory setup. Start is usage-based, without a monthly shared allowance.
+* **Scale** - For teams that need a monthly team subscription with shared included usage. It also supports choices such as [third-party harnesses](/factories/harnesses/) and a factory-definition repository you own.
+* **Enterprise** - For organizations that need custom usage terms, advanced administration, or [customer-hosted infrastructure](/factories/self-hosting/). Your contract sets funding and billing terms.
+
+Hosting your factory definition in your own repository does not move execution or run data to your infrastructure. Enterprise teams configure self-hosted workers and [agent data storage](/factories/self-hosting/data-storage/) separately.
+
+Start with the [Warp Factories quickstart](/factories/quickstart/). For Scale setup, see [SAML SSO](/enterprise/security-and-compliance/sso/) and [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). Third-party harnesses use separate [harness authentication](/factories/harnesses/authentication/).
+
+### Funding factory runs
 
 Factory runs use shared team or workspace usage, including runs started by automations. A member's included personal allowance does not fund factory runs.
 
@@ -95,6 +97,6 @@ Warp does not offer a formal guaranteed uptime Service Level Agreement (SLA). Li
 ## Related pages
 
 * [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges.
-* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - Purchase amounts, prices, and auto-reload.
+* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - Purchases and auto-reload
 * [Enterprise billing](/enterprise/support-and-resources/billing/) - Contract pools and spending controls
 * [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Subscription changes and billing management.
