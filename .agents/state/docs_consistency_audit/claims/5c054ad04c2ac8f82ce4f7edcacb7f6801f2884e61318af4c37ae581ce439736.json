@@ -1,6 +1,946 @@
 {
-  "claims": [],
-  "page_sha256": "1ce2aaaf7110fd37901c7e1d4470447c24c415c66076ab5d3d30e4ccf1d15c00",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:9fb848ce606e4dfa35227d5dfdfcd7d925cfad4a971709ee24f9bdb17074349b",
+      "claim_id": "sha256:1744cb77a1590717fb6ca7c0d506ce614e52dcf93a0da3e0db66abd55d55b596",
+      "entity": "agent-run-api",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "requires-desktop-app",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "without requiring the Warp desktop app.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Use Agent & run endpoints",
+        "heading_anchor": "use-agent-run-endpoints",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:906c1dd85bd0eda725658cfdb7b1540a3ac53383c1c86391b514e1a8d1a1467d",
+      "claim_id": "sha256:2a69a8ee7adba894951f12d5a71950d62962b949033d6dabb36edd799b50338c",
+      "entity": "agent-api",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "base-url",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "https://app.warp.dev/api/v1",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "API base URL",
+        "heading_anchor": "api-base-url",
+        "line_end": 57,
+        "line_start": 57,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "https://app.warp.dev/api/v1",
+        "raw": "https://app.warp.dev/api/v1",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6b16ef3a78749ef78e960b8c594d5c6f85b7875b2cfbc760864904190a4ec5db",
+      "claim_id": "sha256:ac193392757aff8bc8855032049374598648fd7528376ec09bc52c25a60f45a8",
+      "entity": "create-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "method-path",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "*   `POST /agent/runs`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Key endpoints",
+        "heading_anchor": "key-endpoints",
+        "line_end": 152,
+        "line_start": 152,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "POST /agent/runs",
+        "raw": "POST /agent/runs",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:361c84381ac8d7cbce62d56ad458f8e2f8d5a2fbbf4eda56ff0ffdb13d627910",
+      "claim_id": "sha256:829543b9031f191d6ad88c5898a3ce1a2b41925da2a439117cbca5b945f24241",
+      "entity": "list-agent-runs",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "method-path",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "*   `GET /agent/runs`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Key endpoints",
+        "heading_anchor": "key-endpoints",
+        "line_end": 155,
+        "line_start": 155,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "GET /agent/runs",
+        "raw": "GET /agent/runs",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8fb8f40e7430d38929190c849b2c6392e1691a91b1e4553fadc134ba0be89996",
+      "claim_id": "sha256:119fe874e05305b463b975b01206d8b32a1a3438e6f5d901de13b10d746e1205",
+      "entity": "get-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "method-path",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "*   `GET /agent/runs/{runId}`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Key endpoints",
+        "heading_anchor": "key-endpoints",
+        "line_end": 158,
+        "line_start": 158,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "GET /agent/runs/{runId}",
+        "raw": "GET /agent/runs/{runId}",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8771ca024e878f6649856099c416d6ce1050a01051e1f3b167894cff52660608",
+      "claim_id": "sha256:0e75aac26645de9bafb859adf3a08c6052e728b246800ba4c8489dab6c2d25d2",
+      "entity": "followup-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "method-path",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "*   `POST /agent/runs/{runId}/followups`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Key endpoints",
+        "heading_anchor": "key-endpoints",
+        "line_end": 161,
+        "line_start": 161,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "POST /agent/runs/{runId}/followups",
+        "raw": "POST /agent/runs/{runId}/followups",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:126bb6dbe87ad0efb327506da8bfc8b1525ff44b9c44949da439ce3e1eed87e1",
+      "claim_id": "sha256:cefdb988c5f5c18823cea3e5957333e7b85a800eafa0366ead63822dbb763238",
+      "entity": "cancel-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "method-path",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "*   `POST /agent/runs/{runId}/cancel`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Key endpoints",
+        "heading_anchor": "key-endpoints",
+        "line_end": 164,
+        "line_start": 164,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "POST /agent/runs/{runId}/cancel",
+        "raw": "POST /agent/runs/{runId}/cancel",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c823925ba2b198fe50e026aefbc4585977141fd1cf59aaef07d038e706cb87c1",
+      "claim_id": "sha256:872f4ab33e55d065116d7f84b4366b0df9c5ac146f9cf6229595d5c08ff3f6d2",
+      "entity": "agent-run-cancellation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "supports-queued-runs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cancel a run that is currently queued or in progress.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Key endpoints",
+        "heading_anchor": "key-endpoints",
+        "line_end": 166,
+        "line_start": 166,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e1c7b4465546ef466b803279feba04239cf28be5da0163c652e8a8cd2013e9c0",
+      "claim_id": "sha256:48cf2a329b64aca23c14d0f30c7b292e458871bec23bbbf7646415dd84495b57",
+      "entity": "agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "common-states",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "## Agent runs\n\nAn agent run represents a single execution of a cloud agent, created with a prompt and optional configuration. Each run has:\n\n* A unique `run_id`\n* A human-readable `title`\n* A `prompt` that the agent executes\n* A `state` (for example `QUEUED`, `INPROGRESS`, `SUCCEEDED`, `FAILED`)\n* Timestamps (`created_at`, `updated_at`)\n* Optional session information (`session_id`, `session_link`)\n* Optional resolved configuration (`agent_config`)\n\nSee the [**{VARS.WARP_PLATFORM_API} reference**](/api) for details on how runs are created and listed.\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Agent runs",
+        "heading_anchor": "agent-runs",
+        "line_end": 73,
+        "line_start": 60,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "QUEUED",
+          "INPROGRESS",
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "raw": [
+          "QUEUED",
+          "INPROGRESS",
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e7a51875adc61d50a4ed4da2fdd432683c193a9edfb73e823159930a0ed314a2",
+      "claim_id": "sha256:c490340437ce98ffac3c6facaf9f1ae47db87924e5d71667b5dff713b5fb7d79",
+      "entity": "factory-intake",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "uses-factory-endpoints",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/runs` with a foreman's `agent_identity_uid`.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Use Agent & run endpoints",
+        "heading_anchor": "use-agent-run-endpoints",
+        "line_end": 31,
+        "line_start": 31,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fd24d0ea1309ca215c050a12aeb6eaa65c95d7b2432077fe305a83236608afce",
+      "claim_id": "sha256:b96c856b7b5efb8c39554e7eed1ab899333af46b7a018944ca1d4883ceb074d7",
+      "entity": "python-sdk",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "package-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "pip install warp-platform-sdk",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Python SDK",
+        "heading_anchor": "python-sdk",
+        "line_end": 183,
+        "line_start": 183,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "warp-platform-sdk",
+        "raw": "warp-platform-sdk",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:465af0081b0fc82914050aff0de1a2624fcc19643f585e51f9d12eb7fb0465e0",
+      "claim_id": "sha256:a2228e1867196a68f1ee949c88e8c4cb3de6357a4eee28c462bc81f71f8ce3e3",
+      "entity": "typescript-sdk",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "package-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "npm install @warp-dot-dev/warp-platform-sdk",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "TypeScript SDK",
+        "heading_anchor": "typescript-sdk",
+        "line_end": 199,
+        "line_start": 199,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "@warp-dot-dev/warp-platform-sdk",
+        "raw": "@warp-dot-dev/warp-platform-sdk",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4aef444fd4c5e74cf25067f1aad7d89d57d2bfc4f0a5576850b262d2e39e84d3",
+      "claim_id": "sha256:e1ab9e433219ff02f423c6492e5d4488e265f32df5e00382862f4a1d8512238c",
+      "entity": "python-sdk",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "client-import",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Import `WarpClient` from `warp_platform_sdk`.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Python SDK",
+        "heading_anchor": "python-sdk",
+        "line_end": 186,
+        "line_start": 186,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "WarpClient from warp_platform_sdk",
+        "raw": "WarpClient from warp_platform_sdk",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f004fda329b5f36202259bea384d9c0db6abfcf2a550a79088307ef8684ecb7b",
+      "claim_id": "sha256:f51542049d72de697658b20f32c2bc586b5b736d2de80b14abcd49fb92ab578c",
+      "entity": "typescript-sdk",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "client-import",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Import `WarpClient` from `@warp-dot-dev/warp-platform-sdk`.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "TypeScript SDK",
+        "heading_anchor": "typescript-sdk",
+        "line_end": 202,
+        "line_start": 202,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "WarpClient from @warp-dot-dev/warp-platform-sdk",
+        "raw": "WarpClient from @warp-dot-dev/warp-platform-sdk",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ad55236487adca48cab9624bedd404c6a11ba42652e53647313508153b40f035",
+      "claim_id": "sha256:8422ea18cde78b161a50ef0b25266208b64b5e37061a0376fe5e5c9d195b2f67",
+      "entity": "ambient-agent-config",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "configurable-fields",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "## Agent configuration\n\nYou can influence how an agent runs using `AmbientAgentConfig`, including:\n\n* `name` \u2014 a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](/agents/capabilities/skills/), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent \u2014 for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.\n* `model_id` for LLM selection\n* `base_prompt` to shape behavior\n* `environment_id` to choose a `CloudEnvironment`\n* `worker_host` to run a standalone cloud agent on a [self-hosted worker](/factories/self-hosting/)\n* `skill_spec` to use a [skill](/agents/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)\n* `mcp_servers` to enable specific tools via MCP\n\nSee the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Agent configuration",
+        "heading_anchor": "agent-configuration",
+        "line_end": 87,
+        "line_start": 74,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "name",
+          "model_id",
+          "base_prompt",
+          "environment_id",
+          "worker_host",
+          "skill_spec",
+          "mcp_servers"
+        ],
+        "raw": [
+          "name",
+          "model_id",
+          "base_prompt",
+          "environment_id",
+          "worker_host",
+          "skill_spec",
+          "mcp_servers"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a110d4ee197b1c56e746c97250722900e8ac56e6449d57f507439e6f8aa2c72e",
+      "claim_id": "sha256:1a1f635ffa34d8d21f3815e0ea64072416bdec29f8fe53445a199529e7377569",
+      "entity": "skill-run-name",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "defaults-to-skill-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When you run an agent from a [skill](/agents/capabilities/skills/), `name` is automatically set to the skill name.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Agent configuration",
+        "heading_anchor": "agent-configuration",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b098fe702249d8a670d3dd654d6b984740d2aad847750c522394cf47882ea421",
+      "claim_id": "sha256:6704bc7e33bc34b8976134f38534a830a08637c2d6a60bf2b4b560fc77873f3a",
+      "entity": "skill-action",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "action-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Conversation API returns skill loads as `read_skill` actions.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Skill actions in conversation data",
+        "heading_anchor": "skill-actions-in-conversation-data",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "read_skill"
+        ],
+        "raw": [
+          "read_skill"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cbf6ef13c367913dbb25b0f39fed83989a2587d5a8643039c4a0b134652443d9",
+      "claim_id": "sha256:566af3a7db9b21c84e308077333e5dd984cf491ef3e370852aacddd07d9a91b7",
+      "entity": "skill-path",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "proves-team-owned-skill",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`input.skill_path` is the path used to resolve a skill, but doesn't prove ownership: file-based skills and path-referenced bundled skills, including skills from a remote host, can both use this field.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Skill actions in conversation data",
+        "heading_anchor": "skill-actions-in-conversation-data",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2c28686c4cee05730bde8807c47e150ffb258ac5f263eb2d381e405141115e06",
+      "claim_id": "sha256:2ef506eb3b227f5cc05837885a52eb999bfd8718f50c54dc01bcf4092df4b637",
+      "entity": "bundled-skill-catalog",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "is-availability-manifest",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The catalog helps group usage across conversations; it isn't an availability manifest.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Skill actions in conversation data",
+        "heading_anchor": "skill-actions-in-conversation-data",
+        "line_end": 129,
+        "line_start": 129,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0ddc3babbd6ca3b3aa1aabd9a78ee02261b4b3a44da36862f5d1da8cec30dab5",
+      "claim_id": "sha256:9746eac9d933372fe0b12e6a82e2199782b6aa34847e45c8b7ab67ebd9642619",
+      "entity": "standalone-worker-host",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "default-host",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "standalone"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Omit it, or set it to `warp`, to use Warp-hosted workers.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Route a run to a self-hosted worker",
+        "heading_anchor": "route-a-run-to-a-self-hosted-worker",
+        "line_end": 135,
+        "line_start": 135,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "warp"
+        ],
+        "raw": [
+          "warp"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1875a4748efb9cb839a85626e1603acb6f013e4c8cf9939c496c06e041f11d7e",
+      "claim_id": "sha256:1f8a250436fd3bf702c9887e072e1df4ff270631e14244e7c6eb150d7531fec4",
+      "entity": "factory-worker-host",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "configuration-field",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For factory work, set `workerHost` in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost) instead.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk",
+        "canonical_route": "/factories/api-and-sdk",
+        "content_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+        "heading": "Route a run to a self-hosted worker",
+        "heading_anchor": "route-a-run-to-a-self-hosted-worker",
+        "line_end": 146,
+        "line_start": 146,
+        "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "agentDefaults.workerHost",
+        "raw": "agentDefaults.workerHost",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
   "path": "src/content/docs/factories/api-and-sdk/index.mdx",
   "schema_version": 1
 }

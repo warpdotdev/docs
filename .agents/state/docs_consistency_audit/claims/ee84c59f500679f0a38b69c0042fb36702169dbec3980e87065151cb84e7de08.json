@@ -1,6 +1,189 @@
 {
-  "claims": [],
-  "page_sha256": "4c4d71944930052bf401b91c9688a73309ef55b98176b0405a474fdf4f8f8666",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:55dc8a16097a1813fa87c50b5f189b83c425182c959db9eac64577b185b6abf5",
+      "claim_id": "sha256:b51fe11a4d0ee19366b1a82e831d59a5bc8facc3455f09c834dca3f313c56b35",
+      "entity": "environment_setup_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `500 Internal Server Error`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "content_sha256": "3a655732fb281f71c47a1bc9c0fa63bfbb4dafa287c9222ec8dbf881194ce037",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 500,
+        "raw": 500,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9458577d69d6492fbac35addcbac8a2da5aa42a8bcadf26a8c5eb4dfc76c2492",
+      "claim_id": "sha256:a24fdfdbfa0d9f3ebdbb09558c4d75161c23e41e6851bbc20eba29256c7bc4e7",
+      "entity": "environment_setup_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "content_sha256": "3a655732fb281f71c47a1bc9c0fa63bfbb4dafa287c9222ec8dbf881194ce037",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dc8ec9523921484ebf3d5bd98475079f2f61e1e98dd361ec5108ab410659f41",
+      "claim_id": "sha256:cbafd9d0477d0f05d787ee2296925dcc4138da7bad5b4a9659054936fdefd820",
+      "entity": "environment_setup_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "content_sha256": "3a655732fb281f71c47a1bc9c0fa63bfbb4dafa287c9222ec8dbf881194ce037",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7e8bf3ea3a11a6c72b0f926231a3fa03d66fd15d568276a02aa6b5c4da84455c",
+      "claim_id": "sha256:3e05d24a6137ccac524eb856ea550085d9fea13797e29754feee00e3de53734d",
+      "entity": "environment_setup_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "execution-phase",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This covers failures during any phase of environment setup, including repository cloning, setup command execution, working directory resolution, and MCP server startup.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed",
+        "content_sha256": "3a655732fb281f71c47a1bc9c0fa63bfbb4dafa287c9222ec8dbf881194ce037",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "environment-setup"
+        ],
+        "raw": [
+          "environment-setup"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "page_sha256": "3a655732fb281f71c47a1bc9c0fa63bfbb4dafa287c9222ec8dbf881194ce037",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
   "schema_version": 1
 }

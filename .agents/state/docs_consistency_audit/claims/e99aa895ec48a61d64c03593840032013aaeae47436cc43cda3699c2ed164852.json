@@ -1,6 +1,189 @@
 {
-  "claims": [],
-  "page_sha256": "c18c95470126acef3291900d99fc83f5fceaf766bfb7cec3fa50194137238106",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:55dc8a16097a1813fa87c50b5f189b83c425182c959db9eac64577b185b6abf5",
+      "claim_id": "sha256:54a3894cdd8d338fea9dada4b2be99602530dd595b292d9b801ca88ddac3c9c9",
+      "entity": "agent_process_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `500 Internal Server Error`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "content_sha256": "f499e2120e0fbce759ef1e822b602e6d3a52abbcf9c4bd0a06fbe5f5aa2b1e70",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 500,
+        "raw": 500,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9458577d69d6492fbac35addcbac8a2da5aa42a8bcadf26a8c5eb4dfc76c2492",
+      "claim_id": "sha256:46b689f588d58a85f7d9d702e03b5f266dbc280e0febd015a3643e0e10049544",
+      "entity": "agent_process_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "content_sha256": "f499e2120e0fbce759ef1e822b602e6d3a52abbcf9c4bd0a06fbe5f5aa2b1e70",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3507c51c3e5212098fc381b97c5e00127799f6e08183a3e16fa8ac5abb985376",
+      "claim_id": "sha256:36c2422a93cd5bdd41d6e003e4d96d49094e7bd83d241f424f61893c41d98547",
+      "entity": "agent_process_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** ERROR",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "content_sha256": "f499e2120e0fbce759ef1e822b602e6d3a52abbcf9c4bd0a06fbe5f5aa2b1e70",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "ERROR"
+        ],
+        "raw": [
+          "ERROR"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2b66a40e4deb81c131eedf1202637f4a3a39bf117fb597436d1ebb6f80d913fe",
+      "claim_id": "sha256:3d5cf03904973f2a1a904c813bc25bfc977c3440c1da3a544da92fbf723cb46a",
+      "entity": "agent_process_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "execution-phase",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `agent_process_failed` error occurs when the agent process exits unexpectedly after environment setup has completed, before the task reaches a normal terminal state.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed",
+        "content_sha256": "f499e2120e0fbce759ef1e822b602e6d3a52abbcf9c4bd0a06fbe5f5aa2b1e70",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "after-environment-setup"
+        ],
+        "raw": [
+          "after-environment-setup"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "page_sha256": "f499e2120e0fbce759ef1e822b602e6d3a52abbcf9c4bd0a06fbe5f5aa2b1e70",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
   "schema_version": 1
 }

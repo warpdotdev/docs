@@ -1,18 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/enterprise/team-management/workspaces.mdx",
-    "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
-    "src/content/docs/factories/api-and-sdk/index.mdx",
-    "src/content/docs/factories/api-and-sdk/quickstart.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/insufficient-credits.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
@@ -7152,7 +7140,7 @@
         }
       ],
       "character_count": 6368,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -13711,7 +13699,7 @@
         }
       ],
       "character_count": 7867,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -14422,7 +14410,7 @@
         }
       ],
       "character_count": 5680,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -14549,7 +14537,7 @@
         }
       ],
       "character_count": 3582,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -14674,7 +14662,7 @@
         }
       ],
       "character_count": 4849,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -14953,7 +14941,7 @@
         }
       ],
       "character_count": 18197,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -15185,7 +15173,7 @@
         }
       ],
       "character_count": 4211,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -15332,7 +15320,7 @@
         }
       ],
       "character_count": 7810,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "what-is-a-team",
@@ -15405,6 +15393,540 @@
       "route": "/enterprise/team-management/teams/",
       "source_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
       "title": "Team management in Warp"
+    },
+    "src/content/docs/enterprise/team-management/workspaces.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 258,
+          "heading": "",
+          "line_end": 12,
+          "line_start": 9
+        },
+        {
+          "anchor": "workspaces-and-teams",
+          "character_count": 439,
+          "heading": "Workspaces and teams",
+          "line_end": 20,
+          "line_start": 13
+        },
+        {
+          "anchor": "workspace-roles",
+          "character_count": 620,
+          "heading": "Workspace roles",
+          "line_end": 30,
+          "line_start": 21
+        },
+        {
+          "anchor": "unassigned-users",
+          "character_count": 339,
+          "heading": "Unassigned users",
+          "line_end": 62,
+          "line_start": 57
+        },
+        {
+          "anchor": "cloud-agent-run-visibility",
+          "character_count": 531,
+          "heading": "Cloud agent run visibility",
+          "line_end": 68,
+          "line_start": 63
+        },
+        {
+          "anchor": "changing-workspace-roles",
+          "character_count": 1070,
+          "heading": "Changing workspace roles",
+          "line_end": 82,
+          "line_start": 69
+        },
+        {
+          "anchor": "workspace-settings-and-team-settings",
+          "character_count": 411,
+          "heading": "Workspace settings and team settings",
+          "line_end": 88,
+          "line_start": 83
+        },
+        {
+          "anchor": "workspace-spend-limits",
+          "character_count": 421,
+          "heading": "Workspace spend limits",
+          "line_end": 94,
+          "line_start": 89
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 562,
+          "heading": "Related pages",
+          "line_end": 101,
+          "line_start": 95
+        }
+      ],
+      "character_count": 6252,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "workspaces-and-teams",
+          "line_start": 13,
+          "text": "Workspaces and teams"
+        },
+        {
+          "anchor": "workspace-roles",
+          "line_start": 21,
+          "text": "Workspace roles"
+        },
+        {
+          "anchor": "workspace-admin-permissions",
+          "line_start": 31,
+          "text": "Workspace admin permissions"
+        },
+        {
+          "anchor": "teams-inside-a-workspace",
+          "line_start": 38,
+          "text": "Teams inside a workspace"
+        },
+        {
+          "anchor": "joining-a-workspace-or-team",
+          "line_start": 47,
+          "text": "Joining a workspace or team"
+        },
+        {
+          "anchor": "unassigned-users",
+          "line_start": 57,
+          "text": "Unassigned users"
+        },
+        {
+          "anchor": "cloud-agent-run-visibility",
+          "line_start": 63,
+          "text": "Cloud agent run visibility"
+        },
+        {
+          "anchor": "changing-workspace-roles",
+          "line_start": 69,
+          "text": "Changing workspace roles"
+        },
+        {
+          "anchor": "workspace-settings-and-team-settings",
+          "line_start": 83,
+          "text": "Workspace settings and team settings"
+        },
+        {
+          "anchor": "workspace-spend-limits",
+          "line_start": 89,
+          "text": "Workspace spend limits"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 95,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+      "role": "docs-prose",
+      "route": "/enterprise/team-management/workspaces/",
+      "source_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+      "title": "Workspaces for Enterprise teams"
+    },
+    "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 978,
+          "heading": "",
+          "line_end": 18,
+          "line_start": 8
+        },
+        {
+          "anchor": "what-the-demo-covers",
+          "character_count": 588,
+          "heading": "What the demo covers",
+          "line_end": 26,
+          "line_start": 19
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 375,
+          "heading": "Related pages",
+          "line_end": 31,
+          "line_start": 27
+        }
+      ],
+      "character_count": 2127,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "what-the-demo-covers",
+          "line_start": 19,
+          "text": "What the demo covers"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 27,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/",
+      "source_sha256": "92a17a6578d58818f7c8385e4475d3e55aec084dea77e751b59cae31afd83818",
+      "title": "Demo: Sentry monitoring with SDK"
+    },
+    "src/content/docs/factories/api-and-sdk/index.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 519,
+          "heading": "",
+          "line_end": 18,
+          "line_start": 10
+        },
+        {
+          "anchor": "use-agent-run-endpoints",
+          "character_count": 1194,
+          "heading": "Use Agent & run endpoints",
+          "line_end": 32,
+          "line_start": 19
+        },
+        {
+          "anchor": "choose-the-sdk-or-raw-rest",
+          "character_count": 1204,
+          "heading": "Choose the SDK or raw REST",
+          "line_end": 51,
+          "line_start": 33
+        },
+        {
+          "anchor": "api-base-url",
+          "character_count": 95,
+          "heading": "API base URL",
+          "line_end": 59,
+          "line_start": 52
+        },
+        {
+          "anchor": "agent-runs",
+          "character_count": 556,
+          "heading": "Agent runs",
+          "line_end": 73,
+          "line_start": 60
+        },
+        {
+          "anchor": "agent-configuration",
+          "character_count": 1163,
+          "heading": "Agent configuration",
+          "line_end": 87,
+          "line_start": 74
+        },
+        {
+          "anchor": "running-a-skill",
+          "character_count": 652,
+          "heading": "Running a skill",
+          "line_end": 103,
+          "line_start": 88
+        },
+        {
+          "anchor": "skill-actions-in-conversation-data",
+          "character_count": 2444,
+          "heading": "Skill actions in conversation data",
+          "line_end": 132,
+          "line_start": 104
+        },
+        {
+          "anchor": "route-a-run-to-a-self-hosted-worker",
+          "character_count": 478,
+          "heading": "Route a run to a self-hosted worker",
+          "line_end": 147,
+          "line_start": 133
+        },
+        {
+          "anchor": "key-endpoints",
+          "character_count": 924,
+          "heading": "Key endpoints",
+          "line_end": 169,
+          "line_start": 148
+        },
+        {
+          "anchor": "python-sdk",
+          "character_count": 483,
+          "heading": "Python SDK",
+          "line_end": 187,
+          "line_start": 172
+        },
+        {
+          "anchor": "typescript-sdk",
+          "character_count": 582,
+          "heading": "TypeScript SDK",
+          "line_end": 203,
+          "line_start": 188
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 458,
+          "heading": "Related pages",
+          "line_end": 209,
+          "line_start": 204
+        }
+      ],
+      "character_count": 10997,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 10,
+          "text": ""
+        },
+        {
+          "anchor": "use-agent-run-endpoints",
+          "line_start": 19,
+          "text": "Use Agent & run endpoints"
+        },
+        {
+          "anchor": "choose-the-sdk-or-raw-rest",
+          "line_start": 33,
+          "text": "Choose the SDK or raw REST"
+        },
+        {
+          "anchor": "api-base-url",
+          "line_start": 52,
+          "text": "API base URL"
+        },
+        {
+          "anchor": "agent-runs",
+          "line_start": 60,
+          "text": "Agent runs"
+        },
+        {
+          "anchor": "agent-configuration",
+          "line_start": 74,
+          "text": "Agent configuration"
+        },
+        {
+          "anchor": "running-a-skill",
+          "line_start": 88,
+          "text": "Running a skill"
+        },
+        {
+          "anchor": "skill-actions-in-conversation-data",
+          "line_start": 104,
+          "text": "Skill actions in conversation data"
+        },
+        {
+          "anchor": "route-a-run-to-a-self-hosted-worker",
+          "line_start": 133,
+          "text": "Route a run to a self-hosted worker"
+        },
+        {
+          "anchor": "key-endpoints",
+          "line_start": 148,
+          "text": "Key endpoints"
+        },
+        {
+          "anchor": "sdks",
+          "line_start": 170,
+          "text": "SDKs"
+        },
+        {
+          "anchor": "python-sdk",
+          "line_start": 172,
+          "text": "Python SDK"
+        },
+        {
+          "anchor": "typescript-sdk",
+          "line_start": 188,
+          "text": "TypeScript SDK"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 204,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/index.mdx",
+      "role": "canonical-overview",
+      "route": "/factories/api-and-sdk/",
+      "source_sha256": "37d1957344f9804f09aa43b4231ec8c819ec5e262d38bc24b8a1506c9feeb7e6",
+      "title": "Agent & run endpoints"
+    },
+    "src/content/docs/factories/api-and-sdk/quickstart.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 828,
+          "heading": "",
+          "line_end": 19,
+          "line_start": 10
+        },
+        {
+          "anchor": "prerequisites",
+          "character_count": 328,
+          "heading": "Prerequisites",
+          "line_end": 24,
+          "line_start": 20
+        },
+        {
+          "anchor": "1-set-your-api-key",
+          "character_count": 393,
+          "heading": "1. Set your API key",
+          "line_end": 36,
+          "line_start": 25
+        },
+        {
+          "anchor": "2-create-your-first-run",
+          "character_count": 991,
+          "heading": "2. Create your first run",
+          "line_end": 60,
+          "line_start": 37
+        },
+        {
+          "anchor": "3-check-run-status",
+          "character_count": 948,
+          "heading": "3. Check run status",
+          "line_end": 85,
+          "line_start": 61
+        },
+        {
+          "anchor": "4-view-the-results",
+          "character_count": 307,
+          "heading": "4. View the results",
+          "line_end": 91,
+          "line_start": 86
+        },
+        {
+          "anchor": "next-steps",
+          "character_count": 1098,
+          "heading": "Next steps",
+          "line_end": 99,
+          "line_start": 92
+        }
+      ],
+      "character_count": 5118,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 10,
+          "text": ""
+        },
+        {
+          "anchor": "prerequisites",
+          "line_start": 20,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "1-set-your-api-key",
+          "line_start": 25,
+          "text": "1. Set your API key"
+        },
+        {
+          "anchor": "2-create-your-first-run",
+          "line_start": 37,
+          "text": "2. Create your first run"
+        },
+        {
+          "anchor": "3-check-run-status",
+          "line_start": 61,
+          "text": "3. Check run status"
+        },
+        {
+          "anchor": "4-view-the-results",
+          "line_start": 86,
+          "text": "4. View the results"
+        },
+        {
+          "anchor": "next-steps",
+          "line_start": 92,
+          "text": "Next steps"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/quickstart/",
+      "source_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+      "title": "{{WARP_PLATFORM_API}} quickstart"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 627,
+          "heading": "",
+          "line_end": 16,
+          "line_start": 8
+        },
+        {
+          "anchor": "details",
+          "character_count": 108,
+          "heading": "Details",
+          "line_end": 24,
+          "line_start": 17
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 331,
+          "heading": "Example response",
+          "line_end": 50,
+          "line_start": 35
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 478,
+          "heading": "How to resolve",
+          "line_end": 58,
+          "line_start": 51
+        },
+        {
+          "anchor": "related",
+          "character_count": 342,
+          "heading": "Related",
+          "line_end": 63,
+          "line_start": 59
+        }
+      ],
+      "character_count": 2459,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 17,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 25,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 35,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 51,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 59,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/agent-process-failed.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+      "source_sha256": "f499e2120e0fbce759ef1e822b602e6d3a52abbcf9c4bd0a06fbe5f5aa2b1e70",
+      "title": "agent_process_failed"
     },
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/authentication-required.mdx": {
       "candidate_sections": [
@@ -15483,6 +16005,653 @@
       "route": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
       "source_sha256": "f67bb2c7246c745f9ad34eac4a4e238a9c5905de434e63f3dcb99b89f5638b8f",
       "title": "authentication_required"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "details",
+          "character_count": 97,
+          "heading": "Details",
+          "line_end": 20,
+          "line_start": 13
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 319,
+          "heading": "Example response",
+          "line_end": 46,
+          "line_start": 32
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 259,
+          "heading": "How to resolve",
+          "line_end": 55,
+          "line_start": 47
+        },
+        {
+          "anchor": "related",
+          "character_count": 145,
+          "heading": "Related",
+          "line_end": 58,
+          "line_start": 56
+        }
+      ],
+      "character_count": 1489,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 13,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 21,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 32,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 47,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 56,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+      "source_sha256": "5c1b8e894b539293730d2d6fd319b110aa859fd9eee5e724184049105d20c45d",
+      "title": "budget_exceeded"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 184,
+          "heading": "",
+          "line_end": 15,
+          "line_start": 10
+        },
+        {
+          "anchor": "details",
+          "character_count": 97,
+          "heading": "Details",
+          "line_end": 23,
+          "line_start": 16
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 351,
+          "heading": "Example response",
+          "line_end": 48,
+          "line_start": 34
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 245,
+          "heading": "How to resolve",
+          "line_end": 57,
+          "line_start": 49
+        },
+        {
+          "anchor": "related",
+          "character_count": 201,
+          "heading": "Related",
+          "line_end": 61,
+          "line_start": 58
+        }
+      ],
+      "character_count": 1581,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 10,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 16,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 24,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 34,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 49,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 58,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/conflict/",
+      "source_sha256": "ca43ad5eb339cecd47e78497fa39cad7f05bcd593412afae2616983382122ed1",
+      "title": "Error: conflict (409)"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "details",
+          "character_count": 97,
+          "heading": "Details",
+          "line_end": 20,
+          "line_start": 13
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "character_count": 417,
+          "heading": "When does this occur?",
+          "line_end": 34,
+          "line_start": 21
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 433,
+          "heading": "Example response",
+          "line_end": 50,
+          "line_start": 35
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 372,
+          "heading": "How to resolve",
+          "line_end": 57,
+          "line_start": 51
+        },
+        {
+          "anchor": "related",
+          "character_count": 150,
+          "heading": "Related",
+          "line_end": 61,
+          "line_start": 58
+        }
+      ],
+      "character_count": 1826,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 13,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 21,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 35,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 51,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 58,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+      "source_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
+      "title": "content_policy_violation"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 486,
+          "heading": "",
+          "line_end": 16,
+          "line_start": 8
+        },
+        {
+          "anchor": "details",
+          "character_count": 109,
+          "heading": "Details",
+          "line_end": 24,
+          "line_start": 17
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 366,
+          "heading": "Example response",
+          "line_end": 52,
+          "line_start": 38
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 836,
+          "heading": "How to resolve",
+          "line_end": 62,
+          "line_start": 53
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 264,
+          "heading": "Related pages",
+          "line_end": 67,
+          "line_start": 63
+        }
+      ],
+      "character_count": 2935,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 17,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 25,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 38,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 53,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 63,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+      "source_sha256": "3a655732fb281f71c47a1bc9c0fa63bfbb4dafa287c9222ec8dbf881194ce037",
+      "title": "environment_setup_failed"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 229,
+          "heading": "",
+          "line_end": 12,
+          "line_start": 8
+        },
+        {
+          "anchor": "details",
+          "character_count": 100,
+          "heading": "Details",
+          "line_end": 20,
+          "line_start": 13
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "character_count": 474,
+          "heading": "When does this occur?",
+          "line_end": 30,
+          "line_start": 21
+        },
+        {
+          "anchor": "additional-metadata-fields",
+          "character_count": 376,
+          "heading": "Additional metadata fields",
+          "line_end": 40,
+          "line_start": 31
+        },
+        {
+          "anchor": "github-user-not-connected",
+          "character_count": 429,
+          "heading": "GitHub user not connected",
+          "line_end": 57,
+          "line_start": 43
+        },
+        {
+          "anchor": "repository-inaccessible",
+          "character_count": 638,
+          "heading": "Repository inaccessible",
+          "line_end": 74,
+          "line_start": 58
+        },
+        {
+          "anchor": "account-matching-failed-slacklinear",
+          "character_count": 354,
+          "heading": "Account matching failed (Slack/Linear)",
+          "line_end": 90,
+          "line_start": 75
+        },
+        {
+          "anchor": "github-not-connected",
+          "character_count": 168,
+          "heading": "GitHub not connected",
+          "line_end": 98,
+          "line_start": 93
+        },
+        {
+          "anchor": "repository-inaccessible",
+          "character_count": 373,
+          "heading": "Repository inaccessible",
+          "line_end": 106,
+          "line_start": 99
+        },
+        {
+          "anchor": "account-matching-failed",
+          "character_count": 264,
+          "heading": "Account matching failed",
+          "line_end": 114,
+          "line_start": 107
+        },
+        {
+          "anchor": "related",
+          "character_count": 202,
+          "heading": "Related",
+          "line_end": 118,
+          "line_start": 115
+        }
+      ],
+      "character_count": 3888,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 13,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 21,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "additional-metadata-fields",
+          "line_start": 31,
+          "text": "Additional metadata fields"
+        },
+        {
+          "anchor": "example-responses",
+          "line_start": 41,
+          "text": "Example responses"
+        },
+        {
+          "anchor": "github-user-not-connected",
+          "line_start": 43,
+          "text": "GitHub user not connected"
+        },
+        {
+          "anchor": "repository-inaccessible",
+          "line_start": 58,
+          "text": "Repository inaccessible"
+        },
+        {
+          "anchor": "account-matching-failed-slacklinear",
+          "line_start": 75,
+          "text": "Account matching failed (Slack/Linear)"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 91,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "github-not-connected",
+          "line_start": 93,
+          "text": "GitHub not connected"
+        },
+        {
+          "anchor": "repository-inaccessible",
+          "line_start": 99,
+          "text": "Repository inaccessible"
+        },
+        {
+          "anchor": "account-matching-failed",
+          "line_start": 107,
+          "text": "Account matching failed"
+        },
+        {
+          "anchor": "related",
+          "line_start": 115,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+      "source_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
+      "title": "external_authentication_required"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 145,
+          "heading": "",
+          "line_end": 12,
+          "line_start": 8
+        },
+        {
+          "anchor": "details",
+          "character_count": 97,
+          "heading": "Details",
+          "line_end": 20,
+          "line_start": 13
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "character_count": 394,
+          "heading": "When does this occur?",
+          "line_end": 31,
+          "line_start": 21
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 329,
+          "heading": "Example response",
+          "line_end": 46,
+          "line_start": 32
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 316,
+          "heading": "How to resolve",
+          "line_end": 56,
+          "line_start": 47
+        },
+        {
+          "anchor": "related",
+          "character_count": 224,
+          "heading": "Related",
+          "line_end": 60,
+          "line_start": 57
+        }
+      ],
+      "character_count": 1697,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 13,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 21,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 32,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 47,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 57,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+      "source_sha256": "4f568ea251fdbe2ef83070b200e2c9a6a744829c9c08b7a50421e08e5b5c0629",
+      "title": "feature_not_available"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 352,
+          "heading": "",
+          "line_end": 12,
+          "line_start": 9
+        },
+        {
+          "anchor": "response-format",
+          "character_count": 539,
+          "heading": "Response format",
+          "line_end": 31,
+          "line_start": 13
+        },
+        {
+          "anchor": "field-reference",
+          "character_count": 939,
+          "heading": "Field reference",
+          "line_end": 44,
+          "line_start": 32
+        },
+        {
+          "anchor": "user-errors",
+          "character_count": 1968,
+          "heading": "User errors",
+          "line_end": 66,
+          "line_start": 49
+        },
+        {
+          "anchor": "platform-errors",
+          "character_count": 949,
+          "heading": "Platform errors",
+          "line_end": 76,
+          "line_start": 67
+        },
+        {
+          "anchor": "using-the-traceid",
+          "character_count": 339,
+          "heading": "Using the `trace_id`",
+          "line_end": 80,
+          "line_start": 77
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 318,
+          "heading": "Related pages",
+          "line_end": 85,
+          "line_start": 81
+        }
+      ],
+      "character_count": 5735,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 9,
+          "text": ""
+        },
+        {
+          "anchor": "response-format",
+          "line_start": 13,
+          "text": "Response format"
+        },
+        {
+          "anchor": "field-reference",
+          "line_start": 32,
+          "text": "Field reference"
+        },
+        {
+          "anchor": "error-categories",
+          "line_start": 45,
+          "text": "Error categories"
+        },
+        {
+          "anchor": "user-errors",
+          "line_start": 49,
+          "text": "User errors"
+        },
+        {
+          "anchor": "platform-errors",
+          "line_start": 67,
+          "text": "Platform errors"
+        },
+        {
+          "anchor": "using-the-traceid",
+          "line_start": 77,
+          "text": "Using the `trace_id`"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 81,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+      "role": "canonical-overview",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/",
+      "source_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+      "title": "API error codes"
     }
   },
   "schema_version": 1,

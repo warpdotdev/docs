@@ -1,6 +1,141 @@
 {
-  "claims": [],
-  "page_sha256": "77a1154812e5221333bfb52ad17a0f7a79a5f2d12fa2c40d336455db2c41d485",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:6d29c37442d95817636bfbaa4cc23fe648ab6abcf0403cda58a2ca682d3f6bd2",
+      "claim_id": "sha256:0bc07533e6938e6369a277d1d1388ecfa65c695857c91609fde7159cb51f5f29",
+      "entity": "sentry-sdk-demo",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "intake-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This demo covers standalone cloud agent intake.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+        "content_sha256": "92a17a6578d58818f7c8385e4475d3e55aec084dea77e751b59cae31afd83818",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "standalone-cloud-run"
+        ],
+        "raw": [
+          "standalone-cloud-run"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b9a217bfca04e1c33d6de2ce29bc04b4b15db0a2ed011277c5685b432a62c511",
+      "claim_id": "sha256:d20fa444f3fd98acd2b3ec5056bf176a5c5e047140cc622f996fd35ff8acff49",
+      "entity": "sentry-sdk-demo",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "result",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Ending the workflow in a draft GitHub pull request for a maintainer to review, instead of silent autonomous changes.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+        "content_sha256": "92a17a6578d58818f7c8385e4475d3e55aec084dea77e751b59cae31afd83818",
+        "heading": "What the demo covers",
+        "heading_anchor": "what-the-demo-covers",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "draft-pr-for-maintainer-review"
+        ],
+        "raw": [
+          "draft-pr-for-maintainer-review"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a2c284c60b98ac224cc54369ee08efd16f2dd3fd1fd0c9c69420b14a66125581",
+      "claim_id": "sha256:476e84f02e2cdb0da1217989a09de802a548ddcdcdb607d6670d0af30ddef0fc",
+      "entity": "sentry-sdk-demo",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "validates-webhook",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The service validates the webhook, extracts the stack trace, and injects it into an agent run inside a [cloud environment](/factories/environments/) so the agent can inspect the repo and propose a fix.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+        "content_sha256": "92a17a6578d58818f7c8385e4475d3e55aec084dea77e751b59cae31afd83818",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "92a17a6578d58818f7c8385e4475d3e55aec084dea77e751b59cae31afd83818",
   "path": "src/content/docs/factories/api-and-sdk/demo-sentry-monitoring-with-sdk.mdx",
   "schema_version": 1
 }
