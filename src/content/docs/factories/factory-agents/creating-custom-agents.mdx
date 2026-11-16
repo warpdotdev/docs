@@ -66,10 +66,10 @@ Each field in an `agent_run_configs[]` entry applies to one child:
 
 These fields apply to all children in the call. Each field replaces a setting from the agent configuration:
 
-* `remote.environment_id` - The [environment](/platform/environments/), which supplies the repositories, toolchain, and workspace setup.
+* `remote.environment_id` - The [environment](/factories/environments/), which supplies the repositories, toolchain, and workspace setup.
 * `remote.runner_id` - The UID of the [runner](/factories/runners/), which selects the operating system, CPU architecture, instance size, and sandbox image.
-* `remote.worker_host` - The host. Use `warp` for Warp-hosted workers, or use the ID of a [self-hosted worker](/factories/self-hosting/).
-* `remote.harness` - The [harness](/platform/harnesses/), such as Claude Code or Codex.
+* `remote.worker_host` - The host. Use `warp` for Warp-hosted workers, or use the ID of a [self-hosted runner](/factories/self-hosting/).
+* `remote.harness` - The [harness](/factories/harnesses/), such as Claude Code or Codex.
 * `model_id` - The model. A model for a third-party harness also needs `remote.harness`.
 
 If the call does not set one of these fields, the child runs use the setting from the agent configuration. The call-level `metadata` field sets default metadata for all children in the call.
