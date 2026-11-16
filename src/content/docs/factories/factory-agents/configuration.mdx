@@ -61,71 +61,41 @@ For team-managed inference in definition files, see [custom endpoint and BYOK mo
 
 ## Reviewing inference for provider ZDR
 
-Before choosing a path, complete these checks. Both paths work in a browser without Warp Terminal.
+Use [factory ZDR guidance](/factories/zero-data-retention/) to check coverage for your model and provider account before changing settings. For Warp-managed inference, choose models outside the [provider-retention exception list](/agents/inference/model-choice/#models-requiring-provider-retention).
 
-1. Read [factory ZDR coverage and limits](/factories/zero-data-retention/). For Warp-managed inference, avoid [models that require retention](/agents/inference/model-choice/#models-requiring-provider-retention).
-2. Confirm with an admin whose [provider account](/factories/infrastructure-and-security/#inference-options-for-factory-runs) serves inference. For customer-owned accounts or third-party harnesses, [verify ZDR with the provider](/factories/zero-data-retention/#choose-inference-covered-by-provider-zdr). Don't switch credentials or harnesses just to follow these steps.
-3. Identify [where the definition is managed](/factories/factory-as-code/#where-the-definition-lives). In the factory web app, use **Settings** for the GitHub repository link or **Factory definition** for a Warp-managed definition. Ask an admin if unclear. API-managed factories have no definition files.
+Review factory defaults, agent and automation overrides, and separate feature models such as Computer Use and Scorers. The [factory definition reference](/factories/factory-as-code/) lists these settings. Team-wide model restrictions and shared credentials belong in the [Admin Panel's Models settings](/enterprise/team-management/admin-panel/#models-settings).
 
-Agent and automation overrides can replace factory defaults.
+Choose the path matching [where your factory definition is hosted](/factories/factory-as-code/#where-the-definition-lives).
 
-### Reviewing a dashboard-managed factory
+<span id="reviewing-a-dashboard-managed-factory" />
 
-Review defaults and overrides in the web app with [editing access](#prerequisites). If controls are read-only, ask an admin to confirm access and management mode.
+### Factory definition hosted by Warp
 
-1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, expand your factory, and click **Factory definition**. Open the existing `factory.yaml`.
-2. In `factory.yaml`, review [`agentDefaults.model` or `agentDefaults.harness.model`](/factories/factory-as-code/#agentdefaultsmodel). For Warp-managed inference, select a model that doesn't require retention. Keep one form, preserving the harness and credentials.
-3. Click **Save**. Resolve validation errors before continuing.
-4. In **Agents**, open **Settings** for each agent, including the foreman. Review the "Harness" and "Model" selections. For Warp-managed inference, replace models requiring retention and click **Save**.
-5. Complete every applicable [separate model check](#checking-separate-model-settings) and save those changes.
-6. Reopen changed agents and confirm their model and harness match your intended values before [testing](#checking-new-runs). Saved files alone don't prove settings were applied.
+With [editing access](#prerequisites):
 
-### Reviewing a GitHub-backed factory
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, expand your factory and click **Factory definition**. Review model defaults and overrides in the existing definition files.
+2. In **Agents**, open each agent's **Settings**, including the foreman's, and review the "Harness" and "Model" selections.
+3. Save any changes, resolve validation errors, and reopen the settings to confirm the intended values before [checking a new run](#checking-new-runs).
 
-Review the definition in GitHub. You need permission to propose and merge changes. Dashboard editors are read-only.
+<span id="reviewing-a-github-backed-factory" />
+
+### Factory definition hosted by GitHub
+
+You need permission to propose and merge definition changes. The factory web app shows these files read-only.
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, expand your factory, open **Settings**, and follow the definition repository link.
-2. In GitHub, create a branch for the changes.
-3. In `factory.yaml`, review [`agentDefaults.model` or `agentDefaults.harness.model`](/factories/factory-as-code/#agentdefaultsmodel). For Warp-managed inference, select a model that doesn't require retention. Keep one form, preserving the harness and credentials.
-4. In each existing `agents/<name>/agent.md`, including the foreman, review `model` or `harness.model` overrides. For Warp-managed inference, replace models requiring retention. Preserve unrelated settings and instructions.
-5. Complete every applicable [separate model check](#checking-separate-model-settings) in the definition files.
-6. Open a pull request and confirm the [factory-definition PR checks](/factories/factory-as-code/#pull-request-checks) pass.
-7. Merge the pull request into the connected production branch.
-8. In the dashboard, reopen changed agents and confirm their model and harness match the merged values before [testing](#checking-new-runs). Passing checks doesn't prove settings were applied.
-
-### Checking separate model settings
-
-Complete every applicable check for features with separate models. For Warp-managed inference, replace models requiring retention. For customer-owned accounts, verify provider ZDR.
-
-| If you use… | Check before starting work |
-| --- | --- |
-| Automations | Review `model` or `harness.model` in each existing `automations/<name>/automation.md`. These override the target agent. For dashboard-managed definitions, use **Factory definition**, not the **Automations** editor. |
-| Computer Use | Review `agentDefaults.computerUseModel` in `factory.yaml` and `computerUseModel` overrides in agent and automation files. Omitted values inherit or use automatic selection. See [Computer Use inheritance](/factories/factory-as-code/#agentdefaultscomputerusemodel). |
-| Scorers | For dashboard-managed definitions, review each "Judge model" in **Scorers** and save changes. For GitHub-backed definitions, edit `model` in `scorers/<name>/scorer.md`. |
-| Custom routers | Inspect every target and default in the [router definition](/factories/factory-as-code/#routersnameyaml). If another factory owns it, ask its editor or admin to verify the choices, or select an inspectable concrete model. Access to this factory doesn't grant access elsewhere. |
-| Benchmarks | Before launching, check each trial's harness, model, selected Scorers, and any supplied overrides. See [running a benchmark](/factories/benchmarks/#create-and-run-a-benchmark). |
-| API, CLI, or agent-started runs | Check supplied model, harness, and Computer Use overrides before dispatching the run. |
-
-Self-improvement uses a separate model, not the foreman's. Before sensitive use, ask Warp to confirm its model and provider coverage.
+2. In GitHub, propose model changes in the existing definition files. Check factory defaults, agents including the foreman, and any automation or feature overrides.
+3. Confirm the [factory-definition PR checks](/factories/factory-as-code/#pull-request-checks) pass, then merge into the connected production branch. Reopen the changed settings in the factory web app to confirm the values before [checking a new run](#checking-new-runs).
 
 ### Checking new runs
 
-Test the reviewed configuration in a test factory with non-sensitive repositories and inputs. If changes fail validation or remain unapplied, stop and [contact support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) with the factory link and, for GitHub, the merge commit. Don't send sensitive work.
+Use a test factory with non-sensitive repositories and inputs:
 
-1. In the factory web app sidebar, click **New Chat**.
-2. In the dropdown below the prompt input, choose the test factory.
-3. Send: “Reply with a greeting. Don't read repository files or call tools.” This checks a basic run, not every feature.
-4. In **Runs**, open the new run and inspect its model and harness. Inspect child runs separately. If a selection differs, review agent, automation, and run overrides before sending sensitive work.
+1. In the factory web app, click **New Chat** and choose the test factory below the prompt input.
+2. Send: “Reply with a greeting. Don't read repository files or call tools.”
+3. In **Runs**, open the new run and compare its model and harness with your selections. Check child runs and any features you changed separately.
 
-Next, test each changed feature that applies:
-
-* Agents and automations: request a greeting or send a matching test event. Inspect the receiving agent and child runs.
-* Computer Use: request the page title from `https://example.com`. Check for Computer Use in the session.
-* Scorers: score a non-sensitive completed run. Inspect the judge configuration and result.
-* Routers: test representative rules or complexity levels. Inspect resolved models, not only the router name.
-* Benchmarks and caller overrides: run a non-sensitive trial or request with the reviewed choices. Inspect resulting runs.
-
-Record settings inspected and features exercised separately. These checks don't prove provider contracts or every background request. Existing runs keep their model. Recheck new runs after configuration changes.
+If settings don't match, review overrides or [contact support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) before sending sensitive work. A greeting checks the selected model, not [coverage for every AI request](/factories/zero-data-retention/#provider-zdr-coverage).
 
 ## Configuring a third-party harness
 
