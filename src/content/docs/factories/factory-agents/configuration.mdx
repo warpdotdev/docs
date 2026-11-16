@@ -2,7 +2,7 @@
 title: Configuring factory agents
 description: >-
   Configure a factory agent's instructions, tools, model, and harness,
-  including authentication for Claude Code and Codex.
+  including authentication for Claude Code, Codex, and Pi.
 ---
 import { VARS } from '@data/vars';
 
@@ -41,7 +41,7 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
 
 ## Choose models and harnesses per agent
 
-Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, and Codex. A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
+Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, Codex, and [Pi](/factories/harnesses/pi/). A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
 
 Third-party harnesses are included on the Scale and Enterprise plans for Warp Factories. Existing paid-plan access depends on your team's plan and workspace settings. See [plan requirements](/factories/harnesses/#plan-requirements).
 
@@ -61,7 +61,7 @@ For team-managed inference in definition files, see [custom endpoint and BYOK mo
 
 ### Configuring a third-party harness
 
-Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool.
+Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool. For Pi setup, see [Configuring the Pi harness](/factories/harnesses/pi/).
 
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
 2. Click an agent to open its **Settings** tab.
