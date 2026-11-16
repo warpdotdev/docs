@@ -1,14 +1,14 @@
 ---
 title: Configuring harness authentication
 description: >-
-  Connect Anthropic or OpenAI credentials for factory agents and standalone
-  cloud runs, using team or personal secrets for the right scope.
+  Connect provider credentials for factory agents and standalone cloud runs,
+  using team or personal secrets for the right scope.
 sidebar:
   label: "Authentication"
 ---
 import { VARS } from '@data/vars';
 
-Authenticate [Claude Code](#connecting-claude-code-credentials) or [Codex](#connecting-codex-credentials) with a provider credential stored as a Warp-managed secret. For a factory agent, select a compatible team-owned auth secret in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness). The Warp Agent does not need a third-party harness auth secret.
+Authenticate [Claude Code](#connecting-claude-code-credentials), [Codex](#connecting-codex-credentials), or [Pi](#connecting-pi-credentials) with a provider credential stored as a Warp-managed secret. For a factory agent, select a compatible team-owned auth secret in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness). The Warp Agent does not need a third-party harness auth secret.
 
 Auth secrets can be scoped to a **team** or to your **personal** account. A factory agent can only select team-scoped secrets. Personal secrets remain available for your own ad hoc cloud runs; creating a factory is not required for those runs.
 
@@ -100,6 +100,10 @@ Add `--description "..."` to record rotation notes or owner info. Replace `--tea
 
 **Expected outcome.** `oz secret list` shows the new secret with the matching OpenAI credential type. The value is never displayed.
 
+## Connecting Pi credentials
+
+Pi pairs a provider model with a compatible team-owned secret or the provider's configured team default. For credential setup and the self-hosted worker alternative, follow [Configuring the Pi harness](/factories/harnesses/pi/).
+
 ## Managing harness auth secrets
 
 Auth secrets follow the Warp-managed secret lifecycle. See [Managing factory secrets](/factories/secrets/) for shared-secret ownership or [Cloud agent secrets](/platform/secrets/) for the CLI lifecycle commands. In the {VARS.WARP_AGENT_CLI}, use the secret's name, not its value, in these commands:
@@ -128,7 +132,7 @@ Before deleting an auth secret, update every factory agent, schedule, or integra
 For managed-secret authentication, confirm the run was started with the correct auth secret selected. For a factory agent, inspect the "Auth" selection in its settings. For a standalone run, inspect the selected harness auth secret in the {VARS.WEB_APP}. Re-launch with the correct secret, or create a compatible credential if none exists.
 
 **The harness auth secret dropdown is empty.**\
-The dropdown only lists secrets whose type matches the selected harness: Anthropic types for Claude Code, OpenAI for Codex. Factory agents also require team scope. If you stored the credential as a raw value or in personal scope for a factory, create a compatible team-scoped secret using the typed flow above.
+The dropdown only lists compatible credentials: Anthropic types for Claude Code, OpenAI for Codex, or a provider API key for Pi. Pi also requires a model from the key's provider. Factory agents require team scope. If you stored the credential as a raw value or in personal scope for a factory, create a compatible team-scoped secret using the typed flow above.
 
 **The selected harness is disabled.**\
 Your team admin has disabled the harness for your workspace. Contact your admin or pick a different harness for the run.
@@ -136,6 +140,7 @@ Your team admin has disabled the harness for your workspace. Contact your admin 
 ## Related pages
 
 * [Agent harnesses](/factories/harnesses/)
+* [Configuring the Pi harness](/factories/harnesses/pi/)
 * [Configuring factory agents](/factories/factory-agents/configuration/)
 * [Managing factory secrets](/factories/secrets/)
 * [Claude Code in Warp](/agents/cli-agents/claude-code/) - Run Claude Code locally

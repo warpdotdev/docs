@@ -2,7 +2,7 @@
 title: Configuring factory agents
 description: >-
   Configure a factory agent's instructions, tools, model, and harness,
-  including authentication for Claude Code and Codex.
+  including authentication for Claude Code, Codex, and Pi.
 ---
 import { VARS } from '@data/vars';
 
@@ -41,7 +41,7 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
 
 ## Choose models and harnesses per agent
 
-Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, and Codex. A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
+Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, Codex, and [Pi](/factories/harnesses/pi/). A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
 
 Third-party harness access depends on your team's plan and workspace settings. If a harness requires an upgrade, use the Warp Agent or review [Warp pricing](https://www.warp.dev/pricing).
 
@@ -61,12 +61,12 @@ For team-managed inference in definition files, see [custom endpoint and BYOK mo
 
 ### Configuring a third-party harness
 
-Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool.
+Change an agent's harness to use Claude Code, Codex, or Pi instead of the Warp Agent.
 
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
 2. Click an agent to open its **Settings** tab.
-3. In the "Harness" dropdown, choose **Claude Code** or **Codex**. The "Auth" field appears for these harnesses.
-4. In the "Auth" field, choose a compatible, team-owned secret. To create one, click **New auth secret** for Claude Code or **New OpenAI API Key** for Codex.
+3. In the "Harness" dropdown, choose **Claude Code**, **Codex**, or **Pi**. The "Auth" field appears for these harnesses.
+4. In the "Auth" dropdown, choose a compatible, team-owned secret or use the configured team default. If none exists, follow [harness authentication](/factories/harnesses/authentication/) to create one. For a self-hosted worker that already has credentials, choose **From worker environment** instead.
 
    <figure style={{ maxWidth: "563px" }}>
    ![An Implement agent's Settings tab with Claude Code selected in the Harness dropdown and the Auth dropdown open, showing a saved credential and New auth secret.](../../../../assets/factories/factory-agent-auth-secret.png)
@@ -76,11 +76,10 @@ Change an agent's harness to Claude Code or Codex to run it with that provider's
    :::note
    * Claude Code accepts an Anthropic API key, Anthropic Bedrock API key, or Anthropic Bedrock access key.
    * Codex accepts an OpenAI API key.
-
-   See [connecting Claude Code credentials](/factories/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/factories/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
+   * Pi accepts a provider API key that matches the selected model's provider.
    :::
 
-5. In the "Model" dropdown, choose a model from that harness's catalog.
+5. In the "Model" dropdown, choose a model from that harness's catalog. For Pi with **From worker environment**, enter the worker's model identifier in `provider/model` form instead.
 6. In the top-right corner, click **Save**.
 
 With a Warp-managed factory, you can edit harness, auth, and model from the dashboard. A GitHub-backed factory sets them through [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in the definition files. For an example, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
