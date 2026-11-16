@@ -480,7 +480,7 @@ For a GitHub-backed factory, merge the change into its connected production bran
 #### `agentDefaults.harness`
 
 **Conditionally required.** Set exactly one of `model` or `harness`.
-The run harness and model. The object requires `type` and `model`. `type` accepts `oz`, `claude`, `codex`, or `claude-code` (an alias for `claude`). Prefer the canonical [harness identifier](/factories/harnesses/#harness-identifiers) used by the CLI and the {VARS.WARP_PLATFORM_API}. See [supported harnesses](/factories/harnesses/) for availability and behavior.
+The run harness and model. The object requires `type` and `model`. `type` accepts `oz`, `claude`, `codex`, `pi`, or `claude-code` (an alias for `claude`). See [harness identifiers](/factories/harnesses/#harness-identifiers) for names by configuration surface, and [supported harnesses](/factories/harnesses/) for availability and behavior.
 
 ```yaml
 harness:
@@ -500,6 +500,8 @@ Optional `auth` requires `source`:
 | `workerEnvironment` | Not allowed | Requires a self-hosted `workerHost`; uses authentication from that worker's environment. |
 
 The `oz` harness supplies its own credentials and rejects `auth` and `reasoningLevel`. Third-party harnesses accept optional `reasoningLevel`.
+
+Pi requires `model` in `provider/model` form. A managed secret or team default must match the model's provider. For credentials configured on your self-hosted worker, use `auth.source: workerEnvironment`. See [Configuring the Pi harness](/factories/harnesses/pi/).
 
 For per-agent harnesses and managed-secret authentication, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
 
