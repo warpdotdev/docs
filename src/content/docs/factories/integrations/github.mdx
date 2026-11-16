@@ -49,6 +49,8 @@ github:
 
 For a Warp-managed definition, open **Factory definition** in the factory dashboard, edit `factory.yaml`, and save. For a GitHub-backed definition, merge the change into its production branch and wait for a successful definition sync. The Integrations toggle is read-only for GitHub-backed definitions.
 
+If your factory's GitHub skill still instructs agents to use `gh`, update it using the [example pull request migrating the default GitHub skill to GitHub MCP](https://github.com/warpdotdev/warp-factory-examples/pull/13).
+
 Start a new Warp-hosted run and ask the agent to list open pull requests in a connected repository. Confirm the run uses GitHub MCP tools rather than `gh`.
 
 ## Add a custom automation
