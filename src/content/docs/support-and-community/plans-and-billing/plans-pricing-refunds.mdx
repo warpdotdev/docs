@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: "Plans, pricing, and refunds"
 ---
+import { VARS } from '@data/vars';
 
 Warp Terminal and agent plans are separate from Warp Factories plans. For the latest plans and offerings, see [Warp pricing](https://www.warp.dev/pricing).
 
@@ -24,7 +25,7 @@ Build, Max, and Business subscriptions retain their plan-specific per-seat allow
 Choose a factory plan for your team's automated workflows:
 
 * **Start** - For small teams getting started with Warp-hosted factory setup. Start is usage-based, without a monthly shared allowance.
-* **Scale** - For teams that need a monthly team subscription with shared included usage. It also supports choices such as [third-party harnesses](/factories/harnesses/) and a factory-definition repository you own.
+* **Scale** - For teams that need a monthly team subscription with shared included usage, agents such as [Claude Code or Codex](/factories/harnesses/), or a factory-definition repository they own.
 * **Enterprise** - For organizations that need custom usage terms, advanced administration, or [customer-hosted infrastructure](/factories/self-hosting/). Your contract sets funding and billing terms.
 
 Hosting your factory definition in your own repository does not move execution or run data to your infrastructure. Enterprise teams configure self-hosted workers and [agent data storage](/factories/self-hosting/data-storage/) separately.
@@ -37,13 +38,13 @@ Factory runs use shared team or workspace usage, including runs started by autom
 
 On Scale, the shared included allowance covers eligible Warp-provided inference, Warp-hosted compute, and platform usage. After it runs out, runs draw from eligible purchased team or workspace usage. If no usable balance or contracted pay-as-you-go funding remains, runs can be blocked with an [insufficient credits error](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/).
 
-Add usage only if your available shared balance does not cover the work. Enterprise funding follows your contract.
+In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open **Billing and usage** to check your shared balance. [Add usage](/support-and-community/plans-and-billing/add-on-credits/) only if that balance does not cover the work. Enterprise funding follows your contract.
 
 Your provider bills customer-supplied inference separately. That does not remove Warp's [platform charges](/support-and-community/plans-and-billing/platform-credits/) or charges for [Warp-hosted compute](/support-and-community/plans-and-billing/credits/#compute-usage).
 
 ### Upgrading to Scale
 
-In the factory web app, open **Billing and usage**, then click **Upgrade to Scale** and **Select plan**. A billing admin completes checkout or confirms the subscription update. If you aren't an admin, ask your Warp admin to upgrade.
+In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open **Billing and usage**, then click **Upgrade to Scale** and **Select plan**. A billing admin completes checkout or confirms the subscription update. If you aren't an admin, ask your Warp admin to upgrade.
 
 New subscriptions and monthly upgrades from Build, Max, and Business use this flow. For an existing Enterprise contract, contact your account team instead.
 
@@ -96,7 +97,8 @@ Warp does not offer a formal guaranteed uptime Service Level Agreement (SLA). Li
 
 ## Related pages
 
-* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges.
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges
 * [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - Purchases and auto-reload
 * [Enterprise billing](/enterprise/support-and-resources/billing/) - Contract pools and spending controls
-* [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Subscription changes and billing management.
+* [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Subscription changes and billing management
+* [Contact support](/support-and-community/#contact-support) - Billing and technical support contacts

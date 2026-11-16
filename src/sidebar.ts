@@ -401,7 +401,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						'support-and-community/plans-and-billing/plans-pricing-refunds',
 						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 					],
 				},
@@ -567,6 +566,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				// Keep troubleshooting as a direct item rather than creating a
 				// singleton group.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
+				{
+					label: 'Plans and billing',
+					items: [
+						'support-and-community/plans-and-billing/plans-pricing-refunds',
+						'support-and-community/plans-and-billing/credits',
+						'support-and-community/plans-and-billing/add-on-credits',
+						{ slug: 'support-and-community/plans-and-billing/pricing-faqs', label: 'Pricing FAQs' },
+					],
+				},
 				{
 					label: 'Guides',
 					items: [
