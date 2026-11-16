@@ -1,38 +1,50 @@
 ---
 title: Zero data retention (ZDR) for factory inference
 description: >-
-  Provider ZDR, improvement collection, and saved factory runs are separate.
-  Review coverage and controls before sending sensitive work.
+  ZDR governs provider retention, not Warp's improvement collection or factory
+  run storage. Review these practices before sending sensitive work to a factory.
 sidebar:
   label: "Zero data retention (ZDR)"
 ---
 
-Provider Zero Data Retention (ZDR) covers whether the AI provider keeps your prompts and responses. For factory inference, coverage depends on the model and whose provider account serves the request, not where the agent runs commands. For example, self-hosting execution does not establish provider ZDR or move saved run data.
+Provider Zero Data Retention (ZDR) requires AI providers not to retain your prompts and responses. For factory inference, coverage depends on the model and whose provider account serves the request, not where the agent runs commands.
 
 Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference.
 
-## Choose inference covered by provider ZDR
+<span id="choose-inference-covered-by-provider-zdr" />
 
-* **Warp-managed inference** - Choose models outside the [retention-required exception list](/agents/inference/model-choice/#models-requiring-provider-retention). Apply that choice to each agent and any separate model settings or overrides, not only the foreman.
-* **Your provider account** - For team-managed keys and endpoints, BYOLLM, or direct Claude Code or Codex calls, you'll need to verify ZDR with the provider for your specific account, model, and configuration. Warp's agreements don't establish ZDR for those requests, even if you avoid the listed models. For an endpoint that uses other model providers, verify their retention policies too.
-
-Current Auto selections, fallback chains for models outside the exception list, and automatic Computer Use selection avoid the listed exceptions, but routes can change. Coverage of every background AI request remains unconfirmed. If your policy requires ZDR for every request, ask Warp to confirm coverage for your configuration before sending sensitive work.
+## Provider ZDR coverage
 
 See [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs) for supported providers, credentials, and harnesses. Personal keys and endpoints stored on your device do not apply to factory runs.
 
-## Understand collection and storage
+* **Warp-managed inference** - Avoid [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Apply that choice to each agent and any separate model settings or overrides, not only the foreman.
+* **Your provider account** - For team-managed keys and endpoints, BYOLLM, or direct Claude Code or Codex calls, you'll need to verify ZDR with the provider for your specific account, model, and configuration. Warp's agreements don't establish ZDR for those requests, even if you avoid the listed models. If your endpoint routes to other providers, verify their retention policies too.
 
-Provider ZDR doesn't stop Warp from saving data needed to operate your factory:
+Some factory features use models other than the agent's selected model. Avoiding models that require retention does not by itself confirm ZDR coverage for every AI request. If your organization requires that coverage, contact Warp before sending sensitive work to your factory.
 
-* **Improvement collection** - The **Help improve Warp** toggle controls Warp's analytics and eligible content collection for service improvement. It doesn't change provider retention.
-* **Run history** - Warp stores transcripts, prompt attachments, and uploaded artifacts so you can revisit runs, even with analytics off. Destroying a sandbox doesn't delete these records.
-* **Personal Terminal sync** - **Store AI conversations in the cloud** controls personal Terminal conversations, not factory run storage.
+<span id="understand-collection-and-storage" />
+
+## What Warp collects and stores
+
+Provider ZDR governs what AI providers retain. Warp's improvement collection and storage of factory run data are separate.
+
+### Improvement collection
+
+The **Help improve Warp** toggle controls Warp's analytics and eligible content collection for service improvement. It doesn't change provider retention.
 
 For team content collection, follow the [browser procedure in the Admin Panel](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-a-browser), including plan and workspace restrictions. Personal analytics and crash preferences are separate. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
+### Run history
+
+Warp stores transcripts, prompt attachments, and uploaded artifacts so you can revisit runs, even with analytics off. Destroying a sandbox doesn't delete these records.
+
 Enterprise admins can configure [self-hosted storage](/factories/self-hosting/data-storage/) separately for transcripts, prompt attachments, and artifacts. Categories without a self-hosted storage configuration remain with Warp.
 
-## Configure your factory
+Self-hosting execution does not establish provider ZDR or move saved run data. The **Store AI conversations in the cloud** toggle controls personal Terminal conversations, not factory run storage.
+
+<span id="configure-your-factory" />
+
+## Reviewing your factory's inference settings
 
 Self-serve teams can change models and overrides manually, but don't have a team-wide model-blocking control. Business supports shared provider keys and endpoints. Enterprise adds [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
 
