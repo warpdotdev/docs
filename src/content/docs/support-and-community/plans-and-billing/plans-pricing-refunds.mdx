@@ -1,21 +1,53 @@
 ---
 title: Plans, pricing, and refunds
 description: >-
-  Compare Warp plans, check included usage and existing balances, and
-  review refund policies for subscriptions and usage purchases.
+  Compare Warp Factories plans, check shared and per-seat usage allowances,
+  and review subscription and usage refund policies.
 sidebar:
   label: "Plans, pricing, and refunds"
 ---
 
 ## Warp plans and pricing
 
-Warp offers Free, Build, Max, Business, and Enterprise plans. See [Warp pricing](https://www.warp.dev/pricing) for current subscription prices and new-plan allowances.
+Warp Factories offers Start, Scale, and Enterprise plans. Choose a plan based on who manages your factory, where its definition and runs live, and how your team funds usage. See [Warp pricing](https://www.warp.dev/pricing) for current prices, rates, allowances, and seat limits.
 
-Self-serve paid plans include monthly usage per seat. The Free plan does not include bundled usage for the Warp Agent; [purchase additional usage](/support-and-community/plans-and-billing/add-on-credits/), upgrade, or [bring your own inference](/agents/inference/bring-your-own-api-key/).
+## Warp Factories plans
+
+| Plan | Capabilities | Funding |
+| --- | --- | --- |
+| **Start** | Run workflows with the Warp Agent using Warp-hosted definition repositories and sandboxes. Manage factories, score runs, run benchmarks, and configure model routers. | Usage-based entry for small teams, without a monthly shared allowance. Add usage as needed. |
+| **Scale** | Adds Claude Code, Codex, and Pi; a factory-definition repository you own; SAML SSO; team and per-user usage metrics; data controls; and team-managed inference keys and endpoints. | Monthly team subscription with a shared included-usage allowance, not an allowance per seat. |
+| **Enterprise** | Adds multi-team workspaces, advanced admin and spending controls, the Analytics API, and customer-hosted workers and run-data storage. | Custom shared pools, rates, and billing terms set by your contract. |
+
+Scale's data controls include admin settings for data collection and cloud conversation storage. [Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) configure inference for the Warp Agent. Third-party harnesses use separate [harness authentication](/factories/harnesses/authentication/).
+
+Hosting your factory definition in your own repository does not move execution or run data to your infrastructure. Enterprise teams configure [self-hosted workers](/factories/self-hosting/) and [agent data storage](/factories/self-hosting/data-storage/) separately.
+
+### Existing Warp plans
+
+Existing accounts can show Free, Build, Max, or Business in Warp billing surfaces. Free is the usage-based entry tier shown as Start in Warp Factories. Build, Max, and Business subscriptions retain their plan-specific per-seat allowances; they do not become Scale's shared team allowance.
+
+Existing paid plans can include factory capabilities. Check your account's controls and allowance rather than assuming a plan name changes your terms.
+
+## Funding factory runs
+
+Factory runs use shared team or workspace usage, including runs started by automations. A member's included personal allowance does not fund factory runs.
+
+On Scale, the shared included allowance covers eligible Warp-provided inference, Warp-hosted compute, and platform usage. After it runs out, runs draw from eligible purchased team or workspace usage. If no usable balance or contracted pay-as-you-go funding remains, runs can be blocked with an [insufficient credits error](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/).
+
+Add usage only if your available shared balance does not cover the work. Enterprise funding follows your contract.
+
+Your provider bills customer-supplied inference separately. That does not remove Warp's [platform charges](/support-and-community/plans-and-billing/platform-credits/) or charges for [Warp-hosted compute](/support-and-community/plans-and-billing/credits/#compute-usage).
+
+### Upgrading to Scale
+
+In the factory web app, open **Billing and usage**, then click **Upgrade to Scale** and **Select plan**. A billing admin completes checkout or confirms the subscription update. If you aren't an admin, ask your Warp admin to upgrade.
+
+New subscriptions and monthly upgrades from Build, Max, and Business use this flow. For an existing Enterprise contract, contact your account team instead.
 
 ## Your included allowance
 
-In the Warp app, open **Settings** > **Billing and usage** to check your allowance and reset date. Existing seats can have a different allowance from new subscriptions, so use the amount shown for your account.
+In the factory web app, open **Billing and usage** to check shared balances and the reset date. For personal allowances in the Warp app, open **Settings** > **Billing and usage**. Existing seats can have a different allowance from new subscriptions, so use the amount shown for your account.
 
 Included usage resets monthly, even when you pay for your subscription annually. Unused included usage does not roll over. Purchased usage is separate: it rolls over until its original 12-month expiration.
 
@@ -64,4 +96,5 @@ Warp does not offer a formal guaranteed uptime Service Level Agreement (SLA). Li
 
 * [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges.
 * [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - Purchase amounts, prices, and auto-reload.
+* [Enterprise billing](/enterprise/support-and-resources/billing/) - Contract pools and spending controls
 * [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Subscription changes and billing management.

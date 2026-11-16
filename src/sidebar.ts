@@ -401,6 +401,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
+						'support-and-community/plans-and-billing/plans-pricing-refunds',
 						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 					],
 				},
