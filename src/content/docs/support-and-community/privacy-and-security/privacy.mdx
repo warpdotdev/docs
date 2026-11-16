@@ -17,17 +17,17 @@ If you have questions, reach out to [privacy@warp.dev](mailto:privacy@warp.dev).
 
 ### Zero Data Retention (ZDR)
 
-Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. Warp-managed inference uses Warp's provider account, not your own. Warp has provider ZDR agreements for supported Warp-managed models across all plans.
+Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. Warp's ZDR agreements apply to supported models on every plan when Warp supplies the provider account. Using Warp's provider account is called Warp-managed inference.
 
 For requests covered by these agreements, providers don't use your prompts or responses for model training. Some models require provider retention. [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists those models.
-
-Turning off the **Help improve Warp** toggle doesn't affect a model provider's retention requirements.
 
 Requests through your own provider account follow your provider's terms, not Warp's ZDR agreements. Verify ZDR with your provider for your specific account, model, and configuration.
 
 This includes requests through [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/). Claude Code and Codex requests sent directly to their providers also follow your provider's terms.
 
 Provider ZDR doesn't control how Warp stores uploaded attachments or generated artifacts. Review the separate [product storage controls](#product-storage) for these files.
+
+Turning off the **Help improve Warp** toggle doesn't affect a model provider's retention requirements.
 
 For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/zero-data-retention/) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal). The factory procedures work in a browser without installing Warp Terminal.
 
