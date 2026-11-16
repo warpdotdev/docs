@@ -470,7 +470,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 										'factories/self-hosting/monitoring',
 										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
-										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
+										{ slug: 'factories/self-hosting/reference', label: 'Self-hosted runner reference' },
 										'factories/self-hosting/troubleshooting',
 									],
 								},

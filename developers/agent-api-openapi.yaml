@@ -6617,7 +6617,7 @@ components:
             Per-harness authentication secrets inherited by the factory's
             named agents. Only the secret for the default harness is ever
             populated. A third-party default harness with no secret here
-            takes its credentials from the worker environment.
+            takes its credentials from the self-hosted runner's environment.
         default_runner_uid:
           type: string
           description: |
@@ -6639,8 +6639,9 @@ components:
         worker_host:
           type: string
           description: |
-            Default worker host for the factory's named agents. Empty when
-            unset, in which case the workspace default applies.
+            Default execution host (`warp` or a self-hosted runner ID) for the
+            factory's named agents. Empty when unset, in which case the workspace
+            default applies.
     FactoryScorerDefaults:
       type: object
       description: |
@@ -12816,12 +12817,12 @@ components:
             - string
             - 'null'
           description: |
-            Optional default worker host for runs executed by this agent;
-            omission, null, or an empty value stores no Agent default, in
-            which case the workspace default applies. A non-empty value is
-            trimmed and stored (use "warp" to force Warp-hosted execution
-            over a self-hosted workspace default), and is resolved in this
-            order:
+            Optional default execution host (`warp` or a self-hosted runner ID)
+            for runs executed by this agent; omission, null, or an empty value
+            stores no Agent default, in which case the workspace default applies.
+            A non-empty value is trimmed and stored (use "warp" to force
+            Warp-hosted execution over a self-hosted workspace default), and is
+            resolved in this order:
             1. The host specified on the run itself
             2. The agent's default host
             3. The workspace default host
@@ -12979,11 +12980,11 @@ components:
             - string
             - 'null'
           description: |
-            Replacement default worker host. Omit or pass `null` to leave
-            unchanged, or pass an empty string to clear (the workspace default
-            then applies). A non-empty value is trimmed and replaces the
-            stored default; use "warp" to force Warp-hosted execution over a
-            self-hosted workspace default.
+            Replacement default execution host (`warp` or a self-hosted runner
+            ID). Omit or pass `null` to leave unchanged, or pass an empty string
+            to clear (the workspace default then applies). A non-empty value is
+            trimmed and replaces the stored default; use "warp" to force
+            Warp-hosted execution over a self-hosted workspace default.
     AgentResponse:
       type: object
       required:
@@ -13133,8 +13134,9 @@ components:
         worker_host:
           type: string
           description: |
-            Default worker host for runs executed by this agent, or empty
-            when unset; the precedence order for worker host resolution is:
+            Default execution host (`warp` or a self-hosted runner ID) for runs
+            executed by this agent, or empty when unset; the precedence order
+            for execution host resolution is:
             1. The host specified on the run itself
             2. The agent's default host
             3. The workspace default host
@@ -13540,8 +13542,9 @@ components:
           description: |
             Optional managed-secret name this configuration's third-party harness
             authenticates with. Empty or omitted is valid for Oz. For a third-party
-            harness that requires auth, empty or omitted means from the worker
-            environment on a self-hosted host, or a launch violation on Warp-hosted.
+            harness that requires auth, empty or omitted uses credentials from
+            the self-hosted runner's environment, or causes a launch violation
+            on Warp-hosted execution.
         agent_configs:
           type: array
           description: Optional per-named-Agent overrides keyed by stable Agent UID.
