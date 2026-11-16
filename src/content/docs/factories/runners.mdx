@@ -21,6 +21,8 @@ Reuse a runner across workflows, or choose different instance sizes for lightwei
 
 Factory agents inherit the factory's default runner unless an agent or automation selects another. The factory default (`agentDefaults.runner`) must be Linux because it supplies the factory-managed environment. Individual agents and automations can select other supported operating systems.
 
+When the foreman starts a configured agent, it can select a different runner for that dispatch. The saved agent configuration does not change. See [Select a runner for a task](/factories/factory-agents/creating-custom-agents/#select-a-runner-for-a-task).
+
 Factories manage their repositories and workspace by default, so you don't need to create a separate environment. To use an existing one, set [`agentDefaults.environmentId`](/factories/factory-as-code/#agentdefaultsenvironmentid).
 
 For standalone cloud runs, a run-level runner overrides the environment's default runner for that run only. Omitting `instanceShape` uses the workspace's default size.
