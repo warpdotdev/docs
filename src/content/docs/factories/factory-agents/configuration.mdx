@@ -66,7 +66,7 @@ Change an agent's harness to use Claude Code, Codex, or Pi instead of the Warp A
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
 2. Click an agent to open its **Settings** tab.
 3. In the "Harness" dropdown, choose **Claude Code**, **Codex**, or **Pi**. The "Auth" field appears for these harnesses.
-4. In the "Auth" dropdown, choose a compatible, team-owned secret or use the configured team default. If none exists, follow [harness authentication](/factories/harnesses/authentication/) to create one. For a self-hosted worker that already has credentials, choose **From worker environment** instead.
+4. For Pi with a provider's team default, leave "Auth" unset until you choose a model in the next step. Otherwise, in the "Auth" dropdown, choose a compatible, team-owned secret or, for Claude Code and Codex, the configured team default. If you need a new secret, follow [harness authentication](/factories/harnesses/authentication/) to create one. For a self-hosted worker that already has credentials, choose **From worker environment** instead.
 
    <figure style={{ maxWidth: "563px" }}>
    ![An Implement agent's Settings tab with Claude Code selected in the Harness dropdown and the Auth dropdown open, showing a saved credential and New auth secret.](../../../../assets/factories/factory-agent-auth-secret.png)
@@ -79,7 +79,7 @@ Change an agent's harness to use Claude Code, Codex, or Pi instead of the Warp A
    * Pi accepts a provider API key that matches the selected model's provider.
    :::
 
-5. In the "Model" dropdown, choose a model from that harness's catalog. For Pi with **From worker environment**, enter the worker's model identifier in `provider/model` form instead.
+5. In the "Model" dropdown, choose a model from that harness's catalog. For Pi with a team default, choose a model from that provider, then confirm that "Auth" shows **Team default** with the provider's secret name. For Pi with **From worker environment**, enter the worker's model identifier in `provider/model` form instead.
 6. In the top-right corner, click **Save**.
 
 With a Warp-managed factory, you can edit harness, auth, and model from the dashboard. A GitHub-backed factory sets them through [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in the definition files. For an example, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).

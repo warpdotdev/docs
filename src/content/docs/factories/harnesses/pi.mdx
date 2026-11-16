@@ -12,7 +12,7 @@ Pi is a coding agent harness that works with multiple model providers. Use it fo
 
 ## Models and credentials
 
-Pi model identifiers use `provider/model` form. Choose a model from the catalog rather than copying an identifier from another harness; available models depend on the provider credential selected for the agent.
+Pi model identifiers use `provider/model` form. Choose a model from the catalog rather than copying an identifier from another harness; available models depend on the selected credential or configured provider team defaults.
 
 For Warp-hosted runs, use a team-owned provider secret or a configured team default for that provider. Pi accepts compatible Anthropic and OpenAI API key secrets, as well as LLM provider API key secrets for other providers in its catalog. A personal key stored on your device is not a factory credential.
 
@@ -26,9 +26,10 @@ For a Warp-managed factory:
 
 1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Expand your factory in the sidebar, click **Agents**, then open the agent's **Settings** tab.
 2. In the "Harness" dropdown, choose **Pi**.
-3. In the "Auth" dropdown, choose a compatible team-owned provider secret or the configured team default. To create a credential, click **New LLM provider API key**, choose the provider, enter a name and the provider's API key, then click **Create secret**.
-4. In the "Model" dropdown, choose a model from the matching provider's catalog.
-5. Click **Save**.
+3. Choose an authentication path:
+   * **Provider key** - In the "Auth" dropdown, choose a compatible team-owned provider secret. To create one, click **New LLM provider API key**, choose the provider, enter a name and the provider's API key, then click **Create secret**. In the "Model" dropdown, choose a model from the matching provider's catalog.
+   * **Team default** - Leave "Auth" unset. In the "Model" dropdown, choose a model from a provider with a configured team default. Confirm that "Auth" shows **Team default** with that provider's secret name.
+4. Click **Save**.
 
 The saved settings show Pi, the selected model, and its authentication. Start a new task for this agent and inspect its run in the [factory dashboard](/factories/factory-dashboard/) to confirm that the intended harness and model were used and that the provider accepted the credential.
 
@@ -46,7 +47,7 @@ Start a new task for the agent to confirm the worker can authenticate to that pr
 
 ## Troubleshooting
 
-If no models appear, confirm that the selected secret belongs to the team and matches a provider in Pi's catalog. Changing to a different provider's credential clears an incompatible model selection; choose the model again before saving.
+If no models appear, confirm that the selected secret belongs to the team and matches a provider in Pi's catalog, or that the intended provider has a configured team default. Changing to a different provider's credential clears an incompatible model selection; choose the model again before saving.
 
 If a run fails to authenticate, check the provider account's funding and key permissions. For **From worker environment**, check authentication on the selected worker rather than creating a personal device key.
 
