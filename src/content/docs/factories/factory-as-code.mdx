@@ -497,18 +497,18 @@ Optional `auth` requires `source`:
 | `auth.source` | `auth.secretName` | Requirement |
 | --- | --- | --- |
 | `managedSecret` | Required | Name of the managed authentication secret. |
-| `workerEnvironment` | Not allowed | Requires a self-hosted `workerHost`; uses authentication from that worker's environment. |
+| `workerEnvironment` | Not allowed | Requires a self-hosted `workerHost`; uses authentication from that self-hosted runner's environment. |
 
 The `oz` harness supplies its own credentials and rejects `auth` and `reasoningLevel`. Third-party harnesses accept optional `reasoningLevel`.
 
-Pi requires `model` in `provider/model` form. A managed secret or team default must match the model's provider. For credentials configured on your self-hosted worker, use `auth.source: workerEnvironment`. See [Configuring the Pi harness](/factories/harnesses/pi/).
+Pi requires `model` in `provider/model` form. A managed secret or team default must match the model's provider. For credentials configured on your self-hosted runner, use `auth.source: workerEnvironment`. See [Configuring the Pi harness](/factories/harnesses/pi/).
 
 For per-agent harnesses and managed-secret authentication, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
 
 #### `agentDefaults.workerHost`
 
 **Optional.**
-Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/factories/self-hosting/). Omit the key for the workspace default. At the agent or automation level, use `null` or an empty string to clear an inherited host. Configure the backend on the worker; the definition selects only the worker and runner.
+Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted runner](/factories/self-hosting/). Omit the key for the workspace default. At the agent or automation level, use `null` or an empty string to clear an inherited host. Configure the backend on the self-hosted runner; the definition selects only the execution host and runner compute configuration.
 
 #### `agentDefaults.computerUseModel`
 
@@ -1049,9 +1049,11 @@ platform:
     dockerImage: ubuntu:22.04
 ```
 
-### Routing to a self-hosted worker
+<span id="routing-to-a-self-hosted-worker" />
 
-Set [`agentDefaults.workerHost`](#agentdefaultsworkerhost) to a connected worker's ID:
+### Routing to a self-hosted runner
+
+Set [`agentDefaults.workerHost`](#agentdefaultsworkerhost) to a connected self-hosted runner's ID:
 
 ```yaml title="factory.yaml"
 agentDefaults:
@@ -1060,7 +1062,7 @@ agentDefaults:
   workerHost: SELF_HOSTED_WORKER_ID
 ```
 
-Replace `SELF_HOSTED_WORKER_ID` with the worker's ID and pair it with a runner whose `platform` matches the worker. See the [Self-hosting quickstart](/factories/self-hosting/quickstart/) or copy [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+Replace `SELF_HOSTED_WORKER_ID` with the self-hosted runner's ID and select a runner compute configuration whose `platform` matches that host. See the [Self-hosting quickstart](/factories/self-hosting/quickstart/) or copy [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
 
 ## Related pages
 

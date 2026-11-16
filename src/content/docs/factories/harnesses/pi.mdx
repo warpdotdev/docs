@@ -2,7 +2,7 @@
 title: Configuring the Pi harness
 description: >-
   Run Pi as a Warp Factories agent with a provider API key or authentication
-  from your self-hosted worker.
+  from your self-hosted runner.
 sidebar:
   label: "Pi"
 ---
@@ -34,21 +34,23 @@ The saved settings show Pi, the selected model, and its authentication. Start a 
 
 For a GitHub-backed factory, edit the agent's definition files instead. Set `harness.type` to `pi`, use a `provider/model` identifier in `harness.model`, and select the credential with `harness.auth.source: managedSecret` and `harness.auth.secretName`. See [`agentDefaults.harness`](/factories/factory-as-code/#agentdefaultsharness) for factory defaults and per-agent overrides.
 
-## Using authentication from a self-hosted worker
+<span id="using-authentication-from-a-self-hosted-worker" />
 
-If your self-hosted worker already has Pi's provider authentication configured, use it without storing a provider secret in Warp.
+## Using authentication from a self-hosted runner
 
-1. In the agent's **Settings** tab, choose your self-hosted host in the "Host" dropdown.
+If your self-hosted runner already has Pi's provider authentication configured, use it without storing a provider secret in Warp.
+
+1. In the agent's **Settings** tab, choose your self-hosted runner in the "Host" dropdown.
 2. In the "Auth" dropdown, choose **From worker environment**.
-3. In the "Model" field, enter the worker's model identifier in `provider/model` form, then click **Save**.
+3. In the "Model" field, enter the self-hosted runner's model identifier in `provider/model` form, then click **Save**.
 
-Start a new task for the agent to confirm the worker can authenticate to that provider. This option is available only with a self-hosted host; see [self-hosting](/factories/self-hosting/) for worker setup.
+Start a new task for the agent to confirm the self-hosted runner can authenticate to that provider. This option is available only with a self-hosted runner; see [self-hosting](/factories/self-hosting/) for self-hosted runner setup.
 
 ## Troubleshooting
 
 If no models appear, confirm that the selected secret belongs to the team and matches a provider in Pi's catalog, or that the intended provider has a configured team default. Changing to a different provider's credential clears an incompatible model selection; choose the model again before saving.
 
-If a run fails to authenticate, check the provider account's funding and key permissions. For **From worker environment**, check authentication on the selected worker rather than creating a personal device key.
+If a run fails to authenticate, check the provider account's funding and key permissions. For **From worker environment**, check authentication on the selected self-hosted runner rather than creating a personal device key.
 
 ## Related pages
 

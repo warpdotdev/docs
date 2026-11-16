@@ -1872,10 +1872,10 @@ paths:
                 $ref: '#/components/schemas/Error'
   /agent/connected-self-hosted-workers:
     get:
-      summary: List connected self-hosted workers
+      summary: List connected self-hosted runners
       description: |
-        Retrieve currently connected self-hosted workers for the authenticated principal's team.
-        Worker presence is derived from worker websocket heartbeats and may be briefly stale.
+        Retrieve currently connected self-hosted runners for the authenticated principal's team.
+        Self-hosted runner presence is derived from websocket heartbeats and may be briefly stale.
       operationId: listConnectedSelfHostedWorkers
       tags:
         - agent
@@ -1885,7 +1885,7 @@ paths:
         - $ref: '#/components/parameters/TeamUidHeaderParam'
       responses:
         '200':
-          description: List of currently connected self-hosted workers
+          description: List of currently connected self-hosted runners
           content:
             application/json:
               schema:
@@ -1897,7 +1897,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
         '403':
-          description: Not authorized to list connected workers
+          description: Not authorized to list connected self-hosted runners
           content:
             application/json:
               schema:
@@ -10344,7 +10344,7 @@ components:
         worker_host:
           type: string
           description: |
-            Self-hosted worker ID that should execute this task.
+            Self-hosted runner ID that should execute this task.
             If not specified or set to "warp", the task runs on Warp-hosted workers.
         harness:
           $ref: '#/components/schemas/Harness'
@@ -11126,7 +11126,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ConnectedSelfHostedWorker'
-          description: Connected self-hosted workers for the authenticated principal's team
+          description: Connected self-hosted runners for the authenticated principal's team
     ConnectedSelfHostedWorker:
       type: object
       required:
@@ -11137,18 +11137,18 @@ components:
       properties:
         worker_host:
           type: string
-          description: Logical host identifier provided by the self-hosted worker
+          description: Logical host identifier provided by the self-hosted runner
         connection_count:
           type: integer
-          description: Number of active websocket connections currently observed for this worker host
+          description: Number of active websocket connections currently observed for this self-hosted runner ID
         connected_at:
           type: string
           format: date-time
-          description: Earliest connection timestamp across active connections for this worker host
+          description: Earliest connection timestamp across active connections for this self-hosted runner ID
         last_seen_at:
           type: string
           format: date-time
-          description: Most recent heartbeat timestamp across active connections for this worker host
+          description: Most recent heartbeat timestamp across active connections for this self-hosted runner ID
     AgentListItem:
       type: object
       required:
@@ -11222,8 +11222,8 @@ components:
         worker_host:
           type: string
           description: |
-            Self-hosted worker host that reported this skill.
-            Present only for skills discovered from self-hosted workers
+            Self-hosted runner ID that reported this skill.
+            Present only for skills discovered from self-hosted runners
             (as opposed to skills from GitHub repos linked to environments).
     AgentListEnvironment:
       type: object

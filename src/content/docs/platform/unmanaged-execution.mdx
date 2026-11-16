@@ -29,7 +29,7 @@ Unmanaged works on any platform Warp supports (Linux, macOS, Windows) with no de
 
 _~5 minutes_
 
-No Docker, no worker daemon, no environment required — just the {VARS.WARP_AGENT_CLI} on any host that can reach the internet.
+No Docker, no self-hosted runner daemon, no environment required — just the {VARS.WARP_AGENT_CLI} on any host that can reach the internet.
 
 ### Prerequisites
 
@@ -119,7 +119,7 @@ Whether Kubernetes pods provide sufficient sandboxing for agents depends on your
 
 Use unmanaged execution when a pre-provisioned host already has the repository and dependencies. The CLI starts in that checkout rather than building an environment image or cloning it again.
 
-For managed execution, review [Docker volume mounts](/factories/self-hosting/managed-docker/) or [Kubernetes task storage](/factories/self-hosting/managed-kubernetes/). For a Direct worker sharing a monorepo, use the [worktree-isolation recipe](/factories/self-hosting/direct-monorepo-worktrees/). Do not let concurrent agents edit the same checkout.
+For managed execution, review [Docker volume mounts](/factories/self-hosting/managed-docker/) or [Kubernetes task storage](/factories/self-hosting/managed-kubernetes/). For a self-hosted runner with the Direct backend sharing a monorepo, use the [worktree-isolation recipe](/factories/self-hosting/direct-monorepo-worktrees/). Do not let concurrent agents edit the same checkout.
 
 ## Tracking and observability
 
@@ -137,7 +137,7 @@ Unmanaged runs don't ship with the bundled declarations script, so end-of-run wo
 
 ## Related pages
 
-* [Self-hosting overview](/factories/self-hosting/) - Set up a worker on your infrastructure to receive runs assigned by Warp
+* [Self-hosting overview](/factories/self-hosting/) - Set up a self-hosted runner on your infrastructure to receive runs assigned by Warp
 * [External orchestrators](/factories/self-hosting/external-orchestrators/) — Compare one-shot Direct with the Command backend for externally allocated compute.
 * [GitHub Actions integration](/platform/integrations/github-actions/) — Run agents in CI with the official action.
 * [Security and networking](/factories/self-hosting/security-and-networking/) - Review data boundaries and network requirements for self-hosted execution

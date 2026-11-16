@@ -1,14 +1,14 @@
 ---
 title: Self-hosting quickstart
 description: >-
-  Get a managed self-hosted {{WARP_AUTOMATION_PLATFORM}} worker running on Docker and route your first
+  Start a self-hosted runner with the Docker backend and route your first
   cloud agent run to it in under 10 minutes.
 sidebar:
   label: "Quickstart"
 ---
 import { VARS } from '@data/vars';
 
-Start a self-hosted worker with the default Docker backend and route a test run to it. The {VARS.WARP_AUTOMATION_PLATFORM} routes the run, and your worker provides the compute.
+Start a self-hosted runner with the default Docker backend and route a test run to it. The {VARS.WARP_AUTOMATION_PLATFORM} routes the run, and your self-hosted runner provides the compute.
 
 ---
 
@@ -29,15 +29,17 @@ _~10 minutes_
 
 ### 1. Export your API key
 
-Use the Agent API key for both the worker container and `oz agent run-cloud`. A self-hosted worker key authenticates the worker only. Export the key so both tools can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
+Use the Agent API key for both the self-hosted runner container and `oz agent run-cloud`. A self-hosted runner key authenticates the self-hosted runner only. Export the key so both tools can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
 export WARP_API_KEY="YOUR_AGENT_API_KEY"
 ```
 
-### 2. Start the worker
+<span id="2-start-the-worker" />
 
-On the Linux host, run the `oz-agent-worker` container and mount the Docker socket so the worker can spawn task containers. Choose any `--worker-id` meaningful for your team — you'll use this value to route tasks to this worker.
+### 2. Start the self-hosted runner
+
+On the Linux host, run the `oz-agent-worker` container and mount the Docker socket so the self-hosted runner can spawn task containers. Choose any `--worker-id` meaningful for your team — you'll use this value to route tasks to this self-hosted runner.
 
 ```bash
 export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
@@ -49,43 +51,45 @@ docker run \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
 
-**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
+**Expected outcome:** The self-hosted runner connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
 
 :::caution
 For production deployments, pin to a specific image digest (e.g., `warpdotdev/oz-agent-worker@sha256:...`) instead of the `latest` tag.
 :::
 
-### 3. Route a run to your worker
+<span id="3-route-a-run-to-your-worker" />
 
-In a separate terminal on any machine with the {VARS.WARP_AGENT_CLI}, route a cloud agent run to your worker by passing `--host` with the worker ID you chose:
+### 3. Route a run to your self-hosted runner
+
+In a separate terminal on any machine with the {VARS.WARP_AGENT_CLI}, route a cloud agent run to your self-hosted runner by passing `--host` with the self-hosted runner ID you chose:
 
 ```bash
 oz agent run-cloud --prompt "List the files in the current directory" --host "my-worker"
 ```
 
-**Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
+**Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your self-hosted runner, and the self-hosted runner spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
 
 ### 4. Verify the run
 
-Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and confirm the session transcript shows the agent running against your worker. You can attach to the session at any time via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer it.
+Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and confirm the session transcript shows the agent running against your self-hosted runner. You can attach to the session at any time via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer it.
 
 ---
 
 ## Troubleshooting
 
-**Worker won't start**\
-Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
+**Self-hosted runner won't start**\
+Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) self-hosted runner hosts are not supported.
 
-**Worker won't connect**\
+**Self-hosted runner won't connect**\
 Verify you created an **Agent** key associated with the Default Service Account and that it has not expired. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
 
 **Task stays queued and never runs**\
-Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
+Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the self-hosted runner's team matches the team creating the task.
 
 For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).
 
 ## Next steps
 
-* [Self-hosting overview](/factories/self-hosting/) - Review worker requirements and choose a backend
+* [Self-hosting overview](/factories/self-hosting/) - Review self-hosted runner requirements and choose a backend
 * [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
-* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.
+* [Routing runs to self-hosted runners](/factories/self-hosting/#routing-runs-to-self-hosted-runners) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.

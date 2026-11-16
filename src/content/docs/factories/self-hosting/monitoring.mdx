@@ -1,14 +1,14 @@
 ---
-title: Self-hosted worker monitoring
+title: Self-hosted runner monitoring
 sidebar:
   label: "Monitoring"
 description: >-
-  Monitor self-hosted {{WARP_AUTOMATION_PLATFORM}} workers with OpenTelemetry
+  Monitor self-hosted runners with OpenTelemetry
   metrics via Prometheus, OTLP, or console export.
 ---
 import { VARS } from '@data/vars';
 
-The `oz-agent-worker` daemon exports [OpenTelemetry](https://opentelemetry.io/) metrics for worker health, task throughput, and capacity. Use these metrics with the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> to monitor self-hosted compute and cloud runs.
+The `oz-agent-worker` daemon exports [OpenTelemetry](https://opentelemetry.io/) metrics for self-hosted runner health, task throughput, and capacity. Use these metrics with the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> to monitor self-hosted compute and cloud runs.
 
 ## Key features
 
@@ -19,7 +19,7 @@ The `oz-agent-worker` daemon exports [OpenTelemetry](https://opentelemetry.io/) 
 
 ## How it works
 
-The worker uses the [OpenTelemetry autoexport package](https://github.com/open-telemetry/opentelemetry-go-contrib/tree/main/exporters/autoexport) to select an exporter at runtime based on the `OTEL_METRICS_EXPORTER` environment variable. Supported values:
+The self-hosted runner uses the [OpenTelemetry autoexport package](https://github.com/open-telemetry/opentelemetry-go-contrib/tree/main/exporters/autoexport) to select an exporter at runtime based on the `OTEL_METRICS_EXPORTER` environment variable. Supported values:
 
 * `prometheus` — Starts an in-process HTTP server serving `/metrics`.
 * `otlp` — Pushes metrics over OTLP (HTTP/protobuf by default).
@@ -28,13 +28,13 @@ The worker uses the [OpenTelemetry autoexport package](https://github.com/open-t
 
 When `OTEL_METRICS_EXPORTER` is unset, autoexport uses OTLP. Set it to `none` to disable metrics.
 
-All metrics carry resource attributes (`service.name=oz-agent-worker`, `service.version`, `worker.id`, `worker.backend`) so each worker process shows up as a distinct series in your monitoring system.
+All metrics carry resource attributes (`service.name=oz-agent-worker`, `service.version`, `worker.id`, `worker.backend`) so each self-hosted runner process shows up as a distinct series in your monitoring system.
 
 ---
 
 ## Enable Prometheus scrape
 
-Set these environment variables before starting the worker to expose a Prometheus-compatible `/metrics` endpoint:
+Set these environment variables before starting the self-hosted runner to expose a Prometheus-compatible `/metrics` endpoint:
 
 ```bash
 export OTEL_METRICS_EXPORTER=prometheus
@@ -68,7 +68,7 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector.observability.svc:4318
 oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 ```
 
-The worker pushes metrics at the SDK's default interval. Configure the collector endpoint, protocol, and headers using standard [OTLP exporter environment variables](https://opentelemetry.io/docs/specs/otel/protocol/exporter/).
+The self-hosted runner pushes metrics at the SDK's default interval. Configure the collector endpoint, protocol, and headers using standard [OTLP exporter environment variables](https://opentelemetry.io/docs/specs/otel/protocol/exporter/).
 
 ---
 
@@ -86,7 +86,7 @@ helm install oz-agent-worker ./charts/oz-agent-worker \
 
 With `metrics.enabled=true` and the default `metrics.exporter=prometheus`, the chart adds:
 
-* A `containerPort: metrics` (default 9464) on the worker Deployment.
+* A `containerPort: metrics` (default 9464) on the self-hosted runner Deployment.
 * The `OTEL_METRICS_EXPORTER`, `OTEL_EXPORTER_PROMETHEUS_HOST`, and `OTEL_EXPORTER_PROMETHEUS_PORT` environment variables.
 * A namespace-scoped `Service` named `<release>-oz-agent-worker-metrics` with `prometheus.io/scrape` annotations.
 * Optionally, a `PodMonitor` (`metrics.podMonitor.create=true`) for clusters using the Prometheus Operator.
@@ -98,7 +98,7 @@ With `metrics.enabled=true` and the default `metrics.exporter=prometheus`, the c
 * `metrics.enabled` — Enable metrics export. Defaults to `false`.
 * `metrics.exporter` — Exporter type: `prometheus` (default), `otlp`, `console`, or `none`.
 * `metrics.port` — Port for the Prometheus exporter. Defaults to `9464`. Ignored for `otlp`/`console`.
-* `metrics.extraEnv` — Extra environment variables for the worker container (e.g., `OTEL_EXPORTER_OTLP_ENDPOINT`).
+* `metrics.extraEnv` — Extra environment variables for the self-hosted runner container (e.g., `OTEL_EXPORTER_OTLP_ENDPOINT`).
 
 **Service (Prometheus scrape):**
 
@@ -130,30 +130,30 @@ metrics:
 
 ## Metric catalog
 
-All metrics use the `oz_worker_` prefix. Each worker process with metrics enabled emits a distinct set of series, identified by the resource attributes `service.name`, `service.version`, `worker.id`, and `worker.backend`.
+All metrics use the `oz_worker_` prefix. Each self-hosted runner process with metrics enabled emits a distinct set of series, identified by the resource attributes `service.name`, `service.version`, `worker.id`, and `worker.backend`.
 
-* **`oz_worker_connected`** (gauge) — `1` while the worker has an active WebSocket connection to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, `0` otherwise.
-* **`oz_worker_tasks_active`** (gauge / UpDownCounter) — Tasks currently executing on this worker.
+* **`oz_worker_connected`** (gauge) — `1` while the self-hosted runner has an active WebSocket connection to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, `0` otherwise.
+* **`oz_worker_tasks_active`** (gauge / UpDownCounter) — Tasks currently executing on this self-hosted runner.
 * **`oz_worker_tasks_max_concurrent`** (gauge) — Configured concurrency limit (`0` means unlimited).
 * **`oz_worker_tasks_claimed_total`** (counter) — Total tasks accepted since process start.
-* **`oz_worker_tasks_rejected_total{reason}`** (counter) — Tasks the worker declined (e.g., `reason="at_capacity"`).
+* **`oz_worker_tasks_rejected_total{reason}`** (counter) — Tasks the self-hosted runner declined (e.g., `reason="at_capacity"`).
 * **`oz_worker_tasks_completed_total{result}`** (counter) — Completed tasks labeled `result="succeeded"`, `result="failed"`, `result="cancelled"`, or `result="dispatched"`.
-* **`oz_worker_task_duration_seconds{result}`** (histogram) — Wall-clock task duration on the worker, labeled by result.
+* **`oz_worker_task_duration_seconds{result}`** (histogram) — Wall-clock task duration on the self-hosted runner, labeled by result.
 * **`oz_worker_task_failures_total{phase,reason}`** (counter) — Task failures classified by execution phase and a bounded reason such as `image_pull`, `unschedulable`, `container_oom`, or `evicted`.
-* **`oz_worker_websocket_reconnects_total{reason}`** (counter) — WebSocket reconnect attempts (e.g., `reason="dial_failed"`, `reason="remote_close"`). Spikes indicate flapping workers.
+* **`oz_worker_websocket_reconnects_total{reason}`** (counter) — WebSocket reconnect attempts (e.g., `reason="dial_failed"`, `reason="remote_close"`). Spikes indicate flapping self-hosted runners.
 * **`oz_worker_info{version,backend,worker_id}`** (gauge, constant `1`) — Build and runtime metadata. Useful for joining other series by labels.
 
 ---
 
 ## Sample PromQL queries
 
-* **Workers available:**
+* **Self-hosted runners available:**
 
   ```promql
   sum(oz_worker_connected)
   ```
 
-* **Workers active (running at least one task):**
+* **Self-hosted runners active (running at least one task):**
 
   ```promql
   count(oz_worker_tasks_active > 0)
@@ -165,7 +165,7 @@ All metrics use the `oz_worker_` prefix. Each worker process with metrics enable
   sum(oz_worker_tasks_active) / sum(oz_worker_tasks_max_concurrent > 0)
   ```
 
-  This ratio is only meaningful when every worker has a non-zero `oz_worker_tasks_max_concurrent`. Workers configured with `0` (unlimited) are excluded from the denominator, which can make the saturation result look misleadingly high or undefined for fleets that mix bounded and unlimited workers.
+  This ratio is only meaningful when every self-hosted runner has a non-zero `oz_worker_tasks_max_concurrent`. Self-hosted runners configured with `0` (unlimited) are excluded from the denominator, which can make the saturation result look misleadingly high or undefined for fleets that mix bounded and unlimited self-hosted runners.
 
 * **Task success rate (5-minute window):**
 
@@ -221,7 +221,7 @@ metrics:
 ## Related pages
 
 * [Self-hosting overview](/factories/self-hosting/) — Architecture, decision guide, and Enterprise requirements.
-* [Self-hosted worker reference](/factories/self-hosting/reference/) — CLI flags, config file schema, and metrics environment variables.
+* [Self-hosted runner reference](/factories/self-hosting/reference/) — CLI flags, config file schema, and metrics environment variables.
 * [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/) — Helm chart deployment, including metrics values.
 * [Troubleshooting](/factories/self-hosting/troubleshooting/) — Diagnostics for metrics issues and other common problems.
 * [Security and networking](/factories/self-hosting/security-and-networking/) — Network egress and data boundaries.

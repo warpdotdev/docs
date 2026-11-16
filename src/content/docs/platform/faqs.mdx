@@ -47,7 +47,7 @@ See [Container users and permissions](/factories/environments/configuring-enviro
 
 ### Do cloud agents support a fully self-hosted, on-prem, or offline mode?
 
-Self-hosting moves execution to your infrastructure; it doesn't make Warp's coordination services offline. The worker and task runtime still need the required outbound network access.
+Self-hosting moves execution to your infrastructure; it doesn't make Warp's coordination services offline. The self-hosted runner and task runtime still need the required outbound network access.
 
 See [Self-hosting and required network access](/factories/self-hosting/security-and-networking/#network-requirements).
 
@@ -67,7 +67,7 @@ See [Selecting a model for a run](/factories/api-and-sdk/#agent-configuration).
 
 ### Can I authenticate cloud agents with my own ChatGPT or Claude Pro / Max plan?
 
-A [connected ChatGPT subscription](/agents/inference/chatgpt-subscription/#use-your-chatgpt-subscription) doesn't fund cloud runs. Managed-secret setup uses funded Anthropic or Bedrock credentials for Claude Code and funded OpenAI API access for Codex, not local subscription sign-in. Worker-supplied self-hosted credentials follow a separate setup path.
+A [connected ChatGPT subscription](/agents/inference/chatgpt-subscription/#use-your-chatgpt-subscription) doesn't fund cloud runs. Managed-secret setup uses funded Anthropic or Bedrock credentials for Claude Code and funded OpenAI API access for Codex, not local subscription sign-in. Credentials supplied by a self-hosted runner follow a separate setup path.
 
 See [Harness authentication](/factories/harnesses/authentication/).
 
@@ -175,7 +175,7 @@ See [Running agents in CI or existing hosts](/platform/unmanaged-execution/).
 
 ### Can self-hosted agents access services behind a VPN?
 
-Yes, when the task's execution environment has the necessary access. A connected worker doesn't establish that its container or Pod can reach the same VPN services, private repositories, or databases.
+Yes, when the task's execution environment has the necessary access. A connected self-hosted runner doesn't establish that its container or Pod can reach the same VPN services, private repositories, or databases.
 
 See [VPN and private-service access](/factories/self-hosting/security-and-networking/#vpn-and-on-premises-access).
 

@@ -119,7 +119,7 @@ Then point Warp at it by exporting `OZ_SNAPSHOT_DECLARATIONS_SCRIPT` in the envi
 export OZ_SNAPSHOT_DECLARATIONS_SCRIPT=/path/to/snapshot-declarations.sh
 ```
 
-For a managed [Direct backend](/factories/self-hosting/managed-direct/) worker, set it via the worker's `environment` config so it's present when the agent process starts.
+For a self-hosted runner with the [Direct backend](/factories/self-hosting/managed-direct/), set it via the self-hosted runner's `environment` config so it's present when the agent process starts.
 
 ### The full bundled script
 
@@ -235,6 +235,6 @@ Snapshotting is also skipped automatically when cloud conversations are disabled
 
 * [Handoff from local to cloud](/platform/handoff/local-to-cloud/) - Promote a local conversation to a cloud run; the workspace snapshot is what carries your uncommitted changes across.
 * [Handoff from cloud to cloud](/platform/handoff/cloud-to-cloud/) - Continue a finished cloud run; the prior session's workspace snapshot is what gets restored.
-* [Self-hosting overview](/factories/self-hosting/) - Architecture decision guide for self-hosted workers, where customizing snapshots is most often needed.
+* [Self-hosting overview](/factories/self-hosting/) - Architecture decision guide for self-hosted runners, where customizing snapshots is most often needed.
 * [Unmanaged architecture](/platform/unmanaged-execution/) - Run `oz agent run` in CI, Kubernetes, or your dev environment outside the bundled image.
 * [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) - Full reference for `oz agent run` and `oz agent run-cloud`.

@@ -89,7 +89,7 @@ If the config passes through a system that pre-processes `{{...}}` before it rea
 
 ### Connect directly by URL
 
-Use `url` to connect the agent worker to an existing streamable HTTP or SSE MCP endpoint. A Warp-hosted worker requires a publicly reachable URL, while a self-hosted worker can reach a private endpoint available from its network. For credentials sent with `headers`, use HTTPS to protect them in transit.
+Use `url` to connect the agent worker to an existing streamable HTTP or SSE MCP endpoint. A Warp-hosted worker requires a publicly reachable URL, while a self-hosted runner can reach a private endpoint available from its network. For credentials sent with `headers`, use HTTPS to protect them in transit.
 
 Team-managed URL servers use **Warp-managed** by default: Warp connects to the external endpoint and resolves its credentials. To use a worker-side connection, open **MCPs and apps** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom MCP**. Enter the configuration and choose **Direct** under "Connection mode" when that option is available.
 
@@ -106,7 +106,7 @@ Team-managed URL servers use **Warp-managed** by default: Warp connects to the e
 
 Store `INTERNAL_MCP_TOKEN` as a [managed secret](/factories/secrets/). Direct URL and stdio connections resolve secret placeholders in the agent runtime; Warp-managed URL connections resolve them in Warp before connecting. For standalone secret setup, see [Agent Secrets](https://docs.warp.dev/platform/secrets/).
 
-For a self-hosted worker, see [managed self-hosting](/factories/self-hosting/). For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
+For a self-hosted runner, see [managed self-hosting](/factories/self-hosting/). For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
 
 <span id="using-mcp-servers-in-an-agent-config-file" />
 

@@ -16,7 +16,7 @@ Environments also work with standalone cloud agents, without a factory. See [Con
 
 An existing environment supplies these settings:
 
-* **Docker image** - The image that provides the toolchain and dependencies for your code. A self-hosted Kubernetes worker with a [`default_image`](/factories/self-hosting/managed-kubernetes/) can run without a separate environment.
+* **Docker image** - The image that provides the toolchain and dependencies for your code. A self-hosted runner using the Kubernetes backend with a [`default_image`](/factories/self-hosting/managed-kubernetes/) can run without a separate environment.
 * **Repositories** - One or more repos that the agent clones into its workspace.
 * **Setup commands** - Commands that prepare the workspace, such as dependency installation, builds, or code generation.
 * **Environment variables** - Runtime values that you set in the Docker image or container configuration.

@@ -14,7 +14,7 @@ Choose an execution model for your factory based on where its code must run and 
 
 | If your factory needs to... | Choose |
 | --- | --- |
-| Run public repositories and services without operating workers | [Warp-hosted execution](#warp-hosted-execution) |
+| Run public repositories and services without operating self-hosted runners | [Warp-hosted execution](#warp-hosted-execution) |
 | Reach private repositories or services behind your network boundary | [Managed self-hosting](#managed-self-hosting) |
 
 Both factory options use the same [factory definition](/factories/factory-as-code/), [runners](/factories/runners/), and [factory dashboard](/factories/factory-dashboard/). The execution host changes the location of checkout, command execution, and the sandbox filesystem.
@@ -47,7 +47,7 @@ For standalone cloud-agent triggers, see [cloud agents](/platform/).
 
 ## Managed self-hosting
 
-Use this when a factory must run checkout and execution on your infrastructure while the {VARS.WARP_AUTOMATION_PLATFORM} coordinates the work and records its results. Managed workers support Docker, Kubernetes, Direct, and external command backends. See [managed self-hosting](/factories/self-hosting/) for requirements and setup.
+Use this when a factory must run checkout and execution on your infrastructure while the {VARS.WARP_AUTOMATION_PLATFORM} coordinates the work and records its results. Self-hosted runners support Docker, Kubernetes, Direct, and external command backends. See [managed self-hosting](/factories/self-hosting/) for requirements and setup.
 
 See [execution security](/factories/self-hosting/security-and-networking/) for self-hosted data and network boundaries.
 
@@ -55,4 +55,4 @@ See [execution security](/factories/self-hosting/security-and-networking/) for s
 
 * [Infrastructure and security](/factories/infrastructure-and-security/) - Choose execution, inference, storage, and credential boundaries for a factory.
 * [Warp-hosted execution](/factories/warp-hosting/) - Review hosted execution capacity, networking, and supported environments.
-* [Managed self-hosting](/factories/self-hosting/) - Install and operate a factory worker on your infrastructure.
+* [Managed self-hosting](/factories/self-hosting/) - Install and operate a self-hosted runner on your infrastructure.

@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Runners are reusable compute configurations for [cloud agent runs](/platform/). Each runner selects an operating system, CPU architecture, instance size, and sandbox image.
 
-An [environment](/factories/environments/) supplies the repositories, toolchain, and workspace setup. The execution host determines whether the work runs on [Warp-hosted](/factories/warp-hosting/) infrastructure or a [self-hosted worker](/factories/self-hosting/).
+An [environment](/factories/environments/) supplies the repositories, toolchain, and workspace setup. The execution host determines whether the work runs on [Warp-hosted](/factories/warp-hosting/) infrastructure or a [self-hosted runner](/factories/self-hosting/).
 
 <span id="key-features" />
 
@@ -43,12 +43,12 @@ The execution host determines how each runner setting is used:
 
 | Setting | Warp-hosted | Direct | Kubernetes | Docker |
 | --- | --- | --- | --- | --- |
-| `platform.os`, `platform.arch`, `platform.mac.version` | Selects the sandbox OS, architecture, and macOS VM version | Does not configure the host. The worker host determines the platform. | Use Linux. The cluster and `pod_template` schedule nodes. | Use Linux. The Docker daemon determines the architecture. |
+| `platform.os`, `platform.arch`, `platform.mac.version` | Selects the sandbox OS, architecture, and macOS VM version | Does not configure the host. The self-hosted runner host determines the platform. | Use Linux. The cluster and `pod_template` schedule nodes. | Use Linux. The Docker daemon determines the architecture. |
 | `platform.linux.dockerImage` | Linux sandbox image | Ignored | Task and setup container image | Task container image |
-| `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored. Use `imagePullSecrets`. | Ignored. Configure registry credentials on the worker, such as in its Docker config. |
+| `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored. Use `imagePullSecrets`. | Ignored. Configure registry credentials on the self-hosted runner, such as in its Docker config. |
 | `instanceShape` | Sandbox size, subject to plan limits. Omitted uses the workspace default. | Ignored. The task uses host resources. | Task-container requests and limits. Overrides matching `pod_template` resources. Omitted keeps template or cluster defaults. | Task-container limits. Omitted adds no limits. |
 
-Self-hosted runner settings don't provision capacity. Worker configuration controls resources, registry authentication, volumes, placement, and backend policy. See [choosing a managed backend](/factories/self-hosting/#choosing-a-managed-backend) for execution options and [runner file syntax](/factories/factory-as-code/#runnersnameyaml) for configuration fields.
+For self-hosted execution, a runner's compute settings don't provision capacity. The self-hosted runner's backend configuration controls resources, registry authentication, volumes, placement, and backend policy. See [choosing a managed backend](/factories/self-hosting/#choosing-a-managed-backend) for execution options and [runner file syntax](/factories/factory-as-code/#runnersnameyaml) for configuration fields.
 
 ## Operating systems
 
@@ -103,7 +103,7 @@ Self-hosted runner settings don't provision capacity. Worker configuration contr
 
     Select a Windows runner on an individual agent or automation with `runner`. The factory's default runner remains Linux.
 
-    Self-hosted Docker and Kubernetes backends run Linux tasks, even when the worker process runs on another OS. Use [Warp-hosted execution](/factories/warp-hosting/) for Windows runners.
+    Self-hosted Docker and Kubernetes backends run Linux tasks, even when the self-hosted runner process runs on another OS. Use [Warp-hosted execution](/factories/warp-hosting/) for Windows runners.
   </TabItem>
 </Tabs>
 

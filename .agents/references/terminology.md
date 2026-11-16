@@ -312,6 +312,10 @@ specific interface changes, not on an inferred retirement date:
 
 - **Host** — Where a task executes (Warp-hosted or customer-hosted).
 
+- **self-hosted runner** / **self-hosted runners** — The execution service (`oz-agent-worker`) that receives runs from Warp and executes them on your infrastructure.
+  *Usage note:* Use this term rather than "worker," "managed worker," or "self-hosted host" for this service. Keep it distinct from a runner's compute configuration (`runners/*.yaml` or `runner_id`): host selection uses `workerHost`, `worker_host`, or `--host`. Preserve literal commands, identifiers, image and repository names, and exact UI labels such as **Self-hosted worker** and **From worker environment**. Agents running on the service are still agents; self-hosted agent data storage is a separate concept.
+  *Naming source:* [Docs terminology request, November 16, 2026](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1794869642273819). Only this naming convention was reviewed; no product behavior or availability changed.
+
 - **Integration** / **Integrations** — Configured connections between Warp and external tools (Slack, Linear, GitHub Actions) that trigger runs and post results back.
   *Usage note:* Use for the configured connection, not "plugin."
 
@@ -335,8 +339,8 @@ specific interface changes, not on an inferred retirement date:
 - **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Warp Platform API and SDKs. Renamed from "Oz" on 2026-08-18.
   *Usage note:* See "Automation Platform terminology" above for the full entry and the article rule. Always write it as `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`, never as a literal string, so a future rename stays a one-line change.
 
-- **Direct backend** — The self-hosted worker backend that runs cloud agent tasks directly on the worker host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
-  *Usage note:* Capitalize "Direct" as part of the compound proper term, including in headings ("Start the worker with the Direct backend"); lowercase "backend" as the common noun.
+- **Direct backend** — The self-hosted runner backend that runs cloud agent tasks directly on its host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
+  *Usage note:* Capitalize "Direct" as part of the compound proper term, including in headings ("Start the self-hosted runner with the Direct backend"); lowercase "backend" as the common noun.
 
 ## Warp Factories terminology
 

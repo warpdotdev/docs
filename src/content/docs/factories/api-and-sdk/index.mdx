@@ -79,7 +79,7 @@ You can influence how an agent runs using `AmbientAgentConfig`, including:
 * `model_id` for LLM selection
 * `base_prompt` to shape behavior
 * `environment_id` to choose a `CloudEnvironment`
-* `worker_host` to run a standalone cloud agent on a [self-hosted worker](/factories/self-hosting/)
+* `worker_host` to run a standalone cloud agent on a [self-hosted runner](/factories/self-hosting/)
 * `skill_spec` to use a [skill](/agents/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
 * `mcp_servers` to enable specific tools via MCP
 
@@ -130,9 +130,11 @@ The catalog helps group usage across conversations; it isn't an availability man
 
 For example, `oz-platform`, `factory-files`, and `factory-mcp` are Warp-provided. `factory-mcp` appears only where Factory MCP is available, `tui-migrate-setup` is specific to the Warp Agent CLI, and connected integrations can add bundled IDs that aren't listed here.
 
-## Route a run to a self-hosted worker
+<span id="route-a-run-to-a-self-hosted-worker" />
 
-Set `worker_host` in the request configuration to select a connected self-hosted worker. Omit it, or set it to `warp`, to use Warp-hosted workers.
+## Route a run to a self-hosted runner
+
+Set `worker_host` in the request configuration to select a connected self-hosted runner. Omit it, or set it to `warp`, to use Warp-hosted workers.
 
 ```json
 {
@@ -143,7 +145,7 @@ Set `worker_host` in the request configuration to select a connected self-hosted
 }
 ```
 
-Replace `WORKER_HOST` with the ID of a connected worker. For factory work, set `workerHost` in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost) instead.
+Replace `WORKER_HOST` with the ID of a connected self-hosted runner. For factory work, set `workerHost` in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost) instead.
 
 ## Key endpoints
 

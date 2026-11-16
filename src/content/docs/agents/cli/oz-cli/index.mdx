@@ -264,7 +264,7 @@ oz agent run-cloud \
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--model <MODEL_ID>` — choose the model for the selected harness. For the Warp Agent harness, use an ID from `oz model list`. For Claude Code or Codex, see [Choosing an execution harness](#choosing-an-execution-harness).
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](/agents/cli/oz-cli/#using-skills)).
-* `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
+* `--host <WORKER_ID>` — run on a specific self-hosted runner instead of Warp-hosted infrastructure.
 * `--attach <PATH>` — attach a file to the agent query. You can attach up to 25 files, with a maximum size of 10 MB per file. For images in interactive local or cloud conversations, see [Images as Context](/agents/local-agents/agent-context/images-as-context/).
 * `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agents/capabilities/computer-use/) for this run.
 * `--harness <HARNESS>` — choose the [execution harness](/factories/harnesses/) for the run: `oz` (default, the Warp Agent), `claude` (Claude Code), or `codex` (Codex). `claude-code` is accepted as an alias for `claude`. See [harness identifiers](/factories/harnesses/#harness-identifiers).

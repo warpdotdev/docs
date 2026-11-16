@@ -12,7 +12,7 @@ Authenticate [Claude Code](#connecting-claude-code-credentials), [Codex](#connec
 
 Auth secrets can be scoped to a **team** or to your **personal** account. A factory agent can only select team-scoped secrets. Personal secrets remain available for your own ad hoc cloud runs; creating a factory is not required for those runs.
 
-The procedures below configure managed-secret authentication, not local CLI sign-in or a personal device key for the Warp Agent. See [Bring Your Own Key (BYOK)](/agents/inference/bring-your-own-api-key/) for that separate inference configuration. For credentials supplied by a self-hosted worker instead of a selected secret, follow the [self-hosting configuration](/factories/self-hosting/).
+The procedures below configure managed-secret authentication, not local CLI sign-in or a personal device key for the Warp Agent. See [Bring Your Own Key (BYOK)](/agents/inference/bring-your-own-api-key/) for that separate inference configuration. For credentials supplied by a self-hosted runner instead of a selected secret, follow the [self-hosting configuration](/factories/self-hosting/).
 
 ## Factory authentication
 
@@ -102,7 +102,7 @@ Add `--description "..."` to record rotation notes or owner info. Replace `--tea
 
 ## Connecting Pi credentials
 
-Pi pairs a provider model with a compatible team-owned secret or the provider's configured team default. For credential setup and the self-hosted worker alternative, follow [Configuring the Pi harness](/factories/harnesses/pi/).
+Pi pairs a provider model with a compatible team-owned secret or the provider's configured team default. For credential setup and the self-hosted runner alternative, follow [Configuring the Pi harness](/factories/harnesses/pi/).
 
 ## Managing harness auth secrets
 
