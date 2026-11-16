@@ -5,12 +5,12 @@ description: >-
   including how platform usage differs from inference and compute.
 ---
 
-Platform usage covers running and managing agents through Warp, including orchestration, integrations, and run tracking. Cloud runs, including [Warp Factories](/factories/) runs, and local runs on Business, Scale, and Enterprise that use customer-supplied inference incur charges for billable agent time. These charges draw from your eligible usage balance; Enterprise billing follows your contract.
+Platform usage covers running and managing agents through Warp, including orchestration, integrations, and run tracking. Cloud runs, including [Warp Factories](/factories/) runs, incur charges for billable agent time. Some local runs also incur these charges, depending on the [product and plan billed for the work](#when-platform-charges-apply).
 
-Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on Business, Scale, and Enterprise plans.
+Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
 
 :::caution
-Personal BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business, Scale, or Enterprise plan. Factory runs use team-managed inference or harness credentials, not keys stored on a member's device.
+Personal BYOK and endpoints have [organization-size and plan requirements](/agents/inference/bring-your-own-api-key/). Factory runs use [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) or harness credentials, not keys stored on a member's device.
 :::
 
 <span id="how-platform-credits-are-measured" />
@@ -41,24 +41,30 @@ These are cost components, not independent allowances. A run can incur more than
 For example, a cloud run with Warp-provided inference on Warp-hosted compute incurs all three components. See [usage and billing](/support-and-community/plans-and-billing/credits/) for how they draw from your balance.
 
 <span id="when-platform-credits-apply" />
+<span id="uses-platform-credits" />
 
 ## When platform charges apply
 
 Whether a run incurs platform charges depends on where it runs and who pays for inference.
 
-<span id="uses-platform-credits" />
+### Warp Terminal and local agents
 
-### Uses platform services
+| Plan for Warp Terminal and local agents | Local platform charges |
+| --- | --- |
+| Free, Build, or Max | None, whether inference is supplied by Warp or by you |
+| Business or Enterprise | Billable agent time when using customer-supplied inference, including connected ChatGPT subscriptions; no separate platform charge for Warp-provided inference |
 
-* **Cloud runs** - Billable agent time incurs platform charges regardless of the harness, inference provider, or compute host. Self-hosted workers avoid Warp-hosted compute charges, not platform charges. Enterprise exceptions follow your contract.
-* **Local runs on Business, Scale, or Enterprise with customer-supplied inference** - Platform charges apply when the run uses BYOK, a connected subscription, a custom inference endpoint, or BYOLLM instead of Warp-provided inference.
+### Warp Factories
+
+Factory runs incur platform charges for billable agent time on Start, Scale, and Enterprise plans for Warp Factories, regardless of harness, inference provider, or compute host. A local run billed under a team's Scale plan for Warp Factories also incurs platform charges when it uses customer-supplied inference. Enterprise rates and exceptions follow your contract.
+
+Self-hosted workers avoid Warp-hosted compute charges, not platform charges.
 
 <span id="doesnt-use-platform-credits" />
 
 ### Doesn't incur platform charges
 
-* **Local runs on Free, Build, or Max** - No platform charge, whether inference is provided by Warp or by you.
-* **Local runs on Business, Scale, or Enterprise with Warp-provided inference** - Inference is charged without a separate platform charge.
+* **Local runs with Warp-provided inference** - Inference is charged without a separate platform charge.
 * **Regular terminal usage** - Shell commands and non-AI terminal features don't consume agent usage.
 * **Third-party agent CLIs run directly** - Running `claude`, `codex`, or another CLI yourself, outside a Warp-managed run, doesn't incur Warp platform charges.
 
