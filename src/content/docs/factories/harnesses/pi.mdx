@@ -8,13 +8,13 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Pi is a coding agent harness that works with multiple model providers. Use it for a factory agent that needs a model from Pi's provider catalog, such as an implement agent working through your team's OpenAI account. Each agent pairs a provider model with compatible authentication.
+Pi is a coding agent that supports multiple model providers. Use it as a factory agent's harness for tasks such as implementing changes through your team's OpenAI account.
 
 ## Models and credentials
 
-Pi model identifiers use `provider/model` form. Choose a model from the catalog rather than copying an identifier from another harness; available models depend on the selected credential or configured provider team defaults.
+Choose a model from Pi's catalog in the agent's "Model" dropdown. Pi uses `provider/model` identifiers; available models depend on the selected credential or configured provider team defaults.
 
-For Warp-hosted runs, use a team-owned provider secret or a configured team default for that provider. Pi accepts compatible Anthropic and OpenAI API key secrets, as well as LLM provider API key secrets for other providers in its catalog. A personal key stored on your device is not a factory credential.
+On Warp-hosted runs, Pi uses the selected model provider's configured team default unless you select a different team-owned provider secret. Pi accepts compatible Anthropic and OpenAI API key secrets, as well as LLM provider API key secrets for other providers in its catalog. A personal key stored on your device is not a factory credential.
 
 Your provider bills inference. Warp's [platform and hosted-compute charges](/factories/harnesses/#billing) still apply. Selecting Pi does not make every local Pi extension or feature available in a factory run.
 
@@ -26,10 +26,9 @@ For a Warp-managed factory:
 
 1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Expand your factory in the sidebar, click **Agents**, then open the agent's **Settings** tab.
 2. In the "Harness" dropdown, choose **Pi**.
-3. Choose an authentication path:
-   * **Provider key** - In the "Auth" dropdown, choose a compatible team-owned provider secret. To create one, click **New LLM provider API key**, choose the provider, enter a name and the provider's API key, then click **Create secret**. In the "Model" dropdown, choose a model from the matching provider's catalog.
-   * **Team default** - Leave "Auth" unset. In the "Model" dropdown, choose a model from a provider with a configured team default. Confirm that "Auth" shows **Team default** with that provider's secret name.
-4. Click **Save**.
+3. If you aren't using a team default, in the "Auth" dropdown, choose a compatible team-owned provider secret. To create one, click **New LLM provider API key**, complete the provider, name, and API key fields, then click **Create secret**.
+4. In the "Model" dropdown, choose a model from the provider's catalog. If you use a team default, "Auth" then displays **Team default** with the provider's secret name.
+5. Click **Save**.
 
 The saved settings show Pi, the selected model, and its authentication. Start a new task for this agent and inspect its run in the [factory dashboard](/factories/factory-dashboard/) to confirm that the intended harness and model were used and that the provider accepted the credential.
 
