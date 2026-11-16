@@ -94,12 +94,7 @@ For factory runs using the Warp Agent and a team-managed inference endpoint, mod
 
 Your inference gateway must accept connections from Warp's backend, even if your workers can already reach it. For example, a TrueFoundry gateway on AWS needs a separate ingress path for Warp's inference requests.
 
-For a public HTTPS gateway, allowlist both fixed outbound IP addresses in your gateway's ingress rules:
-
-{/* VERIFY: Confirm that all current production team-managed inference requests use only these two fixed outbound IPs. */}
-
-* `34.181.225.186`
-* `35.245.132.55`
+For a public HTTPS gateway, confirm the current backend egress addresses with your Warp account team before configuring an IP allowlist in your gateway's ingress rules.
 
 These addresses identify Warp's hosted backend, not worker execution traffic. The worker's outbound connection to Warp doesn't require inbound ports on the worker.
 
