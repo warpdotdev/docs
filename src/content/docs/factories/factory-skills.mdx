@@ -18,7 +18,7 @@ A factory run can use skills from three sources:
 
 * **Role and integration skills** - Default agents have GitHub skills for repository work. The foreman also has a Slack skill. Choosing Linear or Jira during setup gives relevant agents the tracker's skill and instructions. These skills come from roles and integrations, not files in your definition.
 * **Warp-provided skills** - Bundled capabilities include `oz-platform` for cloud agents, `factory-files` for factory definitions, and `factory-mcp` for sending work to factories.
-* **Custom skills** - Team-owned `SKILL.md` files live in the factory definition and are shared across the factory or scoped to one agent. They extend the built-in skills rather than replacing them.
+* **Custom skills** - Team-owned `SKILL.md` files live in the factory definition or are referenced from another location in the same repository or an external repository. They are shared across the factory or scoped to one agent and extend the built-in skills rather than replacing them.
 
 <span id="attribute-team-owned-skill-usage" />
 
@@ -39,7 +39,7 @@ Skills provide instructions, not access to tools or repositories. If a procedure
 
 ## Add or edit a skill
 
-Custom skills live in the factory's [definition](/factories/factory-as-code/#directory-structure), not its agent settings. You need permission to edit that definition.
+Configure custom skills in the factory's [definition](/factories/factory-as-code/#directory-structure), not its agent settings. You need permission to edit that definition.
 
 To add or update a custom skill:
 
@@ -70,6 +70,12 @@ To add or update a custom skill:
    * **GitHub-backed** - Open a pull request. The factory's [pull request checks](/factories/factory-as-code/#pull-request-checks) validate the change, and merging to the production branch applies it.
 
 For an example of a shared skill and an agent-specific skill in one definition, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
+
+## Reference existing skills
+
+To reuse skills without copying them into the definition, create a `.yaml` or `.yml` reference file directly in `skills/` for every agent or `agents/<agent-name>/skills/` for one agent. Set `source` to the repository and `include` to the skills to load, then apply the definition change as described above.
+
+The source can be the repository containing your definition or an external repository. Pin it to a full commit SHA to keep using a particular version of the skill and its supporting files. See [Skill reference files](/factories/factory-as-code/#skill-reference-files) for same-repository, external-repository, and SHA-pinned examples.
 
 ## Skills and self-improvement
 
