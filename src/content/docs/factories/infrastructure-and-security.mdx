@@ -9,16 +9,6 @@ sidebar:
 
 Warp Factories lets you choose where code runs, which providers serve inference, where run data is stored, and which credentials each agent receives. Warp coordinates the work.
 
-<span id="zero-data-retention-zdr-for-factory-inference" />
-
-## Provider retention
-
-<span id="choose-inference-covered-by-provider-zdr" />
-<span id="understand-collection-and-storage" />
-<span id="configure-your-factory" />
-
-Provider retention is separate from execution hosting and saved run data. For coverage limits, collection controls, and browser setup procedures, see [Zero data retention (ZDR) for factory inference](/factories/zero-data-retention/).
-
 ## Control plane and execution plane
 
 Warp manages coordination, while a Warp-hosted sandbox or a worker on your infrastructure executes the work. These responsibilities form the control plane and execution plane:
@@ -98,6 +88,16 @@ Factory agents execute as cloud agents. For runs using the Warp Agent, support v
 Personal BYOK and personal custom inference endpoints are stored on a member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint. Auto continues to use Warp-managed inference. Check [provider ZDR coverage](/factories/zero-data-retention/#choose-inference-covered-by-provider-zdr) separately, including any upstream providers behind a gateway.
 
 Claude Code and Codex call their providers directly from the execution environment using their own [harness authentication](/factories/harnesses/authentication/), not the Warp Agent's inference configuration.
+
+<span id="zero-data-retention-zdr-for-factory-inference" />
+
+### Provider retention
+
+<span id="choose-inference-covered-by-provider-zdr" />
+<span id="understand-collection-and-storage" />
+<span id="configure-your-factory" />
+
+Provider retention is separate from execution hosting and saved run data. For coverage limits, collection controls, and browser setup procedures, see [Zero data retention (ZDR) for factory inference](/factories/zero-data-retention/).
 
 ### Networking for BYO inference endpoints
 
