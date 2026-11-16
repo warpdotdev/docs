@@ -9,7 +9,9 @@ sidebar:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
+Standalone scheduled agents run recurring tasks without a factory, such as dependency checks, issue triage, or repository maintenance. Manage them with `oz schedule` or the {VARS.WEB_APP}.
+
+For recurring work handled by a factory's agents, [schedule a factory automation](https://docs.warp.dev/factories/automations/#schedule-a-factory-automation) instead.
 
 <VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=wX9cDbsRXHs" title="Scheduled agents overview video" />
 

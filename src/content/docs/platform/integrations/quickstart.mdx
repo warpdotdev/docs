@@ -8,7 +8,9 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-{VARS.WARP_AUTOMATION_PLATFORM} integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting Warp to Slack. Once set up, anyone on your team can tag @warp in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
+Connect the shared Slack integration to start standalone cloud agent runs from messages and threads. The run uses the environment you select and posts results back to Slack.
+
+To route Slack requests through a factory, [connect its dedicated Slack app](https://docs.warp.dev/factories/integrations/slack/) instead. For other factory sources, [connect your factory](https://docs.warp.dev/factories/connect-your-factory/).
 
 :::note
 **Want to connect with Linear instead?** The setup is the same — just substitute `slack` with `linear` in the CLI commands, or select Linear in the {VARS.WEB_APP}. See [Linear](/platform/integrations/linear/) for details.

@@ -111,7 +111,7 @@ Warp services above use port `443`; your registries, repositories, and internal 
 
 Self-hosted agents can reach VPN services, private source control, and databases when their execution environment has access. Apply network policies to the task runtime as well as the worker.
 
-See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrations/bitbucket/) setup guides for SCM integration details.
+For GitLab.com, use the [factory GitLab integration](/factories/integrations/gitlab/). For self-managed GitLab, Bitbucket, and other token-based repository access, use [other code forges](/factories/code-forges/other-code-forges/); the shared [Bitbucket token instructions](https://docs.warp.dev/platform/integrations/bitbucket/) provide the credential and clone formats. Token-based access doesn't add provider-specific factory events.
 
 ---
 

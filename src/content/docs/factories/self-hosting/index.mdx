@@ -66,7 +66,7 @@ oz agent run-cloud \
 
 Combine `--host` with other `run-cloud` flags when the run also needs an environment, model, or other configuration.
 
-Use the same worker ID when you create or update schedules and integrations:
+For standalone schedules and integrations, use the same worker ID:
 
 ```bash
 oz schedule create \
@@ -82,7 +82,7 @@ oz integration update linear --host "my-worker"
 
 API requests set the same worker ID in `config.worker_host`.
 
-In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) documentation for other creation options.
+For standalone runs in the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the [standalone triggers](https://docs.warp.dev/platform/triggers/) or [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) documentation for other creation options.
 
 Host selection is independent of the [environment](/factories/environments/). A managed run can use the same environment with Warp-hosted or self-hosted execution; the selected backend determines how the worker applies its image and setup configuration.
 
