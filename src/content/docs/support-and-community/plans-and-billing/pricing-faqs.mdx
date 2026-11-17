@@ -8,11 +8,27 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
+Warp Terminal and agent plans are separate from Warp Factories plans. Start with [plan guidance](/support-and-community/plans-and-billing/plans-pricing-refunds/) to choose an offering, or [Warp pricing](https://www.warp.dev/pricing) for current prices.
+
+## Warp Factories
+
+### Which plan should my team choose for Warp Factories?
+
+Choose the Start plan for usage-based factory work without a subscription, the Scale plan for shared monthly usage and team-managed inference, or an Enterprise plan for custom terms and self-hosted execution. These are Warp Factories plans, not Warp Terminal and local agent subscriptions. See [factory plan guidance](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
+
+### Does my Warp Terminal subscription fund factory runs?
+
+Your included personal allowance does not fund factory runs. Factories use shared team or workspace funding, including the shared allowance on the Scale plan for Warp Factories and eligible purchased usage. See [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
+
+### Where do I manage billing for Warp Factories?
+
+In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open **Settings** > **Billing and usage**. Admins can click **Open billing** to review the applicable team or workspace in the Admin Panel. Follow [managing factory plans and billing](/factories/managing-plans-and-billing/) for upgrades, invoices, and support.
+
+## Warp Terminal and local agents
+
 ### How can I upgrade and subscribe to a Warp plan?
 
-Self-serve paid Warp plans include a monthly usage allowance per seat. See [included allowances](/support-and-community/plans-and-billing/plans-pricing-refunds/#your-included-allowance) for your plan and [billing units](/support-and-community/plans-and-billing/credits/#dollar-usage-and-credits) for the difference between dollars and credits.
-
-You can subscribe to a Warp paid plan as an individual or as part of a team. To upgrade:
+You can subscribe to a paid Warp Terminal and local agent plan as an individual or as part of a team. To upgrade:
 
 * In the app: Go to **Settings** > **Billing and usage**, then click the Upgrade link
 * Online: See [Warp pricing](https://www.warp.dev/pricing)
@@ -21,69 +37,63 @@ After entering your payment details, you’ll receive an invoice and confirmatio
 
 ### How can I get the most out of my Warp plan?
 
-Pick the plan that matches your usage and the controls your team needs:
+For Warp Terminal and local agents, choose based on usage and team controls:
 
-* **Build** - Monthly included usage for individuals or small teams, with [additional usage purchases](/support-and-community/plans-and-billing/add-on-credits/) and options to bring your own inference.
-* **Max** - A larger included allowance for heavier usage.
-* **Business** - Multi-seat billing, admin-configurable data controls, and SAML-based SSO.
-* **Enterprise** - Custom allowances and terms, managed [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), and Enterprise controls and support.
+* **Build** - A monthly included allowance for individual development or a small team's agent work, with additional usage purchases when needed.
+* **Max** - A larger included allowance for heavier agent usage.
+* **Business** - Per-seat billing, admin-configurable data controls, and SAML SSO.
+* **Enterprise** - Custom allowances and terms, managed [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), and contract-specific administration and support.
 
-See [Warp pricing](https://www.warp.dev/pricing) for current features, seat limits, and new-plan allowances. Check **Settings** > **Billing and usage** in the Warp app for the allowance on your existing account.
+Check **Settings** > **Billing and usage** in the Warp app for your account's allowance and reset date. For automated workflows, compare the separate [Warp Factories plans](#which-plan-should-my-team-choose-for-warp-factories). See [Warp pricing](https://www.warp.dev/pricing) for current prices and limits.
 
 ### How can I subscribe to a Warp Enterprise plan?
 
-Warp offers two options for larger teams and organizations:
+For Warp Terminal and local agents, the self-serve Business plan supports teams that need SAML SSO and admin-configurable data controls. Choose an Enterprise plan when your organization needs custom pricing, shared usage pools, managed cloud-provider inference, or contract-specific support. Existing Enterprise contracts retain their terms. See [Enterprise billing](/enterprise/support-and-resources/billing/).
 
-* **Business plan**: Self-serve multi-seat plan available for immediate upgrade. Includes admin-configurable data controls and admin-controlled SAML-based SSO. See [Warp pricing](https://www.warp.dev/pricing) for the current seat limit.
-* **Enterprise plan** - Custom pricing, shared usage pools, and terms for larger engineering organizations. Existing Enterprise contracts retain their terms. See [Enterprise billing](/enterprise/support-and-resources/billing/).
+For Warp Factories, the Scale plan is the self-serve team subscription; an Enterprise plan adds custom usage terms and self-hosted execution. See [factory plans and funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
 
 :::tip
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
 :::
 
-For Warp-managed model traffic (requests Warp routes to OpenAI, Anthropic, Google, or xAI on your behalf), all plans are covered by Warp's Zero Data Retention (ZDR) agreements with the underlying model providers. Traffic you route through your own API key or a custom inference endpoint is governed by that provider's data-retention policies, not Warp's agreements. Admin-configurable data controls — including team-wide retention policies and training opt-outs — are available on Business and Enterprise.
+Provider ZDR and analytics opt-out are separate from your plan's model controls. See [Warp's provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) and [factory ZDR guidance](/factories/zero-data-retention/) for coverage, exceptions, and what self-serve teams can configure.
 
 ### What counts as a team member and how does billing work for members?
 
-In Warp, a _team member_ is any seat with access to your Team — including the shared Warp Drive, Notebooks, Workflows, and other team resources. Every plan lets you invite unlimited Warp Drive collaborators, but paid-plan features and credit allocation are governed by your plan's seat limit (see [Are there new seat limits per plan?](#are-there-new-seat-limits-per-plan) below). Upgrading applies to your entire team, including your own account and all active members.
+For Warp Terminal and local agent subscriptions, a _team member_ is any seat with access to your team, including shared Warp Drive resources. Paid subscriptions apply to the team, including your own account and all active members. See [Warp pricing](https://www.warp.dev/pricing) for current plan limits.
 
 On the Free plan, you can share a limited number of Notebooks and Workflows with other Free users. If your team exceeds that limit, you’ll be prompted to [upgrade to a plan](https://app.warp.dev/upgrade).\
 \
-Once you upgrade, you’ll receive email notifications as team members accept invites. Billing is **prorated**, meaning you’re only charged for the days each member has access during your billing cycle. If a member leaves mid-cycle, Warp automatically applies a credit for the unused time to your next invoice.
+On Build, Max, and Business subscriptions for Warp Terminal and local agents, billing is prorated: you're charged for the days each member has access during the billing cycle. If a member leaves mid-cycle, Warp applies a credit for unused time to your next invoice.
 
-**There are differences in how members are billed based on your payment schedule:**
+For those per-seat subscriptions, the payment schedule determines when new members are billed:
 
 * **Monthly plans**: New members are billed immediately for the remaining time in the month.
 * **Annual plans**: New members are billed immediately for the remaining time in the year.
 
-For example, if a member joins your monthly plan halfway through the month, you will be charged just half of the monthly fee ($25.00 out of $50). Similarly, if a member joins with four months remaining in an annual plan, you will be charged for those four months only, which amounts to $160 (4/12 of the annual $480).
-
-If a member leaves part way through the billing cycle, Warp will issue a prorated credit based on the unused portion of their membership. This credit is applied to your team's next invoice, regardless of whether you're on a monthly or annual plan.
+For example, a member joining halfway through a monthly billing cycle incurs half of that seat's monthly fee. A member joining with four months remaining in an annual cycle is charged for those four months. Upgrading the team includes all active members, not only the admin.
 
 :::caution
-All members of the team will have the same subscription plan, you can't mix and match plans for each member of a team. To have different plans, you currently must have separate teams.
+Within a team's Terminal and agent subscription, all members have the same plan. You can't mix per-seat plans within that subscription. This is separate from choosing a Warp Factories plan.
 :::
 
 ### What is the value of joining or creating a team on Warp?
 
-Team members have access to your shared [Warp Drive](/knowledge-and-collaboration/warp-drive/) objects and limited access to Warp's collaboration features, including Session Sharing and Warp Drive storage.
-
-**Upgrading the team to a paid plan adds collaboration and knowledge-sharing tools:**
-
-* Create unlimited [Notebooks](/knowledge-and-collaboration/warp-drive/notebooks/) and [Workflows](/knowledge-and-collaboration/warp-drive/workflows/) in Warp Drive to organize and share knowledge across your team.
-* Use Unlimited [Session Sharing](/agents/local-agents/session-sharing/) to collaborate in real time through live, shared terminal sessions.
+Teams share [Warp Drive](/knowledge-and-collaboration/warp-drive/) resources and collaborate through features such as [Session Sharing](/agents/local-agents/session-sharing/). Access and limits depend on the plan; see [Warp pricing](https://www.warp.dev/pricing). For automated team workflows, see [Warp Factories](/factories/).
 
 ### My co-workers are using Warp but we’re not on a Team together yet. How does billing work?
 
-Individual users with either personal or work email domains may continue to use Warp independently without incurring billing. The benefit of joining together on a Warp Team is that you get access to a shared Team Drive and collaboration features.
+Sharing an email domain does not create a paid team subscription. You can use Warp independently under your account's plan, or [create a team](/knowledge-and-collaboration/teams/) to share Warp Drive resources.
 
-When you’re ready to use Warp more collaboratively, we suggest you nominate an Admin to [create a Team](/knowledge-and-collaboration/teams/) and invite members to join. When your Team exceeds the Warp Drive limits, you will be prompted to upgrade to a plan.
+Before inviting colleagues, review [member billing](#what-counts-as-a-team-member-and-how-does-billing-work-for-members). Per-seat subscriptions and Warp Factories team subscriptions bill membership differently.
 
 ### How does usage work if logged into the same account on multiple devices?
 
 When you sign into Warp on different devices, your metered usage is tracked at the account level, not separately for each device.
 
 You can use your Warp account on multiple personal computers. When you log in with the same account on different computers, your settings and preferences can be synced through the [Settings Sync](/terminal/more-features/settings-sync/) feature.
+
+## Shared usage and billing
 
 ### How do I manage my billing?
 
@@ -93,6 +103,8 @@ You can open **Manage billing** from the Warp app or the web:
 
 * **In the Warp app** - Go to **Settings** > **Billing and usage**, then click **Manage billing**.
 * **On the web** - Open the [Warp Admin Panel](https://app.warp.dev/admin/) or the [Warp upgrade page](https://app.warp.dev/upgrade), click your profile in the top-right corner, then click **Manage billing**. You don't need the Warp app installed.
+
+For Warp Factories, open **Settings** > **Billing and usage** in the {VARS.FACTORY_WEB_APP}, then click **Open billing**. Enterprise contract changes are handled by your Warp account manager.
 
 ### What happens when I downgrade during a billing cycle?
 
@@ -104,11 +116,15 @@ You can downgrade at any point throughout your subscription through the billing 
 
 You can cancel at any point throughout your subscription through the billing portal. See [How do I manage my billing?](#how-do-i-manage-my-billing).
 
-Cancelled subscriptions remain active until the **end of your billing cycle**, monthly or yearly. **You can continue to use your Warp paid plan features until the cycle end date**. New team members added before the cycle ends are still billed immediately on a prorated basis for the remaining time in the cycle. See [What counts as a team member and how does billing work for members?](#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
+Cancelled subscriptions remain active until the end of your monthly or annual billing cycle. You keep paid-plan features until that date; cancellation does not immediately refund the unused portion. See [refund policies](/support-and-community/plans-and-billing/plans-pricing-refunds/#warps-refund-policies) if you need a refund.
+
+For per-seat Warp Terminal and local agent subscriptions, members added before cancellation takes effect are billed immediately for the remaining time. For example, adding a member halfway through the final monthly cycle incurs half of that seat's monthly fee. See [member billing](#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
 
 ### What happens if I upgrade from monthly to annual billing?
 
-When upgrading from a monthly to annual billing cycle the billing is prorated, meaning you only pay for the annual portion of the year you haven't paid for yet. You will be billed for the remaining part of the billing year with the discounted rate.
+On Build, Max, and Business subscriptions for Warp Terminal and local agents, switching to annual billing accounts for the unused portion of the current monthly subscription. You receive credit for the overlapping time rather than paying twice for it; the annual subscription uses its applicable discounted rate. Review the prorated adjustment in checkout or the billing portal before confirming.
+
+The Scale plan for Warp Factories is a monthly team subscription, not an annual per-seat plan.
 
 You can upgrade at any point throughout your subscription on the [Warp upgrade page](https://app.warp.dev/upgrade). You can also open **Manage billing** from your profile menu on that page. See [How do I manage my billing?](#how-do-i-manage-my-billing).
 
@@ -134,23 +150,30 @@ Token limits, such as a model's context window, are separate from your monetary 
 
 ### How often do my credits reset?
 
-Included usage resets monthly, including on annual subscriptions. In the Warp app, open **Settings** > **Billing and usage** for your reset date. Unused included usage does not roll over; [purchased usage](/support-and-community/plans-and-billing/add-on-credits/) has a separate 12-month expiration.
+Included usage resets monthly, including on annual subscriptions:
+
+* **Warp Terminal and local agents** - In the Warp app, open **Settings** > **Billing and usage** for your personal allowance and reset date.
+* **Warp Factories** - In the {VARS.FACTORY_WEB_APP}, open **Settings** > **Billing and usage** for shared balances and the reset date. Personal allowances do not fund factory runs.
+
+Unused included usage does not roll over; [purchased usage](/support-and-community/plans-and-billing/add-on-credits/) has a separate 12-month expiration.
 
 ### How do credits work for multi-seat teams?
 
-On self-serve team plans, included usage is per seat and new purchases enter a shared team balance. Eligible shared purchases are used before member-specific purchases usable on that team. Dedicated cloud allowances can have a different spending order.
+For Warp Terminal and local agents, Build, Max, and Business subscriptions have per-seat allowances. New purchases enter a shared team balance. See [included and purchased usage](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) for spending order.
+
+For Warp Factories, the Scale plan has a shared monthly allowance. Factory runs cannot use a member's included personal allowance. See [factory funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
 
 Admins manage the team's monthly spend limit and auto-reload. See [team usage and purchases](/support-and-community/plans-and-billing/add-on-credits/#tracking-purchases-and-team-usage). Enterprise pools and spending controls follow the [Enterprise agreement](/enterprise/support-and-resources/billing/).
 
 ### How do platform credits factor in?
 
-Platform usage is a separate cost component billed by the agent hour, not another included allowance. Cloud runs and local runs on Business and Enterprise that use customer-supplied inference incur charges for billable agent time. See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for rates and contract-specific terms.
+Platform usage is a separate cost component billed by the agent hour, not another included allowance. Cloud runs incur charges for billable agent time. Local charges depend on the product and plan billed for the run. See [platform billing by product](/support-and-community/plans-and-billing/platform-credits/#when-platform-charges-apply) for eligibility, metering, and contract-specific terms.
 
 ### What if I need more AI usage than my plan includes?
 
 After included usage runs out, you can:
 
-* **Purchase usage or enable auto-reload** - Add to your available balance on eligible plans. See [purchase prices and limits](/support-and-community/plans-and-billing/add-on-credits/).
+* **Purchase usage or enable auto-reload** - Add to your available balance on eligible plans. See [purchases and spend limits](/support-and-community/plans-and-billing/add-on-credits/).
 * **Change plans** - Choose a larger included allowance on [Warp pricing](https://www.warp.dev/pricing).
 * **Bring your own inference** - Connect an [API key](/agents/inference/bring-your-own-api-key/), [custom endpoint](/agents/inference/custom-inference-endpoint/), or supported [subscription](/agents/inference/chatgpt-subscription/). Your provider bills inference separately; applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply.
 
@@ -162,7 +185,7 @@ For organization-scale needs (cloud-provider managed inference, granular admin c
 
 ### Can I buy usage on the Free plan without subscribing?
 
-Yes. Free-plan users can purchase usage without a subscription. Free-plan purchases are priced at a premium. See [current usage purchase prices](https://www.warp.dev/pricing).
+Yes. Users on the Free plan for Warp Terminal and local agents can purchase usage without a subscription. See [current usage purchase prices](https://www.warp.dev/pricing).
 
 Use the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade).
 
@@ -198,19 +221,19 @@ Admins can also adjust the team's monthly spend limit in **Settings** > **Billin
 
 ### How does auto-reload work for teams?
 
-An admin chooses a usage amount and monthly spend limit. Once a member's included allowance is exhausted and the available purchased balance runs low, Warp can buy that amount into the shared team balance. Any member's usage can trigger repeated reloads.
+An admin chooses a usage amount and monthly spend limit. Once the applicable included allowance is exhausted and the purchased balance runs low, Warp can buy that amount into the shared team balance. Any member's usage can trigger repeated reloads.
 
-One-time and automatic purchases count toward the same team limit. Reloading stops when the next purchase is blocked by that limit. See [configuring auto-reload](/support-and-community/plans-and-billing/add-on-credits/#2-enable-auto-reload) for prices, controls, and reset periods.
+One-time and automatic purchases count toward the same team limit. Reloading stops when the next purchase is blocked by that limit. See [configuring auto-reload](/support-and-community/plans-and-billing/add-on-credits/#2-enable-auto-reload) for controls and reset periods.
 
 ### How are cloud agent runs on team plans billed when no individual user triggered them?
 
-Agent API key runs use eligible shared team usage, not the team owner's personal included allowance. User-created schedules use the creator's eligible usage by default, or shared team usage when configured to run as a cloud agent.
+Factory runs use [shared team or workspace funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs), not a member's included personal allowance. For standalone cloud runs, agent API key runs use eligible shared team usage; user-created schedules use the creator's eligible usage by default, or shared team usage when configured to run as a cloud agent.
 
 Review [cloud run billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) and [auto-reload controls](/support-and-community/plans-and-billing/add-on-credits/#2-enable-auto-reload) before relying on unattended runs. Enterprise billing follows your contract.
 
 ### Does the Free plan include AI usage?
 
-Free uses pay-as-you-go for Warp-provided inference. Check **Settings** > **Billing and usage** in the Warp app for any allowance on your account. To use the Warp Agent, you can:
+The Free plan for Warp Terminal and local agents uses pay-as-you-go for Warp-provided inference. Check **Settings** > **Billing and usage** in the Warp app for any allowance on your account. To use the Warp Agent, you can:
 
 * **Upgrade to a paid plan** - Paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
 * **Buy additional usage** - Purchase usage without subscribing. See [Free-plan purchases](#can-i-buy-usage-on-the-free-plan-without-subscribing).
@@ -232,7 +255,7 @@ Warp's client itself is open source under [AGPL v3](https://github.com/warpdotde
 
 ### Where is Warp Drive data for my team stored?
 
-Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted in transit and at rest.
+Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted while being sent and while stored.
 
 For more details, [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
@@ -242,49 +265,37 @@ Yes. Warp has obtained a SOC 2 Type 2 attestation from an accredited third party
 
 ### Does Warp have Zero Data Retention policies with LLM providers?
 
-Warp integrates with multiple LLM providers — including Anthropic, OpenAI, Google, xAI, and Fireworks AI — to power its AI features. Warp has executed Zero Data Retention (ZDR) agreements with these providers. Across all plans, these agreements mean:
-
-* LLM providers commit not to train their models on any customer-generated data processed through Warp's services.
-* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
-
-Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
-
-Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
+Yes. Warp has provider Zero Data Retention (ZDR) agreements for supported Warp-managed models across plans, with [model-specific exceptions](/agents/inference/model-choice/#models-requiring-provider-retention). See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) for the policy, including customer-managed inference.
 
 ### How can I enable Zero Data Retention in Warp?
 
-Zero Data Retention (ZDR) can be enabled in two ways:
+Use Warp-managed inference with a model outside the [provider-retention exception list](/agents/inference/model-choice/#models-requiring-provider-retention). Warp's provider ZDR agreements apply to those requests across plans. If you use your own provider account, verify ZDR with that provider. Follow the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/zero-data-retention/) to review your settings.
 
-* **Individual level** — Any user can enable full ZDR for their own account by disabling **Help Improve Warp** in **Settings** > **Privacy**.
-* **Organization-wide** — On Business and Enterprise plans, admins can enforce ZDR for all members from the [Admin Panel](/enterprise/team-management/admin-panel/), so team-wide compliance doesn't rely on individual settings.
-
-To discuss organization-wide ZDR for your team, [contact our sales team](https://www.warp.dev/contact-sales).
-
-Regardless of plan, Warp never allows OpenAI, Anthropic, Google, xAI, or other model providers to store, retain, or train their models on your data — see [Does Warp have Zero Data Retention policies with LLM providers?](#does-warp-have-zero-data-retention-policies-with-llm-providers) for details.
+The **Help improve Warp** toggle controls Warp's analytics and content collection for service improvement, not provider ZDR or saved run data. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) for these separate controls.
 
 ### Can I bring my own API key?
 
-Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key in **Settings** > **Agents** > **Warp Agent** > **Manage models**. Your provider bills requests routed through that key; they do not consume Warp-provided inference usage.
+Yes. On eligible plans, you can configure your own OpenAI, Anthropic, or Google API key in **Settings** > **Agents** > **Warp Agent** > **Manage models**. Your provider bills requests routed through that key; they do not consume Warp-provided inference usage.
 
 See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) for setup steps, the list of supported providers and models, and the differences between BYOK, custom inference endpoints, and BYOLLM.
 
-BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
+Personal BYOK is available on the Free and eligible paid plans for Warp Terminal and local agents for individuals and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Larger organizations need a Business or Enterprise plan for Warp Terminal and local agents. For Warp Factories, use [team-managed keys on the Scale or Enterprise plan](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility).
 
-On Business and Enterprise, local runs that use BYOK still incur agent-hour charges. See [platform usage](/support-and-community/plans-and-billing/platform-credits/).
+For local and cloud charges, see [platform billing by product](/support-and-community/plans-and-billing/platform-credits/#when-platform-charges-apply).
 
 ### Does Warp support custom inference endpoints?
 
 Yes. Warp can route requests to an OpenAI-compatible inference endpoint, including OpenRouter, LiteLLM, z.ai, or a gateway your team runs. Your endpoint bills inference separately; those requests do not consume Warp-provided inference usage.
 
-Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise. See [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) for configuration steps, billing behavior, and how custom inference endpoints differ from BYOK and from Enterprise's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) managed inference.
+See [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) for plan eligibility, configuration steps, billing behavior, and how custom inference endpoints differ from BYOK and Enterprise's managed [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) inference.
 
-BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
+For personal endpoints, follow the [Warp Terminal and local agent eligibility rules](/agents/inference/custom-inference-endpoint/). For Warp Factories, use [team-managed endpoints on the Scale or Enterprise plan](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility).
 
-On Business and Enterprise, local runs that use a custom endpoint still incur agent-hour charges. See [platform usage](/support-and-community/plans-and-billing/platform-credits/).
+For local and cloud charges, see [platform billing by product](/support-and-community/plans-and-billing/platform-credits/#when-platform-charges-apply).
 
 ### Does Warp support other model routers or "Bring Your Own LLM"?
 
-On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings. BYOLLM supports AWS Bedrock and [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/), with Azure Foundry coming soon. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
+With an Enterprise agreement, [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/) routes inference through your AWS account and supports factory runs. [Gemini Enterprise BYOLLM (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) routes supported Gemini and Claude models through your Google Cloud project using Workload Identity Federation. It currently supports interactive Warp Agent sessions; cloud runs aren't supported yet.
 
 Custom or in-house model routers outside this list aren't supported by default today. If you have specific requirements, [contact our sales team](https://www.warp.dev/contact-sales).
 
@@ -292,7 +303,7 @@ For lighter-weight routing through any OpenAI-compatible endpoint (OpenRouter, L
 
 ### What features are available during multi-harness orchestration beta?
 
-Multi-harness orchestration is currently in beta. Free plan cloud runs use the Warp Agent. Selecting [Claude Code](/factories/harnesses/claude-code/) or [Codex](/factories/harnesses/codex/) as a third-party harness requires a paid plan. See [cloud agent harnesses](/factories/harnesses/) for setup and plan requirements.
+For factory runs, selecting [Claude Code](/factories/harnesses/claude-code/) or [Codex](/factories/harnesses/codex/) as a third-party harness requires the Scale or Enterprise plan for Warp Factories. Standalone cloud runs have separate eligibility rules. See [cloud agent harnesses](/factories/harnesses/) for both paths, authentication, and billing.
 
 [Agent Memory](/agents/agent-memory/) is currently in Research Preview. It lets preferences, project knowledge, and learnings from past sessions carry across harnesses and future agent runs. [Contact our sales team](https://www.warp.dev/contact-sales) to request access.
 
@@ -350,9 +361,7 @@ The May 21, 2026 update introduced new seat limits, changed how add-on credits a
 
 #### Are there new seat limits per plan?
 
-Yes. As of May 21, 2026, each plan has an explicit seat limit. See [Warp pricing](https://www.warp.dev/pricing) for the current per-plan caps.
-
-The seat limit governs paid-plan features and credit allocation. It's separate from the unlimited Warp Drive collaborators every plan supports. You can keep inviting unlimited users to share Notebooks, Workflows, and other Warp Drive resources without hitting the seat cap. The cap only applies when a user takes a paid seat on your team.
+The May 21, 2026 update introduced seat limits for Warp Terminal and local agent plans. See [Warp pricing](https://www.warp.dev/pricing) for current membership limits; those limits do not determine whether a subscription bills per seat. The separate Scale plan for Warp Factories uses a team subscription.
 
 #### What if my team is already above the new seat limit?
 
@@ -366,7 +375,7 @@ Add-on credit attribution has changed twice in 2026:
 
 * **Before May 21, 2026** — Add-on credits on multi-seat teams were pooled; every member drew from a single shared balance.
 * **May 21 – August 2026** — Add-on credits were user-scoped; each user had their own balance.
-* **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool. There is no way to prefer personal credits first while on a team.
+* **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member. See the current [spending order](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) and [factory funding rules](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
 
 On eligible plans, any active team member can purchase usage within the team's monthly spend limit. In the Warp app, admins manage the limit in **Settings** > **Billing and usage**.
 
@@ -380,19 +389,17 @@ Purchased usage stays tied to the team that bought it. Leaving or being removed 
 
 #### Can I bring my own API key on the Free plan now?
 
-Yes. As of May 21, 2026, **Bring Your Own API Key (BYOK)** is available on all plans, including Free. Previously, BYOK required a Build, Business, or Enterprise subscription. You can configure your OpenAI, Anthropic, or Google key under **Settings** > **Agents** > **Warp Agent** > **Manage models**.
-
-See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) for the full list of supported providers and setup steps.
+Yes. The Free plan for Warp Terminal and local agents supports personal BYOK, subject to organization-size requirements. See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) for eligibility, supported providers, and setup steps.
 
 #### What is the new custom inference endpoint feature?
 
-**Custom inference endpoints** let you route Warp's AI traffic through any OpenAI-compatible inference endpoint, including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. Support is available on Free, Build, Max, Business, and Enterprise.
+**Custom inference endpoints** let you route Warp's AI traffic through any OpenAI-compatible inference endpoint, including OpenRouter, LiteLLM, z.ai, and internal gateways your team already runs. See [current eligibility](/agents/inference/custom-inference-endpoint/), including organization-size requirements.
 
 Here's how custom inference endpoints differ from BYOK and BYOLLM:
 
-* **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
+* **BYOK** sends requests through Warp's servers to OpenAI, Anthropic, or Google using your own provider API key.
 * **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control or that your team runs.
-* **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today, with Azure Foundry coming soon) and handles the routing, orchestration, governance, and observability.
+* **BYOLLM** is managed inference through your cloud provider under an Enterprise agreement. [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) supports factory runs. [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) supports Gemini and Claude models in your Google Cloud project for interactive sessions; cloud runs aren't supported yet.
 
 For setup and details, see [Custom inference endpoint](/agents/inference/custom-inference-endpoint/).
 
@@ -402,6 +409,6 @@ Review these settings in the Warp app:
 
 * **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
 * **Set your team's monthly spend limit** - In **Settings** > **Billing and usage**, configure the limit for one-time purchases and auto-reloads across your team.
-* **Explain the shared balance** - New purchases enter the team's shared balance, and members draw on it after exhausting their included usage.
+* **Explain the shared balance** - New purchases enter the team's shared balance. [Factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs) cannot use members' included personal allowances.
 * **Confirm the team's payment method** - Usage purchases charge the team's saved payment method, including purchases by members who aren't admins. Review it in the billing portal. See [which card is charged](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
-* **Account for platform usage** - On Business and Enterprise, local runs using BYOK or a custom inference endpoint incur [platform charges](/support-and-community/plans-and-billing/platform-credits/).
+* **Account for platform usage** - Local runs using customer-supplied inference incur [platform charges](/support-and-community/plans-and-billing/platform-credits/) on eligible plans.

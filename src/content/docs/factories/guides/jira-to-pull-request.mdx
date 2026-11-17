@@ -9,7 +9,7 @@ prev: false
 next: false
 ---
 
-Route assignments and mentions in one Jira project to a factory in Warp Factories. The foreman responds in the agent session and posts the pull request link on the work item. A person reviews and merges the changes.
+Route assigned work from one Jira project to a factory in Warp Factories. The foreman responds in the agent session and posts the pull request link on the work item. A person reviews and merges the changes.
 
 Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Jira delegation.
 
@@ -21,12 +21,14 @@ This guide applies to Jira Cloud. Jira Server and Data Center are not supported.
 * Warp for Jira installed on your Jira Cloud site and connected to your Warp workspace by a Jira site admin.
 * Jira [connected to the factory](/factories/integrations/jira/#connect-jira-and-add-an-automation). A factory connects to Jira or Linear, not both.
 * An [Atlassian account linked to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) for each requester.
-* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Available shared team usage for factory runs. Add usage if needed. See [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
 * Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Configure the agent-session trigger
 
-Assigning or mentioning Warp on a Jira work item creates an agent session. Use the `jira` / `agent_session_created` trigger with `project_keys` to limit which projects' sessions this automation handles.
+Assign Warp to a Jira work item to start an agent session. Use the `jira` / `agent_session_created` trigger with `project_keys` to limit which projects' sessions this automation handles.
+
+Comments mentioning the installed Warp app use the separate `app_mentioned` event. For that intake path, see [Jira events and filters](/factories/automation-triggers/#jira).
 
 For a [Blueprint](/factories/blueprints/), configure clarification, implementation, and handoff in its stages. Preserve the session replies, work-item comments, and unchanged status and assignee required below. An automation prompt supplies event context; it does not replace the Blueprint's delegation order.
 
@@ -46,7 +48,7 @@ Connecting the Jira site to your workspace grants integration access; automation
        filter:
          project_keys: [YOUR_PROJECT_KEY]
    ---
-   Someone assigned or mentioned Warp on a Jira work item in a project this
+   Someone assigned Warp to a Jira work item in a project this
    factory serves, which started this agent session. Read the work item and
    the instruction that started the session, restate the deliverable, and
    delegate to the implementation agent with the acceptance criteria. Ask for
@@ -60,7 +62,7 @@ Connecting the Jira site to your workspace grants integration access; automation
 
    This example omits `agent`, so requests go to the foreman. Its project filter matches every agent session in that project.
 
-   For opt-in intake, add `labels: [factory-ready]` and apply the label before assigning or mentioning Warp. The filter reads the work item's current labels when the session starts. Jira label names are case-sensitive. See [Jira events and filters](/factories/automation-triggers/#jira) for all options.
+   For opt-in intake, add `labels: [factory-ready]` and apply the label before assigning Warp. The filter reads the work item's current labels when the session starts. Jira label names are case-sensitive. `keywords` does not restrict `agent_session_created`; use projects and labels to narrow sessions.
 
    Avoid overlapping project filters across factories. If two factories match the same project's session, both handle that work item.
 
@@ -73,7 +75,7 @@ Connecting the Jira site to your workspace grants integration access; automation
 ## Delegate from Jira
 
 1. Write the Jira work item with the requested behavior, verifiable acceptance criteria, and the target repository if the factory has more than one.
-2. Assign the work item to **Warp**, or mention **Warp** in a comment, and include an instruction. Warp must be available on your Jira site, where it appears among Atlassian's Rovo agents.
+2. Assign the work item to **Warp** and include an instruction. Warp must be available on your Jira site, where it appears among Atlassian's Rovo agents.
 
 The `warp-agent` label starts a standalone cloud agent run, not factory work.
 

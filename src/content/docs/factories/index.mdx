@@ -14,6 +14,8 @@ Warp Factories is open, flexible infrastructure for building your own software f
 
 Your factory puts agents to work on your team’s development tasks. For example, it can take an issue from Slack, GitHub, Linear, or Jira, investigate it, implement a change, and return a pull request for review. You define how the work moves between agents and where people need to make decisions.
 
+Before sending sensitive work, review [ZDR, data collection, and storage for factory runs](/factories/zero-data-retention/).
+
 <CardGrid>
   <LinkCard
     title="Open Warp Factories web app"
@@ -65,7 +67,7 @@ With a Blueprint, the foreman follows its routes to skip unnecessary stages or r
 
 ### Factory definition
 
-A factory's repositories, agents, automations, runners, skills, and MCP servers are declared in definition files, either managed by Warp or stored in a GitHub repository your team owns. Changes to a GitHub-backed factory go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
+A factory's repositories, agents, automations, runners, skills, and MCP servers are declared in definition files hosted by Warp or in a GitHub repository your team owns. Changes to a definition hosted by GitHub go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
 
 ### Work sources
 

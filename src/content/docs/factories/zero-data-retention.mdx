@@ -1,0 +1,65 @@
+---
+title: Zero data retention (ZDR) for factory inference
+description: >-
+  Review provider ZDR coverage, content collection for service improvement,
+  and run-data storage before sending sensitive work to Warp Factories.
+sidebar:
+  label: "Zero data retention (ZDR)"
+---
+
+Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. For factory inference, ZDR coverage depends on the model and whose provider account serves the request, not where the agent runs commands.
+
+Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference.
+
+<span id="choose-inference-covered-by-provider-zdr" />
+
+## Provider ZDR coverage
+
+Factory runs cannot use personal API keys or endpoint configurations stored on your device. For supported alternatives, see [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs).
+
+How you check provider ZDR coverage depends on whose provider account serves inference:
+
+* **Warp-managed inference** - Avoid [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Check every agent's model and any separate feature model settings or overrides, not only the foreman's model.
+* **Your provider account** - Verify ZDR with your provider for your specific account, model, and configuration. This check applies to team-managed keys and endpoints, BYOLLM, and direct Claude Code or Codex calls. Warp's agreements don't establish ZDR for those requests, even if you avoid the listed models. If your endpoint routes to other providers, verify their retention policies too.
+
+Some factory features use models other than the agent's selected model. Avoiding models that require retention does not by itself confirm ZDR coverage for every AI request. If your organization requires that coverage, contact Warp before sending sensitive work to your factory.
+
+<span id="understand-collection-and-storage" />
+
+## What Warp collects and stores
+
+Warp's content collection for service improvement and storage of factory run data are separate from provider ZDR policies.
+
+<span id="improvement-collection" />
+
+### Content collection for service improvement
+
+Team admins manage content collection for service improvement in the [Admin Panel's Privacy settings](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel), subject to plan and workspace restrictions.
+
+The Warp app's **Help improve Warp** toggle controls personal analytics and eligible content collection for service improvement. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) for personal preferences and organization-enforced settings.
+
+### Run history
+
+Warp stores transcripts, prompt attachments, and uploaded artifacts so you can revisit runs, even with analytics turned off. Destroying a sandbox doesn't delete these records.
+
+Enterprise admins can configure [self-hosted storage](/factories/self-hosting/data-storage/) separately for transcripts, prompt attachments, and artifacts. Any data type you don't configure for self-hosted storage remains in Warp-managed storage.
+
+Self-hosting execution does not establish provider ZDR or move saved run data. The **Store AI conversations in the cloud** toggle controls personal Terminal conversations, not factory run storage.
+
+<span id="configure-your-factory" />
+
+## Reviewing your factory's inference settings
+
+Review [plan eligibility](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) before configuring shared provider keys and endpoints. Team-wide [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings) require the Enterprise plan for Warp Factories.
+
+Review defaults and overrides in the factory web app or your GitHub repository, depending on where your factory definition is hosted:
+
+* [Factory definition hosted by Warp](/factories/factory-agents/configuration/#factory-definition-hosted-by-warp)
+* [Factory definition hosted by GitHub](/factories/factory-agents/configuration/#factory-definition-hosted-by-github)
+
+## Related pages
+
+* [Privacy and data control](/support-and-community/privacy-and-security/privacy/) - Review the shared provider policy and collection controls
+* [Agent model choice](/agents/inference/model-choice/) - Find models that require provider retention
+* [About factory infrastructure and security](/factories/infrastructure-and-security/) - Review hosting, inference, networking, and credential boundaries
+* [Self-hosted agent data storage](/factories/self-hosting/data-storage/) - Configure where run data is stored
