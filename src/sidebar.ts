@@ -427,6 +427,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/harnesses/warp-agent', label: 'Warp Agent' },
 								{ slug: 'factories/harnesses/claude-code', label: 'Claude Code' },
 								{ slug: 'factories/harnesses/codex', label: 'Codex' },
+								{ slug: 'factories/harnesses/pi', label: 'Pi' },
 								{ slug: 'factories/harnesses/authentication', label: 'Authentication' },
 							],
 						},

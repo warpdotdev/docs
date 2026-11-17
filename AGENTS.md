@@ -30,6 +30,8 @@ Start with the problem or decision the reader faces, then explain the action and
 
 Connect measurement to a decision: establish a baseline, compare a configuration on comparable work, then decide whether to keep the change. Do not equate automation or token consumption with useful output.
 
+In overview comparisons, name the reader's task and the difference that helps them choose. Repeatability alone does not distinguish shared infrastructure from standalone automation. Shared configuration can support different workflows; do not imply that every input follows an identical sequence.
+
 Use a concrete example to explain the mechanism, not an adjective to imply a benefit. Keep limitations beside the choice they affect. A polished sentence with an unsupported claim still needs correction.
 
 Borrow directness and explicit reasoning from the reference writing, not an author's identity or personal experiences. Procedures use second-person instructions; references give precise lookup information. Neither needs a founder's anecdote, a slogan, or every positioning pillar.
@@ -860,6 +862,7 @@ Use the same link-list format in both sections:
 - Separate a description from the link with a spaced hyphen (` - `), not an em dash, en dash, or colon.
 - Capitalize the description's first word and preserve proper-name capitalization. Use sentence case, not title case.
 - Keep descriptions short and omit terminal punctuation. Explain the reader's next action or the destination's value rather than repeating its title.
+- Name an action, not only a capability: "Compare configurations on the same tasks," not "Includes a dashboard." Do not repeat a neighboring link's guidance in another destination's description.
 
 ```markdown
 * [Third-party CLI agents overview](/agents/cli-agents/overview/) - Compare supported CLI agent integrations
