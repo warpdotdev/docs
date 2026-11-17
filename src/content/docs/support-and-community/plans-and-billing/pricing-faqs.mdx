@@ -232,7 +232,7 @@ Warp's client itself is open source under [AGPL v3](https://github.com/warpdotde
 
 ### Where is Warp Drive data for my team stored?
 
-Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted in transit and at rest.
+Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted while being sent and while stored.
 
 For more details, [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
@@ -246,9 +246,9 @@ Yes. Warp has provider Zero Data Retention (ZDR) agreements for supported Warp-m
 
 ### How can I enable Zero Data Retention in Warp?
 
-Provider ZDR isn't enabled by turning off analytics. Choose covered inference and review the [Terminal settings](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/zero-data-retention/) for your workflow.
+Use Warp-managed inference with a model outside the [provider-retention exception list](/agents/inference/model-choice/#models-requiring-provider-retention). Warp's provider ZDR agreements apply to those requests across plans. If you use your own provider account, verify ZDR with that provider. Follow the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/zero-data-retention/) to review your settings.
 
-**Help improve Warp** controls analytics and improvement collection. Turning it off doesn't change provider retention requirements or disable product storage, including factory transcripts, attachments, and artifacts. Start with [Privacy and data control](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) to review these three separate controls.
+The **Help improve Warp** toggle controls Warp's analytics and content collection for service improvement, not provider ZDR or saved run data. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) for these separate controls.
 
 ### Can I bring my own API key?
 
@@ -378,7 +378,7 @@ See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) for the 
 
 Here's how custom inference endpoints differ from BYOK and BYOLLM:
 
-* **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
+* **BYOK** sends requests through Warp's servers to OpenAI, Anthropic, or Google using your own provider API key.
 * **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control or that your team runs.
 * **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today, with Azure Foundry coming soon) and handles the routing, orchestration, governance, and observability.
 

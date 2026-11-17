@@ -1,8 +1,8 @@
 ---
 title: Zero data retention (ZDR) for factory inference
 description: >-
-  ZDR governs provider retention, not Warp's improvement collection or factory
-  run storage. Review data handling before sending sensitive work to a factory.
+  Review provider ZDR coverage, content collection for service improvement,
+  and run-data storage before sending sensitive work to Warp Factories.
 sidebar:
   label: "Zero data retention (ZDR)"
 ---
@@ -28,13 +28,15 @@ Some factory features use models other than the agent's selected model. Avoiding
 
 ## What Warp collects and stores
 
-Warp's improvement collection and storage of factory run data are separate from provider ZDR policies.
+Warp's content collection for service improvement and storage of factory run data are separate from provider ZDR policies.
 
-### Improvement collection
+<span id="improvement-collection" />
 
-The **Help improve Warp** toggle controls Warp's analytics and eligible content collection for service improvement. It doesn't affect provider retention requirements.
+### Content collection for service improvement
 
-For team content collection, follow the [Admin Panel procedure](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-the-admin-panel), including plan and workspace restrictions. Personal analytics and crash preferences are separate. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
+Team admins manage content collection for service improvement in the [Admin Panel's Privacy settings](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel), subject to plan and workspace restrictions.
+
+The Warp app's **Help improve Warp** toggle controls personal analytics and eligible content collection for service improvement. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) for personal preferences and organization-enforced settings.
 
 ### Run history
 
@@ -50,7 +52,7 @@ Self-hosting execution does not establish provider ZDR or move saved run data. T
 
 Self-serve teams can change models and overrides manually, but don't have a team-wide model-blocking control. The Business plan supports shared provider keys and endpoints. The Enterprise plan adds [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
 
-Choose the procedure based on where your factory definition is managed. Both work in a browser without installing Warp Terminal and include checks for defaults, overrides, and new runs:
+Review defaults and overrides in the factory web app or your GitHub repository, depending on where your factory definition is hosted:
 
 * [Factory definition hosted by Warp](/factories/factory-agents/configuration/#factory-definition-hosted-by-warp)
 * [Factory definition hosted by GitHub](/factories/factory-agents/configuration/#factory-definition-hosted-by-github)

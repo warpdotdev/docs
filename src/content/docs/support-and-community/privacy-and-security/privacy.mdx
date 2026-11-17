@@ -7,7 +7,7 @@ description: >-
   conversation storage across Terminal, cloud agents, and factories.
 ---
 
-Provider retention, Warp's improvement collection, and conversation storage are governed by different policies and controls. For example, turning off analytics doesn't stop a factory from saving its run history.
+Provider retention, Warp's analytics and content collection for service improvement, and conversation storage are governed by different policies and controls. For example, turning off analytics doesn't stop a factory from saving its run history.
 
 :::note
 If you have questions, reach out to [privacy@warp.dev](mailto:privacy@warp.dev). For security-related issues, email [security@warp.dev](mailto:security@warp.dev).
@@ -25,17 +25,17 @@ Requests through your own provider account follow your provider's terms, not War
 
 This includes requests through [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/). Claude Code and Codex requests sent directly to their providers also follow your provider's terms.
 
-Provider ZDR doesn't control how Warp stores uploaded attachments or generated artifacts. Review the separate [product storage controls](#product-storage) for these files.
+For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/zero-data-retention/) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal).
 
-Turning off the **Help improve Warp** toggle doesn't affect a model provider's retention requirements.
+<span id="warp-analytics-and-improvement-collection" />
 
-For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/zero-data-retention/) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal). The factory procedures work in a browser without installing Warp Terminal.
+### Warp analytics and content collection
 
-### Warp analytics and improvement collection
+In the Warp app, **Help improve Warp** controls product analytics and eligible content collection for service improvement, including AI interactions and console content. Turning it off stops that analytics and content collection, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
 
-The **Help improve Warp** toggle controls product analytics and eligible collection of AI interactions and console content for service improvement. Turning it off stops that analytics and improvement collection, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
+Team admins manage content collection for service improvement in the [Admin Panel's Privacy settings](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). Personal analytics and crash preferences are separate from this team control.
 
-Neither setting affects a model provider's retention requirements or turns off product storage. See [what Warp collects](#what-telemetry-data-does-warp-collect-and-why) and [how to change collection preferences](#how-to-disable-telemetry-and-crash-reporting).
+Collection preferences don't change provider retention requirements or turn off product storage. See [what Warp collects](#what-telemetry-data-does-warp-collect-and-why) and [how to change collection preferences](#how-to-disable-telemetry-and-crash-reporting).
 
 ### Product storage
 
@@ -53,7 +53,7 @@ You can inspect the data Warp sends and review your privacy controls:
 
 * Read a complete list of [all the telemetry events](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table) that get sent for app analytics
 * Monitor telemetry in real time with Warp's [Network Log](/support-and-community/privacy-and-security/network-log/)
-* [Review analytics, improvement collection, and crash-reporting preferences](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting)
+* [Review analytics, content collection, and crash-reporting preferences](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting)
 * Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL)
 * See how long [shared session data is kept and who can access it](/agents/local-agents/session-sharing/#data-retention-and-access)
 
@@ -61,7 +61,7 @@ You can inspect the data Warp sends and review your privacy controls:
 
 Warp collects high-level telemetry and usage data to discover product quality issues and guide feature prioritization.
 
-Depending on your [collection settings and organization policies](#warp-analytics-and-improvement-collection), Warp may collect:
+Depending on your [collection settings and organization policies](#warp-analytics-and-content-collection), Warp may collect:
 
 1. High-level product usage and analytics data to analyze feature uptake and usage patterns. These metrics do not include user-generated content. See the tracked events in the [exhaustive telemetry table](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table) below.
 2. AI interactions and console inputs that power our [AI features](/agents/). Configurable [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) is disabled by default and masks content that matches your patterns before AI requests are sent. Telemetry payload redaction is separate and applies built-in patterns to telemetry regardless of the Secret Redaction setting.
@@ -72,15 +72,15 @@ For how Warp uses collected data, read the [Privacy Notice](https://www.warp.dev
 
 ### How to disable telemetry and crash reporting
 
-Without the Warp app, Business and Enterprise admins can change [team content collection for improvement in the Admin Panel](/enterprise/team-management/admin-panel/#changing-improvement-collection-in-the-admin-panel). That control is separate from personal analytics and crash preferences. For a personal browser-only opt-out or a plan-locked control, ask [privacy@warp.dev](mailto:privacy@warp.dev) which options are available.
+Without the Warp app, Business and Enterprise admins can change [team content collection in the Admin Panel](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). That control is separate from personal analytics and crash preferences. For a personal browser-only opt-out or a plan-locked control, ask [privacy@warp.dev](mailto:privacy@warp.dev) which options are available.
 
 1. In the Warp app, open **Settings** > **Privacy**.
-2. Toggle off **Help improve Warp** to stop analytics and improvement collection. Review **Send crash reports** separately.
+2. Toggle off **Help improve Warp** to stop analytics and content collection for service improvement. Review **Send crash reports** separately.
 3. Review **Store AI conversations in the cloud** for personal Terminal conversation sync. If your organization manages a control, ask an admin to review it.
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)
 
-Turning off analytics and improvement collection doesn't disable product storage. Personal Terminal conversations follow the separate [cloud conversation setting](/agents/local-agents/cloud-conversations/). Factory run history follows [factory storage boundaries](/factories/zero-data-retention/#understand-collection-and-storage). Shared sessions have their own [retention and access rules](/agents/local-agents/session-sharing/#data-retention-and-access).
+For saved conversations, factory run history, and shared sessions, review the separate [product storage controls](#product-storage).
 
 ### Delete your account and data
 

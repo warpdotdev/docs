@@ -1,10 +1,10 @@
 ---
 title: Security and networking
 description: >-
-  Review outbound domains, ports, data boundaries, and backend security requirements for self-hosted factory workers and standalone agents.
+  Review outbound domains, ports, data boundaries, and backend security requirements for self-hosted runners and standalone agents.
 ---
 
-Self-hosted factory workers run repository checkouts and agent workloads on your infrastructure. Warp coordinates runs and receives their results. These requirements apply to [managed factory workers](/factories/self-hosting/#managed-architecture) and [standalone unmanaged agents](/platform/unmanaged-execution/).
+[Self-hosted runners](/factories/self-hosting/#managed-architecture) check out repositories and execute agent workloads on your infrastructure. Warp coordinates runs and receives their results. These requirements also apply to [standalone unmanaged agents](/platform/unmanaged-execution/).
 
 ## Data boundaries
 
@@ -28,11 +28,11 @@ Code content can appear in transcripts, artifacts, and LLM prompts even though r
 
 ## Network requirements
 
-Self-hosted workers connect outbound to Warp; task assignment does not require an inbound firewall port. Allow the required destinations from both the worker and the task runtime. A connected worker does not confirm that a task container or Pod has the same access.
+Self-hosted runners connect outbound to Warp; task assignment does not require an inbound firewall port. Allow the required destinations from both the self-hosted runner and the task runtime. A connected self-hosted runner does not confirm that a task container or Pod has the same access.
 
 <figure style={{ maxWidth: "736px" }}>
-![Self-hosted worker network egress diagram showing outbound-only connections from customer infrastructure to Warp backend endpoints, Docker Hub, Google Cloud Storage, and GitHub](../../../../assets/agent-platform/self-hosted-network-egress.png)
-<figcaption>Self-hosted workers connect outbound to Warp and runtime dependencies.</figcaption>
+![Self-hosted runner network diagram showing outbound-only connections from customer infrastructure to Warp's servers, Docker Hub, Google Cloud Storage, and GitHub](../../../../assets/agent-platform/self-hosted-network-egress.png)
+<figcaption>Self-hosted runners connect outbound to Warp and runtime dependencies.</figcaption>
 </figure>
 
 ### Warp services
@@ -44,12 +44,12 @@ These are domain-based destinations, not a fixed-IP allowlist. Allow HTTPS and s
 | `app.warp.dev` | Warp API requests | Managed and unmanaged execution |
 | `rtc.app.warp.dev` | Real-time updates over secure WebSockets | Managed and unmanaged execution |
 | `sessions.app.warp.dev` | Session sharing over secure WebSockets | Managed and unmanaged execution |
-| `oz.warp.dev` | Worker task-assignment connection over secure WebSockets | Managed workers |
+| `oz.warp.dev` | Self-hosted runner task-assignment connection over secure WebSockets | Self-hosted runners |
 | `storage.googleapis.com` | Uploading run transcripts for later resume and transferring agent attachments | Managed and unmanaged execution using Warp-managed storage |
 
 ### Images, repositories, and task dependencies
 
-Docker and Kubernetes deployments need access to the registries that serve their worker, task, sidecar, and preflight images. Default images come from Docker Hub. For restricted networks, see [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
+Docker and Kubernetes deployments need access to the registries that serve their self-hosted runner, task, sidecar, and preflight images. Default images come from Docker Hub. For restricted networks, see [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
 
 Depending on the selected harness and tools, task images include:
 
@@ -70,7 +70,7 @@ Warp services above use port `443`; your registries, repositories, and internal 
 
 ### Services reached from Warp
 
-[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers used through [Warp's proxy](/factories/mcp/#connect-directly-by-url) must be reachable from Warp's servers, not only from your worker. The worker's outbound-only connection doesn't provide ingress to your inference gateway. See [Networking for BYO inference endpoints](/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway allowlisting and deployment-specific private connectivity.
+[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers used through [Warp's proxy](/factories/mcp/#connect-directly-by-url) must be reachable from Warp's servers, not only from your self-hosted runner. The self-hosted runner's outbound-only connection doesn't let Warp's servers connect to your inference gateway. See [Networking for BYO inference endpoints](/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway allowlisting and deployment-specific private connectivity.
 
 ---
 
@@ -78,21 +78,21 @@ Warp services above use port `443`; your registries, repositories, and internal 
 
 ### Docker backend
 
-* **Docker socket access** - The worker requires access to the Docker daemon to create task containers. For a rootful Linux daemon, mount `/var/run/docker.sock` and pass its numeric group ID to the worker container. Treat Docker socket access as elevated host access and restrict it to the worker. See the [Docker installation example](/factories/self-hosting/managed-docker/#option-1-docker-recommended).
+* **Docker socket access** - The self-hosted runner requires access to the Docker daemon to create task containers. For a rootful Linux daemon, mount `/var/run/docker.sock` and pass its numeric group ID to the self-hosted runner container. Treat Docker socket access as elevated host access and restrict it to the self-hosted runner. See the [Docker installation example](/factories/self-hosting/managed-docker/#option-1-docker-recommended).
 * **Volume mounts** - If using `-v` / `--volumes`, restrict the host paths you expose to task containers.
 * **Task isolation** - Each task runs in its own container. Containers are removed after execution by default (disable with `--no-cleanup` for debugging).
 
 ### Kubernetes backend
 
-* **Worker permissions** - The worker uses namespace-scoped RBAC permissions to manage Jobs and read Pods, logs, and events. The task namespace must allow a root init container unless native image volumes are enabled.
-* **Kubernetes service accounts** - The worker Deployment ServiceAccount is separate from the task Job `serviceAccountName` in `pod_template`. Scope each to its workload.
-* **API key management** - Store `WARP_API_KEY` in a Kubernetes Secret and inject it only into the worker. Add task credentials through `pod_template` or an external secrets operator.
+* **Self-hosted runner permissions** - The self-hosted runner uses namespace-scoped RBAC permissions to manage Jobs and read Pods, logs, and events. The task namespace must allow a root init container unless native image volumes are enabled.
+* **Kubernetes service accounts** - The self-hosted runner Deployment ServiceAccount is separate from the task Job `serviceAccountName` in `pod_template`. Scope each to its workload.
+* **API key management** - Store `WARP_API_KEY` in a Kubernetes Secret and inject it only into the self-hosted runner. Add task credentials through `pod_template` or an external secrets operator.
 * **Task isolation** - Each task runs as a Kubernetes Job and Pod. Successful Jobs are removed. With cleanup enabled, failed or orphaned Jobs remain for 24 hours by default; `--no-cleanup` keeps them without a TTL.
 
 ### Direct backend
 
 * **Shared host kernel** - The Direct backend does not provide container-level isolation. Each task runs in a separate workspace directory but shares the host OS and kernel. Setting `target_dir` disables per-task workspace separation.
-* **Minimal task environment** - Tasks inherit only `HOME`, `TMPDIR`, and `PATH` from the host, plus task credentials and explicitly configured variables. The worker's own `WARP_API_KEY` is not inherited by the agent process. Setup and teardown scripts inherit the worker environment, so restrict access to those scripts.
+* **Minimal task environment** - Tasks inherit only `HOME`, `TMPDIR`, and `PATH` from the host, plus task credentials and explicitly configured variables. The self-hosted runner's own `WARP_API_KEY` is not inherited by the agent process. Setup and teardown scripts inherit the self-hosted runner's environment, so restrict access to those scripts.
 * **Workspace cleanup** - Workspaces under `workspace_root` are removed after execution by default (disable with `--no-cleanup` for debugging). A shared `target_dir` is not removed.
 
 ### Command backend
@@ -109,7 +109,7 @@ Warp services above use port `443`; your registries, repositories, and internal 
 
 ## VPN and on-premises access
 
-Self-hosted agents can reach VPN services, private source control, and databases when their execution environment has access. Apply network policies to the task runtime as well as the worker.
+Self-hosted agents can reach VPN services, private source control, and databases when their execution environment has access. Apply network policies to the task runtime as well as the self-hosted runner.
 
 See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrations/bitbucket/) setup guides for SCM integration details.
 
@@ -129,10 +129,10 @@ Claude Code and Codex send inference requests directly to their providers under 
 
 ## Related pages
 
-* [Self-hosting overview](/factories/self-hosting/) - Review managed worker requirements and choose a backend
+* [Self-hosting overview](/factories/self-hosting/) - Review self-hosted runner requirements and choose a backend
 * [Unmanaged execution](/platform/unmanaged-execution/) - Run standalone agents from your own CI or scheduler
 * [About factory infrastructure and security](/factories/infrastructure-and-security/) - Choose execution, inference, and credential boundaries
 * [Data security and boundaries](/platform/architecture/#data-security-and-boundaries) - Review where each class of data lives and travels
 * [Privacy and data control](/support-and-community/privacy-and-security/privacy/) - Review provider ZDR, analytics, and storage
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - Route inference through your own cloud provider accounts
-* [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and configuration
+* [Self-hosted runner configuration](/factories/self-hosting/reference/) - Look up flags and configuration

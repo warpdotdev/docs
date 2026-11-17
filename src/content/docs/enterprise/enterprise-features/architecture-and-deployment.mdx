@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Warp's architecture separates the **control plane** (orchestration, observability, and LLM inference) from the **execution plane** (where agents run, code is accessed, and commands execute). This separation gives enterprise teams flexibility to choose where sensitive workloads run while maintaining centralized management and visibility.
+Warp's architecture separates the **control plane** (orchestration, observability, and inference routing) from the **execution plane** (where agents run, code is accessed, and commands execute). This separation gives enterprise teams flexibility to choose where sensitive workloads run while maintaining centralized management and visibility.
 
 Use this information to evaluate which deployment model fits your organization's security, compliance, and operational requirements.
 
@@ -67,8 +67,8 @@ Self-hosted execution is available exclusively on Warp's **Enterprise** plan.
 
 Self-hosted deployments use a split architecture:
 
-* **Execution plane (customer-hosted)** - Repository checkouts, commands, and workspaces stay on your infrastructure. Code context, tool output, and uploaded files can still become prompts or stored run data (see [What transits Warp's servers](#what-transits-warps-servers)).
-* **Control plane (Warp-hosted)** - Warp coordinates runs and sends the Warp Agent's model requests to the configured provider. See [What transits Warp's servers](#what-transits-warps-servers) for the data it receives.
+* **Execution plane (customer-hosted)** - Repository checkouts, commands, and workspaces stay on your infrastructure. Code context, tool output, and uploaded files can still become prompts or stored run data (see [Data sent to Warp's servers](#data-sent-to-warps-servers)).
+* **Control plane (Warp-hosted)** - Warp coordinates runs and sends the Warp Agent's model requests to the configured provider. See [Data sent to Warp's servers](#data-sent-to-warps-servers) for the data it receives.
 
 ### Deployment modes
 
@@ -78,19 +78,19 @@ Self-hosted deployments use a split architecture:
 * You control scheduling, scaling, and environment setup.
 * Warp provides cloud connectivity, shared context, visibility, and session sharing.
 
-**Managed** - Run the `oz-agent-worker` daemon to let Warp orchestrate agents in isolated Docker containers on your infrastructure.
+**Managed** - Run a self-hosted runner (`oz-agent-worker`) to let Warp orchestrate agents on your infrastructure.
 
-* The worker process connects to the {VARS.WARP_AUTOMATION_PLATFORM} via WebSocket and receives tasks automatically.
-* Agents run in isolated Docker containers managed by the worker.
+* The self-hosted runner process connects to the {VARS.WARP_AUTOMATION_PLATFORM} via WebSocket and receives tasks automatically.
+* The selected backend determines where tasks execute and how they are isolated. See [choosing a managed backend](/factories/self-hosting/#choosing-a-managed-backend) for Docker, Kubernetes, Direct, and Command options.
 * You get the same orchestration capabilities as Warp-hosted, but execution stays on your infrastructure.
 
 ### Network requirements
 
 Self-hosted agents require **outbound-only** network access. No inbound network access is required.
 
-**Egress requirements:**
+**Required outbound connections:**
 
-* Outbound access to Warp's backend services (for orchestration and observability)
+* Outbound access to Warp's servers (for orchestration and observability)
 * For managed mode: access to Docker Hub and GitHub (for container images and repository access)
 
 ### When to use
@@ -126,7 +126,9 @@ Understanding what data stays where is critical for security and compliance deci
 * **Runtime secrets** - Environment variables and credentials
 * **Execution logs** - Runtime logs remain on your infrastructure unless uploaded as diagnostics or included in run records.
 
-### What transits Warp's servers
+<span id="what-transits-warps-servers" />
+
+### Data sent to Warp's servers
 
 * **Task orchestration** - Scheduling, routing, and lifecycle management
 * **Observability data** - Run status, duration, and metadata
