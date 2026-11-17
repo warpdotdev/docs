@@ -68,7 +68,9 @@ oz login
 Complete sign-in using the URL the CLI prints. Route a team-owned run with `--team` and pass the worker ID with `--host`. If you belong to multiple teams, choose the worker's team:
 
 ```bash
-oz agent run-cloud --team --prompt "List the files in the current directory" --host "my-worker"
+oz agent run-cloud --team \
+  --prompt "List the files in the current directory" \
+  --host "my-worker"
 ```
 
 For unattended factory submissions, use a separate [foreman agent key](/agents/cli/oz-cli/api-keys/#finding-the-factorys-foreman) with [factory endpoints](/factories/factory-api/), not the worker key.
