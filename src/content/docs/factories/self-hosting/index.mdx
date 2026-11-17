@@ -54,7 +54,7 @@ Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) fo
 
 Set the run's host to the connected worker's ID.
 
-For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+Authenticate the worker with a self-hosted worker key. Authenticate the run creator separately: use a short-lived personal key for ad hoc requests or an agent key for an authorized agent. For an external system submitting factory work, use the target factory's foreman key with [factory endpoints](/factories/factory-api/). See [Choosing and creating API keys](/agents/cli/oz-cli/api-keys/) for the creation flow.
 
 From the {VARS.WARP_AGENT_CLI}:
 

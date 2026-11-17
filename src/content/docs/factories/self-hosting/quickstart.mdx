@@ -15,7 +15,8 @@ Start a self-hosted worker with the default Docker backend and route a test run 
 ## Prerequisites
 
 * Managed self-hosting access and network connectivity. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
-* An [Agent API key associated with the Default Service Account](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended).
+* A [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key).
+* A Warp account on the worker's team with permission to create runs, for the test below.
 * A Linux machine with a rootful Docker daemon and GNU `stat`.
 * The {VARS.WARP_AGENT_CLI} on the machine that will route the test run. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
 
@@ -27,12 +28,12 @@ For macOS or Windows, use the [Homebrew](/factories/self-hosting/managed-docker/
 
 _~10 minutes_
 
-### 1. Export your API key
+### 1. Export your worker API key
 
-Use the Agent API key for both the worker container and `oz agent run-cloud`. A self-hosted worker key authenticates the worker only. Export the key so both tools can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
+Export the self-hosted worker key in the terminal that will start the worker. Run creation uses your login separately:
 
 ```bash
-export WARP_API_KEY="YOUR_AGENT_API_KEY"
+export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
 ```
 
 ### 2. Start the worker
@@ -57,11 +58,20 @@ For production deployments, pin to a specific image digest (e.g., `warpdotdev/oz
 
 ### 3. Route a run to your worker
 
-In a separate terminal on any machine with the {VARS.WARP_AGENT_CLI}, route a cloud agent run to your worker by passing `--host` with the worker ID you chose:
+In a separate terminal with the {VARS.WARP_AGENT_CLI}, clear the worker key and sign in as yourself. Keep the worker running in its original terminal:
 
 ```bash
-oz agent run-cloud --prompt "List the files in the current directory" --host "my-worker"
+unset WARP_API_KEY
+oz login
 ```
+
+Complete sign-in using the URL the CLI prints. Route a team-owned run with `--team` and pass the worker ID with `--host`. If you belong to multiple teams, choose the worker's team:
+
+```bash
+oz agent run-cloud --team --prompt "List the files in the current directory" --host "my-worker"
+```
+
+For unattended factory submissions, use a separate [foreman agent key](/agents/cli/oz-cli/api-keys/#finding-the-factorys-foreman) with [factory endpoints](/factories/factory-api/), not the worker key.
 
 **Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
 
@@ -77,7 +87,7 @@ Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and
 Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
 
 **Worker won't connect**\
-Verify you created an **Agent** key associated with the Default Service Account and that it has not expired. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
+Verify the worker key has not expired and belongs to the correct team. Ensure the machine meets the [network requirements](/factories/self-hosting/security-and-networking/#network-requirements). Increase log verbosity with `--log-level debug` to see connection details.
 
 **Task stays queued and never runs**\
 Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
