@@ -79,7 +79,10 @@ Review this documentation PR for the docs repository.
 Focus on:
 1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
-3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers and lists. For setup instructions, check each requirement:
+3. **Content quality**: Apply the [Content review process](../../../AGENTS.md#content-review-process) to new drafts and revisions. Check that the heading and opening reveal the answer or first action, choices explain when and where to act, and examples resolve uncertainty without adding unsupported behavior. Check for proper frontmatter and appropriate headers and lists. For setup instructions, check each requirement:
+   * Prerequisites precede dependent steps. Conditions state who or what a step applies to before its instruction.
+   * Each instruction has its own sentence. Separate purposes, conditions, or locations are not bundled with a semicolon.
+   * Reader actions, automatic product behavior, and other people's responsibilities are distinct. Interface names are exact and pronouns unambiguous.
    * The task is stated before fields or example names.
    * Each selection explains what the agent, environment, or credential is used for, not only its name.
    * Readers can find the supported path to edit or select an existing resource instead of creating a duplicate.
@@ -98,7 +101,7 @@ Focus on:
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to the `redirects` array in `vercel.json` when needed.
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
 7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
-8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
+8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Read once for repetition and remove sentences that add no information needed to understand, decide, act, or verify. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
 9. **Unreleased features**: For any PR, agent-marked or not, apply item 5 of the v1 contract above to server-backed claims. A launch PR is not exempt; Gate 0 applies to launches too.
 10. **AEO/source-data fit**:
 

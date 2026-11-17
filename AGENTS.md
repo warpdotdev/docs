@@ -4,7 +4,7 @@
 
 # Warp Documentation Style Guide
 
-This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Keep the full writing rules here. Skills and templates must state the actions needed for their tasks and link here for additional detail. Document product behavior in the relevant product documentation, not in general writing rules.
+This guide establishes standards for writing and revising Warp documentation. It covers voice, formatting, content types, and terminology. Keep the full writing rules here. Skills and templates must state the actions needed for their tasks and link here for additional detail. Document product behavior in the relevant product documentation, not in general writing rules.
 
 ## Compliance claims
 
@@ -30,14 +30,14 @@ Start with the problem or decision the reader faces, then explain the action and
 
 Connect measurement to a decision: establish a baseline, compare a configuration on comparable work, then decide whether to keep the change. Do not equate automation or token consumption with useful output.
 
-In overview comparisons, name the reader's task and the difference that helps them choose. Repeatability alone does not distinguish shared infrastructure from standalone automation. Shared configuration can support different workflows; do not imply that every input follows an identical sequence.
+When features sound similar, explain the decision the reader faces and when to use each option. Name what they want to change and where to change it. Explain consequences where they make the choice, not only later in the procedure. Repeatability alone does not distinguish shared infrastructure from standalone automation. Shared configuration can support different workflows; do not imply that every input follows an identical sequence.
 
 Use a concrete example to explain the mechanism, not an adjective to imply a benefit. Keep limitations beside the choice they affect. A polished sentence with an unsupported claim still needs correction.
 
 Borrow directness and explicit reasoning from the reference writing, not an author's identity or personal experiences. Procedures use second-person instructions; references give precise lookup information. Neither needs a founder's anecdote, a slogan, or every positioning pillar.
 
 #### Define, show, link
-Introduce a concept in one to three plain sentences, give a concrete example, then link out for depth. Repeat that pattern instead of front-loading the page with context.
+Introduce a concept in one to three plain sentences. Follow with a concrete example, then link out for depth. Choose a realistic case that resolves uncertainty about an option, a value to enter, or what happens next. Include the details that affect the outcome. Verify the example against the documented behavior.
 - ✅ "A workflow is an automated process that runs one or more jobs. For example, a workflow can label new issues automatically. For more information, see [Writing workflows](...)."
 - ❌ "Before diving into the components, it helps to align on a few terms:" followed by a glossary of everything the page explains later anyway.
 
@@ -71,7 +71,7 @@ This is the voice-level version of "Don't over-specify counts or internals that 
 When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
 
 #### Every sentence earns its place
-Cut sentences that narrate the page, restate what the reader just read, or explain the obvious consequence of the previous sentence.
+Keep a sentence if it helps the reader understand, decide, act, or verify. Cut introductions that repeat the heading, sentences that narrate the page, and summaries that merely restate the previous paragraph. Preserve prerequisites, exceptions, and consequences that change what the reader should do.
 - **No meta-openers** - Never open with "This page covers/explains/walks through...". The title and description already frame the page; state the thing itself.
   - ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`."
   - ❌ "This page covers how the integration works, how to set it up, and common automation patterns for development teams."
@@ -131,7 +131,7 @@ Apply the [reader-understanding test](#reader-understanding-test) before cutting
 - Never use em dashes in procedural or instructional text
 
 #### Active vs. passive voice
-Use active voice whenever possible. Active voice is clearer and more direct.
+Use active voice whenever possible. Name who does what: distinguish the reader's actions, automatic product behavior, and another person's responsibilities. Use the exact interface names readers see.
 - ✅ "Warp indexes your codebase to help agents understand your code."
 - ❌ "Your codebase is indexed by Warp to help agents understand your code."
 
@@ -147,9 +147,18 @@ When a task is required, use clear, direct verbs. Avoid ambiguous modal verbs li
 - ❌ "You should configure an environment before running cloud agents." (must I, or is it just a suggestion?)
 
 #### Vague nouns and pronouns
-If a pronoun could refer to more than one thing, replace it with the specific noun.
+If a pronoun could refer to more than one person, feature, or object, repeat the specific name.
 - ✅ "After you merge your pull request, you can delete the branch."
 - ❌ "After you merge your pull request, you can delete it." (delete the PR or the branch?)
+
+#### Separate instructions and lead with conditions
+Give each instruction its own sentence. Split sentences that bundle actions with different purposes, conditions, or locations. Do not use a semicolon to pair separate instructions. Keep closely related details together when they describe one action.
+
+State a condition before the instruction it limits, such as who can perform the action or what must already have happened. Put a condition that applies to the whole procedure in its prerequisites.
+
+When readers need to choose where to make a change, lead each sentence with their goal and end with the action that serves it. Vary the phrasing when another structure is clearer.
+- ✅ "To change a page's wording, edit its Markdown file. To change its position in navigation, edit `src/sidebar.ts`."
+- ❌ "Change a page's wording in its Markdown file; use `src/sidebar.ts` to change its position in navigation."
 
 #### Stacked modifiers
 Avoid strings of nouns that create ambiguity. Use prepositions to clarify relationships.
@@ -273,7 +282,7 @@ Clean, descriptive URLs rank better in search and are more shareable.
 - Avoid thin pages with only a sentence or two — consolidate with related content instead. When two pages cover nearly the same topic, merge them.
 
 ### Opening paragraphs
-The first paragraph sets expectations for the entire page. Lead with what the feature does and its primary benefit.
+Put the answer, decision, or first action near the top so readers do not need the whole page to find it. In a how-to, state what the reader will accomplish and give the prerequisites needed to begin. In reference material, lead with the definition or behavior the reader came to look up. In a feature overview, state what the feature does and its primary benefit. Add background where it helps readers understand what follows.
 - ✅ "Environments ensure your cloud agents run with the same toolchain and setup every time, regardless of where they're triggered from."
 - ❌ "This page explains environments."
 
@@ -283,7 +292,7 @@ Search engines and AI agents give extra weight to the first paragraph. Lead with
 
 ### Lists
 - Use bulleted lists for features, benefits, or non-sequential items
-- Use numbered lists only for step-by-step processes
+- Use numbered lists for procedures where order matters, in the order readers perform the actions
 - End each numbered step in a procedure with a period
 - Bold the key term or feature name at the start of each feature-list item, except agent names and non-clickable UI field labels
 - Follow the bold term with a dash and explanation
@@ -544,7 +553,7 @@ Each type has its own title convention. Sentence case applies to all of them; th
 
 These rules apply regardless of content type:
 
-- **Lead with user benefit**: Open with what the reader can accomplish, not the technical implementation.
+- **Lead with the reader's task**: Follow [Opening paragraphs](#opening-paragraphs). Give the answer or first action before background or technical implementation.
 - **Orient the reader before UI, CLI, or URL instructions**: When referencing a menu path, CLI command, or URL for the first time on a page, identify the application, website, or tool. Don't assume the reader knows which surface you mean.
   - ✅ "In the Warp app, click your profile photo, then go to **Settings** > **Platform**."
   - ✅ "In the Oz web app (oz.warp.dev), click **Schedules**."
@@ -614,9 +623,10 @@ When readers can combine procedures from this page and related pages, read and c
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
-- **Keep prerequisites concise.** State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details, and put conditional instructions beside the step that needs them. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
+- **Keep prerequisites concise and early.** Put requirements before the steps that depend on them. State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details. State a step-specific condition before its action, beside the step that needs it. Put conditions for the whole procedure in prerequisites. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
+  - Give each instruction its own sentence even when related actions share a numbered step. Keep details of a single action together.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
   - **Separate reference detail from the action.** Link a long lookup list to its owning reference. Keep facts needed for the immediate choice beside the step; use a short callout only within the callout budget.
     - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
@@ -633,7 +643,7 @@ When readers can combine procedures from this page and related pages, read and c
 - **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
   - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
   - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
-- Include expected outcomes after key steps so the reader can confirm they're on track.
+- After key steps, state what readers should see or how to verify the result before moving on.
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
 - **Explain the default before the override.** When documenting configurable infrastructure or advanced settings, state the default behavior and the common case first, then cover manual overrides. Don't lead with the full matrix of options before establishing what "just works" out of the box.
@@ -684,7 +694,7 @@ Cut repetition that adds no understanding. Link background not needed for the im
 **When to use**: For CLI commands, API endpoints, configuration options, keyboard shortcuts, error codes.
 
 **Structure**:
-1. Brief intro stating what is documented and how to use the reference
+1. Definition or behavior the reader came to look up, with brief orientation only where needed
 2. Syntax or usage pattern
 3. Options, parameters, or fields (with descriptions)
 4. Examples
@@ -1125,6 +1135,11 @@ Before publishing any documentation, verify:
 - [ ] Cross-references to related features are included
 - [ ] The closing section uses the content-type heading and link-list format defined in [Closing section](#closing-section)
 - [ ] Instructions include expected outcomes after key steps
+- [ ] The heading and opening make the answer, decision, or first action easy to find
+- [ ] Prerequisites precede dependent steps, and conditions precede the instructions they limit
+- [ ] Each instruction has its own sentence, with the actor, action, and location clear
+- [ ] Decision points explain which option applies, where to act, and any consequence of the choice
+- [ ] Examples resolve a realistic uncertainty and match verified behavior; uncertain details are flagged for verification
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
 - [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (see Voice & tone)
@@ -1136,12 +1151,15 @@ Before publishing any documentation, verify:
 
 ## Content review process
 
-1. **Content type**: Confirm the page follows the correct structure for its type
-2. **Accuracy**: Verify all technical details and instructions
-3. **Consistency**: Check terminology and formatting against this guide
-4. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
-5. **Completeness**: Include necessary context, examples, and next steps
-6. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
+Apply this pass to new drafts and revisions before delivery:
+
+1. **Opening and structure**: Read the heading and opening paragraph. Can readers find the answer or first action without reading the entire page? Confirm the structure matches the content type.
+2. **Procedure order**: Scan each procedure in order. Does every prerequisite precede the step that needs it? Do conditional steps state who or what they apply to before the instruction?
+3. **Separate instructions**: Split sentences that bundle actions with different purposes, conditions, or places in the product. Check that the actor and next action remain clear in the surrounding paragraph.
+4. **Decisions and completeness**: At each choice, can readers tell which option applies and what to do next? Preserve the context, exceptions, consequences, and next steps needed to complete the task.
+5. **Accuracy and consistency**: Verify product terms, instructions, examples, and expected results against available authoritative sources. Flag uncertain details for verification under the existing verification contract. Check formatting against this guide.
+6. **Repetition**: Read once for repetition. Apply [Cut again](#cut-again) to remove sentences that add no information the reader needs.
+7. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
 
 # Agent-specific guidance
 
