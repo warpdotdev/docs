@@ -575,7 +575,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Plans & support',
+					label: 'Plans and support',
 					items: [
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',
@@ -907,7 +907,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Agent workflows',
 					items: [
-						{ slug: 'guides/agent-workflows/running-an-issue-to-pr-blueprint', label: 'Running an issue-to-PR Blueprint' },
 						{ slug: 'guides/agent-workflows/how-to-review-ai-generated-code', label: 'Review AI-generated code' },
 						{ slug: 'guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs', label: 'Attach agent context to PRs' },
 						{ slug: 'guides/agent-workflows/how-to-run-unattended-agents', label: 'Run agents unattended' },

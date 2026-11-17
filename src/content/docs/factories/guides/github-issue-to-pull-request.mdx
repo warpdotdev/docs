@@ -17,7 +17,7 @@ Use an existing factory with a foreman and an implementation agent, or start wit
 
 * A [factory](/factories/quickstart/) [connected to GitHub](/factories/integrations/github/), with the target repository included in both the factory and GitHub App installation. The connection must permit branch pushes and pull requests.
 * Membership in the factory's Warp team and a GitHub account linked to Warp for each requester.
-* Available shared team usage for factory runs. Add usage if needed. See [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
+* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
 * Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Choose the intake signal
@@ -98,8 +98,6 @@ Apply the definition change:
 Validation does not confirm repository access or assignment availability. Test the configured trigger with a real issue event before relying on it.
 
 ## Delegate from GitHub
-
-For a [Blueprint](/factories/blueprints/), configure its stages to clarify scope, implement, and hand off the PR with checks and an issue-closing reference. Keep intake filters separate from those workflow routes.
 
 1. Write the issue with the requested behavior, verifiable acceptance criteria, and tests to add. Labels and assignments carry no task instructions; the issue's title, body, and comments provide that context.
 

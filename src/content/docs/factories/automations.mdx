@@ -7,9 +7,7 @@ sidebar:
   label: Factory automations
 ---
 
-An **automation** starts factory work from a trigger. Filters narrow which events start work, and the target selects an agent or a [Blueprint stage](/factories/blueprints/stages/). For example, send newly opened pull requests to review, but only for one repository's `main` branch.
-
-Automation filters decide whether an event enters the workflow. [Blueprint routes](/factories/blueprints/routes/) decide what happens between stages after entry. Changing one does not replace the other.
+An **automation** starts factory runs from a trigger and routes them to an agent. Filters narrow which events start work. For example, an automation can send newly opened pull requests to a review agent, but only for one repository's `main` branch.
 
 ## How matching works
 
@@ -84,14 +82,6 @@ the PR.
 ```
 
 Plain lists include matching values; `not_in` excludes them. The [same matching rules](#how-matching-works) apply as in the editor. For complete definitions, see [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) and [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations).
-
-### Target a Blueprint stage
-
-For an event that must enter a particular stage, replace `agent` with `stage` in the automation's frontmatter. For example, `stage: review` enters a stage named `review` in your Blueprint. Keep the existing trigger filters and exclusions.
-
-The foreman receives the event and enters the named stage; that stage's worker supplies its execution settings. Do not combine `stage` with `agent` or [execution overrides](/factories/factory-as-code/#execution-overrides). Put the review procedure in the stage, not a competing workflow in the automation body.
-
-After applying the definition, send a new matching event and inspect its stage and worker. Also test an event outside the filters and one that could match another automation. Each matching automation can act; route order inside the Blueprint does not deduplicate intake.
 
 ## Payload filters for webhook triggers
 

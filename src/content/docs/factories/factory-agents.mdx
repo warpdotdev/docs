@@ -7,13 +7,11 @@ sidebar:
   label: "About factory agents"
 ---
 
-Factory agents run the work in your development workflow. The foreman coordinates the workflow and communicates with you; other agents investigate requests, plan changes, implement them, or review the result.
-
-With a [Blueprint](/factories/blueprints/), you assign agents to stages and define each stage's procedure, required inputs, and outputs. The Blueprint also controls handoffs, revision routes, and human gates. Agent configuration supplies the models, harnesses, tools, and shared instructions those stages use.
+The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results. Default agents each cover one part of the software development lifecycle: triage scopes the request, spec writes the plan, implement writes the code, and review checks it. Together, they turn a work item into a pull request ready for your team to review.
 
 ## The default agents
 
-Every factory has a foreman. The default roles below are starting points, not required stages. Reuse them in your Blueprint or [add custom agents](/factories/factory-agents/creating-custom-agents/) for work that needs different resources or instructions.
+Every factory gets a foreman. You choose which of the four default agents to include. These defaults are a starting point, and you can [add custom agents](/factories/factory-agents/creating-custom-agents/) and [automations](/factories/automations/) for work they don't cover.
 
 The default agents' prompts, descriptions, and models are available in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
@@ -25,15 +23,13 @@ The default agents' prompts, descriptions, and models are available in [`00-warp
 | Implement | Makes and validates the code change | Code, tests, validation results, and visual evidence |
 | Review | Independently checks the finished change | Findings and a recommendation |
 
-These are responsibilities, not a fixed pipeline. In a Blueprint, configure routes to skip planning for well-defined work or return review findings for revision. Add a plan-review gate when implementation must wait for approval. Definitions without a Blueprint keep these decisions in the foreman's instructions.
+These are responsibilities, not a fixed pipeline. A small, well-understood change can skip planning entirely. If the review agent finds problems, the foreman sends work back for another pass. By default, work that needs a spec waits for human approval before implementation starts.
 
 For the complete lifecycle, see [How Warp Factories work](/factories/how-factories-work/).
 
 ### Foreman
 
-The foreman drives the top-level Blueprint. It gathers each stage's inputs from the request and earlier outputs, runs stages assigned to itself in its conversation, and delegates other stages to their workers. It relays questions and answers and continues an agent's existing conversation for revisions rather than starting a new one.
-
-A worker can coordinate a [group of stages](/factories/blueprints/stages/#group-related-stages). It handles that group's internal handoffs and returns the group's result to the foreman.
+The foreman agent assigns work and is the only default agent that communicates directly with you. It relays questions and answers between you and other agents, and continues their existing conversations for revisions and follow-ups.
 
 After implementation and review, the foreman returns the pull request and supporting evidence, then waits for your team to merge. By default, the foreman marks the work item complete on a later merge notification or your confirmation that the pull request landed.
 
@@ -49,7 +45,7 @@ Triage researches the codebase and related issues, reproducing problems when res
 
 ### Spec
 
-Spec defines requirements through the foreman and writes specifications with validation criteria in a draft pull request. Put approval requirements in the planning stage's [gates](/factories/blueprints/gates/) and route implementation only from approval of the current plan.
+Spec defines requirements through the foreman. It writes product and technical specifications with validation criteria in a draft pull request. By default, the foreman waits for human approval before implementation starts. You can change this policy in the foreman's instructions.
 
 ### Implement
 
@@ -74,17 +70,19 @@ For settings, prompts, models, and third-party authentication, see [Configuring 
 <div id="add-custom-agents-and-automations" />
 <div id="choose-a-configured-factory-agent" />
 
-For new roles, skills, and stage-worker assignments, see [Creating custom agents](/factories/factory-agents/creating-custom-agents/). To start work from schedules and events, use [factory automations](/factories/automations/).
+For new roles, skills, and foreman dispatch, see [Creating custom agents](/factories/factory-agents/creating-custom-agents/). To start agents from schedules and events, use [factory automations](/factories/automations/).
 
 ## Human decision points and permissions
 
 | Decision | Default behavior | What enforces it |
 | --- | --- | --- |
-| Spec approval | The planning stage asks for approval before implementation when the workflow requires it | Blueprint gates and routes; foreman instructions in definitions without a Blueprint |
+| Spec approval | The foreman asks a human to clarify ambiguity and approve every spec | Workflow policy in the foreman's instructions, which your team can change |
 | Merging | The foreman hands you the finished pull request. Agents never merge on your behalf. | Your repository's permissions decide who can approve and merge |
 | Runtime access | Each agent reaches only the repositories, secrets, and MCP servers in its configuration | Platform configuration and the permissions of the connected providers |
 
-Change workflow policy in the Blueprint, not a second stage list in an agent prompt. Gates guide the workflow; repository permissions and branch protection enforce who can approve and merge. Changing instructions does not grant tool, repository, or credential access.
+Your team can change the spec-approval policy in the foreman's instructions. Repository permissions and branch protection control who can approve and merge pull requests. Access is different. What an agent can reach comes from its configuration and the permissions of the connected providers, never from its instructions — changing what an agent is told to do doesn't change what it's able to do.
+
+So enforce with the real controls: branch protection and repository permissions decide who merges, and each agent's configuration decides what it can reach.
 
 ## Related pages
 

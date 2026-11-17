@@ -15,21 +15,6 @@ Change how an existing factory agent works by editing its instructions, tools, a
 
 <span id="configure-agent-behavior" />
 
-## Choose what to change
-
-Keep workflow changes in the [Blueprint](/factories/blueprints/) and worker resources in agent configuration:
-
-| Change | Where to edit |
-| --- | --- |
-| What a stage does and returns | The stage's `prompt`, `inputs`, and `outputs` in `factory.yaml` |
-| Which stage runs next | Blueprint `start.to` and stage `to` routes |
-| When a person must answer | The stage's `gates` |
-| Behavior shared across an agent's stages | The agent's prompt in `agents/<name>/agent.md` |
-| A reusable procedure, such as repository checks | A [skill](/factories/factory-skills/) |
-| Model, harness, runner, tools, or access | The agent settings below |
-
-The Blueprint's stage procedures and routing take precedence over workflow instructions in agent prompts. Editing an agent prompt is not a way to replace the Blueprint's review loop.
-
 ## Edit agent settings and instructions
 
 If your factory definition is hosted by Warp, edit agent settings in the factory web app. If the definition is hosted by GitHub, settings are read-only in the app; edit the [definition files in your repository](/factories/factory-as-code/#where-the-definition-lives) instead.
@@ -50,7 +35,7 @@ If your factory definition is hosted by Warp, edit agent settings in the factory
 
 3. Edit the agent description, harness, model, runner, host, [MCP servers](/factories/mcp/), or [secrets](/factories/secrets/).
 
-4. To change instructions shared across the agent's work, click **Prompt** and edit the prompt. For a particular stage's procedure, edit the Blueprint in the definition instead.
+4. To change the agent's instructions, click **Prompt** and edit the prompt.
 
 5. In the top-right corner, click **Save**.
 

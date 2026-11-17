@@ -43,7 +43,7 @@ The foreman delegates review and posts the findings on the pull request. The pro
    * Finding thresholds and which findings require changes.
 
    See [factory skills](/factories/factory-skills/) for the file format.
-4. Configure review-only intake. With a [Blueprint](/factories/blueprints/stages/), define a review stage with the limits below and a foreman stage that publishes its findings, then exits to `end` without implementation. Target review with the automation's [`stage`](/factories/automations/#target-a-blueprint-stage) field instead of `agent`, preserving the filters. For a definition without a Blueprint, use `agent: foreman` and the review-only prompt shown below.
+4. Configure the automation to send review requests to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`. Keep the review-only instructions in the prompt.
 
    Choose your code host below.
 
@@ -138,9 +138,6 @@ rather than copying the example's single-agent setup unchanged.
   adding a second review.
 - Put my validation commands, security checks, and finding thresholds in
   the review agent's skill.
-- If the factory uses a Blueprint, configure review and findings publication
-  as stages, ending without implementation. Target review with the
-  automation's stage field; keep its filters and opt-out labels.
 - Send pull requests that become ready for review to the foreman with the
   page's review-only prompt: skip drafts and closed requests, review the
   current head commit, publish findings as comments, then stop. Do not
@@ -183,7 +180,7 @@ After the author pushes a fix, a configured re-review event requests another che
 * **Marking a pull request ready starts no review** - A nonmatching filter or skipped bot event can prevent the run. Check repository, target-branch, and opt-out filters. After fixing the cause, have a person mark the pull request ready again. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
 * **A review appears on a draft or closed request** - Some creation events include drafts, and request state can change before review starts. Keep the prompt's instruction to stop on drafts and closed requests. For GitHub, use `pull_request_ready` and the opt-out filter. GitLab and Azure DevOps lack a draft filter, so retain the prompt check.
 * **Two reviews appear on one pull request** - The [SDLC workflow](/factories/use-cases/end-to-end-sdlc-automation/) and a standalone review automation can review the same change. To use only the SDLC pass, create its pull requests as drafts and apply `skip-factory-review` before marking them ready. For re-review events, instruct the foreman to update earlier findings rather than repeat them. See [automation matching rules](/factories/automations/#how-matching-works).
-* **The review agent edits code or starts implementation** - Check the review stage's procedure, skill, and outgoing routes. Remove implementation instructions and route this review-only path through publication to `end`. Without a Blueprint, restore the automation prompt's limits. Code-host permissions and branch protection enforce access and merge restrictions.
+* **The review agent edits code or starts implementation** - Implementation instructions in the automation or review skill can exceed the intended scope. Remove those instructions and restore the limits: no code edits, implementation dispatch, approval, or merging. Prompt instructions govern behavior; code-host permissions and branch protection enforce access and merge restrictions.
 
 ## Related pages
 

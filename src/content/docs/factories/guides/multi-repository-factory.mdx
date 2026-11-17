@@ -84,8 +84,6 @@ List every repository a coordinated change can touch. This selects the checkouts
 
 ## Coordinate a change across repositories
 
-For a [Blueprint](/factories/blueprints/), put the planning, implementation, review, and handoff procedures below in their stages. Pass the ordered repository list and linked PRs between stages, and route findings back to implementation. Keep shared compatibility policy in agent instructions or skills. The agent-only starter above remains a separate configuration path.
-
 1. Define repository roles and compatibility rules in `agents/foreman/agent.md`:
    * Identify the provider and its consumers.
    * Change the provider first, using backward-compatible additions. Do not add required request fields. In this example, `acme/api-service` adds response fields and endpoints that the deployed `acme/webapp` can safely ignore until its change merges.
