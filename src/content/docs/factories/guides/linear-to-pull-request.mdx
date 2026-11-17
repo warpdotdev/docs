@@ -18,12 +18,14 @@ Use an existing factory with a foreman and an implementation agent, or adapt the
 * A [factory](/factories/quickstart/) with access to the target repository and permission to push branches and open pull requests.
 * Linear [connected to the factory](/factories/integrations/linear/#connect-linear), with the Warp app authorized to access your team. A factory connects either Linear or Jira, not both.
 * Each requester's Linear account linked to their Warp account.
-* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Available shared team usage for factory runs. Add usage if needed. See [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
 * Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Configure the agent-session trigger
 
 Delegating an issue to Warp or mentioning the app in a comment opens a Linear agent session. Use the `linear` / `agent_session_created` trigger with `teams` to limit which teams' sessions this automation handles.
+
+For a [Blueprint](/factories/blueprints/), configure clarification, implementation, and handoff in its stages. Keep session acknowledgement, PR attachment, and issue-state requirements below as communication instructions; they do not replace stage routing.
 
 1. In the factory dashboard, open **Automations** and find the existing Linear agent-session automation. Connecting Linear creates one for the selected teams. Reuse it to avoid duplicate runs.
    * **Warp-managed factory** - Edit the automation in the dashboard.
@@ -94,7 +96,7 @@ With the instructions above, check for:
 
 When Warp claims the session, an issue outside a started, completed, or canceled state may move to the team's available started state, such as In Progress. This can happen even if the foreman stops to ask for requirements.
 
-The foreman makes no additional workflow-state change. A person reviews and merges the pull request and decides later state changes. To request a transition such as In Review, add it to the foreman's prompt.
+The foreman makes no additional workflow-state change. A person reviews and merges the pull request and decides later state changes. To request a transition such as In Review, add it to the handoff stage's procedure, or the foreman's prompt in a definition without a Blueprint.
 
 ## Unmatched and vague requests
 

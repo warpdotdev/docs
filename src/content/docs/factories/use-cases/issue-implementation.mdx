@@ -42,7 +42,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
    Use the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) as a layout reference. It stores shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`.
 
-4. Configure the automation to send approved issues to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`.
+4. Configure the automation to send approved issues to your foreman; the example uses `agent: foreman`. With a [Blueprint](/factories/blueprints/), configure entry routes for approved implementation and unresolved decisions, a planning-approval gate when needed, and independent review that returns findings to the same implementation conversation and PR. The automation prompt below does not replace those stages or routes.
 
    Choose your issue source below.
 
@@ -109,7 +109,9 @@ The foreman coordinates implementation and independent review in this [recipe](/
          labels: [factory-ready]
    ```
 
-   After approving the issue, remove `needs-triage` if present and apply `factory-ready`. Then assign or mention **Warp** with an explicit request such as “Implement this issue against its acceptance criteria.” The implementation label must be present when the session starts. Follow the [Jira setup and account-linking requirements](/factories/integrations/jira/).
+   After approving the issue, remove `needs-triage` if present and apply `factory-ready`. Then assign **Warp** with an explicit request such as “Implement this issue against its acceptance criteria.” The implementation label must be present when the session starts. Follow the [Jira setup and account-linking requirements](/factories/integrations/jira/).
+
+   To start work from comment mentions instead, use `app_mentioned` with the same project and label filters. See the [Jira trigger reference](/factories/automation-triggers/#jira).
 
    Jira setup may have already created a project-wide session automation. If it handles only implementation requests, update it with the configuration above instead of adding another automation.
 
@@ -141,6 +143,9 @@ for shared conventions and implementation procedures.
   a second one.
 - Put my build, test, lint, and formatting commands in the implementation
   skill, and require tests for behavior changes.
+- If the factory uses a Blueprint, put implementation, independent review,
+  revision routes, and any required planning-approval gate in its stages.
+  Keep revisions on the existing branch and pull request.
 - Route approved issues to the foreman using the prompt in the setup
   procedure. Require implementation against the acceptance criteria,
   human input for missing requirements, human approval before implementing
@@ -159,7 +164,7 @@ Use fresh issues for initial-intake tests. For an issue already coordinated by t
 1. Trigger the automation with an approved documentation or configuration issue that matches every filter.
    * **GitHub** - Apply the readiness label.
    * **Linear** - Move the issue into the approved state, or create it in that state.
-   * **Jira** - Apply the readiness label, then assign or mention **Warp** with the implementation request.
+   * **Jira** - Apply the readiness label, then assign **Warp** with the implementation request.
 
 2. Review the resulting work item and source issue. Confirm the foreman coordinates implementation and independent review, posts the pull request link and validation results to the issue, and leaves merging to a person.
 3. Test the filters with issues that don't match. Confirm this automation doesn't start when the required label or state is missing, or the issue belongs to a different team or project.
@@ -180,7 +185,7 @@ The implementation agent adds validation and regression tests, runs the service 
 * **A label or state change starts no run** - A nonmatching filter or missing provider event can prevent the run. Check the repository, team, project, and label filters.
   * **GitHub** - Bot senders are skipped by default. Retry from a person's account when required.
   * **Linear** - Team and state names must resolve to exactly one accessible object when the definition is applied.
-  * **Jira** - Apply the label before assigning or mentioning **Warp**.
+  * **Jira** - Apply the label before assigning **Warp**.
 
   See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
 * **No pull request appears** - The foreman may be waiting for input or approval, or the factory may be unable to push. Check **Waiting on you** on the [Home page](/factories/factory-home/) for unanswered questions or specification approval, then confirm the code-host connection has write access. See [no pull request appears](/factories/troubleshooting/#no-pull-request-appears).
