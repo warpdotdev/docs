@@ -148,10 +148,10 @@ agentDefaults:
 
 **Required in `v1alpha2`; not supported in `v1alpha1`.**
 
-{/* VERIFY: Confirm public v1alpha2 availability and validate this exact fragment; the public parser currently rejects gates as an unknown field. */}
+{/* VERIFY: Confirm public v1alpha2 availability and successful application of a complete Blueprint definition before publication; parser validation does not check team-dependent resources. */}
 
 :::caution
-Draft syntax: the public validator currently rejects the `gates` field shown below. Resolve that incompatibility before using this fragment.
+Draft: public Blueprint availability and applying a complete definition still need verification.
 :::
 
 Declares the workflow's stages, workers, routes, and human gates. See [About Blueprints](./blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
