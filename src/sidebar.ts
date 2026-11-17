@@ -102,7 +102,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{
-							label: 'Windows and Tabs',
+							label: 'Windows & Tabs',
 							collapsed: true,
 							items: [
 								{ slug: 'terminal/windows', label: 'Overview' },
@@ -214,7 +214,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Knowledge and collaboration',
+					label: 'Knowledge & collaboration',
 					items: [
 						{
 							label: 'Warp Drive overview',
@@ -309,8 +309,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agents/inference/custom-routers', label: 'Custom routers' },
 								'agents/inference/bring-your-own-api-key',
 								{ slug: 'agents/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
-								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
+								'agents/inference/claude-platform-linked-billing',
 								{ slug: 'agents/inference/chatgpt-subscription', label: 'ChatGPT subscription' },
+								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
 							],
 						},
 						{ slug: 'agents/local-agents/interactive-code-review', label: 'Interactive code review' },
@@ -390,7 +391,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			badge: { text: 'Early Access', variant: 'note' },
 			// Group labels are noun phrases naming a subject area, not imperative
 			// verbs. Every other tab does this -- 'Agent configuration',
-			// 'Triggers & integrations', 'Plans and billing', 'Team management' --
+			// 'Triggers & integrations', 'Plans & billing', 'Team management' --
 			// so 'Configure / Connect / Operate' read as a different product's
 			// sidebar. Two of these deliberately mirror the Automation Platform tab
 			// next door, since the underlying concepts are the same.
@@ -444,6 +445,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
+								{ slug: 'factories/zero-data-retention', label: 'Zero data retention (ZDR)' },
 								{ slug: 'factories/runners', label: 'Runners' },
 								{
 									label: 'Environments',
@@ -777,7 +779,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				// the Automation Platform, API & Reference, and Enterprise tabs.
 				{ slug: 'support-and-community', label: 'Overview' },
 				{
-					label: 'Troubleshooting and support',
+					label: 'Troubleshooting & support',
 					items: [
 						{ slug: 'support-and-community/troubleshooting-and-support/sending-us-feedback', label: 'Sending Feedback & Logs' },
 						'support-and-community/troubleshooting-and-support/known-issues',
@@ -788,7 +790,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Plans and billing',
+					label: 'Plans & billing',
 					items: [
 						{ slug: 'support-and-community/plans-and-billing', label: 'Overview' },
 						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, pricing, and refunds' },
@@ -799,7 +801,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Privacy, security, and licensing',
+					label: 'Privacy, security, & licensing',
 					items: [
 						'support-and-community/privacy-and-security/privacy',
 						'support-and-community/privacy-and-security/secret-redaction',
@@ -837,7 +839,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Security and compliance',
+					label: 'Security & compliance',
 					items: [
 						{ slug: 'enterprise/security-and-compliance/security-overview', label: 'Security overview' },
 						{ slug: 'enterprise/security-and-compliance/sso', label: 'Single Sign-On (SSO)' },
@@ -866,7 +868,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Support and resources',
+					label: 'Support & resources',
 					items: [
 						'enterprise/support-and-resources/billing',
 						{ slug: 'enterprise/support-and-resources/troubleshooting-login', label: 'Troubleshooting login' },
