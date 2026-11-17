@@ -26,6 +26,8 @@ The agent chooses which available MCP tools to call based on the task.
 
 When Slack, Linear, or Jira is declared and connected for a factory, Warp makes tools from that integration available to the factory's agents. These tools use the connected integration's authorization and don't require a separate MCP installation.
 
+For GitHub API operations, use [GitHub MCP](/factories/integrations/github/#github-mcp). It uses the factory's GitHub connection and is controlled by `github.mcpEnabled` or the Integrations toggle, not a separate `mcpServers` entry.
+
 Integration-provided tools are separate from the MCP servers you configure with `mcp_servers` or `mcpServers`. They may not appear alongside user-configured servers in the factory's MCP list, even though the agent can use them during a run. For example, a scheduled factory run can use the Slack tools to post a report to a channel without Slack triggering the run.
 
 For example, see [posting a scheduled factory digest to Slack](/factories/integrations/slack/#post-a-scheduled-factory-digest-to-slack).

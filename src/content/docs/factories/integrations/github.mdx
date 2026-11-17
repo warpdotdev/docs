@@ -31,6 +31,28 @@ New factories have default automations enabled for GitHub activity:
 
 To confirm the connection works, mention **@warp** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
 
+## GitHub MCP
+
+GitHub MCP gives factory agents managed tools for GitHub API operations, such as reading issues, opening pull requests, and posting reviews. Agents use these tools instead of the GitHub CLI (`gh`). Ordinary Git operations, including clone, fetch, commit, and push, still use `git`.
+
+GitHub MCP is enabled by default for new factories. Factories created before the rollout keep their existing setting until you opt in. Changes apply to new Warp-hosted runs, not runs already in progress.
+
+### Enable GitHub MCP for an existing factory
+
+* **Integrations** - For a Warp-managed factory, open **Settings** > **Integrations** > **GitHub** in the [factory dashboard](/factories/factory-dashboard/) and toggle **Use GitHub MCP** on. The change saves automatically.
+* **Definition file** - Add `mcpEnabled: true` under the existing `github` mapping in `factory.yaml`, or add the mapping if it's absent:
+
+```yaml title="factory.yaml"
+github:
+  mcpEnabled: true
+```
+
+For a Warp-managed definition, open **Factory definition** in the factory dashboard, edit `factory.yaml`, and save. For a GitHub-backed definition, merge the change into its production branch and wait for a successful definition sync.
+
+If your factory's GitHub skill still instructs agents to use `gh`, update it using the [example pull request migrating the default GitHub skill to GitHub MCP](https://github.com/warpdotdev/warp-factory-examples/pull/13).
+
+Start a new Warp-hosted run and ask the agent to list open pull requests in a connected repository. Confirm the run uses GitHub MCP tools rather than `gh`.
+
 ## Add a custom automation
 
 For events without a default automation, add a GitHub trigger and narrow it with the filters below. See [editing automation filters](/factories/automations/#edit-filters-on-an-automation).
