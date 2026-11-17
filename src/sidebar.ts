@@ -410,7 +410,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// and where it runs.
 				label: 'Factory configuration',
 				items: [
-						{ slug: 'factories/blueprints', label: 'About Blueprints' },
+						{
+							label: 'Blueprints',
+							items: [
+								{ slug: 'factories/blueprints', label: 'About Blueprints' },
+								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
+								{ slug: 'factories/blueprints/routes', label: 'Routing work between Blueprint stages' },
+								{ slug: 'factories/blueprints/gates', label: 'Adding human gates to a Blueprint' },
+							],
+						},
 						{
 							label: 'Factory agents',
 							items: [

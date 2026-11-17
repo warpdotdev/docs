@@ -9,7 +9,7 @@ sidebar:
 
 Warp Factories provides the infrastructure for development workflows you define and configure. Your [definition files](/factories/factory-as-code/) connect repositories, agents, and automations. Use Scorers to check runs against criteria you define, and benchmarks to compare configurations on the same tasks. See [Measure and improve](/factories/measure-and-improve/).
 
-The foreman agent routes requests according to the workflow's instructions and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](./blueprints/) makes the stages, workers, routes, and human gates explicit. Definitions without a Blueprint keep routing in the foreman's instructions.
+The foreman agent drives the workflow and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](./blueprints/) defines its stages, worker assignments, procedures, routes, and human gates. Those workflow instructions take precedence over stage lists in agent prompts. Definitions without a Blueprint keep routing in the foreman's instructions.
 
 A work item is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
@@ -18,13 +18,13 @@ A work item is a single request the factory acts on, such as an issue, support r
 
 ## How a work item moves through the factory
 
-The foreman passes each agent the context it needs and continues existing conversations when work returns for revisions.
+The foreman gathers each stage's declared inputs from the request and earlier results. It runs stages assigned to itself in its conversation and delegates other stages to their workers, continuing existing conversations when work returns for revisions.
 
 Not every work item needs every stage. With a Blueprint, the foreman takes the first route whose prose condition matches the request or the preceding stage's outputs. Configure those routes to skip work that is already defined or send changes back for revision. A delegated worker returns its stage's outputs; the foreman selects what happens next.
 
 ### Stages
 
-The diagram below shows the default path through a factory's stages.
+The diagram below shows a typical issue-to-PR workflow. Your Blueprint chooses which stages run and when work returns for revision.
 
 ```mermaid
 flowchart LR
@@ -42,7 +42,7 @@ flowchart LR
   Handoff -->|"Merge notification<br/>or human confirmation"| Complete[Complete]
 ```
 
-* **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). [Automations](/factories/automations/) filter events and schedules and select an agent to handle the work. Direct requests go straight to the foreman. The work item keeps its source context as it moves through later stages.
+* **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). [Automations](/factories/automations/) filter events and schedules and select an agent or Blueprint entry stage. Direct requests go to the foreman. The work item keeps its source context as it moves through later stages.
 * **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request already explains the problem and what needs to change.
 * **Planning** - The spec agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for small, well-understood changes.
 * **Building** - The implement agent makes the code change on a branch and opens a pull request with test and visual evidence.
@@ -64,7 +64,7 @@ A factory pauses when a person needs to decide. By default, that's three places:
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 
-In a Blueprint, declare gates for the first two decisions. A gate pauses the stage until you answer; its outgoing routes distinguish approval from requested changes. In a definition without a Blueprint, those checkpoints remain in the foreman's instructions. Merging is enforced by your repository, so if you require human-only merges, use branch protection and repository permissions.
+In a Blueprint, [add gates](./blueprints/gates/) for the first two decisions. A gate pauses the stage until you answer; its outgoing routes distinguish approval from requested changes. In a definition without a Blueprint, those checkpoints remain in the foreman's instructions. Use branch protection and repository permissions to enforce human-only merges.
 
 ## How the factory improves itself
 

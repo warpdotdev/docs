@@ -54,7 +54,7 @@ Setup gives the foreman the same handle as the factory, so `payments` is the fac
 
 Factory agents handle different stages of the software development lifecycle. The default agents cover triage, planning, implementation, and review.
 
-A [Blueprint](./blueprints/) defines the workflow's stages, their workers, the routes between them, and gates for human decisions. Agent definitions configure how the workers execute their assigned stages.
+A [Blueprint](./blueprints/) defines the workflow's stages, their procedures, the workers that run them, and routes and gates for human decisions. Change a review loop or approval requirement in the Blueprint; use agent definitions to choose worker resources and shared behavior.
 
 <figure style={{ maxWidth: "563px" }}>
 ![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)

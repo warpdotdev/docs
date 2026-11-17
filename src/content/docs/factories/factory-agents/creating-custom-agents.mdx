@@ -1,8 +1,8 @@
 ---
 title: Creating custom agents
 description: >-
-  Create a custom factory agent, add skills, and configure how the foreman
-  dispatches it.
+  Create a custom factory agent, add skills, and assign it work in a Blueprint
+  or a direct dispatch.
 ---
 import { VARS } from '@data/vars';
 
@@ -41,9 +41,21 @@ Custom agents have no built-in skills. Add [factory skills](/factories/factory-s
 
 <span id="choose-a-configured-factory-agent" />
 
+## Assign the agent to a Blueprint stage
+
+To include the agent in a standing workflow:
+
+1. In `factory.yaml`, find the stage under `blueprint.stages`, or add one. Set its `worker` to the custom agent's directory name.
+2. Define its procedure and required results with `prompt`, `inputs`, and `outputs`. Keep agent-wide guidance in `agent.md`; do not copy the full routing procedure into it.
+3. Connect the stage with entry or outgoing routes, then [validate and apply the definition](/factories/factory-as-code/#validate-a-definition). Start new test work and inspect the assigned worker's conversation and outputs.
+
+Creating an agent alone does not add a workflow stage. See [Defining Blueprint stages](/factories/blueprints/stages/) for an implementation-to-review example.
+
 ## Dispatch a configured agent
 
-The foreman uses `run_agents` to dispatch configured factory agents. It receives a list of available agents and their unique IDs (UIDs), then:
+For delegated Blueprint stages, the coordinator selects the worker declared by the stage and supplies its stage-specific inputs. It continues that worker's existing conversation for later stages or revisions in the same task.
+
+For direct dispatch and workflows without a Blueprint, the foreman uses `run_agents` to dispatch configured factory agents. It receives a list of available agents and their unique IDs (UIDs), then:
 
 1. The foreman chooses an agent from the available list.
 2. It sets `remote` to run the child in the cloud.
@@ -66,10 +78,10 @@ Each field in an `agent_run_configs[]` entry applies to one child:
 
 These fields apply to all children in the call. Each field replaces a setting from the agent configuration:
 
-* `remote.environment_id` - The [environment](/platform/environments/), which supplies the repositories, toolchain, and workspace setup.
+* `remote.environment_id` - The [environment](/factories/environments/), which supplies the repositories, toolchain, and workspace setup.
 * `remote.runner_id` - The UID of the [runner](/factories/runners/), which selects the operating system, CPU architecture, instance size, and sandbox image.
 * `remote.worker_host` - The host. Use `warp` for Warp-hosted workers, or use the ID of a [self-hosted worker](/factories/self-hosting/).
-* `remote.harness` - The [harness](/platform/harnesses/), such as Claude Code or Codex.
+* `remote.harness` - The [harness](/factories/harnesses/), such as Claude Code or Codex.
 * `model_id` - The model. A model for a third-party harness also needs `remote.harness`.
 
 If the call does not set one of these fields, the child runs use the setting from the agent configuration. The call-level `metadata` field sets default metadata for all children in the call.

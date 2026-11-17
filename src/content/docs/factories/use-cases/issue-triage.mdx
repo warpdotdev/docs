@@ -43,7 +43,7 @@ This [recipe](/factories/use-cases/) sends intake to your foreman, which delegat
    See [factory skills](/factories/factory-skills/) for the file format.
 
    If your file-based definition lacks a triage agent, start with `agents/triage/agent.md` from the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr). The agent investigates requests, reproduces bugs, and records findings on the tracked issue. Replace its Linear references with your issue source.
-4. Configure the automation to send triage requests to your foreman. Set its `agent` field to the foreman agent's name in your definition; the examples use `agent: foreman`. Keep the triage-only stopping instructions in the prompt.
+4. Configure intake for triage only. With a [Blueprint](/factories/blueprints/stages/), declare a triage stage whose procedure uses the triage skill, returns evidence and classifications, and does not implement. Route its result to handoff and `end`, not implementation. Target it with the automation's [`stage`](/factories/automations/#target-a-blueprint-stage) field instead of `agent`, preserving every trigger filter. For a definition without a Blueprint, use `agent: foreman` and the triage-only prompt shown below.
 
    Choose your issue source below.
 
@@ -168,6 +168,9 @@ as the starting point, adapted to my issue source.
 - Add or update the triage skill with my categories, priority levels, the
   evidence required before naming a root cause, and when to ask a
   maintainer.
+- If the factory uses a Blueprint, put the triage procedure and stopping
+  route in its stages and target triage with the automation's stage field.
+  Do not rely on an intake prompt to override an implementation route.
 - Configure one intake path for my issue source using the setup procedure.
   If I have not selected a path, ask me before configuring it. Do not add
   both creation and label intake for the same backlog. Route requests to
@@ -209,7 +212,7 @@ To take accepted issues through implementation in the same factory, follow the [
 
 * **Triage runs twice for one issue** - Creation and label triggers may overlap, or a Jira general-purpose handler may also match. Use one intake path per backlog. For Jira, exclude `needs-triage` from the general `agent_session_created` handler while preserving its other exclusions. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
 * **Applying `needs-triage` starts no run** - Check the repository, team, project, and label filters. GitHub skips bot senders by default, so retry from a person's account when required. For Jira, match the label's capitalization and assign or mention **Warp** after applying it. See [an event that should start work doesn't](/factories/troubleshooting/#an-event-that-should-start-work-doesnt).
-* **Implementation starts after triage** - The triage prompt may lack its stopping instruction, or another automation may match `factory-ready`. Require the triage prompt to return findings and stop without dispatching implementation. Check overlapping automation filters, and remove `needs-triage` before applying `factory-ready` to request implementation.
+* **Implementation starts after triage** - Inspect the Blueprint's triage exit route and check for another automation matching `factory-ready`. Route this triage-only path to handoff and `end`, not implementation. Without a Blueprint, restore the prompt's stopping instruction. Remove `needs-triage` before applying `factory-ready` to request implementation.
 
 ## Related pages
 

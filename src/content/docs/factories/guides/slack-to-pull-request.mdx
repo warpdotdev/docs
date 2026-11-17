@@ -25,6 +25,8 @@ Use an existing factory with a foreman and an implementation agent, or adapt the
 
 Use the `slack` / `app_mention` event to start work from mentions. Filter it to one channel so mentions elsewhere do not start this automation.
 
+If the factory uses a [Blueprint](/factories/blueprints/), configure its stages for clarification, implementation, and handoff before testing intake. Keep the thread response requirements below, but put delegation and approval decisions in the Blueprint rather than rely on the automation prompt to override it.
+
 1. In the factory dashboard, open **Automations** and find the existing Slack mention automation. Connecting Slack during setup creates one. Reuse it to avoid duplicate runs.
    * **Warp-managed factory** - Edit the automation in the dashboard.
    * **GitHub-backed factory** - Edit its definition file. The dashboard view is read-only.

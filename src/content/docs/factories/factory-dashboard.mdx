@@ -64,7 +64,9 @@ For a factory with a Blueprint, select **Blueprint** in the factory dashboard's 
 
 When work needs your input, expand the human-review list and select the work item to open its run conversation. Read the question and respond there. The gate waits for an answer; a request for changes sends work along the configured revision route rather than approving it.
 
-See [About Blueprints](./blueprints/) for how routes and gates work. A Blueprint graph describes the workflow; inspect the run conversation, PR diff, and check results to verify what actually happened.
+To change a stage's procedure, routes, or gates, edit the Blueprint in the [definition](#edit-definitions-in-the-factory-definition-tab). To change its worker's model, harness, or tools, edit the agent. See [About Blueprints](./blueprints/) for the workflow model.
+
+A Blueprint graph describes the workflow; inspect the run conversation, PR diff, and check results to verify what actually happened. Existing work keeps the Blueprint selected when its run started.
 
 ## Manage agents and automations
 
@@ -72,7 +74,7 @@ See [About Blueprints](./blueprints/) for how routes and gates work. A Blueprint
 
 {/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
 
-The automation editor doesn't change execution settings; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
+The automation editor doesn't change execution settings. Agent-targeted automations can use [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides); stage-targeted automations use the stage worker's settings instead. When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
 
 ## Edit definitions in the Factory definition tab
 

@@ -1,0 +1,85 @@
+---
+title: Routing work between Blueprint stages
+description: >-
+  Configure entry points, ordered conditions, and revision loops in a Warp Factories Blueprint, then check the paths with concrete requests.
+---
+
+Use routes to decide what happens after a stage. For an issue-to-PR workflow, review findings can return to implementation while an accepted change moves to human handoff.
+
+## Prerequisites
+
+* An editable [factory definition](../factory-as-code/#where-the-definition-lives) with [stages and workers](./stages/).
+* A disposable test repository and permission to run the workflow there.
+
+{/* VERIFY: Apply and exercise the routing examples, including overlapping conditions, unmatched outcomes, same-PR revisions, and existing-run definition retention before publication. */}
+
+## Set the entry route
+
+In `factory.yaml`, `blueprint.start.to` chooses where new work enters. For one starting stage, use a scalar:
+
+```yaml title="Entry inside blueprint"
+start:
+  to: plan
+```
+
+For multiple paths, use ordered objects with `stage` and `when`. For example, if your Blueprint declares `plan` and `implement`:
+
+```yaml title="Conditional entry inside blueprint"
+start:
+  to:
+    - stage: plan
+      when: The request has unresolved decisions or explicitly requires a plan.
+    - stage: implement
+      when: The request is fully defined.
+```
+
+The worker driving the workflow judges these prose conditions and takes the first match. Put the more specific condition first. Conditions are not Boolean expressions evaluated by a rules engine.
+
+## Return review findings for revision
+
+1. In `blueprint.stages.implement`, set `to: review`.
+2. In the `review` stage, require outputs that distinguish findings from acceptance of a particular head.
+3. Replace review's unconditional exit with:
+
+   ```yaml title="Routes inside the review stage"
+   to:
+     - stage: implement
+       when: Review found actionable changes for implementation.
+     - stage: end
+       when: Review accepted the current PR head with no changes required.
+   ```
+
+Every item in a conditional list needs `when`. For one unconditional route, use `to: review` or `to: end`, not a list entry with a missing condition.
+
+The destination must be a sibling stage or `end`. The order of stage declarations does not set execution order. If no condition fits, the coordinator asks for the missing decision rather than silently treating the work as complete.
+
+Keep the PR and branch in the implementation stage's inputs and prompt so a revision updates the existing change. A return route does not mean “open another PR.”
+
+## Keep intake separate from workflow routing
+
+[Automations](../automations/) decide which external events start or continue work. Their filters do not replace the Blueprint's route conditions. Two automations matching the same event can still start two runs.
+
+An automation can target a named Blueprint stage with `stage` instead of `agent`. The foreman receives the event and enters the workflow at that stage; the stage's worker configuration supplies execution settings. Do not combine a stage target with `agent` or per-run execution overrides. See [automation syntax](../factory-as-code/#automationsnameautomationmd).
+
+Follow-ups to existing work resume the stage they concern. They do not repeat the entry rules as if every review reply were a new request.
+
+## Test the paths
+
+After [validation and application](../factory-as-code/#validate-a-definition), start new test work for a changed Blueprint. Existing tasks keep the definition selected when they started.
+
+| Test input or outcome | What to check |
+| --- | --- |
+| A request with an unresolved product decision | Planning runs before implementation |
+| A well-defined fix that also explicitly requires a plan | The first entry condition selects planning, not the broader implementation path |
+| Actionable independent-review findings | The existing implementation conversation updates the same PR, then returns to review |
+| An outcome that satisfies neither review condition | The coordinator asks for a decision and does not finish |
+| An event outside the automation's repository or label filters | That automation does not start work; check other matching automations separately |
+| A definition edit followed by a reply to an existing task | The existing task keeps its earlier workflow; separate new work uses the applied change |
+
+Inspect the conversations, PR identity, and tested commits. A completed run alone does not prove that the intended route was taken.
+
+## Related pages
+
+* [Defining Blueprint stages](./stages/) - Supply the outputs conditions use
+* [Adding human gates to a Blueprint](./gates/) - Route approval and requested changes separately
+* [Factory automations](../automations/) - Configure event matching without widening intake

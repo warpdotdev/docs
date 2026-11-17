@@ -42,7 +42,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
    Use the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) as a layout reference. It stores shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`.
 
-4. Configure the automation to send approved issues to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`.
+4. Configure the automation to send approved issues to your foreman; the example uses `agent: foreman`. With a [Blueprint](/factories/blueprints/), configure entry routes for approved implementation and unresolved decisions, a planning-approval gate when needed, and independent review that returns findings to the same implementation conversation and PR. The automation prompt below does not replace those stages or routes.
 
    Choose your issue source below.
 
@@ -141,6 +141,9 @@ for shared conventions and implementation procedures.
   a second one.
 - Put my build, test, lint, and formatting commands in the implementation
   skill, and require tests for behavior changes.
+- If the factory uses a Blueprint, put implementation, independent review,
+  revision routes, and any required planning-approval gate in its stages.
+  Keep revisions on the existing branch and pull request.
 - Route approved issues to the foreman using the prompt in the setup
   procedure. Require implementation against the acceptance criteria,
   human input for missing requirements, human approval before implementing

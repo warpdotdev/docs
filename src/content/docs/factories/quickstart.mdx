@@ -57,12 +57,9 @@ For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factori
    <figcaption>The factory name and optional details during setup.</figcaption>
    </figure>
 
-6. Choose which agents the foreman can dispatch. Leave **Code** enabled so this quickstart ends in a pull request. See [About factory agents](/factories/factory-agents/) for details.
+6. Review the default [Blueprint](./blueprints/) in setup. Inspect its stages to see how requests reach implementation and review, and where it asks for your decisions. Worker models and tools are configured separately in [agent settings](/factories/factory-agents/configuration/).
 
-   <figure style={{ maxWidth: "563px" }}>
-   ![The Configure your Factory agents screen showing the foreman handle and enabled Triage, Spec, Code, and Review agents.](../../../assets/factories/quickstart-pick-agents.png)
-   <figcaption>Default factory agents enabled during setup.</figcaption>
-   </figure>
+   {/* VERIFY: Confirm the launch setup flow and Blueprint preview against the live product; replace the removed agent-selection screenshot with current setup proof before publication. */}
 
 7. Optionally, connect Slack and an issue tracker. You can add either later from [Connect your factory](/factories/connect-your-factory/).
 
@@ -97,7 +94,7 @@ Send a request to your factory's foreman from the {VARS.FACTORY_WEB_APP}. You ca
 
 ## Optional: tune your factory
 
-Review the first pull request against your team’s expectations. Did it address the request, follow your conventions, and include useful verification results? Use any gaps to adjust the agent’s instructions, skills, or configuration.
+Review the first pull request against your team’s expectations. Did it address the request and include useful checks? Adjust workflow steps and approval requirements in the Blueprint; adjust reusable procedures, models, and tools in agent configuration.
 
 Follow [Testing and tuning your factory](/factories/guides/testing-and-tuning-your-factory/) to apply one change and compare the results before expanding its workload.
 

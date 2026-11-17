@@ -28,6 +28,8 @@ This guide applies to Jira Cloud. Jira Server and Data Center are not supported.
 
 Assigning or mentioning Warp on a Jira work item creates an agent session. Use the `jira` / `agent_session_created` trigger with `project_keys` to limit which projects' sessions this automation handles.
 
+For a [Blueprint](/factories/blueprints/), configure clarification, implementation, and handoff in its stages. Preserve the session replies, work-item comments, and unchanged status and assignee required below. An automation prompt supplies event context; it does not replace the Blueprint's delegation order.
+
 Connecting the Jira site to your workspace grants integration access; automation filters control routing. For a GitHub-backed factory, declare `type: jira` in `factory.yaml`'s [integrations list](/factories/factory-as-code/#integrations). Dashboard project selection is not required or editable for that setup.
 
 1. In the factory dashboard, open **Automations** and find the existing Jira automation. Selecting Jira projects during setup creates one. Reuse it to avoid overlapping handlers.

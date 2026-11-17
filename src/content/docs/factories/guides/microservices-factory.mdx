@@ -117,6 +117,8 @@ A change spanning services produces one pull request per repository. A person co
 
 ## Verify against contracts and dependencies
 
+With a [Blueprint](/factories/blueprints/), place the implementation and review procedures below in their stages, and keep reusable contract-check commands in skills. Pass contract diffs and provider/consumer results as stage outputs; route incompatible changes to a human decision, not implementation. The agent-only starter shown above remains a separate configuration path.
+
 1. Define the compatibility policy in `agents/foreman/agent.md`:
    * Change the provider first.
    * Allow only backward-compatible additions. Do not remove, rename, or change the types of existing fields or endpoints, or add required request fields.
