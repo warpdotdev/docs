@@ -9,7 +9,7 @@ sidebar:
 
 Warp Factories provides the infrastructure for development workflows you define and configure. Your [definition files](/factories/factory-as-code/) connect repositories, agents, and automations. Use Scorers to check runs against criteria you define, and benchmarks to compare configurations on the same tasks. See [Measure and improve](/factories/measure-and-improve/).
 
-The foreman agent routes requests according to the workflow's instructions and communicates through the tool where work started, such as Slack or Linear. The default workflow covers triage, planning, implementation, and review, with human decision points you can configure.
+The foreman agent routes requests according to the workflow's instructions and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](./blueprints/) makes the stages, workers, routes, and human gates explicit. Definitions without a Blueprint keep routing in the foreman's instructions.
 
 A work item is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
@@ -20,7 +20,7 @@ A work item is a single request the factory acts on, such as an issue, support r
 
 The foreman passes each agent the context it needs and continues existing conversations when work returns for revisions.
 
-Not every work item needs every stage. The foreman picks the shortest path that still meets your quality policy: it skips stages when the work is already well defined, starts partway through when enough context exists, and sends work back to an earlier agent when revisions are needed.
+Not every work item needs every stage. With a Blueprint, the foreman takes the first route whose prose condition matches the request or the preceding stage's outputs. Configure those routes to skip work that is already defined or send changes back for revision. A delegated worker returns its stage's outputs; the foreman selects what happens next.
 
 ### Stages
 
@@ -52,6 +52,8 @@ flowchart LR
 
 Stages and agents are named separately, so the spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. See [About factory agents](/factories/factory-agents/) for each agent's responsibilities.
 
+These lifecycle names describe the default workflow, not a required sequence or a list of Blueprint stage identifiers. A Blueprint's stage names come from its definition. Existing work retains the Blueprint selected when its run started, even after you apply a definition change.
+
 Each agent's run is a [cloud agent run](/platform/) on Warp-hosted or [managed self-hosted](/factories/self-hosting/) compute, using the factory's repositories and the agent's configured model and [harness](/factories/harnesses/). Watch and steer runs from the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). Work that needs your input appears in the **Waiting on you** status filter on [Home](/factories/factory-home/).
 
 ## Where your team stays in charge
@@ -62,7 +64,7 @@ A factory pauses when a person needs to decide. By default, that's three places:
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 
-The first two are workflow policy, written into the foreman's instructions; edit them to change when the factory checks in. Merging is enforced by your repository, so if you require human-only merges, use branch protection and repository permissions.
+In a Blueprint, declare gates for the first two decisions. A gate pauses the stage until you answer; its outgoing routes distinguish approval from requested changes. In a definition without a Blueprint, those checkpoints remain in the foreman's instructions. Merging is enforced by your repository, so if you require human-only merges, use branch protection and repository permissions.
 
 ## How the factory improves itself
 
@@ -74,6 +76,7 @@ A factory's agents, automations, runners, scorers, skills, and webhooks are conf
 
 ## Related pages
 
+* [About Blueprints](./blueprints/) - Choose stages, routes, and human gates
 * [Sizing a factory](/factories/#sizing-a-factory) - Which repositories belong in one factory.
 * [About factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory.

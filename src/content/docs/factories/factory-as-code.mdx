@@ -98,6 +98,7 @@ Warp publishes unauthenticated JSON Schemas for editor completion and validation
 * `https://app.warp.dev/api/v1/factory-files/schemas` - Lists supported versions and the current version.
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1` - Returns all `v1alpha1` documents, keyed by document name.
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1/<document>` - Returns one document for use as a schema reference.
+* `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha2` - Returns documents for definitions that require a Blueprint.
 
 | Schema document | Applies to |
 | --- | --- |
@@ -139,9 +140,69 @@ agentDefaults:
 
 | Field | Required | Default | Description |
 | --- | --- | --- | --- |
-| <span id="schemaversion" />`schemaVersion` | Yes | None | Set to `v1alpha1`. |
+| <span id="schemaversion" />`schemaVersion` | Yes | None | `v1alpha1` for definitions without a Blueprint; `v1alpha2` requires `blueprint`. |
 | <span id="name" />`name` | Yes | None | The factory's name. |
 | <span id="description" />`description` | No | Not specified | What the factory is for. |
+
+### `blueprint`
+
+**Required in `v1alpha2`; not supported in `v1alpha1`.**
+
+{/* VERIFY: Confirm public v1alpha2 availability and validate this exact fragment; the public parser currently rejects gates as an unknown field. */}
+
+:::caution
+Draft syntax: the public validator currently rejects the `gates` field shown below. Resolve that incompatibility before using this fragment.
+:::
+
+Declares the workflow's stages, workers, routes, and human gates. See [About Blueprints](./blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
+
+Basic fields for a locally defined, flat Blueprint:
+
+| Field | Description |
+| --- | --- |
+| `worker` | Required. Agent that drives the workflow; must name the declared foreman. |
+| `start.to` | Required. Entry route or ordered list of conditional routes. |
+| `stages` | Required. Mapping of stage names to stage definitions. Names must be unique; `start` and `end` are reserved. |
+| `stages.NAME.worker` | Required. Declared agent that performs the stage. |
+| `stages.NAME.inputs`, `stages.NAME.outputs` | Optional prose contracts describing the context to supply and the result to return. Not typed schemas. |
+| `stages.NAME.prompt` | Required for a leaf stage. Inline instructions, or a mapping with `file` naming a prompt file relative to the definition root. |
+| `stages.NAME.gates` | Optional mapping of gate names to questions for a person. |
+| `stages.NAME.to` | Required. A sibling stage name or `end`, or an ordered list of objects with `stage` and `when`. |
+
+Each gate requires `prompt` and `outputs`, describing the question and acceptable answers. Optional `when` is a prose condition; omit it to ask after the stage's work. Every entry in a conditional route list requires `when`. Use a scalar such as `to: implement` for one unconditional route.
+
+This fragment adds plan approval before implementation. It assumes `agents/foreman/agent.md` declares the foreman and `agents/implementer/agent.md` declares the implementation worker. Keep their execution settings in those files.
+
+```yaml title="factory.yaml"
+schemaVersion: v1alpha2
+blueprint:
+  worker: foreman
+  start:
+    to: plan
+  stages:
+    plan:
+      worker: foreman
+      inputs: The request and repository context.
+      outputs: A plan and the plan-review answer.
+      prompt: Propose a short plan. Do not edit code.
+      gates:
+        plan-review:
+          prompt: Approve this plan or request changes.
+          outputs: Approval, or requested changes to the plan.
+      to:
+        - stage: plan
+          when: The plan-review answer requests changes.
+        - stage: implement
+          when: The plan-review answer approves the plan.
+    implement:
+      worker: implementer
+      inputs: The approved plan.
+      outputs: A draft PR and verification results.
+      prompt: Implement the plan, run checks, and return a draft PR. Do not merge.
+      to: end
+```
+
+Retain the other required `factory.yaml` fields when adding the fragment, then [validate the complete definition](#validate-a-definition). A parser pass checks structure and references, not whether the prose covers every outcome or the run has the required access.
 
 ### `alias`
 

@@ -6,9 +6,9 @@ Draft documentation that explains Blueprints and takes a reader through one issu
 
 - Work item: [docs #1045](https://github.com/warpdotdev/docs/issues/1045).
 - Requester: `hongyi-chen`.
-- Status: proposed specification; requester approval is pending.
+- Status: approved by the requester at commit `66650f78781adb90f9d3d80bfce094c3107173f3`; implementation drafts are in progress.
 - Implementation must reuse this docs branch and draft PR.
-- No spec approval or approval waiver has been received.
+- Written approval: “looks great go ahead”. The later draft-only exception permits prelaunch authoring, not publication or merging.
 
 ## Requester decisions
 
