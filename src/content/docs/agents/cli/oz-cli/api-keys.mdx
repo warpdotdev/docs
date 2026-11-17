@@ -16,13 +16,11 @@ Warp API keys authenticate requests to the {VARS.WARP_PLATFORM_API}, the {VARS.W
 
 ## Personal vs. agent keys
 
-Choose a key type based on what needs to authenticate:
-
 * **Ad hoc API requests** - Use a personal API key with a short expiration, such as **1 day**. Requests authenticate as you and respect your visibility and access controls. The [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/) accepts only personal keys.
 * **External systems submitting factory work** - Use an agent API key scoped to the target factory's foreman agent. For example, give an internal service this key to call `POST /factory/{uid}/runs`. [Find the foreman](#finding-the-factorys-foreman) before creating the key.
 * **Other unattended runs** - Use an agent key for a [cloud agent](/platform/agents/) on your team when requests must act as that agent rather than as you.
 
-An agent key authenticates as the selected agent, not as the person who created the key. Selecting an agent does not grant unrestricted factory access. See [factory API permissions and attribution](/factories/factory-api/#permissions-and-attribution) for the confirmed submission and task-list access.
+An agent key authenticates as the selected agent, not as the person who created the key. Selecting an agent does not grant unrestricted factory access. See [factory API permissions and attribution](/factories/factory-api/#permissions-and-attribution) for submission and task-list permissions.
 
 ### Finding the factory's foreman
 

@@ -44,7 +44,7 @@ For a job created directly through the Agent API that must exit immediately, set
 
 Add this script to the job your orchestrator starts. `CI_JOB_ID` must be unique for each job.
 
-Supply two credentials through your secret manager: `WARP_WORKER_API_KEY` for the self-hosted worker and `WARP_RUN_API_KEY` for the caller creating this standalone run. Use a short-lived personal key for ad hoc runs or an agent key for an authorized agent. [Create the keys separately](/agents/cli/oz-cli/api-keys/).
+Supply two credentials through your secret manager: `WARP_WORKER_API_KEY` for the self-hosted worker and `WARP_RUN_API_KEY` for the caller creating this standalone run on the worker's team. Use a short-lived personal key for ad hoc runs or an agent key for an authorized agent. [Create the keys separately](/agents/cli/oz-cli/api-keys/).
 
 For an external system submitting work to a factory, use that factory's foreman key with [factory endpoints](/factories/factory-api/) instead. The worker key does not authorize factory submissions.
 
@@ -68,6 +68,7 @@ worker_pid=$!
 trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
 
 WARP_API_KEY="$WARP_RUN_API_KEY" oz agent run-cloud \
+  --team \
   --host "$worker_id" \
   --prompt "Run the test suite, fix failures, and open a pull request."
 
