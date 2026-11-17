@@ -95,13 +95,19 @@ export function validateRetrieveQuery(query) {
 
 /**
  * Build the upstream Kapa retrieval request body.
+ *
+ * `redact_query: true` is defense-in-depth so raw agent questions are not kept
+ * in Kapa analytics text. Project-level user-message PII masking (dashboard)
+ * still applies separately when enabled.
+ *
  * @param {string} query
- * @returns {{ query: string, integration_id: string }}
+ * @returns {{ query: string, integration_id: string, redact_query: true }}
  */
 export function buildKapaRetrievalBody(query) {
 	return {
 		query,
 		integration_id: KAPA_RETRIEVAL_INTEGRATION_ID,
+		redact_query: true,
 	};
 }
 

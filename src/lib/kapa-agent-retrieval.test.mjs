@@ -86,8 +86,20 @@ test('success proxies ranked chunks and attributes project/integration', async (
 	assert.deepEqual(body, {
 		query: 'How do I use codebase context?',
 		integration_id: KAPA_RETRIEVAL_INTEGRATION_ID,
+		redact_query: true,
 	});
 	assert.deepEqual(buildKapaRetrievalBody(body.query), body);
+	assert.equal(body.redact_query, true);
+	assert.equal(body.integration_id, KAPA_RETRIEVAL_INTEGRATION_ID);
+});
+
+test('buildKapaRetrievalBody always sets redact_query and integration attribution', () => {
+	const body = buildKapaRetrievalBody('What is Warp Drive?');
+	assert.deepEqual(body, {
+		query: 'What is Warp Drive?',
+		integration_id: KAPA_RETRIEVAL_INTEGRATION_ID,
+		redact_query: true,
+	});
 });
 
 test('missing, blank, and oversized queries return 400', async () => {
