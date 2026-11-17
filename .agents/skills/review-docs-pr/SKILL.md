@@ -80,7 +80,8 @@ Focus on:
 1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
 3. **Content quality**: Apply the [Content review process](../../../AGENTS.md#content-review-process) to new drafts and revisions. Check that the heading and opening reveal the answer or first action, choices explain when and where to act, and examples resolve uncertainty without adding unsupported behavior. Check for proper frontmatter and appropriate headers and lists. For setup instructions, check each requirement:
-   * Prerequisites precede dependent steps. Conditions state who or what a step applies to before its instruction.
+   * Prerequisites precede dependent steps. Conditions needed to decide whether, when, or by whom to act precede the action. Procedure-wide requirements stay in prerequisites rather than being repeated in each step.
+   * Goal-first instructions name the destination when readers choose where to make a change. Established procedures give the location and action directly. In behavior explanations, an unambiguous qualification can follow the main statement. Don't request reordering solely to enforce a preferred pattern.
    * Each instruction has its own sentence. Separate purposes, conditions, or locations are not bundled with a semicolon.
    * Reader actions, automatic product behavior, and other people's responsibilities are distinct. Interface names are exact and pronouns unambiguous.
    * The task is stated before fields or example names.

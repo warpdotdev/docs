@@ -151,12 +151,12 @@ If a pronoun could refer to more than one person, feature, or object, repeat the
 - ✅ "After you merge your pull request, you can delete the branch."
 - ❌ "After you merge your pull request, you can delete it." (delete the PR or the branch?)
 
-#### Separate instructions and lead with conditions
+#### Separate instructions and clarify their order
 Give each instruction its own sentence. Split sentences that bundle actions with different purposes, conditions, or locations. Do not use a semicolon to pair separate instructions. Keep closely related details together when they describe one action.
 
-State a condition before the instruction it limits, such as who can perform the action or what must already have happened. Put a condition that applies to the whole procedure in its prerequisites.
+Order instructions by what the reader needs to know first. State a condition before the action when it determines whether, when, or by whom the action should be performed. Put procedure-wide requirements in prerequisites. Don't repeat conditions already established by the heading or prerequisites.
 
-When readers need to choose where to make a change, lead each sentence with their goal and end with the action that serves it. Vary the phrasing when another structure is clearer.
+When readers are choosing where to make a change, name the goal before its destination. Within an established procedure, give the location and action directly. Keep qualifications beside the statements they limit. In behavior explanations, a qualification can follow the main statement when the meaning is clear. Don't rewrite clear sentences solely to enforce a preferred order.
 - ✅ "To change a page's wording, edit its Markdown file. To change its position in navigation, edit `src/sidebar.ts`."
 - ❌ "Change a page's wording in its Markdown file; use `src/sidebar.ts` to change its position in navigation."
 
@@ -623,7 +623,7 @@ When readers can combine procedures from this page and related pages, read and c
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
-- **Keep prerequisites concise and early.** Put requirements before the steps that depend on them. State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details. State a step-specific condition before its action, beside the step that needs it. Put conditions for the whole procedure in prerequisites. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
+- **Keep prerequisites concise and early.** Put requirements before the steps that depend on them. State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details. State a step-specific condition before its action when it determines whether, when, or by whom to act. Put procedure-wide requirements in prerequisites rather than repeating them in each step. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Give each instruction its own sentence even when related actions share a numbered step. Keep details of a single action together.
@@ -1136,7 +1136,7 @@ Before publishing any documentation, verify:
 - [ ] The closing section uses the content-type heading and link-list format defined in [Closing section](#closing-section)
 - [ ] Instructions include expected outcomes after key steps
 - [ ] The heading and opening make the answer, decision, or first action easy to find
-- [ ] Prerequisites precede dependent steps, and conditions precede the instructions they limit
+- [ ] Prerequisites precede dependent steps; conditions needed to decide whether, when, or by whom to act precede the action without repeating established context
 - [ ] Each instruction has its own sentence, with the actor, action, and location clear
 - [ ] Decision points explain which option applies, where to act, and any consequence of the choice
 - [ ] Examples resolve a realistic uncertainty and match verified behavior; uncertain details are flagged for verification
@@ -1154,7 +1154,7 @@ Before publishing any documentation, verify:
 Apply this pass to new drafts and revisions before delivery:
 
 1. **Opening and structure**: Read the heading and opening paragraph. Can readers find the answer or first action without reading the entire page? Confirm the structure matches the content type.
-2. **Procedure order**: Scan each procedure in order. Does every prerequisite precede the step that needs it? Do conditional steps state who or what they apply to before the instruction?
+2. **Procedure order**: Scan each procedure in order. Does every prerequisite precede the step that needs it? Are conditions needed to decide whether, when, or by whom to act clear before the action, without repeating conditions already established? Apply [Separate instructions and clarify their order](#separate-instructions-and-clarify-their-order) when checking sentence order.
 3. **Separate instructions**: Split sentences that bundle actions with different purposes, conditions, or places in the product. Check that the actor and next action remain clear in the surrounding paragraph.
 4. **Decisions and completeness**: At each choice, can readers tell which option applies and what to do next? Preserve the context, exceptions, consequences, and next steps needed to complete the task.
 5. **Accuracy and consistency**: Verify product terms, instructions, examples, and expected results against available authoritative sources. Flag uncertain details for verification under the existing verification contract. Check formatting against this guide.
