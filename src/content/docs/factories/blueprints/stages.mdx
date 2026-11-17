@@ -8,8 +8,8 @@ Give each part of your workflow a stage with a clear result. For example, an imp
 
 ## Prerequisites
 
-* Permission to edit your factory's [definition](../factory-as-code/#where-the-definition-lives).
-* A definition with a [Blueprint](../blueprints/) and configured agents. Reuse existing workers or [create a custom agent](../factory-agents/creating-custom-agents/).
+* Permission to edit your factory's [definition](/factories/factory-as-code/#where-the-definition-lives).
+* A definition with a [Blueprint](/factories/blueprints/) and configured agents. Reuse existing workers or [create a custom agent](/factories/factory-agents/creating-custom-agents/).
 
 {/* VERIFY: Apply the stage examples in a complete definition and observe worker selection, stage-specific instructions, and the implementation-to-review handoff before publication. */}
 
@@ -18,7 +18,7 @@ Give each part of your workflow a stage with a clear result. For example, an imp
 The stage says what work to do now. The agent configuration supplies the worker's model, harness, tools, and instructions that apply across its work.
 
 1. In `factory.yaml`, find the stage to change under `blueprint.stages`, or add a new named stage. Choose a name for the work, such as `implement` or `review`, rather than for its model.
-2. Set `worker` to an agent declared in `agents/<name>/agent.md`. In this example, `implementer` makes the change and `reviewer` checks it independently. Configure their repository access and tools in their [agent settings](../factory-agents/configuration/).
+2. Set `worker` to an agent declared in `agents/<name>/agent.md`. In this example, `implementer` makes the change and `reviewer` checks it independently. Configure their repository access and tools in their [agent settings](/factories/factory-agents/configuration/).
 3. Write `inputs`, `prompt`, and `outputs` so the next stage has the evidence it needs:
 
    ```yaml title="Stages under blueprint.stages"
@@ -42,7 +42,7 @@ The stage says what work to do now. The agent configuration supplies the worker'
 
    Keep the rest of your definition, including its entry route. Make both stages reachable; if an earlier stage led directly to `end`, route it to `implement` or `review` as appropriate.
 
-Inputs and outputs are instructions, not typed schemas. “The checks passed” is less useful than the command, exit code, and tested commit. Put recurring check procedures in a [skill](../factory-skills/), and name that skill in the stage prompt.
+Inputs and outputs are instructions, not typed schemas. “The checks passed” is less useful than the command, exit code, and tested commit. Put recurring check procedures in a [skill](/factories/factory-skills/), and name that skill in the stage prompt.
 
 ## Reuse an agent across stages
 
@@ -50,23 +50,23 @@ A stage name and a worker name serve different purposes. Two stages can use the 
 
 When a stage uses the worker already driving its workflow, it runs in that conversation. A different worker receives a delegated stage. For later revisions, the coordinator continues that worker's existing conversation for the task.
 
-Do not copy the Blueprint's full routing procedure into each `agent.md`. Keep communication rules and reusable behavior there; keep stage work in `prompt` and next-step decisions in [`to`](./routes/).
+Do not copy the Blueprint's full routing procedure into each `agent.md`. Keep communication rules and reusable behavior there; keep stage work in `prompt` and next-step decisions in [`to`](/factories/blueprints/routes/).
 
 ## Group related stages
 
 A stage can contain its own `start` and `stages` instead of a leaf `prompt`. Its worker drives that group, runs stages assigned to itself, and delegates other stages. Reaching the group's `end` returns its declared outputs to the enclosing workflow; it does not finish the whole task.
 
-Use a group when one worker needs to coordinate a subworkflow, such as implementation and review, before returning a single result. Stage names must be unique across the Blueprint. See [Blueprint syntax](../factory-as-code/#blueprint) for the fields and constraints.
+Use a group when one worker needs to coordinate a subworkflow, such as implementation and review, before returning a single result. Stage names must be unique across the Blueprint. See [Blueprint syntax](/factories/factory-as-code/#blueprint) for the fields and constraints.
 
 ## Apply and check the handoff
 
-1. [Validate and apply the complete definition](../factory-as-code/#validate-a-definition), then start a new test request in a repository you control.
+1. [Validate and apply the complete definition](/factories/factory-as-code/#validate-a-definition), then start a new test request in a repository you control.
 2. Ask for one bounded change, such as fixing a broken README command. Inspect the stage's conversation and confirm the assigned worker used the intended prompt and returned the required outputs.
 3. Inspect review's inputs. Confirm it received the same PR and tested head, rather than a summary without the diff or check results.
-4. To add a revision loop, configure [review's outgoing routes](./routes/). The unconditional `to: end` above finishes the workflow after review; it does not itself request another implementation pass.
+4. To add a revision loop, configure [review's outgoing routes](/factories/blueprints/routes/). The unconditional `to: end` above finishes the workflow after review; it does not itself request another implementation pass.
 
 ## Related pages
 
-* [Routing work between Blueprint stages](./routes/) - Return findings to implementation
-* [Adding human gates to a Blueprint](./gates/) - Require an answer before work continues
-* [Configuring factory agents](../factory-agents/configuration/) - Change worker resources and base instructions
+* [Routing work between Blueprint stages](/factories/blueprints/routes/) - Return findings to implementation
+* [Adding human gates to a Blueprint](/factories/blueprints/gates/) - Require an answer before work continues
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Change worker resources and base instructions

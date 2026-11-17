@@ -9,7 +9,7 @@ sidebar:
 
 Factory agents run the work in your development workflow. The foreman coordinates the workflow and communicates with you; other agents investigate requests, plan changes, implement them, or review the result.
 
-With a [Blueprint](./blueprints/), you assign agents to stages and define each stage's procedure, required inputs, and outputs. The Blueprint also controls handoffs, revision routes, and human gates. Agent configuration supplies the models, harnesses, tools, and shared instructions those stages use.
+With a [Blueprint](/factories/blueprints/), you assign agents to stages and define each stage's procedure, required inputs, and outputs. The Blueprint also controls handoffs, revision routes, and human gates. Agent configuration supplies the models, harnesses, tools, and shared instructions those stages use.
 
 ## The default agents
 
@@ -33,7 +33,7 @@ For the complete lifecycle, see [How Warp Factories work](/factories/how-factori
 
 The foreman drives the top-level Blueprint. It gathers each stage's inputs from the request and earlier outputs, runs stages assigned to itself in its conversation, and delegates other stages to their workers. It relays questions and answers and continues an agent's existing conversation for revisions rather than starting a new one.
 
-A worker can coordinate a [group of stages](./blueprints/stages/#group-related-stages). It handles that group's internal handoffs and returns the group's result to the foreman.
+A worker can coordinate a [group of stages](/factories/blueprints/stages/#group-related-stages). It handles that group's internal handoffs and returns the group's result to the foreman.
 
 After implementation and review, the foreman returns the pull request and supporting evidence, then waits for your team to merge. By default, the foreman marks the work item complete on a later merge notification or your confirmation that the pull request landed.
 
@@ -49,7 +49,7 @@ Triage researches the codebase and related issues, reproducing problems when res
 
 ### Spec
 
-Spec defines requirements through the foreman and writes specifications with validation criteria in a draft pull request. Put approval requirements in the planning stage's [gates](./blueprints/gates/) and route implementation only from approval of the current plan.
+Spec defines requirements through the foreman and writes specifications with validation criteria in a draft pull request. Put approval requirements in the planning stage's [gates](/factories/blueprints/gates/) and route implementation only from approval of the current plan.
 
 ### Implement
 

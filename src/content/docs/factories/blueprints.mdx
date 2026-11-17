@@ -12,10 +12,10 @@ For example, your issue-to-PR workflow can send a well-defined bug directly to i
 
 ## Stages, workers, and routes
 
-* **Stage** - A unit of work with its own instructions, inputs, and outputs. A review stage can require findings against a particular PR head. See [Defining Blueprint stages](./blueprints/stages/).
-* **Worker** - The configured agent that runs a stage. The same implementation agent can handle the first change and later revisions. See [About factory agents](./factory-agents/).
-* **Route** - A condition that selects what happens next. Review findings can return to implementation; accepted work can move to handoff. See [Routing work between Blueprint stages](./blueprints/routes/).
-* **Gate** - A question that pauses a stage for a person. A plan-review gate can accept approval or requested changes, with different routes for each answer. See [Adding human gates to a Blueprint](./blueprints/gates/).
+* **Stage** - A unit of work with its own instructions, inputs, and outputs. A review stage can require findings against a particular PR head. See [Defining Blueprint stages](/factories/blueprints/stages/).
+* **Worker** - The configured agent that runs a stage. The same implementation agent can handle the first change and later revisions. See [About factory agents](/factories/factory-agents/).
+* **Route** - A condition that selects what happens next. Review findings can return to implementation; accepted work can move to handoff. See [Routing work between Blueprint stages](/factories/blueprints/routes/).
+* **Gate** - A question that pauses a stage for a person. A plan-review gate can accept approval or requested changes, with different routes for each answer. See [Adding human gates to a Blueprint](/factories/blueprints/gates/).
 
 The Blueprint lives in `factory.yaml`. Each stage names a worker from the factory's agent definitions. A stage named `planning` might use the `spec` agent; another stage might use that same agent for a different procedure.
 
@@ -23,7 +23,7 @@ The Blueprint lives in `factory.yaml`. Each stage names a worker from the factor
 
 The Blueprint supplies the stage procedures, handoffs, route conditions, and gates. Its workflow takes precedence over stage lists or delegation orders in other prompts. When you change the review loop, edit the Blueprint rather than maintain a second routing procedure in the foreman's instructions.
 
-Agent instructions still define behavior that applies across the agent's work. Skills still supply reusable procedures, such as the repository's test commands. Models, harnesses, runners, tools, and access remain in the [agent configuration](./factory-agents/configuration/).
+Agent instructions still define behavior that applies across the agent's work. Skills still supply reusable procedures, such as the repository's test commands. Models, harnesses, runners, tools, and access remain in the [agent configuration](/factories/factory-agents/configuration/).
 
 The foreman drives the top-level workflow and communicates with you. It gathers a stage's inputs from the request and earlier results, runs its own stages in its conversation, and dispatches other stages to their workers. A dispatched worker follows the named stage, reports its outputs, and stops. The foreman uses that result to choose the next route.
 
@@ -69,5 +69,5 @@ For a single ad-hoc coding request, a standalone agent can be enough. You do not
 ## Related pages
 
 * [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) - Configure a workflow and review its result
-* [Factory definition syntax](./factory-as-code/#blueprint) - Look up the configuration fields
-* [Configuring factory agents](./factory-agents/configuration/) - Choose worker resources and shared instructions
+* [Factory definition syntax](/factories/factory-as-code/#blueprint) - Look up the configuration fields
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Choose worker resources and shared instructions

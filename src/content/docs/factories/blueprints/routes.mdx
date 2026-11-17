@@ -8,7 +8,7 @@ Use routes to decide what happens after a stage. For an issue-to-PR workflow, re
 
 ## Prerequisites
 
-* An editable [factory definition](../factory-as-code/#where-the-definition-lives) with [stages and workers](./stages/).
+* An editable [factory definition](/factories/factory-as-code/#where-the-definition-lives) with [stages and workers](/factories/blueprints/stages/).
 * A disposable test repository and permission to run the workflow there.
 
 {/* VERIFY: Apply and exercise the routing examples, including overlapping conditions, unmatched outcomes, same-PR revisions, and existing-run definition retention before publication. */}
@@ -57,15 +57,15 @@ Keep the PR and branch in the implementation stage's inputs and prompt so a revi
 
 ## Keep intake separate from workflow routing
 
-[Automations](../automations/) decide which external events start or continue work. Their filters do not replace the Blueprint's route conditions. Two automations matching the same event can still start two runs.
+[Automations](/factories/automations/) decide which external events start or continue work. Their filters do not replace the Blueprint's route conditions. Two automations matching the same event can still start two runs.
 
-An automation can target a named Blueprint stage with `stage` instead of `agent`. The foreman receives the event and enters the workflow at that stage; the stage's worker configuration supplies execution settings. Do not combine a stage target with `agent` or per-run execution overrides. See [automation syntax](../factory-as-code/#automationsnameautomationmd).
+An automation can target a named Blueprint stage with `stage` instead of `agent`. The foreman receives the event and enters the workflow at that stage; the stage's worker configuration supplies execution settings. Do not combine a stage target with `agent` or per-run execution overrides. See [automation syntax](/factories/factory-as-code/#automationsnameautomationmd).
 
 Follow-ups to existing work resume the stage they concern. They do not repeat the entry rules as if every review reply were a new request.
 
 ## Test the paths
 
-After [validation and application](../factory-as-code/#validate-a-definition), start new test work for a changed Blueprint. Existing tasks keep the definition selected when they started.
+After [validation and application](/factories/factory-as-code/#validate-a-definition), start new test work for a changed Blueprint. Existing tasks keep the definition selected when they started.
 
 | Test input or outcome | What to check |
 | --- | --- |
@@ -80,6 +80,6 @@ Inspect the conversations, PR identity, and tested commits. A completed run alon
 
 ## Related pages
 
-* [Defining Blueprint stages](./stages/) - Supply the outputs conditions use
-* [Adding human gates to a Blueprint](./gates/) - Route approval and requested changes separately
-* [Factory automations](../automations/) - Configure event matching without widening intake
+* [Defining Blueprint stages](/factories/blueprints/stages/) - Supply the outputs conditions use
+* [Adding human gates to a Blueprint](/factories/blueprints/gates/) - Route approval and requested changes separately
+* [Factory automations](/factories/automations/) - Configure event matching without widening intake

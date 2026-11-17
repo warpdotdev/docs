@@ -8,7 +8,7 @@ Add a gate when a person must answer before a stage can finish. For example, req
 
 ## Prerequisites
 
-* Permission to edit a [Blueprint definition](../factory-as-code/#blueprint).
+* Permission to edit a [Blueprint definition](/factories/factory-as-code/#blueprint).
 * A stage that produces the material to review and a person responsible for answering.
 
 {/* VERIFY: Observe end-of-stage and conditional gates in an applied definition, including unanswered questions, requested changes, renewed approval, and no implementation before approval. */}
@@ -57,8 +57,8 @@ For a leaf stage, the worker doing the work checks its gates and relays question
 
 ## Apply and verify the pause
 
-1. [Validate and apply](../factory-as-code/#validate-a-definition) the complete definition, then start a new task that requires a plan.
-2. Open the question in the original conversation or from the dashboard's [human-review view](../factory-dashboard/#inspect-a-blueprint-and-answer-a-gate). Check the plan and leave the question unanswered. Implementation must not begin.
+1. [Validate and apply](/factories/factory-as-code/#validate-a-definition) the complete definition, then start a new task that requires a plan.
+2. Open the question in the original conversation or from the dashboard's [human-review view](/factories/factory-dashboard/#inspect-a-blueprint-and-answer-a-gate). Check the plan and leave the question unanswered. Implementation must not begin.
 3. Request a concrete change, such as adding the rollback check. Confirm planning resumes and presents the revised plan for another answer.
 4. Approve that plan. Confirm implementation receives the approved scope and uses the same task rather than creating unrelated work.
 5. Test a non-answer and any conditional gate separately. Check that unresolved questions remain open.
@@ -67,6 +67,6 @@ Gates guide the workflow; they do not grant or restrict repository access. Keep 
 
 ## Related pages
 
-* [Routing work between Blueprint stages](./routes/) - Choose what each answer does next
-* [Defining Blueprint stages](./stages/) - Put a question beside the work it pauses
-* [About factory agents](../factory-agents/#human-decision-points-and-permissions) - Separate workflow decisions from permissions
+* [Routing work between Blueprint stages](/factories/blueprints/routes/) - Choose what each answer does next
+* [Defining Blueprint stages](/factories/blueprints/stages/) - Put a question beside the work it pauses
+* [About factory agents](/factories/factory-agents/#human-decision-points-and-permissions) - Separate workflow decisions from permissions

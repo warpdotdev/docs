@@ -9,7 +9,7 @@ sidebar:
 
 Warp Factories provides the infrastructure for development workflows you define and configure. Your [definition files](/factories/factory-as-code/) connect repositories, agents, and automations. Use Scorers to check runs against criteria you define, and benchmarks to compare configurations on the same tasks. See [Measure and improve](/factories/measure-and-improve/).
 
-The foreman agent drives the workflow and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](./blueprints/) defines its stages, worker assignments, procedures, routes, and human gates. Those workflow instructions take precedence over stage lists in agent prompts. Definitions without a Blueprint keep routing in the foreman's instructions.
+The foreman agent drives the workflow and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](/factories/blueprints/) defines its stages, worker assignments, procedures, routes, and human gates. Those workflow instructions take precedence over stage lists in agent prompts. Definitions without a Blueprint keep routing in the foreman's instructions.
 
 A work item is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
@@ -64,7 +64,7 @@ A factory pauses when a person needs to decide. By default, that's three places:
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 
-In a Blueprint, [add gates](./blueprints/gates/) for the first two decisions. A gate pauses the stage until you answer; its outgoing routes distinguish approval from requested changes. In a definition without a Blueprint, those checkpoints remain in the foreman's instructions. Use branch protection and repository permissions to enforce human-only merges.
+In a Blueprint, [add gates](/factories/blueprints/gates/) for the first two decisions. A gate pauses the stage until you answer; its outgoing routes distinguish approval from requested changes. In a definition without a Blueprint, those checkpoints remain in the foreman's instructions. Use branch protection and repository permissions to enforce human-only merges.
 
 ## How the factory improves itself
 
@@ -76,7 +76,7 @@ A factory's agents, automations, runners, scorers, skills, and webhooks are conf
 
 ## Related pages
 
-* [About Blueprints](./blueprints/) - Choose stages, routes, and human gates
+* [About Blueprints](/factories/blueprints/) - Choose stages, routes, and human gates
 * [Sizing a factory](/factories/#sizing-a-factory) - Which repositories belong in one factory.
 * [About factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory.

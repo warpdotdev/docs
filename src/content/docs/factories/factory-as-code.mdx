@@ -150,7 +150,7 @@ agentDefaults:
 
 {/* VERIFY: Confirm public v1alpha2 availability and successful application of a complete Blueprint definition before publication; parser validation does not check team-dependent resources. */}
 
-Declares the workflow's stages, workers, routes, and human gates. See [About Blueprints](./blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
+Declares the workflow's stages, workers, routes, and human gates. See [About Blueprints](/factories/blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
 
 Fields for a locally defined Blueprint:
 
@@ -168,7 +168,7 @@ Fields for a locally defined Blueprint:
 
 Each gate requires `prompt` and `outputs`, describing the question and acceptable answers. Optional `when` is a prose condition; omit it to ask after the stage's work. Every entry in a conditional route list requires `when`. Use a scalar such as `to: implement` for one unconditional route.
 
-Stage names are unique across the Blueprint. A route targets a sibling stage or `end`; a group's `end` returns its outputs to the enclosing workflow. See [Defining Blueprint stages](./blueprints/stages/), [Routing work between Blueprint stages](./blueprints/routes/), and [Adding human gates to a Blueprint](./blueprints/gates/) for configuration and test examples.
+Stage names are unique across the Blueprint. A route targets a sibling stage or `end`; a group's `end` returns its outputs to the enclosing workflow. See [Defining Blueprint stages](/factories/blueprints/stages/), [Routing work between Blueprint stages](/factories/blueprints/routes/), and [Adding human gates to a Blueprint](/factories/blueprints/gates/) for configuration and test examples.
 
 This fragment adds plan approval before implementation. It assumes `agents/foreman/agent.md` declares the foreman and `agents/implementer/agent.md` declares the implementation worker. Keep their execution settings in those files.
 
