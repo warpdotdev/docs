@@ -17,9 +17,11 @@ For working definitions you can copy, see [warp-factory-examples](https://github
 Choose where to host the definition when you create a factory:
 
 * **Warp-managed (default)** - Edit the definition in the [{VARS.FACTORY_WEB_APP}](/factories/factory-dashboard/). Warp validates, commits, and applies changes; its repository stays hidden.
-* **GitHub** - On a paid plan, keep the definition in your own repository. The web app links to the files in a read-only view. Merges to the production branch (`main` by default) update the factory.
+* **GitHub** - On paid plans, keep the definition in your own repository. The web app links to the files in a read-only view. Merges to the production branch (`main` by default) update the factory. See [plan eligibility](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
 
 Both modes share the file format. You can link a Warp-managed factory to GitHub later.
+
+The definition repository stores configuration, not the execution environment or run data. Configure [execution hosting](/factories/infrastructure-and-security/#choose-an-execution-host) and [run-data storage](/factories/self-hosting/data-storage/) separately.
 
 Work items, runs, and metrics live in the web app, not in the definition.
 

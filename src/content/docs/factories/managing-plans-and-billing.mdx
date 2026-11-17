@@ -1,0 +1,55 @@
+---
+title: Managing factory plans and billing
+description: >-
+  Choose a Warp Factories plan, upgrade your team, and use the Admin Panel
+  to manage shared usage, payment details, and access.
+sidebar:
+  label: "Plans and administration"
+---
+import { VARS } from '@data/vars';
+
+Warp Factories plans cover your team's automated workflows. They are separate from subscriptions for Warp Terminal and local agents. Choose the [Start, Scale, or Enterprise plan for Warp Factories](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans) based on the inference, hosting, and administration your team needs.
+
+## Checking your team's balance
+
+Factory runs use shared team or workspace funding, not a member's included personal allowance.
+
+1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. In the account menu, confirm the selected team or switch to the team that owns your factory.
+2. Open **Settings** > **Billing and usage** to review the team's plan, available shared usage, and reset or expiration dates.
+3. If the balance won't cover your runs, [purchase additional usage](/support-and-community/plans-and-billing/add-on-credits/#warp-factories) or ask a team admin to review funding.
+
+On the Scale plan for Warp Factories, "Included team usage" shows the remaining monthly allowance. An "Included personal usage" balance does not fund factory runs. Enterprise balances and spending controls follow your contract.
+
+## Upgrading your factory plan
+
+Upgrade to the Scale plan for Warp Factories when you need shared monthly usage, third-party harnesses, team-managed inference, or a factory definition in your own repository.
+
+1. In the {VARS.FACTORY_WEB_APP}, open **Settings** > **Billing and usage**.
+2. Click **Upgrade to Scale**.
+3. Follow the option for your billing permissions:
+   * If you manage billing, click **Select plan**, then complete checkout or confirm the subscription update.
+   * Otherwise, click **Ask your Warp admin to upgrade**. Check that the button changes to "Request sent", then wait for an admin to complete the upgrade.
+4. Return to **Billing and usage** and check that the team's plan and included usage have updated.
+
+For self-hosted execution, custom usage terms, or an existing Enterprise contract, [contact sales](https://www.warp.dev/contact-sales) or your Warp account team instead.
+
+## Opening the Admin Panel
+
+Use the Admin Panel for team-wide administration rather than an individual factory's settings.
+
+1. In the {VARS.FACTORY_WEB_APP}, open the account menu and click **Admin panel**. This option is available to admins. You can also open the [Warp Admin Panel](https://app.warp.dev/admin/) directly.
+2. Confirm the team or workspace you want to manage.
+3. Open **Billing** to review usage and billing details. From **Billing and usage** in the factory web app, admins can also click **Open billing** to open the applicable team's or workspace's billing page.
+
+To change the saved payment method or view invoices, follow [managing billing](/support-and-community/plans-and-billing/pricing-faqs/#how-do-i-manage-my-billing). To configure provider keys and model access, use [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). Factory roles and permissions are described in [infrastructure and security](/factories/infrastructure-and-security/#factory-roles-and-permissions).
+
+## Getting billing help
+
+For a failed run, follow the [insufficient usage recovery steps](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/#factory-runs). For payment or invoice questions, email [billing@warp.dev](mailto:billing@warp.dev). Enterprise teams can contact their Warp account manager.
+
+## Related pages
+
+* [Plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/)
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Understand inference, compute, and platform charges
+* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/)
+* [Transitioning from Oz](/platform/transitioning-from-oz/)
