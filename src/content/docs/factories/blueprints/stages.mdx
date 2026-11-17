@@ -6,10 +6,9 @@ description: >-
 
 Give each part of your workflow a stage with a clear result. For example, an implementation stage returns a PR and check results; an independent review stage returns findings against that PR.
 
-## Prerequisites
+Edit the stages under `blueprint.stages` in your factory's `factory.yaml`. If your definition has no Blueprint, add the [Blueprint fragment](/factories/factory-as-code/#blueprint), retain your factory settings, and set `schemaVersion: v1alpha2`. Older `v1alpha1` definitions do not contain a Blueprint.
 
-* Permission to edit your factory's [definition](/factories/factory-as-code/#where-the-definition-lives).
-* A definition with a [Blueprint](/factories/blueprints/) and configured agents. Reuse existing workers or [create a custom agent](/factories/factory-agents/creating-custom-agents/).
+Use agents already declared in the definition, or [create a custom agent](/factories/factory-agents/creating-custom-agents/). Replace any `spawnableBy` allowlists in those agents with stage worker assignments.
 
 {/* VERIFY: Apply the stage examples in a complete definition and observe worker selection, stage-specific instructions, and the implementation-to-review handoff before publication. */}
 

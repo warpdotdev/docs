@@ -19,11 +19,11 @@ For example, your issue-to-PR workflow can send a well-defined bug directly to i
 
 The Blueprint lives in `factory.yaml`. Each stage names a worker from the factory's agent definitions. A stage named `planning` might use the `spec` agent; another stage might use that same agent for a different procedure.
 
-## What changes for your agents
+## Blueprints and agent definitions
 
-The Blueprint supplies the stage procedures, handoffs, route conditions, and gates. Its workflow takes precedence over stage lists or delegation orders in other prompts. When you change the review loop, edit the Blueprint rather than maintain a second routing procedure in the foreman's instructions.
+Put stage-specific instructions, handoffs, route conditions, and gates in the Blueprint. For example, change the review loop there to return findings to implementation. The Blueprint's workflow takes precedence over competing stage lists or delegation orders in other prompts.
 
-Agent instructions still define behavior that applies across the agent's work. Skills still supply reusable procedures, such as the repository's test commands. Models, harnesses, runners, tools, and access remain in the [agent configuration](/factories/factory-agents/configuration/).
+Use agent instructions for behavior shared across the agent's work, such as reporting failed checks honestly. Use skills for reusable procedures, such as the repository's test commands. Choose models, harnesses, runners, tools, and access in the [agent configuration](/factories/factory-agents/configuration/).
 
 The foreman drives the top-level workflow and communicates with you. It gathers a stage's inputs from the request and earlier results, runs its own stages in its conversation, and dispatches other stages to their workers. A dispatched worker follows the named stage, reports its outputs, and stops. The foreman uses that result to choose the next route.
 
