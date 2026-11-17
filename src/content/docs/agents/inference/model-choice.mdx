@@ -73,7 +73,7 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.
 
 :::caution
-Anthropic requires data retention for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
+Some Anthropic models require data retention regardless of your **Help improve Warp** setting. Check [models requiring provider retention](#models-requiring-provider-retention) before selecting a model.
 :::
 
 #### Google
@@ -155,23 +155,47 @@ You can configure the base model for each [Agent Profile](/agents/capabilities/a
 
 Edit your default profile or any other profile directly in **Settings** > **Agents** > **Profiles**.
 
-### Zero data retention policies
+### Reviewing inference and privacy in Terminal
 
-Warp integrates with multiple large language model (LLM) providers to power its AI-driven features.
+Before sending sensitive content through Warp Terminal:
 
-**These providers include, but are not limited to:**
+1. In the Warp app's prompt input, click the model name and choose a model that isn't among the [models that require data retention](#models-requiring-provider-retention).
+2. In **Settings** > **Agents** > **Profiles**, review the active profile's base model. For a [custom router](/agents/inference/custom-routers/), review every target and its default.
+3. In **Settings** > **Agents** > **Warp Agent**, review personal keys, endpoints, and subscriptions, plus any [team configuration](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). Search Settings for `API keys` to find personal keys. For customer-managed inference, verify provider ZDR; review [BYOK fallback](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior) if enabled.
+4. In **Settings** > **Privacy**, review **Help improve Warp**, **Send crash reports**, and **Store AI conversations in the cloud** separately. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
-* OpenAI
-* Anthropic
-* Google
-* xAI
-* Fireworks AI
+Confirm the model displayed before your next prompt.
 
-Warp has executed **Zero Data Retention (ZDR)** agreements with these providers. This means that, by default across all plans:
+### Reviewing inference and privacy for factories
 
-* LLM providers commit not to train their models on any customer-generated data processed through Warp’s services.
-* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+For factory runs, ask a team admin to review the [Models settings in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings) for shared provider credentials and the model restrictions available on your plan. Review [team content collection in the Admin Panel](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel) separately.
 
-Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+Then review the factory's [agent models and overrides](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr). See [factory ZDR guidance](/factories/zero-data-retention/) for provider coverage and run-storage boundaries.
 
-Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
+<span id="zero-data-retention-policies" />
+
+### Zero data retention (ZDR)
+
+Warp's provider Zero Data Retention (ZDR) agreements apply to supported models on every plan when Warp supplies the provider account. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) for the policy.
+
+Some models require provider data retention and aren't covered by these agreements.
+
+<span id="models-requiring-provider-retention" />
+
+#### Models that require data retention
+
+This list applies to Warp-managed inference in both Warp Terminal and factory runs.
+
+Anthropic requires data retention for safety, abuse monitoring, and compliance. This requirement applies to the following models at every effort level:
+
+* Claude Fable 5
+* Claude Fable 5.1
+* Claude Fable 5.2
+
+Turning off the **Help improve Warp** toggle doesn't remove these retention requirements.
+
+For Enterprise teams, these models are disabled by default and a workspace admin must enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
+
+If you use your own provider account, [verify retention with your provider](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr). Choosing a model outside this list doesn't establish ZDR coverage for requests through your own provider account.
+
+For factory-specific model settings and coverage limits, use [factory ZDR guidance](/factories/zero-data-retention/).
