@@ -575,7 +575,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Plans and support',
+					label: 'Plans & support',
 					items: [
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',

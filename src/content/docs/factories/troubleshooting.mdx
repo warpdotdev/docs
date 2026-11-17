@@ -96,7 +96,19 @@ If a new matching event still doesn't reach the factory, [contact support](https
 
 **Cause:** The factory can't push, or the work never reached the implement agent.
 
-**Fix:** Confirm that the **Implement** agent is enabled on the factory, that the code host connection still grants write access to the target repository, and that the work item actually reached the building stage. Branch protection rules apply to everything the factory pushes.
+**Fix:** Inspect the run's stage and assigned worker. Confirm its Blueprint can route to implementation, any required gate has an answer, and the worker has write access to the target repository. Branch protection rules apply to everything the factory pushes.
+
+### A prompt change does not change the workflow
+
+**Cause:** The Blueprint's stage procedures and routing take precedence over stage lists in agent prompts.
+
+**Fix:** Edit the stage's `prompt`, `to`, or `gates` in the [Blueprint definition](/factories/factory-as-code/#blueprint), then validate and apply it. Start new test work; replies to existing work keep that run's selected Blueprint.
+
+### A gate stays open after a reply
+
+**Cause:** The reply does not answer the question, or only answers some open questions.
+
+**Fix:** Read each pending question in the [run conversation](/factories/factory-dashboard/#inspect-a-blueprint-and-answer-a-gate) and answer it explicitly. Requested changes can satisfy a gate without approving the work; the configured route then selects the revision.
 
 ### Network requests fail during a run
 

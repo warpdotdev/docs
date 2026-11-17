@@ -56,12 +56,14 @@ Setup gives the foreman the same handle as the factory, so `payments` is the fac
 
 Factory agents handle different stages of the software development lifecycle. The default agents cover triage, planning, implementation, and review.
 
+A [Blueprint](/factories/blueprints/) defines the workflow's stages, what happens in each stage, who does the work, and when a person needs to make a decision. To change a review loop or approval requirement, edit the Blueprint. Configure worker resources and shared behavior in the agent definitions.
+
 <figure style={{ maxWidth: "563px" }}>
 ![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)
 <figcaption>The software factory loop.</figcaption>
 </figure>
 
-The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [How Warp Factories work](/factories/how-factories-work/).
+With a Blueprint, the foreman follows its routes to skip unnecessary stages or return work for revisions. A plan-review gate waits for your answer before the workflow continues. Definitions without a Blueprint keep routing in the foreman's instructions. Neither form of workflow policy grants merge access; repository permissions and branch protection control approval and merging. See [How Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
