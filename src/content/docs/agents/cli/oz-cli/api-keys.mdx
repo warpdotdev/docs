@@ -164,7 +164,9 @@ oz api-key create "api-exploration" --expires-in 1d
 oz api-key create "factory-integration" --agent FOREMAN_AGENT_UID --expires-in 30d
 ```
 
-Replace `FOREMAN_AGENT_UID` with the foreman agent's UID, not the factory UID. To distinguish agents with the same name, use a personal key to call `GET /agent/identities?factory_uid=FACTORY_UID` in the [{VARS.WARP_PLATFORM_API} reference](/api). Replace `FACTORY_UID` with your target factory's UID, then use the `uid` of the agent whose `agent_type` is `FOREMAN`. You still need permission to create a key for that agent.
+Replace `FOREMAN_AGENT_UID` with the foreman agent's UID, not the factory UID. To distinguish agents with the same name, use a personal key to call `GET /agent/identities?factory_uid=FACTORY_UID` in the [{VARS.WARP_PLATFORM_API} reference](/api).
+
+Include the request header `X-Warp-Team-Uid: TEAM_UID`, replacing `TEAM_UID` with the UID of the team that owns your factory and `FACTORY_UID` with your factory's UID. Personal-key callers on multiple teams need this header; the factory filter does not select the active team. From the response, use the `uid` of the agent whose `agent_type` is `FOREMAN`. You still need permission to create a key for that agent.
 
 ### Expire a key
 
