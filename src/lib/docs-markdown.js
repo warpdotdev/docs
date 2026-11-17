@@ -25,6 +25,8 @@ export function isEligibleDocHtmlPath(pathname) {
 	const normalizedPath = normalizePathname(pathname);
 	if (normalizedPath === '/') return true;
 	if (normalizedPath.startsWith('/_astro/')) return false;
+	// API and agent endpoints are not doc HTML pages; never rewrite them to .md.
+	if (normalizedPath === '/retrieve' || normalizedPath.startsWith('/api/')) return false;
 	const lastSegment = normalizedPath.split('/').at(-1) ?? '';
 	return lastSegment.length > 0 && !lastSegment.includes('.');
 }
