@@ -2,14 +2,14 @@
 title: Factory automations
 description: >-
   Configure factory automations with triggers and filters to control which
-  events start runs and which agent handles the work.
+  events start runs and which worker handles the work.
 sidebar:
   label: Factory automations
 ---
 
-An **automation** starts factory work from a trigger. Filters narrow which events start work, and the target selects an agent or a [Blueprint stage](/factories/blueprints/stages/). For example, send newly opened pull requests to review, but only for one repository's `main` branch.
+An **automation** starts factory work from a trigger. Filters narrow which events start work, and the target selects a worker or a [Blueprint stage](/factories/blueprints/stages/). For example, send newly opened pull requests to review, but only for one repository's `main` branch.
 
-Automation filters decide whether an event enters the workflow. [Blueprint routes](/factories/blueprints/routes/) decide what happens between stages after entry. Changing one does not replace the other.
+Automation filters decide whether an event enters the workflow. [Blueprint transitions](/factories/blueprints/routes/) decide what happens between stages after entry. Changing one does not replace the other.
 
 ## How matching works
 
@@ -23,7 +23,7 @@ One event can match more than one automation, and each match starts its own run.
 
 ## Filters don't control access
 
-Filters decide when work starts, not what an integration or running agent can access. To change an integration's access, change its permissions with the provider, not its filters.
+Filters decide when work starts, not what an integration or running worker can access. To change an integration's access, change its permissions with the provider, not its filters.
 
 Provider account requirements still apply. See [who can start work in Slack](/factories/integrations/slack/#who-can-start-work) and [account linking in Microsoft Teams](/factories/integrations/teams/#test-the-connection). Custom webhooks instead authenticate deliveries with a [token or signature](/factories/webhooks/#authentication-modes); filters aren't a substitute for that authentication.
 
@@ -91,7 +91,7 @@ For an event that must enter a particular stage, replace `agent` with `stage` in
 
 The foreman receives the event and enters the named stage; that stage's worker supplies its execution settings. Do not combine `stage` with `agent` or [execution overrides](/factories/factory-as-code/#execution-overrides). Put the review procedure in the stage, not a competing workflow in the automation body.
 
-After applying the definition, send a new matching event and inspect its stage and worker. Also test an event outside the filters and one that could match another automation. Each matching automation can act; route order inside the Blueprint does not deduplicate intake.
+After applying the definition, send a new matching event and inspect its stage and worker. Also test an event outside the filters and one that could match another automation. Each matching automation can act; transition order inside the Blueprint does not deduplicate intake.
 
 ## Payload filters for webhook triggers
 
@@ -136,5 +136,5 @@ Replace `WEBHOOK_UID` with the webhook's UID. For selecting webhooks and testing
 * [Connect your factory](/factories/connect-your-factory/) - Set up sources of factory work
 * [Triggering automations with custom webhooks](/factories/webhooks/) - Configure senders and authentication
 * [Factory definition syntax](/factories/factory-as-code/) - Manage automations as version-controlled files
-* [Factory dashboard](/factories/factory-dashboard/) - Manage agents, automations, and runs
+* [Factory dashboard](/factories/factory-dashboard/) - Manage workers, automations, and runs
 * [Scheduled agents](/platform/triggers/scheduled-agents/) - Run standalone cloud agents on a cron schedule outside a factory

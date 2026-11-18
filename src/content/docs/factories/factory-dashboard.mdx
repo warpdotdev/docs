@@ -1,14 +1,14 @@
 ---
 title: Factory dashboard
 description: >-
-  Track work items, inspect runs, read factory metrics, and manage agents,
+  Track work items, inspect runs, read factory metrics, and manage workers,
   automations, webhooks, and settings from the factory dashboard.
 sidebar:
   label: "Factory dashboard"
 ---
 import { VARS } from '@data/vars';
 
-The factory dashboard is the web app for operating a single factory. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, then select a factory to track its work, inspect its runs and pull requests, and manage its agents, automations, and settings.
+The factory dashboard is the web app for operating a single factory. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, then select a factory to track its work, inspect its runs and pull requests, and manage its workers, automations, and settings.
 
 :::note
 "Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it: the metrics page you land on when you open a factory.
@@ -22,7 +22,7 @@ To send work to a factory's foreman, click **New Chat** in the sidebar. In the d
 
 A factory opens on its **Dashboard** page, covered next. Use **Factory definition** to edit a definition hosted by Warp; edit a definition hosted by GitHub in its repository instead. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
-To create credentials or grant agents access, see [managing secrets for factory agents](/factories/secrets/).
+To create credentials or grant workers access, see [managing secrets for factory workers](/factories/secrets/).
 
 ## Read metrics on the Dashboard page
 
@@ -48,33 +48,31 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 
 ## Inspect runs
 
-A run is a single agent execution. A single request can span several runs as different agents pick it up, and related runs group under their parent in the list. In the sidebar, click **Runs** to see the runs you have access to across your team.
+A run is a single worker execution. A single request can span several runs as different workers pick it up, and related runs group under their parent in the list. In the sidebar, click **Runs** to see the runs you have access to across your team.
 
-Open a run to see its timeline and cost, plus a **Sub-agents** tab for child runs when the agent used [multi-agent orchestration](/platform/orchestration/). From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
+Open a run to see its timeline, cost, and child runs. From there you can view the worker's full session, stop or score the run, or turn it into a benchmark task.
 
 :::note
-Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
+Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared worker session](/platform/viewing-cloud-agent-runs/), where you follow the worker in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
 :::
 
-## Inspect a Blueprint and answer a gate
+## View and edit a Blueprint
 
-{/* VERIFY: Confirm live Blueprint navigation, stage and route inspection, and the human-review conversation controls before publication; no product UI capture is available yet. */}
+{/* VERIFY: Confirm live Blueprint navigation, stage and transition inspection, and diagram editing before publication; no product UI capture is available yet. */}
 
-For a factory with a Blueprint, select **Blueprint** in the factory dashboard's sidebar. Select a stage to inspect its worker and instructions, or select a route to read its condition.
+Select **Blueprint** in the factory dashboard's sidebar to view the workflow diagram. Select a stage to inspect its worker and instructions, or select a transition to read its condition.
 
-When work needs your input, expand the human-review list and select the work item to open its run conversation. Read the question and respond there. The gate waits for an answer; a request for changes sends work along the configured revision route rather than approving it.
-
-To change a stage's procedure, routes, or gates, edit the Blueprint in the [definition](#edit-definitions-in-the-factory-definition-tab). To change its worker's model, harness, or tools, edit the agent. See [About Blueprints](/factories/blueprints/) for the workflow model.
+Edit the diagram to change the Blueprint, or edit it in the [definition files](#edit-definitions-in-the-factory-definition-tab). Definitions hosted by GitHub are read-only in the app; propose those changes in the repository instead. To change a worker's model, harness, or tools, edit its [worker configuration](/factories/factory-agents/configuration/).
 
 A Blueprint graph describes the workflow; inspect the run conversation, PR diff, and check results to verify what actually happened. Existing work keeps the Blueprint selected when its run started.
 
-## Manage agents and automations
+<span id="manage-agents-and-automations" />
 
-**Agents** lists the factory's agents. [Create custom agents](/factories/factory-agents/creating-custom-agents/) or [configure existing agents](/factories/factory-agents/configuration/) to change their instructions, models, harnesses, and tools. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
+## Manage workers and automations
 
-{/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
+**Workers** lists the factory's workers. [Create custom workers](/factories/factory-agents/creating-custom-agents/) or [configure existing workers](/factories/factory-agents/configuration/) to change their instructions, models, harnesses, and tools. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
 
-The automation editor doesn't change execution settings. Agent-targeted automations can use [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides); stage-targeted automations use the stage worker's settings instead. When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
+The automation editor doesn't change execution settings. Worker-targeted automations can use [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides); stage-targeted automations use the stage worker's settings instead. When the factory's definition lives in an external repository, Workers, Automations, and Scorers are read-only; make changes there through pull requests.
 
 ## Edit definitions in the Factory definition tab
 
@@ -84,11 +82,11 @@ The automation editor doesn't change execution settings. Agent-targeted automati
 * **Hosted by GitHub** - Edit the definition through pull requests in your repository; **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
-When an agent proposes a change to a definition hosted by Warp, a spec review for the branch appears on [Home](/factories/factory-home/) when the **Waiting on you** filter is selected. Open the spec review to comment on the diff, select **Request changes** to send feedback to the agent, or select **Approve & merge** to merge the change.
+When a worker proposes a change to a definition hosted by Warp, a spec review for the branch appears on [Home](/factories/factory-home/) when the **Waiting on you** filter is selected. Open the spec review to comment on the diff, select **Request changes** to send feedback to the worker, or select **Approve & merge** to merge the change.
 
 ## Score and benchmark
 
-**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests the self-improvement flow opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares model and runner configurations against a fixed set of tasks. See [Configuring Scorers](/factories/measure-and-improve/scorers/), [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/), and [benchmarking factory agent configurations](/factories/benchmarks/) for what each one is and how to use it.
+**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests the self-improvement flow opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares model and runner configurations against a fixed set of tasks. See [Configuring Scorers](/factories/measure-and-improve/scorers/), [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/), and [benchmarking factory worker configurations](/factories/benchmarks/) for what each one is and how to use it.
 
 ## Change factory settings
 
@@ -96,7 +94,7 @@ When an agent proposes a change to a definition hosted by Warp, a spec review fo
 
 * **Identity** - The factory's name, avatar, and ["Foreman name"](/factories/factory-as-code/#alias), the handle your team @-mentions.
 * **Repositories** - The repos the factory works in.
-* **Pull request authorship** - Whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)).
+* **Pull request authorship** - Whether pull requests are authored by the worker or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)).
 * **Analysis model** - The model [Self-improvement](/factories/measure-and-improve/self-improvement/) uses to analyze failed runs.
 * **Runners** - The compute the factory's runs execute on. See [factory runners](/factories/runners/) to choose runner configuration or [managed self-hosting](/factories/self-hosting/) to run factory work on your infrastructure.
 * **Integrations** - The integrations this factory can access.
@@ -108,9 +106,9 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 
 * [Reviewing items on Home](/factories/factory-home/) - See and resolve the questions, spec approvals, and PR reviews waiting on you
 * [How Warp Factories work](/factories/how-factories-work/) - The stages work moves through and where humans stay in the loop
-* [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code
-* [About factory agents](/factories/factory-agents/) - Understand default agent roles
-* [Configuring factory agents](/factories/factory-agents/configuration/) - Edit agent instructions and runtime settings
+* [Definitions as code](/factories/factory-as-code/) - Define workers, automations, runners, and source ownership in code
+* [About factory workers](/factories/factory-agents/) - Understand default worker roles
+* [Configuring factory workers](/factories/factory-agents/configuration/) - Edit worker instructions and runtime settings
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure Scorers and use them in an improvement loop
 * [Benchmarking factory agent configurations](/factories/benchmarks/) - Create a benchmark suite and compare configurations on fixed tasks
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs

@@ -27,14 +27,16 @@ Fix problems with factory setup, event routing, and runs. Use the {VARS.FACTORY_
 1. Confirm the connection includes the repository and the intended organization or group. See the [GitHub](/factories/integrations/github/) and [GitLab](/factories/integrations/gitlab/) integration guides for how each connection is scoped.
 2. If you can't update it yourself, ask a GitHub organization owner, a GitLab group owner, or a Warp team admin to extend the connection.
 
-### Setup stops at an agent limit
+<span id="setup-stops-at-an-agent-limit" />
 
-**Cause:** Your team's plan limits how many factory agents it can run.
+### Setup stops at a worker limit
+
+**Cause:** Your team's plan limits how many factory workers it can run.
 
 **Fix:**
 
 1. Ask a team admin to confirm the team's capacity.
-2. If the team needs more agents, [contact sales](https://www.warp.dev/contact-sales).
+2. If the team needs more workers, [contact sales](https://www.warp.dev/contact-sales).
 
 ### The web app still shows the setup wizard after your agent created a factory
 
@@ -94,29 +96,23 @@ If a new matching event still doesn't reach the factory, [contact support](https
 
 ### No pull request appears
 
-**Cause:** The factory can't push, or the work never reached the implement agent.
+**Cause:** The factory can't push, or the work never reached implementation.
 
-**Fix:** Inspect the run's stage and assigned worker. Confirm its Blueprint can route to implementation, any required gate has an answer, and the worker has write access to the target repository. Branch protection rules apply to everything the factory pushes.
+**Fix:** Inspect the run's stage and assigned worker. Confirm its Blueprint can transition to implementation, any required gate has an answer, and the worker has write access to the target repository. Branch protection rules apply to everything the factory pushes.
 
 ### A prompt change does not change the workflow
 
-**Cause:** The Blueprint's stage procedures and routing take precedence over stage lists in agent prompts.
+**Cause:** The Blueprint's stage procedures and routing take precedence over stage lists in worker prompts.
 
 **Fix:** Edit the stage's `prompt`, `to`, or `gates` in the [Blueprint definition](/factories/factory-as-code/#blueprint), then validate and apply it. Start new test work; replies to existing work keep that run's selected Blueprint.
 
-### A gate stays open after a reply
-
-**Cause:** The reply does not answer the question, or only answers some open questions.
-
-**Fix:** Read each pending question in the [run conversation](/factories/factory-dashboard/#inspect-a-blueprint-and-answer-a-gate) and answer it explicitly. Requested changes can satisfy a gate without approving the work; the configured route then selects the revision.
-
 ### Network requests fail during a run
 
-**Cause:** A factory or agent [network policy](/factories/factory-as-code/#networkpolicy) blocks hosts outside its allowed set. This can prevent package downloads, API calls, or inference requests.
+**Cause:** A factory or worker [network policy](/factories/factory-as-code/#networkpolicy) blocks hosts outside its allowed set. This can prevent package downloads, API calls, or inference requests.
 
 **Fix:**
 
-1. Fetch diagnostics for the affected agent run through the {VARS.WARP_PLATFORM_API}. Replace `RUN_ID` with its `run_id` from `GET /agent/runs`, not the factory or work item ID. For authentication, see the [API reference](https://docs.warp.dev/api). Your account must have access to the run.
+1. Fetch diagnostics for the affected worker run through the {VARS.WARP_PLATFORM_API}. Replace `RUN_ID` with its `run_id` from `GET /agent/runs`, not the factory or work item ID. For authentication, see the [API reference](https://docs.warp.dev/api). Your account must have access to the run.
 
    ```http
    GET https://app.warp.dev/api/v1/agent/runs/RUN_ID/diagnostics
@@ -150,7 +146,7 @@ If a new matching event still doesn't reach the factory, [contact support](https
 
    `data.blocked_host` identifies the blocked hostname or IP address. The optional `timestamp` is when the blocked request occurred; the optional `created_at` is when the diagnostic was recorded. Diagnostics are warnings, not the run's outcome. The `state` field in run details reports that outcome.
 
-3. If the run needs that host, add it to `allowedHosts` in the factory or agent policy. Review `deniedHosts` at both scopes and remove any conflicting entry: a denial overrides an allowance, including a built-in policy. [Apply the definition change](/factories/factory-as-code/#where-the-definition-lives), start a new run, and confirm the request succeeds.
+3. If the run needs that host, add it to `allowedHosts` in the factory or worker policy. Review `deniedHosts` at both scopes and remove any conflicting entry: a denial overrides an allowance, including a built-in policy. [Apply the definition change](/factories/factory-as-code/#where-the-definition-lives), start a new run, and confirm the request succeeds.
 
 If an opted-in run-details response omits `diagnostics`, use the dedicated diagnostics endpoint. An empty `diagnostics` array means no diagnostics were returned; it doesn't prove that every host is reachable. Check the failed command's output for other causes, and use the [API error reference](/factories/api-and-sdk/troubleshooting/errors/) for authentication or access errors.
 
