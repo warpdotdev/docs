@@ -10,6 +10,8 @@ import { VARS } from '@data/vars';
 
 A factory definition is a versioned tree of YAML and Markdown files rooted at `factory.yaml`. It can define a Blueprint workflow, agents, automations, runners, model routers, benchmarks, scorers, skills, and webhooks. Keys are case-sensitive.
 
+Blueprints call the factory's configured agents *workers*. Worker definitions select their instructions and execution settings; stage assignments select which work they perform.
+
 For working definitions you can copy, see [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 
 ## Where the definition lives
