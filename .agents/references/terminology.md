@@ -449,6 +449,7 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
+- **Product-qualified plans** — Warp Terminal and local agent subscriptions are separate from Warp Factories plans. Name the product whenever discussing eligibility, funding, upgrades, or membership charges. Use “the Build plan for Warp Terminal and local agents” and “the Scale plan for Warp Factories,” not “Warp Factories Scale.” Keep each product's plans in separate sections or table columns; never blend names such as “Business, Scale, and Enterprise” into one list. A clearly named product heading can establish scope for the plan names beneath it. Qualify Enterprise terms by product or contract, too.
 - **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
 - **usage balance** — usage available to the user or team billed for the work, subject to the applicable billing rules.
   *Usage note:* Use "add usage" for the action of funding the balance, with "if needed" when an existing allowance may cover the work. Do not imply that every workflow uses a shared team balance or requires a new purchase.
