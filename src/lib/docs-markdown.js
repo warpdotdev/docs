@@ -46,6 +46,18 @@ export function shouldServeMarkdown(request) {
 	return AGENT_USER_AGENT_TOKENS.some((token) => userAgent.includes(token));
 }
 
+/**
+ * Removes a leading YAML frontmatter block (`---` ... `---`) and the blank
+ * lines after it. Generated `.md` twins start with frontmatter for crawlers
+ * and agents; the Copy page button removes it because the copied body already
+ * starts with the page title and description.
+ *
+ * @param {string} markdown
+ */
+export function stripFrontmatter(markdown) {
+	return markdown.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n(?:\r?\n)*/, '');
+}
+
 function normalizePathname(pathname) {
 	if (!pathname || pathname === '/') return '/';
 	const trimmedPath = pathname.replace(/\/+$/, '');
