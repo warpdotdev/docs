@@ -29,7 +29,7 @@ description: >-
 
 ## Key features
 
-[2-4 capabilities. Bold term + hyphen + what it means for the reader. Collapse this into the opening paragraph if the feature is simple enough that a list is padding.]
+[2-4 capabilities. Bold term + hyphen + what it means for the reader, except agent names and non-clickable UI field labels, which stay unbolded. Collapse this into the opening paragraph if the feature is simple enough that a list is padding.]
 
 * **Feature A** - What it does and why it matters to the user.
 * **Feature B** - What it does and why it matters to the user.

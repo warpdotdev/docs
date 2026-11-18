@@ -13,7 +13,7 @@ For questions about plans, allowances, and purchases, see the [pricing FAQs](/su
 
 ### What data is sent and/or stored when using Agents in Warp?
 
-See our [Privacy page](/support-and-community/privacy-and-security/privacy/) for more information on how we handle data used by Agents in Warp.
+Agent requests send prompts and context to the configured model provider. Personal Terminal conversation storage depends on your sync settings; factory and other cloud runs save transcripts, attachments, and artifacts. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/) for provider retention, Warp's analytics collection, and storage controls.
 
 ### What happened to the old Warp AI chat panel?
 
@@ -21,7 +21,9 @@ Agent Mode has replaced the previous AI chat panel. Agent Mode is more powerful 
 
 ### Is my data used for model training?
 
-Warp reserves the right to use data collected to train models and improve Warp. Warp has Zero Data Retention with all its model providers (e.g. Anthropic, OpenAI, xAI, etc.). Learn more about telemetry on our [Privacy page](/support-and-community/privacy-and-security/privacy/).
+Warp may use collected data to train and improve models that support its AI features, as described in the [Privacy Notice](https://www.warp.dev/legal/privacy-policy). Turning off the **Help improve Warp** toggle stops analytics and eligible content collection for service improvement, subject to organization-enforced settings.
+
+When a request falls under Warp's [provider ZDR agreements](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr), the AI provider cannot use its prompts or responses for training. Some models require provider retention and are excluded from ZDR. See the [model exceptions](/agents/inference/model-choice/#models-requiring-provider-retention) and the [separate controls for Warp's analytics and storage](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
 ### What model are you using for Agent Mode?
 
@@ -29,9 +31,9 @@ Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and 
 
 ### Can I use my own LLM API key?
 
-Yes. Warp supports [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans. Connect your Anthropic, OpenAI, or Google key to bill inference to your provider account. BYOK and [custom inference endpoints](/agents/inference/custom-inference-endpoint/) are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service.
+Yes. For Warp Terminal and local agents, [personal BYOK](/agents/inference/bring-your-own-api-key/) connects your Anthropic, OpenAI, or Google key to your provider account. It is available on the Free plan and eligible paid plans for individuals and organizations with 10 or fewer employees, subject to Warp's Terms of Service. Larger organizations need a Business or Enterprise plan for Warp Terminal and local agents.
 
-Larger organizations need a Warp Business or Enterprise plan. Business and Enterprise admins can centrally manage BYOK and custom endpoints for the whole team with [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which also work for cloud agents. Enterprise admins can additionally enable managed [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) configurations for cloud-provider routing.
+For Warp Factories, the Scale and Enterprise plans support [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). An admin configures shared credentials for factory inference; a key stored on a member's device is not available to factory runs. An Enterprise agreement can also include [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/) cloud-provider routing.
 
 ### Can I use a ChatGPT or Claude subscription with Warp?
 
@@ -43,9 +45,15 @@ For xAI's Grok models, connect a [SuperGrok subscription](/agents/inference/grok
 
 ## Billing
 
-Self-serve paid plans include monthly usage per seat. On plans billed in dollars, Warp-provided inference is priced at public API rates. Check [Warp pricing](https://www.warp.dev/pricing) and your account's Billing and usage settings for your allowance.
+### Warp Terminal and local agents
 
-On Free, you can [purchase usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing. Purchases are priced at a premium. You can also [bring your own inference](/agents/inference/bring-your-own-api-key/).
+Build, Max, and Business subscriptions for Warp Terminal and local agents have per-seat allowances. On plans billed in dollars, Warp-provided inference is priced at public API rates.
+
+On the Free plan for Warp Terminal and local agents, you can [purchase usage](/support-and-community/plans-and-billing/add-on-credits/#warp-terminal-and-local-agents) without subscribing. You can also [bring your own inference](/agents/inference/bring-your-own-api-key/).
+
+### Warp Factories
+
+The Scale plan for Warp Factories has a shared monthly team allowance. The Start plan for Warp Factories uses purchased usage without a subscription. Factory runs do not use a member's included personal allowance. See [factory plans and funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans) and [Warp pricing](https://www.warp.dev/pricing).
 
 See [usage and billing](/support-and-community/plans-and-billing/credits/) for metered features and token details, and [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) for resets and existing balances.
 
