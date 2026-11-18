@@ -54,7 +54,7 @@ Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) fo
 
 Set the run's host to the connected worker's ID.
 
-Authenticate the worker with a self-hosted worker key. Authenticate the run creator separately: use a short-lived personal key for ad hoc requests or an agent key for an authorized agent. For an external system submitting factory work, use the target factory's foreman key with [factory endpoints](/factories/factory-api/). See [Choosing and creating API keys](/agents/cli/oz-cli/api-keys/) for the creation flow.
+As a best practice, use different credentials for worker authentication and run creation. Use a self-hosted worker key for the worker, and a short-lived personal key or an authorized agent's key for the run creator. For an external system submitting factory work, use the target factory's foreman key with [factory endpoints](/factories/factory-api/). See [Choosing and creating API keys](/agents/cli/oz-cli/api-keys/) for the creation flow and team-wide worker authentication.
 
 From the {VARS.WARP_AGENT_CLI}:
 

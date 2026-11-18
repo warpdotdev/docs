@@ -44,7 +44,7 @@ For a job created directly through the Agent API that must exit immediately, set
 
 Add this script to the job your orchestrator starts. `CI_JOB_ID` must be unique for each job.
 
-Supply two credentials through your secret manager: `WARP_WORKER_API_KEY` for the self-hosted worker and `WARP_RUN_API_KEY` for the caller creating this standalone run on the worker's team. Use a short-lived personal key for ad hoc runs or an agent key for an authorized agent. [Create the keys separately](/agents/cli/oz-cli/api-keys/).
+This example follows the best practice of using different credentials for the worker and run creation. Supply them through your secret manager: `WARP_WORKER_API_KEY` for the self-hosted worker and `WARP_RUN_API_KEY` for the caller creating this standalone run on the worker's team. Use a short-lived personal key for ad hoc runs or an agent key for an authorized agent. See [Choosing and creating API keys](/agents/cli/oz-cli/api-keys/).
 
 For an external system submitting work to a factory, use that factory's foreman key with [factory endpoints](/factories/factory-api/) instead. The worker key does not authorize factory submissions.
 

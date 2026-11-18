@@ -75,7 +75,7 @@ oz agent run-cloud --team \
 
 If you belong to multiple teams, the CLI lists teams and stops. Replace `--team` with `--team=TEAM_UID`, using the worker's team UID from that list, then rerun the command.
 
-For unattended factory submissions, use a separate [foreman agent key](/agents/cli/oz-cli/api-keys/#finding-the-factorys-foreman) with [factory endpoints](/factories/factory-api/), not the worker key.
+For unattended factory submissions, use a [foreman agent key](/agents/cli/oz-cli/api-keys/#finding-the-factorys-foreman) with [factory endpoints](/factories/factory-api/). As a best practice, keep it separate from the worker's credential.
 
 **Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
 

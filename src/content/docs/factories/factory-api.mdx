@@ -119,7 +119,7 @@ Every field except `prompt` is optional. Omit `title` and the server derives one
 An API key for the target factory's foreman can:
 
 * Submit new work with `POST /factory/{uid}/runs`. The caller must have permission to use the factory and act as its foreman; resolving the foreman on the server does not bypass these checks.
-* List that factory's work items with `GET /factory/{uid}/tasks`, including work created by other users. The optional `created_by` filter narrows the list; requests are not implicitly limited to work created by the key's owner.
+* List that factory's work items with `GET /factory/{uid}/tasks`, including work created by other users. The optional `created_by` filter takes an email address to narrow the list; requests are not implicitly limited to work created by the key's owner.
 
 These permissions do not grant unrestricted factory configuration or access to other factories. A key for an unrelated agent does not automatically have permission to act as the target foreman.
 

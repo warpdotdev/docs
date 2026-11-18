@@ -34,7 +34,7 @@ When creating the key, choose **Agent** and select this existing foreman in the 
 
 Self-hosted worker API keys authenticate managed `oz-agent-worker` daemons as your team. Use this key type with the [Docker](/factories/self-hosting/managed-docker/), [Kubernetes](/factories/self-hosting/managed-kubernetes/), [Direct](/factories/self-hosting/managed-direct/), or [Command](/factories/self-hosting/external-orchestrators/#using-the-command-backend) backend. You don't need to select an agent when creating one.
 
-Worker authentication is separate from the key an external system uses to submit work. Give the worker a self-hosted worker key and the integration a foreman agent key, even if one job starts both processes. A connected worker does not grant its caller permission to submit factory work.
+As a best practice, use different keys for the worker and the external integration, even if one job starts both processes: a self-hosted worker key for the worker and a foreman agent key for factory submissions. Worker authentication is team-wide, not specific to a factory or agent, and does not require separate keys. Connecting a worker does not grant the caller permission to submit factory work.
 
 ## Creating an API key
 
@@ -58,7 +58,7 @@ Create all three key types in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings
 3. Choose the type:
    * **Personal** - Authenticates as your Warp account.
    * **Agent** - Authenticates as the agent you choose in the "Agent" dropdown. For a factory integration, select the [target factory's foreman](#finding-the-factorys-foreman), not an arbitrary agent or a generic default account.
-4. Enter a name for the key and choose an expiration (1 day, 30 days, 90 days, or never).
+4. Enter a name for the key. In the "Expiration" dropdown, choose when it expires. The default is **90 days**; for ad hoc personal keys, change it to **1 day**.
 5. Click **Create key**.
 6. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
 
@@ -68,7 +68,7 @@ Create all three key types in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings
 2. In the sidebar, expand **Cloud platform** and click **API keys**.
 3. In the API Keys section, click **+ Create API Key**.
 4. Pick **Personal** for a personal key, or **Agent** / **Team** for an agent key tied to your team. (The toggle may still read **Team** in older versions of the desktop app.)
-5. Name the key and choose an expiration (1 day, 30 days, 90 days, or never).
+5. Name the key. In the "Expiration" dropdown, choose when it expires. For ad hoc personal keys, choose **1 day**.
 6. Click **Create key**.
 7. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
 
