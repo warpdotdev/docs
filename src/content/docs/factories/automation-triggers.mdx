@@ -45,7 +45,7 @@ Most native keys accept lists or matcher objects. Exceptions:
 * **Webhook `webhook_ids`** - Exactly one included UID; `payload` uses a [JSON pattern](/factories/automations/#payload-filters-for-webhook-triggers).
 * **Schedules** - Declare `schedule`, not a `schedule_ids` matcher.
 
-Lists aren't glob patterns unless a field explicitly supports globs. Keyword filters match case-insensitive substrings, not regular expressions.
+Lists aren't glob patterns unless a field explicitly supports globs. Where keyword filtering applies, it matches case-insensitive substrings, not regular expressions. See the [Jira session exception](#jira).
 
 ## Linear
 
@@ -194,8 +194,11 @@ Use `provider: jira` with the [Jira integration](/factories/integrations/jira/).
 | `issue_created`, `issue_labeled` | `project_keys`, `labels` | `{project_keys: [ENG], labels: [factory-ready]}` |
 | `status_changed` | `project_keys`, `status_ids` | `{project_keys: [ENG], status_ids: ["10001"]}` |
 | `agent_session_created` | `project_keys`, `labels`, `keywords` | `{project_keys: [ENG], labels: [factory-ready]}` |
+| `app_mentioned` | `project_keys`, `labels`, `keywords` | `{project_keys: [ENG], keywords: [investigate]}` |
 
-`project_keys` uses keys such as `ENG`; `status_ids` uses string IDs, not status names. Labels are case-sensitive names. `issue_labeled` matches newly added included labels and checks excluded labels against the current set. Session labels refer to the issue's current labels. `keywords` is accepted for compatibility on agent sessions but doesn't restrict matching. Jira has no authoring aliases.
+`project_keys` uses keys such as `ENG`; `status_ids` uses string IDs, not status names. Labels are case-sensitive names. `issue_labeled` matches newly added included labels and checks excluded labels against the current set. Session and mention labels refer to the issue's current labels. Jira has no authoring aliases.
+
+`app_mentioned` matches comments that mention the installed Warp app, including replies. Its keywords match the comment's text, excluding mention markup, not the issue's title or description. For `agent_session_created`, `keywords` is accepted for compatibility but doesn't restrict matching; use projects and labels to narrow sessions.
 
 ## Microsoft Teams
 

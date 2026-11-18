@@ -106,7 +106,7 @@ Until the organization is enabled, mentions in its repositories return a comment
 Configure the integration so every GitHub-triggered run uses the environment and settings your team expects.
 
 1. Open the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page in the {VARS.WEB_APP}</a>. The **GitHub integration** row shows whether an installation is connected to your team.
-2. Open the row's settings and choose the [environment](/platform/environments/) the runs use, plus an optional model, [agent](/platform/agents/), prompt, and secrets.
+2. Open the row's settings and choose the [environment](/factories/environments/) the runs use, plus an optional model, [agent](/platform/agents/), prompt, and secrets.
 3. Save the configuration.
 
 The repository that triggered the event is always cloned for the run, so an environment is optional. Configure one when runs need additional repositories, a specific Docker image, or setup commands. Pick a GitHub environment whose repositories the same installation covers, since the run authenticates with that installation's token.
@@ -212,5 +212,5 @@ Confirm the Warp Factories GitHub App installation covers the repository and sti
 * [GitHub Actions](/platform/integrations/github-actions/) - Run agents from your own CI workflows with `oz-agent-action`
 * [Integrations overview](/platform/integrations/) - The full set of first-party integrations
 * [Access, billing, and identity](/platform/team-access-billing-and-identity/) - Team GitHub authorization, identity mapping, and usage billing
-* [Environments](/platform/environments/) - Configure the runtime context for cloud agents
+* [Environments](/factories/environments/) - Configure the runtime context for cloud agents
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Inspect and share the runs a mention starts

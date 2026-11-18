@@ -1,8 +1,7 @@
 ---
 title: "Configure YOLO and strategic Agent Profiles"
 description: >-
-  Configure custom agent profiles in Warp to control planning depth, autonomy,
-  and execution speed — demonstrated with YOLO and Strategic examples.
+  Compare planning and command permissions with Strategic and YOLO Agent Profiles while building an NFL data pipeline.
 sidebar:
   label: "Configure YOLO and strategic Agent Profiles"
 tags:
@@ -12,9 +11,9 @@ tags:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-:::note
-This tutorial explains how **Agent Profiles** in Warp influence behavior, autonomy, and planning when coding with AI — demonstrated through the NFL Predictor app example.
-:::
+Compare two [Agent Profiles](/agents/capabilities/agent-profiles-permissions/) while building a Python pipeline for NFL player statistics and game schedules. Use the Strategic profile to review plans and commands, then compare it with a more permissive YOLO profile in a disposable checkout.
+
+Before starting, install Python 3.11 or later and review [creating and managing Agent Profiles](/agents/capabilities/agent-profiles-permissions/#agent-profiles). Both runs need network access to the public datasets. The core pipeline needs no secrets; provide any additional environment configuration before starting. More permissive command approval does not make generated code safe for production.
 
 <VideoEmbed url="https://youtu.be/iD0R-8fY-tY?si=FCX9yVq5_BRUognp" title="Configuring YOLO and strategic Agent Profiles video" />
 
@@ -30,10 +29,10 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
    * Dependencies and CLI commands
    * Implementation details and deliverables
 
-   ```
+   ```text
    Role & Goal
    You are my AI coding copilot inside Warp. 
-   Create a production-ready Python project that ingests 2015–2025 NFL data to power future win projections. 
+   Create a Python project that ingests 2015–2025 NFL data to power future win projections.
 
    Specifically: acquire week-level player and team stats, acquire game schedules + final scores (to determine weekly winners), and assemble a clean analytics dataset I can build models on later. Prefer stable/public data sources over brittle HTML scraping. Where scraping is unavoidable, respect robots.txt, add rate-limiting, and make scraping pluggable/optional. 
 
@@ -50,7 +49,7 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
    Zero secrets required for core pipeline. 
 
    Deliverables:
-   A fully initialized repo with the scaffold above.
+   An initialized repository with the CLI and ingestion modules.
    Implemented CLI + modules to download/ingest 2015–2025 data, compute/normalize fantasy PPR, produce winners by week, and write Parquet outputs. 
    One sample run in the README showing commands and example output counts. 
    If successful, run full 2015–2025. 
@@ -59,17 +58,22 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
 
 2. #### Configure the Strategic Agent
 
-   **Base Model:** GPT‑5 (for reasoning)\
-   **Planning Model:** Claude 4 Opus (for detailed breakdowns)
+   <span id="strategic-agent" />
+
+   Create or edit a profile for the first run using the [Agent Profiles controls](/agents/capabilities/agent-profiles-permissions/#agent-profiles). Enable planning and require command approval. The video uses GPT-5 as the base model and Claude 4 Opus for planning; choose models available to your account.
 
    | Action           | Permission    |
    | ---------------- | ------------- |
    | Apply code diffs | Agent decides |
-   | Read files       | Agent decides |
+   | Read files       | Always allow  |
    | Create plans     | Always allow  |
    | Execute commands | Always ask    |
 
-   Behavior:
+   Use **Always allow** for reading files in both profiles so this comparison focuses on planning and command approval. Submit the project prompt in a new conversation with the Strategic profile selected.
+
+   Review the [command denylist and auto-approve boundaries](/agents/capabilities/agent-profiles-permissions/#command-denylist); the table does not override those controls.
+
+   In the recorded example:
 
    *   The agent starts by asking clarifying questions:
 
@@ -77,11 +81,15 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
        > “Where should raw data be stored — locally or in a database?”
    * It builds a **14-step plan** covering setup, dependencies, validation modules, and pipelines.
    * When the agent requests NFL schedule URLs, the chosen source returns 404 errors.
-   * Execution halts — showing that the **Strategic** profile prioritizes verification over progress.
+   * The run pauses on the invalid URLs instead of completing the pipeline.
+
+   Clarifying questions help establish scope and storage choices before implementation. Missing environment variables or setup details can also interrupt a run; resolve those prerequisites before continuing.
 
 3. #### Configure the YOLO Agent
 
-   **Permissions:**
+   <span id="yolo-agent" />
+
+   Create or edit a second profile with these permissions, then start a separate conversation in a disposable checkout with the same project prompt. Keep credentials and production resources out of that checkout.
 
    | Action                   | Permission   |
    | ------------------------ | ------------ |
@@ -89,7 +97,7 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
    | Create plans             | Never        |
    | Execute commands         | Always allow |
 
-   Behavior:
+   In the recorded example:
 
    * The YOLO agent skips detailed planning.
    * It produces a **10-step plan** that covers essentials only:
@@ -97,9 +105,13 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
      * Build CLI
      * Ingest player data
      * Compute scores and transformations
-   * Instead of using unstable schedule URLs, it focuses on reliable player endpoints — completing a functional data pipeline.
+   * Instead of using the failing schedule URLs, it focuses on player endpoints and completes a player-data pipeline.
 
 4. #### Compare outcomes
+
+   <span id="comparing-the-two" />
+
+   Run the generated pipeline and repository checks. Inspect which datasets were actually downloaded, whether schedule data is missing, and whether output files and season summaries match the requested scope. Review generated code before reusing it.
 
 </Steps>
 
@@ -109,3 +121,17 @@ This tutorial explains how **Agent Profiles** in Warp influence behavior, autono
 | Interaction | Clarifications required | Autonomous                             |
 | Speed       | Slower due to checks    | Faster iteration                       |
 | Output      | Stalled on invalid URLs | Working player dataset + summary table |
+
+These are observations from the video, not expected plan lengths or performance guarantees. Use explicit review checkpoints for production-bound work. A permissive profile can suit a disposable prototype, but it does not replace tests or human review.
+
+## Troubleshooting
+
+* **Missing setup** - Provide required environment variables and dependencies before resuming. Do not print credential values into the conversation.
+* **Dataset URLs return 404** - Ask the agent to verify the source and report which requested datasets remain unavailable. A player-only dataset does not satisfy a request that also requires schedules.
+
+## Next steps
+
+The comparison produces a player-data pipeline and exposes the setup and source failures that still need review.
+
+* [Profiles & Permissions](/agents/capabilities/agent-profiles-permissions/) - Review permission boundaries before reusing a profile
+* [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Check the generated changes and tests
