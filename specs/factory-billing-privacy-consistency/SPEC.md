@@ -8,7 +8,7 @@ Correct the remaining plan, inference, privacy, and support inconsistencies inve
 - Requester: Hong Yi Chen (`hongyi-chen`).
 - Baseline: docs `f117c4215f1a61786034bf2941ea3ca095d88750`, fetched November 18, 2026.
 - Request: [originating Slack thread](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1794942142115919).
-- Resolved policy answers: [requester follow-up](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795040067702699) and [additional linked-billing launch guidance](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795040813403879), relayed by Foreman. The additional guidance revises P1; it is not spec approval.
+- Resolved policy answers: [requester follow-up](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795040067702699), [additional linked-billing launch guidance](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795040813403879), and [scoped warning instruction](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795041007059219), relayed by Foreman. These revise P1 and resolve the warning-scope question; they are not spec approval.
 - Deliverable: focused public-doc fixes on this spec's branch and PR, with a per-page change-and-reason record and verification evidence. This commit contains only the spec.
 
 ## Product behavior
@@ -64,12 +64,17 @@ Explain the boundary in **How linked billing works**, before procedural detail:
 
 Place one caution immediately after the canonical page's eligibility paragraph. It must precede **Linking your workspace** and the action **Link your Claude organization**. Give it the explicit anchor `#public-preview-limitations` and link directly to `/agents/inference/claude-platform-linked-billing/#public-preview-limitations` from the inventory's Factory, privacy, and Enterprise entry points.
 
-- The requester-supplied launch instruction is explicit: customers who need HIPAA, FERPA, or customer-managed encryption keys (CMEK) must not link during public preview. These names record the requested audience for this specification; they are not a claim that Warp supports those requirements.
-- The public warning must tell that audience not to link during public preview. Do not weaken it to a general “review your settings” notice.
+- The requester-supplied launch instruction is explicit: customers who need HIPAA, FERPA, or customer-managed encryption keys (CMEK) must not link during public preview.
+- Hong Yi Chen resolved the HIPAA wording scope with the exact instruction: “you should only talk about HIPAA in this context, related to this specific claude linked billing feature”. This is a user-requested exception to the repository's omission rule only for the negative feature-specific warning. It is not Security/Legal approval or evidence of supported compliance.
+- Use this warning sentence in the canonical caution:
+
+  > If your workload requires HIPAA or FERPA compliance, or customer-managed encryption keys (CMEK), do not use Claude linked billing during public preview.
+
+- Keep HIPAA mention confined to this warning. Related Factory, privacy, and Enterprise pages must link to the warning without repeating the compliance list. Do not weaken the instruction to a general “review your settings” notice.
 - No technical block enforces this warning. Do not describe a disabled control, validation error, entitlement rejection, or automatic protection.
-- Restrict the warning to Claude linked billing during public preview. Do not present it as a universal compliance statement about Warp, Anthropic, or all inference paths. Existing Enterprise agreement/access requirements still apply.
-- **Warning-copy publication prerequisite:** Current repository policy requires omitting HIPAA from customer-facing content. Obtain Security/Legal-approved, repository-policy-compatible public warning wording or an authorized clarification of that policy before finalizing the named public warning. Do not invent a broader restriction, imply compliance support, or silently omit the requested audience. The exact public warning wording remains unresolved; this is not a request to reconsider the supplied launch facts.
-- Do not count P1 complete or publish an unqualified linking procedure while this required warning is unresolved. The prerequisite does not authorize public-doc implementation before spec approval.
+- Restrict the warning to Claude linked billing during public preview. Do not present it as a universal compliance statement about Warp, Anthropic, or all inference paths. Do not promise a BAA or suggest that HIPAA, FERPA, or CMEK support becomes available after preview. Existing Enterprise agreement/access requirements still apply.
+- The warning-scope question is answered. Do not ask it again or retain it as a publication blocker. Keep the general compliance guidance unchanged; other compliance commitments still need the evidence specified below.
+- P1 requires the warning to be present before linking. The scoped wording instruction does not authorize public-doc implementation before spec approval.
 
 ### Browser support intake
 
@@ -100,7 +105,8 @@ This conditional procedure is the implementation path with the evidence availabl
 | Content ownership | Duplicate full rules at each entry point for local completeness, or add bounded summaries and canonical links to reduce drift. | Use summaries and links. Keep necessary exceptions beside the affected choice. |
 | Scope | Rewrite all requested families, or correct the confirmed inventory and targeted polish. A rewrite risks changing valid instructions and colliding with other audits. | Correct the listed pages. Record each fixed or deferred item. Escalate genuinely new semantic conflicts rather than silently expanding scope. |
 | Linked billing (expanded requester decision P1) | Treat the payer as the settings owner, or distinguish billing from the organization that serves requests. | Preserve the original ZDR answer and the additional instruction: “only the billing relationship moves to your customer”. Requests and retention, including ZDR, rate limits, and features remain Warp-org governed. Customer ZDR, IP allowlists, and encryption keys do not transfer. |
-| Preview warning (expanded P1) | Warn before authorization, rely on a technical block, or bury the limitation after setup. | Warn before linking; there is no technical block. Preserve the requester-specified HIPAA/FERPA/CMEK-dependent audience in this spec. Public wording requires the policy-compatible approval described above; do not generalize the restriction beyond this linked-billing preview. |
+| Preview warning (expanded P1) | Warn before authorization, rely on a technical block, or bury the limitation after setup. | Use the explicit HIPAA/FERPA/CMEK public-preview stop instruction above before linking. There is no technical block. Do not generalize the restriction or imply support after preview. |
+| Scoped wording exception (requester decision) | Omit HIPAA everywhere under the general rule, or make the narrow negative-warning exception the requester expressly directed. | Exact instruction: “you should only talk about HIPAA in this context, related to this specific claude linked billing feature”. Mention it only in that warning; link from other pages. Do not edit general policy, claim Security/Legal approval, or treat this exception as spec approval. |
 | Refunds (requester decision P2) | Require collection for all refunds/support, or scope diagnostics to defect-related self-serve requests. | Follow the requester: “Help improve Warp” is required only for refund or credit requests tied to a product defect. Require the Conversation ID and logs there too. Other refunds depend on purchase type and elapsed time. Enterprise contracts/refunds are separate. |
 | Collection permissions (P3) | Infer Scale eligibility from key access, wait for a full matrix, or keep conditional instructions and a contact route. | Use conditional instructions. They correct the overclaim without inventing permissions or blocking unrelated fixes. |
 | Capacity | Replace “unlimited” with a guessed number, or link the hosting limit and queuing guidance. | Link `factories/warp-hosting.mdx:31-33`; do not pin a number. |
@@ -111,6 +117,7 @@ This conditional procedure is the implementation path with the evidence availabl
 - Use #1048 as the existing investigation record. The additional P1 launch excerpt was supplied by the verified requester in the originating thread; it has not been independently validated against implementation or a Security/Legal approval source. The original cross-post source was inaccessible to Foreman. Cite the readable requester copy, not a claim of reading the original. This spec does not claim a new exhaustive audit or live production verification.
 - Follow `AGENTS.md`, `.agents/rules/warp-positioning.md`, `.agents/references/terminology.md`, and `src/data/vars.ts`. Describe Warp Factories as infrastructure and distinguish it from the Warp Agent harness.
 - Apply `.agents/references/compliance-claims-policy.md` to every compliance commitment added or retained in rewritten passages. Record the current Security/Legal-approved source, date/revision, approving authority, and exact product, plan, provider, model, deployment, and data scope in PR evidence. Existing docs, implementation, the requester answer, and general PR approval are not substitutes.
+- The requester's scoped instruction permits the HIPAA mention in the negative linked-billing warning only. It does not authorize a positive compliance or BAA claim, a policy-source edit, or a claim about post-preview support. The omission-scope question is resolved; unrelated assurance and technical evidence requirements remain.
 - If that evidence is unavailable, omit the unsupported promise from public prose and list the precise missing evidence in `Unverified claims`. Do not leave an unsupported compliance promise behind a `VERIFY` marker. Preserve valid instructions and bounded links; report the assurance item as deferred rather than claiming it complete.
 - For other unresolved technical assertions, omit them or use the repository's `VERIFY` accounting while the PR remains draft. Resolve or remove those markers before publication.
 - Verify any new availability claim with current shipped/public evidence. Run `server_rollout.py check` with the user-facing terms for server-backed claims and record the verdict and source revision separately from release evidence. Do not publish private rollout details.
@@ -121,7 +128,7 @@ This conditional procedure is the implementation path with the evidence availabl
 
 - **Assumption A1:** The supplied C1–C6/P1–P3 inventory, expanded P1 launch guidance, and delegated polish define this bounded pass. No full API, legal, or corpus-lifecycle audit is requested.
 - **Assumption A2:** Preserve existing pages, URLs, and reader tasks. No navigation, redirect, pricing-table, or product-name-variable change is needed.
-- **Assumption A3:** The requester answers resolve the product-policy forks. Production-permission evidence and policy-compatible public warning wording remain prerequisites. Neither is a request to repeat the launch facts.
+- **Assumption A3:** The requester answers resolve the product-policy forks, including the warning's narrow HIPAA mention. Production-permission evidence and evidence for other compliance commitments remain separate prerequisites; the answered wording question does not.
 
 ## Out of scope
 
@@ -147,7 +154,7 @@ Perform the following named checks against the diff and rendered pages. Record e
 | V4: collection controls and storage | Read the editable, workspace-locked, plan-locked, and personal browser-only cases. Each has the conditional action or contact route specified above. No new entitlement matrix appears. Provider retention, collection for improvement, personal conversation sync, and factory run storage remain distinct. |
 | V5: support and refunds | A browser-only factory user can assemble a report without Terminal logs. A Terminal user can still follow existing diagnostics. Compare a self-serve defect request, a mistaken unused purchase, a time-based subscription refund, and an Enterprise contract request: only the first gets the collection/Conversation ID/log prerequisites; existing refund thresholds remain unchanged. |
 | V6: capacity and tone | No unlimited hosted-concurrency promise remains in the changed overview. Its capacity link states limits and queuing without a guessed number. Apply the read-aloud and deletion-only passes. Preserve useful actions, exceptions, and page purpose. Closing links use the established format. |
-| V7: preview warning before linking | In the rendered canonical page, the explicit public-preview stop instruction appears after eligibility and before the first OAuth/linking action. Its approved wording covers each requester-specified restricted requirement without implying supported compliance or a technical block. Verify the approval source and policy compatibility, and confirm no universal Warp/Anthropic restriction was introduced. Missing approved warning wording fails this check; a marker or general caution is not a pass. |
+| V7: preview warning before linking | In the rendered canonical page, the specified HIPAA/FERPA/CMEK public-preview stop instruction appears after eligibility and before the first OAuth/linking action. Trace its narrow mention exception to the requester's exact instruction. HIPAA appears in no other changed public passage; related pages link to the caution. Confirm no positive compliance/BAA promise, future-support implication, technical block, universal Warp/Anthropic restriction, or general policy edit was introduced. A missing or generic warning fails this check; no further requester wording decision is required. |
 
 ### Deterministic checks
 
@@ -169,6 +176,6 @@ After a successful build, use `computer_use` to inspect the rendered factory inf
 
 ## Approval
 
-- Interview: the requester decisions supplied by Foreman resolve the launch facts. Policy-compatible public warning wording is still required; do not ask the requester to repeat which organization's settings apply.
+- Interview: the requester decisions supplied by Foreman resolve the launch facts and feature-specific HIPAA warning scope. No warning-scope question remains open.
 - Spec approval: pending. Only written requester confirmation or draft-PR approval satisfies this prerequisite.
-- Approval covers this bounded documentation plan. It does not establish production collection-control permissions or approve unsupported compliance commitments.
+- The scoped wording exception is not a spec-approval override. Spec approval covers this bounded documentation plan; it does not establish production collection-control permissions or approve unsupported compliance commitments.
