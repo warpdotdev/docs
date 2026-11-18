@@ -17,9 +17,11 @@ For working definitions you can copy, see [warp-factory-examples](https://github
 Choose where to host the definition when you create a factory:
 
 * **Warp-managed (default)** - Edit the definition in the [{VARS.FACTORY_WEB_APP}](/factories/factory-dashboard/). Warp validates, commits, and applies changes; its repository stays hidden.
-* **GitHub** - On a paid plan, keep the definition in your own repository. The web app links to the files in a read-only view. Merges to the production branch (`main` by default) update the factory.
+* **GitHub** - On paid plans, keep the definition in your own repository. The web app links to the files in a read-only view. Merges to the production branch (`main` by default) update the factory. See [plan eligibility](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
 
 Both modes share the file format. You can link a Warp-managed factory to GitHub later.
+
+The definition repository stores configuration, not the execution environment or run data. Configure [execution hosting](/factories/infrastructure-and-security/#choose-an-execution-host) and [run-data storage](/factories/self-hosting/data-storage/) separately.
 
 Work items, runs, and metrics live in the web app, not in the definition.
 
@@ -33,6 +35,7 @@ agents/
   foreman/
     agent.md
     skills/
+      shared.yaml
       incident-triage/
         SKILL.md
   reviewer/
@@ -53,6 +56,7 @@ scorers/
   tests-run/
     scorer.md
 skills/
+  shared.yaml
   repository-conventions/
     SKILL.md
 webhooks/
@@ -193,6 +197,18 @@ github:
 ```
 
 Checks use the pull request's changed paths to decide whether validation is needed, then validate its complete head snapshot. Base-only edits and advances to the base or production branch don't refresh unchanged pull request checks. See [factory-definition pull request checks](/factories/integrations/github/#factory-definition-pull-request-checks).
+
+#### `github.mcpEnabled`
+
+**Optional.** Boolean; defaults to `false` when omitted from the definition.
+Set to `true` to use managed GitHub MCP tools instead of the GitHub CLI for new Warp-hosted runs. New factories are created with this setting enabled; existing factories aren't opted in automatically.
+
+```yaml title="factory.yaml"
+github:
+  mcpEnabled: true
+```
+
+See [GitHub MCP](/factories/integrations/github/#github-mcp) for setup, the Integrations toggle, and run behavior.
 
 ### `codeForges`
 
@@ -478,7 +494,7 @@ For a GitHub-backed factory, merge the change into its connected production bran
 #### `agentDefaults.harness`
 
 **Conditionally required.** Set exactly one of `model` or `harness`.
-The run harness and model. The object requires `type` and `model`. `type` accepts `oz`, `claude`, `codex`, or `claude-code` (an alias for `claude`). Prefer the canonical [harness identifier](/factories/harnesses/#harness-identifiers) used by the CLI and the {VARS.WARP_PLATFORM_API}. See [supported harnesses](/factories/harnesses/) for availability and behavior.
+The run harness and model. The object requires `type` and `model`. `type` accepts `oz`, `claude`, `codex`, `pi`, or `claude-code` (an alias for `claude`). See [harness identifiers](/factories/harnesses/#harness-identifiers) for names by configuration surface, and [supported harnesses](/factories/harnesses/) for availability and behavior.
 
 ```yaml
 harness:
@@ -498,6 +514,8 @@ Optional `auth` requires `source`:
 | `workerEnvironment` | Not allowed | Requires a self-hosted `workerHost`; uses authentication from that worker's environment. |
 
 The `oz` harness supplies its own credentials and rejects `auth` and `reasoningLevel`. Third-party harnesses accept optional `reasoningLevel`.
+
+Pi requires `model` in `provider/model` form. A managed secret or team default must match the model's provider. For credentials configured on your self-hosted worker, use `auth.source: workerEnvironment`. See [Configuring the Pi harness](/factories/harnesses/pi/).
 
 For per-agent harnesses and managed-secret authentication, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
 
@@ -908,7 +926,75 @@ On a Warp-managed factory, creating a webhook in the dashboard writes this file 
 ## Skills
 
 **Optional resource.**
-A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. See [Factory skills](/factories/factory-skills/) for placement and [Skills for agents](/agents/capabilities/skills/) for the file format.
+A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. To reuse skills elsewhere in the same repository or in an external repository, add a YAML reference file instead of copying the skill folders. See [Factory skills](/factories/factory-skills/) for placement and [Skills for agents](/agents/capabilities/skills/) for the file format.
+
+### Skill reference files
+
+Reference files select skills from one source repository. Place a `.yaml` or `.yml` file directly in `skills/` to share its selected skills with every agent, or directly in `agents/<name>/skills/` to scope them to that agent. The file name is a label; YAML files nested inside a skill folder aren't reference files.
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `source` | Yes | Repository shorthand, `[<host>:]<owner>/<repo>[@<ref>]`, or a mapping with `owner`, `repo`, optional `codeForge`, and optional `ref`. |
+| `include` | Yes | Non-empty list of skill names, repository-relative paths, or globs to load. |
+| `exclude` | No | Names, paths, or globs removed from the included skills. |
+
+The host is `github.com`, `gitlab.com`, or `dev.azure.com`; mapping-form `codeForge` uses `GITHUB`, `GITLAB`, or `AZURE_DEVOPS`. Omit the forge only when the factory uses exactly one code forge. An explicit forge must be among the factory's [code forges](#codeforges).
+
+#### Shared skills in the same repository
+
+Suppose `acme/payments-service` contains the factory definition in `factory/` and shared skills in `.agents/skills/`. This reference file gives every factory agent the repository's review procedure:
+
+```yaml title="factory/skills/shared.yaml"
+source: github.com:acme/payments-service
+include:
+  - .agents/skills/code-review/SKILL.md
+```
+
+Paths are relative to the source repository root, not to the reference file or `factory.yaml`. A path can name a skill folder or its `SKILL.md`; absolute paths and `..` segments aren't supported.
+
+#### Skills in an external repository
+
+This agent-level reference loads selected skills from `acme/shared-skills` for the reviewer:
+
+```yaml title="agents/reviewer/skills/shared.yaml"
+source: github.com:acme/shared-skills@v1.4.0
+include:
+  - safe-secrets
+  - skills/release-notes/SKILL.md
+  - "frontend/*"
+exclude:
+  - "frontend/legacy-*"
+```
+
+A plain name such as `safe-secrets` matches the `name` in `SKILL.md` frontmatter in the repository's [standard skill folders](/agents/capabilities/skills/#project-skills). A glob without `/` matches skill names; a glob with `/` matches skill folder paths. `*` matches within one path segment, `**` across segments, and `?` and `[...]` are also supported. Quote entries that start with `*`.
+
+Only the selected skill folders, including their supporting files, load as skills. Referencing a repository doesn't add it to the agent's workspace. Public source repositories need no additional setup; a private source repository must be attached in the factory's [`repositories`](#repositories).
+
+#### Pin skills to a commit
+
+Without a ref, each run loads the latest commit on the source repository's default branch. A ref can name a branch, tag, or commit; a branch wins when a branch and tag share a name.
+
+To load a particular version of a skill file, pin its source to a full 40-character lowercase commit SHA:
+
+```yaml title="skills/pinned.yaml"
+source: github.com:acme/shared-skills@0123456789abcdef0123456789abcdef01234567
+include:
+  - skills/release-notes/SKILL.md
+```
+
+Replace the example SHA with the commit containing the file version you want. The SHA pins the source repository revision, including the skill's supporting files, not a Git blob or an individual file hash. Short SHAs and 64-character SHAs aren't supported as commit pins.
+
+The equivalent mapping form keeps the repository and revision separate:
+
+```yaml title="skills/pinned.yaml"
+source:
+  codeForge: GITHUB
+  owner: acme
+  repo: shared-skills
+  ref: "0123456789abcdef0123456789abcdef01234567"
+include:
+  - skills/release-notes/SKILL.md
+```
 
 ## Example factory definition
 

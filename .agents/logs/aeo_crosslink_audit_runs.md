@@ -8,6 +8,26 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-11-17 — No change
+
+- **Run**: https://staging.warp.dev/conversation/f093cc65-3786-4e80-8814-e1b5bb28e313
+- **Source signals**: Peec available (native MCP, existing Warp project; bounded 2026-10-18–2026-11-16 queries, recommendations, and source URLs), GSC unavailable (GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON missing); Peec and existing-docs fallback completed
+- **PR**: N/A (no content PR; no open cross-link PR to extend)
+- **Links proposed / added**: 0 proposed, 0 added; 5 candidate journeys already served by 6 direct links across 13 inspected pages
+- **Pages touched**: N/A (no public content changes)
+- **Themes**: Factory versus ad hoc orchestration, configured-agent dispatch, unattended triggers, skills, and evaluation already connect to specific next steps
+- **No-change reason**: Below the 2-link threshold; internal-link validation failed on 2 pre-existing links in factories/factory-agents/creating-custom-agents.mdx (lines 69 and 72); style/diff checks passed; Trunk unavailable; repair stale routes separately and restore read-only GSC access
+
+## 2026-11-16 — No change
+
+- **Run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1e4df-48b8-777c-897f-4a83d0ca21c6
+- **Source signals**: Peec unavailable (DOCS_FACTORY_PEEC_PAT missing), GSC unavailable (GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON missing); 2026-10-17–2026-11-15 signals unverified; docs-only fallback completed
+- **PR**: N/A (no content PR)
+- **Links proposed / added**: 0 proposed, 0 added; 5 candidate journeys already linked through 15 checked links across 12 inspected pages
+- **Pages touched**: N/A
+- **Themes**: Factory skill references, configured-agent dispatch, unattended triggers, orchestration, and factory tuning already link to specific next steps
+- **No-change reason**: No new qualifying links; below the 3-link docs-only threshold; restore both source credentials and verify read-only factory-runtime access
+
 ## 2026-11-09 — No change
 
 - **Run**: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1c0d2-c434-7b3b-ad27-0a812417e5ee

@@ -2,7 +2,7 @@
 title: Configuring factory agents
 description: >-
   Configure a factory agent's instructions, tools, model, and harness,
-  including authentication for Claude Code and Codex.
+  including authentication for Claude Code, Codex, and Pi.
 ---
 import { VARS } from '@data/vars';
 
@@ -17,7 +17,7 @@ Change how an existing factory agent works by editing its instructions, tools, a
 
 ## Edit agent settings and instructions
 
-For a Warp-managed factory, edit agent settings in the web app. For a GitHub-backed factory, settings are read-only in the web app; edit the [factory definition files](/factories/factory-as-code/) instead. See [Where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+If your factory definition is hosted by Warp, edit agent settings in the factory web app. If the definition is hosted by GitHub, settings are read-only in the app; edit the [definition files in your repository](/factories/factory-as-code/#where-the-definition-lives) instead.
 
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
 
@@ -41,9 +41,9 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
 
 ## Choose models and harnesses per agent
 
-Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, and Codex. A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
+Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, Codex, and [Pi](/factories/harnesses/pi/). A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
 
-Third-party harness access depends on your team's plan and workspace settings. If a harness requires an upgrade, use the Warp Agent or review [Warp pricing](https://www.warp.dev/pricing).
+Third-party harnesses are included on the Scale and Enterprise plans for Warp Factories. Existing paid-plan access depends on your team's plan and workspace settings. See [plan requirements](/factories/harnesses/#plan-requirements).
 
 Default model IDs change over time, so choose based on what each agent has to do well:
 
@@ -59,9 +59,47 @@ The model picker also includes custom routers from factories you can access. See
 
 For team-managed inference in definition files, see [custom endpoint and BYOK model values](/factories/factory-as-code/#custom-inference-endpoints-and-byok), including factory defaults and per-agent overrides.
 
-### Configuring a third-party harness
+## Reviewing inference for provider ZDR
 
-Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool.
+Use [factory ZDR guidance](/factories/zero-data-retention/) to check coverage for your model and provider account before changing settings. For Warp-managed inference, choose models outside the [provider-retention exception list](/agents/inference/model-choice/#models-requiring-provider-retention).
+
+Review factory defaults, agent and automation overrides, and separate feature models such as Computer Use and Scorers. The [factory definition reference](/factories/factory-as-code/) lists these settings. Team-wide model restrictions and shared credentials belong in the [Admin Panel's Models settings](/enterprise/team-management/admin-panel/#models-settings).
+
+Choose the path matching [where your factory definition is hosted](/factories/factory-as-code/#where-the-definition-lives).
+
+<span id="reviewing-a-dashboard-managed-factory" />
+
+### Factory definition hosted by Warp
+
+With [editing access](#prerequisites):
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, expand your factory and click **Factory definition**. Review model defaults and overrides in the existing definition files.
+2. In **Agents**, open each agent's **Settings**, including the foreman's, and review the "Harness" and "Model" selections.
+3. Save any changes, resolve validation errors, and reopen the settings to confirm the intended values before [checking a new run](#checking-new-runs).
+
+<span id="reviewing-a-github-backed-factory" />
+
+### Factory definition hosted by GitHub
+
+You need permission to propose and merge definition changes. The factory web app shows these files read-only.
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, expand your factory, open **Settings**, and follow the definition repository link.
+2. In GitHub, propose model changes in the existing definition files. Check factory defaults, agents including the foreman, and any automation or feature overrides.
+3. Confirm the [factory-definition PR checks](/factories/factory-as-code/#pull-request-checks) pass, then merge into the connected production branch. Reopen the changed settings in the factory web app to confirm the values before [checking a new run](#checking-new-runs).
+
+### Checking new runs
+
+Use a test factory with non-sensitive repositories and inputs:
+
+1. In the factory web app, click **New Chat** and choose the test factory below the prompt input.
+2. Send: “Reply with a greeting. Don't read repository files or call tools.”
+3. In **Runs**, open the new run and compare its model and harness with your selections. Check child runs and any features you changed separately.
+
+If settings don't match, review overrides or [contact support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) before sending sensitive work. A greeting checks the selected model, not [coverage for every AI request](/factories/zero-data-retention/#provider-zdr-coverage).
+
+## Configuring a third-party harness
+
+Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool. For Pi setup, see [Configuring the Pi harness](/factories/harnesses/pi/).
 
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
 2. Click an agent to open its **Settings** tab.
@@ -83,7 +121,7 @@ Change an agent's harness to Claude Code or Codex to run it with that provider's
 5. In the "Model" dropdown, choose a model from that harness's catalog.
 6. In the top-right corner, click **Save**.
 
-With a Warp-managed factory, you can edit harness, auth, and model from the dashboard. A GitHub-backed factory sets them through [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in the definition files. For an example, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
+If your factory definition is hosted by Warp, edit the harness, auth, and model in the factory web app. If the definition is hosted by GitHub, edit [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in your repository. For an example, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
 
 ## Related pages
 
