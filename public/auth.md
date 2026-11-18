@@ -4,7 +4,7 @@ The Warp Agent API lets clients create, manage, and query Warp cloud agent runs.
 
 ## Authentication
 
-Most operations require a Warp API key sent with HTTP Bearer authentication:
+Most operations require HTTP Bearer authentication. The token is a Warp API key or a supported Warp-issued user token. Automated clients use an API key:
 
 ```http
 Authorization: Bearer YOUR_WARP_API_KEY
@@ -17,7 +17,7 @@ Two public-artifact operations can be called without authentication when the req
 - `GET /agent/artifacts/{artifactUid}`
 - `GET /agent/artifacts/{artifactUid}/download`
 
-Private artifacts and all other operations require a valid key with access to the requested resource.
+Private artifacts and all other operations require a valid API key or user token with access to the requested resource.
 
 ## Endpoints and reference
 
