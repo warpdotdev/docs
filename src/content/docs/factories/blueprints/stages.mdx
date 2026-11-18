@@ -17,7 +17,7 @@ Use workers already declared in the definition, or [create a custom worker](/fac
 The stage says what work to do now. The worker configuration supplies the model, harness, tools, and general instructions that apply across all stages.
 
 1. In `factory.yaml`, find the stage to change under `blueprint.stages`, or add a new named stage. Choose a name for the work, such as `implement` or `review`, rather than for its model.
-2. Set `worker` to a declared worker. In a definition using the `agents/` layout, its file is `agents/<name>/agent.md`. In this example, `implementer` makes the change and `reviewer` checks it independently. Configure their repository access and tools in their [worker settings](/factories/factory-agents/configuration/).
+2. Set `worker` to a declared worker. Find its file under the definition's [existing worker root](/factories/factory-as-code/#directory-structure): `workers/<name>/worker.md` or `agents/<name>/agent.md`. In this example, `implementer` makes the change and `reviewer` checks it independently. Configure their repository access and tools in their [worker settings](/factories/factory-agents/configuration/).
 3. Write `inputs`, `prompt`, and `outputs` so the next stage has the evidence it needs:
 
    ```yaml title="Stages under blueprint.stages"
