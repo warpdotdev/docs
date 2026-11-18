@@ -1,37 +1,33 @@
 ---
-title: About factory agents
+title: About factory workers
 description: >-
-  Configure the foreman, triage, spec, implement, and review agents in Warp
-  Factories, or add custom agents for your development workflows.
+  Configure the workers that run Blueprint stages in Warp Factories, including
+  their shared instructions, tools, models, and harnesses.
 sidebar:
-  label: "About factory agents"
+  label: "About factory workers"
 ---
 
-Factory agents run the work in your development workflow. The foreman coordinates the workflow and communicates with you; other agents investigate requests, plan changes, implement them, or review the result.
+Factory workers run the stages in your [Blueprint](/factories/blueprints/). The foreman coordinates the workflow and communicates with you. Other workers run assigned stages using their configured models, harnesses, tools, and shared instructions.
 
-With a [Blueprint](/factories/blueprints/), you assign agents to stages and define each stage's procedure, required inputs, and outputs. The Blueprint also controls handoffs, revision routes, and human gates. Agent configuration supplies the models, harnesses, tools, and shared instructions those stages use.
+Keep each stage's procedure, required inputs, outputs, transitions, and human gates in the Blueprint. Put instructions that apply across stages in the worker definition.
 
-## The default agents
+<span id="the-default-agents" />
 
-Every factory has a foreman. The default roles below are starting points, not required stages. Reuse them in your Blueprint or [add custom agents](/factories/factory-agents/creating-custom-agents/) for work that needs different resources or instructions.
+## The default workers
 
-The default agents' prompts, descriptions, and models are available in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+A new factory starts with these workers. Reassign stages or [add custom workers](/factories/factory-agents/creating-custom-agents/) when work needs different resources or instructions.
 
-| Agent | What it does | What it produces |
+| Worker | What it does | What it produces |
 | --- | --- | --- |
-| Foreman | Coordinates the work and talks to the requester | Decisions, questions, status updates, and the final handoff |
-| Triage | Investigates the request and establishes scope | Evidence, issue context, complexity, and open questions |
-| Spec | Turns requirements into a concrete plan with validation criteria | Product and technical specs in a draft pull request |
-| Implement | Makes and validates the code change | Code, tests, validation results, and visual evidence |
-| Review | Independently checks the finished change | Findings and a recommendation |
+| Foreman | Coordinates the top-level workflow and talks to the requester | Questions, status updates, and the final handoff |
+| Lifecycle worker | Coordinates the development stages within its assigned group | The group's result and supporting evidence |
+| Researcher | Investigates a scoped question | Findings and sources |
 
-These are responsibilities, not a fixed pipeline. In a Blueprint, configure routes to skip planning for well-defined work or return review findings for revision. Add a plan-review gate when implementation must wait for approval. Definitions without a Blueprint keep these decisions in the foreman's instructions.
-
-For the complete lifecycle, see [How Warp Factories work](/factories/how-factories-work/).
+Triage, planning, implementation, and review are stage responsibilities, not a requirement to create a separate worker for each one. A Blueprint can assign several stages to one worker or separate work that needs different tools or independent review.
 
 ### Foreman
 
-The foreman drives the top-level Blueprint. It gathers each stage's inputs from the request and earlier outputs, runs stages assigned to itself in its conversation, and delegates other stages to their workers. It relays questions and answers and continues an agent's existing conversation for revisions rather than starting a new one.
+The foreman drives the top-level Blueprint. It gathers each stage's inputs from the request and earlier outputs, runs stages assigned to itself in its conversation, and delegates other stages to their workers. It relays questions and answers and continues a worker's existing conversation for revisions rather than starting a new one.
 
 A worker can coordinate a [group of stages](/factories/blueprints/stages/#group-related-stages). It handles that group's internal handoffs and returns the group's result to the foreman.
 
@@ -42,6 +38,10 @@ After implementation and review, the foreman returns the pull request and suppor
 Use the foreman's handle to @-mention it in Slack and Linear. Factory setup defaults the handle to the factory's name. For example, a factory named `payments` gets the handle `@payments`.
 
 The factory name and foreman handle can differ. To change the foreman's handle, open your factory's **Settings** in the web app and click **Identity**. You can also edit [`alias`](/factories/factory-as-code/#alias) in the definition.
+
+## Stage responsibilities
+
+Choose a worker for each stage in the Blueprint. These responsibilities describe an issue-to-PR workflow; your stage names and assignments can differ.
 
 ### Triage
 
@@ -61,35 +61,31 @@ Review independently checks requirements, code conventions, tests, security, and
 
 ## Built-in skills
 
-Every default agent includes GitHub skills; the foreman also includes a Slack skill. Choosing Linear or Jira during setup adds that tracker's skill and instructions. You can add custom procedures with [factory skills](/factories/factory-skills/).
+The default workers include GitHub skills; the foreman also includes a Slack skill. Choosing Linear or Jira during setup adds that tracker's skill and instructions. You can add custom procedures with [factory skills](/factories/factory-skills/).
 
-## Configuring and extending agents
+<span id="configuring-and-extending-agents" />
+
+## Configuring and extending workers
 
 <div id="configure-agent-behavior" />
 <div id="choose-models-and-harnesses-per-agent" />
 <div id="configuring-a-third-party-harness" />
 
-For settings, prompts, models, and third-party authentication, see [Configuring factory agents](/factories/factory-agents/configuration/).
+For settings, prompts, models, and third-party authentication, see [Configuring factory workers](/factories/factory-agents/configuration/).
 
 <div id="add-custom-agents-and-automations" />
 <div id="choose-a-configured-factory-agent" />
 
-For new roles, skills, and stage-worker assignments, see [Creating custom agents](/factories/factory-agents/creating-custom-agents/). To start work from schedules and events, use [factory automations](/factories/automations/).
+For new workers, skills, and stage assignments, see [Creating custom workers](/factories/factory-agents/creating-custom-agents/). To start work from schedules and events, use [factory automations](/factories/automations/).
 
-## Human decision points and permissions
+<span id="human-decision-points-and-permissions" />
 
-| Decision | Default behavior | What enforces it |
-| --- | --- | --- |
-| Spec approval | The planning stage asks for approval before implementation when the workflow requires it | Blueprint gates and routes; foreman instructions in definitions without a Blueprint |
-| Merging | The foreman hands you the finished pull request. Agents never merge on your behalf. | Your repository's permissions decide who can approve and merge |
-| Runtime access | Each agent reaches only the repositories, secrets, and MCP servers in its configuration | Platform configuration and the permissions of the connected providers |
-
-Change workflow policy in the Blueprint, not a second stage list in an agent prompt. Gates guide the workflow; repository permissions and branch protection enforce who can approve and merge. Changing instructions does not grant tool, repository, or credential access.
+Configure [human decisions in the Blueprint](/factories/blueprints/#gates-ask-for-answers-not-automatic-approval). For access to repositories, secrets, and tools, see [factory permissions and external access](/factories/permissions/#factory-permissions-and-external-access).
 
 ## Related pages
 
-* [Configuring factory agents](/factories/factory-agents/configuration/)
-* [Creating custom agents](/factories/factory-agents/creating-custom-agents/)
+* [Configuring factory workers](/factories/factory-agents/configuration/)
+* [Creating custom workers](/factories/factory-agents/creating-custom-agents/)
 * [How Warp Factories work](/factories/how-factories-work/)
 * [Factory skills](/factories/factory-skills/)
 * [Definitions as code](/factories/factory-as-code/)

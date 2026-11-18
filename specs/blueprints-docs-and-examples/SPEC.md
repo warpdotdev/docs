@@ -37,13 +37,13 @@ The original request explicitly authorizes drafts and reviewer questions. That a
 
 Implementation references are research inputs for maintainers, not text to copy into public pages:
 
-- `logic/factoryfile/registry.go:10-13`: `v1alpha1` has no Blueprint; `v1alpha2` requires one.
+- Current source correction (`warp-server@e406d59aac`, November 18): `logic/factoryfile/registry.go` and `schema/schema.go` make `v1alpha1` canonical and `v1alpha2` a compatible alias. Both accept definitions with or without a Blueprint. This supersedes the original schema migration assumption.
 - `logic/factoryfile/blueprint.go`: `decodeBlueprint`, `decodeBlueprintStage`, `decodeBlueprintEdges`, and `validateBlueprintProfiles` define the authored grammar and reference checks.
 - `logic/ai/ambient_agents/templates/factory_blueprint_scope_prompt.tmpl`: the scope worker selects the first matching route, binds inputs, executes or delegates, and relays human questions.
 - `logic/ai/ambient_agents/templates/factory_blueprint_stage_agent_prompt.tmpl`: a delegated stage reports outputs and does not choose its own outgoing route.
 - `client/packages/factory/src/pages/FactorySetup/steps/BlueprintStep.tsx`: setup provides a read-only Blueprint preview, not an editor.
 - `client/packages/factory/src/pages/FactoryBlueprint/blueprint-introduction.tsx`: existing factories have a generation entry point.
-- `client/packages/factory/src/pages/FactoryBlueprint/blueprint-human-review.tsx`: human review opens the run conversation.
+- `client/packages/factory/src/pages/FactorySetup/steps/blueprint-tutorial.tsx`: onboarding names stages, workers, and transitions. Gate answers belong in the original conversation; do not imply a dedicated gate dashboard.
 - `specs/factory-blueprint-read-contract/{PRODUCT,TECH}.md`, `specs/factory-blueprint-transition-ledger/{PRODUCT,TECH}.md`, and `specs/blueprint-catalog/TECH.md`: design context only. Prefer current implementation when terminology or behavior differs.
 
 Publication readiness remains unresolved. A server availability check did not clear Gate 0 at the recorded server revision. No live UI walkthrough or end-to-end Blueprint run has been performed. Keep private rollout details out of public files, PR descriptions, and comments.
@@ -95,11 +95,11 @@ Keep each page's purpose. Do not rewrite unrelated sections.
 
 | File | Narrow change |
 | --- | --- |
-| `src/content/docs/factories/factory-as-code.mdx` | Add version-scoped Blueprint syntax and a short valid example. Preserve legacy-version guidance. Link the full example instead of copying it. |
+| `src/content/docs/factories/factory-as-code.mdx` | Add Blueprint syntax and a short valid example. Preserve existing definitions without requiring a schema migration. Link the full example instead of copying it. |
 | `src/content/docs/factories/how-factories-work.mdx` | Explain Blueprint routing and gates beside the lifecycle. Distinguish authored stages from legacy status labels. Remove conflicting claims that routing lives only in foreman prose. |
 | `src/content/docs/factories/index.mdx` | Introduce Blueprints where stages and checkpoints are introduced; link the concept. |
 | `src/content/docs/factories/quickstart.mdx` | Add a next-step link. Change setup steps only when verified live behavior requires it. Do not add the full walkthrough here. |
-| `src/content/docs/factories/factory-dashboard.mdx` | Add concise, verified instructions for inspecting a Blueprint/run and opening the human-review conversation. |
+| `src/content/docs/factories/factory-dashboard.mdx` | Add concise, verified instructions for viewing the Blueprint diagram. Keep gate answers with conversation instructions, not a dedicated dashboard view. |
 | `astro.config.mjs` and `src/sidebar.ts` | Register the concept and walkthrough in their existing sections. Verify which file owns each navigation tree. |
 
 Apply the repository's full content-design-plan form to each new page and the three-line short form to updates that introduce a concept. Include those plans in the content PR body. This specification presents the proposed plans for requester approval before public prose is drafted.
@@ -110,7 +110,7 @@ Apply the repository's full content-design-plan form to each new page and the th
 
 Update `examples/02-sdlc-issue-to-pr`, not every example.
 
-- Set `schemaVersion: v1alpha2` for example 02.
+- Keep example 02's `schemaVersion: v1alpha1`; adding a Blueprint does not require a version change.
 - Put workflow routing in `factory.yaml` under `blueprint`.
 - Keep `agents/<name>/agent.md` for worker roles and execution settings. Remove conflicting routing instructions from the foreman's procedure.
 - Use the existing worker names: `foreman`, `triage`, `spec`, `implementer`, and `reviewer`.
@@ -149,7 +149,7 @@ Update the example README, root example index, and relevant worker instructions 
 
 Preserve the current GitHub intake constraints: repository filters, mention/assignment handles, and `factory:<alias>` label. Preserve the merged/closed follow-up filter and its distinction between merged and closed without merge. Adding a Blueprint must not widen intake.
 
-Inspect `.github/workflows/validate.yml` and the helper scripts before editing. CI currently pins a single schema version. Make only the compatibility changes required to validate example 02 as `v1alpha2` while retaining unrelated `v1alpha1` examples. Do not relabel a rejected or unvalidated tree as valid. If prompt files or another new resource layout are introduced despite the inline-prompt decision, update collection and tests so validation includes those files.
+Inspect `.github/workflows/validate.yml` and the helper scripts before editing. Validate example 02's complete Blueprint tree with the current schema and retain unrelated examples. No version migration is required. Do not relabel a rejected or unvalidated tree as valid. If prompt files or another new resource layout are introduced despite the inline-prompt decision, update collection and tests so validation includes those files.
 
 ## Repository provisioning and delivery
 
@@ -179,7 +179,7 @@ The requester authorized provisioning, not bypassing checkout preparation.
 | Workers | Retain agent definitions; move routing into the Blueprint. This matches the implemented model. | Deleting agents would leave stage workers undefined. Leaving routing only in foreman prose would not demonstrate Blueprints. |
 | Content structure | One concept plus one linked tutorial, with narrow reference updates. Each owns a distinct reader job. | One long combined page hides the continuous exercise; adding the tutorial to the quickstart changes its purpose. |
 | Teaching input | A README improvement in the reader's examples fork. Its files and checks are inspectable and it needs no new app fixture. | An invented application bug requires extra code, dependencies, and a second set of maintenance tests. |
-| Schema scope | Migrate example 02 and only necessary helper compatibility. | Migrating the whole repository increases unrelated scope and makes legacy behavior harder to inspect. |
+| Schema scope | Retain example 02's schema version and change helpers only if current validation requires it. | A version-only migration adds no Blueprint capability. |
 | Availability | Draft now; retain publication holds and reviewer questions. | Treating source or staging behavior as shipped would make unsupported public promises. |
 
 ## Assumptions

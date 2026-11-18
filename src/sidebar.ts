@@ -415,16 +415,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							items: [
 								{ slug: 'factories/blueprints', label: 'About Blueprints' },
 								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
-								{ slug: 'factories/blueprints/routes', label: 'Routing work between Blueprint stages' },
+								{ slug: 'factories/blueprints/routes', label: 'Configuring Blueprint transitions' },
 								{ slug: 'factories/blueprints/gates', label: 'Adding human gates to a Blueprint' },
 							],
 						},
 						{
-							label: 'Factory agents',
+							label: 'Factory workers',
 							items: [
-								{ slug: 'factories/factory-agents', label: 'About factory agents' },
-								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
-								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+								{ slug: 'factories/factory-agents', label: 'About factory workers' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory workers' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom workers' },
 							],
 						},
 						{
