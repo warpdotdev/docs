@@ -161,6 +161,9 @@ jobs:
       - name: Validate agent documentation outputs
         run: npm run test:agent-doc-outputs
 
+      - name: Validate Markdown content negotiation routes
+        run: npm run test:markdown-negotiation
+
       - name: Validate page title order
         run: npm run test:page-title-order
 
