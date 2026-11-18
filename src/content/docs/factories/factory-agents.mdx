@@ -7,7 +7,7 @@ sidebar:
   label: "About factory workers"
 ---
 
-Factory workers run the stages in your [Blueprint](/factories/blueprints/). The foreman coordinates the workflow and communicates with you. Other workers run assigned stages using their configured models, harnesses, tools, and shared instructions.
+Factory workers are agents configured to run work in your factory. Your [Blueprint](/factories/blueprints/) assigns stages to these agents; their worker definitions select models, harnesses, tools, and shared instructions. The foreman is the worker that coordinates the top-level workflow and communicates with you.
 
 Keep each stage's procedure, required inputs, outputs, transitions, and human gates in the Blueprint. Put instructions that apply across stages in the worker definition.
 
@@ -20,14 +20,16 @@ A new factory starts with these workers. Reassign stages or [add custom workers]
 | Worker | What it does | What it produces |
 | --- | --- | --- |
 | Foreman | Coordinates the top-level workflow and talks to the requester | Questions, status updates, and the final handoff |
-| Lifecycle worker | Coordinates the development stages within its assigned group | The group's result and supporting evidence |
-| Researcher | Investigates a scoped question | Findings and sources |
+| Lifecycle worker | Carries a change through triage, planning, implementation, and review in one conversation | The change, checks, review findings, and supporting evidence |
+| Researcher | Answers a bounded question without changing code | Findings and sources |
 
 Triage, planning, implementation, and review are stage responsibilities, not a requirement to create a separate worker for each one. A Blueprint can assign several stages to one worker or separate work that needs different tools or independent review.
 
 ### Foreman
 
-The foreman drives the top-level Blueprint. It gathers each stage's inputs from the request and earlier outputs, runs stages assigned to itself in its conversation, and delegates other stages to their workers. It relays questions and answers and continues a worker's existing conversation for revisions rather than starting a new one.
+The foreman passes your request and prior decisions to the worker assigned by the top-level Blueprint. It gathers the stage's inputs, runs stages assigned to itself, and delegates other stages to their workers. It reads the returned outputs and follows the matching transition, rather than repeating the worker's investigation or implementation.
+
+The foreman relays a worker's questions to you and sends your answers back to that worker. Follow-ups and revisions continue the worker's existing conversation, retaining the findings, branch, and PR.
 
 A worker can coordinate a [group of stages](/factories/blueprints/stages/#group-related-stages). It handles that group's internal handoffs and returns the group's result to the foreman.
 
@@ -57,7 +59,7 @@ Implement builds on the spec's branch and draft pull request. It adds tests, run
 
 ### Review
 
-Review independently checks requirements, code conventions, tests, security, and supporting evidence. It reruns or extends validation when needed, then recommends acceptance, revisions, or a human decision. It doesn't approve or merge the pull request.
+Review checks requirements, code conventions, tests, security, and supporting evidence. The default lifecycle worker reviews its own change; assign a separate worker when your workflow requires independent review. Review can rerun validation and recommend revisions, but it doesn't approve or merge the pull request.
 
 ## Built-in skills
 

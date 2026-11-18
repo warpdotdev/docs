@@ -12,7 +12,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp Factories is open, flexible infrastructure for building your own software factory. [Define your workflows as code](/factories/factory-as-code/), connect them to your repositories and tools, and use [evaluation and benchmarks](/factories/measure-and-improve/) to measure results and compare changes.
 
-Your factory assigns workers to your team’s development tasks. For example, it can take an issue from Slack, GitHub, Linear, or Jira, investigate it, implement a change, and return a pull request for review. You define how the work moves between stages and where people need to make decisions.
+Your factory assigns configured agents, called [workers](/factories/factory-agents/), to your team’s development tasks. For example, it can take an issue from Slack, GitHub, Linear, or Jira, investigate it, implement a change, and return a pull request for review. You define how the work moves between stages and where people need to make decisions.
 
 Before sending sensitive work, review [ZDR, data collection, and storage for factory runs](/factories/zero-data-retention/).
 
@@ -50,7 +50,7 @@ A work item is one request the factory acts on. This can be an issue, a support 
 
 ### Foreman and factory workers
 
-The foreman is the worker that coordinates a factory's work and communicates with you. See [About factory workers](/factories/factory-agents/) for their roles, and [Configuring factory workers](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
+The foreman coordinates the top-level workflow: it sends requests to the assigned workers, relays questions and your answers, and returns results for your review. It continues the same worker conversations for follow-ups. See [About factory workers](/factories/factory-agents/) for their roles, and [Configuring factory workers](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
