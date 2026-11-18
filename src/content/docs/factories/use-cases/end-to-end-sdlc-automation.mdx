@@ -102,14 +102,14 @@ and issue-mention approval workflow.
   duplicates, and keep the review and completion handlers.
 - Put test commands and repository conventions in shared skills, and the
   rules for asking maintainers and reporting failed checks in each
-  agent's skills.
-- Put stage procedures, worker assignments, routes, and human gates in the
+  worker's skills.
+- Put stage procedures, worker assignments, transitions, and human gates in the
   Blueprint. Investigate unclear scope before implementation. Require
   explicit approval of the current specification, return requested plan
   changes to planning, and return review findings to implementation on
   the same branch and PR. Relay questions through the foreman.
 - Keep the issue updated, report failed or unverified checks, and never
-  approve or merge. Do not replace Blueprint routes with an intake prompt.
+  approve or merge. Do not replace Blueprint transitions with an intake prompt.
 - Validate the definition. If it's managed as code, open a pull request to
   the definition repository; otherwise tell me what to change in the
   factory dashboard.
@@ -158,7 +158,7 @@ If work needs to pass between separate factories, define the receiving factory, 
 
 * **Applying `factory-intake` starts two runs** - Another triage or implementation automation may match the same event. Add `factory-intake` to the overlapping trigger's `labels.not_in` list while preserving its other filters and exclusions. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
 * **Work pauses after the specification pull request** - This workflow waits for human approval before implementation. Check **Waiting on you** on the [Home page](/factories/factory-home/) for the request, then approve in the originating issue with a new **@warp** mention and the specification PR link. Follow the [handoff test](#test-a-work-item-through-handoff).
-* **The foreman skips planning** - Well-defined work can go directly to implementation. If every change requires a specification, change the Blueprint's entry and outgoing routes so implementation cannot bypass planning and its approval gate.
+* **The foreman skips planning** - Well-defined work can go directly to implementation. If every change requires a specification, change the Blueprint's entry and outgoing transitions so implementation cannot bypass planning and its approval gate.
 * **Pull request feedback does not continue the work** - The review-submitted handler may be disabled or the factory label missing. Confirm that the handler is enabled and the pull request carries `factory:<alias>`. Restore the handler using [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory) so it can continue the existing implementation conversation.
 
 ## Related pages
