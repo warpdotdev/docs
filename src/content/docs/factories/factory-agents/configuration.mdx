@@ -24,7 +24,7 @@ Keep workflow changes in the [Blueprint](/factories/blueprints/) and worker reso
 | What a stage does and returns | The stage's `prompt`, `inputs`, and `outputs` in `factory.yaml` |
 | Which stage runs next | Blueprint `start.to` and stage `to` transitions |
 | When a person must answer | The stage's `gates` |
-| Behavior shared across a worker's stages | The worker's prompt in `agents/<name>/agent.md` |
+| Behavior shared across a worker's stages | The existing worker file under [`workers/` or `agents/`](/factories/factory-as-code/#directory-structure) |
 | A reusable procedure, such as repository checks | A [skill](/factories/factory-skills/) |
 | Model, harness, runner, tools, or access | The worker settings below |
 

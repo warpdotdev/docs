@@ -27,7 +27,9 @@ Work items, runs, and metrics live in the web app, not in the definition.
 
 ## Directory structure
 
-Paths identify resources: `agents/reviewer/agent.md` defines an agent named `reviewer`. Some resources also declare a name or display label in their fields, as described below.
+New Blueprint factories use `workers/<name>/worker.md`. Existing definitions can use `agents/<name>/agent.md`. Keep your definition's existing root and filenames. `agents/` and `workers/` cannot be combined in one definition.
+
+Paths identify resources: `workers/reviewer/worker.md` defines a worker named `reviewer`. Some resources also declare a name or display label in their fields. The tree and file examples below use the supported `agents/` layout.
 
 ```text
 factory.yaml
@@ -537,7 +539,7 @@ agentDefaults:
 
 Other endpoint model names use the same prefix, such as `custom:firerouter/opus` or `custom:accounts/fireworks/models/kimi-k3`.
 
-To select a different model for one agent, edit the YAML frontmatter in its existing `agents/<name>/agent.md` file. An explicit agent model overrides the factory default:
+To select a different model for one worker, edit the YAML frontmatter in its existing [worker definition file](#agentsnameagentmd). An explicit worker model overrides the factory default:
 
 ```markdown title="agents/reviewer/agent.md"
 ---
@@ -619,10 +621,14 @@ The value must be available to your plan and workspace. See [model choice for ag
 
 Agents and automations can override `computerUseModel`. An omitted or `null` agent value inherits `agentDefaults.computerUseModel`; an automation inherits the selected agent's effective value. The setting applies only to Computer Use on the Warp Agent harness (`type: oz`). Warp preserves but ignores it otherwise. It can appear with `model` or `harness` because it doesn't select the main model.
 
+<span id="workersnameworkermd" />
+
 ## `agents/<name>/agent.md`
 
 **Required resource.** Every definition includes at least one agent file.
 Each agent has one file. The directory names the agent, the YAML frontmatter configures it, and the Markdown body contains its instructions.
+
+The same configuration keys apply to `workers/<name>/worker.md` in a `workers/` tree. Use the [existing layout](#directory-structure), without renaming keys or adding a second root.
 
 For a Blueprint worker, this file supplies execution settings and instructions shared across its stages. The Blueprint supplies the assigned stage's procedure, inputs, outputs, and gates.
 
@@ -990,11 +996,11 @@ On a Warp-managed factory, creating a webhook in the dashboard writes this file 
 ## Skills
 
 **Optional resource.**
-A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. To reuse skills elsewhere in the same repository or in an external repository, add a YAML reference file instead of copying the skill folders. See [Factory skills](/factories/factory-skills/) for placement and [Skills for agents](/agents/capabilities/skills/) for the file format.
+A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/`. Worker-specific skills use `workers/<name>/skills/` in a `workers/` tree or `agents/<name>/skills/` in an `agents/` tree. To reuse skills elsewhere in the same repository or in an external repository, add a YAML reference file instead of copying the skill folders. See [Factory skills](/factories/factory-skills/) for placement and [Skills for agents](/agents/capabilities/skills/) for the file format.
 
 ### Skill reference files
 
-Reference files select skills from one source repository. Place a `.yaml` or `.yml` file directly in `skills/` to share its selected skills with every agent, or directly in `agents/<name>/skills/` to scope them to that agent. The file name is a label; YAML files nested inside a skill folder aren't reference files.
+Reference files select skills from one source repository. Place a `.yaml` or `.yml` file directly in `skills/` to share its selected skills with every worker, or in that worker's matching `workers/<name>/skills/` or `agents/<name>/skills/` directory. The file name is a label; YAML files nested inside a skill folder aren't reference files.
 
 | Field | Required | Description |
 | --- | --- | --- |

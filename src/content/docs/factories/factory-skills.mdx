@@ -50,17 +50,17 @@ To add or update a custom skill:
    * **GitHub-backed** - Open the connected definition repository. See [Where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 2. Create or open the skill file for the scope you need:
    * **Every worker** - `skills/<skill-name>/SKILL.md`, for shared procedures such as repository conventions.
-   * **One worker** - `agents/<agent-name>/skills/<skill-name>/SKILL.md`, for a role-specific procedure such as a security review.
+   * **One worker** - `workers/<worker-name>/skills/<skill-name>/SKILL.md`, for a role-specific procedure such as a security review. If the definition uses `agents/`, use `agents/<worker-name>/skills/<skill-name>/SKILL.md` instead. Keep the existing root, even when adding a skill.
 
-   Replace `<skill-name>` with the skill's directory name and `<agent-name>` with the worker's directory name.
+   Replace `<skill-name>` with the skill's directory name and `<worker-name>` with the worker's directory name.
 
-   For example, this layout shares repository conventions with every worker and gives only the foreman an incident-triage skill:
+   In a `workers/` tree, this shares repository conventions with every worker and gives only the foreman an incident-triage skill:
 
    ```text
    skills/
      repository-conventions/
        SKILL.md
-   agents/
+   workers/
      foreman/
        skills/
          incident-triage/
@@ -75,7 +75,7 @@ For an example of a shared skill and a worker-specific skill in one definition, 
 
 ## Reference existing skills
 
-To reuse skills without copying them into the definition, create a `.yaml` or `.yml` reference file directly in `skills/` for every worker or `agents/<agent-name>/skills/` for one worker. Set `source` to the repository and `include` to the skills to load, then apply the definition change as described above.
+To reuse skills without copying them, create a `.yaml` or `.yml` reference file directly in `skills/` for every worker. For one worker, use `workers/<worker-name>/skills/` in a `workers/` tree or `agents/<worker-name>/skills/` in an `agents/` tree. Set `source` to the repository and `include` to the skills to load, then apply the definition change as described above.
 
 The source can be the repository containing your definition or an external repository. Pin it to a full commit SHA to keep using a particular version of the skill and its supporting files. See [Skill reference files](/factories/factory-as-code/#skill-reference-files) for same-repository, external-repository, and SHA-pinned examples.
 

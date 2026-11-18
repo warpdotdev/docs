@@ -34,13 +34,13 @@ The new worker appears on the factory's **Workers** page. Worker names can't be 
 
 ## Define a worker in code
 
-For a GitHub-backed factory, add `agents/<name>/agent.md` to the factory's definition repository, replacing `<name>` with the worker's directory name. Define its instructions and configuration using the [`agent.md` configuration keys](/factories/factory-as-code/#agentsnameagentmd). Follow your repository's pull request process to apply the change.
+For a GitHub-backed factory, preserve the definition's [existing root](/factories/factory-as-code/#directory-structure): add `workers/<name>/worker.md` for a `workers/` tree or `agents/<name>/agent.md` for an `agents/` tree. Replace `<name>` with the worker's directory name. To edit an existing worker, keep its filename. Use the [worker configuration keys](/factories/factory-as-code/#agentsnameagentmd), then apply the change through a pull request.
 
 ## Add skills
 
 Custom workers have no built-in skills. Add [factory skills](/factories/factory-skills/) where needed:
 
-* **One worker** - `agents/<name>/skills/`
+* **One worker** - `skills/` beside its existing `worker.md` or `agent.md`
 * **All workers** - `skills/`
 
 <span id="choose-a-configured-factory-agent" />
@@ -52,7 +52,7 @@ Custom workers have no built-in skills. Add [factory skills](/factories/factory-
 To include the worker in a standing workflow:
 
 1. In `factory.yaml`, find the stage under `blueprint.stages`, or add one. Set its `worker` to the custom worker's directory name.
-2. Define its procedure and required results with `prompt`, `inputs`, and `outputs`. Keep guidance that applies across stages in `agent.md`.
+2. Define its procedure and required results with `prompt`, `inputs`, and `outputs`. Keep shared guidance in the worker file.
 3. Connect the stage with entry or outgoing transitions, then [validate and apply the definition](/factories/factory-as-code/#validate-a-definition). Start new test work and inspect the assigned worker's conversation and outputs.
 
 Creating a worker alone does not add a workflow stage. See [Defining Blueprint stages](/factories/blueprints/stages/) for an implementation-to-review example.
