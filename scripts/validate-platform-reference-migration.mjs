@@ -8,7 +8,7 @@ import { DOCS_ORIGIN } from '../src/lib/site.js';
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = resolve(repo, process.argv[2] ?? '.vercel/output/static');
 const fixture = JSON.parse(readFileSync(join(repo, 'scripts/fixtures/platform-reference-migration.json'), 'utf8'));
-const { redirects } = JSON.parse(readFileSync(join(repo, 'vercel.json'), 'utf8'));
+const { redirects, trailingSlash } = JSON.parse(readFileSync(join(repo, 'vercel.json'), 'utf8'));
 const moved = fixture.pages.filter(({ oldPath, newPath }) => oldPath !== newPath);
 const bridges = fixture.pages.filter(({ oldPath, newPath }) => oldPath === newPath);
 const failures = [];
@@ -159,7 +159,18 @@ check('incoming aliases', () => {
 	]));
 	assert.ok(!redirects.some(({ destination }) => oldTargets.has(destination)), 'incoming alias still chains through a moved page');
 });
-check('bare Platform entry', () => expectRedirect('/platform', '/platform/'));
+check('bare Platform entry', () => {
+	// With `trailingSlash: true`, Vercel itself answers /platform with a 308 to /platform/,
+	// so an explicit rule is redundant (and a self-redirect would loop). Accept either form.
+	if (trailingSlash === true) {
+		const matches = redirects.filter((rule) => staticMatches(rule, '/platform'));
+		assert.ok(matches.every(({ destination }) => destination === '/platform/'), 'bare /platform must canonicalize to /platform/');
+		assert.equal(redirects.filter((rule) => staticMatches(rule, '/platform/')).length, 0, 'redirect chain at /platform/');
+		assert.ok(content('/platform/').body, 'missing /platform/ page');
+		return;
+	}
+	expectRedirect('/platform', '/platform/');
+});
 check('restored cloud-overview teaching', () => {
 	const cloudOverview = content('/platform/').body;
 	for (const explanation of ['A trigger supplies the request and its context', 'A harness runs the coding agent', 'An environment groups repositories']) {
