@@ -34,13 +34,13 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
 1. Choose how maintainers will mark an issue as approved for implementation, such as adding the `factory-ready` label or moving the issue to the `Ready for Engineering` workflow state. Reserve that action for approved work. The automation checks the event and filters, not whether a maintainer reviewed the requirements.
 2. Check whether an existing automation already handles the same issues and events. If it does, plan to update that automation instead of creating another, or adjust their filters so the same event doesn't start both automations. If none does, create a new automation in step 4.
-3. Update your existing [factory skills](/factories/factory-skills/) where procedures are missing. Put shared conventions under `skills/` and implementation procedures under `agents/implement/skills/`, or your existing implementation worker's directory. Include:
+3. Update your existing [factory skills](/factories/factory-skills/) where procedures are missing. Put shared conventions under `skills/`. For implementation procedures, use `workers/implement/skills/` in a `workers/` tree or `agents/implement/skills/` in an `agents/` tree. Substitute your implementation worker's configured name for `implement`, keeping the existing root. Include:
 
    * Required build, test, lint, and formatting checks.
    * Tests for behavior changes and visual evidence for user-facing changes.
    * Missing requirements or decisions that need a maintainer's input.
 
-   Use the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) as a layout reference. It stores shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`.
+   The [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) uses the `agents/` layout: shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`. Adapt those instructions to your existing layout.
 
 4. In `factory.yaml`, configure Blueprint entry transitions for approved implementation and unresolved decisions. Add a planning-approval gate when needed. Connect implementation to independent review, and return findings to the same implementation conversation and PR. Pass the issue, acceptance criteria, and existing PR between stages.
 
@@ -139,6 +139,8 @@ https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single
 for the trigger and implementation instructions, and the skill layout in
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
 for shared conventions and implementation procedures.
+Keep my existing workers/ or agents/ root and worker filenames. Put
+worker-scoped skills beside the worker file, without mixing roots.
 
 - Check my existing automations first. If one already handles labeled
   issues in OWNER/REPO, update it or narrow its filters instead of adding

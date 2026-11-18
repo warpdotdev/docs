@@ -34,9 +34,9 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 1. Choose the GitHub repositories where your factory will verify pull requests, the target branches, and the label maintainers will apply to request verification. The example verifies PRs in `acme/web-app` targeting `main` when a maintainer applies `ui-verification`.
 2. Check whether an existing automation already handles these requests. Reuse it where appropriate, or narrow overlapping triggers before adding another automation. See [automation matching rules](/factories/automations/#how-matching-works).
 3. Ask a team admin to review the [artifact attachment mode](/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes). **Link only**, the default, provides permission-checked evidence links. Confirm sharing is enabled; **Embed** can make captures public to anyone with the URL.
-4. Create a [custom verification worker](/factories/factory-agents/creating-custom-agents/) if your factory doesn't already have one. For a new worker named `verify`, add the following definition at `agents/verify/agent.md`. If you already have a verification worker, update its existing `agent.md` instead.
+4. Reuse your verification worker and its existing file, or [create one](/factories/factory-agents/creating-custom-agents/). For a new worker named `verify`, save the definition below at `workers/verify/worker.md` in a `workers/` tree or `agents/verify/agent.md` in an `agents/` tree. Keep the [existing root](/factories/factory-as-code/#directory-structure), without combining layouts.
 
-   ```markdown title="agents/verify/agent.md"
+   ```markdown title="workers/verify/worker.md"
    ---
    description: Verifies user-facing changes without editing code
    agentType: VERIFY
@@ -58,7 +58,7 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 
    If building or testing the app requires credentials, configure the verifier's access through [factory secrets](/factories/secrets/). Do not use production credentials in this workflow.
 
-6. Add or update `agents/verify/skills/ui-verification/SKILL.md`. If you're using an existing verification worker, put the skill under that worker's directory. Include:
+6. In the verification worker's existing directory, add or update `skills/ui-verification/SKILL.md`: `workers/verify/skills/ui-verification/SKILL.md` in the example's `workers/` tree, or the matching `agents/verify/skills/ui-verification/SKILL.md` in an `agents/` tree. Use your worker's configured name in place of `verify`. Include:
 
    * The working directory and commands to install dependencies, build, and start the app.
    * The local URL and how to confirm the app is ready.

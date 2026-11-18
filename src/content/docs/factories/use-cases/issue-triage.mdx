@@ -33,7 +33,7 @@ This [recipe](/factories/use-cases/) sends intake to your foreman, which delegat
 
 1. Choose which issues need automatic triage: every new issue in a selected repository or project, issues with the `needs-triage` label, or explicit Jira triage requests.
 2. Check whether an existing automation already handles those issues. Reuse it where appropriate, or narrow its triggers before adding another automation. For example, choose either creation intake or label intake for the same backlog so creating an issue and later labeling it doesn't request triage twice.
-3. Add or update `agents/triage/skills/issue-triage/SKILL.md`. For an existing triage worker with a different name, put the skill under that worker's directory. Include:
+3. Add or update `skills/issue-triage/SKILL.md` under the existing triage worker's directory: `workers/triage/` in a `workers/` tree or `agents/triage/` in an `agents/` tree. Substitute your worker's configured name for `triage`, without changing roots. Include:
 
    * Allowed categories and priorities.
    * Duplicate-search and reproduction procedures.
@@ -167,6 +167,8 @@ Read https://docs.warp.dev/factories/use-cases/issue-triage.md and set up
 issue triage in my factory for OWNER/REPO. Adapt the triage instructions in
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
 as the starting point, adapted to my issue source.
+Keep my existing workers/ or agents/ root and worker filenames. Put
+worker-scoped skills beside the worker file, without mixing roots.
 
 - Check my existing automations first. If one already handles new or
   labeled issues in OWNER/REPO, update it or narrow its filters instead of

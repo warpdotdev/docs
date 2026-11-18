@@ -53,7 +53,7 @@ For this workflow, add a plan-review gate and route implementation only from app
 4. In the definition, update existing [skills](/factories/factory-skills/) where procedures are missing:
 
    * **Shared guidance** - Put test commands and repository conventions under `skills/`.
-   * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `agents/<name>/skills/`, using the worker's directory name for `<name>`. Require workers to return questions through the foreman and continue their existing conversation when answers arrive.
+   * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `workers/<name>/skills/` in a `workers/` tree or `agents/<name>/skills/` in an `agents/` tree. Use the existing worker's directory name for `<name>`, keeping the same root. Require workers to return questions through the foreman and continue their existing conversation when answers arrive.
 
 5. For visual acceptance criteria, configure a verification worker on the Warp Agent harness with Warp-hosted execution. Add a verification stage that receives the PR head and criteria and returns observations and shareable media links from its own run. Require the foreman to post those links with the tested commit on the PR. If the head changes, mark the evidence stale. Report unavailable verification or sharing as a blocker, not a pass. Follow the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/) for app setup, sample data, and test accounts.
 6. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to the foreman's configured name; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
@@ -96,6 +96,8 @@ https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-i
 for procedures and the skill layout. Configure them in the existing Blueprint;
 do not replace it with the example's role prompts. Retain this page's intake
 and issue-mention approval workflow.
+Keep my existing workers/ or agents/ root and worker filenames. Put
+worker-scoped skills beside the worker file, without mixing roots.
 
 - Inspect my existing automations for intake, review-submitted, and
   merged-PR handlers. Update or narrow overlapping ones instead of adding

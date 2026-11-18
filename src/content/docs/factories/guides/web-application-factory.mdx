@@ -129,7 +129,7 @@ One implement worker can serve both areas when it knows where each lives and how
    Setup commands start in `/workspace`, where the factory checks out its repositories. Each command has a 30-minute limit, and a nonzero exit status fails setup before the worker starts. The warning handler lets the worker retry a failed install. See [runners](/factories/runners/).
    :::
 
-2. Add a verification worker on the Warp Agent harness. Create `agents/verify/agent.md`, or adapt the verifier in `05-ui-verification`:
+2. Reuse your verification worker, keeping its existing file. If you need a new worker, preserve the definition's [root](/factories/factory-as-code/#directory-structure): create `workers/verify/worker.md` in a `workers/` tree or `agents/verify/agent.md` in an `agents/` tree. Adapt the verifier in `05-ui-verification` without adding a second root:
    * Set `agentType: VERIFY`, `model: auto`, and `workerHost: warp`.
    * Provide a skill with the app's start command, readiness URL, sample data, and visible states to capture.
    * If sign-in is required, configure a test account through [factory secrets](/factories/secrets/) and document its use in the skill. Do not use production credentials or customer data. Writing instructions does not grant access.
@@ -194,6 +194,9 @@ Adapt repository and runner settings from
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
 and the verification worker's resources from
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification.
+Keep my definition's existing workers/ or agents/ root and worker filenames.
+Put worker-scoped skills beside the worker file. Do not mix roots when
+adapting the examples.
 
 The frontend lives in FRONTEND_DIR and the backend in BACKEND_DIR. Write a
 shared skill with the install, test, and typecheck commands for each area,

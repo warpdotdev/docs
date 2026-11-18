@@ -90,7 +90,7 @@ Choose one adjustment based on the results. Test prompt and model changes separa
 | Review misses defects | Add the missed failure mode to the instructions | Review stage |
 | A worker skips a required check | Name the repository's exact check command | The worker that skipped it |
 
-1. Choose the owning configuration. For stage procedures, transitions, or gates, edit the Blueprint in `factory.yaml`. For shared procedures, edit the attached skill. For models or instructions shared across stages, open the relevant worker on **Workers** and edit its "Model" setting or **Prompt**. In a GitHub-backed factory, edit `agents/<name>/agent.md` in the definition repository instead.
+1. Choose the owning configuration. For stage procedures, transitions, or gates, edit the Blueprint in `factory.yaml`. For shared procedures, edit the attached skill. For models or instructions shared across stages, open the relevant worker on **Workers** and edit its "Model" setting or **Prompt**. In a GitHub-backed factory, edit its existing worker file under [`workers/` or `agents/`](/factories/factory-as-code/#directory-structure), preserving its root and filename.
 2. Apply a definition-file change by saving **Factory definition** for a Warp-managed factory, or merging the definition pull request into its production branch for a GitHub-backed factory. Confirm validation passes. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
    Change one worker's model, not `agentDefaults.model`, which also affects workers inheriting that default. For model comparisons, use a [benchmark](/factories/benchmarks/) before changing production; a completed run's page can supply a benchmark task.

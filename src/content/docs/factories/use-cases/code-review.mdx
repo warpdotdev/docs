@@ -36,7 +36,7 @@ The Blueprint sends the pull request to a review worker, then to the foreman to 
 
    If the [SDLC workflow](/factories/use-cases/end-to-end-sdlc-automation/#set-up-the-sdlc-workflow) already requests an internal review, choose whether this automation should add another pass or exclude those PRs.
 
-3. Add or update the review-policy skill under `agents/review/skills/`, or your existing review worker's directory. Include:
+3. Add or update the review-policy skill under your review worker's existing directory: `workers/review/skills/` in a `workers/` tree or `agents/review/skills/` in an `agents/` tree. Substitute your worker's configured name for `review`, without changing roots. Include:
 
    * Required validation commands.
    * Security or migration checks relevant to the repository.
@@ -139,6 +139,8 @@ Use this page's review and foreman-publication Blueprint stages. Consult
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only
 for review instructions, but retain this page's trigger and opt-out label
 rather than copying the example's single-agent setup unchanged.
+Keep my existing workers/ or agents/ root and worker filenames. Put
+worker-scoped skills beside the worker file, without mixing roots.
 
 - Check my existing automations first. If one already reviews pull
   requests in OWNER/REPO, update it or narrow its filters instead of
