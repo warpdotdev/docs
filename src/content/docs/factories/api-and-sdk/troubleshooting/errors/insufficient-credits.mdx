@@ -2,13 +2,14 @@
 topic: factories
 title: insufficient_credits
 description: >-
-  The account billed for a run has insufficient usage. Add purchased usage,
-  check auto-reload, or wait for included usage to reset.
+  The account billed for a cloud run has insufficient usage. Check the
+  funding source, add usage, or review auto-reload.
 ---
+import { VARS } from '@data/vars';
 
-The `insufficient_credits` error means the billed account does not have enough eligible usage to start a cloud run. The error code is the same whether the account uses dollars or credits.
+The `insufficient_credits` error means the balance that would pay for the run cannot cover it. Adding usage to a different account or to a personal allowance won't fix a factory's shared balance. The error code is the same whether the account uses dollars or credits.
 
-Check the balance for the user or agent the run acts as. Agent API key runs use shared team usage, not the team owner's personal included allowance. See [cloud run billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) for schedule billing, dedicated allowances, and Enterprise terms.
+Factory runs use [shared team or workspace funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs), not a member's included personal allowance. For standalone cloud runs, check the balance for the user or agent the run acts as. See [cloud run billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) for schedules, agent API key runs, and Enterprise terms.
 
 ---
 
@@ -27,7 +28,7 @@ This error is returned when:
 * The billed user's or team's eligible balance is too low to start the run.
 * Auto-reload is off or cannot replenish the balance, such as when a purchase is blocked by the team's limit.
 
-See [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) for prices and purchase limits.
+See [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) for purchases, auto-reload, and spend limits.
 
 ---
 
@@ -47,9 +48,17 @@ See [Purchasing additional usage](/support-and-community/plans-and-billing/add-o
 
 ## How to resolve
 
-1. In the Warp app, open **Settings** > **Billing and usage** for the billed account or team.
-2. On an eligible plan, [purchase usage](/support-and-community/plans-and-billing/add-on-credits/) or ask an admin to review auto-reload and the purchase limit. Alternatively, wait for the billed user's included allowance to reset.
-3. Retry the failed operation after enough usage is available. The failed run is not retried automatically.
+### Factory runs
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, confirm the team that owns the factory. Open **Settings** > **Billing and usage** and check its shared team or workspace balance.
+2. [Add shared usage](/support-and-community/plans-and-billing/add-on-credits/#warp-factories), ask an admin to review auto-reload and the spend limit, or wait for the shared included allowance to reset. A personal allowance reset does not fund factory runs.
+3. Start the operation again after shared funding is available. The failed run is not retried automatically.
+
+### Standalone cloud runs
+
+1. In the Warp app, open **Settings** > **Billing and usage** for the user or team billed for the run. Check [cloud run billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) if you aren't sure which balance applies.
+2. [Purchase usage](/support-and-community/plans-and-billing/add-on-credits/#warp-terminal-and-local-agents), ask an admin to review auto-reload and the spend limit, or wait for the billed account's applicable included allowance to reset.
+3. Start the operation again after funding is available.
 
 ---
 

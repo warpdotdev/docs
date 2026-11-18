@@ -6,15 +6,20 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Business and Enterprise admins can configure shared provider API keys and OpenAI-compatible endpoints for local and [cloud Warp Agent runs](/platform/). Team members select the configured models without handling the credentials themselves.
+Team admins can configure shared provider API keys and OpenAI-compatible endpoints for local and [cloud Warp Agent runs](/platform/). Team members select the configured models without handling the credentials themselves.
 
 Unlike [personal BYOK](/agents/inference/bring-your-own-api-key/) and [personal endpoints](/agents/inference/custom-inference-endpoint/), team-managed configuration is stored securely by Warp and is available to cloud agents.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=Ko1rFyL1jfo" title="Team-managed API keys and endpoints demo" />
 
-:::note
-Team-managed API keys and endpoints are available on Warp's Business and Enterprise plans. See [Warp pricing](https://www.warp.dev/pricing) for plan details.
-:::
+## Plan eligibility
+
+| Product | Plans that include team-managed keys and endpoints |
+| --- | --- |
+| Warp Terminal and local agents | Business and Enterprise |
+| Warp Factories | Scale and Enterprise |
+
+For Warp Factories, these credentials configure inference for the Warp Agent, not a third-party harness. See [harness authentication](/factories/harnesses/authentication/) for those credentials.
 
 ## Key features
 
@@ -29,24 +34,24 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 
 | Name | Configured by | Stored | Works with cloud agents | Plans |
 | --- | --- | --- | --- | --- |
-| **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | Business and Enterprise |
-| **[Personal BYOK](/agents/inference/bring-your-own-api-key/)** | Each member | Locally on the member's device | No | Free and all eligible paid plans |
-| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and all eligible paid plans |
-| **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |
-| **[BYOLLM — Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | No (interactive sessions only) | Enterprise only |
+| **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | See [eligibility by product](#plan-eligibility) |
+| **[Personal BYOK](/agents/inference/bring-your-own-api-key/)** | Each member | Locally on the member's device | No | Free and eligible paid plans for Warp Terminal and local agents |
+| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and eligible paid plans for Warp Terminal and local agents |
+| **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise agreement |
+| **[BYOLLM — Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | No (interactive sessions only) | Enterprise agreement |
 
-Team-managed API keys and endpoints are an admin-configured option on Business and Enterprise. BYOLLM requires Enterprise. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/) for cloud-native IAM routing through your AWS account, including cloud agent support. Choose [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) for cloud-native IAM routing through your Google Cloud project; in this iteration, Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.
+Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or an OpenAI-compatible endpoint using stored keys. Under an Enterprise agreement, [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/) instead uses cloud-native IAM routing through your AWS account, including cloud agent support. [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) routes through Vertex AI in your Google Cloud project for interactive sessions only.
 
 ## How it works
 
 ### First-party keys and custom endpoints
 
-* **First-party keys (BYOK)** - The admin adds an API key for a provider Warp supports (OpenAI, Anthropic, or Google). Members select the normal Warp model for that provider, and the server routes the request through the team key when the member has no key of their own.
+* **First-party keys (BYOK)** - The admin adds an API key for a provider Warp supports (OpenAI, Anthropic, or Google). Members select the normal Warp model for that provider, and Warp uses the team key unless a permitted personal key takes precedence in a local run. See [member key precedence](#member-key-precedence).
 * **Custom endpoints (BYOE)** - The admin adds one or more OpenAI-compatible Chat Completions endpoints. Each endpoint has a name, a base URL, an API key, and one or more models, where each model has a model name (sent to the endpoint) and an optional alias (shown to members). Team endpoint models appear in every member's model picker as their own entries, labeled with the endpoint name.
 
 ### Member key precedence
 
-When the admin allows member-managed keys and endpoints, a member's own key for a provider takes precedence over the team's. Custom endpoints don't require precedence, because a member's endpoint and a team endpoint are always distinct:
+For local runs, when the admin allows member-managed keys and endpoints, a member's own key for a provider takes precedence over the team's. Custom endpoints don't require precedence, because a member's endpoint and a team endpoint are always distinct:
 
 * **First-party keys** - If a member has their own key for a provider, requests route through the member's key; otherwise the team key is used; otherwise Warp-managed inference is used (if allowed).
 * **Custom endpoints** - A member's own endpoint and a team endpoint never collide, even if they share a name. The member's endpoint is used when they select it; team endpoints resolve to the team's stored credential.
@@ -60,7 +65,7 @@ When the admin allows member-managed keys and endpoints, a member's own key for 
 ### Prerequisites
 
 * You have admin access to your team's [Admin Panel](/enterprise/team-management/admin-panel/).
-* Your organization is on the Business or Enterprise plan.
+* Your organization has a [plan that includes team-managed inference](#plan-eligibility).
 
 ### Configure keys and endpoints
 
@@ -74,27 +79,31 @@ Configure team providers from the [Admin Panel](/enterprise/team-management/admi
 The team's enabled models appear in members' model pickers when their team settings refresh.
 
 :::note
-A team endpoint's base URL must be reachable from Warp's hosted services, even with self-hosted workers. See [Networking for BYO inference endpoints](https://docs.warp.dev/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for IP allowlisting, or [connect a private LLM gateway through private networking](/enterprise/enterprise-features/private-networking/).
+A team endpoint's base URL must be reachable from Warp's hosted services, even with self-hosted runners. See [Networking for BYO inference endpoints](https://docs.warp.dev/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for IP allowlisting, or [connect a private LLM gateway through private networking](/enterprise/enterprise-features/private-networking/).
 :::
 
-### Keep inference on your team's providers
+<span id="keep-inference-on-your-teams-providers" />
 
-By default, members can still choose Warp-managed models even when team providers are configured. To require that inference goes to your providers, turn off **Direct API** access on the **Models** page so Warp-managed models are no longer selectable.
+### Disabling Warp-managed inference
+
+Configuring team providers doesn't remove Warp-managed models from the model picker. If your plan permits changing **Direct API** access, turn it off on the Admin Panel's **Models** page to remove those models from the picker.
+
+This doesn't disable member-managed keys and endpoints. Review that separate setting in [Configure keys and endpoints](#configure-keys-and-endpoints) if members must use team-managed credentials.
 
 ## Member experience
 
 Members select a model from the picker without configuring team credentials:
 
 * **Custom endpoints** - Each enabled team endpoint model appears in the model picker as its own entry, showing the model's name (or alias) and the endpoint name. Members select it like any other model.
-* **First-party keys** - Members select the standard model for a provider (for example, a Claude, GPT, or Gemini model), and requests route through the team key automatically. If a member has added their own key for that provider, their own key takes precedence.
+* **First-party keys** - Members select the standard model for a provider (for example, a Claude, GPT, or Gemini model), and requests route through the team key, subject to [member key precedence for local runs](#member-key-precedence).
 
 If the admin allows members to add their own keys and endpoints, members can still do so through the standard self-serve [BYOK](/agents/inference/bring-your-own-api-key/) and [custom inference endpoint](/agents/inference/custom-inference-endpoint/) settings.
 
 ## Billing behavior
 
 * **Provider-billed inference** - Your provider or endpoint bills team-routed inference directly rather than consuming Warp-provided inference usage.
-* **Auto uses Warp-provided inference** - **Auto** consumes Warp usage. Select a specific model or endpoint to use your team's provider. [Custom routers](/agents/inference/custom-routers/) apply provider keys after choosing a model, preferring a member's own key over the team key. Routers cannot target endpoint models.
-* **Other Warp charges remain** - Customer-supplied inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/) for local Business and Enterprise runs and all cloud runs. Cloud runs on Warp-hosted compute also incur [compute charges](/support-and-community/plans-and-billing/credits/#compute-usage).
+* **Auto uses Warp-provided inference** - **Auto** consumes Warp usage. Select a specific model or endpoint to use your team's provider. [Custom routers](/agents/inference/custom-routers/) apply provider keys after choosing a model; local runs follow [member key precedence](#member-key-precedence). Routers cannot target endpoint models.
+* **Other Warp charges remain** - Customer-supplied inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/#when-platform-charges-apply) according to the product and plan billed for the run. Cloud runs on Warp-hosted compute also incur [compute charges](/support-and-community/plans-and-billing/credits/#compute-usage).
 
 External inference bills are not fully represented in Warp's totals. See [usage and billing](/support-and-community/plans-and-billing/credits/#charges-and-estimates) for cost-reporting limitations.
 
@@ -108,11 +117,11 @@ Warp uses the stored credentials to call your provider without delivering them t
 
 ### Zero Data Retention (ZDR)
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers. When you route through your own keys or endpoints:
+Requests sent through your team's keys or endpoints are subject to your providers' terms, not Warp's ZDR agreements. You'll need to verify retention with your provider for your specific account, model, and configuration. If your endpoint uses other model providers, verify their retention policies too. Warp cannot enforce provider ZDR for these requests.
 
-* Data retention on the **provider side** is determined by your provider's account settings.
-* Warp **cannot enforce ZDR** for requests sent through your keys or endpoints.
-* If your provider account doesn't have ZDR enabled, your requests may be retained according to their terms.
+Team admins manage content collection for service improvement through "UGC Data Collection" in the [Admin Panel's Privacy settings](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). Disabling it doesn't stop storage of cloud agent transcripts, attachments, or artifacts.
+
+Review [run-data storage options](/support-and-community/privacy-and-security/privacy/#product-storage) separately. For factory runs, follow [factory ZDR guidance](/factories/zero-data-retention/).
 
 <span id="related-resources" />
 

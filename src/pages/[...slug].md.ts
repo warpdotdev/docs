@@ -15,7 +15,8 @@ import { getCollection } from 'astro:content';
  * output (which produces cleaner markdown from the rendered HTML).
  */
 export async function getStaticPaths() {
-	const entries = await getCollection('docs');
+	// The error page is not documentation and must keep its HTML 404 response.
+	const entries = await getCollection('docs', (entry) => entry.id !== '404');
 	return entries.map((entry) => {
 		let slug: string;
 		if (entry.id === 'index') {

@@ -1,8 +1,8 @@
 ---
 title: Warp Factories overview
 description: >-
-  Warp Factories turns issues, tickets, and Slack messages into reviewed pull requests.
-  Teams of cloud agents do the work, while people approve specs and merges.
+  Configure development workflows on Warp Factories, connect your
+  repositories and tools, and measure the results.
 sidebar:
   label: "Overview"
 ---
@@ -10,7 +10,11 @@ import { VARS } from '@data/vars';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-A factory is a team of cloud agents connected to your repositories. It routes work from Slack, GitHub, Linear, or Jira through triage, planning, implementation, and review. The output, usually a pull request, is returned to the thread or issue where the work started.
+Warp Factories is open, flexible infrastructure for building your own software factory. [Define your workflows as code](/factories/factory-as-code/), connect them to your repositories and tools, and use [evaluation and benchmarks](/factories/measure-and-improve/) to measure results and compare changes.
+
+Your factory puts agents to work on your team’s development tasks. For example, it can take an issue from Slack, GitHub, Linear, or Jira, investigate it, implement a change, and return a pull request for review. You define how the work moves between agents and where people need to make decisions.
+
+Before sending sensitive work, review [ZDR, data collection, and storage for factory runs](/factories/zero-data-retention/).
 
 <CardGrid>
   <LinkCard
@@ -28,6 +32,9 @@ A factory is a team of cloud agents connected to your repositories. It routes wo
 ## What a factory does
 
 A factory can work through a backlog of tasks, fix defects reported in a support channel, or review incoming pull requests across several repositories.
+
+Start with one task, such as [reviewing a pull request](/factories/use-cases/code-review/). You choose the review criteria. The agent returns findings for you to review, and you decide what to address and whether to merge. [Test a small configuration change](/factories/guides/testing-and-tuning-your-factory/) before expanding its workload.
+
 <figure style={{ maxWidth: "736px" }}>
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 <figcaption>An introduction to Warp Factories.</figcaption>
@@ -58,7 +65,7 @@ The foreman can skip unnecessary stages or send work back for revisions. Spec ap
 
 ### Factory definition
 
-A factory's repositories, agents, automations, runners, skills, and MCP servers are declared in definition files, either managed by Warp or stored in a GitHub repository your team owns. Changes to a GitHub-backed factory go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
+A factory's repositories, agents, automations, runners, skills, and MCP servers are declared in definition files hosted by Warp or in a GitHub repository your team owns. Changes to a definition hosted by GitHub go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
 
 ### Work sources
 
