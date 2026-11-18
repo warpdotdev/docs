@@ -21,6 +21,7 @@
     "test:heading-vars": "node --test src/plugins/heading-vars-core.test.mjs",
     "test:docs-markdown": "node --test src/integrations/docs-markdown-integration.test.js",
     "test:tracking-redirect": "node --test scripts/tracking-redirect.test.mjs",
+    "test:redirect-slashes": "node --test scripts/redirect-slashes.test.mjs",
     "test:agent-discovery": "node --test scripts/agent-discovery.test.mjs",
     "test:agent-doc-outputs": "node scripts/validate-agent-doc-outputs.mjs",
     "test:tracking-routes": "node scripts/validate-tracking-routes.mjs",
