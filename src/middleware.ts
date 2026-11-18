@@ -6,12 +6,17 @@ import {
 } from './lib/docs-markdown.js';
 
 /**
- * Content negotiation middleware.
+ * Content negotiation middleware (dev / SSR only).
  *
  * When an agent sends `Accept: text/markdown` (or is identified by user-agent),
  * rewrite the request to the pre-rendered `.md` variant of the page. This lets
  * agents like Claude Code, Cursor, and OpenCode get clean markdown without
  * needing to discover the `.md` URL convention first.
+ *
+ * Production static hosting cannot rely on this file or on vercel.json rewrites:
+ * Vercel serves prerendered HTML before both. `scripts/build-tracking-middleware.mjs`
+ * installs a native Build Output API routing middleware (`markdown-negotiation`)
+ * that runs before the filesystem handler and shares `src/lib/docs-markdown.js`.
  *
  * The `shouldServeMarkdown` helper handles both explicit Accept-header
  * negotiation and user-agent fallback detection (see `src/lib/docs-markdown.js`).
