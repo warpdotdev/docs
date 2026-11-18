@@ -1,0 +1,152 @@
+# Factory billing, privacy, and support corrections
+
+## Summary
+
+Correct the remaining plan, inference, privacy, and support inconsistencies inventoried in [docs issue #1048](https://github.com/warpdotdev/docs/issues/1048). Update existing pages. Keep billing and privacy rules with their canonical owners. Preserve the distinction between provider retention, Warp's collection for service improvement, and product storage.
+
+- Status: proposed; requester approval is pending. Do not start implementation until Foreman records written approval or an explicit scoped override.
+- Requester: Hong Yi Chen (`hongyi-chen`).
+- Baseline: docs `f117c4215f1a61786034bf2941ea3ca095d88750`, fetched November 18, 2026.
+- Request: [originating Slack thread](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1794942142115919).
+- Resolved policy answers: [requester follow-up](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795040067702699), relayed by Foreman and recorded on #1048.
+- Deliverable: focused public-doc fixes on this spec's branch and PR, with a per-page change-and-reason record and verification evidence. This commit contains only the spec.
+
+## Product behavior
+
+The implementation changes documentation, not the product.
+
+1. Readers distinguish Warp Terminal and local-agent plans from Warp Factories plans. Team-managed inference eligibility does not establish model-blocking or content-collection permissions.
+2. Eligible Enterprise readers can find Claude linked billing from factory inference, Enterprise billing, platform usage, and the existing agent subscription FAQ. Each points to the canonical linked-billing page instead of reproducing setup or plan tables.
+3. Readers distinguish Claude linked billing from consumer subscriptions, provider keys, BYOLLM, and Claude Code authentication. They understand the personal-key exception and the separate Warp charges.
+4. Privacy guidance treats Claude linked billing as running through Warp's organization. It does not classify this path as inference governed only by a customer's Anthropic agreement. Coverage remains limited to the supported models and applicable configuration.
+5. Readers understand that organization policy can restrict privacy controls. A browser-only reader receives conditional Admin Panel instructions and a contact fallback, not an unverified entitlement promise.
+6. Factory users can report a failure without a Terminal block or local app logs. Terminal users retain their existing diagnostic instructions.
+7. The public refund policy applies to self-serve plans. The collection and diagnostic prerequisites apply only to product-defect refund or credit requests. Enterprise contracts and refunds remain separate.
+
+## Content design plan
+
+- **Reader and job:** A factory user reporting a failed browser-based run, or an admin choosing the team's inference and privacy configuration.
+- **Gap today:** Existing entry points omit linked billing, overstate some controls, and assume Terminal diagnostics.
+- **Change:** Correct existing answers and inference-table entries. Add a short browser support section within the existing support pages. Keep their content types, diagnostic teaching, and canonical owners; exclude new pages, new FAQs, and duplicated setup procedures.
+
+## Per-page changes and reasons
+
+Paths below are relative to `src/content/docs/`. Line references identify the baseline location, not immutable edit coordinates. Preserve published headings and explicit anchor aliases unless a correction requires changing them.
+
+| Page and baseline location | Required change | Why |
+| --- | --- | --- |
+| `factories/zero-data-retention.mdx:18-24,51-53` (C1, P1) | Replace the stale Business provider-key statement with a link to eligibility by product. Keep Enterprise model restrictions separate. Add a concise linked-billing distinction beside the provider-account choices and link to its canonical setup page. | Factory key access uses Scale and Enterprise, not Terminal's Business label. Who pays Anthropic does not by itself determine whose ZDR configuration applies. |
+| `enterprise/team-management/admin-panel.mdx:193-205,220-228` (C1, P3) | Make the provider-credentials bullet product-neutral and link to the product-qualified eligibility table. Replace the unconditional Business/Enterprise browser-collection introduction with the conditional procedure specified below. Revise the nearby factory-plans TODO to record only evidence still missing. | Key eligibility is known. Collection-control editability has not been established for each product and plan. |
+| `factories/infrastructure-and-security.mdx:77-92` (C2) | Add Claude linked billing as a separate option in the existing inference table. Identify Enterprise agreement/access requirements, Warp Agent factory-run scope, and the canonical setup link. State that it does not authenticate Claude Code. Keep its Warp-organization retention boundary distinct from personal and team keys. | The current table omits a supported inference-billing option and leaves readers to infer credential and privacy behavior. |
+| `enterprise/support-and-resources/billing.mdx:32-48` (C2, P2) | Add a short linked-billing paragraph or subsection beside the existing inference choices. Link setup, fallback conditions, and separate Warp charges to the owning page. State that Enterprise refund requests follow the contract/account-team route rather than the self-serve refund rules. | Enterprise readers need the direct Anthropic billing option and must not inherit self-serve refund prerequisites. |
+| `support-and-community/plans-and-billing/platform-credits.mdx:10-14` (C2) | Include linked billing in the customer-supplied-inference examples with a link. Adjust the factory caveat so it does not imply that team keys and harness credentials exhaust the alternatives. Preserve the existing product-qualified charge rules and contract exceptions. | Changing who pays for inference does not remove applicable platform or hosted-compute charges. |
+| `agents/getting-started/faqs.mdx:38-44` (C2) | Preserve the answer that Claude consumer subscriptions cannot fund the Warp Agent. Add one qualified sentence linking eligible Enterprise organizations to Claude linked billing. Keep personal BYOK local-only; link team credentials for factory readers if the answer mentions that path. Do not add another FAQ question. | The current answer presents an API key as the only way to use an Anthropic account. |
+| `enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx:48-59,96-107` (C3) | Qualify the personal-key-first rule with the team linked-billing exception. Check the nearby first-party-key, member-experience, and billing summaries for the same universal claim. Link to the linked-billing owner for enabling and stopping it. | Team-enabled linked billing cannot be overridden with a personal Anthropic key. Ordinary key routing must remain clear. |
+| `enterprise/index.mdx:9-27,50-64,81-92` (C4, polish) | Replace “unlimited parallelization” with parallel-run wording linked to hosted concurrency limits and queuing. Remove “powerful,” “state-of-the-art,” “Perfect for,” the meta section introduction, and repeated audience/benefit sales lists. Replace the platform name in the harness list with “the Warp Agent.” Keep the Enterprise overview's orientation, admin/developer/security routes, and useful capability links. | The hosting reference documents limits. A platform is not a harness. Repeated selling obscures the reader's next action. |
+| `enterprise/security-and-compliance/security-overview.mdx:11-20` (C5) | Replace “Disable telemetry and crash reporting at any time while retaining full functionality” with a link to collection preferences, qualified by organization-managed settings. Keep the existing admin route. | The unconditional promise conflicts with enforced organization settings and has no evidence for the full-functionality claim. |
+| `enterprise/support-and-resources/feedback-and-feature-requests.mdx:8,21-46,63` (C6, P2, polish) | Add factory/browser diagnostic intake, distinguish it from Terminal diagnostics, and retain private Enterprise support channels. Do not require enabling collection for ordinary support or import the self-serve defect-refund rule. Remove the meta opener. Use “Related pages” for the closing section. | Browser users need a usable report path. Enterprise support is not a self-serve refund request. |
+| `support-and-community/troubleshooting-and-support/sending-us-feedback.mdx:29-44,258-274` (C6) | Add a short factory/browser reporting section and link to it from the general intake checklist. Scope Terminal block, version, and app-log instructions to app issues. Preserve their anchors and platform-specific procedures. | Factory reports must not depend on installing Terminal. |
+| `support-and-community/privacy-and-security/privacy.mdx:18-28,78-86` (P1, P3) | Explicitly separate Claude linked billing from the list of customer-account configurations. Apply the requester-confirmed Warp-organization boundary with the compliance evidence rule below. Link factory coverage and canonical linked-billing setup. Make browser collection instructions conditional and preserve the privacy contact fallback. | Billing ownership is not the retention boundary. The current browser intro also overstates verified collection-control eligibility. |
+| `agents/inference/claude-platform-linked-billing.mdx:12-20,44-64` (P1) | Clarify that linked billing continues through Warp's organization and its applicable ZDR configuration. Link the canonical privacy policy and factory coverage limits. Retain eligibility, supported surfaces, no consumer-subscription funding, no Claude Code support, personal-key precedence, fallback, and separate-charge limitations. | This is the canonical location for the configuration boundary. The clarification must not expand supported-model coverage or rewrite billing behavior. |
+| `support-and-community/plans-and-billing/plans-pricing-refunds.mdx:81-109` (P2) | State self-serve scope before the refund rules. Keep “Help improve Warp,” Conversation ID, and logs together under the product-defect condition. Preserve purchase-type, consumption, timing, and expiration rules. Link Enterprise readers to the account-team/contract route. | A defect investigation prerequisite must not read as a requirement for all refunds or Enterprise support. |
+| `factories/quickstart.mdx:104-108` (polish) | Remove bold from closing link labels and use the standard link-first format. Do not change setup steps or its purpose. | This is a narrow style correction, not a new consistency finding. |
+
+### Browser support intake
+
+Both support pages must tell a factory user to include:
+
+- A link to the affected run or work item, and the factory involved.
+- What happened, what they expected, reproduction steps, and the time of failure.
+- Relevant visible error text and context that support can use to identify the run.
+- Browser and OS details for browser-specific failures.
+
+Link to `factories/factory-dashboard.mdx:49-57` for finding and inspecting runs. Do not invent a copy-ID button, browser log-download control, or universal log location. Local app logs are relevant only when the app is involved. Keep security and privacy inquiries on the existing private contact routes. Do not instruct users to publish credentials or sensitive transcripts in a public issue.
+
+### Conditional browser collection procedure (P3)
+
+- Address team admins. Name the Admin Panel, team selection, and **Privacy** page.
+- Say to change “UGC Data Collection” only if their plan permits changes and no workspace policy locks it.
+- Preserve the existing **Disabled** and **Respect User Setting** choices and reload-to-confirm step.
+- Direct workspace-locked cases to a workspace admin.
+- Preserve `privacy@warp.dev` for plan-locked controls and personal browser-only opt-out requests.
+- Do not claim that Start, Scale, Business, or Enterprise has an editable control solely because its plan supports inference keys.
+
+This conditional procedure is the implementation path with the evidence available now. A definitive collection-control matrix is deferred. To replace the condition with a plan claim, obtain a redacted production entitlement response and current deployed Admin Panel evidence for the relevant Terminal Business, factory Start/Scale, and Enterprise cases. Route existence, source code, and a successful flag check do not prove edit permission.
+
+## Decisions
+
+| Decision | Alternatives and trade-offs | Selected direction |
+| --- | --- | --- |
+| Content ownership | Duplicate full rules at each entry point for local completeness, or add bounded summaries and canonical links to reduce drift. | Use summaries and links. Keep necessary exceptions beside the affected choice. |
+| Scope | Rewrite all requested families, or correct the confirmed inventory and targeted polish. A rewrite risks changing valid instructions and colliding with other audits. | Correct the listed pages. Record each fixed or deferred item. Escalate genuinely new semantic conflicts rather than silently expanding scope. |
+| Linked billing (requester decision P1) | Treat the customer payer as the provider-account boundary, or use the actual Warp-organization configuration. | Preserve the exact answer: “for Claude linked billing, this still runs through Warp’s org so our config still applies (ZDR)”. Limit it to this configuration. Do not infer rules for unrelated subscriptions, providers, or models. |
+| Refunds (requester decision P2) | Require collection for all refunds/support, or scope diagnostics to defect-related self-serve requests. | Follow the requester: “Help improve Warp” is required only for refund or credit requests tied to a product defect. Require the Conversation ID and logs there too. Other refunds depend on purchase type and elapsed time. Enterprise contracts/refunds are separate. |
+| Collection permissions (P3) | Infer Scale eligibility from key access, wait for a full matrix, or keep conditional instructions and a contact route. | Use conditional instructions. They correct the overclaim without inventing permissions or blocking unrelated fixes. |
+| Capacity | Replace “unlimited” with a guessed number, or link the hosting limit and queuing guidance. | Link `factories/warp-hosting.mdx:31-33`; do not pin a number. |
+| Privacy assurance | Treat the requester answer or code as approval of every retention promise, or separate configuration confirmation from compliance approval. | Apply the compliance policy below. Spec approval does not waive it. |
+
+## Evidence and publication constraints
+
+- Use #1048 as the existing investigation record. This spec does not claim a new exhaustive audit or live production verification.
+- Follow `AGENTS.md`, `.agents/rules/warp-positioning.md`, `.agents/references/terminology.md`, and `src/data/vars.ts`. Describe Warp Factories as infrastructure and distinguish it from the Warp Agent harness.
+- Apply `.agents/references/compliance-claims-policy.md` to every compliance commitment added or retained in rewritten passages. Record the current Security/Legal-approved source, date/revision, approving authority, and exact product, plan, provider, model, deployment, and data scope in PR evidence. Existing docs, implementation, the requester answer, and general PR approval are not substitutes.
+- If that evidence is unavailable, omit the unsupported promise from public prose and list the precise missing evidence in `Unverified claims`. Do not leave an unsupported compliance promise behind a `VERIFY` marker. Preserve valid instructions and bounded links; report the assurance item as deferred rather than claiming it complete.
+- For other unresolved technical assertions, omit them or use the repository's `VERIFY` accounting while the PR remains draft. Resolve or remove those markers before publication.
+- Verify any new availability claim with current shipped/public evidence. Run `server_rollout.py check` with the user-facing terms for server-backed claims and record the verdict and source revision separately from release evidence. Do not publish private rollout details.
+- Recheck overlapping work before public drafting: issues [#1034](https://github.com/warpdotdev/docs/issues/1034), [#1019](https://github.com/warpdotdev/docs/issues/1019), and [#1010](https://github.com/warpdotdev/docs/issues/1010); PRs [#836](https://github.com/warpdotdev/docs/pull/836), [#833](https://github.com/warpdotdev/docs/pull/833), [#978](https://github.com/warpdotdev/docs/pull/978), and [#912](https://github.com/warpdotdev/docs/pull/912). Do not copy their unapproved claims. In particular, #836 has unresolved feedback about telemetry defaults and full-functionality promises.
+- The public pricing-site naming discrepancy recorded on #1048 is outside this checkout. Do not revert Start/Scale docs to match a stale external page or infer a collection entitlement from its generic “data controls” wording.
+
+## Assumptions
+
+- **Assumption A1:** The supplied C1–C6/P1–P3 inventory and delegated polish define this bounded pass. No full API, legal, or corpus-lifecycle audit is requested.
+- **Assumption A2:** Preserve existing pages, URLs, and reader tasks. No navigation, redirect, pricing-table, or product-name-variable change is needed.
+- **Assumption A3:** The requester answers resolve the product-policy forks. Remaining production-permission and Security/Legal evidence are verification prerequisites, not unanswered preference questions.
+
+## Out of scope
+
+- Changes to product behavior, pricing, contracts, entitlements, or the pricing website.
+- A new plan-permission matrix, universal ZDR guarantee, model-coverage expansion, or customer-provider-agreement interpretation of linked billing.
+- New FAQs, new public pages, wholesale Enterprise rewrites, or changing a page's purpose.
+- Resolution of all pre-existing style/link warnings or the saved consistency-audit state associated with #876.
+- Duplicating merged work from #1002, #1021, #1022, or #1038.
+
+## Validation criteria
+
+Record the implementation head, exact command results, and evidence limits in the same PR. A skipped check is not a pass.
+
+### Content checks
+
+Perform the following named checks against the diff and rendered pages. Record each result in the PR validation record.
+
+| Check | Passing condition |
+| --- | --- |
+| V1: inventory accounting | Every table row above has a fix or an explicit deferral with reason and owner-evidence need. The record states affected page, change, and why. C1–C6, P1–P3, and all three polish targets are accounted for. |
+| V2: product and configuration boundaries | Check Terminal Business, factory Scale, and Enterprise examples against the canonical eligibility table. Check ordinary local key precedence, team-enabled linked billing, and a factory Warp Agent run. No personal-device-key availability or universal personal-key-first promise leaks into factory/linked-billing guidance. |
+| V3: linked billing and privacy | From each C2 entry point, follow a working link to the canonical setup. Confirm Enterprise/access qualification, no consumer-subscription funding, no Claude Code support, fallback limits, and separate charges remain intact. Privacy, factory ZDR, and linked billing agree on the Warp-organization boundary without adding model coverage. Apply the compliance evidence rule before declaring P1 publishable. |
+| V4: collection controls and storage | Read the editable, workspace-locked, plan-locked, and personal browser-only cases. Each has the conditional action or contact route specified above. No new entitlement matrix appears. Provider retention, collection for improvement, personal conversation sync, and factory run storage remain distinct. |
+| V5: support and refunds | A browser-only factory user can assemble a report without Terminal logs. A Terminal user can still follow existing diagnostics. Compare a self-serve defect request, a mistaken unused purchase, a time-based subscription refund, and an Enterprise contract request: only the first gets the collection/Conversation ID/log prerequisites; existing refund thresholds remain unchanged. |
+| V6: capacity and tone | No unlimited hosted-concurrency promise remains in the changed overview. Its capacity link states limits and queuing without a guessed number. Apply the read-aloud and deletion-only passes. Preserve useful actions, exceptions, and page purpose. Closing links use the established format. |
+
+### Deterministic checks
+
+Run from the docs repository root after committing the public-doc changes:
+
+1. `git --no-pager diff --check origin/main...HEAD`
+2. `python3 .agents/skills/style_lint/style_lint.py --changed`
+3. `python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --changed --all --require-provenance`
+4. `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only`
+5. In repository order: `npm run typecheck`, `npm run test:heading-vars`, `npm run build`, `npm run test:heading-tocs`, `npm run test:homepage-json-ld`.
+6. `python3 .agents/skills/doc_quality_policy/check_compression_contract.py src/content/docs/factories/quickstart.mdx --content-type quickstart`; run the same helper for any other changed page with its inherited content type. Explain necessary pre-existing budget exceptions rather than removing instructions to satisfy a number.
+7. `python3 .agents/skills/doc_quality_policy/check_pr_contract.py --body "$PR_BODY_FILE"` using the actual saved PR body. Classify the public-content update as `engineering-review-required`, account for every remaining technical marker, and record evidence gaps. Apply `warpy-factory` as well as `factory:docs-factory`.
+
+Style and link checks may expose unrelated baseline failures. Compare them with the unchanged base, fix introduced failures, and report remaining failures accurately. The 34 audit tests and 415-file UI scan on #1048 belong to earlier triage; they are not results for this implementation.
+
+### Visual proof
+
+After a successful build, use `computer_use` to inspect the rendered factory inference table, browser support intake, and refund scope. Report screenshots of these genuinely static changes in the PR; verify readable table columns, correct callout scope, and usable links. If implementation changes an interactive procedure or asserts newly verified deployed control behavior, use a video of that flow instead of static-only proof. Never expose account, billing, or diagnostic secrets in captures.
+
+## Approval
+
+- Interview: the requester decisions supplied by Foreman resolve the known forks. No repeat policy questions are required.
+- Spec approval: pending. Only written requester confirmation or draft-PR approval satisfies this prerequisite.
+- Approval covers this bounded documentation plan. It does not establish production collection-control permissions or approve unsupported compliance commitments.
