@@ -218,6 +218,28 @@ export default defineConfig({
 					// left the most-consumed AI-facing artifact on the old name.
 					description:
 						'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
+					// "When to use" guidance for agents reading llms.txt. ora's
+					// agent-instruction check looks for this in llms.txt. Keep it to
+					// jobs the docs actually answer, and update it with the sidebar.
+					details: [
+						'## When to use these docs',
+						'',
+						'Use these docs to answer questions about installing, configuring, or troubleshooting Warp, or about building with its agents. They cover:',
+						'',
+						'- Installing Warp and moving from another terminal or editor, such as iTerm2, macOS Terminal, Windows Terminal, Ghostty, VS Code, or Cursor',
+						'- Terminal features: blocks, the input editor, completions, themes, keybindings, SSH, and sessions',
+						'- Agents in Warp, the Warp Agent CLI, and third-party CLI agents such as Claude Code, Codex, and OpenCode',
+						'- Cloud agents on the Automation Platform: environments, triggers, schedules, integrations with GitHub, GitLab, Slack, Linear, and Jira, and the Oz Agent API',
+						'- Warp Factories: setting up a software factory that routes work through triage, planning, implementation, and review',
+						'- Plans and billing, privacy and security, and enterprise administration such as SSO and team management',
+						'',
+						'## How to read them',
+						'',
+						'- Start with a topic file under "Documentation Sets" for one product area, or `llms-small.txt` for the whole site.',
+						'- Every page has a Markdown version: append `.md` to the page URL, for example https://docs.warp.dev/agents.md.',
+						'- The docs explain how billing works but do not list current prices. For prices, see https://www.warp.dev/pricing.',
+						'- For company information, see https://www.warp.dev/about. To reach Warp, see https://www.warp.dev/contact.',
+					].join('\n'),
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Agents in Warp: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },

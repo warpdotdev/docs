@@ -59,7 +59,7 @@
         {
           "type": "header",
           "key": "accept",
-          "value": ".*text/markdown.*"
+          "value": "^(.*,)?\\s*text/markdown\\s*(;\\s*q=(1(\\.0{0,3})?|0\\.[0-9]*[1-9][0-9]*)\\s*)?(,.*)?$"
         }
       ],
       "destination": "/index.md"
@@ -70,13 +70,28 @@
         {
           "type": "header",
           "key": "accept",
-          "value": ".*text/markdown.*"
+          "value": "^(.*,)?\\s*text/markdown\\s*(;\\s*q=(1(\\.0{0,3})?|0\\.[0-9]*[1-9][0-9]*)\\s*)?(,.*)?$"
         }
       ],
       "destination": "/:path+.md"
     }
   ],
   "redirects": [
+    {
+      "source": "/pricing(/?)",
+      "destination": "https://www.warp.dev/pricing",
+      "statusCode": 308
+    },
+    {
+      "source": "/about(/?)",
+      "destination": "https://www.warp.dev/about",
+      "statusCode": 308
+    },
+    {
+      "source": "/contact(/?)",
+      "destination": "https://www.warp.dev/contact",
+      "statusCode": 308
+    },
     {
       "source": "/factories/factory-inbox(/?)",
       "destination": "/factories/factory-home/",
