@@ -1,0 +1,86 @@
+---
+title: Factory boundaries
+description: >-
+  Set boundaries in Warp Factories based on ownership, dependencies, access requirements, and approvals, not repository count.
+sidebar:
+  label: "Factory boundaries"
+prev: false
+next: false
+---
+
+In Warp Factories, a factory boundary defines which code a factory works on, which requests it handles, and which changes require human approval. That scope can range from part of a repository to several repositories.
+
+Choose that scope based on how your code is owned, changed, and approved, not how many repositories you have. A frontend and backend that the same team maintains and ships together can share a factory, even across two repositories. Products with different owners and approval requirements may need separate factories, even within one monorepo.
+
+Group code that ships together in one factory, and keep separate products in separate factories. Use [custom agents](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) to specialize work within a factory rather than creating separate factories for each team or task. See [sizing a factory](/factories/#sizing-a-factory) for more guidance.
+
+## What a boundary decides
+
+* **Repositories** - The [`repositories`](/factories/factory-as-code/#repositories) list specifies which repositories are checked out with every run and where the agents are instructed to work. Access comes from the code host connection and its permissions, so narrow the installation as well as the list. See [GitHub permissions](/factories/integrations/github/#permissions).
+* **Agents and skills** - The foreman, the default agents, and any custom agents share the factory's [skills](/factories/factory-skills/), so repository conventions and commands are written once per factory.
+* **Intake** - [Automations](/factories/automations/) filter events by repository, label, team, or channel and send them to the factory's foreman. When two factories watch the same event, each starts its own run.
+* **Credentials** - Repository identity, secrets, and MCP servers are configured per factory and per agent. Automation filters control which events start runs, not which resources agents can access. See [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries).
+* **Approvals** - The foreman’s instructions specify when a spec requires human approval. Merging is enforced by each repository's branch protection and required reviews. The factory never merges. See [human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
+* **Operations** - A factory has one default [runner](/factories/runners/), which agents can override, and one [dashboard](/factories/factory-dashboard/) for cost, Scorers, and pull request metrics. Every stack inside the boundary has to fit that setup, and their results are measured together.
+
+## Questions that set the boundary
+
+Work through the following questions in order. If your answer matches the “Use separate factories” column, consider creating separate factories.
+
+| Question | Keep in one factory when | Use separate factories when |
+| --- | --- | --- |
+| **Ownership** - Who reviews and merges? | One team reviews and merges changes across all of the code | Different teams own the code and don't review each other's pull requests |
+| **Coupling** - Does the code ship together? | A change often touches several of the repositories, and they deploy together or against a shared contract | The repositories change independently, and a change that spans them is rare |
+| **Permissions** - Who may see and change the code? | Everyone who sends work to the factory may reach every repository in it | Some code needs credentials, secrets, or MCP access that other work must not receive |
+| **Approvals** - Where do people sign off? | One spec policy and one merge process fit all of the code, with escalation rules for the exceptions | Part of the code needs its own approval path that an escalation rule can't express |
+| **Operating needs** - What does a run need to build and test? | One runner image and setup serve every repository, and one dashboard is the right place to measure | Stacks need different images, operating systems, or hosts, or their cost and quality must be measured separately |
+
+## Examples by codebase structure
+
+Choose the setup guidance that fits your codebase. These guides are complementary, not mutually exclusive; a web application can use microservices across several repositories.
+
+* [Setting up a factory for a web application](/factories/guides/web-application-factory/) - Frontend and backend work in one factory, with the app and its tests set up so changes can be verified in a browser.
+* [Setting up a factory for a monorepo](/factories/guides/monorepo-factory/) - One product inside a shared repository, with checks on shared packages and escalation to their owners.
+* [Setting up a factory for microservices](/factories/guides/microservices-factory/) - Related services grouped by contract and ownership, with runtime context and contract checks.
+* [Coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) - One pull request per repository, linked together, with a merge order a person controls.
+
+After configuring your factory, continue to [testing and tuning](/factories/guides/testing-and-tuning-your-factory/).
+
+## Set it up with a prompt
+
+Paste this into a conversation with your factory's foreman (**New Chat** in the factory dashboard) or into a coding agent connected through [Factory MCP](/factories/factory-mcp/). Replace the uppercase placeholders with your information first.
+
+```text title="Prompt"
+Read https://docs.warp.dev/factories/guides/structuring-your-factory.md and
+help me choose factory boundaries. My repositories are REPO_LIST. For each
+one I will tell you which team owns and merges it, which repositories
+deploy together or share a contract, and which need credentials that other
+work must not receive.
+
+Propose the factories to create. For each proposed factory, list its
+repositories, the owning team, how work will enter it, who approves specs
+and merges, and what its runner must be able to build and test. Use the
+setup guidance linked from the page and adapt this starter:
+https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+Show me the proposal before you create or change anything.
+```
+
+## Troubleshooting
+
+* **Requests are rejected or sent to the wrong factory:** Intake filters may not match ownership, or requests may omit the repository or product. Use a distinct label or filter per factory and document its directories and owners in a shared skill. See the [monorepo factory](/factories/guides/monorepo-factory/) for an example.
+* **Pull requests wait for another team's review:** The factory's scope crosses ownership. Add an escalation rule that opens affected pull requests as drafts and requests the owning team's review, or move that code into a separate factory.
+* **One event starts runs in two factories:** Their event filters overlap. Separate them by label, channel, or project so an event matches only one automation. See [one action starts two runs](/factories/troubleshooting/#one-action-starts-two-runs).
+* **Setup fails or takes most of the run:** One runner may be preparing more stacks than the task needs. Scope setup commands to the relevant code, give agents separate runners, or split the factory by operating needs. See [runners](/factories/runners/).
+
+## Guide navigation
+
+* Previous stage: [Factory guides overview](/factories/guides/)
+* Next stage: [Configure your factory](/factories/guides/#configure-your-factory) - Use the setup options above
+* All stages: [Factory guides](/factories/guides/)
+
+## Related pages
+
+* [How Warp Factories work](/factories/how-factories-work/) - What happens inside one factory from intake to handoff
+* [Warp Factories overview](/factories/#sizing-a-factory) - The sizing rule of thumb this page expands on
+* [Definitions as code](/factories/factory-as-code/) - The files where a boundary is written: repositories, agents, runners, and skills
+* [Managing factory permissions](/factories/permissions/) - Who can run and configure each factory

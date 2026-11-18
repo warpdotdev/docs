@@ -10,15 +10,15 @@ Warp supports **custom inference endpoints** for users who want to power agents 
 **Your endpoint must be reachable at a public URL.** Requests route through Warp's servers (see [How it works](#how-it-works)), so Warp must be able to reach your endpoint over the public internet. `localhost`, private or internal network addresses, and internal-only services — such as a LiteLLM proxy that's only reachable inside your network — are rejected. To use an internal or local endpoint, first expose it at a public HTTPS URL. See [Network requirements](#network-requirements) for details.
 
 :::note
-Custom inference endpoints are available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
+For Warp Terminal and local agents, personal endpoints are available on the Free plan and eligible paid plans for individuals and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan for Warp Terminal and local agents.
 :::
 
 ## Key features
 
 * **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
 * **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway exposed at a public URL.
-* **Provider-billed inference** - Your endpoint provider bills inference directly. On Business and Enterprise, local runs that use an endpoint still incur [platform charges](/support-and-community/plans-and-billing/platform-credits/).
-* **Personal configuration** - Your endpoint configuration is stored on your device for local Warp Agent runs. Business and Enterprise admins can instead configure [team-managed endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud runs.
+* **Provider-billed inference** - Your endpoint provider bills inference directly. Applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) remain.
+* **Personal configuration** - Your endpoint configuration is stored on your device for local Warp Agent runs. Admins on [eligible team plans](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) can configure shared endpoints instead.
 
 ## How it works
 
@@ -32,7 +32,7 @@ Your endpoint must implement the **OpenAI Chat Completions API** (`POST /v1/chat
 Personal endpoint configurations are stored on your device, with API keys in secure storage. When you select an endpoint model, your prompt, context, endpoint URL, and key pass through Warp's servers to your endpoint. Warp does not retain your personal endpoint API key.
 
 :::caution
-Personal endpoint configurations are not available to [cloud runs](/platform/). Business and Enterprise teams can configure [team-managed endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud inference; applicable compute and platform charges remain.
+Personal endpoint configurations are not available to [cloud runs](/platform/). Use [team-managed endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for factory inference.
 :::
 
 ## Enabling a custom inference endpoint
@@ -65,7 +65,15 @@ For example, with a default Ollama install listening on port `11434`, run `ngrok
 
 Your endpoint provider bills endpoint-routed inference according to their pricing, rather than drawing from your Warp usage balance.
 
-Local endpoint-routed runs on Business and Enterprise still incur [platform charges](/support-and-community/plans-and-billing/platform-credits/). External inference bills are not fully represented in Warp's usage totals.
+External inference bills are not fully represented in Warp's usage totals.
+
+### Warp Terminal and local agents
+
+Local endpoint-routed runs on Business and Enterprise plans for Warp Terminal and local agents incur [platform charges](/support-and-community/plans-and-billing/platform-credits/#warp-terminal-and-local-agents). Free, Build, and Max plans for Warp Terminal and local agents do not incur local platform charges.
+
+### Warp Factories
+
+The Scale and Enterprise plans for Warp Factories support team-managed endpoints. Your provider bills inference; Warp's [platform and hosted-compute charges](/support-and-community/plans-and-billing/credits/) still apply. A personal endpoint configuration cannot fund or configure a factory run.
 
 <span id="auto-routing-still-uses-warp-credits" />
 
@@ -83,23 +91,17 @@ Other features use their own inference configuration and are unaffected by a per
 
 ## Zero Data Retention (ZDR)
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with all of its contracted LLM providers.
+Warp's [provider ZDR agreements](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) don't apply to requests through your own endpoint. Verify retention with the endpoint provider and any upstream model providers for your specific account, model, and configuration. Warp cannot enforce provider ZDR for these requests.
 
-Custom inference endpoint prompts and responses transit Warp's backend (see [How it works](#how-it-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
-
-When you use a custom inference endpoint:
-
-* Data retention on the **provider side** is determined by your endpoint provider and any upstream model providers they route to.
-* Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.
-* If your endpoint provider does not have ZDR with the underlying model provider, your requests may be retained according to their terms.
-
-Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a custom inference endpoint.
+Prompts and responses [pass through Warp's servers](#how-it-works). Warp applies your account's privacy settings to this content, including any settings enforced by your organization. Review [Warp's analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) separately from your provider's retention rules.
 
 ## Centrally managed configuration
 
 Personal endpoints are configured on each user's device and work for local Warp Agent runs, not [cloud agents](/platform/).
 
-Business and Enterprise admins can configure [team-managed endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) in the [Admin Panel](/enterprise/team-management/admin-panel/) for local and cloud runs. For Enterprise AWS Bedrock or Gemini Enterprise (Vertex AI) routing, see [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/).
+For Warp Terminal and local agents, Business and Enterprise admins can configure [team-managed endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) in the [Admin Panel](/enterprise/team-management/admin-panel/).
+
+For Warp Factories, Scale and Enterprise admins configure shared endpoints in the same Admin Panel. For cloud-provider routing under an Enterprise agreement, see [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
 ## How custom inference endpoints differ from BYOK and BYOLLM
 
@@ -107,12 +109,11 @@ Choose a configuration based on who manages it and where your agents run:
 
 | Name | Meaning | Plans |
 | --- | --- | --- |
-| **[Personal BYOK](/agents/inference/bring-your-own-api-key/)** | Use your own API key for OpenAI, Anthropic, or Google models in local Warp Agent runs. Keys are stored on your device. | Free and all eligible paid plans |
-| **Personal custom inference endpoint** | Connect local Warp Agent runs to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
-| **[Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | An admin configures shared provider keys or endpoints for local and cloud Warp Agent runs. | Business and Enterprise |
-| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Route inference through your organization's AWS Bedrock or Gemini Enterprise (Vertex AI) account. See the provider guides for cloud support. | Enterprise only |
+| **[Personal BYOK](/agents/inference/bring-your-own-api-key/)** | Use your own API key for OpenAI, Anthropic, or Google models in local Warp Agent runs. Keys are stored on your device. | Free and eligible paid plans for Warp Terminal and local agents |
+| **Personal custom inference endpoint** | Connect local Warp Agent runs to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and eligible paid plans for Warp Terminal and local agents |
+| **[Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | An admin configures shared provider keys or endpoints for local and cloud Warp Agent runs. | See [eligibility by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) |
+| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Route inference through your organization's AWS Bedrock or Gemini Enterprise (Vertex AI) account. See the provider guides for cloud support. | Enterprise agreement |
 
-Local runs on Business and Enterprise that use customer-supplied inference incur [platform charges](/support-and-community/plans-and-billing/platform-credits/).
 
 <span id="related-resources" />
 

@@ -43,7 +43,7 @@ The JSON report contains:
 - `summary` — Counts by status (`pass`, `fail`, `warn`, `skip`)
 - `categories` — Per-category scores and grades
 - `issues` — Array of failing and warning checks with details and fix guidance
-- `scan_reliability` — `complete` or `partial`; partial scans must not establish a regression baseline
+- `scan_reliability` — Object with `status` (`complete` or `partial`), `reason`, and `message`; partial scans must not establish a regression baseline
 - `interaction_effects` — Non-scored combinations of findings that can degrade agent access more than an individual check suggests
 
 Each issue includes:
@@ -121,6 +121,7 @@ remediation steps.
 After running the audit, ALWAYS report the results to the user before taking any action. Include:
 
 1. **Score provenance**: Report `spec_version`, score, grade, and `score_method`. If present, show `legacy_cli_score` separately and never compare it to the v0.6 compatibility score.
+   Include `scan_reliability.status` and any reported interruptions; a complete sample is not an exhaustive site scan.
 2. **Failures first**: List every fail-severity check with its message and fix guidance. These are the most impactful.
 3. **Warnings**: List warning-severity checks with context.
 4. **Allowlisted**: Briefly note any known exceptions that were flagged.
@@ -149,7 +150,34 @@ Score method: unweighted compatibility estimate; legacy 23-check CLI score: 84/1
 - dynamic-content-rendered-statically: transfer-size, serialized-data, and parity findings co-occur; review both rendering paths together.
 ```
 
-After reporting, ask the user which issues they want to address.
+## From audit to fixes
+
+For an interactive audit without repair authorization, ask which remaining issues
+the user wants to address. Scheduled runs with standing repair authorization,
+and explicit audit-and-fix requests, proceed without an interactive selection.
+
+After reporting a successful audit with `scan_reliability.status: complete`:
+
+1. Inspect every non-excepted failure **and warning**, including pre-existing
+   findings. Regression detection controls score comparisons, not permission
+   to repair; eligible fixes do not require a new score drop or product release.
+2. Diagnose the affected URLs against their source and generated HTML/Markdown.
+   For size, serialization, or parity findings, distinguish intentional content
+   from generator defects, duplicated navigation/payloads, and lost content.
+   Do not assume every large page needs an editorial split.
+3. Apply `afdocs-fix` when genuine, understood, repo-fixable findings remain.
+   Also correct understood audit-tooling defects with regression tests.
+   Use its single `afdocs-fixes` branch/draft PR and repository quality contract.
+   Do not duplicate fixes already pending there.
+4. Run the ordered repository checks and targeted tests. Record fixes, pending
+   PRs, and remaining/deferred findings with evidence and the needed owner action.
+   A valid no-fix outcome explains why each remaining finding cannot safely be
+   fixed; a score report alone is not completion of an authorized repair run.
+
+Do not automatically remediate invalid, partial, or failed scans. Preserve
+observations and report the access/reliability blocker first. Do not change
+CDN/WAF policies, split/redesign pages, expand exceptions merely to improve the
+score, or guess at product/architecture decisions. Never merge or deploy.
 
 ## Run log
 
