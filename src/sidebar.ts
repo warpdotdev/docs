@@ -415,7 +415,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							items: [
 								{ slug: 'factories/blueprints', label: 'About Blueprints' },
 								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
-								{ slug: 'factories/blueprints/routes', label: 'Routing work between Blueprint stages' },
+								{ slug: 'factories/blueprints/routes', label: 'Configuring Blueprint transitions' },
 								{ slug: 'factories/blueprints/gates', label: 'Adding human gates to a Blueprint' },
 							],
 						},
