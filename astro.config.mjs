@@ -230,7 +230,7 @@ export default defineConfig({
 						'- Terminal features: blocks, the input editor, completions, themes, keybindings, SSH, and sessions',
 						'- Agents in Warp, the Warp Agent CLI, and third-party CLI agents such as Claude Code, Codex, and OpenCode',
 						'- Cloud agents on the Automation Platform: environments, triggers, schedules, integrations with GitHub, GitLab, Slack, Linear, and Jira, and the Oz Agent API',
-						'- Warp Factories: setting up a team of agents that triages, plans, implements, and reviews work',
+						'- Warp Factories: setting up a software factory that routes work through triage, planning, implementation, and review',
 						'- Plans and billing, privacy and security, and enterprise administration such as SSO and team management',
 						'',
 						'## How to read them',

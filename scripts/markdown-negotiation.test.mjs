@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import {
+	MARKDOWN_ACCEPT,
 	buildMarkdownNegotiationRoutes,
 	isNegotiationRoute,
 	resolve,
@@ -29,6 +30,30 @@ test('HTML requests keep the HTML page and still get Vary: Accept', () => {
 		assert.equal(r.headers.Vary, 'Accept');
 		assert.equal(r.headers['Content-Type'], undefined);
 	}
+});
+
+test('q=0 and wildcard-only Accept headers keep HTML', () => {
+	for (const accept of [
+		'text/html, text/markdown;q=0',
+		'text/markdown;q=0',
+		'text/markdown; q=0.0, */*',
+		'text/html,*/*;q=0.8',
+		'*/*',
+		'application/markdown',
+		'text/markdownx',
+	]) {
+		assert.equal(resolve(routes, '/agents/', accept).dest, null, accept);
+	}
+	for (const accept of ['text/markdown;q=0.5', 'text/html;q=0.9, text/markdown;q=0.1', 'text/markdown;q=1.0']) {
+		assert.equal(resolve(routes, '/agents/', accept).dest, '/agents.md', accept);
+	}
+});
+
+test('vercel.json rewrites use the same Accept condition', () => {
+	const { rewrites } = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
+	const accepts = rewrites.flatMap((r) => (r.has ?? []).filter((h) => h.key === 'accept'));
+	assert.ok(accepts.length >= 2);
+	for (const h of accepts) assert.equal(h.value, MARKDOWN_ACCEPT.value);
 });
 
 test('paths without a twin are untouched, and dots are escaped', () => {

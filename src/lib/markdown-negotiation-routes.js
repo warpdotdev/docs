@@ -16,8 +16,13 @@
 // Keeps each route's `src` regex well below Vercel's per-pattern size limit.
 const MAX_SOURCE_LENGTH = 3500;
 
-// Same condition as the vercel.json rewrites it replaces.
-export const MARKDOWN_ACCEPT = { type: 'header', key: 'accept', value: '.*text/markdown.*' };
+// Matches an Accept header that lists text/markdown with no q parameter or a
+// q above zero, so `text/markdown;q=0` (explicitly unacceptable) and `*/*`
+// keep getting HTML. Lookahead-free so the same pattern works in Vercel's
+// router; vercel.json's after-filesystem rewrites use the same value.
+// Limitation: a text/markdown entry with parameters other than q (for example
+// `text/markdown;charset=utf-8`) is treated as not accepting Markdown.
+export const MARKDOWN_ACCEPT = { type: 'header', key: 'accept', value: '^(.*,)?\\s*text/markdown\\s*(;\\s*q=(1(\\.0{0,3})?|0\\.[0-9]*[1-9][0-9]*)\\s*)?(,.*)?$' };
 export const MARKDOWN_HEADERS = { 'Content-Type': 'text/markdown; charset=utf-8', Vary: 'Accept' };
 
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
