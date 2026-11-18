@@ -48,12 +48,12 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 
 ## Inspect runs
 
-A run is a single worker execution. A single request can span several runs as different workers pick it up, and related runs group under their parent in the list. In the sidebar, click **Runs** to see the runs you have access to across your team.
+A run is a single agent execution. In a factory, the configured agent is called a worker. A request can span several runs as different workers pick it up, and related runs group under their parent in the list. In the sidebar, click **Runs** to see the runs you have access to across your team.
 
 Open a run to see its timeline, cost, and child runs. From there you can view the worker's full session, stop or score the run, or turn it into a benchmark task.
 
 :::note
-Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared worker session](/platform/viewing-cloud-agent-runs/), where you follow the worker in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
+Run pages don't include a chat input. **View worker** opens the worker's [shared agent session](/platform/viewing-cloud-agent-runs/), the conversation where you can inspect commands, outputs, and follow-up messages. You can send instructions while the sandbox is active; after it shuts down, the link opens the transcript.
 :::
 
 ## View and edit a Blueprint

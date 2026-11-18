@@ -7,7 +7,7 @@ sidebar:
   label: "Factory skills"
 ---
 
-A skill gives a worker a repeatable procedure, such as a security review or incident runbook. Factory skills extend a worker's instructions without requiring changes to its prompt.
+A skill gives an agent a repeatable procedure, such as a security review or incident runbook. In a factory, these configured agents are called [workers](/factories/factory-agents/). Factory skills extend their instructions without requiring changes to their prompts.
 
 In a [Blueprint](/factories/blueprints/), the stage prompt names the work and the skills to use. Keep reusable check commands in a skill; keep stage handoffs, transitions, and human gates in the Blueprint. A skill does not replace the workflow's stage order.
 
@@ -71,7 +71,7 @@ To add or update a custom skill:
    * **Warp-managed** - Save the definition. Warp validates and commits it.
    * **GitHub-backed** - Open a pull request. The factory's [pull request checks](/factories/factory-as-code/#pull-request-checks) validate the change, and merging to the production branch applies it.
 
-For an example of a shared skill and a worker-specific skill in one definition, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
+For an example of shared and agent-specific skills, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 
 ## Reference existing skills
 
