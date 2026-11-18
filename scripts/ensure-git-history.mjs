@@ -12,11 +12,18 @@ if (shallow.status === 0 && shallow.stdout.trim() === 'true') {
 		? `https://github.com/${owner}/${slug}.git`
 		: undefined;
 	const remote = origin.status === 0 ? 'origin' : publicRepo;
-	const fetch = remote
-		? spawnSync('git', ['fetch', '--unshallow', '--no-tags', remote], { encoding: 'utf8', timeout: 120_000 })
-		: undefined;
+	// Commit dates need commits and trees, not file contents, so ask for a
+	// blob-less history first (a fraction of the transfer). Fall back to a full
+	// fetch when the remote does not support partial clone.
+	const run = (args) => spawnSync('git', ['fetch', '--unshallow', '--no-tags', ...args, remote], { encoding: 'utf8', timeout: 120_000 });
+	let mode = 'blob-less';
+	let fetch = remote ? run(['--filter=blob:none']) : undefined;
+	if (remote && fetch.status !== 0) {
+		mode = 'full';
+		fetch = run([]);
+	}
 	if (fetch?.status === 0) {
-		console.log(`Fetched full git history in ${((performance.now() - start) / 1000).toFixed(1)}s.`);
+		console.log(`Fetched ${mode} git history in ${((performance.now() - start) / 1000).toFixed(1)}s.`);
 	} else {
 		console.warn('Could not restore full git history; shallow-boundary page dates will be omitted.');
 	}
