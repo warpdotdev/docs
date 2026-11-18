@@ -11,7 +11,7 @@ next: false
 
 Route requests from one Slack channel to a factory in Warp Factories and return pull request links in the original thread. A person reviews and merges the changes.
 
-Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Slack mentions. For emoji-reaction triggers, see [factory automations for Slack](/factories/integrations/slack/#configure-factory-automations-for-slack).
+Use the Blueprint created during [factory setup](/factories/quickstart/). Configure clarification, implementation, review, and handoff in its stages before adding Slack intake. For emoji-reaction triggers, see [factory automations for Slack](/factories/integrations/slack/#configure-factory-automations-for-slack).
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ Use an existing factory with a foreman and an implementation agent, or adapt the
 
 Use the `slack` / `app_mention` event to start work from mentions. Filter it to one channel so mentions elsewhere do not start this automation.
 
-If the factory uses a [Blueprint](/factories/blueprints/), configure its stages for clarification, implementation, and handoff before testing intake. Keep the thread response requirements below, but put delegation and approval decisions in the Blueprint rather than rely on the automation prompt to override it.
+Put the thread response requirements below in the handoff procedure. Keep delegation and approval decisions in the [Blueprint](/factories/blueprints/), not in a competing automation prompt.
 
 1. In the factory dashboard, open **Automations** and find the existing Slack mention automation. Connecting Slack during setup creates one. Reuse it to avoid duplicate runs.
    * **Warp-managed factory** - Edit the automation in the dashboard.
@@ -46,7 +46,7 @@ If the factory uses a [Blueprint](/factories/blueprints/), configure its stages 
    thread with one sentence that restates the deliverable, drive it to a pull
    request, and post the PR link back in that thread. If the request is too
    vague to restate, ask one clarifying question in the thread and stop.
-   Delegate implementation to the implementation agent. Require tests and a
+   Follow the configured Blueprint. Require tests and a
    verification summary on its pull request. A person reviews and merges;
    do not merge.
    ```
@@ -61,7 +61,7 @@ If the factory uses a [Blueprint](/factories/blueprints/), configure its stages 
 
 ## Delegate from Slack
 
-1. Write a request with the behavior to add, change, or fix, verifiable acceptance criteria, and any constraints the agent cannot infer.
+1. Write a request with the behavior to add, change, or fix, verifiable acceptance criteria, and any constraints the worker cannot infer.
 2. Send the request in the intake channel, mentioning the factory's app by its [foreman name](/factories/factory-agents/#foreman-name). The message and thread provide the task context.
 
 For a factory whose foreman name is `Intake`, use a request like this:
@@ -79,7 +79,7 @@ Check for:
 
 * **Acknowledgement** - The app adds an eyes reaction to the message, and a work item appears on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs).
 * **Scope confirmation** - The foreman restates the requested change in the thread. Reply there if it misunderstood.
-* **Pull request** - The implementation agent opens a pull request with tests and a verification summary.
+* **Pull request** - The implementation worker opens a pull request with tests and a verification summary.
 * **Handoff** - The foreman posts the pull request link in the thread, then stops. A person reviews and merges.
 
 Questions from the foreman also appear under **Waiting on you** on the [Home page](/factories/factory-home/) in the factory web app. To see the factory's work items by stage, open the app's **Home** tab in Slack.
@@ -110,9 +110,10 @@ repository OWNER/REPO. If the factory already has a Slack mention automation,
 update its channel filter instead of adding a second one. Validate the
 definition before applying it, then list what I still have to do by hand:
 connect Slack to the factory, invite the app to #CHANNEL, and have each
-requester link their Slack account. Configure the foreman to confirm scope,
-ask for missing requirements, delegate to the implementation agent, and
-return the PR link and verification results in the thread. Require tests
+requester link their Slack account. Configure scope confirmation, clarification,
+implementation, independent review, and handoff in the existing Blueprint.
+Pass the thread and acceptance criteria between stages, keep revisions on the
+same PR, and return the PR link and verification results in the thread. Require tests
 and human review; never merge. Finish with test steps for a matching mention,
 an out-of-channel mention, and a reply continuing the first work item.
 Check that no other automation matches the test mention.

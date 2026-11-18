@@ -14,7 +14,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 ## Prerequisites
 
 * A [factory](/factories/quickstart/) with access to the target repositories and permission to push branches and open pull requests.
-* [Foreman, implement, and review agents](/factories/factory-agents/#the-default-agents) in your factory.
+* A [Blueprint](/factories/blueprints/) with workers assigned to implementation and independent review.
 * A connected issue source ([GitHub](/factories/integrations/github/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/)) with permission to read and update issues.
 * Approved issues with acceptance criteria and a readiness label, workflow state, or explicit request.
 * Documented build, test, lint, and formatting commands.
@@ -25,7 +25,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 | Part | Recommendation |
 | --- | --- |
 | Trigger | A readiness label, an approved workflow state, or an explicit Jira implementation request |
-| Agents | Foreman, implement, and review, with triage and spec available when needed |
+| Workers | Foreman, implement, and review, with triage and spec available when needed |
 | Skills | Shared repository conventions and implementation-specific validation procedures |
 | Settings | Limit intake to the relevant repositories, team, or project |
 | Output | A pull request linked to the source issue, validation results, and a review report |
@@ -34,7 +34,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
 1. Choose how maintainers will mark an issue as approved for implementation, such as adding the `factory-ready` label or moving the issue to the `Ready for Engineering` workflow state. Reserve that action for approved work. The automation checks the event and filters, not whether a maintainer reviewed the requirements.
 2. Check whether an existing automation already handles the same issues and events. If it does, plan to update that automation instead of creating another, or adjust their filters so the same event doesn't start both automations. If none does, create a new automation in step 4.
-3. Update your existing [factory skills](/factories/factory-skills/) where procedures are missing. Put shared conventions under `skills/` and implementation procedures under `agents/implement/skills/`, or your existing implementation agent's directory. Include:
+3. Update your existing [factory skills](/factories/factory-skills/) where procedures are missing. Put shared conventions under `skills/` and implementation procedures under `agents/implement/skills/`, or your existing implementation worker's directory. Include:
 
    * Required build, test, lint, and formatting checks.
    * Tests for behavior changes and visual evidence for user-facing changes.
@@ -42,7 +42,9 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
    Use the [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) as a layout reference. It stores shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`.
 
-4. Configure the automation to send approved issues to your foreman; the example uses `agent: foreman`. With a [Blueprint](/factories/blueprints/), configure entry routes for approved implementation and unresolved decisions, a planning-approval gate when needed, and independent review that returns findings to the same implementation conversation and PR. The automation prompt below does not replace those stages or routes.
+4. In `factory.yaml`, configure Blueprint entry transitions for approved implementation and unresolved decisions. Add a planning-approval gate when needed. Connect implementation to independent review, and return findings to the same implementation conversation and PR. Pass the issue, acceptance criteria, and existing PR between stages.
+
+   Send intake to your foreman with `agent: foreman`. The Blueprint selects the entry stage; the automation supplies the issue context and filters.
 
    Choose your issue source below.
 
@@ -77,7 +79,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
    For events sent by bots, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
-   Start with the [`01-single-repo-quickstart` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) for a GitHub label trigger and implementation agent. It turns `factory-ready` issues into pull requests in one repository. Retain this page's independent-review step when adapting the example.
+   The [`01-single-repo-quickstart` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) supplies a GitHub label trigger and implementation instructions. Adapt those parts to your existing Blueprint, retaining independent review.
 
    </TabItem>
    <TabItem label="Linear">
@@ -134,7 +136,7 @@ Read https://docs.warp.dev/factories/use-cases/issue-implementation.md and
 set up issue implementation in my factory for OWNER/REPO, started when a
 maintainer applies the READINESS_LABEL label. Use
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
-for the trigger and implementation agent, and the skill layout in
+for the trigger and implementation instructions, and the skill layout in
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
 for shared conventions and implementation procedures.
 
@@ -143,8 +145,8 @@ for shared conventions and implementation procedures.
   a second one.
 - Put my build, test, lint, and formatting commands in the implementation
   skill, and require tests for behavior changes.
-- If the factory uses a Blueprint, put implementation, independent review,
-  revision routes, and any required planning-approval gate in its stages.
+- Put implementation, independent review, revision transitions, and any
+  required planning-approval gate in the existing Blueprint.
   Keep revisions on the existing branch and pull request.
 - Route approved issues to the foreman using the prompt in the setup
   procedure. Require implementation against the acceptance criteria,
@@ -159,7 +161,7 @@ Then walk me through the page's test plan on a small, approved issue.
 
 ## Test issue implementation
 
-Use fresh issues for initial-intake tests. For an issue already coordinated by the foreman, request implementation in its existing conversation. Changing the automation's `agent` field doesn't migrate a conversation created for another agent; for older direct-triage intake, continue the work in a separate foreman conversation with the issue link.
+Use fresh issues for initial-intake tests. For an issue already coordinated by the foreman, request implementation in its existing conversation. Changing the automation's `agent` field doesn't migrate a conversation created for another worker; for older direct-triage intake, continue the work in a separate foreman conversation with the issue link.
 
 1. Trigger the automation with an approved documentation or configuration issue that matches every filter.
    * **GitHub** - Apply the readiness label.
@@ -177,7 +179,7 @@ Review the test results before widening the automation's filters.
 
 A Linear issue requests validation for a `currency` API field and specifies the accepted codes, error response, and required tests. A maintainer approves the requirements and moves it to `Ready for Engineering`. The automation routes the issue to the foreman, which delegates implementation.
 
-The implementation agent adds validation and regression tests, runs the service checks, and opens a pull request linked to the issue. The review agent checks the behavior and tests and reports to the foreman. The foreman posts the pull request and verification results to Linear for a maintainer to review and merge.
+The implementation worker adds validation and regression tests, runs the service checks, and opens a pull request linked to the issue. The review worker checks the behavior and tests and reports to the foreman. The foreman posts the pull request and verification results to Linear for a maintainer to review and merge.
 
 ## Troubleshooting
 
@@ -195,5 +197,5 @@ The implementation agent adds validation and regression tests, runs the service 
 
 * [Factory use cases](/factories/use-cases/) - Compare implementation with narrower factory recipes
 * [How Warp Factories work](/factories/how-factories-work/) - Understand stage skipping, revision, and human handoff
-* [Configuring factory agents](/factories/factory-agents/configuration/) - Configure foreman, implementation, and review roles
+* [Configuring factory workers](/factories/factory-agents/configuration/) - Configure foreman, implementation, and review roles
 * [Factory skills](/factories/factory-skills/) - Add repository-specific implementation procedures

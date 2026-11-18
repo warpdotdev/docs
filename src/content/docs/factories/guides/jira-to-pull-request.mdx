@@ -11,7 +11,7 @@ next: false
 
 Route assigned work from one Jira project to a factory in Warp Factories. The foreman responds in the agent session and posts the pull request link on the work item. A person reviews and merges the changes.
 
-Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Jira delegation.
+Use the Blueprint created during [factory setup](/factories/quickstart/). Configure clarification, implementation, review, and handoff in its stages before adding Jira intake.
 
 This guide applies to Jira Cloud. Jira Server and Data Center are not supported.
 
@@ -30,7 +30,7 @@ Assign Warp to a Jira work item to start an agent session. Use the `jira` / `age
 
 Comments mentioning the installed Warp app use the separate `app_mentioned` event. For that intake path, see [Jira events and filters](/factories/automation-triggers/#jira).
 
-For a [Blueprint](/factories/blueprints/), configure clarification, implementation, and handoff in its stages. Preserve the session replies, work-item comments, and unchanged status and assignee required below. An automation prompt supplies event context; it does not replace the Blueprint's delegation order.
+Keep the session replies, work-item comments, and unchanged status and assignee required below in the handoff procedure. The automation supplies event context; it does not replace the [Blueprint's transitions](/factories/blueprints/routes/).
 
 Connecting the Jira site to your workspace grants integration access; automation filters control routing. For a GitHub-backed factory, declare `type: jira` in `factory.yaml`'s [integrations list](/factories/factory-as-code/#integrations). Dashboard project selection is not required or editable for that setup.
 
@@ -50,8 +50,8 @@ Connecting the Jira site to your workspace grants integration access; automation
    ---
    Someone assigned Warp to a Jira work item in a project this
    factory serves, which started this agent session. Read the work item and
-   the instruction that started the session, restate the deliverable, and
-   delegate to the implementation agent with the acceptance criteria. Ask for
+   the instruction that started the session. Follow the configured Blueprint
+   with the work item and acceptance criteria. Restate the deliverable. Ask for
    missing requirements before implementation. Require tests and a verification
    summary on the pull request. Post progress and the final pull request link
    in the session, and comment the link and verification summary on the work
@@ -91,7 +91,7 @@ Then assign it to Warp with this instruction:
 Implement this against the acceptance criteria and open a pull request.
 ```
 
-Replies in the agent session continue the same run, even after the agent finishes a turn, so answer the foreman's questions there instead of starting another session.
+Replies in the agent session continue the same run, even after the worker finishes a turn, so answer the foreman's questions there instead of starting another session.
 
 ## What comes back
 
@@ -103,7 +103,7 @@ Check for these results:
 * **Pull request** - A pull request linked to the work item, with tests and a verification summary
 * **Handoff** - The foreman posts the pull request link and verification summary both on the work item and in the session
 
-The instructions leave the work item's status and assignee unchanged. A person reviews and merges the pull request. To have the foreman transition the work item, such as to In Review, add that instruction to the prompt. Jira permissions and valid project transitions still apply.
+The instructions leave the work item's status and assignee unchanged. A person reviews and merges the pull request. To request a state change, such as In Review, add it to the Blueprint's handoff procedure. Jira permissions and valid project transitions still apply.
 
 ## Unmatched and vague requests
 
@@ -133,8 +133,10 @@ update it instead of adding a second one. Validate the definition before
 applying it, then list what I still have to do by hand: install Warp for Jira
 on my Jira Cloud site and connect it to my workspace, declare Jira in the
 factory definition, and link each requester's Atlassian account to Warp.
-Configure scope confirmation, clarification, delegation to the implementation
-agent, tests, and verification results in the session and work-item comment.
+Configure scope confirmation, clarification, implementation, independent
+review, and handoff in the existing Blueprint. Pass the work item and acceptance
+criteria between stages, and keep revisions on the same PR. Require tests and
+verification results in the session and work-item comment.
 Require human review; never merge or change work-item status or assignee.
 Do not change anything in Jira during setup without asking me first.
 Include tests for a matching project, an unmatched project, and a session

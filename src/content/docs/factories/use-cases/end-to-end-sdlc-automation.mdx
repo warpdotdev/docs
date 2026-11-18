@@ -10,30 +10,30 @@ Connect investigation, planning, implementation, and review with a [Blueprint](/
 
 If issues are not reaching your factory, [connect GitHub](/factories/integrations/github/#connect-github-to-a-factory) before configuring intake below.
 
-Adapt the agents and skills in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
+Adapt the procedures and skills in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) to the Blueprint created during setup. The example's role definitions do not require a separate worker for every stage.
 
 ## Prerequisites
 
-* An existing [factory](/factories/quickstart/) with [foreman, triage, spec, implement, and review agents](/factories/factory-agents/#the-default-agents).
+* An existing [factory](/factories/quickstart/) with a Blueprint and [workers](/factories/factory-agents/) assigned to the stages below. Use a separate worker for independent review.
 * A [GitHub connection](/factories/integrations/github/) with access to the target repositories and permission to update issues, push branches, open pull requests, and post review findings.
 * Permission to edit the factory's [definition](/factories/factory-as-code/#where-the-definition-lives).
 * Documented build, test, and review commands.
-* Agents configured with the [repository and tool access](/factories/factory-agents/configuration/) their roles require.
+* Workers configured with the [repository and tool access](/factories/factory-agents/configuration/) their roles require.
 * Maintainers responsible for answering questions and approving specifications.
 * Repository permissions and branch protection that enforce human-only merging.
 
 ## How the stages connect
 
-The foreman follows the Blueprint's routes. A well-defined fix can go directly to implementation; unclear scope needs investigation, and unresolved product or technical decisions need planning. Each stage supplies its procedure and expected outputs to its assigned worker.
+The foreman follows the Blueprint's transitions. A well-defined fix can go directly to implementation; unclear scope needs investigation, and unresolved product or technical decisions need planning. Each stage supplies its procedure and expected outputs to its assigned worker.
 
-| Stage | Owner | Expected output |
+| Stage | Assigned work | Expected output |
 | --- | --- | --- |
 | Intake and routing | Foreman | A tracked issue, questions, and the next action |
-| Triage | Triage | Evidence, scope, priority, and open questions |
-| Planning | Spec | A specification with validation criteria in a draft pull request |
-| Implementation | Implement | Code, tests, and validation in a pull request |
-| Review | Review | Independent findings and a recommendation |
-| UI verification, when configured | Custom verification agent | Results for a recorded commit and shareable visual evidence |
+| Triage | Investigate the request | Evidence, scope, priority, and open questions |
+| Planning | Define behavior and checks | A specification with validation criteria in a draft pull request |
+| Implementation | Make and validate the change | Code, tests, and validation in a pull request |
+| Review | Independently check the change | Findings and a recommendation |
+| UI verification, when configured | Exercise the rendered change | Results for a recorded commit and shareable visual evidence |
 | Merge | Human | Approval and merge under repository policy |
 
 For this workflow, add a plan-review gate and route implementation only from approval of the current specification. Implementation continues on the specification's branch and PR. Without a specification, the implementation stage opens a new PR.
@@ -48,15 +48,15 @@ For this workflow, add a plan-review gate and route implementation only from app
    * **Standalone PR review** - Decide whether PR-ready and re-review automations should add another review to this workflow. If not, scope them to exclude SDLC-owned PRs without disabling revision or completion handlers.
 
    For the GitHub [review recipe](/factories/use-cases/code-review/), create SDLC PRs as drafts and apply `skip-factory-review` before marking them ready if you want only the SDLC review pass. Record that sequence in the implementation procedures. See [automation matching rules](/factories/automations/#how-matching-works) for handling overlaps.
-3. In `factory.yaml`, configure the [stages](/factories/blueprints/stages/) and [routes](/factories/blueprints/routes/) for the outputs above. Add a [gate](/factories/blueprints/gates/) to planning that asks for approval of the current specification. Route requested changes back to planning, actionable review findings back to implementation, and accepted work to human handoff. Keep the existing branch and PR in implementation's inputs, including revisions. Put these decisions in the Blueprint, not a second workflow in the foreman prompt.
+3. In `factory.yaml`, configure the [stages](/factories/blueprints/stages/) and [transitions](/factories/blueprints/routes/) for the outputs above. Add a [gate](/factories/blueprints/gates/) to planning that asks for approval of the current specification. Send requested changes back to planning, actionable review findings back to implementation, and accepted work to human handoff. Keep the existing branch and PR in implementation's inputs, including revisions. Put these decisions in the Blueprint, not a second workflow in the foreman prompt.
 
 4. In the definition, update existing [skills](/factories/factory-skills/) where procedures are missing:
 
    * **Shared guidance** - Put test commands and repository conventions under `skills/`.
-   * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `agents/<name>/skills/`, using the agent's directory name for `<name>`. Require workers to return questions through the foreman and continue their existing conversation when answers arrive.
+   * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `agents/<name>/skills/`, using the worker's directory name for `<name>`. Require workers to return questions through the foreman and continue their existing conversation when answers arrive.
 
-5. For visual acceptance criteria, configure a verification agent on the Warp Agent harness with Warp-hosted execution. Add a verification stage that receives the PR head and criteria and returns observations and shareable media links from its own run. Require the foreman to post those links with the tested commit on the PR. If the head changes, mark the evidence stale. Report unavailable verification or sharing as a blocker, not a pass. Follow the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/) for app setup, sample data, and test accounts.
-6. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
+5. For visual acceptance criteria, configure a verification worker on the Warp Agent harness with Warp-hosted execution. Add a verification stage that receives the PR head and criteria and returns observations and shareable media links from its own run. Require the foreman to post those links with the tested commit on the PR. If the head changes, mark the evidence stale. Report unavailable verification or sharing as a blocker, not a pass. Follow the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/) for app setup, sample data, and test accounts.
+6. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to the foreman's configured name; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
 
    ```markdown title="automations/sdlc-intake/automation.md"
    ---
@@ -93,8 +93,9 @@ Read https://docs.warp.dev/factories/use-cases/end-to-end-sdlc-automation.md
 and connect triage, planning, implementation, and review in my factory for
 OWNER/REPO, started when a maintainer applies the INTAKE_LABEL label. Use
 https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
-for the five default agents and skill layout. Retain this page's intake
-and issue-mention approval workflow when adapting the example.
+for procedures and the skill layout. Configure them in the existing Blueprint;
+do not replace it with the example's role prompts. Retain this page's intake
+and issue-mention approval workflow.
 
 - Inspect my existing automations for intake, review-submitted, and
   merged-PR handlers. Update or narrow overlapping ones instead of adding
@@ -141,9 +142,9 @@ Use fresh issues for initial-intake tests. If the factory already tracks an issu
 
 ## Example workflow
 
-A GitHub issue requests a purchase-order number on invoices without defining whether the new field is required. A maintainer applies `factory-intake`. The triage agent identifies the affected service, and the foreman asks the maintainer to resolve the API behavior.
+A GitHub issue requests a purchase-order number on invoices without defining whether the new field is required. A maintainer applies `factory-intake`. The triage worker identifies the affected service, and the foreman asks the maintainer to resolve the API behavior.
 
-The spec agent records the agreed behavior and validation criteria in a draft PR. The foreman obtains approval, then asks the implementation agent to update that same branch and PR. The review agent reports a missing migration test to the foreman, which sends the finding back to the implementation agent.
+The spec worker records the agreed behavior and validation criteria in a draft PR. The foreman obtains approval, then asks the implementation worker to update that same branch and PR. The review worker reports a missing migration test to the foreman, which sends the finding back to the implementation worker.
 
 After revision, the configured verifier exercises the invoice preview at a recorded commit and returns observations and media links. The foreman posts the evidence on the PR and validation results on the issue. A maintainer reviews and merges.
 
@@ -164,5 +165,5 @@ If work needs to pass between separate factories, define the receiving factory, 
 
 * [Factory use cases](/factories/use-cases/) - Test individual stages before connecting them
 * [How Warp Factories work](/factories/how-factories-work/) - Review the default lifecycle and human decision points
-* [About factory agents](/factories/factory-agents/)
+* [About factory workers](/factories/factory-agents/)
 * [Measure and improve a factory](/factories/measure-and-improve/) - Evaluate outcomes after the workflow is working

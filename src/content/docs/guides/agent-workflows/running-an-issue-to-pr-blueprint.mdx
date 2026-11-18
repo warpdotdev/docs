@@ -4,14 +4,14 @@ description: >-
   Configure an issue-to-PR workflow in Warp Factories, approve a plan, request a revision, and inspect the resulting draft pull request.
 ---
 
-Use a README improvement to try a Blueprint in Warp Factories before applying it to application code. You configure the workflow and its access, agents propose and review the change, and you decide when work can proceed.
+Use a README improvement to try a Blueprint in Warp Factories before applying it to application code. You configure the workflow and its access, workers propose and review the change, and you decide when work can proceed.
 
 {/* VERIFY: Confirm public Blueprint availability and the companion example 02 revision before making this exercise runnable or publishing it. */}
 
 ## Prerequisites
 
 * Complete the [Warp Factories quickstart](https://docs.warp.dev/factories/quickstart/) for account, team role, and GitHub setup. Factory runs need available shared team usage; add usage if needed. See [funding factory runs](https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
-* Use two repositories you control: a disposable fork for the README change, and a separate repository for the factory definition. The first is the code agents work on; the second stores their workflow. Check [plan eligibility for hosting your definition on GitHub](https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
+* Use two repositories you control: a disposable fork for the README change, and a separate repository for the factory definition. The first is the code workers work on; the second stores their workflow. Check [plan eligibility for hosting your definition on GitHub](https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
 * Grant the Warp GitHub App access to both repositories. Runs need permission to read issues, update labels and comments, push branches, and open PRs. Keep human approval and merge requirements in your repository rules. See [GitHub permissions](https://docs.warp.dev/factories/integrations/github/#permissions).
 * Install Git and Python 3 on the machine where you prepare and validate the definition. Validation requires network access to Warp's service.
 
@@ -45,17 +45,17 @@ Copy the contents of `examples/02-sdlc-issue-to-pr/` into the root of your separ
 In that copied definition:
 
 1. In `factory.yaml`, set `alias` to `blueprint-demo` and replace the sample work repositories with your fork. Update the repository filters in both `automations/github-mention-assign/` and `automations/github-pr-closed-or-merged/` to the same fork. In both automations, change `factory:Acme` to `factory:blueprint-demo`; preserve the mention, assignment, label, and closed-or-merged constraints.
-2. Remove the optional iOS extension together: its repository, `agents/mobile-build/`, `runners/macos-build.yaml`, the `mobile-build` Blueprint stage, and every route or instruction that references it. Route non-mobile implementation directly to independent review.
+2. Remove the optional iOS extension together: its repository, `agents/mobile-build/`, `runners/macos-build.yaml`, the `mobile-build` Blueprint stage, and every transition or instruction that references it. Send non-mobile implementation directly to independent review.
 3. Keep this exercise GitHub-only. Remove the Slack and Linear integration declarations together with `automations/slack-app-mentions/`, `automations/slack-dms/`, and `automations/linear-agent-sessions/`.
 4. Replace the `api-service` setup command in `runners/linux-build.yaml` with setup appropriate to the examples fork. In the convention and testing skills, name the repository's Python checks rather than application build commands.
 
-Read the Blueprint beside the worker files. The foreman must route requests, the spec worker must wait for the plan-review answer, the implementer must reuse the existing branch and PR for revisions, and the reviewer must return findings without merging. Keep those decisions in the Blueprint rather than adding a second routing procedure to agent prompts.
+Read the Blueprint beside the worker files. The foreman must route requests, the spec worker must wait for the plan-review answer, the implementer must reuse the existing branch and PR for revisions, and the reviewer must return findings without merging. Keep those decisions in the Blueprint rather than adding a second routing procedure to worker prompts.
 
 ## 3. Validate and apply the definition
 
 Validation checks the definition's syntax; application also checks resources and access for your team.
 
-{/* VERIFY: Run the companion validator against the complete substituted v1alpha2 tree; confirm successful GitHub-backed application and record the applied revision. */}
+{/* VERIFY: Run the companion validator against the complete substituted v1alpha1 tree; confirm successful GitHub-backed application and record the applied revision. */}
 
 From an updated examples checkout that contains `scripts/validate_factory_files.py`, run:
 
@@ -95,7 +95,7 @@ Check the issue reply and linked run, not only its completion status. The plan m
 
 ## 5. Answer the plan-review gate
 
-Open the run conversation linked by the foreman. Read the plan, then reply:
+In the original GitHub issue, read the foreman's plan and reply with a new `@warp` mention followed by:
 
 ```text title="Plan approval"
 Approved. Keep the README-only scope, run the convention check, and open a
@@ -124,7 +124,7 @@ The implementer edits the README and reports its checks and draft PR. The forema
 
 ## 7. Make the human handoff decision
 
-Review the final diff, check results, and findings yourself. A successful agent review is advisory. Leave the PR open for review, request another revision, or merge it through your normal process when you choose.
+Review the final diff, check results, and findings yourself. A successful worker review is advisory. Leave the PR open for review, request another revision, or merge it through your normal process when you choose.
 
 This exercise stops before merge. The workflow must not treat delivery of a draft PR as a merge. If someone closes the PR without merging, the foreman must report closure rather than mark the work merged or complete.
 
@@ -142,6 +142,6 @@ This exercise stops before merge. The workflow must not treat delivery of a draf
 
 The exercise connects a README issue to plan approval, independent review, and a same-PR revision, with merge left to you.
 
-* [About Blueprints](https://docs.warp.dev/factories/blueprints/) - Adapt stages, routes, and gates
+* [About Blueprints](https://docs.warp.dev/factories/blueprints/) - Adapt stages, transitions, and gates
 * [Factory definition syntax](https://docs.warp.dev/factories/factory-as-code/#blueprint) - Change the versioned workflow configuration
-* [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Check an agent's proposed changes
+* [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Check a worker's proposed changes
