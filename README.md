@@ -48,7 +48,7 @@ The site runs without local environment variables. To enable optional integratio
 cp .env.example .env
 ```
 
-Server-only secrets such as `KAPA_API_KEY` (used by `GET /retrieve`)
+Server-only secrets such as `KAPA_DOCS_RETRIEVAL_API_KEY` (used by `GET /retrieve`)
 belong in the Vercel project environment, not in client-side `PUBLIC_`
 variables. See `.env.example` for the full list.
 

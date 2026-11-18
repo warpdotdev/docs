@@ -60,7 +60,7 @@ export default defineConfig({
 				optional: true,
 			}),
 			// Server-only Kapa API key for GET /retrieve. Never use a PUBLIC_ prefix.
-			KAPA_API_KEY: envField.string({
+			KAPA_DOCS_RETRIEVAL_API_KEY: envField.string({
 				context: 'server',
 				access: 'secret',
 				optional: true,
