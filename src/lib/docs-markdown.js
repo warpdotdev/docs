@@ -32,20 +32,60 @@ export function isEligibleDocHtmlPath(pathname) {
 }
 
 /**
- * Prefer explicit content negotiation and keep user-agent matching as a
- * compatibility fallback for tools that do not send a markdown-specific
- * Accept header.
+ * True when Accept explicitly lists the `text/markdown` media type.
+ * Ignores `text/plain` and user-agent heuristics.
+ *
+ * @param {Request} request
+ */
+export function acceptRequestsMarkdown(request) {
+	const accept = request.headers.get('accept')?.toLowerCase() ?? '';
+	return acceptIncludesMediaType(accept, 'text/markdown');
+}
+
+/**
+ * Content negotiation for local/dev Astro middleware.
+ *
+ * Prefer explicit `Accept: text/markdown`. Keep `text/plain` and known agent
+ * user-agent matching as a compatibility fallback for tools that omit a
+ * markdown-specific Accept header. Production Build Output API middleware must
+ * use {@link shouldServeMarkdownProduction} instead so human WebViews whose UA
+ * contains agent tokens still receive HTML.
  *
  * @param {Request} request
  */
 export function shouldServeMarkdown(request) {
+	if (acceptRequestsMarkdown(request)) return true;
+
 	const accept = request.headers.get('accept')?.toLowerCase() ?? '';
-	if (accept.includes('text/markdown') || accept.includes('text/plain')) {
+	if (acceptIncludesMediaType(accept, 'text/plain')) {
 		return true;
 	}
 
 	const userAgent = request.headers.get('user-agent')?.toLowerCase() ?? '';
 	return AGENT_USER_AGENT_TOKENS.some((token) => userAgent.includes(token));
+}
+
+/**
+ * Production static hosting: rewrite only when Accept explicitly asks for
+ * `text/markdown`. Direct `*.md` URLs remain available without negotiation.
+ *
+ * @param {Request} request
+ */
+export function shouldServeMarkdownProduction(request) {
+	return acceptRequestsMarkdown(request);
+}
+
+/**
+ * @param {string} acceptHeader
+ * @param {string} mediaType
+ */
+function acceptIncludesMediaType(acceptHeader, mediaType) {
+	if (!acceptHeader) return false;
+	for (const part of acceptHeader.split(',')) {
+		const type = part.trim().split(';')[0]?.trim();
+		if (type === mediaType) return true;
+	}
+	return false;
 }
 
 function normalizePathname(pathname) {

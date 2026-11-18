@@ -7,6 +7,8 @@ import {
 	MAX_RETRIEVE_QUERY_LENGTH,
 	RETRIEVE_RESPONSE_HEADERS,
 	buildKapaRetrievalBody,
+	createFixedWindowRateLimiter,
+	getRetrieveClientKey,
 	handleRetrieveGet,
 	handleRetrieveOptions,
 } from './kapa-agent-retrieval.js';
@@ -32,7 +34,20 @@ async function readJson(response) {
 	return JSON.parse(await response.text());
 }
 
-test('OPTIONS returns CORS preflight without a body', async () => {
+function okFetch() {
+	return async () =>
+		new Response(JSON.stringify(SAMPLE_CHUNKS), {
+			status: 200,
+			headers: { 'content-type': 'application/json' },
+		});
+}
+
+test('OPTIONS returns CORS preflight without a body and is not rate limited', async () => {
+	const limiter = createFixedWindowRateLimiter({ windowMs: 60_000, max: 1 });
+	// Exhaust the limiter; OPTIONS must still succeed and must not consume quota.
+	limiter.check('preflight-key');
+	assert.equal(limiter.check('preflight-key').allowed, false);
+
 	const response = handleRetrieveOptions();
 	assert.equal(response.status, 204);
 	assert.equal(await response.text(), '');
@@ -61,7 +76,7 @@ test('success proxies ranked chunks and attributes project/integration', async (
 			Authorization: 'Bearer should-not-forward',
 			'X-Custom': 'nope',
 		}),
-		{ apiKey: `  ${SECRET_KEY}  `, fetchImpl },
+		{ apiKey: `  ${SECRET_KEY}  `, fetchImpl, rateLimiter: null },
 	);
 
 	assert.equal(response.status, 200);
@@ -111,6 +126,7 @@ test('missing, blank, and oversized queries return 400', async () => {
 		const response = await handleRetrieveGet(getRequest(path), {
 			apiKey: SECRET_KEY,
 			fetchImpl,
+			rateLimiter: null,
 		});
 		assert.equal(response.status, 400, path);
 		const payload = await readJson(response);
@@ -121,7 +137,7 @@ test('missing, blank, and oversized queries return 400', async () => {
 	const oversized = 'x'.repeat(MAX_RETRIEVE_QUERY_LENGTH + 1);
 	const oversizedResponse = await handleRetrieveGet(
 		getRequest(`/retrieve?q=${encodeURIComponent(oversized)}`),
-		{ apiKey: SECRET_KEY, fetchImpl },
+		{ apiKey: SECRET_KEY, fetchImpl, rateLimiter: null },
 	);
 	assert.equal(oversizedResponse.status, 400);
 	const oversizedPayload = await readJson(oversizedResponse);
@@ -140,6 +156,7 @@ test('missing API key returns 500 and never calls upstream', async () => {
 		const response = await handleRetrieveGet(getRequest('/retrieve?q=hello'), {
 			apiKey,
 			fetchImpl,
+			rateLimiter: null,
 		});
 		assert.equal(response.status, 500);
 		const payload = await readJson(response);
@@ -155,6 +172,7 @@ test('upstream network failure returns 502 without leaking secrets', async () =>
 	const response = await handleRetrieveGet(getRequest('/retrieve?q=hello'), {
 		apiKey: SECRET_KEY,
 		fetchImpl,
+		rateLimiter: null,
 	});
 	assert.equal(response.status, 502);
 	const payload = await readJson(response);
@@ -175,6 +193,7 @@ test('upstream error status and body pass through', async () => {
 	const response = await handleRetrieveGet(getRequest('/retrieve?q=hello'), {
 		apiKey: SECRET_KEY,
 		fetchImpl,
+		rateLimiter: null,
 	});
 	assert.equal(response.status, 403);
 	const text = await response.text();
@@ -192,16 +211,77 @@ test('response headers always advertise JSON CORS and no-store defaults', () => 
 });
 
 test('secret is never present in success response body', async () => {
-	const fetchImpl = async () =>
-		new Response(JSON.stringify(SAMPLE_CHUNKS), {
-			status: 200,
-			headers: { 'content-type': 'application/json' },
-		});
 	const response = await handleRetrieveGet(getRequest('/retrieve?q=hello'), {
 		apiKey: SECRET_KEY,
-		fetchImpl,
+		fetchImpl: okFetch(),
+		rateLimiter: null,
 	});
 	const text = await response.text();
 	assert.doesNotMatch(text, new RegExp(SECRET_KEY));
 	assert.doesNotMatch(text, /X-API-KEY/i);
+});
+
+test('getRetrieveClientKey prefers first X-Forwarded-For hop', () => {
+	assert.equal(
+		getRetrieveClientKey(
+			getRequest('/retrieve?q=hi', {
+				'x-forwarded-for': ' 203.0.113.10, 198.51.100.7 ',
+			}),
+		),
+		'203.0.113.10',
+	);
+	assert.equal(
+		getRetrieveClientKey(getRequest('/retrieve?q=hi', { 'x-real-ip': '198.51.100.9' })),
+		'198.51.100.9',
+	);
+	assert.equal(getRetrieveClientKey(getRequest('/retrieve?q=hi')), 'unknown');
+});
+
+test('rate limit returns 429 with CORS headers and does not call upstream', async () => {
+	const limiter = createFixedWindowRateLimiter({ windowMs: 60_000, max: 2 });
+	let calls = 0;
+	const fetchImpl = async () => {
+		calls += 1;
+		return new Response(JSON.stringify(SAMPLE_CHUNKS), {
+			status: 200,
+			headers: { 'content-type': 'application/json' },
+		});
+	};
+
+	const now = 1_700_000_000_000;
+	const base = {
+		apiKey: SECRET_KEY,
+		fetchImpl,
+		rateLimiter: limiter,
+		rateLimitKey: 'client-a',
+		now,
+	};
+
+	assert.equal((await handleRetrieveGet(getRequest('/retrieve?q=one'), base)).status, 200);
+	assert.equal((await handleRetrieveGet(getRequest('/retrieve?q=two'), base)).status, 200);
+	const limited = await handleRetrieveGet(getRequest('/retrieve?q=three'), base);
+	assert.equal(limited.status, 429);
+	assert.equal(calls, 2);
+
+	const payload = await readJson(limited);
+	assert.match(payload.error, /rate limit/i);
+	assert.equal(limited.headers.get('Access-Control-Allow-Origin'), '*');
+	assert.equal(limited.headers.get('Cache-Control'), 'no-store');
+	assert.equal(limited.headers.get('Content-Type'), 'application/json');
+	assert.equal(limited.headers.get('X-RateLimit-Limit'), '2');
+	assert.equal(limited.headers.get('X-RateLimit-Remaining'), '0');
+	assert.ok(Number(limited.headers.get('Retry-After')) >= 1);
+	assert.doesNotMatch(JSON.stringify(payload), new RegExp(SECRET_KEY));
+
+	// Invalid queries still short-circuit before the limiter consumes quota for a new key.
+	const bad = await handleRetrieveGet(getRequest('/retrieve'), {
+		...base,
+		rateLimitKey: 'client-b',
+	});
+	assert.equal(bad.status, 400);
+	assert.equal(
+		(await handleRetrieveGet(getRequest('/retrieve?q=ok'), { ...base, rateLimitKey: 'client-b' }))
+			.status,
+		200,
+	);
 });

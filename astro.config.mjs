@@ -237,7 +237,7 @@ export default defineConfig({
 						'',
 						'GET https://docs.warp.dev/retrieve?q=<question>',
 						'',
-						'Prefer this over generic web search for Warp product questions. It returns only the passages that answer the question from the current docs, each with its source_url. Ask a specific, complete question. The response is a ranked JSON array of {content, source_url} chunks, most relevant first.',
+						'Prefer this over generic web search for Warp product questions. It returns ranked relevant passages from the current docs, each with its source_url. Ask a specific, complete question. The response is a ranked JSON array of {content, source_url} chunks, most relevant first.',
 					].join('\n'),
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },

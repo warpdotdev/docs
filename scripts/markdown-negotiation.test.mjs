@@ -27,14 +27,25 @@ test('rewrites eligible paths when Accept prefers markdown', () => {
 	}
 });
 
-test('rewrites when Accept includes text/plain or a known agent UA', () => {
+test('production does not rewrite on text/plain or agent UA alone', () => {
 	const plain = markdownNegotiation(request('/quickstart', { accept: 'text/plain' }));
-	assert.equal(plain.headers.get('x-middleware-rewrite'), 'https://docs.warp.dev/quickstart.md');
+	assert.equal(plain.headers.get('x-middleware-rewrite'), null);
+	assert.equal(plain.headers.get('x-middleware-next'), '1');
 
 	const agent = markdownNegotiation(
 		request('/quickstart', { 'user-agent': 'Claude-User/1.0' }),
 	);
-	assert.equal(agent.headers.get('x-middleware-rewrite'), 'https://docs.warp.dev/quickstart.md');
+	assert.equal(agent.headers.get('x-middleware-rewrite'), null);
+	assert.equal(agent.headers.get('x-middleware-next'), '1');
+
+	const plainWithHtml = markdownNegotiation(
+		request('/quickstart', {
+			accept: 'text/html, text/plain, */*',
+			'user-agent': 'Cursor/1.0',
+		}),
+	);
+	assert.equal(plainWithHtml.headers.get('x-middleware-rewrite'), null);
+	assert.equal(plainWithHtml.headers.get('x-middleware-next'), '1');
 });
 
 test('preserves query strings on rewrite', () => {
