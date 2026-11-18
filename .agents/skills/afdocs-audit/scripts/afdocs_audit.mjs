@@ -706,8 +706,9 @@ export async function runV06CompatibilityChecks(baseUrl, existingResults = []) {
 export function buildReport(raw, supplementalResults = []) {
 	const results = [...raw.results, ...supplementalResults];
 	const summary = statusSummary(results);
-	const nativeCliScore = raw.summary?.score ?? raw.score ?? estimateScore(raw.results);
-	const score = supplementalResults.length > 0 ? estimateScore(results) : nativeCliScore ?? estimateScore(results);
+	const nativeCliScore = raw.summary?.score ?? raw.score ?? null;
+	const usesEstimate = supplementalResults.length > 0 || nativeCliScore == null;
+	const score = usesEstimate ? estimateScore(results) : nativeCliScore;
 	const grade = scoreToGrade(score);
 
 	// Group results by category
@@ -739,7 +740,7 @@ export function buildReport(raw, supplementalResults = []) {
 		score,
 		grade,
 		score_method:
-			supplementalResults.length > 0
+			usesEstimate
 				? 'unweighted compatibility estimate; warnings count as half-passes'
 				: 'native afdocs CLI score',
 		legacy_cli_score: supplementalResults.length > 0 ? nativeCliScore : null,
@@ -779,7 +780,8 @@ function estimateScore(results) {
 
 function printSummary(report) {
 	console.log(`\nAFDocs Audit — ${report.url}`);
-	console.log(`Spec: v${report.spec_version} compatibility audit`);
+	console.log(`Spec: v${report.spec_version}`);
+	console.log(`Score method: ${report.score_method}`);
 	console.log(`Score: ${report.score}/100 (${report.grade})`);
 	if (report.legacy_cli_score != null) {
 		console.log(`Legacy 23-check CLI score: ${report.legacy_cli_score}/100 (not comparable to the v0.6 score)`);
@@ -787,12 +789,12 @@ function printSummary(report) {
 	console.log(
 		`Checks: ${report.total_checks} total | ${report.summary.pass} pass, ${report.summary.fail} fail, ${report.summary.warn} warn, ${report.summary.skip} skip`
 	);
-	if (report.scan_reliability.status !== 'complete') {
-		console.log(`Reliability: ${report.scan_reliability.status} — ${report.scan_reliability.message}`);
-	}
+	console.log(`Reliability: ${report.scan_reliability.status} — ${report.scan_reliability.message}`);
 
 	if (report.issues.length === 0) {
-		console.log('\n✅ All checks passed!');
+		console.log(report.scan_reliability.status === 'complete'
+			? '\n✅ All checks passed!'
+			: '\nNo failing or warning checks in the available results; this scan is partial.');
 		return;
 	}
 
@@ -868,7 +870,7 @@ async function main() {
 	console.log(`Running AFDocs check on ${args.url}...`);
 
 	const raw = runAfdocsCheck(args.url);
-	console.log(`Running ${SPEC_VERSION} compatibility checks on a bounded markdown sample...`);
+	console.log(`Checking for missing v${SPEC_VERSION} checks; compatibility probes run only when needed...`);
 	const { results: supplementalResults } = await runV06CompatibilityChecks(args.url, raw.results);
 	const report = buildReport(raw, supplementalResults);
 

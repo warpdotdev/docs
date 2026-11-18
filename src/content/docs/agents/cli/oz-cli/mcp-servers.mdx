@@ -16,7 +16,7 @@ MCP servers connect agents to external systems like GitHub, Linear, or Sentry. T
 
 The CLI does not start every configured MCP server for every run. Explicit `--mcp` values start run-scoped servers. A selected agent profile can start installed servers on its MCP allowlist, while eligible file-based and global servers follow their own discovery path.
 
-For help choosing between local, cloud, and shared MCP workflows, see [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/). For a conceptual overview of MCP with cloud agents — including configuration schema, full agent config examples, and limitations — see [MCP Servers](/platform/mcp/) in the Cloud Agents docs.
+For help choosing between local, cloud, and shared MCP workflows, see [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/). For the shared configuration schema, full agent config examples, and cloud limitations, see [Connecting MCP servers to agents](/factories/mcp/) in the Factories docs.
 
 ---
 
@@ -63,23 +63,19 @@ $ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last u
 
 ### Passing Warp-managed integration servers by id
 
-Some MCP servers are hosted by Warp and backed by an [integration](/platform/integrations/) your team has already connected, so they have no UUID of their own. Reference them by their short id instead:
-
-```sh
-$ oz agent run --mcp linear --prompt "summarize the tickets assigned to me"
-```
+Some MCP servers are hosted by Warp and backed by a connected integration rather than a standalone installation with its own UUID.
 
 Warp recognizes these managed integration ids:
 
-* `linear` — the hosted [Linear](/platform/integrations/linear/) MCP server
-* `slack` — the hosted [Slack](/platform/integrations/slack/) MCP server
-* `jira` — the hosted [Jira](/platform/integrations/jira/) MCP server
+* `linear` — the hosted [Linear](/factories/integrations/linear/) MCP server
+* `slack` — the hosted [Slack](/factories/integrations/slack/) MCP server
+* `jira` — the hosted [Jira](/factories/integrations/jira/) MCP server
 
 :::caution
-`linear` and `slack` resolve only for runs executing inside a [factory](/factories/) with that integration connected; `jira` also resolves for a run triggered directly by a Jira event. Outside those cases — including a plain `oz agent run` like the example above — the server is silently skipped and the run continues without it.
+These short IDs are not general aliases for a service in an ordinary standalone CLI run. Use a configured MCP installation's UUID or URL for those runs.
 :::
 
-The id is resolved when the run starts, using the integration connection that belongs to the run's team. If the id isn't one Warp recognizes, the server is also skipped.
+Factory integration tools use the factory's declared and connected integrations. Standalone Jira-triggered workflows have [separate legacy setup](/platform/integrations/jira/). If an integration reference can't be resolved in the run's context, the server is skipped.
 
 ### Passing MCP servers as inline JSON or a file
 
@@ -137,7 +133,7 @@ For cloud agent workflows, use [{VARS.WARP_AUTOMATION_PLATFORM}-managed secrets]
 
 ## Learn more
 
-* [MCP Servers (cloud agents)](/platform/mcp/) — configuration schema, full agent config file examples, and cloud agent limitations
+* [MCP Servers (cloud agents)](/factories/mcp/) — configuration schema, full agent config file examples, and cloud agent limitations
 * [Model Context Protocol (MCP)](/agents/capabilities/mcp/) — configuring MCP servers in Warp for local agents
 * [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/) — choose the setup path for local sessions, cloud runs, team sharing, and repeatable automation
 * [Secrets](/platform/secrets/) — store credentials in Warp so agents can access them at run time without exposing them in config files

@@ -29,6 +29,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Test editorial guidance and factory positioning
+        run: |
+          python3 .agents/skills/doc_quality_policy/test_editorial_guidance.py
+          python3 .agents/skills/style_lint/test_factory_positioning.py
+
       # Changed-file-only style lint. Error-severity findings block; warning-
       # severity tone/judgment findings remain visible to review-docs-pr.
       - name: Run style_lint --changed
@@ -162,8 +167,16 @@ jobs:
       - name: Validate Markdown twin frontmatter
         run: npm run test:markdown-twins
 
+      - name: Validate agent documentation outputs
+        run: npm run test:agent-doc-outputs
+
       - name: Validate page title order
         run: npm run test:page-title-order
+
+      - name: Validate migrated references and retired articles
+        run: |
+          npm run test:platform-reference-migration
+          npm run test:article-retirements
 
       - name: Check internal links
         run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
@@ -178,6 +191,9 @@ jobs:
           python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
           python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
           python3 .agents/skills/missing_docs/scripts/test_check_new_release.py
+
+      - name: Test docs consistency audit
+        run: python3 .agents/skills/docs_consistency_audit/scripts/test_audit_consistency.py
 
       # Stdlib-only tests for the PR body integrity checker, including the
       # feature-summary lead section that drafting PRs must open with.
