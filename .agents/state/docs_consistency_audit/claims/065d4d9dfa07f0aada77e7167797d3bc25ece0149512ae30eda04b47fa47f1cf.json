@@ -1,58 +1,6 @@
 {
   "claims": [
     {
-      "category": "plan-gating",
-      "claim_content_fingerprint": "sha256:91d77328543d47d89dd540367a7ad70b9f35f3ac6189937c1d8520b35451c9ad",
-      "claim_id": "sha256:d694082caf308dd3cfda61cc0348099e0fad5d1d27bad952e8d99510bab0afb7",
-      "entity": "custom-inference-endpoint",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "available",
-      "qualifiers": {
-        "actors": [
-          "individuals",
-          "organizations-up-to-10-employees"
-        ],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [
-          "subject-to-terms-of-service"
-        ],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "build",
-          "free",
-          "max"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Custom inference endpoints are available on Free and all eligible paid plans",
-      "source": {
-        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
-        "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
-        "heading": "",
-        "heading_anchor": "",
-        "line_end": 13,
-        "line_start": 13,
-        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/custom-inference-endpoint/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "plan-gating",
-      "value": {
-        "normalized": true,
-        "type": "boolean"
-      }
-    },
-    {
       "category": "product-behavior",
       "claim_content_fingerprint": "sha256:a0f387ff8ba177d58315d0b83ec7b06254e43778d5543eff4170b9300a819496",
       "claim_id": "sha256:1a18dc3e7682336acf3fc1edbcdae50d2a0996401f7e614f85c00ec6ea15ca9d",
@@ -78,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -121,7 +69,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 25,
@@ -164,7 +112,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 32,
@@ -207,7 +155,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 32,
@@ -252,7 +200,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 35,
@@ -266,54 +214,6 @@
       "topic": "product-behavior",
       "value": {
         "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:97ce7996901371fe1884a321cb11fbc866152d1b503716674879cd0c31f66691",
-      "claim_id": "sha256:1ee3242df41674ff91706266d7654de2ffede369350f6e59c43eb8e84dc72524",
-      "entity": "team-managed-inference",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "available-to-cloud-agents",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [
-          "cloud"
-        ],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "business",
-          "enterprise"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Business and Enterprise teams can configure [team-managed endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud inference",
-      "source": {
-        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
-        "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
-        "heading": "How it works",
-        "heading_anchor": "how-it-works",
-        "line_end": 35,
-        "line_start": 35,
-        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/custom-inference-endpoint/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "product-behavior",
-      "value": {
-        "normalized": true,
         "type": "boolean"
       }
     },
@@ -343,7 +243,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "Inference usage",
         "heading_anchor": "inference-usage",
         "line_end": 66,
@@ -357,54 +257,6 @@
       "topic": "billing-policy",
       "value": {
         "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:12c8787ea556f9a33f05e8880a1f262fbba7d286279730dadb8550e7a803fa6b",
-      "claim_id": "sha256:ee70f6ef8bdd8297dfe0a5bb14378cc1aea5cb6cdc57ed725a5e5712cfea750b",
-      "entity": "customer-supplied-inference",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "consumes-platform-usage",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [
-          "local"
-        ],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "business",
-          "enterprise"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Local endpoint-routed runs on Business and Enterprise still incur [platform charges]",
-      "source": {
-        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
-        "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
-        "heading": "Inference usage",
-        "heading_anchor": "inference-usage",
-        "line_end": 68,
-        "line_start": 68,
-        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/custom-inference-endpoint/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "billing-policy",
-      "value": {
-        "normalized": true,
         "type": "boolean"
       }
     },
@@ -436,11 +288,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "Auto routing uses Warp-provided inference",
         "heading_anchor": "auto-routing-uses-warp-provided-inference",
-        "line_end": 74,
-        "line_start": 74,
+        "line_end": 82,
+        "line_start": 82,
         "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/custom-inference-endpoint/",
@@ -479,11 +331,11 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "Auto routing uses Warp-provided inference",
         "heading_anchor": "auto-routing-uses-warp-provided-inference",
-        "line_end": 78,
-        "line_start": 78,
+        "line_end": 86,
+        "line_start": 86,
         "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/custom-inference-endpoint/",
@@ -497,13 +349,207 @@
       }
     },
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:25850b92a387aa1c4c25378705b666e04dadeaa74b25d744f8f64b8b26c5374c",
-      "claim_id": "sha256:2231172d9e52c95a9a148161f67e856b38684f8978fd24e5aeedb380586499a4",
-      "entity": "customer-ai-data",
+      "claim_content_fingerprint": "sha256:e793c83a1218a209dcc5ec71310345155145e5a93b0fe6c75ba015b074bc1b28",
+      "claim_id": "sha256:15a96946787f3d56223ec2ab0a85e502de3a29c532558f93a37ac3fce3e0c08f",
+      "entity": "custom-inference-endpoint",
       "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "used-for-training",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [
+          "individuals",
+          "organizations-up-to-10-employees"
+        ],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [
+          "subject-to-terms-of-service"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "build",
+          "free",
+          "max"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "personal endpoints are available on the Free plan and eligible paid plans for individuals and organizations with 10 or fewer employees",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9e2dabb8a22ad029947146a15259e184a1de1f8f236118cc410a842fe58fba84",
+      "claim_id": "sha256:10f4086c9ecfe3cd86a00624b41f4d7a630893bb5c0177a540202bfff243c395",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "factory"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise",
+          "scale"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Scale and Enterprise plans for Warp Factories support team-managed endpoints.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
+        "heading": "Warp Factories",
+        "heading_anchor": "warp-factories",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:901875e5f6877cd3c8b97531e6049137693667b4b1b4c2300a15361f79c230d2",
+      "claim_id": "sha256:81b2f01f983f785cec96c229b6ae0e8c58c217ee0a68a22a5c62bc01dd4f4488",
+      "entity": "customer-supplied-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-platform-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Local endpoint-routed runs on Business and Enterprise plans for Warp Terminal and local agents incur",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
+        "heading": "Warp Terminal and local agents",
+        "heading_anchor": "warp-terminal-and-local-agents",
+        "line_end": 72,
+        "line_start": 72,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3acf5fee5cca4eb7f4f968ea30d2aba3062e1c748cdce00747ee1b5d98575b31",
+      "claim_id": "sha256:7f292d2b73830cd8ceaa402498f5db10cd62d7f98b584c02276c63db436e0498",
+      "entity": "customer-supplied-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-platform-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "build",
+          "free",
+          "max"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Free, Build, and Max plans for Warp Terminal and local agents do not incur local platform charges.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
+        "heading": "Warp Terminal and local agents",
+        "heading_anchor": "warp-terminal-and-local-agents",
+        "line_end": 72,
+        "line_start": 72,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6df171871ff1f112e626408555578c7856563229c8501cdac7ed7cd7a03aca2c",
+      "claim_id": "sha256:514115590180c248fb2c8c54d62a973619a511cf6b9b6b90dd680f3f64978ea9",
+      "entity": "personal-custom-endpoint",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "provider-zdr-enforced-by-warp",
       "qualifiers": {
         "actors": [],
         "architectures": [],
@@ -520,15 +566,15 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Warp does not use this content for training",
+      "quote": "Warp cannot enforce provider ZDR for these requests.",
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
         "heading": "Zero Data Retention (ZDR)",
         "heading_anchor": "zero-data-retention-zdr",
-        "line_end": 88,
-        "line_start": 88,
+        "line_end": 94,
+        "line_start": 94,
         "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/custom-inference-endpoint/",
@@ -542,19 +588,16 @@
       }
     },
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:41eafe8e694f5e74cd5baf76e431879e7c19868ecb71c95c77385607d6d59014",
-      "claim_id": "sha256:990eddf9fb8065ad267d4c54d5452cc8f1649a30ebf94197b92974abbae2b3d9",
-      "entity": "warp-managed-inference",
+      "claim_content_fingerprint": "sha256:d11e034eb5dc4ce332f34209263ec9d6edfe52f0c5f87f9a44ec43eee83d5e76",
+      "claim_id": "sha256:347242570f44196f2dd59cfffa4d233d3f681376c9aa17b928dd27cc83f3d6e3",
+      "entity": "custom-inference-endpoint",
       "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "zero-data-retention-available",
+      "predicate": "rejects-private-network-addresses",
       "qualifiers": {
         "actors": [],
         "architectures": [],
-        "environments": [
-          "custom-inference-endpoint"
-        ],
+        "environments": [],
         "exceptions": [],
         "install_methods": [],
         "legacy": false,
@@ -565,29 +608,71 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.",
+      "quote": "`localhost`, `127.0.0.1`, and other private or local network URLs are rejected when configuring a custom inference endpoint.",
       "source": {
         "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
         "canonical_route": "/agents/inference/custom-inference-endpoint",
-        "content_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
-        "heading": "Zero Data Retention (ZDR)",
-        "heading_anchor": "zero-data-retention-zdr",
-        "line_end": 93,
-        "line_start": 93,
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
+        "heading": "Network requirements",
+        "heading_anchor": "network-requirements",
+        "line_end": 51,
+        "line_start": 51,
         "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/custom-inference-endpoint/",
         "visibility": "public"
       },
       "source_class": "canonical-doc",
-      "topic": "privacy",
+      "topic": "product-behavior",
       "value": {
-        "normalized": false,
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:eadde1c2348fcae16a7ee3fe50f17ba661ebbd9bcb209e782d15f673bab6455e",
+      "claim_id": "sha256:6addf645b6ceb706bd4d29148b6742e9c75c8657fcdc9d299c63f0fdf378db74",
+      "entity": "personal-custom-endpoint",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "configuration-stored-on-device",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Personal endpoint configurations are stored on your device, with API keys in secure storage.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
         "type": "boolean"
       }
     }
   ],
-  "page_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+  "page_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
   "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
   "schema_version": 1
 }

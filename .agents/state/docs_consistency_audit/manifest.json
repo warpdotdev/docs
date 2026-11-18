@@ -1,9 +1,18 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
+    "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+    "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
+    "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+    "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+    "src/content/docs/enterprise/index.mdx",
+    "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+    "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+    "src/content/docs/enterprise/support-and-resources/billing.mdx",
+    "src/content/docs/enterprise/team-management/admin-panel.mdx",
+    "src/content/docs/enterprise/team-management/teams.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/insufficient-credits.mdx",
-    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-not-configured.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/internal-error.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/invalid-request.mdx",
@@ -45,6 +54,7 @@
     "src/content/docs/factories/harnesses/claude-code.mdx",
     "src/content/docs/factories/harnesses/codex.mdx",
     "src/content/docs/factories/harnesses/index.mdx",
+    "src/content/docs/factories/harnesses/pi.mdx",
     "src/content/docs/factories/harnesses/warp-agent.mdx",
     "src/content/docs/factories/how-factories-work.mdx",
     "src/content/docs/factories/index.mdx",
@@ -57,6 +67,7 @@
     "src/content/docs/factories/integrations/permissions.mdx",
     "src/content/docs/factories/integrations/slack.mdx",
     "src/content/docs/factories/integrations/teams.mdx",
+    "src/content/docs/factories/managing-plans-and-billing.mdx",
     "src/content/docs/factories/mcp.mdx",
     "src/content/docs/factories/measure-and-improve.mdx",
     "src/content/docs/factories/measure-and-improve/scorers.mdx",
@@ -90,6 +101,7 @@
     "src/content/docs/factories/warp-hosting.mdx",
     "src/content/docs/factories/webhooks.mdx",
     "src/content/docs/factories/webhooks/vercel.mdx",
+    "src/content/docs/factories/zero-data-retention.mdx",
     "src/content/docs/getting-started/keyboard-shortcuts.mdx",
     "src/content/docs/getting-started/migrate-to-warp/index.mdx",
     "src/content/docs/getting-started/migrate-to-warp/migrate-to-warp-from-claude-code.mdx",
@@ -354,6 +366,7 @@
     "src/content/docs/agents/index.mdx": "claims/a6d7cd06f44d59f4504d1878450b806a12730115fd14a91171a5bf61f45a955a.json",
     "src/content/docs/agents/inference/bring-your-own-api-key.mdx": "claims/1bd4af0c0b895a7d035a0bbe556130279313ffba68cce249d56c3073a347b6e2.json",
     "src/content/docs/agents/inference/chatgpt-subscription.mdx": "claims/0c5785697552b15c25cb9c48549ed94713a318982d03608dea41dfa4750c7c21.json",
+    "src/content/docs/agents/inference/claude-platform-linked-billing.mdx": "claims/28b71e9e33fb4edcf8f3cc0cc3a137f8626ec07b03693a52529870296a56c486.json",
     "src/content/docs/agents/inference/custom-inference-endpoint.mdx": "claims/065d4d9dfa07f0aada77e7167797d3bc25ece0149512ae30eda04b47fa47f1cf.json",
     "src/content/docs/agents/inference/custom-routers.mdx": "claims/0265886f2a4bb0e6d610dfd5133c629bc40c42e636600134629682719d39961d.json",
     "src/content/docs/agents/inference/grok-subscription.mdx": "claims/c0183c9628e51e621835652f0ae2956c72720d82328557383a80906d03cec575.json",
@@ -6943,63 +6956,77 @@
         },
         {
           "anchor": "what-data-is-sent-andor-stored-when-using-agents-in-warp",
-          "character_count": 208,
+          "character_count": 443,
           "heading": "What data is sent and/or stored when using Agents in Warp?",
           "line_end": 17,
           "line_start": 14
         },
         {
           "anchor": "is-my-data-used-for-model-training",
-          "character_count": 320,
+          "character_count": 894,
           "heading": "Is my data used for model training?",
-          "line_end": 25,
+          "line_end": 27,
           "line_start": 22
         },
         {
           "anchor": "what-model-are-you-using-for-agent-mode",
           "character_count": 278,
           "heading": "What model are you using for Agent Mode?",
-          "line_end": 29,
-          "line_start": 26
+          "line_end": 31,
+          "line_start": 28
         },
         {
           "anchor": "can-i-use-my-own-llm-api-key",
-          "character_count": 946,
+          "character_count": 873,
           "heading": "Can I use my own LLM API key?",
-          "line_end": 35,
-          "line_start": 30
+          "line_end": 37,
+          "line_start": 32
         },
         {
           "anchor": "can-i-use-a-chatgpt-or-claude-subscription-with-warp",
           "character_count": 598,
           "heading": "Can I use a ChatGPT or Claude subscription with Warp?",
-          "line_end": 43,
-          "line_start": 36
+          "line_end": 45,
+          "line_start": 38
         },
         {
           "anchor": "billing",
-          "character_count": 748,
+          "character_count": 11,
           "heading": "Billing",
-          "line_end": 51,
-          "line_start": 44
+          "line_end": 47,
+          "line_start": 46
+        },
+        {
+          "anchor": "warp-terminal-and-local-agents",
+          "character_count": 492,
+          "heading": "Warp Terminal and local agents",
+          "line_end": 53,
+          "line_start": 48
+        },
+        {
+          "anchor": "warp-factories",
+          "character_count": 651,
+          "heading": "Warp Factories",
+          "line_end": 59,
+          "line_start": 54
         },
         {
           "anchor": "monthly-request-limit-exceeded-or-monthly-credit-limit-exceeded-errors",
           "character_count": 1734,
           "heading": "\"Monthly request limit exceeded\" or \"Monthly credit limit exceeded\" errors",
-          "line_end": 82,
-          "line_start": 63
+          "line_end": 90,
+          "line_start": 71
         },
         {
           "anchor": "gathering-ai-conversation-id",
           "character_count": 348,
           "heading": "Gathering AI conversation ID",
-          "line_end": 85,
-          "line_start": 83
+          "line_end": 93,
+          "line_start": 91
         }
       ],
-      "character_count": 6332,
-      "extraction_status": "unchanged",
+      "character_count": 7476,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7028,49 +7055,59 @@
         },
         {
           "anchor": "what-model-are-you-using-for-agent-mode",
-          "line_start": 26,
+          "line_start": 28,
           "text": "What model are you using for Agent Mode?"
         },
         {
           "anchor": "can-i-use-my-own-llm-api-key",
-          "line_start": 30,
+          "line_start": 32,
           "text": "Can I use my own LLM API key?"
         },
         {
           "anchor": "can-i-use-a-chatgpt-or-claude-subscription-with-warp",
-          "line_start": 36,
+          "line_start": 38,
           "text": "Can I use a ChatGPT or Claude subscription with Warp?"
         },
         {
           "anchor": "billing",
-          "line_start": 44,
+          "line_start": 46,
           "text": "Billing"
         },
         {
+          "anchor": "warp-terminal-and-local-agents",
+          "line_start": 48,
+          "text": "Warp Terminal and local agents"
+        },
+        {
+          "anchor": "warp-factories",
+          "line_start": 54,
+          "text": "Warp Factories"
+        },
+        {
           "anchor": "common-ai-error-messages",
-          "line_start": 52,
+          "line_start": 60,
           "text": "Common AI error messages"
         },
         {
           "anchor": "message-token-limit-exceeded-error",
-          "line_start": 54,
+          "line_start": 62,
           "text": "\"Message token limit exceeded\" error"
         },
         {
           "anchor": "monthly-request-limit-exceeded-or-monthly-credit-limit-exceeded-errors",
-          "line_start": 63,
+          "line_start": 71,
           "text": "\"Monthly request limit exceeded\" or \"Monthly credit limit exceeded\" errors"
         },
         {
           "anchor": "gathering-ai-conversation-id",
-          "line_start": 83,
+          "line_start": 91,
           "text": "Gathering AI conversation ID"
         }
       ],
       "path": "src/content/docs/agents/getting-started/faqs.mdx",
       "role": "faq",
       "route": "/agents/getting-started/faqs/",
-      "source_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+      "source_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
       "title": "Frequently asked questions about agents"
     },
     "src/content/docs/agents/index.mdx": {
@@ -7119,28 +7156,28 @@
         },
         {
           "anchor": "privacy-and-security",
-          "character_count": 353,
+          "character_count": 1087,
           "heading": "Privacy and security",
-          "line_end": 80,
+          "line_end": 84,
           "line_start": 71
         },
         {
           "anchor": "where-to-go-next",
           "character_count": 831,
           "heading": "Where to go next",
-          "line_end": 90,
-          "line_start": 81
+          "line_end": 94,
+          "line_start": 85
         },
         {
           "anchor": "open-source",
           "character_count": 268,
           "heading": "Open source",
-          "line_end": 93,
-          "line_start": 91
+          "line_end": 97,
+          "line_start": 95
         }
       ],
-      "character_count": 6368,
-      "extraction_status": "unchanged",
+      "character_count": 7102,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7179,40 +7216,40 @@
         },
         {
           "anchor": "where-to-go-next",
-          "line_start": 81,
+          "line_start": 85,
           "text": "Where to go next"
         },
         {
           "anchor": "open-source",
-          "line_start": 91,
+          "line_start": 95,
           "text": "Open source"
         }
       ],
       "path": "src/content/docs/agents/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/",
-      "source_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+      "source_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
       "title": "Agents overview"
     },
     "src/content/docs/agents/inference/bring-your-own-api-key.mdx": {
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1196,
+          "character_count": 1200,
           "heading": "",
           "line_end": 20,
           "line_start": 7
         },
         {
           "anchor": "how-byok-differs-from-custom-inference-endpoints-and-byollm",
-          "character_count": 2154,
+          "character_count": 2463,
           "heading": "How BYOK differs from custom inference endpoints and BYOLLM",
           "line_end": 39,
           "line_start": 21
         },
         {
           "anchor": "how-byok-works",
-          "character_count": 555,
+          "character_count": 494,
           "heading": "How BYOK works",
           "line_end": 47,
           "line_start": 40
@@ -7240,7 +7277,7 @@
         },
         {
           "anchor": "inference-usage",
-          "character_count": 1342,
+          "character_count": 1344,
           "heading": "Inference usage",
           "line_end": 90,
           "line_start": 74
@@ -7254,28 +7291,35 @@
         },
         {
           "anchor": "zero-data-retention-zdr-and-byok",
-          "character_count": 859,
+          "character_count": 1194,
           "heading": "Zero Data Retention (ZDR) and BYOK",
-          "line_end": 117,
+          "line_end": 119,
           "line_start": 106
         },
         {
-          "anchor": "byok-on-business-and-enterprise-plans",
-          "character_count": 490,
-          "heading": "BYOK on Business and Enterprise plans",
-          "line_end": 125,
-          "line_start": 118
+          "anchor": "warp-terminal-and-local-agent-teams",
+          "character_count": 352,
+          "heading": "Warp Terminal and local agent teams",
+          "line_end": 123,
+          "line_start": 120
+        },
+        {
+          "anchor": "warp-factories-teams",
+          "character_count": 427,
+          "heading": "Warp Factories teams",
+          "line_end": 129,
+          "line_start": 124
         },
         {
           "anchor": "related-pages",
           "character_count": 889,
           "heading": "Related pages",
-          "line_end": 133,
-          "line_start": 126
+          "line_end": 137,
+          "line_start": 130
         }
       ],
-      "character_count": 9794,
-      "extraction_status": "unchanged",
+      "character_count": 10673,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7323,20 +7367,25 @@
           "text": "Zero Data Retention (ZDR) and BYOK"
         },
         {
-          "anchor": "byok-on-business-and-enterprise-plans",
-          "line_start": 118,
-          "text": "BYOK on Business and Enterprise plans"
+          "anchor": "warp-terminal-and-local-agent-teams",
+          "line_start": 120,
+          "text": "Warp Terminal and local agent teams"
+        },
+        {
+          "anchor": "warp-factories-teams",
+          "line_start": 124,
+          "text": "Warp Factories teams"
         },
         {
           "anchor": "related-pages",
-          "line_start": 126,
+          "line_start": 130,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/bring-your-own-api-key/",
-      "source_sha256": "db6e672f8a407d2acdccc5ec18553d814f5f5eb3ed609a69579d15aa040da7e7",
+      "source_sha256": "096cd4efabe5e9fa3fce77233f19928bb9692e176e29f19e66b89bddbc80a569",
       "title": "Bring Your Own API Key"
     },
     "src/content/docs/agents/inference/chatgpt-subscription.mdx": {
@@ -7357,7 +7406,7 @@
         },
         {
           "anchor": "use-your-chatgpt-subscription",
-          "character_count": 944,
+          "character_count": 1160,
           "heading": "Use your ChatGPT subscription",
           "line_end": 51,
           "line_start": 39
@@ -7384,8 +7433,8 @@
           "line_start": 72
         }
       ],
-      "character_count": 3807,
-      "extraction_status": "unchanged",
+      "character_count": 4023,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7441,28 +7490,173 @@
       "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/chatgpt-subscription/",
-      "source_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
+      "source_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
       "title": "Connecting a ChatGPT subscription"
+    },
+    "src/content/docs/agents/inference/claude-platform-linked-billing.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 347,
+          "heading": "",
+          "line_end": 11,
+          "line_start": 7
+        },
+        {
+          "anchor": "how-linked-billing-works",
+          "character_count": 252,
+          "heading": "How linked billing works",
+          "line_end": 15,
+          "line_start": 12
+        },
+        {
+          "anchor": "supported-claude-usage",
+          "character_count": 427,
+          "heading": "Supported Claude usage",
+          "line_end": 21,
+          "line_start": 16
+        },
+        {
+          "anchor": "before-you-link",
+          "character_count": 372,
+          "heading": "Before you link",
+          "line_end": 28,
+          "line_start": 22
+        },
+        {
+          "anchor": "linking-your-workspace",
+          "character_count": 449,
+          "heading": "Linking your workspace",
+          "line_end": 35,
+          "line_start": 29
+        },
+        {
+          "anchor": "enabling-a-team",
+          "character_count": 718,
+          "heading": "Enabling a team",
+          "line_end": 45,
+          "line_start": 36
+        },
+        {
+          "anchor": "managing-spending",
+          "character_count": 150,
+          "heading": "Managing spending",
+          "line_end": 49,
+          "line_start": 46
+        },
+        {
+          "anchor": "if-linked-funds-run-out",
+          "character_count": 362,
+          "heading": "If linked funds run out",
+          "line_end": 55,
+          "line_start": 50
+        },
+        {
+          "anchor": "other-warp-charges",
+          "character_count": 405,
+          "heading": "Other Warp charges",
+          "line_end": 61,
+          "line_start": 56
+        },
+        {
+          "anchor": "relinking-or-stopping-linked-billing",
+          "character_count": 868,
+          "heading": "Relinking or stopping linked billing",
+          "line_end": 78,
+          "line_start": 62
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 383,
+          "heading": "Related pages",
+          "line_end": 83,
+          "line_start": 79
+        }
+      ],
+      "character_count": 4954,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 7,
+          "text": ""
+        },
+        {
+          "anchor": "how-linked-billing-works",
+          "line_start": 12,
+          "text": "How linked billing works"
+        },
+        {
+          "anchor": "supported-claude-usage",
+          "line_start": 16,
+          "text": "Supported Claude usage"
+        },
+        {
+          "anchor": "before-you-link",
+          "line_start": 22,
+          "text": "Before you link"
+        },
+        {
+          "anchor": "linking-your-workspace",
+          "line_start": 29,
+          "text": "Linking your workspace"
+        },
+        {
+          "anchor": "enabling-a-team",
+          "line_start": 36,
+          "text": "Enabling a team"
+        },
+        {
+          "anchor": "managing-spending",
+          "line_start": 46,
+          "text": "Managing spending"
+        },
+        {
+          "anchor": "if-linked-funds-run-out",
+          "line_start": 50,
+          "text": "If linked funds run out"
+        },
+        {
+          "anchor": "other-warp-charges",
+          "line_start": 56,
+          "text": "Other Warp charges"
+        },
+        {
+          "anchor": "relinking-or-stopping-linked-billing",
+          "line_start": 62,
+          "text": "Relinking or stopping linked billing"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 79,
+          "text": "Related pages"
+        }
+      ],
+      "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+      "role": "docs-prose",
+      "route": "/agents/inference/claude-platform-linked-billing/",
+      "source_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+      "title": "Managing Claude linked billing"
     },
     "src/content/docs/agents/inference/custom-inference-endpoint.mdx": {
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1080,
+          "character_count": 1068,
           "heading": "",
           "line_end": 15,
           "line_start": 7
         },
         {
           "anchor": "key-features",
-          "character_count": 816,
+          "character_count": 747,
           "heading": "Key features",
           "line_end": 22,
           "line_start": 16
         },
         {
           "anchor": "how-it-works",
-          "character_count": 1486,
+          "character_count": 1400,
           "heading": "How it works",
           "line_end": 37,
           "line_start": 23
@@ -7490,56 +7684,70 @@
         },
         {
           "anchor": "inference-usage",
-          "character_count": 428,
+          "character_count": 230,
           "heading": "Inference usage",
-          "line_end": 71,
+          "line_end": 69,
           "line_start": 64
+        },
+        {
+          "anchor": "warp-terminal-and-local-agents",
+          "character_count": 347,
+          "heading": "Warp Terminal and local agents",
+          "line_end": 73,
+          "line_start": 70
+        },
+        {
+          "anchor": "warp-factories",
+          "character_count": 368,
+          "heading": "Warp Factories",
+          "line_end": 79,
+          "line_start": 74
         },
         {
           "anchor": "auto-routing-uses-warp-provided-inference",
           "character_count": 587,
           "heading": "Auto routing uses Warp-provided inference",
-          "line_end": 79,
-          "line_start": 72
+          "line_end": 87,
+          "line_start": 80
         },
         {
           "anchor": "other-ai-features-in-warp",
           "character_count": 248,
           "heading": "Other AI features in Warp",
-          "line_end": 83,
-          "line_start": 80
+          "line_end": 91,
+          "line_start": 88
         },
         {
           "anchor": "zero-data-retention-zdr",
-          "character_count": 969,
+          "character_count": 751,
           "heading": "Zero Data Retention (ZDR)",
           "line_end": 97,
-          "line_start": 84
+          "line_start": 92
         },
         {
           "anchor": "centrally-managed-configuration",
-          "character_count": 534,
+          "character_count": 635,
           "heading": "Centrally managed configuration",
-          "line_end": 103,
+          "line_end": 105,
           "line_start": 98
         },
         {
           "anchor": "how-custom-inference-endpoints-differ-from-byok-and-byollm",
-          "character_count": 1288,
+          "character_count": 1282,
           "heading": "How custom inference endpoints differ from BYOK and BYOLLM",
-          "line_end": 118,
-          "line_start": 104
+          "line_end": 119,
+          "line_start": 106
         },
         {
           "anchor": "related-pages",
           "character_count": 542,
           "heading": "Related pages",
-          "line_end": 124,
-          "line_start": 119
+          "line_end": 125,
+          "line_start": 120
         }
       ],
-      "character_count": 10125,
-      "extraction_status": "unchanged",
+      "character_count": 10354,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7577,18 +7785,28 @@
           "text": "Inference usage"
         },
         {
+          "anchor": "warp-terminal-and-local-agents",
+          "line_start": 70,
+          "text": "Warp Terminal and local agents"
+        },
+        {
+          "anchor": "warp-factories",
+          "line_start": 74,
+          "text": "Warp Factories"
+        },
+        {
           "anchor": "auto-routing-uses-warp-provided-inference",
-          "line_start": 72,
+          "line_start": 80,
           "text": "Auto routing uses Warp-provided inference"
         },
         {
           "anchor": "other-ai-features-in-warp",
-          "line_start": 80,
+          "line_start": 88,
           "text": "Other AI features in Warp"
         },
         {
           "anchor": "zero-data-retention-zdr",
-          "line_start": 84,
+          "line_start": 92,
           "text": "Zero Data Retention (ZDR)"
         },
         {
@@ -7598,19 +7816,19 @@
         },
         {
           "anchor": "how-custom-inference-endpoints-differ-from-byok-and-byollm",
-          "line_start": 104,
+          "line_start": 106,
           "text": "How custom inference endpoints differ from BYOK and BYOLLM"
         },
         {
           "anchor": "related-pages",
-          "line_start": 119,
+          "line_start": 120,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/custom-inference-endpoint/",
-      "source_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
+      "source_sha256": "8f52debc0f0de4339cb81a9e67b7f3c5e94c8dd96949fe4e6be8222b7b874131",
       "title": "Custom inference endpoint"
     },
     "src/content/docs/agents/inference/custom-routers.mdx": {
@@ -7680,7 +7898,7 @@
         },
         {
           "anchor": "using-your-own-api-keys-byok",
-          "character_count": 1206,
+          "character_count": 1180,
           "heading": "Using your own API keys (BYOK)",
           "line_end": 131,
           "line_start": 122
@@ -7694,14 +7912,14 @@
         },
         {
           "anchor": "related-resources",
-          "character_count": 763,
+          "character_count": 693,
           "heading": "Related resources",
           "line_end": 142,
           "line_start": 136
         }
       ],
-      "character_count": 9013,
-      "extraction_status": "unchanged",
+      "character_count": 8917,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7777,7 +7995,7 @@
       "path": "src/content/docs/agents/inference/custom-routers.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/custom-routers/",
-      "source_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+      "source_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
       "title": "Custom routers"
     },
     "src/content/docs/agents/inference/grok-subscription.mdx": {
@@ -7953,7 +8171,7 @@
         },
         {
           "anchor": "anthropic",
-          "character_count": 3144,
+          "character_count": 2723,
           "heading": "Anthropic",
           "line_end": 78,
           "line_start": 51
@@ -8008,15 +8226,36 @@
           "line_start": 152
         },
         {
-          "anchor": "zero-data-retention-policies",
-          "character_count": 893,
-          "heading": "Zero data retention policies",
-          "line_end": 177,
+          "anchor": "reviewing-inference-and-privacy-in-terminal",
+          "character_count": 1207,
+          "heading": "Reviewing inference and privacy in Terminal",
+          "line_end": 168,
           "line_start": 158
+        },
+        {
+          "anchor": "reviewing-inference-and-privacy-for-factories",
+          "character_count": 726,
+          "heading": "Reviewing inference and privacy for factories",
+          "line_end": 176,
+          "line_start": 169
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "character_count": 426,
+          "heading": "Zero data retention (ZDR)",
+          "line_end": 184,
+          "line_start": 177
+        },
+        {
+          "anchor": "models-that-require-data-retention",
+          "character_count": 992,
+          "heading": "Models that require data retention",
+          "line_end": 201,
+          "line_start": 185
         }
       ],
-      "character_count": 10905,
-      "extraction_status": "unchanged",
+      "character_count": 12945,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -8079,15 +8318,30 @@
           "text": "Configuring models per Agent Profile"
         },
         {
-          "anchor": "zero-data-retention-policies",
+          "anchor": "reviewing-inference-and-privacy-in-terminal",
           "line_start": 158,
-          "text": "Zero data retention policies"
+          "text": "Reviewing inference and privacy in Terminal"
+        },
+        {
+          "anchor": "reviewing-inference-and-privacy-for-factories",
+          "line_start": 169,
+          "text": "Reviewing inference and privacy for factories"
+        },
+        {
+          "anchor": "zero-data-retention-zdr",
+          "line_start": 177,
+          "text": "Zero data retention (ZDR)"
+        },
+        {
+          "anchor": "models-that-require-data-retention",
+          "line_start": 185,
+          "text": "Models that require data retention"
         }
       ],
       "path": "src/content/docs/agents/inference/model-choice.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/model-choice/",
-      "source_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+      "source_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
       "title": "Agent model choice"
     },
     "src/content/docs/agents/local-agents/active-ai.mdx": {
@@ -8522,7 +8776,7 @@
         },
         {
           "anchor": "enabling-cloud-conversations",
-          "character_count": 568,
+          "character_count": 950,
           "heading": "Enabling cloud conversations",
           "line_end": 33,
           "line_start": 21
@@ -8557,7 +8811,7 @@
         },
         {
           "anchor": "cloud-agent-conversations",
-          "character_count": 178,
+          "character_count": 391,
           "heading": "Cloud agent conversations",
           "line_end": 97,
           "line_start": 94
@@ -8571,35 +8825,35 @@
         },
         {
           "anchor": "enterprise-controls",
-          "character_count": 458,
+          "character_count": 433,
           "heading": "Enterprise controls",
-          "line_end": 120,
+          "line_end": 119,
           "line_start": 111
         },
         {
           "anchor": "storage-limits",
-          "character_count": 392,
+          "character_count": 552,
           "heading": "Storage limits",
-          "line_end": 126,
-          "line_start": 121
+          "line_end": 125,
+          "line_start": 120
         },
         {
           "anchor": "deleting-conversations",
           "character_count": 172,
           "heading": "Deleting conversations",
-          "line_end": 132,
-          "line_start": 127
+          "line_end": 131,
+          "line_start": 126
         },
         {
           "anchor": "related-features",
           "character_count": 683,
           "heading": "Related features",
-          "line_end": 139,
-          "line_start": 133
+          "line_end": 138,
+          "line_start": 132
         }
       ],
-      "character_count": 7425,
-      "extraction_status": "unchanged",
+      "character_count": 8155,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -8673,24 +8927,24 @@
         },
         {
           "anchor": "storage-limits",
-          "line_start": 121,
+          "line_start": 120,
           "text": "Storage limits"
         },
         {
           "anchor": "deleting-conversations",
-          "line_start": 127,
+          "line_start": 126,
           "text": "Deleting conversations"
         },
         {
           "anchor": "related-features",
-          "line_start": 133,
+          "line_start": 132,
           "text": "Related features"
         }
       ],
       "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
       "role": "docs-prose",
       "route": "/agents/local-agents/cloud-conversations/",
-      "source_sha256": "2f7d8ba8a718c490e9b8df3d61d3d5be1464668279381316fc8d636fde4ba8c9",
+      "source_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
       "title": "Cloud-synced conversations"
     },
     "src/content/docs/agents/local-agents/code-diffs.mdx": {
@@ -11361,7 +11615,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 509,
+          "character_count": 513,
           "heading": "",
           "line_end": 12,
           "line_start": 7
@@ -11375,7 +11629,7 @@
         },
         {
           "anchor": "high-level-data-flow",
-          "character_count": 468,
+          "character_count": 544,
           "heading": "High-level data flow",
           "line_end": 32,
           "line_start": 26
@@ -11396,98 +11650,98 @@
         },
         {
           "anchor": "when-to-use",
-          "character_count": 262,
+          "character_count": 307,
           "heading": "When to use",
           "line_end": 57,
           "line_start": 52
         },
         {
           "anchor": "self-hosted-execution",
-          "character_count": 259,
+          "character_count": 355,
           "heading": "Self-hosted execution",
           "line_end": 65,
           "line_start": 58
         },
         {
-          "anchor": "split-architecture",
-          "character_count": 616,
-          "heading": "Split architecture",
-          "line_end": 72,
-          "line_start": 66
-        },
-        {
           "anchor": "deployment-modes",
-          "character_count": 832,
+          "character_count": 980,
           "heading": "Deployment modes",
           "line_end": 86,
           "line_start": 73
         },
         {
           "anchor": "network-requirements",
-          "character_count": 333,
+          "character_count": 334,
           "heading": "Network requirements",
           "line_end": 95,
           "line_start": 87
         },
         {
           "anchor": "when-to-use",
-          "character_count": 277,
+          "character_count": 242,
           "heading": "When to use",
-          "line_end": 101,
+          "line_end": 100,
           "line_start": 96
         },
         {
           "anchor": "hybrid-deployments",
           "character_count": 138,
           "heading": "Hybrid deployments",
-          "line_end": 105,
-          "line_start": 102
+          "line_end": 104,
+          "line_start": 101
         },
         {
           "anchor": "how-it-works",
           "character_count": 310,
           "heading": "How it works",
-          "line_end": 111,
-          "line_start": 106
+          "line_end": 110,
+          "line_start": 105
         },
         {
           "anchor": "example-configurations",
           "character_count": 390,
           "heading": "Example configurations",
-          "line_end": 117,
-          "line_start": 112
+          "line_end": 116,
+          "line_start": 111
         },
         {
           "anchor": "data-flow-and-boundaries",
           "character_count": 116,
           "heading": "Data flow and boundaries",
-          "line_end": 121,
-          "line_start": 118
+          "line_end": 120,
+          "line_start": 117
         },
         {
           "anchor": "what-stays-on-customer-infrastructure-self-hosted",
-          "character_count": 352,
+          "character_count": 639,
           "heading": "What stays on customer infrastructure (self-hosted)",
-          "line_end": 129,
-          "line_start": 122
+          "line_end": 130,
+          "line_start": 121
+        },
+        {
+          "anchor": "data-sent-to-warps-servers",
+          "character_count": 752,
+          "heading": "Data sent to Warp's servers",
+          "line_end": 138,
+          "line_start": 131
         },
         {
           "anchor": "choosing-a-deployment-model",
-          "character_count": 974,
+          "character_count": 1029,
           "heading": "Choosing a deployment model",
-          "line_end": 156,
-          "line_start": 137
+          "line_end": 158,
+          "line_start": 139
         },
         {
-          "anchor": "related-resources",
-          "character_count": 935,
-          "heading": "Related resources",
-          "line_end": 165,
-          "line_start": 157
+          "anchor": "related-pages",
+          "character_count": 931,
+          "heading": "Related pages",
+          "line_end": 167,
+          "line_start": 159
         }
       ],
-      "character_count": 9164,
-      "extraction_status": "unchanged",
+      "character_count": 10037,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -11551,49 +11805,49 @@
         },
         {
           "anchor": "hybrid-deployments",
-          "line_start": 102,
+          "line_start": 101,
           "text": "Hybrid deployments"
         },
         {
           "anchor": "how-it-works",
-          "line_start": 106,
+          "line_start": 105,
           "text": "How it works"
         },
         {
           "anchor": "example-configurations",
-          "line_start": 112,
+          "line_start": 111,
           "text": "Example configurations"
         },
         {
           "anchor": "data-flow-and-boundaries",
-          "line_start": 118,
+          "line_start": 117,
           "text": "Data flow and boundaries"
         },
         {
           "anchor": "what-stays-on-customer-infrastructure-self-hosted",
-          "line_start": 122,
+          "line_start": 121,
           "text": "What stays on customer infrastructure (self-hosted)"
         },
         {
-          "anchor": "what-transits-warps-servers",
-          "line_start": 130,
-          "text": "What transits Warp's servers"
+          "anchor": "data-sent-to-warps-servers",
+          "line_start": 131,
+          "text": "Data sent to Warp's servers"
         },
         {
           "anchor": "choosing-a-deployment-model",
-          "line_start": 137,
+          "line_start": 139,
           "text": "Choosing a deployment model"
         },
         {
-          "anchor": "related-resources",
-          "line_start": 157,
-          "text": "Related resources"
+          "anchor": "related-pages",
+          "line_start": 159,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
       "role": "docs-prose",
       "route": "/enterprise/enterprise-features/architecture-and-deployment/",
-      "source_sha256": "49a89792a39ba229f05c54700cfa91721cb36afc2a3fae0580011e6d61148df9",
+      "source_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
       "title": "Architecture and deployment"
     },
     "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx": {
@@ -14231,56 +14485,56 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 296,
+          "character_count": 198,
           "heading": "",
-          "line_end": 11,
+          "line_end": 13,
           "line_start": 9
         },
         {
           "anchor": "soc-2-type-ii",
-          "character_count": 676,
+          "character_count": 403,
           "heading": "SOC 2 Type II",
-          "line_end": 24,
-          "line_start": 14
+          "line_end": 21,
+          "line_start": 16
         },
         {
           "anchor": "subprocessors",
-          "character_count": 529,
+          "character_count": 770,
           "heading": "Subprocessors",
-          "line_end": 34,
-          "line_start": 25
+          "line_end": 31,
+          "line_start": 22
         },
         {
           "anchor": "security-documentation",
-          "character_count": 661,
+          "character_count": 649,
           "heading": "Security documentation",
-          "line_end": 43,
-          "line_start": 35
+          "line_end": 40,
+          "line_start": 32
         },
         {
           "anchor": "requesting-security-information",
           "character_count": 631,
           "heading": "Requesting security information",
-          "line_end": 53,
-          "line_start": 44
+          "line_end": 50,
+          "line_start": 41
         },
         {
           "anchor": "penetration-testing-and-vulnerability-management",
-          "character_count": 262,
+          "character_count": 214,
           "heading": "Penetration testing and vulnerability management",
-          "line_end": 57,
-          "line_start": 54
+          "line_end": 54,
+          "line_start": 51
         },
         {
           "anchor": "responsible-disclosure",
           "character_count": 364,
           "heading": "Responsible disclosure",
-          "line_end": 65,
-          "line_start": 58
+          "line_end": 62,
+          "line_start": 55
         }
       ],
-      "character_count": 3685,
-      "extraction_status": "unchanged",
+      "character_count": 3475,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -14288,45 +14542,45 @@
           "text": ""
         },
         {
-          "anchor": "compliance-certifications",
-          "line_start": 12,
-          "text": "Compliance certifications"
+          "anchor": "compliance-reports",
+          "line_start": 14,
+          "text": "Compliance reports"
         },
         {
           "anchor": "soc-2-type-ii",
-          "line_start": 14,
+          "line_start": 16,
           "text": "SOC 2 Type II"
         },
         {
           "anchor": "subprocessors",
-          "line_start": 25,
+          "line_start": 22,
           "text": "Subprocessors"
         },
         {
           "anchor": "security-documentation",
-          "line_start": 35,
+          "line_start": 32,
           "text": "Security documentation"
         },
         {
           "anchor": "requesting-security-information",
-          "line_start": 44,
+          "line_start": 41,
           "text": "Requesting security information"
         },
         {
           "anchor": "penetration-testing-and-vulnerability-management",
-          "line_start": 54,
+          "line_start": 51,
           "text": "Penetration testing and vulnerability management"
         },
         {
           "anchor": "responsible-disclosure",
-          "line_start": 58,
+          "line_start": 55,
           "text": "Responsible disclosure"
         }
       ],
       "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
       "role": "docs-prose",
       "route": "/enterprise/security-and-compliance/trust-center/",
-      "source_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+      "source_sha256": "3d6b581b4d10586f4d74414d2963e40f8ac4d4898c7c7585190939f8a273112d",
       "title": "Warp Trust Center"
     },
     "src/content/docs/enterprise/support-and-resources/billing.mdx": {
@@ -15461,7 +15715,7 @@
         }
       ],
       "character_count": 6252,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -15555,7 +15809,7 @@
         }
       ],
       "character_count": 2127,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -15674,7 +15928,7 @@
         }
       ],
       "character_count": 10997,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -15806,7 +16060,7 @@
         }
       ],
       "character_count": 5118,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -15889,7 +16143,7 @@
         }
       ],
       "character_count": 2459,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16038,7 +16292,7 @@
         }
       ],
       "character_count": 1489,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16116,7 +16370,7 @@
         }
       ],
       "character_count": 1581,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16194,7 +16448,7 @@
         }
       ],
       "character_count": 1826,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16272,7 +16526,7 @@
         }
       ],
       "character_count": 2935,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16392,7 +16646,7 @@
         }
       ],
       "character_count": 3888,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16512,7 +16766,7 @@
         }
       ],
       "character_count": 1697,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16604,7 +16858,7 @@
         }
       ],
       "character_count": 5735,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16652,10 +16906,88 @@
       "route": "/factories/api-and-sdk/troubleshooting/errors/",
       "source_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
       "title": "API error codes"
+    },
+    "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx": {
+      "candidate_sections": [
+        {
+          "anchor": "",
+          "character_count": 192,
+          "heading": "",
+          "line_end": 13,
+          "line_start": 8
+        },
+        {
+          "anchor": "details",
+          "character_count": 97,
+          "heading": "Details",
+          "line_end": 21,
+          "line_start": 14
+        },
+        {
+          "anchor": "example-response",
+          "character_count": 334,
+          "heading": "Example response",
+          "line_end": 45,
+          "line_start": 31
+        },
+        {
+          "anchor": "how-to-resolve",
+          "character_count": 221,
+          "heading": "How to resolve",
+          "line_end": 53,
+          "line_start": 46
+        },
+        {
+          "anchor": "related",
+          "character_count": 194,
+          "heading": "Related",
+          "line_end": 57,
+          "line_start": 54
+        }
+      ],
+      "character_count": 1571,
+      "extraction_status": "new",
+      "headings": [
+        {
+          "anchor": "",
+          "line_start": 8,
+          "text": ""
+        },
+        {
+          "anchor": "details",
+          "line_start": 14,
+          "text": "Details"
+        },
+        {
+          "anchor": "when-does-this-occur",
+          "line_start": 22,
+          "text": "When does this occur?"
+        },
+        {
+          "anchor": "example-response",
+          "line_start": 31,
+          "text": "Example response"
+        },
+        {
+          "anchor": "how-to-resolve",
+          "line_start": 46,
+          "text": "How to resolve"
+        },
+        {
+          "anchor": "related",
+          "line_start": 54,
+          "text": "Related"
+        }
+      ],
+      "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
+      "role": "docs-prose",
+      "route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+      "source_sha256": "059b157ca3e2418051a5da6108312fe1aab5b54706ed995b691879b7dce2cd21",
+      "title": "integration_disabled"
     }
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "f47b54c52fbc616e85fdb0429145a9908a31df4f"
+    "docs": "73cd669db86143156a24d0865e8816f6bdc863cb"
   }
 }

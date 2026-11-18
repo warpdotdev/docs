@@ -4,6 +4,7 @@
       "audit_run_id": "01a1e584-1560-7694-9c5a-e179ae468c99",
       "authority_reason": "The complete public security overview explicitly states the model exception and Enterprise default. This identifies conflicting documentation scope, not an independent certification of provider policy.",
       "canonical_source": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx#zero-data-retention-zdr",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -490,8 +491,8 @@
       "verdict": "gap"
     },
     "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2": {
-      "audit_run_id": "01a1e584-1560-7694-9c5a-e179ae468c99",
-      "authority_reason": "The command's explicit cloud/local distinction and public CLI argument definitions support the scope mismatch. Source revision and development-runtime help are corroboration, not proof of a stable release.",
+      "audit_run_id": "01a1efd0-cd63-71c6-a3d1-80b29d21e940",
+      "authority_reason": "The public command reference's cloud/local distinction and the current public CLI argument definitions agree about the missing cloud profile option. Source code corroborates the documentation contradiction, not stable-release availability.",
       "canonical_source": {
         "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
         "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
@@ -596,39 +597,49 @@
       "finding_content_fingerprint": "sha256:2b81bd25f5698ca2e0fc9483ebbe6cc0dbe0f3b0142f312afce445d58ec0cf22",
       "finding_id": "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2",
       "first_seen_run": "01a18dc1-0a96-7631-bee5-cc1e5dee9535",
-      "last_seen_run": "01a1e584-1560-7694-9c5a-e179ae468c99",
+      "last_seen_run": "01a1efd0-cd63-71c6-a3d1-80b29d21e940",
       "lifecycle": "existing",
       "predicate": "requires-agent-profile-permissions",
       "qualifier_status": "complete",
-      "rationale": "The run-cloud reference says cloud runs do not use Agent Profiles, but the same cloud-failure procedure tells readers to change profile command and MCP permissions. Both apply to the same remote command, not the local-run branch.",
+      "rationale": "The run-cloud reference explicitly excludes Agent Profiles, yet its cloud-failure checklist tells readers to check profile command and MCP permissions. The surrounding orchestration-child example is also run-cloud, not the separate local-run command.",
       "rationale_class": "cloud-run-profile-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
           "quote": "# Run Claude Code as a cloud agent, authenticating with a stored Anthropic secret\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --harness claude \\\n  --claude-auth-secret ANTHROPIC_API_KEY \\\n  --prompt \"Review the latest PR and suggest fixes\"\n```\n\n**Key differences from `run`**\n\n* No `--cwd` \u2014 the environment determines the working directory.\n* No `--share` \u2014 sharing options are on `run`, not `run-cloud`.\n* No `--profile` \u2014 cloud runs do not use agent profiles.\n",
           "source": {
+            "canonical_identity": "route:/agents/cli/oz-cli",
+            "canonical_route": "/agents/cli/oz-cli",
             "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+            "heading": "Run Claude Code as a cloud agent, authenticating with a stored Anthropic secret",
+            "heading_anchor": "run-claude-code-as-a-cloud-agent-authenticating-with-a-stored-anthropic-secret",
             "line_end": 291,
             "line_start": 278,
             "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
             "repository": "warpdotdev/docs",
+            "route": "/agents/cli/oz-cli/",
             "visibility": "public"
           }
         },
         {
           "quote": "#### Starting a run as an orchestration child\n\nThe `--parent-run-id` flag attaches the new run to an existing run as an [orchestration](/platform/orchestration/multi-agent-runs/) child. The child inherits the parent's lineage and scope, and it appears alongside the parent's other children instead of as a standalone run:\n\n```sh\noz agent run-cloud \\\n  --environment <ENVIRONMENT_ID> \\\n  --parent-run-id <PARENT_RUN_ID> \\\n  --title \"Backfill integration tests\" \\\n  --prompt \"Add integration tests for the new endpoints\"\n```\n\nPass the run ID of the run doing the spawning. Omit the flag for ordinary standalone runs.\n\n**When cloud runs fail**\n\n* Verify your environment has the correct repository and context.\n* Check that your profile allows the commands and MCP servers needed.\n* Ensure environment variables are set in the environment, not your local shell.\n",
           "source": {
+            "canonical_identity": "route:/agents/cli/oz-cli",
+            "canonical_route": "/agents/cli/oz-cli",
             "content_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+            "heading": "Starting a run as an orchestration child",
+            "heading_anchor": "starting-a-run-as-an-orchestration-child",
             "line_end": 353,
             "line_start": 334,
             "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
             "repository": "warpdotdev/docs",
+            "route": "/agents/cli/oz-cli/",
             "visibility": "public"
           }
         }
       ],
       "severity": "medium",
-      "source_commit": "f47b54c52fbc616e85fdb0429145a9908a31df4f",
+      "source_commit": "73cd669db86143156a24d0865e8816f6bdc863cb",
       "status": "active",
       "suggested_resolution": "Have the permissions owner reconcile the cloud troubleshooting advice with the applicable cloud configuration; do not infer a permission policy or change docs automatically.",
       "suggested_resolution_class": "human-permission-guidance-review",
@@ -804,6 +815,7 @@
       "audit_run_id": "01a1e584-1560-7694-9c5a-e179ae468c99",
       "authority_reason": "Both same-page context and the public architecture's data-boundary section establish the distinction between repository clones and code context. This does not select a new retention or deployment policy.",
       "canonical_source": "src/content/docs/platform/architecture.mdx#data-security-and-boundaries",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -955,8 +967,8 @@
       "verdict": "contradiction"
     },
     "sha256:ad94d2b549d43b173263f9534c974a5725aabd91cd6e6576f81105bc6418ccf6": {
-      "audit_run_id": "01a1e584-1560-7694-9c5a-e179ae468c99",
-      "authority_reason": "The complete dedicated procedure gives reproducible plugin commands and the public client contains a plugin manager. The source feature gate is not evidence of stable availability; the owner must confirm release scope.",
+      "audit_run_id": "01a1efd0-cd63-71c6-a3d1-80b29d21e940",
+      "authority_reason": "The dedicated public procedure supplies exact plugin installation commands; the current public client implements both a feature-gated plugin path and native instructions. This does not prove which path is shipped, so an owner must confirm release scope before editing.",
       "canonical_source": "src/content/docs/agents/cli-agents/codex.mdx#setting-up-notifications",
       "category": "product-behavior",
       "claims": [
@@ -1061,39 +1073,49 @@
       "finding_content_fingerprint": "sha256:0cde5e8c82bf99e484a70be7d25c7061eb8ded3a677164de407e4caf17984be1",
       "finding_id": "sha256:ad94d2b549d43b173263f9534c974a5725aabd91cd6e6576f81105bc6418ccf6",
       "first_seen_run": "01a1b204-7d29-7637-a3da-da71f6f712af",
-      "last_seen_run": "01a1e584-1560-7694-9c5a-e179ae468c99",
+      "last_seen_run": "01a1efd0-cd63-71c6-a3d1-80b29d21e940",
       "lifecycle": "existing",
       "predicate": "setup-mechanism",
       "qualifier_status": "complete",
-      "rationale": "The overview describes a native Codex configuration change, but the dedicated Codex procedure requires installing a Warp marketplace plugin and restarting Codex. Neither public passage scopes its instructions to a different version or rollout.",
+      "rationale": "The current overview requires a native Codex config change; the complete dedicated setup guide requires the Warp marketplace plugin and a Codex restart. Neither public section gives version or rollout qualifiers that make these alternative instructions compatible.",
       "rationale_class": "codex-notification-setup-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
           "quote": "## Setting up notifications\n\nWarp surfaces Codex activity as in-app and desktop alerts \u2014 such as when Codex completes a task, encounters an error, or needs your input. This is powered by the Warp plugin for Codex, published from the [warpdotdev/codex-warp](https://github.com/warpdotdev/codex-warp) plugin marketplace.\n\nWhen Warp detects a Codex session without the plugin, it shows an install chip in the terminal. Click the chip to install the plugin, then restart Codex. Warp shows an update chip the same way when a newer plugin version is required.\n\nTo install the plugin yourself, add the marketplace and the plugin:\n\n```bash\ncodex plugin marketplace add warpdotdev/codex-warp\ncodex plugin add warp@codex-warp\n```\n\nRestart Codex to activate the plugin. To update it later, upgrade the marketplace and reinstall the plugin:\n\n```bash\ncodex plugin marketplace upgrade codex-warp\ncodex plugin add warp@codex-warp\n```\n\n:::note\nIf you point `codex-warp` at a local (non-Git) marketplace source, Warp leaves that override alone and doesn't offer plugin updates for it.\n:::\n",
           "source": {
+            "canonical_identity": "route:/agents/cli-agents/codex",
+            "canonical_route": "/agents/cli-agents/codex",
             "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+            "heading": "Setting up notifications",
+            "heading_anchor": "setting-up-notifications",
             "line_end": 44,
             "line_start": 21,
             "path": "src/content/docs/agents/cli-agents/codex.mdx",
             "repository": "warpdotdev/docs",
+            "route": "/agents/cli-agents/codex/",
             "visibility": "public"
           }
         },
         {
           "quote": "## Feature support\n\nNot every feature is available for every agent. The table below shows current support.\n\n| Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Claude Code | Codex | OpenCode | Amp | Auggie | Copilot CLI | Cursor | Gemini CLI | Droid | Pi |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Rich input editor (`Ctrl-G`) | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Agent notifications | \u2713 | \u2713 | \u2713 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 |\n| Code review comments | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Attach code as context | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Vertical tabs + metadata | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Tab Configs | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Remote Control | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n\n**Goose**, **Hermes**, **Mistral Vibe**, **Grok Build** (`grok`), and **Kiro CLI** (`kiro-cli` or `kiro`) are also recognized. They get the same enhanced features as the agents above \u2014 rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control \u2014 but don't support agent notifications yet.\n\n**Antigravity** (`agy` or `antigravity`) also supports these features and can report task completion and requests for input when its CLI emits structured notifications.\n\nAgent notifications in Claude Code, OpenCode, and Codex require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.\n",
           "source": {
+            "canonical_identity": "route:/agents/cli-agents/overview",
+            "canonical_route": "/agents/cli-agents/overview",
             "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+            "heading": "Feature support",
+            "heading_anchor": "feature-support",
             "line_end": 79,
             "line_start": 60,
             "path": "src/content/docs/agents/cli-agents/overview.mdx",
             "repository": "warpdotdev/docs",
+            "route": "/agents/cli-agents/overview/",
             "visibility": "public"
           }
         }
       ],
       "severity": "medium",
-      "source_commit": "f47b54c52fbc616e85fdb0429145a9908a31df4f",
+      "source_commit": "73cd669db86143156a24d0865e8816f6bdc863cb",
       "status": "active",
       "suggested_resolution": "Have the CLI integration owner confirm the shipped notification mechanism and align or explicitly version-scope the overview and dedicated procedure.",
       "suggested_resolution_class": "owner-review-notification-setup-scope",

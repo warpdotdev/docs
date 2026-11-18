@@ -1,92 +1,6 @@
 {
   "claims": [
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
-      "claim_id": "sha256:9a61ebe3ba11995f51b6271d13c3f3c0d41c4cd62ff3e81be2fffee05f840f14",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "used-for-training",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "No customer AI data is retained, stored, or used for training.",
-      "source": {
-        "canonical_identity": "route:/agents",
-        "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
-        "heading": "Privacy and security",
-        "heading_anchor": "privacy-and-security",
-        "line_end": 73,
-        "line_start": 73,
-        "path": "src/content/docs/agents/index.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
-      "claim_id": "sha256:bacdacbb806b29b5dfe487d4c039002820dbaa55b361fc232594549d994bdb0c",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "retained-by-model-provider",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "No customer AI data is retained, stored, or used for training.",
-      "source": {
-        "canonical_identity": "route:/agents",
-        "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
-        "heading": "Privacy and security",
-        "heading_anchor": "privacy-and-security",
-        "line_end": 73,
-        "line_start": 73,
-        "path": "src/content/docs/agents/index.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
       "category": "product-behavior",
       "claim_content_fingerprint": "sha256:367b1bce851dcba05a8f1a2eb4e1608a579860756a578169d64974134005d7de",
       "claim_id": "sha256:bfe1dc906e449c5d52cdf78ddd5d427642b201e124f4ea5e982b2daa6675ad7f",
@@ -112,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -155,7 +69,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "What makes the Warp Agent different",
         "heading_anchor": "what-makes-the-warp-agent-different",
         "line_end": 28,
@@ -198,11 +112,11 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "Open source",
         "heading_anchor": "open-source",
-        "line_end": 93,
-        "line_start": 93,
+        "line_end": 97,
+        "line_start": 97,
         "path": "src/content/docs/agents/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/",
@@ -243,7 +157,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "Where to use the Warp Agent",
         "heading_anchor": "where-to-use-the-warp-agent",
         "line_end": 18,
@@ -290,7 +204,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "What makes the Warp Agent different",
         "heading_anchor": "what-makes-the-warp-agent-different",
         "line_end": 31,
@@ -333,7 +247,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "What makes the Warp Agent different",
         "heading_anchor": "what-makes-the-warp-agent-different",
         "line_end": 29,
@@ -378,7 +292,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
         "heading": "Where to use the Warp Agent",
         "heading_anchor": "where-to-use-the-warp-agent",
         "line_end": 22,
@@ -394,9 +308,135 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4fd563dcbd6d6889613fdc222e55cf7dafdb94c4b13d324490d538d363769fea",
+      "claim_id": "sha256:5338ac31334428d97978624cd572b5c6edc36f17c85ce457473333d44832c980",
+      "entity": "warp-analytics",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "disabling-stops-conversation-storage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Turning off analytics doesn't turn off conversation storage.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
+        "heading": "Privacy and security",
+        "heading_anchor": "privacy-and-security",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3be8b79cbd944484502c81876892654eb27b4a70bd5c8d7bfac6014cd23d0c75",
+      "claim_id": "sha256:04357b95d3befdfc3b745721c1c6b6f9a87538f643f0756da7dad6cd051dfcf9",
+      "entity": "warp-ai-features",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-disable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can disable Warp's AI features entirely",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
+        "heading": "Privacy and security",
+        "heading_anchor": "privacy-and-security",
+        "line_end": 79,
+        "line_start": 79,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:120db8006d45c3edee0de199ed48cbe3c0f606d0a8c5bf1ed80784c412aac7d0",
+      "claim_id": "sha256:9cb49552e7a4b5b01495d91580ecb98736c5dc5f5acf59fe77b0574adc324c5b",
+      "entity": "warp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "soc-2-type-2-attestation-claimed",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp has obtained a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security).",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
+        "heading": "Privacy and security",
+        "heading_anchor": "privacy-and-security",
+        "line_end": 73,
+        "line_start": 73,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "09c4220569d1d69e1e0a9675b86df5000a906c722f3b0ddb2c65ff24da82c3af",
+  "page_sha256": "de8aec00dea2025cf97f6810ecf92eda962af5ddc521cc4f0fa316bf49c21cfd",
   "path": "src/content/docs/agents/index.mdx",
   "schema_version": 1
 }

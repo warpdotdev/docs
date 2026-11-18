@@ -28,7 +28,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 25,
@@ -71,7 +71,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 28,
@@ -114,7 +114,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Author a router as a file",
         "heading_anchor": "author-a-router-as-a-file",
         "line_end": 64,
@@ -157,7 +157,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Rule-based routing",
         "heading_anchor": "rule-based-routing",
         "line_end": 45,
@@ -200,7 +200,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Rule-based routing",
         "heading_anchor": "rule-based-routing",
         "line_end": 46,
@@ -243,7 +243,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Author a router as a file",
         "heading_anchor": "author-a-router-as-a-file",
         "line_end": 62,
@@ -286,7 +286,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Author a router as a file",
         "heading_anchor": "author-a-router-as-a-file",
         "line_end": 62,
@@ -333,7 +333,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Team-synced routers",
         "heading_anchor": "team-synced-routers",
         "line_end": 106,
@@ -376,7 +376,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Using your own API keys (BYOK)",
         "heading_anchor": "using-your-own-api-keys-byok",
         "line_end": 124,
@@ -421,7 +421,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Using your own API keys (BYOK)",
         "heading_anchor": "using-your-own-api-keys-byok",
         "line_end": 126,
@@ -464,7 +464,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Using your own API keys (BYOK)",
         "heading_anchor": "using-your-own-api-keys-byok",
         "line_end": 129,
@@ -507,7 +507,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Model availability and fallback",
         "heading_anchor": "model-availability-and-fallback",
         "line_end": 134,
@@ -550,7 +550,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 21,
@@ -593,7 +593,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Complexity-based routing",
         "heading_anchor": "complexity-based-routing",
         "line_end": 37,
@@ -640,7 +640,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Complexity-based routing",
         "heading_anchor": "complexity-based-routing",
         "line_end": 37,
@@ -683,7 +683,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Author a router as a file",
         "heading_anchor": "author-a-router-as-a-file",
         "line_end": 95,
@@ -730,7 +730,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Using your own API keys (BYOK)",
         "heading_anchor": "using-your-own-api-keys-byok",
         "line_end": 124,
@@ -773,7 +773,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/custom-routers",
         "canonical_route": "/agents/inference/custom-routers",
-        "content_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+        "content_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
         "heading": "Model availability and fallback",
         "heading_anchor": "model-availability-and-fallback",
         "line_end": 134,
@@ -791,7 +791,7 @@
       }
     }
   ],
-  "page_sha256": "b78c0bf31fe3d419cbf709e5c8b4beaf7af26d3f17da587d1d285d370b58a930",
+  "page_sha256": "632830e43088f4b165150d9636bb4b626ada2ed913fe97ebeabe643546aae103",
   "path": "src/content/docs/agents/inference/custom-routers.mdx",
   "schema_version": 1
 }

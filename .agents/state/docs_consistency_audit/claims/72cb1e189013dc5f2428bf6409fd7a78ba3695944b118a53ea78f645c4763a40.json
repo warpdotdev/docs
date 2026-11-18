@@ -1,239 +1,6 @@
 {
   "claims": [
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:249a03cfda30c1f6c888af5b3f648c4e87d87ca5be1caf1f75c2f13fad892756",
-      "claim_id": "sha256:882f4a4134e8723bc27b9e242bd35619766cbb5706ffa9292ee9cbb788b38ed4",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "used-for-training",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Warp reserves the right to use data collected to train models and improve Warp.",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Is my data used for model training?",
-        "heading_anchor": "is-my-data-used-for-model-training",
-        "line_end": 24,
-        "line_start": 24,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "privacy",
-      "value": {
-        "normalized": true,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:a5504baa122504b080172bcb17056ba35f6beefb7926ee52146eb2523bbe103a",
-      "claim_id": "sha256:810fdee2c80ecd55639ecf91e5e22fab2596dba8df365d363bf9d54c79a758a4",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "retained-by-model-provider",
-      "qualifiers": {
-        "actors": [
-          "all-model-providers"
-        ],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Warp has Zero Data Retention with all its model providers",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Is my data used for model training?",
-        "heading_anchor": "is-my-data-used-for-model-training",
-        "line_end": 24,
-        "line_start": 24,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "privacy",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:c3822182786d6fdcbdf4fb819c56615820a728fee8bb0dc2e24bada1385bb6e1",
-      "claim_id": "sha256:980c4e550c83668dabec79297e97310e7eafd897d9eed1e447f07aa00fb99f03",
-      "entity": "warp-managed-inference",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "zero-data-retention-available",
-      "qualifiers": {
-        "actors": [
-          "all-model-providers"
-        ],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Warp has Zero Data Retention with all its model providers",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Is my data used for model training?",
-        "heading_anchor": "is-my-data-used-for-model-training",
-        "line_end": 24,
-        "line_start": 24,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "privacy",
-      "value": {
-        "normalized": true,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "plan-gating",
-      "claim_content_fingerprint": "sha256:4f40d65697d8e9dca19598a7cc7d5747169555758ca4ed0bef70ea8183e3b400",
-      "claim_id": "sha256:e9ba0541e64bf12f050cee7b151217df59fb4cbe6cc467c8ef1805cfdc551a5d",
-      "entity": "byok",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "available",
-      "qualifiers": {
-        "actors": [
-          "individuals",
-          "organizations-up-to-10-employees"
-        ],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [
-          "subject-to-terms-of-service"
-        ],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "build",
-          "free",
-          "max"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "BYOK)](/agents/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans.",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Can I use my own LLM API key?",
-        "heading_anchor": "can-i-use-my-own-llm-api-key",
-        "line_end": 32,
-        "line_start": 32,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "plan-gating",
-      "value": {
-        "normalized": true,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:40fe4d0ed30aa8546077ecde0f5e4bcc8ec9efb46f6f224ef099124937b90a65",
-      "claim_id": "sha256:5cd661567f0f87b507f27780f8f8858d347cae50cfd0c50fed066fc6feb618f3",
-      "entity": "team-managed-inference",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "available-to-cloud-agents",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [
-          "cloud"
-        ],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "business",
-          "enterprise"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which also work for cloud agents.",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Can I use my own LLM API key?",
-        "heading_anchor": "can-i-use-my-own-llm-api-key",
-        "line_end": 34,
-        "line_start": 34,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "product-behavior",
-      "value": {
-        "normalized": true,
-        "type": "boolean"
-      }
-    },
-    {
       "category": "product-behavior",
       "claim_content_fingerprint": "sha256:89d542032bc2d0a5f0b835b4af2dbb0016900fcc9fd93cb3ed8660c4db59139a",
       "claim_id": "sha256:319808bc826d12eac0795c7d064d3b597121b41fde67ebae58e0b171ba1a8aa8",
@@ -259,11 +26,11 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
         "heading": "Can I use a ChatGPT or Claude subscription with Warp?",
         "heading_anchor": "can-i-use-a-chatgpt-or-claude-subscription-with-warp",
-        "line_end": 40,
-        "line_start": 40,
+        "line_end": 42,
+        "line_start": 42,
         "path": "src/content/docs/agents/getting-started/faqs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/getting-started/faqs/",
@@ -273,143 +40,6 @@
       "topic": "product-behavior",
       "value": {
         "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:7b2f99fa1220a6b8ea0a3904c3d4f45ea538907b8af0c935fbd781eb222b107c",
-      "claim_id": "sha256:49966e22ba221fadd4cff2f8232610792b0fe196cfd2521ebcc1a8dec35a4c02",
-      "entity": "warp-provided-inference",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "rate-basis",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "self-serve-dollar-billed"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "On plans billed in dollars, Warp-provided inference is priced at public API rates.",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Billing",
-        "heading_anchor": "billing",
-        "line_end": 46,
-        "line_start": 46,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "billing-policy",
-      "value": {
-        "normalized": [
-          "public-api-rates"
-        ],
-        "type": "enum"
-      }
-    },
-    {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:441dc1909edc9150dd368e4b4db46b1051167262fec272c6ee1f4fe603780333",
-      "claim_id": "sha256:d2c1b7e0b4e09e01acc6f79731d795e52716e3f4b5c135a3f291c46dcdfb5ce0",
-      "entity": "free-plan-usage-purchases",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "requires-subscription",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "free"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "purchase usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing.",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Billing",
-        "heading_anchor": "billing",
-        "line_end": 48,
-        "line_start": 48,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "billing-policy",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:ee714dd5aa44ffabbbeeb689e51dcd3b053d607f0d25a57014e66be16b6cc296",
-      "claim_id": "sha256:880f3415539e253051ae14ada1e113eaa0111f871d12c585a713f6c4cabc3aa2",
-      "entity": "free-plan-usage-purchases",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "priced-at-premium",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "free"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Purchases are priced at a premium.",
-      "source": {
-        "canonical_identity": "route:/agents/getting-started/faqs",
-        "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
-        "heading": "Billing",
-        "heading_anchor": "billing",
-        "line_end": 48,
-        "line_start": 48,
-        "path": "src/content/docs/agents/getting-started/faqs.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/getting-started/faqs/",
-        "visibility": "public"
-      },
-      "source_class": "faq",
-      "topic": "billing-policy",
-      "value": {
-        "normalized": true,
         "type": "boolean"
       }
     },
@@ -439,11 +69,11 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
         "heading": "\"Message token limit exceeded\" error",
         "heading_anchor": "message-token-limit-exceeded-error",
-        "line_end": 56,
-        "line_start": 56,
+        "line_end": 64,
+        "line_start": 64,
         "path": "src/content/docs/agents/getting-started/faqs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/getting-started/faqs/",
@@ -455,9 +85,563 @@
         "normalized": true,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8b890512e68a210b5694e555065771632974e72373620befba220da3b9c92025",
+      "claim_id": "sha256:f12093d7f4ee54c1b5e424dfa2a4ea7d705505a24fa5459e2b399ba2d977500d",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [
+          "warp"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "collection-disabled-or-organization-enforced"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp may use collected data to train and improve models that support its AI features",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Is my data used for model training?",
+        "heading_anchor": "is-my-data-used-for-model-training",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e24861dd2cfbf83c38309430364becde5d08c814858d50c7a85087fc983deca4",
+      "claim_id": "sha256:768c5f519eb50bd49273908b0cc8ef10aed682e8975c0d8e200d749d03789273",
+      "entity": "provider-zdr-covered-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [
+          "model-providers"
+        ],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [
+          "models-requiring-provider-retention"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the AI provider cannot use its prompts or responses for training.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Is my data used for model training?",
+        "heading_anchor": "is-my-data-used-for-model-training",
+        "line_end": 26,
+        "line_start": 26,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:60ba37140bfd07a148a7a8c07b508199e988498a0859b049092d24483420f9b9",
+      "claim_id": "sha256:302bf7c525b1a038ba77888dc588e4e2e86b4f7ba7f51d74566b82dd51a513b3",
+      "entity": "personal-terminal-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "storage-is-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Personal Terminal conversation storage depends on your sync settings",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "What data is sent and/or stored when using Agents in Warp?",
+        "heading_anchor": "what-data-is-sent-andor-stored-when-using-agents-in-warp",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:de2634beb5a24a4da480b22f28dfa07dc2fa6865097ffdca3df9af3a047f99e6",
+      "claim_id": "sha256:cf19cff0cfcf7d65d412d3b3ee26ef7a94228ecd31dd8b82ce77d90616cd1142",
+      "entity": "cloud-agent-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-in-cloud",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "factory and other cloud runs save transcripts, attachments, and artifacts.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "What data is sent and/or stored when using Agents in Warp?",
+        "heading_anchor": "what-data-is-sent-andor-stored-when-using-agents-in-warp",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:12e9e7c5cbc7507064930394c55213b35bbb64bafdccc64683bf3a599861d533",
+      "claim_id": "sha256:9ed7380f141b72253892ff6e6622240ed2f94f0dc33e3658712b602d855c6ea2",
+      "entity": "byok",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [
+          "individuals",
+          "organizations-up-to-10-employees"
+        ],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [
+          "subject-to-terms-of-service"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "build",
+          "free",
+          "max"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It is available on the Free plan and eligible paid plans for individuals and organizations with 10 or fewer employees, subject to Warp's Terms of Service.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Can I use my own LLM API key?",
+        "heading_anchor": "can-i-use-my-own-llm-api-key",
+        "line_end": 34,
+        "line_start": 34,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4e485a44f999b1ee2810e3d8f8065e8fae6a28c630c1a76daccdc1306b3cc8f1",
+      "claim_id": "sha256:7c5b1c92a3291137b02095965ae77a87cad5db2db4f2a4e2a69b9737bc474006",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "factory"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise",
+          "scale"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For Warp Factories, the Scale and Enterprise plans support [team-managed keys and endpoints]",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Can I use my own LLM API key?",
+        "heading_anchor": "can-i-use-my-own-llm-api-key",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:982bacc40addff0f42cc01bc25ac1f93c7367009e86278f259117a5d7ad17978",
+      "claim_id": "sha256:98f2fa7f64091954e4c4dfbab03a5a5de75b775117763b5d875c739c3f5a7ac3",
+      "entity": "user-level-byok",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "factory"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "a key stored on a member's device is not available to factory runs.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Can I use my own LLM API key?",
+        "heading_anchor": "can-i-use-my-own-llm-api-key",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f8b5910d4e97edf35051d6c78c2214151893334ec7fc855ad94f893adcb9a045",
+      "claim_id": "sha256:de29b9d6831800839ffd483ce6a69ab05da390c259c381335739ee65248b514b",
+      "entity": "warp-provided-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "rate-basis",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "self-serve-dollar-billed"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On plans billed in dollars, Warp-provided inference is priced at public API rates.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Warp Terminal and local agents",
+        "heading_anchor": "warp-terminal-and-local-agents",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "public-api-rates"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bbfb6666392b7268c0300daabfda8db5c198048c162e308635406472a71227e3",
+      "claim_id": "sha256:da4e8ce7b7711db16084ed9d77836524d67d5ee6e503713ecb79508f404012f3",
+      "entity": "free-plan-usage-purchases",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-subscription",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "without subscribing.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Warp Terminal and local agents",
+        "heading_anchor": "warp-terminal-and-local-agents",
+        "line_end": 52,
+        "line_start": 52,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9ae8d1290b65e729b048481e9095c745f731b1e095c1e241385ef7ac1a53f9bb",
+      "claim_id": "sha256:c423e2052c014f2f59cafe016d33749c511b3e8bcb03496938fd8b812185b9ee",
+      "entity": "factory-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uses-personal-included-allowance",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "factory"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Factory runs do not use a member's included personal allowance.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Warp Factories",
+        "heading_anchor": "warp-factories",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4eb9d381b18d98fb22584333a01b01e8ad64d2c1429332d7995d2b6ec3eb5ed5",
+      "claim_id": "sha256:60d744a3ba61203b66a0e9e487e9c2a6d1dfce165a4b033849c0ae9bc49e7008",
+      "entity": "factory-scale",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "allowance-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "factory"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "scale"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Scale plan for Warp Factories has a shared monthly team allowance.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Warp Factories",
+        "heading_anchor": "warp-factories",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": "shared-monthly-team",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:42031a106a24c839934bf90053dbed8756f06e74998fdaba47d425404334d00b",
+      "claim_id": "sha256:311de788d6ab2d9110cf57cfdc91dc91013c0936009b420a6033f78dddb4978c",
+      "entity": "factory-start",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-subscription",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "factory"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "start"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Start plan for Warp Factories uses purchased usage without a subscription.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "heading": "Warp Factories",
+        "heading_anchor": "warp-factories",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
+  "page_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
   "path": "src/content/docs/agents/getting-started/faqs.mdx",
   "schema_version": 1
 }

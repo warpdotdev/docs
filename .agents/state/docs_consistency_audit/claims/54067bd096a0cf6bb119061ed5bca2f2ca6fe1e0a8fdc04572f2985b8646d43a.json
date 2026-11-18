@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Auto models",
         "heading_anchor": "auto-models",
         "line_end": 28,
@@ -74,7 +74,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "How to change models",
         "heading_anchor": "how-to-change-models",
         "line_end": 134,
@@ -117,7 +117,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Model fallback",
         "heading_anchor": "model-fallback",
         "line_end": 148,
@@ -160,7 +160,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Model fallback",
         "heading_anchor": "model-fallback",
         "line_end": 149,
@@ -203,7 +203,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Configuring models per Agent Profile",
         "heading_anchor": "configuring-models-per-agent-profile",
         "line_end": 154,
@@ -246,7 +246,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 73,
@@ -260,241 +260,6 @@
       "topic": "product-behavior",
       "value": {
         "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:864a0c7edabe3293a5e625bc1ab57f874dcaea15a75f2cd968e94af732cf310e",
-      "claim_id": "sha256:4dcd4fedd5ed4bc4c308b11e3f199db515f680c07aef31a409fee1ad6b2e437c",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "retained-by-model-provider",
-      "qualifiers": {
-        "actors": [
-          "anthropic"
-        ],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": [
-          "claude-fable-5",
-          "claude-fable-5.1",
-          "claude-fable-5.2"
-        ]
-      },
-      "quote": "Anthropic requires data retention for Claude Fable 5, Claude Fable 5.1, and Claude Fable 5.2",
-      "source": {
-        "canonical_identity": "route:/agents/inference/model-choice",
-        "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
-        "heading": "Anthropic",
-        "heading_anchor": "anthropic",
-        "line_end": 76,
-        "line_start": 76,
-        "path": "src/content/docs/agents/inference/model-choice.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/model-choice/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
-      "value": {
-        "normalized": true,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:87dd8028bb83dc7bb708c495117cd0deaef89f0980b168647f8e91b78fea71a5",
-      "claim_id": "sha256:32a539ccf2ff8ff1d97613c4ac6ca9ac97d7026f2a53b4214be8f952fa64ba28",
-      "entity": "claude-fable-models",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "enterprise-enabled-by-default",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [
-          "enterprise"
-        ],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": [
-          "claude-fable-5",
-          "claude-fable-5.1",
-          "claude-fable-5.2"
-        ]
-      },
-      "quote": "For Enterprise teams, these models are off by default and a workspace admin must enable them",
-      "source": {
-        "canonical_identity": "route:/agents/inference/model-choice",
-        "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
-        "heading": "Anthropic",
-        "heading_anchor": "anthropic",
-        "line_end": 76,
-        "line_start": 76,
-        "path": "src/content/docs/agents/inference/model-choice.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/model-choice/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "product-behavior",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:cba15a52e7f39f5b80cc1ef98cee455bf3a09821b6d9c446acd092c5136db573",
-      "claim_id": "sha256:cdf171e3b2d98e44dfc9d038f35e2811e6e294f486a6c21d0d5d7dcc55b349fe",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "used-for-training",
-      "qualifiers": {
-        "actors": [
-          "model-providers"
-        ],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "LLM providers commit not to train their models on any customer-generated data processed through Warp\u2019s services.",
-      "source": {
-        "canonical_identity": "route:/agents/inference/model-choice",
-        "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
-        "heading": "Zero data retention policies",
-        "heading_anchor": "zero-data-retention-policies",
-        "line_end": 172,
-        "line_start": 172,
-        "path": "src/content/docs/agents/inference/model-choice.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/model-choice/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:b4d2271e73bc43d29ee9b8a3e4f09a99b6a9568df90c188f915ca8be65ebb323",
-      "claim_id": "sha256:b7b9491f77c22f1cdb47f45fb860ad4e49c72f4ad5d881b9726f013c50ce2312",
-      "entity": "customer-ai-data",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "retained-by-model-provider",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [
-          "claude-fable-5",
-          "claude-fable-5.1",
-          "claude-fable-5.2"
-        ],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.",
-      "source": {
-        "canonical_identity": "route:/agents/inference/model-choice",
-        "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
-        "heading": "Zero data retention policies",
-        "heading_anchor": "zero-data-retention-policies",
-        "line_end": 173,
-        "line_start": 173,
-        "path": "src/content/docs/agents/inference/model-choice.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/model-choice/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
-      "value": {
-        "normalized": "deleted after output within fixed period by default",
-        "type": "free-text"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:0b1bcf4512f58e03847bf9f787686835cbd7d109b30cc7c5067d712b51c651a8",
-      "claim_id": "sha256:ab6b2632eec7a86d388bd2088be85806c63cca27561c6eab4a11fa8a2456b708",
-      "entity": "warp-managed-inference",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "zero-data-retention-available",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [
-          "provider-retention-required-models"
-        ],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Zero data retention is available for supported models.",
-      "source": {
-        "canonical_identity": "route:/agents/inference/model-choice",
-        "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
-        "heading": "Zero data retention policies",
-        "heading_anchor": "zero-data-retention-policies",
-        "line_end": 177,
-        "line_start": 177,
-        "path": "src/content/docs/agents/inference/model-choice.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/model-choice/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
-      "value": {
-        "normalized": true,
         "type": "boolean"
       }
     },
@@ -524,7 +289,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Custom routers",
         "heading_anchor": "custom-routers",
         "line_end": 138,
@@ -571,7 +336,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "xAI",
         "heading_anchor": "xai",
         "line_end": 110,
@@ -583,53 +348,6 @@
       },
       "source_class": "canonical-doc",
       "topic": "billing",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:71329d8029d0492a72e8f2c0bd28ea1984bf9c303ae086dfefa117858cf08ea3",
-      "claim_id": "sha256:f0bc9b4641e2d708a44a0f5db0afa29395160ab3f9e3990c852efe3863bbcac3",
-      "entity": "claude-fable-models",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "zero-data-retention-available",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": [
-          "claude-fable-5",
-          "claude-fable-5.1",
-          "claude-fable-5.2"
-        ]
-      },
-      "quote": "these models are **not available under Zero Data Retention (ZDR)**.",
-      "source": {
-        "canonical_identity": "route:/agents/inference/model-choice",
-        "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
-        "heading": "Anthropic",
-        "heading_anchor": "anthropic",
-        "line_end": 76,
-        "line_start": 76,
-        "path": "src/content/docs/agents/inference/model-choice.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/model-choice/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "privacy",
       "value": {
         "normalized": false,
         "type": "boolean"
@@ -661,7 +379,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 38,
@@ -710,7 +428,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 39,
@@ -759,7 +477,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 40,
@@ -807,7 +525,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 41,
@@ -856,7 +574,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 42,
@@ -905,7 +623,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 43,
@@ -953,7 +671,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 44,
@@ -1001,7 +719,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 45,
@@ -1049,7 +767,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 46,
@@ -1097,7 +815,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "OpenAI",
         "heading_anchor": "openai",
         "line_end": 47,
@@ -1145,7 +863,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 57,
@@ -1195,7 +913,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 58,
@@ -1245,7 +963,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 59,
@@ -1294,7 +1012,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 60,
@@ -1343,7 +1061,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 61,
@@ -1392,7 +1110,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 62,
@@ -1441,7 +1159,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 63,
@@ -1490,7 +1208,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 64,
@@ -1540,7 +1258,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 65,
@@ -1587,7 +1305,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 66,
@@ -1633,7 +1351,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 67,
@@ -1679,7 +1397,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 68,
@@ -1725,7 +1443,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 69,
@@ -1771,7 +1489,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 70,
@@ -1820,7 +1538,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Anthropic",
         "heading_anchor": "anthropic",
         "line_end": 71,
@@ -1865,7 +1583,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Google",
         "heading_anchor": "google",
         "line_end": 83,
@@ -1910,7 +1628,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Google",
         "heading_anchor": "google",
         "line_end": 84,
@@ -1955,7 +1673,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Google",
         "heading_anchor": "google",
         "line_end": 85,
@@ -2000,7 +1718,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Google",
         "heading_anchor": "google",
         "line_end": 86,
@@ -2045,7 +1763,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Google",
         "heading_anchor": "google",
         "line_end": 87,
@@ -2090,7 +1808,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Google",
         "heading_anchor": "google",
         "line_end": 88,
@@ -2135,7 +1853,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "xAI",
         "heading_anchor": "xai",
         "line_end": 97,
@@ -2183,7 +1901,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "xAI",
         "heading_anchor": "xai",
         "line_end": 101,
@@ -2231,7 +1949,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "xAI",
         "heading_anchor": "xai",
         "line_end": 104,
@@ -2278,7 +1996,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "xAI",
         "heading_anchor": "xai",
         "line_end": 107,
@@ -2325,7 +2043,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "xAI",
         "heading_anchor": "xai",
         "line_end": 108,
@@ -2370,7 +2088,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
         "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
         "line_end": 118,
@@ -2415,7 +2133,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
         "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
         "line_end": 119,
@@ -2460,7 +2178,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
         "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
         "line_end": 120,
@@ -2505,7 +2223,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
         "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
         "line_end": 121,
@@ -2550,7 +2268,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
         "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
         "line_end": 122,
@@ -2595,7 +2313,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/model-choice",
         "canonical_route": "/agents/inference/model-choice",
-        "content_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
         "heading": "Hosted models (via [Fireworks AI](https://fireworks.ai))",
         "heading_anchor": "hosted-models-via-fireworks-aihttpsfireworksai",
         "line_end": 123,
@@ -2613,9 +2331,245 @@
         ],
         "type": "enum"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b4b8e6b14029c135bd4eb57f1b40163a1008db2d929d0bbea94f09d9ad11e4ec",
+      "claim_id": "sha256:a5efa9f2dd76db67148d3322f112c97c919ed6166e58044dc1d4c2abe7099a2d",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [
+          "anthropic"
+        ],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1",
+          "claude-fable-5.2"
+        ]
+      },
+      "quote": "Anthropic requires data retention for safety, abuse monitoring, and compliance. This requirement applies to the following models at every effort level:\n\n* Claude Fable 5\n* Claude Fable 5.1\n* Claude Fable 5.2",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
+        "heading": "Models that require data retention",
+        "heading_anchor": "models-that-require-data-retention",
+        "line_end": 193,
+        "line_start": 189,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:aeca741c30fc6e04b3989f0539ea78d14d3c9b4768967e65ff48c084ac3812be",
+      "claim_id": "sha256:82d0dab5e763d491e005bc259fb8610ec4f308418646f33c27e0b426ec085d4a",
+      "entity": "claude-fable-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enterprise-enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1",
+          "claude-fable-5.2"
+        ]
+      },
+      "quote": "For Enterprise teams, these models are disabled by default and a workspace admin must enable them",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
+        "heading": "Models that require data retention",
+        "heading_anchor": "models-that-require-data-retention",
+        "line_end": 197,
+        "line_start": 197,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:33f51eb0d537141bd3c715e9b96b44036900186736670fc8a2a44a3aa4b806ff",
+      "claim_id": "sha256:001052a143a27c2f683cf2314aef6c795fdaaa87a3c6a961f128bfb40a9ed802",
+      "entity": "claude-fable-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "help-improve-warp-disables-provider-retention",
+      "qualifiers": {
+        "actors": [
+          "anthropic"
+        ],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1",
+          "claude-fable-5.2"
+        ]
+      },
+      "quote": "Turning off the **Help improve Warp** toggle doesn't remove these retention requirements.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
+        "heading": "Models that require data retention",
+        "heading_anchor": "models-that-require-data-retention",
+        "line_end": 195,
+        "line_start": 195,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:35ed97bb4b9fef9a5dcd43f21830aa689dc1f1d71fa5b67d4d34d72600c3826e",
+      "claim_id": "sha256:e4592cda0239eb8a78bd58a14dfff04f962a16677c513ad36e7c1179f02d5aef",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [
+          "provider-retention-required-models"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's provider Zero Data Retention (ZDR) agreements apply to supported models on every plan when Warp supplies the provider account.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
+        "heading": "Zero data retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 179,
+        "line_start": 179,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fc45e0b24722032b2b4d3ed9f90465cd8de359daf9a63ffa62061c77d8824f0c",
+      "claim_id": "sha256:936feca66ebc6f2c76e317ed2b141b9277350939b83f9748a92ce07d11573a59",
+      "entity": "customer-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "model-outside-exception-list-proves-zdr",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Choosing a model outside this list doesn't establish ZDR coverage for requests through your own provider account.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
+        "heading": "Models that require data retention",
+        "heading_anchor": "models-that-require-data-retention",
+        "line_end": 199,
+        "line_start": 199,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "96bd21e4ae53bb3c1e027d776a08e229d06167980443fff7f87afc64402b810b",
+  "page_sha256": "5d9ca8b74050b5d5f1de37b2f09134f4bf6259a6cdc60c6d0d00f95fbcc3fc2a",
   "path": "src/content/docs/agents/inference/model-choice.mdx",
   "schema_version": 1
 }

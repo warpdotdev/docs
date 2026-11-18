@@ -1,11 +1,52 @@
 {
   "claims": [
     {
-      "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:693a63b395472e51a779ebd678f19df24be463212f5955db83a1076d36205701",
-      "claim_id": "sha256:ae541a428e95d8b754e1566b4c1d0e5c86a0423ab38dfd0dd05db28b3e27cea2",
+      "claim_content_fingerprint": "sha256:2f181c785a52f11ac916b8ef797b4411f88a210862bf5a5d49eda92bbaca7b09",
+      "claim_id": "sha256:ad5042cc839a57e975dcb9e9546e39b94e46bba7617060c7d67bc653c4f97cad",
+      "entity": "personal-terminal-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "storage-is-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When it's off, those conversations are stored only on your device.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Enabling cloud conversations",
+        "heading_anchor": "enabling-cloud-conversations",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fe38caab06cc946df8849c8e488b9c674f5f2178e5348bd0f9f6ec61fadb90f6",
+      "claim_id": "sha256:561b776c3ca028c021c5be2b59ea3b9bb8e84ec2029786bdda9fabdc36f0a7c2",
       "entity": "cloud-agent-conversations",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "stored-in-cloud",
       "qualifiers": {
@@ -24,11 +65,57 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Cloud agent conversations are always stored in the cloud regardless of this setting.",
+      "quote": "Factory and other cloud agent runs still store their transcripts, attachments, and artifacts independently of this setting.",
       "source": {
         "canonical_identity": "route:/agents/local-agents/cloud-conversations",
         "canonical_route": "/agents/local-agents/cloud-conversations",
-        "content_sha256": "2f7d8ba8a718c490e9b8df3d61d3d5be1464668279381316fc8d636fde4ba8c9",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Enabling cloud conversations",
+        "heading_anchor": "enabling-cloud-conversations",
+        "line_end": 31,
+        "line_start": 31,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:31b36b8be33432cb9eb7fce06b10735c21276d648c80dcb7a7f14beae27efa5b",
+      "claim_id": "sha256:6578a1240ebecd046757328a916459b27cf02616a5a4e13c23318c277f77bcff",
+      "entity": "local-conversation-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "survives-logout-without-cloud-sync",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [
+          "cloud-sync-enabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If personal cloud conversation sync is disabled, local conversation data is lost when you log out",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
         "heading": "Enabling cloud conversations",
         "heading_anchor": "enabling-cloud-conversations",
         "line_end": 31,
@@ -41,12 +128,494 @@
       "source_class": "canonical-doc",
       "topic": "product-behavior",
       "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c239220ae6cfba256e9478ab9e9acb4dddb7049bfa1b29203b274e1d48c61668",
+      "claim_id": "sha256:eba438a95a105eb0d371478696357365b2be151ccc2076fa122e3fe2273f5725",
+      "entity": "cloud-conversation-sync",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "happens-after-each-interaction",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "cloud-sync-disabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp automatically syncs your conversation data after each Agent interaction.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Conversation syncing",
+        "heading_anchor": "conversation-syncing",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9fd8b09349647c893ce6b53cecd0a9265126ebbb30fde1da6a508359c47d5f1f",
+      "claim_id": "sha256:b20081bb5d4a3dddee245a0e5afa5aa6a8b9917935d71d9efb8ee41358103938",
+      "entity": "cloud-conversation-sync",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "live-two-machine-sync",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "changes on one machine do not sync to the other in real time.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Conversation syncing",
+        "heading_anchor": "conversation-syncing",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:134f51c95f49f4a7b36012ac8d43bf502b8d7a42342598dd5bb76cbbb83957ed",
+      "claim_id": "sha256:44fd513ca4f9698f8199ce0511d1f1b2d47b81c288390adb5f9c65a74c1ee5d0",
+      "entity": "cloud-shared-conversation",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "continuing-creates-fork",
+      "qualifiers": {
+        "actors": [
+          "other-conversation-owner"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Continuing creates a fork, giving you a new conversation that starts with the shared context but does not modify the original.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Continuing vs. forking",
+        "heading_anchor": "continuing-vs-forking",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:36dcad08f7a6e4861d1cc95020ca4a7d007365706c317f51fe65c927655c71a6",
+      "claim_id": "sha256:aea736222347708688cb2574494a659ad586521bfdd7a7903e221f8f42a1552e",
+      "entity": "shared-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, shared conversations are visible to anyone on your team.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Creating a share link",
+        "heading_anchor": "creating-a-share-link",
+        "line_end": 79,
+        "line_start": 79,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "team",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1b4c587b8806c840f8d86cfdb056313b526bc258228e08adfdaddebc51f359e2",
+      "claim_id": "sha256:10f0807d99ccb4370c8f57dc52814c5a82baa98ecd3fb31c2f32721dad2b8a8d",
+      "entity": "shared-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "anyone-with-link-needs-auth",
+      "qualifiers": {
+        "actors": [
+          "anyone-with-link"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Anyone with the link** - No authentication required",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Creating a share link",
+        "heading_anchor": "creating-a-share-link",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:908774f057d72c22fb8ec3c7ea8f65c27545662641092e44b1aab2612591bfb3",
+      "claim_id": "sha256:0b844a3aa2382fc2e7b113f2f7f1a7cef1a101fd33609e36b0fdb445a442aebf",
+      "entity": "cloud-agent-run-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "storage-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [
+          "enterprise-self-hosted-storage"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, run data is stored by Warp.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Cloud agent conversations",
+        "heading_anchor": "cloud-agent-conversations",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": "warp-hosted",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cf17787048bba3cf10ca1204ee7fbd43d2f3fae4347c6ffa7299a5a14c1bc114",
+      "claim_id": "sha256:d46a46f0d04ff3daf64ec71ed49a12c0802af3fb485462af395ff066fa43a8dd",
+      "entity": "provider-zdr",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "prevents-cloud-conversation-storage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Provider ZDR does not prevent storage of these conversations.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Cloud agent conversations",
+        "heading_anchor": "cloud-agent-conversations",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6a771ea456db0ee05ab4a4c5c724d4c919518bced2ba2d924ec57b56af2bdebc",
+      "claim_id": "sha256:bf3d0d391f467fde90fd4b5a43438959e8fd0f3803143e435e27e4b137c0467b",
+      "entity": "personal-terminal-cloud-sync",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enterprise-admin-can-disable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise administrators can disable cloud sync for personal Warp Terminal conversations",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Enterprise controls",
+        "heading_anchor": "enterprise-controls",
+        "line_end": 113,
+        "line_start": 113,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:53dcdecb3c702a590f7349e31f297e6521e307cdb0725dd107d51bbde7281a8a",
+      "claim_id": "sha256:f589a494297b53defbeedf9e67cdb82191f1ec21d7335107779ce7b90906b5f8",
+      "entity": "free-cloud-synced-terminal-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "oldest-removed-at-limit",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On Free, Warp removes the oldest cloud-synced copies when you reach your limit to make room for new ones.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Storage limits",
+        "heading_anchor": "storage-limits",
+        "line_end": 122,
+        "line_start": 122,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7ad0ef6d679610b02c7a8b2b41ecc12bc1517111645afb8cc35f4eac4488bf96",
+      "claim_id": "sha256:38bd01186ffef53c35d5e7b42f92386bcc5d0d4b5b71529cf690c826f09d1afe",
+      "entity": "free-cloud-synced-terminal-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "eviction-deletes-local-copy",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Removing a cloud-synced copy doesn't delete the local copy on your device.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Storage limits",
+        "heading_anchor": "storage-limits",
+        "line_end": 122,
+        "line_start": 122,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4dd14a89672d9a34932a9a28ed77f3dc2b5e88cbe4dbd82412d7ab3f7a1aa3aa",
+      "claim_id": "sha256:2bbc14990caa660751df894bfed92641d33a3b3ba2b838311488a15888a05f38",
+      "entity": "conversation-deletion",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "permanent-and-immediate",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When you delete a conversation, it is removed permanently and immediately.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
+        "heading": "Deleting conversations",
+        "heading_anchor": "deleting-conversations",
+        "line_end": 128,
+        "line_start": 128,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
         "normalized": true,
         "type": "boolean"
       }
     }
   ],
-  "page_sha256": "2f7d8ba8a718c490e9b8df3d61d3d5be1464668279381316fc8d636fde4ba8c9",
+  "page_sha256": "689ef601c372de3f6cde249a16b7d0128a9910b032d6aba9dff10afefba1972b",
   "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
   "schema_version": 1
 }
