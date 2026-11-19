@@ -17,13 +17,15 @@ If you have questions, reach out to [privacy@warp.dev](mailto:privacy@warp.dev).
 
 ### Zero Data Retention (ZDR)
 
-Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. Warp's ZDR agreements apply to supported models on every plan when Warp supplies the provider account. Using Warp's provider account is called Warp-managed inference.
+Provider Zero Data Retention (ZDR) is a provider's commitment not to retain prompts and responses. With Warp-managed inference, Warp supplies the provider account.
 
-For requests covered by these agreements, providers don't use your prompts or responses for model training. Some models require provider retention. [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists those models.
+Some models require provider retention. [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists those models. Contact [privacy@warp.dev](mailto:privacy@warp.dev) to confirm coverage for your configuration before sending data that requires ZDR.
 
 Requests through your own provider account follow your provider's terms, not Warp's ZDR agreements. Verify ZDR with your provider for your specific account, model, and configuration.
 
 This includes requests through [personal API keys](/agents/inference/bring-your-own-api-key/), [custom endpoints](/agents/inference/custom-inference-endpoint/), [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), connected provider subscriptions, and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/). Claude Code and Codex requests sent directly to their providers also follow your provider's terms.
+
+With [Claude linked billing](/agents/inference/claude-platform-linked-billing/#how-linked-billing-works), only billing moves to your Claude organization. Requests remain in Warp's organization under Warp's retention settings, including applicable ZDR; your Claude organization's ZDR settings do not transfer. Review the complete organization-settings boundary and [public preview limitations](/agents/inference/claude-platform-linked-billing/#public-preview-limitations) before linking.
 
 For configuration steps and coverage limits, follow the [factory ZDR guidance](/factories/zero-data-retention/) or the [Warp Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal).
 
@@ -72,10 +74,10 @@ For how Warp uses collected data, read the [Privacy Notice](https://www.warp.dev
 
 ### How to disable telemetry and crash reporting
 
-Without the Warp app, Business and Enterprise admins can change [team content collection in the Admin Panel](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). That control is separate from personal analytics and crash preferences. For a personal browser-only opt-out or a plan-locked control, ask [privacy@warp.dev](mailto:privacy@warp.dev) which options are available.
+Without the Warp app, team admins can review [content collection in the Admin Panel](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). Changes depend on your plan and workspace policy. Ask a workspace admin about workspace-locked controls. For a personal browser-only opt-out or a plan-locked control, ask [privacy@warp.dev](mailto:privacy@warp.dev) which options are available. Team content collection is separate from personal analytics and crash preferences.
 
 1. In the Warp app, open **Settings** > **Privacy**.
-2. Toggle off **Help improve Warp** to stop analytics and content collection for service improvement. Review **Send crash reports** separately.
+2. If your organization permits changes, toggle off **Help improve Warp** to stop analytics and eligible content collection for service improvement. Review **Send crash reports** separately.
 3. Review **Store AI conversations in the cloud** for personal Terminal conversation sync. If your organization manages a control, ask an admin to review it.
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)

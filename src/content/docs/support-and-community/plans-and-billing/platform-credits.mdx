@@ -7,10 +7,10 @@ description: >-
 
 Platform usage covers running and managing agents through Warp, including orchestration, integrations, and run tracking. Cloud runs, including [Warp Factories](/factories/) runs, incur charges for billable agent time. Some local runs also incur these charges, depending on the [product and plan billed for the work](#when-platform-charges-apply).
 
-Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
+Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), or eligible Enterprise [Claude linked billing](/agents/inference/claude-platform-linked-billing/).
 
 :::caution
-Personal BYOK and endpoints have [organization-size and plan requirements](/agents/inference/bring-your-own-api-key/). Factory runs use [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) or harness credentials, not keys stored on a member's device.
+Personal BYOK and endpoints have [organization-size and plan requirements](/agents/inference/bring-your-own-api-key/). Factory runs cannot use keys stored on a member's device; see [supported factory inference options](/factories/infrastructure-and-security/#inference-options-for-factory-runs).
 :::
 
 <span id="how-platform-credits-are-measured" />

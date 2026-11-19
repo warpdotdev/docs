@@ -187,17 +187,17 @@ Automatically detects and redacts sensitive information before sending data to L
 
 Configure custom patterns in the Admin Panel to match your organization's secret formats.
 
-{/* TODO(factory-plans): Revisit browser collection controls with the factory plans documentation update. Confirm plan eligibility, team-wide versus individual opt-out scope, and the browser route for customers without Terminal. Keep Factory plan names distinct from Terminal plan names. */}
+{/* TODO: Verify collection-control editability by product and plan against production entitlements and the deployed Admin Panel. */}
 
 <span id="changing-improvement-collection-in-a-browser" />
 <span id="changing-improvement-collection-in-the-admin-panel" />
 
 #### Managing team content collection in the Admin Panel
 
-Business and Enterprise team admins can configure content collection for service improvement without installing Warp Terminal:
+Team admins can review content collection for service improvement without installing the Warp app. Changes depend on your plan and workspace policy:
 
-1. Open the [Admin Panel](https://app.warp.dev/admin/) for the team and go to **Privacy**.
-2. In the "UGC Data Collection" dropdown, choose **Disabled** to stop team content collection, or **Respect User Setting** to defer to individual preferences.
+1. Open the [Admin Panel](https://app.warp.dev/admin/), select your team, and click **Privacy**.
+2. If your plan permits changes and no workspace policy locks the control, open the "UGC Data Collection" dropdown. Choose **Disabled** to stop team content collection, or **Respect User Setting** to defer to individual preferences.
 3. After the update succeeds, reload the page and confirm the selected value persists.
 
 If the control is locked by a workspace policy, ask a workspace admin to review it. If your plan doesn't permit changes, or you need a personal browser-only opt-out, contact [privacy@warp.dev](mailto:privacy@warp.dev) to confirm the available options.
@@ -222,7 +222,7 @@ When enabled, agents understand your code patterns, architecture, and convention
 Use the **Models** page for the controls included in your plan:
 
 * **Enterprise model restrictions** - Admins can enable or disable individual models and configure [BYOLLM routing](/enterprise/enterprise-features/bring-your-own-llm/). Self-serve plans don't include a team-wide model-blocking control.
-* **Business and Enterprise provider credentials** - Configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud Warp Agent runs. Sharing credentials isn't a model restriction.
+* **Provider credentials** - Configure team-managed API keys and endpoints for local and cloud Warp Agent runs on [eligible plans by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility). Sharing credentials isn't a model restriction.
 * **Enterprise custom routers** - Share [routing rules](/agents/inference/custom-routers/#team-synced-routers) with the team. A router's choices are separate from enforced model availability.
 
 **Models with provider-specific data retention requirements**

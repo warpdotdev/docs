@@ -14,7 +14,7 @@ Warp's security philosophy centers on **transparency and developer control**:
 
 * **Complete visibility** - View exactly what telemetry is collected through our [exhaustive telemetry table](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table)
 * **Real-time monitoring** - Use Warp's [Network Log](/support-and-community/privacy-and-security/network-log/) to monitor all network requests in real time
-* **Opt-out controls** - Disable telemetry and crash reporting at any time while retaining full functionality
+* **Collection preferences** - Review analytics, eligible content collection, and crash-reporting controls, subject to organization-enforced settings
 * **Team-level enforcement** - Admins can configure telemetry and data collection policies for the entire organization
 * **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), so security teams can audit the codebase directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the source repository and the security reporting process.
 
@@ -25,6 +25,8 @@ Warp's security philosophy centers on **transparency and developer control**:
 ### Zero Data Retention (ZDR)
 
 Provider ZDR concerns what AI providers retain, not what Warp stores. See the [Warp-wide provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) for its scope and the boundary for requests through your own provider account. [Model choice](/agents/inference/model-choice/#models-requiring-provider-retention) lists the model exceptions.
+
+Claude linked billing moves only billing, not the organization serving requests. Review [which organization's settings apply](/agents/inference/claude-platform-linked-billing/#how-linked-billing-works) and the [public preview limitations](/agents/inference/claude-platform-linked-billing/#public-preview-limitations) before linking.
 
 <span id="warp-analytics-and-improvement-collection" />
 

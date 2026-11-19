@@ -34,14 +34,25 @@ Whether you use the `/feedback` slash command or file an issue manually, a good 
 * **What happened?** Describe the observed behavior in one or two sentences.
 * **What did you expect?** Describe the behavior you expected instead.
 * **How do we reproduce it?** List numbered steps when possible. If you can't reproduce the issue reliably, mention that too.
-* **What version of Warp are you on?** `/feedback` fills this in automatically; for manual reports, copy it from **Settings** > **Account**.
-* **Logs, screenshots, or conversation IDs.** See [Gathering Warp logs](#gathering-warp-logs), [Collecting crash reports on macOS](#collecting-crash-reports-on-macos), or [Gathering AI conversation ID](#gathering-ai-conversation-id) below.
+* **What version of Warp are you on?** For app issues, `/feedback` fills this in automatically. For manual app reports, copy it from **Settings** > **Account** in the Warp app.
+* **Which diagnostics apply?** For browser-only factory issues, follow [Reporting factory and browser issues](#reporting-factory-and-browser-issues). For app issues, see [Gathering Warp logs](#gathering-warp-logs), [Collecting crash reports on macOS](#collecting-crash-reports-on-macos), or [Gathering AI conversation ID](#gathering-ai-conversation-id).
 
 See the [Slash Commands reference](/agents/capabilities/slash-commands/) for the full list of commands available in Warp.
 
+## Reporting factory and browser issues
+
+Use the [support route for your account](#subscribers-and-enterprise) or file a public issue without credentials or sensitive transcripts. Include:
+
+* A link to the affected run or work item, and the factory involved. See [Inspect runs](/factories/factory-dashboard/#inspect-runs) to find the run.
+* What happened, what you expected, steps to reproduce, and the time of failure.
+* Visible error text and relevant context that helps support identify the run.
+* Browser and OS details if the problem is browser-specific.
+
+A browser-only report doesn't require a Terminal block, Warp app version, or local app logs. Use the app diagnostics below only if the Warp app is involved. Send [security and privacy questions](#sending-warp-feedback) through the private email routes.
+
 ## Gathering Warp logs
 
-Retrieve Warp's logs by following the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
+For issues involving the Warp app, retrieve its logs using the instructions for your platform below. Locate the log file and attach it to your GitHub issue or email.
 
 :::note
 Warp's logs and crash reports _**do not**_ contain any console input or output. See more on how we handle [Crash Reports and Telemetry](/support-and-community/privacy-and-security/privacy/#what-telemetry-data-does-warp-collect-and-why).
@@ -257,7 +268,7 @@ Collect a sample using the steps for your platform and attach it to a new [GitHu
 
 ## Gathering AI conversation ID
 
-To gather the conversation ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy conversation ID", then paste that into the [bug report](/support-and-community/troubleshooting-and-support/sending-us-feedback/#sending-warp-feedback) that you submit so that our team can investigate the issue.
+In the Warp app, right-click the affected agent conversation block and click **Copy conversation ID**. Paste it into your [bug report](#sending-warp-feedback). For a browser-only factory issue, include the [affected run or work-item link](#reporting-factory-and-browser-issues) instead.
 
 Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the conversation ID for the bug report.
 
