@@ -76,21 +76,21 @@ The automation editor doesn't change execution settings. Worker-targeted automat
 
 ## Edit definitions in the Factory definition tab
 
-Edit [definition files](/factories/factory-as-code/) according to their host:
+**Factory definition** is the factory dashboard's view of the definition files that [definitions as code](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
 
 * **Hosted by Warp** - Browse and edit the definition files, or clone the repository to work locally. Saving in the editor commits changes to the selected branch.
 * **Hosted by GitHub** - Edit the definition through pull requests in your repository; **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
-Worker proposals appear on [Home](/factories/factory-home/) under **Waiting on you**. Open the review to comment on the diff, send feedback with **Request changes**, or merge with **Approve & merge**.
+When a worker proposes a change to a definition hosted by Warp, a spec review for the branch appears on [Home](/factories/factory-home/) when the **Waiting on you** filter is selected. Open the spec review to comment on the diff, select **Request changes** to send feedback to the worker, or select **Approve & merge** to merge the change.
 
 ### Clone a Warp-hosted definition
 
 You need Git and a Warp account with factory access.
 
-1. In **Factory definition**, open the actions menu beside **Save**, then click **Clone repository**.
+1. In **Factory definition**, open the actions menu beside **Save**, then click **Clone repository** to open the clone dialog.
 2. Install the [{VARS.WARP_CLI}](/agents/cli/quickstart/#1-install-the-warp-agent-cli). Run `warp` and sign in through the browser, not with a Warp API key.
-3. Run the dialog's authentication setup in bash or zsh once per machine. It replaces credential helpers for that host with a helper that obtains short-lived credentials from the signed-in CLI.
+3. Run the authentication setup from the **Clone repository** dialog in bash or zsh once per machine. It replaces credential helpers for that host with a helper that obtains short-lived credentials from the signed-in CLI.
 4. Run the dialog's clone command. Enter the new directory.
 
 ### Push and review a branch
@@ -114,8 +114,8 @@ Git pushes can't update the protected production branch. Other branches don't de
 
    Replace `PATH_TO_CHANGED_FILE` with each file you edited.
 
-3. In **Factory definition**, open the branch selector. Search for `update-review-instructions`, then choose that branch. **Save** commits further edits to that branch. The production branch is marked "Production".
-4. In the actions menu, click **Create PR** to open a review against production. The action then becomes **View PR**.
+3. In **Factory definition**, open the branch selector. Search for your feature branch name (`update-review-instructions` in this example), then choose that branch. **Save** commits further edits to that branch. The production branch is marked "Production".
+4. In the actions menu, click **Create PR** to open a review against production.
 5. Inspect the diff and merge checks. If authorized, click **Approve & merge**, then confirm.
 
 ## Score and benchmark
