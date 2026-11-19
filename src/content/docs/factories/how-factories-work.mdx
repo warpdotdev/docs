@@ -9,7 +9,7 @@ sidebar:
 
 Warp Factories provides the infrastructure for development workflows you define and configure. Your [definition files](/factories/factory-as-code/) connect repositories, configured agents called [workers](/factories/factory-agents/), and automations. Use Scorers to check runs against criteria you define, and benchmarks to compare configurations on the same tasks. See [Measure and improve](/factories/measure-and-improve/).
 
-The foreman drives the workflow and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](/factories/blueprints/) defines its stages, worker assignments, procedures, transitions, and human gates. Those workflow instructions take precedence over stage lists in worker prompts.
+The foreman drives the workflow and communicates through the tool where work started, such as Slack or Linear. A [Blueprint](/factories/blueprints/) defines its stages, worker assignments, procedures, transitions, and gates. Those workflow instructions take precedence over stage lists in worker prompts.
 
 A work item is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many workers contribute to it along the way.
 
@@ -76,7 +76,7 @@ A factory's workers, automations, runners, scorers, skills, and webhooks are con
 
 ## Related pages
 
-* [About Blueprints](/factories/blueprints/) - Choose stages, transitions, and human gates
+* [About Blueprints](/factories/blueprints/) - Choose stages, transitions, and gates
 * [Sizing a factory](/factories/#sizing-a-factory) - Which repositories belong in one factory.
 * [About factory workers](/factories/factory-agents/) - What each default worker does and how to configure it.
 * [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory.
