@@ -56,7 +56,7 @@ For local runs, a permitted personal provider key normally takes precedence over
 
 ### Cloud agents
 
-[Cloud Warp Agent runs](/platform/) can use your team's keys and endpoints when you select a configured provider model or endpoint. **Auto** uses Warp-provided inference; see [billing behavior](#billing-behavior). Personal keys and endpoints stored on a member's device aren't copied to cloud runs.
+[Cloud Warp Agent runs](/platform/) can use team keys and endpoints when you select a configured model or endpoint. **Auto** doesn't use those keys but preserves [Claude linked billing](#billing-behavior). Personal credentials on a member's device aren't copied to cloud runs.
 
 ## Configuring team-managed keys and endpoints
 
@@ -97,7 +97,7 @@ This doesn't disable member-managed keys and endpoints. Review that separate set
 
 * **Provider-billed inference** - Your provider or endpoint bills team-routed inference directly rather than consuming Warp-provided inference usage.
 * **Claude linked billing** - When enabled for the team, eligible Claude requests use the linked Claude organization's billing instead of personal or team Anthropic keys. See [linked-billing fallback and charges](/agents/inference/claude-platform-linked-billing/#managing-spending).
-* **Auto uses Warp-provided inference** - **Auto** consumes Warp usage. Select a specific model or endpoint to use your team's provider. [Custom routers](/agents/inference/custom-routers/) apply provider keys after choosing a model; local runs follow [member key precedence](#member-key-precedence). Routers cannot target endpoint models.
+* **Auto** - Doesn't use personal or team-managed API keys. Eligible Claude requests still use team-enabled linked billing. Select a specific model or endpoint to use team credentials. [Custom routers](/agents/inference/custom-routers/) apply provider keys after choosing a model; local runs follow [member key precedence](#member-key-precedence). Routers cannot target endpoint models.
 * **Other Warp charges remain** - Customer-supplied inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/#when-platform-charges-apply) according to the product and plan billed for the run. Cloud runs on Warp-hosted compute also incur [compute charges](/support-and-community/plans-and-billing/credits/#compute-usage).
 
 External inference bills are not fully represented in Warp's totals. See [usage and billing](/support-and-community/plans-and-billing/credits/#charges-and-estimates) for cost-reporting limitations.
