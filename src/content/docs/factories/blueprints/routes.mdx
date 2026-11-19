@@ -4,7 +4,9 @@ description: >-
   Configure entry points, ordered conditions, and revision loops in a Warp Factories Blueprint, then check the paths with concrete requests.
 ---
 
-Transitions connect stages and define the conditions for moving between them. For an issue-to-PR workflow, review findings can return to implementation while an accepted change moves to human handoff.
+A transition tells the worker coordinating a Blueprint which stage to run next. You configure each stage's destination in `to`, either as one unconditional next stage or as a list of destinations with conditions. These paths can run stages in sequence, skip unnecessary work, return work for revision, or finish the workflow.
+
+For example, after an implementation stage returns a PR and check results, `to: review` sends work to the review stage. The coordinator gathers the review stage's declared inputs, including that PR and its tested head, and runs review with its assigned worker. Review's outgoing conditions then choose between returning findings to implementation and finishing with an accepted change.
 
 {/* VERIFY: Apply and exercise the transition examples, including overlapping conditions, unmatched outcomes, same-PR revisions, and existing-run definition retention before publication. */}
 
@@ -28,7 +30,7 @@ start:
       when: The request is fully defined.
 ```
 
-The worker driving the workflow judges these prose conditions and takes the first match. Put the more specific condition first. Conditions are not Boolean expressions evaluated by a rules engine.
+The worker driving the workflow judges these prose conditions and takes the first match. Put the more specific condition first. Conditions are not Boolean expressions evaluated by a rules engine. They can refer to the incoming request, a stage's reported results, or a named gate's answer, such as plan approval or requested changes.
 
 ### Send different requests to different stages
 
