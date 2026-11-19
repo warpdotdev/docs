@@ -9347,6 +9347,11 @@ components:
           description: Human-readable title for the run
         state:
           $ref: '#/components/schemas/RunState'
+        waiting_on_run_ids:
+          type: array
+          items:
+            type: string
+          description: Runs that this run is waiting to receive messages from. Present only in WAITING state.
         execution_location:
           $ref: '#/components/schemas/RunExecutionLocation'
         prompt:
@@ -9900,6 +9905,9 @@ components:
           required:
             - status
           properties:
+            artifact_uid:
+              type: string
+              description: Artifact identifier for authenticated inline preview
             status:
               type: string
               description: |
@@ -10312,6 +10320,7 @@ components:
         - PENDING
         - CLAIMED
         - INPROGRESS
+        - WAITING
         - SUCCEEDED
         - FAILED
         - BLOCKED
@@ -10323,6 +10332,7 @@ components:
         - PENDING: Run is being prepared
         - CLAIMED: Run has been claimed by a worker
         - INPROGRESS: Run is actively being executed
+        - WAITING: Run is waiting for messages from waiting_on_run_ids
         - SUCCEEDED: Run completed successfully
         - FAILED: Run failed
         - BLOCKED: Run is blocked (e.g., awaiting user input or approval)
@@ -15277,6 +15287,13 @@ components:
         page_info:
           $ref: '#/components/schemas/BenchmarkPageInfo'
   securitySchemes:
+    firebaseIDToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Firebase ID token
+      description: |
+        Authentication via a Firebase ID token in the Authorization header.
+        Checks token revocation and whether the account is disabled.
     bearerAuth:
       type: http
       scheme: bearer
