@@ -8,18 +8,18 @@ prev: false
 next: false
 ---
 
-Use Warp Factories to scope work to one product in a shared repository.
+Configure Warp Factories to work on one product in a shared repository. The factory tests affected packages, including dependents of shared code, and requests the shared-package owners' review before a person marks those PRs ready.
 
-Adapt the complete Blueprint in [`24-monorepo-product`](https://github.com/warpdotdev/warp-factory-examples/tree/21d3936ad7bed1af2748811e670c19d2a1388a4b/examples/24-monorepo-product). In the examples below, replace `acme/monorepo`, product directory `apps/web`, shared packages `packages/*`, and commands with your repository's equivalents.
+Adapt [`24-monorepo-product`](https://github.com/warpdotdev/warp-factory-examples/tree/ecb6a650799aeef0ebba739f962fa895df87d67e/examples/24-monorepo-product). Replace `acme/monorepo`, product directory `apps/web`, shared packages `packages/*`, and commands with your repository's equivalents.
 
 ## How a monorepo factory works
 
 The factory checks out the whole repository. Its intake label names the product, and a shared skill defines its directory, shared packages, and owners. These instructions scope the work; they do not restrict repository access. See [factory boundaries](/factories/guides/structuring-your-factory/) for when to use one factory for the whole repository.
 
-Configure these rules in the Blueprint's `scope`, `implement`, and `review` stages:
+Define scope, checks, and owner review in the Blueprint's `scope`, `implement`, and `review` stages:
 
 * **Scoped tasks** - The foreman checks each request's scope before dispatching work. Work outside the product gets one comment naming the directory and its owners, and no branch.
-* **Shared-dependency checks** - Before testing a shared edit, the implement worker installs the affected dependents and their dependencies. It tests every affected package and lists shared edits in the pull request's "Shared packages" section. The review worker checks that list and the results against the diff.
+* **Shared-dependency checks** - Before testing a shared edit, the implementer installs affected dependents and their dependencies. It tests every affected package and lists shared edits in the pull request's "Shared packages" section. The reviewer checks the list and results against the diff.
 * **Owner involvement** - A pull request that touches a shared package opens as a draft with review requested from the owning team in `CODEOWNERS`. A person on that team marks it ready; the factory never does.
 
 | Part | Recommendation |
@@ -42,7 +42,7 @@ Configure these rules in the Blueprint's `scope`, `implement`, and `review` stag
 1. Create a product-specific label, such as `factory-ready:web`.
 
    For a labeled event, the added label must match a listed value. Combine product and approval in one label. Use only one product label per issue; applying two can start work in two factories.
-2. Configure the intake automation to match only that label. The `factory:<alias>` label applied by the foreman should not trigger this automation.
+2. Configure the intake automation to match only that label. Keep the foreman's `factory:<alias>` routing label out of this trigger's label filter.
 
    ```markdown title="automations/web-issue-labeled/automation.md"
    ---
@@ -69,7 +69,7 @@ Configure these rules in the Blueprint's `scope`, `implement`, and `review` stag
    See [factory skills](/factories/factory-skills/) for placement.
 4. In the Blueprint's `scope` stage, require a scope check before implementation:
    * Continue for work in the product directory.
-   * Warn the implement worker when a change is likely to affect a shared package.
+   * Tell the implementer when a change is likely to affect a shared package.
    * Decline work in another product or work primarily on shared packages, with one explanatory comment and no branch.
 
 :::note
@@ -98,7 +98,7 @@ A matching label starts a run even when the issue describes out-of-scope work. T
        dockerImage: node:22-bookworm
    ```
 
-2. Preserve the `|| echo "Warning: ..." >&2` ending on each setup command. A nonzero exit status fails setup before the worker starts. In the shared skill, require the implement worker to retry failed installs before testing and report a blocker if installation still fails.
+2. Preserve the `|| echo "Warning: ..." >&2` ending on each setup command. A nonzero exit status stops setup before the worker starts. In the shared skill, require the implementer to retry failed installs before testing and report a blocker if installation still fails.
 
    The scoped install does not prepare other products that depend on shared packages. For a diff touching `packages/*`, require `pnpm install --frozen-lockfile` to succeed before tests or typechecks. This prepares those dependents and their dependencies without permitting edits to them. Product-only changes keep the scoped install.
 3. Choose an image that includes `git`, such as `node:22-bookworm` rather than `node:22-bookworm-slim`. The `[origin/main]` test filter requires `git`.
@@ -133,7 +133,7 @@ A matching label starts a run even when the issue describes out-of-scope work. T
 4. In the review stage, require the shared-impact check before other review:
    * Confirm every changed path outside the product appears in "Shared packages".
    * Treat a missing draft status, review request, successful expanded install, or dependent-package check results as a blocking finding when shared packages change.
-5. Declare product scope and expected shared edits as `scope` outputs and implementation inputs. Pass the PR and affected-package results to review. Return findings to the same implementation conversation; hand off shared edits as drafts for the owning team's decision.
+5. Declare product scope and expected shared edits as `scope` outputs and implementation inputs. Pass the PR and affected-package results to review. Return corrections to the same implementation conversation and PR, then independently review the new head. Hand off shared edits as drafts for the owning team's decision.
 6. Apply and validate the factory definition:
    * **Warp-managed factory:** Save the edits in the factory dashboard.
    * **GitHub-backed factory:** Merge the edits into the production branch.
@@ -162,19 +162,19 @@ A matching label starts a run even when the issue describes out-of-scope work. T
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/monorepo-factory.md and adapt
-https://github.com/warpdotdev/warp-factory-examples/tree/21d3936ad7bed1af2748811e670c19d2a1388a4b/examples/24-monorepo-product
-for my Blueprint factory for
-OWNER/REPO. Put scoping, implementation, review, and handoff in its stages,
-with product scope, affected-package results, and the PR passed between them.
-Return findings to the same implementation conversation and PR.
-Keep this shape: one repository; a scope stage limited to one product directory;
-an implementer that installs affected dependents and their dependencies
-before testing a shared edit and lists those edits in the pull request;
-a reviewer that checks the list and verification against the diff; a runner
-whose initial setup installs only the product's workspace and dependencies;
-and the escalation rule that a pull request touching
-shared packages opens as a draft with review requested from the owning
-team.
+https://github.com/warpdotdev/warp-factory-examples/tree/ecb6a650799aeef0ebba739f962fa895df87d67e/examples/24-monorepo-product
+for my repository, OWNER/REPO. Define scoping, implementation, review, and
+handoff as Blueprint stages. Pass product scope, affected-package results,
+and the PR between them.
+Correct findings in the same implementation conversation and PR, then
+independently review the revised head.
+Use one repository and limit the scope stage to one product directory.
+Require the implementer to install affected dependents and their dependencies
+before testing a shared edit and list shared edits in the PR. Require the
+reviewer to check that list and verification against the diff. Limit the
+runner's initial install to the product workspace and dependencies.
+Keep PRs touching shared packages draft and request the owning team's review.
+Only a person on that team can mark those PRs ready.
 
 Replace the placeholders: acme/monorepo with OWNER/REPO; apps/web with
 PRODUCT_DIR; packages/* with SHARED_PACKAGES_GLOB; acme/platform with the
@@ -182,14 +182,13 @@ GitHub team that owns the shared packages (check CODEOWNERS first);
 factory-ready:web with the label I will apply; and the pnpm commands with
 the commands for its scoped initial install, expanded install before shared
 checks, and tests and typechecks of changed packages and their dependents.
-Validate the definition before you
-open a pull request, never merge, and tell me which labels, teams, and
-access I still have to create or grant.
+Validate the definition before opening a pull request. Never merge.
+Tell me which labels, teams, and access I still have to create or grant.
 ```
 
 ## Troubleshooting
 
-* **Setup exceeds 30 minutes or fails the sandbox:** The install may cover the whole repository, or a setup command may exit with a nonzero status. Filter installation to the product's workspace and retain the example's warning handlers so the implement worker can retry failed setup commands.
+* **Setup exceeds 30 minutes or fails the sandbox:** The install may cover the whole repository, or a setup command may exit with a nonzero status. Filter installation to the product's workspace and retain the example's warning handlers so the implementer can retry failed setup commands.
 * **The foreman rejects an issue belonging to the product:** The skill's scope may not match the repository, or the issue may omit the relevant directory. Correct `skills/monorepo-ownership/SKILL.md` and name the product directory in the issue.
 * **GitHub rejects a review request for a shared edit:** The team may lack access, or its name may be wrong. Check the `org/team` slug and repository access. Code-owner teams need write access; fallback reviewers need at least read access.
 * **A shared edit shows only the product's tests:** The affected-package filter may use the wrong base branch, or workspace dependencies may be missing. Compare against the default branch and declare the shared packages as workspace dependencies so the tool includes their dependents.
