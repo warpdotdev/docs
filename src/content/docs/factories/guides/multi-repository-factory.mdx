@@ -10,7 +10,7 @@ next: false
 
 Use Warp Factories to coordinate work across repositories and deliver linked pull requests for a person to merge in a documented order. Cross-repository changes are not atomic: each repository has its own branch and pull request.
 
-Start with the Blueprint from [factory setup](/factories/quickstart/) and add the related repositories. Use [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) for repository and runner settings, not as a replacement for that workflow. Replace the illustrative `acme/api-service` and `acme/webapp` repositories with yours.
+Start with the Blueprint from [factory setup](/factories/quickstart/) and add the related repositories. Use [`single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/single-repo-quickstart) for repository and runner settings, not as a replacement for that workflow. Replace the illustrative `acme/api-service` and `acme/webapp` repositories with yours.
 
 ## How a change spans repositories
 
@@ -154,7 +154,7 @@ To revert the change, reverse the order: revert the consumer first, then the pro
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/multi-repository-factory.md and adapt
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/single-repo-quickstart
 for repository and runner settings in my existing Blueprint factory.
 The repository others depend on is OWNER/PROVIDER; its consumers are
 CONSUMER_LIST. Replace acme/api-service and acme/webapp everywhere they

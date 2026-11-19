@@ -10,7 +10,7 @@ next: false
 
 Use Warp Factories to coordinate changes to services that share a contract and an owner. Workers check the contract files in each repository, open one PR per changed service, and report the order in which a person must merge them. They do not test a live deployment.
 
-Adapt the complete Blueprint in [`25-related-services`](https://github.com/warpdotdev/warp-factory-examples/tree/ecb6a650799aeef0ebba739f962fa895df87d67e/examples/25-related-services). The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their names, paths, and commands with yours.
+Adapt the complete Blueprint in [`related-services`](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/related-services). The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their names, paths, and commands with yours.
 
 ## How a microservices factory is organized
 
@@ -55,7 +55,7 @@ See [coordinating changes across multiple repositories](/factories/guides/multi-
      runner: linux-services
    ```
 
-2. Define each repository's role in the Blueprint's `scope` prompt, as example 25 does. If you move shared instructions to a [skill](/factories/factory-skills/), require the stage to read it:
+2. Define each repository's role in the Blueprint's `scope` prompt, as the related-services example does. If you move shared instructions to a [skill](/factories/factory-skills/), require the stage to read it:
    * Identify the contract provider and its consumers.
    * Identify which services a request affects, order changes from provider to consumer, and decline work outside the factory.
 3. Create the `factory-ready` label in every service repository. GitHub labels are configured separately for each repository.
@@ -168,7 +168,7 @@ Keep the example's single advisory contract review. Unambiguous findings go thro
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/microservices-factory.md and adapt
-https://github.com/warpdotdev/warp-factory-examples/tree/ecb6a650799aeef0ebba739f962fa895df87d67e/examples/25-related-services
+https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/related-services
 for my factory.
 The provider repository is OWNER/PROVIDER and its contract file is
 CONTRACT_PATH. The consumer

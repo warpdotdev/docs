@@ -10,7 +10,7 @@ next: false
 
 Use Warp Factories to coordinate frontend and backend changes that ship together. Workers run the app's checks and verify user-facing changes in a browser.
 
-Start with the Blueprint from [factory setup](/factories/quickstart/). Adapt repository settings from [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) and the verifier's resources from [`05-ui-verification`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification), keeping your workflow in the Blueprint.
+Start with the Blueprint from [factory setup](/factories/quickstart/). Adapt repository settings from [`single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/single-repo-quickstart) and the verifier's resources from [`ui-verification`](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/ui-verification), keeping your workflow in the Blueprint.
 
 ## How a web application factory is organized
 
@@ -22,7 +22,7 @@ For user-facing changes, a verification worker builds and starts the app, exerci
 
 | Part | Recommendation |
 | --- | --- |
-| Trigger | A maintainer applies `factory-ready` to an issue, as in `01-single-repo-quickstart` |
+| Trigger | A maintainer applies `factory-ready` to an issue, as in `single-repo-quickstart` |
 | Repositories | The app's repository, or the frontend and backend repositories that ship together |
 | Workers | Foreman, implement, and review, plus a verification worker on the Warp Agent harness |
 | Skills | One shared skill with the app layout, per-area commands, the start command, and sample data |
@@ -109,7 +109,7 @@ One implement worker can serve both areas when it knows where each lives and how
    * Allocate enough CPU and memory for builds and the running app.
    * Add dependency installation commands to `setupCommands`.
 
-   The `05-ui-verification` example uses `node:22-bookworm-slim`, 4 vCPUs, and 8 GB of memory. The sandbox provides the browser regardless of image.
+   The `ui-verification` example uses `node:22-bookworm-slim`, 4 vCPUs, and 8 GB of memory. The sandbox provides the browser regardless of image.
 
    ```yaml title="runners/linux-app.yaml"
    description: Builds and serves the web app. The image provides Node; the sandbox provides the browser.
@@ -129,7 +129,7 @@ One implement worker can serve both areas when it knows where each lives and how
    Setup commands start in `/workspace`, where the factory checks out its repositories. Each command has a 30-minute limit, and a nonzero exit status fails setup before the worker starts. The warning handler lets the worker retry a failed install. See [runners](/factories/runners/).
    :::
 
-2. Reuse your verification worker, keeping its existing file. If you need a new worker, preserve the definition's [root](/factories/factory-as-code/#directory-structure): create `workers/verify/worker.md` in a `workers/` tree or `agents/verify/agent.md` in an `agents/` tree. Adapt the verifier in `05-ui-verification` without adding a second root:
+2. Reuse your verification worker, keeping its existing file. If you need a new worker, preserve the definition's [root](/factories/factory-as-code/#directory-structure): create `workers/verify/worker.md` in a `workers/` tree or `agents/verify/agent.md` in an `agents/` tree. Adapt the verifier in `ui-verification` without adding a second root:
    * Set `agentType: VERIFY`, `model: auto`, and `workerHost: warp`.
    * Provide a skill with the app's start command, readiness URL, sample data, and visible states to capture.
    * If sign-in is required, configure a test account through [factory secrets](/factories/secrets/) and document its use in the skill. Do not use production credentials or customer data. Writing instructions does not grant access.
@@ -191,9 +191,9 @@ One implement worker can serve both areas when it knows where each lives and how
 Read https://docs.warp.dev/factories/guides/web-application-factory.md and
 configure my existing Blueprint factory for the web application in OWNER/REPO.
 Adapt repository and runner settings from
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/single-repo-quickstart
 and the verification worker's resources from
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification.
+https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/ui-verification.
 Keep my definition's existing workers/ or agents/ root and worker filenames.
 Put worker-scoped skills beside the worker file. Do not mix roots when
 adapting the examples.

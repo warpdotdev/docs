@@ -6,6 +6,8 @@ description: >-
 
 Use a README improvement to test planning, approval, and revision in Warp Factories before changing application code. A [Blueprint](https://docs.warp.dev/factories/blueprints/) defines the stages and gates that wait for your answers. [Workers](https://docs.warp.dev/factories/factory-agents/) are the agents assigned to those stages: they propose, implement, and review the change on one draft PR. You approve the committed spec and decide whether to merge.
 
+For smaller definitions with inline stage procedures, inspect the [linear workflow](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/blueprint-linear), [conditional routing and revision loop](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/blueprint-revision-loop), or [human decision gate](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/blueprint-human-gate).
+
 {/* VERIFY: Confirm public Blueprint availability and live setup-to-revision behavior before making this exercise runnable or publishing it. */}
 
 ## Prerequisites
@@ -36,15 +38,15 @@ Use the pinned starting commit below. Its README does not yet document the valid
 
 ## 2. Copy and configure the Blueprint definition
 
-Copy the [issue-to-PR example](https://github.com/warpdotdev/warp-factory-examples/tree/ecb6a650799aeef0ebba739f962fa895df87d67e/examples/02-sdlc-issue-to-pr) into the definition repository. Keep the work fork at its starting commit.
+Copy the [issue-to-PR example](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/sdlc-issue-to-pr) into the definition repository. Keep the work fork at its starting commit.
 
 From a directory outside your work fork, run:
 
 ```bash
 git clone https://github.com/warpdotdev/warp-factory-examples.git blueprint-source
-git -C blueprint-source checkout --detach ecb6a650799aeef0ebba739f962fa895df87d67e
+git -C blueprint-source checkout --detach 6d496241410e26f98d125166d020909bc3124148
 git clone DEFINITION_REPO_URL blueprint-definition
-cp -R blueprint-source/examples/02-sdlc-issue-to-pr/. blueprint-definition/
+cp -R blueprint-source/examples/sdlc-issue-to-pr/. blueprint-definition/
 ```
 
 Replace `DEFINITION_REPO_URL` with your separate, empty definition repository's clone URL. Keep its `.git` directory. Connect the directory containing the copied `factory.yaml` when you apply the definition.
@@ -86,7 +88,7 @@ Before sending work, confirm that the applied factory has your fork, the intende
 
    ```text title="Issue request"
    In the root README, document how to validate only the SDLC example with
-   python3 scripts/validate_factory_files.py examples/02-sdlc-issue-to-pr.
+   python3 scripts/validate_factory_files.py examples/*sdlc-issue-to-pr
    Explain that exit code 2 means validation did not run and is not a pass.
    Keep implementation changes in README.md; the committed specification is
    the only other allowed file. Propose a short plan and wait for my approval

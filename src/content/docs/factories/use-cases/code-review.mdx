@@ -88,7 +88,7 @@ The Blueprint sends the pull request to a review [worker](/factories/factory-age
 
    The optional `skip-factory-review` label excludes a pull request when the event fires. For bot-authored events, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
-   The [`04-code-review-only` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) has reusable review instructions, but its single-agent definition is not this Blueprint workflow. Keep the separate review stage, `pull_request_ready` trigger, and `skip-factory-review` exclusion above.
+   The [`code-review-only` example](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/code-review-only) has reusable review instructions, but its single-agent definition is not this Blueprint workflow. Keep the separate review stage, `pull_request_ready` trigger, and `skip-factory-review` exclusion above.
 
    </TabItem>
    <TabItem label="GitLab">
@@ -136,7 +136,7 @@ The Blueprint sends the pull request to a review [worker](/factories/factory-age
 Read https://docs.warp.dev/factories/use-cases/code-review.md and configure
 my factory to review pull requests in OWNER/REPO targeting BASE_BRANCH.
 Use this page's review and foreman-publication Blueprint stages. Consult
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only
+https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/code-review-only
 for review instructions, but retain this page's trigger and opt-out label
 rather than copying the example's single-agent setup unchanged.
 Keep my existing workers/ or agents/ root and worker filenames. Put
