@@ -1,164 +1,226 @@
 ---
-title: Team Admin Panel
+title: Admin Panel
 description: >-
-  Centralized management for team administrators to configure workspace
-  settings enforced across all team members.
+  Open the Warp Admin Panel to manage team or workspace settings, check plan
+  restrictions, and configure shared controls.
+sidebar:
+  label: Admin Panel
 ---
+import { VARS } from '@data/vars';
 
-The Admin Panel gives team administrators centralized control over organization-wide Warp settings, including agent autonomy, privacy controls, billing limits, codebase indexing, and sharing policies. Settings configured in the Admin Panel are enforced across all team members and override individual preferences.
+Use the browser-based [Warp Admin Panel](https://app.warp.dev/admin/) to manage team or workspace membership, billing, and shared configuration.
 
-## What is the Admin Panel?
+Your [role](/knowledge-and-collaboration/roles-and-permissions/) determines administrative access; your plan and workspace policies determine editable settings.
 
-The [Admin Panel](https://app.warp.dev/admin/) provides team administrators with centralized control over organization-wide settings in Warp. It allows you to manage workspace settings that are enforced across all members of your team.
-
-:::note
-Admin Panel access is restricted to team administrators. Right now, only the creator of a team is the designated admin. If your admin has set up styles that override user preferences, you will not be able to control them inside of Warp, and you'll see a note that your admin has configured this setting.
-:::
-
-In multi-team workspaces, workspace admins configure supported settings across all teams. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
-
-**Key features:**
-
-* **AI Settings** - Control agent autonomy, permissions, and allowlists across your team
-* **Privacy Controls** - Configure data collection and enterprise secret redaction
-* **Billing Management** - Set spending limits and manage usage-based pricing
-* **Code Settings** - Control codebase indexing and context features
-* **Sharing Policies** - Manage link sharing and collaboration permissions
+<span id="what-is-the-admin-panel" />
 
 ## Accessing the Admin Panel
 
-Team administrators can access the Admin Panel directly from the [Warp Admin Panel](https://app.warp.dev/admin/).
+### For team admins
 
-<figure>
-![Admin Panel main interface with sections for AI, privacy, billing, code, and sharing settings](../../../assets/terminal/admin-panel-overview.png)
-<figcaption>Admin Panel main interface.</figcaption>
+1. Open the [Admin Panel](https://app.warp.dev/admin/) in a browser and sign in.
+2. Confirm the selected team or workspace before changing a setting.
+3. Open the section for the setting you want to change.
+
+In the {VARS.FACTORY_WEB_APP}, admins can also open the account menu and click **Admin panel**. See [Opening the Admin Panel](/factories/managing-plans-and-billing/#opening-the-admin-panel) for the factory billing route.
+
+<figure style={{ maxWidth: "563px" }}>
+![Admin Panel with AI, privacy, code, billing, and sharing settings](../../../assets/terminal/admin-panel-overview.png)
+<figcaption>The Admin Panel groups shared configuration by topic.</figcaption>
 </figure>
+
+### For team members
+
+Team members see enforced settings in their personal Warp Settings. A disabled control can show "Your organization has configured this setting." Ask the appropriate team or workspace admin to review it.
 
 ## How settings enforcement works
 
-The Admin Panel uses a tier-based policy system to determine which settings administrators can control:
+Being an admin does not make every setting editable. In Enterprise workspaces, workspace admins can enforce supported settings across teams or let each team decide. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
 
-### Toggleable vs. fixed settings
+<span id="toggleable-vs-fixed-settings" />
+<span id="setting-inheritance" />
+<span id="user-experience" />
+<span id="testing-before-enforcement" />
 
-**Toggleable settings** can be modified by team administrators. These appear as dropdown menus with options like:
+### Setting enforcement levels
 
-* Enabled/Disabled for boolean settings
-* Specific autonomy levels for AI settings
-* Respect User Setting to allow individual control
+| Setting state | What it means |
+| --- | --- |
+| Organization enforced | Members cannot override the configured value |
+| Respect User Setting | Individual members control their own preference |
+| Tier restricted | The plan does not permit changing the control |
 
-**Fixed settings** are determined by your billing tier and cannot be changed. These appear with a message: "Configuring this setting is not available on your plan."
+For supported workspace settings, **Respect Team Setting** delegates the choice to the team. Enforced values are locked for team admins.
 
-### Setting inheritance
-
-When administrators configure organization-wide settings:
-
-1. **Organization enforced** - Setting applies to all team members regardless of individual preferences
-2. **Respect user setting** - Allows individual team members to control the setting themselves
-3. **Tier restricted** - Setting is locked to default values based on billing plan
-
-### User experience
-
-:::note
-Any changes made in the Admin Panel can take effect immediately for all team members. Consider testing settings in Warp before applying organization-wide policies.
-:::
-
-When organization settings override individual preferences:
-
-* Users see their personal settings grayed out
-* A message indicates "your organization has configured this setting"
-* Users cannot modify settings that are organizationally enforced
+Test policies with an approved group before broader enforcement. Confirm the selected scope before saving.
 
 ## Plan limitations
 
-Available controls depend on your plan. A locked setting shows "Configuring this setting is not available on your plan." For plan guidance, see [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/); for current offerings, see [Warp pricing](https://www.warp.dev/pricing).
+<span id="free-tier" />
+<span id="business-plans" />
+<span id="enterprise-plans" />
+
+A plan-locked setting shows "Configuring this setting is not available on your plan." Review [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) for the distinction between Terminal subscriptions and factory plans.
+
+See [Managing admins](/knowledge-and-collaboration/roles-and-permissions/#managing-admins) for multiple-admin availability by product and plan.
+
+Warp Factories plan differences include:
+
+| Plan | Data controls and usage visibility |
+| --- | --- |
+| Start | Does not include Scale's shared data controls or per-user team usage reporting |
+| Scale | Admins control content collection, cloud conversation storage, and telemetry collection; admins see per-user team usage totals with unlimited history, while non-admins see only their own usage |
+| Enterprise | Adds enforced secret redaction, a control to restrict direct API inference to the US, and customer-hosted data storage; usage reporting includes per-user and cost-type breakdowns, including workspace platform usage |
+
+The direct API inference control is not a guarantee that all data stays in the US. For customer-hosted run data, see [Self-hosted data storage](/factories/self-hosting/data-storage/).
 
 ## Admin Panel sections
 
-The Admin Panel is organized into five main sections, each focused on a specific area of team management:
-
 ### AI settings
 
-Configure how Agents behave across your organization, including autonomy levels and command permissions.
+<span id="general-ai-settings" />
 
-#### General AI settings
+Configure agent autonomy and command permissions for the selected team.
 
-**AI in Remote Sessions** Controls whether AI features are available during SSH sessions and remote connections. Enterprise plans can toggle this setting, while Free tier teams have it enabled by default.
-
-**Prompt Summarization Caching** When conversations become long enough to require summarization, this setting allows the summary to be cached temporarily by the LLM provider to improve performance.
+* **AI in remote sessions** - Controls availability during SSH sessions and other remote connections.
+* **Prompt summarization caching** - Controls provider caching used for long conversations. Provider retention follows the selected model and inference configuration. See [model retention policies](/agents/inference/model-choice/#zero-data-retention-policies).
 
 #### Autonomy settings
 
-Configure how much independence Agents have when performing different actions:
+Configure approval behavior for applying code diffs, creating plans, executing commands, and reading files. The available choices include **Agent Decides**, **Always Ask**, **Always Allow**, and **Respect User Setting**.
 
-**Apply Code Diffs**
-
-* Agent Decides - Prompt for review before applying code diffs (currently behaves the same as Always Ask)
-* Always Ask - Require explicit approval before applying any code changes
-* Always Allow - Apply code diffs without confirmation
-* Respect User Setting - Allow individual users to control this setting
-
-**Create Plans** Controls whether Agents can create structured task plans without user approval.
-
-**Execute Commands** Manages Agent's ability to run terminal commands autonomously.
-
-**Read Files** Controls Agent access to reading files in the codebase.
+See [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) for the action permissions and personal configuration.
 
 #### Directory and command control
 
-**Directory Allowlist** Specify directories where Agents can read files without restriction. Use paths like `~/git/repo1` to grant access to specific project folders.
-
-**Command Allowlist** Regular expressions matching commands that Agent Mode can execute without asking permission. Common examples:
-
-* `grep .*` - Text search commands
-* `ls(\\s.*)?` - Directory listing
-* `which .*` - Finding executable locations
-
-**Command Denylist** Regular expressions for commands that always require explicit user approval, even if they would normally be allowed. Examples:
-
-* `rm -rf.*` - Recursive file deletion
-* `sudo.*` - Administrative commands
-* `curl.*` - Network requests
+Directory allowlists identify approved paths, such as `~/git/internal-tooling` or `/home/user/repos/public-*`. Command allowlists and denylists use regular expressions.
 
 :::caution
-Command denylist rules take precedence over allowlist rules and agent autonomy settings. If a command matches the denylist, user permission will always be required.
+Command denylist rules take precedence over command allowlists and autonomy settings. A matching command still requires explicit approval.
 :::
 
 ### Privacy settings
 
-Manage data collection and security policies for your organization.
+**Content collection for service improvement**
 
-**UGC Data Collection** Controls how Warp collects and uses user-generated content to improve the service:
+The "UGC Data Collection" dropdown controls how Warp collects your team's content to improve the service:
 
-* Disabled - No UGC data collection
-* Enabled - Allow data collection for service improvement
-* Respect User Setting - Let individual users decide
+* **Disabled** - Warp doesn't collect team content for service improvement
+* **Enabled** - Allow data collection for service improvement
+* **Respect User Setting** - Let individual users decide
 
-**Enterprise Secret Redaction** When enabled, applies regex patterns to prevent secrets from being sent to Warp servers or LLM providers. This feature is available on Enterprise plans and includes:
+Telemetry collection is separate from team content collection. Neither control changes [provider retention requirements](/agents/inference/model-choice/#models-requiring-provider-retention) or disables product storage.
 
-* Automatic detection of common secret patterns
-* Custom regex patterns for organization-specific secrets
-* Unconditional application across all team members
+**Cloud conversation storage**
+
+Controls cloud sync of personal Terminal conversations. Disabling it doesn't disable factory or other cloud agent run storage. See [product storage](/support-and-community/privacy-and-security/privacy/#product-storage) for run-data categories and storage options.
+
+**Enterprise secret redaction**
+
+Enterprise teams can configure common secret patterns and custom regex patterns for redaction before requests reach LLM providers. See [Secret redaction](/support-and-community/privacy-and-security/secret-redaction/) for scope and configuration.
+
+<span id="changing-improvement-collection-in-a-browser" />
+<span id="changing-improvement-collection-in-the-admin-panel" />
+
+#### Managing team content collection in the Admin Panel
+
+Admins can review team content collection in a browser. Editable choices depend on the plan and workspace policies:
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/) for the team and go to **Privacy**.
+2. If "UGC Data Collection" is editable, choose **Disabled** to stop team content collection, or **Respect User Setting**, if available, to defer to individual preferences.
+3. After changing the value, reload the page and confirm it persists.
+
+Plans that lock collection off keep it **Disabled**; admins cannot enable it or delegate to individual preferences. Ask a workspace admin about workspace-enforced values. For personal controls, see [browser privacy preferences](/support-and-community/privacy-and-security/privacy/#how-to-disable-telemetry-and-crash-reporting).
 
 ### Code settings
 
-Control codebase indexing and AI code features for your team.
+Configure Codebase Context for team repositories. Where the control is available, choose **Disabled**, **Enabled**, or **Respect User Setting**.
 
-**Codebase Context** Determines whether Warp indexes your team's Git repositories to provide context for AI features:
+Repository and file limits depend on the plan. See [Codebase Context](/agents/capabilities/codebase-context/) for indexing behavior and limits.
 
-* Disabled - No codebase indexing
-* Enabled - Index codebases for improved AI responses
-* Respect User Setting - Allow individual control
+### Models settings
 
-Higher tier plans support more indexed repositories and larger file limits per codebase.
+Use the **Models** page for the controls included in your plan:
+
+* **Enterprise model restrictions** - Admins can enable or disable individual models and configure [BYOLLM routing](/enterprise/enterprise-features/bring-your-own-llm/). Self-serve plans don't include a team-wide model-blocking control.
+* **Shared provider credentials** - Configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on plans that include that control. Sharing credentials isn't a model restriction.
+* **Enterprise custom routers** - Share [routing rules](/agents/inference/custom-routers/#team-synced-routers) with the team. A router's choices are separate from enforced model availability.
+
+**Models with provider-specific data retention requirements**
+
+Some models require provider retention and aren't covered by [Zero Data Retention (ZDR)](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr), even when team content collection is disabled. Review the complete [exception list on the model-choice page](/agents/inference/model-choice/#models-requiring-provider-retention). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
+
+Self-serve customers must review their selected models and overrides using the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/zero-data-retention/).
 
 ### Billing settings
 
-On the Admin Panel's **Billing** page, review usage and the controls available for your plan. Self-serve admins configure [spend limits and auto-reload](/support-and-community/plans-and-billing/add-on-credits/); Enterprise [pools and spending controls](/enterprise/support-and-resources/billing/) follow the contract. Accounts can bill usage in dollars or credits.
+On **Billing**, review usage and the controls available for your plan. Self-serve [spend limits and auto-reload](/support-and-community/plans-and-billing/add-on-credits/) control additional purchases. Enterprise [pools and spending controls](/enterprise/support-and-resources/billing/) follow the contract.
+
+Enterprise supports monthly workspace, team, and per-user spend caps, separate local and cloud spending limits, and usage alerts.
+
+For browser-based factory funding, upgrade, and payment routes, use [Managing factory plans and billing](/factories/managing-plans-and-billing/).
 
 ### Sharing settings
 
-Control how team members can share Warp Drive objects and collaborate.
+Configure direct-link and public-link access for Warp Drive resources:
 
-**Direct Link Sharing** Allow team members to share Notebooks, Workflows, and other objects via direct links.
+* **Direct link sharing** - Determines whether resources can be shared by link and whether access is limited to team members.
+* **Anyone with link sharing** - Determines whether people outside the team can open a shared resource.
 
-**Anyone with Link Sharing** Enable public access to shared objects - anyone with the link can view the content without being a team member.
+See [Warp Drive sharing](/knowledge-and-collaboration/warp-drive/) before changing access to existing resources.
+
+### Platform settings
+
+Configure shared cloud-agent settings for the selected team.
+
+* **Agent artifact attachments** - Choose **Disabled**, **Link only**, or **Embed** for screenshots and videos. See [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/) for the security implications.
+* **Enabled GitHub Orgs** - Associates a team with GitHub App installations for the supported standalone cloud-agent workflows.
+
+In the Admin Panel, open **Platform**. Under **Enabled GitHub Orgs**, select the team's organizations.
+
+<figure style={{ maxWidth: "563px" }}>
+![Enabled GitHub Orgs setting in the Admin Panel Platform section](../../../assets/agent-platform/admin-panel-enabled-github-orgs.png)
+<figcaption>The Platform section includes team GitHub authorization.</figcaption>
+</figure>
+
+Repository access comes from the GitHub App installation's selection in [GitHub settings](https://github.com/settings/installations). Personal API key, agent API key, and integration-triggered runs use different identities. See [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) rather than applying one identity rule to every workflow.
+
+## Multi-admin functionality
+
+### Promoting and demoting admins
+
+Follow [Promoting or demoting admins](/knowledge-and-collaboration/roles-and-permissions/#promoting-or-demoting-admins) to change administration access on a supported plan.
+
+## Troubleshooting
+
+### Users can't see new settings
+
+Confirm that you changed the intended team or workspace and that the setting isn't delegated to the user. Check the affected user's membership and reload Settings before testing again.
+
+### Setting is grayed out in Admin Panel
+
+Check whether the control is restricted by the plan or locked by a workspace policy. Ask a workspace admin about an enforced value. Use [plans and pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/) for plan requirements.
+
+### Command allowlist not working
+
+Check the regex, autonomy setting, and command denylist together. A matching denylist rule still requires approval. See [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/).
+
+### Responding to security incidents
+
+Review the affected run, [agent permissions](/agents/capabilities/agent-profiles-permissions/), and applicable team and workspace policies.
+
+## Support
+
+For access problems, contact [support@warp.dev](mailto:support@warp.dev) or your Enterprise support channel.
+
+## Related pages
+
+<span id="common-admin-workflows" />
+<span id="initial-enterprise-setup" />
+<span id="adjusting-policies-for-different-teams" />
+
+* [Managing team membership](/knowledge-and-collaboration/teams/)
+* [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/)
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Managing factory plans and billing](/factories/managing-plans-and-billing/)
+* [Getting started for admins](/enterprise/getting-started/getting-started-enterprise/) - Configure Enterprise SSO, membership, and policies

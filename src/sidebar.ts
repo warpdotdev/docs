@@ -231,7 +231,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{ slug: 'knowledge-and-collaboration/teams', label: 'Team management' },
-						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Team Admin Panel' },
+						{ slug: 'knowledge-and-collaboration/roles-and-permissions', label: 'Roles & permissions' },
+						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Admin Panel' },
 						{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session sharing' },
 					],
 				},
@@ -438,6 +439,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/automation-triggers' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 						{ slug: 'factories/permissions', label: 'Factory permissions' },
+						{ label: 'Team roles & administration', link: '/knowledge-and-collaboration/roles-and-permissions/' },
 						{
 							label: 'Infrastructure',
 							items: [
@@ -850,9 +852,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Team management',
 					items: [
 						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
-						'enterprise/team-management/teams',
-						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin panel' },
-						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },
+						{ label: 'Team management', link: '/knowledge-and-collaboration/teams/' },
+						{ label: 'Admin Panel', link: '/knowledge-and-collaboration/admin-panel/' },
+						{ label: 'Roles & permissions', link: '/knowledge-and-collaboration/roles-and-permissions/' },
 					],
 				},
 				{

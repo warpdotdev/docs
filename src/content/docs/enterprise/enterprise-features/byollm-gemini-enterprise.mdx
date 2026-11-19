@@ -33,7 +33,7 @@ When Gemini Enterprise is enabled, Warp redirects eligible inference calls to Ve
 
 Here's the high-level flow:
 
-1. **Admin configures routing** - Your team admin enables the Gemini Enterprise host on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/) and sets the GCP project, Vertex location, and WIF provider audience string.
+1. **Admin configures routing** - Your team admin enables the Gemini Enterprise host on the **Models** page of the [Admin Panel](/knowledge-and-collaboration/admin-panel/) and sets the GCP project, Vertex location, and WIF provider audience string.
 2. **Members enable credentials** - Each signed-in member turns on **Use Gemini Enterprise credentials** in Warp's Settings (or the admin enforces it team-wide).
 3. **Warp mints a short-lived token** - The Warp client exchanges a Warp-signed identity token for a short-lived Google Cloud access token via Google's Security Token Service (STS), optionally impersonating a service account you designate.
 4. **Warp routes requests** - Eligible agent requests carry that access token, and Warp's backend uses it to call Vertex AI in your project with the configured location and model reference.
@@ -78,7 +78,7 @@ Before configuring Gemini Enterprise, confirm the following:
 * The Vertex AI API (`aiplatform.googleapis.com`) is enabled in that project.
 * The models you plan to route are available to the project. Claude partner models must be enabled in the Vertex AI Model Garden.
 * You can create Workload Identity Federation pools and providers and modify the project's IAM policy. To use service account impersonation in Step 2, you also need permission to create service accounts.
-* You have administrator access to Warp's [Admin Panel](/enterprise/team-management/admin-panel/).
+* You have administrator access to Warp's [Admin Panel](/knowledge-and-collaboration/admin-panel/).
 
 ### Values you'll need
 
@@ -420,5 +420,5 @@ Yes. Admins can disable Direct API access for models on the **Models** page so e
 * [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
 * [Model Choice](/agents/inference/model-choice/) - Full list of supported models
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Configure team settings
 * [Contact sales](https://www.warp.dev/contact-sales) - Get help with Enterprise setup

@@ -895,10 +895,14 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
 - **Warp Drive** - Shared workspace for saving and organizing commands, workflows, and environment variables across your team.
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code.
-- **Admin Panel** - Team management surface for controlling members, roles, and billing.
+- **Admin Panel** - Administration surface for a team or Enterprise workspace, including members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
 - **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
 - **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
+
+### Team and workspace terminology
+
+Use "team" by default for self-serve customers. Reserve "workspace" and workspace roles for Enterprise, except when matching a literal UI label or explaining an actual billing, permission, or policy scope. A self-serve team has one owner; additional admins depend on the plan and are not Enterprise-only. Adding an admin is not transferring ownership. Follow the [team and workspace glossary](.agents/references/terminology.md#team-and-workspace-terms) for scoped role definitions and literal-interface exceptions.
 
 ### Capitalizing "agent"
 

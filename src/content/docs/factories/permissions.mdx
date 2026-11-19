@@ -7,7 +7,7 @@ import { VARS } from '@data/vars';
 
 Give teammates **Factory user** access to run work without changing the factory, or **Editor** access to configure its agents, repositories, and automations.
 
-Assigning Factory user and Editor roles requires an Enterprise plan. On all other plans, team members have Editor access.
+Standard Enterprise plans include Factory user and Editor role assignment. On standard Start and Scale plans, non-admin members have Editor access. See [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/#managing-admins) for plan conditions and account-specific access.
 
 ## Team-wide roles and factory-specific access
 
@@ -40,13 +40,13 @@ Defaults apply to new and existing members without an assigned role. A workspace
 
 Permission to create factories depends on your team-wide factory role. Assigning someone Editor access to an individual factory does not let them create new factories.
 
-Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can’t grant or reduce that access through a factory’s role settings.
+Team and workspace admins and owners inherit Admin access within their team or workspace from their [team or workspace role](https://docs.warp.dev/knowledge-and-collaboration/roles-and-permissions/). You can’t grant or reduce that access through a factory’s role settings.
 
 Editors can attach existing team secrets, MCP servers, and integrations to a factory. Connecting new team-wide integrations and managing shared runners require separate team or workspace permissions.
 
 ## Changing a team-wide role
 
-You must be a team or workspace admin to change team-wide factory roles. Open your team’s [Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel/) to change roles directly, or follow the steps below to change roles from your factory settings.
+You must be a team or workspace admin to change team-wide factory roles. Open your team’s [Admin Panel](https://docs.warp.dev/knowledge-and-collaboration/admin-panel/) to change roles directly, or follow the steps below to change roles from your factory settings.
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> sidebar, expand the factory and click **Settings**.
 2. Under **Settings**, click **Access**, then click **Manage team access**.
@@ -76,5 +76,5 @@ Additionally, factory roles also don’t determine who can approve specification
 
 * [About factory infrastructure and security](/factories/infrastructure-and-security/)
 * [Definitions as code](/factories/factory-as-code/)
-* [Roles and permissions](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/) - Manage team roles
+* [Roles and permissions](https://docs.warp.dev/knowledge-and-collaboration/roles-and-permissions/) - Manage team roles
 * [Workspaces for Enterprise teams](https://docs.warp.dev/enterprise/team-management/workspaces/) - Manage workspace roles

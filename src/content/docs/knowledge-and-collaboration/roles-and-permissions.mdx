@@ -1,0 +1,139 @@
+---
+title: Roles and permissions
+description: >-
+  Identify Warp team, workspace, and factory roles, check which plans support
+  additional admins, and change team administration access.
+---
+
+Your Warp role determines what you can administer. A team role applies to one team, an Enterprise workspace role controls administration across teams, and a factory role controls access to factory configuration and work.
+
+For example, an Enterprise workspace member who is an Engineering team admin can administer that team and its factories without workspace billing authority. A factory Editor can configure a factory without being a team admin.
+
+## Team roles
+
+<span id="user-roles" />
+
+| Role | Responsibilities | Limits |
+| --- | --- | --- |
+| Team owner | Administers a self-serve team and can transfer ownership to another member | Exactly one owner per self-serve team; plan restrictions still apply |
+| Team admin | Manages the team's membership, invitations, and configurable settings; can add admins on supported plans | Cannot transfer ownership or change the owner's role; does not automatically gain workspace administration |
+| Member | Uses team resources within the applicable policies | Membership alone does not grant team administration; factory access is determined separately |
+
+Adding an admin does not add or replace the owner. Enterprise ownership belongs to the workspace; teams created inside it do not require a team owner. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+## Managing admins
+
+Additional admins are not limited to Enterprise. Standard plan support differs by product:
+
+### Warp Terminal and local agents
+
+| Plan | Additional team admins |
+| --- | --- |
+| Free | Not included |
+| Build, Max, and Business | Supported |
+| Enterprise | Supported, with separate workspace and team roles |
+
+### Warp Factories
+
+| Plan | Ownership and administration | Factory access |
+| --- | --- | --- |
+| Start | One team with one owner; no additional admins in the standard plan | Owner inherits Admin; other members have Editor access |
+| Scale | One team with one owner; the owner and team admins can add admins | Owner and team admins inherit Admin; other members have Editor access |
+| Enterprise | One workspace owner; workspace owner and admins can add workspace admins; workspace admins and team admins can add admins for the relevant team | Workspace admins inherit Admin on every team's factories; team admins inherit Admin only on their team's factories |
+
+Account-specific access can differ. If a role control does not match your expected access, confirm the selected team and plan with your owner or [contact support](mailto:support@warp.dev).
+
+{/* VERIFY: Standard factory-plan roles confirmed by Jason. Confirm legacy Terminal subscriptions and customer-facing treatment of account-specific entitlements before merge. */}
+
+### Promoting or demoting admins
+
+You must already have administrative access to the team. The plan must support additional admins before you can promote a member.
+
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/) in a browser and open the team's member list.
+2. On the member's row, open the three-dots menu. Click **Promote to team admin** or **Demote team admin**.
+3. Complete any confirmation and check that the member's role updates.
+
+Admins with factory-role management access see an editable role column instead. To promote a member, choose **Team Admin** from their role dropdown. This changes team administration, not a factory role.
+
+{/* VERIFY: Exercise both the member-menu and editable-role-column paths in the production Admin Panel before merge, including demotion and confirmation behavior. */}
+
+On standard Free or Start accounts, the promotion option is not shown. Adding purchased usage does not by itself establish that an account supports additional admins. Review the relevant [plans](/support-and-community/plans-and-billing/plans-pricing-refunds/) before changing a subscription.
+
+## Workspace roles and team roles
+
+Workspace roles apply to Enterprise administration. Self-serve customers manage team roles instead. In an Enterprise workspace:
+
+* **Workspace owner or admin** - Is an admin of every team in the workspace, including teams they do not personally belong to.
+* **Team admin** - Administers only their team, without workspace-wide membership, settings, or billing authority.
+* **Workspace member** - Can have different team memberships and roles without becoming a workspace admin.
+
+Changing an independent workspace role does not rewrite existing team roles. A demoted workspace admin can retain a separately assigned team-admin role.
+
+See [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/) for the workspace role definitions and procedures.
+
+## Factory roles and team administration
+
+Factory user and Editor are factory-access roles, not team membership roles. Owners and admins inherit factory Admin access within their team or workspace.
+
+A team-wide factory role can apply across the team's factories. A factory-specific assignment applies to one factory; it does not change the person's team or workspace role.
+
+An Editor can attach an existing integration. Connecting a new shared integration or initiating delegated setup requires a team owner or admin on self-serve, or a workspace owner or admin on Enterprise. An Enterprise team-admin role alone is not enough. Personal account linking is separate.
+
+See [Managing factory permissions](/factories/permissions/) for factory capabilities, defaults, and overrides.
+
+## Permission details
+
+### What admins can do
+
+Team admins manage team settings and membership. Workspace admins additionally manage workspace-wide controls and inherit team administration. Available controls depend on the plan and any enforced workspace policies.
+
+Where the plan includes spending controls, team admins set limits for their team and its members. Enterprise workspace owners and admins can manage those limits across the workspace's teams. See [Enterprise spending controls](/enterprise/support-and-resources/billing/#spending-controls) for usage caps and [self-serve purchase limits](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit) for limits on additional purchases.
+
+Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate actions. Follow [Managing factory plans and billing](/factories/managing-plans-and-billing/) for the factory billing routes.
+
+### What members can do
+
+Members use shared resources, configure permitted personal settings, and run work within the applicable policies and factory role. A Member role is not a promise of read-only access.
+
+### Settings enforcement
+
+A team-admin role does not override a workspace policy or make a plan-locked setting editable. See [How settings enforcement works](/knowledge-and-collaboration/admin-panel/#how-settings-enforcement-works) for the difference.
+
+## Transferring team ownership
+
+This procedure applies to a self-serve team. Only the current owner can transfer ownership:
+
+1. In the Warp app, open **Settings** > **Teams** and find the member who will become the owner.
+2. Open their three-dots menu and click **Transfer ownership**.
+3. Complete the confirmation and check that the new owner is shown.
+
+The previous owner becomes a Member. If the team supports additional admins and the previous owner still needs that access, grant it separately.
+
+If the new owner's email is not on a work domain, Warp disables team discoverability.
+
+For independent Enterprise workspaces, follow [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles). Transferring workspace ownership does not transfer team roles.
+
+## Resource sharing controls
+
+Team roles are distinct from the controls on shared resources. For sharing policies, see the [Admin Panel](/knowledge-and-collaboration/admin-panel/#sharing-settings). Factory roles do not grant external repository permissions or permission to merge pull requests.
+
+## Troubleshooting
+
+### The admin promotion option is missing
+
+Confirm that you are administering the intended team and that its plan supports additional admins. Standard Free and Start accounts do not offer promotion.
+
+In an Enterprise workspace, check whether you are changing a team role or a workspace role. Ask a workspace admin to handle workspace-wide changes.
+
+### Factory settings work, but administration access is denied
+
+Factory Editor access does not grant team or workspace administration. Ask an owner or admin to review the shared resource or setting you need. Do not create a second personal connection to work around a shared-integration permission failure.
+
+<span id="related-resources" />
+
+## Related pages
+
+* [Managing team membership](/knowledge-and-collaboration/teams/)
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/)
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Managing factory permissions](/factories/permissions/)

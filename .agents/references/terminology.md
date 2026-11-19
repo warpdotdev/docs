@@ -45,7 +45,7 @@ Naming and formatting reviewed November 10, 2026 against `AGENTS.md` and the app
 
 ## Navigation and UI terms
 
-- **Admin Panel** — The team administration interface.
+- **Admin Panel** — The administration interface for a team or Enterprise workspace.
   *Usage note:* Capitalize as a UI name.
 
 - **Agent Management Panel** — The interface for managing agent configurations, permissions, and activity.
@@ -163,14 +163,43 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 
 ## Team and workspace terms
 
-- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups teams under one company account with shared roles, billing, SSO, and settings. See [Workspaces](/enterprise/team-management/workspaces/).
-  *Usage note:* Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive** and a **Slack workspace**. If the context is unclear, write "Warp workspace" or "Slack workspace."
+Naming and role definitions reviewed November 19, 2026 against the team/workspace review supplied by the docs maintainer and Admin Panel source. HYC and Isaiah confirmed team-first self-serve terminology and the single-owner distinction; Jason confirmed standard factory-plan roles; Eugene confirmed factory-role definitions. This is not a live-account test or a review of unrelated glossary sections. Plan conditions and action-specific permissions belong in the linked references, not a second entitlement matrix here.
 
-- **Member** (workspace role) — The default workspace role: uses Warp within whatever teams they belong to and the settings admins configure. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **team** — A group of people who share resources such as factories, environments, secrets, and Warp Drive resources.
+  *Usage note:* Use "team" as the default customer-facing term for self-serve accounts: "your team," "team members," "team owner," and "team admin." Teams also exist within Enterprise workspaces. Use "Choose your team" unless the task needs more context. See [Managing team membership](/knowledge-and-collaboration/teams/).
 
-- **Admin** (workspace role) — Manages workspace membership, billing, and settings. Can view and manage every team in the workspace, including teams they don't belong to. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **self-serve** — Non-Enterprise access, including free access and paid subscriptions.
+  *Usage note:* Does not mean paid, individual, or per-seat billing. Name the product and plan when eligibility matters. Underlying team and workspace roles are always mirrored one-to-one on self-serve; the workspace is hidden from the customer. Do not qualify this as applying only to "supported accounts" or introduce independently managed workspace roles into self-serve instructions.
 
-- **Owner** (workspace role) — The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. Exactly one per workspace. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **team owner** — The single owner of a self-serve team. Has team-admin authority and can transfer ownership.
+  *Usage note:* Adding admins does not add or replace the owner. Use this term for self-serve ownership; do not imply every Enterprise team has an owner. Preserve a legacy Owner label when instructions must identify it.
+
+- **team admin** — Administers one team's membership and configurable settings.
+  *Usage note:* Additional admins depend on the plan; they are not Enterprise-only. A team admin cannot transfer ownership. In Enterprise, a team-admin role does not grant workspace-wide administration. See [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/).
+
+- **team member** — A person who belongs to a team and uses its shared resources within applicable policies.
+  *Usage note:* A Member role does not grant administration, but does not mean read-only. Factory access is a separate role.
+
+- **workspace** — An Enterprise grouping of one or more teams with shared membership, billing, SSO, and settings. See [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/).
+  *Usage note:* Reserve workspace and workspace-role terminology for Enterprise explanations. In self-serve instructions, retain "workspace" only to match a literal UI label or explain an actual billing, permission, or policy scope; do not imply it is a second group the customer manages. Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive** and a **Slack workspace**.
+
+- **Member** (workspace role) — An Enterprise workspace member without workspace-wide administrative authority.
+  *Usage note:* Team membership and roles are separate. A workspace member can administer a particular team without becoming a workspace admin, and is not automatically a member of every team.
+
+- **Admin** (workspace role) — Administers Enterprise workspace membership, billing, and supported settings, and is an admin of every team in that workspace.
+  *Usage note:* Includes teams they do not personally belong to. Multiple workspace admins are supported; a team admin administers only their team.
+
+- **Owner** (workspace role) — The single owner of an Enterprise workspace. Has workspace-admin authority and can transfer ownership.
+  *Usage note:* Exactly one owner, distinct from additional admins. Use "workspace owner" to distinguish it from a self-serve team owner. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Factory user** (factory role) — Can view a factory and run work without directly configuring it.
+  *Usage note:* Not a synonym for team member. Preserve the exact capitalization of UI labels.
+
+- **Editor** (factory role) — Can configure a factory and attach existing resources.
+  *Usage note:* Does not grant team or workspace administration. Distinguish a team-wide assignment from access to one factory.
+
+- **Admin** (inherited factory access) — Factory administration inherited from the applicable team or workspace owner/admin role.
+  *Usage note:* Not independently assigned alongside Factory user and Editor. A factory-role assignment cannot reduce inherited Admin access. See [Managing factory permissions](/factories/permissions/) for plan conditions, defaults, and overrides.
 
 - **Open** (team visibility) — A team any workspace member can see and join immediately. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 

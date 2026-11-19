@@ -72,14 +72,14 @@ A model must appear on both lists to be available through BYOLLM.
 Before configuring BYOLLM, confirm the following:
 
 * Your organization has the desired models enabled in AWS Bedrock.
-* You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
+* You have admin access to both Warp's [Admin Panel](/knowledge-and-collaboration/admin-panel/) and your AWS IAM settings.
 * Team members have the AWS CLI installed locally.
 
 ### 1. Configure routing policies (admin)
 
-In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which models should route through AWS Bedrock:
+In the [Admin Panel](/knowledge-and-collaboration/admin-panel/), configure which models should route through AWS Bedrock:
 
-1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the **Models** page.
+1. From the [Admin Panel](/knowledge-and-collaboration/admin-panel/), navigate to the **Models** page.
 2. Select which models should use your cloud provider (e.g., "Claude Opus 4.7 via AWS Bedrock").
 3. Optionally, disable direct API access to enforce provider-only routing.
 
@@ -112,7 +112,7 @@ Grant your team members the necessary permissions in AWS. Use least-privilege IA
 ```
 
 :::note
-This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
+This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/knowledge-and-collaboration/admin-panel/).
 :::
 
 ### 3. Authenticate locally (team member)
@@ -140,7 +140,7 @@ Cloud agents authenticate to AWS Bedrock differently from the local terminal flo
 
 Before configuring BYOLLM for cloud agents, confirm the following:
 
-* You have admin access to both Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and your AWS IAM settings.
+* You have admin access to both Warp's [Admin Panel](/knowledge-and-collaboration/admin-panel/) and your AWS IAM settings.
 
 ### 1. Set up Warp as an OIDC identity provider in AWS (cloud admin)
 
@@ -197,7 +197,7 @@ This trust policy authorizes any cloud-hosted run from your team. The `sub` clai
 
 Replace the account ID, issuer host, and team UID with values for your environment.
 
-The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in your team's [Admin Panel](/enterprise/team-management/admin-panel/) URL as the path segment after `/admin/`. For example, in `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
+The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in your team's [Admin Panel](/knowledge-and-collaboration/admin-panel/) URL as the path segment after `/admin/`. For example, in `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
 
 #### Permissions policy
 
@@ -226,7 +226,7 @@ Attach the minimum Bedrock invoke permissions policy to the role:
 ```
 
 :::note
-This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
+This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/knowledge-and-collaboration/admin-panel/).
 :::
 
 After you create the role, copy its ARN. You'll paste it into the **Models** page in the next step.
@@ -239,7 +239,7 @@ Attach the IAM role from Step 2 to your team or to a specific named agent.
 
 This applies the OIDC role to all cloud agent runs on the team.
 
-1. In the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the **Models** page.
+1. In the [Admin Panel](/knowledge-and-collaboration/admin-panel/), navigate to the **Models** page.
 2. Under the **AWS Bedrock** host configuration, paste the IAM role ARN from Step 2 into the **Role ARN** field.
 3. Select which models should route through AWS Bedrock.
 
@@ -373,5 +373,5 @@ Yes. Admins can configure routing policies to require specific models to use BYO
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/)
 * [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure shared provider keys and custom endpoints
 * [Model Choice](/agents/inference/model-choice/) — Full list of supported models
-* [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) — Configure team settings
 * [Contact Sales](https://www.warp.dev/contact-sales) — Get help with enterprise setup

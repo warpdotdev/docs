@@ -20,13 +20,15 @@ A workspace provides company-wide administration, while teams organize shared re
 
 ## Workspace roles
 
-Every workspace member has one of three roles:
+These roles apply to Enterprise workspaces. Self-serve customers use [team roles](/knowledge-and-collaboration/roles-and-permissions/#team-roles) instead. Every workspace member has one of three roles:
 
 * **Member** - Uses Warp within their teams and the policies admins configure.
-* **Admin** - Manages workspace membership, billing, and settings, with admin-level permissions on every team, including teams they don't belong to. Team admins who aren't workspace admins have admin permissions only on their teams.
+* **Admin** - Manages workspace membership, billing, and settings. A workspace admin is an admin of every team in the workspace, including teams they don't belong to.
 * **Owner** - Has every admin capability and can transfer ownership to another member. Each workspace has one owner.
 
 In team member lists, the **Workspace admin** and **Workspace owner** badges distinguish workspace roles from team roles.
+
+There is one workspace owner, but there can be multiple workspace admins. The owner and workspace admins can add workspace admins. Workspace admins can add team admins to any team; team admins can add admins only to their own team.
 
 ## Workspace admin permissions
 
@@ -70,7 +72,7 @@ Workspace and team roles don't grant access to runs owned by an individual user.
 
 To promote or demote a workspace admin:
 
-1. In the Warp app, open the [Admin Panel](/enterprise/team-management/admin-panel/) and click **Members**.
+1. In the Warp app, open the [Admin Panel](/knowledge-and-collaboration/admin-panel/) and click **Members**.
 2. On the member's row, click the three-dots menu, then click **Promote to admin** to make them an Admin or **Demote admin** to make them a Member. If you're demoting yourself, click **Demote to member** in the confirmation dialog.
 
 The member's workspace role updates in the list. Use the same menu to remove a member or transfer ownership.
@@ -82,7 +84,7 @@ The member's workspace role updates in the list. Use the same menu to remove a m
 
 ## Workspace settings and team settings
 
-Workspace admins configure company-wide policies in the [Admin Panel](/enterprise/team-management/admin-panel/). For supported settings, they can enforce a value across the workspace or select **Respect Team Setting** to let each team decide.
+Workspace admins configure company-wide policies in the [Admin Panel](/knowledge-and-collaboration/admin-panel/). For supported settings, they can enforce a value across the workspace or select **Respect Team Setting** to let each team decide.
 
 SSO and domain capture apply at the workspace level. When a workspace admin enforces a setting, team admins see it as locked.
 
@@ -94,8 +96,8 @@ Workspace admins can set monthly limits for total, local agent, and cloud agent 
 
 ## Related pages
 
-* [Team management](/enterprise/team-management/teams/) - Create and manage teams
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure settings enforced across a workspace or team
-* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Team-level roles and what each can do
+* [Team management](/knowledge-and-collaboration/teams/) - Create and manage teams
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Configure settings enforced across a workspace or team
+* [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/) - Team-level roles and what each can do
 * [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) - Configure authentication for a workspace
 * [Enterprise billing](/enterprise/support-and-resources/billing/) - Credit pools, spend limits, and billing management
