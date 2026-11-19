@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 Test your factory with small changes before expanding its workload. Evaluate the output and cost, adjust one setting, and repeat the test.
 
-The example adds a "Copy link" button. Adapt it to your repository. Configure the approval and review path before testing; a request prompt does not replace the Blueprint's workflow.
+The example adds a "Copy link" button. Adapt it to your repository. If you do not have an app fixture, use [example 26's committed-spec exercise](https://github.com/warpdotdev/warp-factory-examples/tree/21d3936ad7bed1af2748811e670c19d2a1388a4b/examples/26-product-change-implementation#exercise-edit-a-committed-spec) to document helper tests in a disposable fork. Its setup and runtime verification holds still apply. Configure the approval and review path before testing; a request prompt does not replace the Blueprint's workflow.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ Choose changes from your own backlog.
 
    Check for a draft pull request containing the spec and a request for your approval. Implementation must wait.
 4. Review the committed spec. Ask for revisions or edit its branch if needed.
-5. When the spec is ready, explicitly approve the current version in the same conversation. Check that implementation reuses the spec pull request, runs the requested checks, and returns review findings and any questions for you. Do not merge test output.
+5. When the spec is ready, explicitly approve the current committed revision in the same conversation, including any direct edits you made. Check that implementation reuses the spec pull request, runs the requested checks, and returns review findings and any questions for you. Request a same-PR revision and confirm another independent review covers the new head. Do not merge test output.
 
 ## Evaluate the run
 
@@ -61,6 +61,7 @@ For the button example, "copies the URL" needs a test of the exact copied value.
 
 * Findings identify the problem, location, severity, and correction.
 * Defects are distinguished from product decisions requiring your judgment.
+* The reviewed SHA matches the delivered head after corrections. Contract changes return to the spec for revision and fresh approval.
 
 For example, a missing assertion for a required fallback is a test gap. Choosing behavior the spec never defined needs a product decision, not an automatic correction.
 
@@ -129,7 +130,9 @@ for my explicit approval. Do not start implementation before I approve
 this spec, even if a previous test was approved.
 
 After approval, implement on the spec's branch and pull request, run the
-documented checks, and run one review pass. Return the pull request,
+documented checks, and run independent review. Correct actionable findings
+on the same PR, then independently review the revised head. Ask me about
+contract changes and get fresh approval of the revised spec. Return the pull request,
 verification results, and unresolved questions. Never merge. Report a
 missing tool or permission rather than claiming an unrun check passed.
 ```

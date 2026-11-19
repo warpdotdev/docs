@@ -10,13 +10,13 @@ next: false
 
 Use Warp Factories to scope work to one product in a shared repository. Workers install the product's workspace, test affected packages and their dependents, and request shared-package owners' review. A person merges the changes.
 
-Start with the Blueprint from [factory setup](/factories/quickstart/). Adapt repository and runner settings from [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart). Replace the example's `acme/monorepo`, product directory `apps/web`, shared packages `packages/*`, and commands with your repository's equivalents.
+Adapt the complete Blueprint in [`24-monorepo-product`](https://github.com/warpdotdev/warp-factory-examples/tree/21d3936ad7bed1af2748811e670c19d2a1388a4b/examples/24-monorepo-product). Replace the example's `acme/monorepo`, product directory `apps/web`, shared packages `packages/*`, and commands with your repository's equivalents.
 
 ## How a monorepo factory works
 
 The factory checks out the whole repository. Its intake label names the product, and a shared skill defines its directory, shared packages, and owners. These instructions scope the work; they do not restrict repository access. See [factory boundaries](/factories/guides/structuring-your-factory/) for when to use one factory for the whole repository.
 
-Configure these rules in the Blueprint's planning, implementation, and review stages:
+Configure these rules in the Blueprint's `scope`, `implement`, and `review` stages:
 
 * **Scoped tasks** - The foreman places every request before dispatching anything. Work outside the product gets one comment naming the directory and its owners, and no branch.
 * **Shared-dependency checks** - Before testing a shared edit, the implement worker installs the affected dependents and their dependencies. It tests every affected package and lists shared edits in the pull request's "Shared packages" section. The review worker checks that list and the results against the diff.
@@ -33,7 +33,7 @@ Configure these rules in the Blueprint's planning, implementation, and review st
 ## Prerequisites
 
 * A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/) with access to the monorepo.
-* A [Blueprint](/factories/blueprints/) with workers assigned to planning, implementation, and independent review.
+* A [Blueprint](/factories/blueprints/) with workers assigned to scope, implementation, and independent review.
 * A workspace tool that can install a package and its dependencies and test changed packages and their dependents. The example uses pnpm.
 * `test` and `typecheck` scripts in every package.
 * `CODEOWNERS` entries for shared packages naming teams with write access, plus a fallback review team with at least read access.
@@ -70,7 +70,7 @@ The intake label identifies approved work for one product.
    * Pull request conventions and escalation rules.
 
    See [factory skills](/factories/factory-skills/) for placement.
-4. In the Blueprint's planning stage, require a scope check before implementation:
+4. In the Blueprint's `scope` stage, require a scope check before implementation:
    * Continue for work in the product directory.
    * Warn the implement worker when a change is likely to affect a shared package.
    * Decline work in another product or work primarily on shared packages, with one explanatory comment and no branch.
@@ -138,7 +138,7 @@ On a large monorepo, installing everything can exceed the 30-minute limit for on
 4. In the review stage, require the shared-impact check before other review:
    * Confirm every changed path outside the product appears in "Shared packages".
    * Treat a missing draft status, review request, successful expanded install, or dependent-package check results as a blocking finding when shared packages change.
-5. Declare product scope and expected shared edits as planning outputs and implementation inputs. Pass the PR and affected-package results to review. Return findings to the same implementation conversation; hand off shared edits as drafts for the owning team's decision.
+5. Declare product scope and expected shared edits as `scope` outputs and implementation inputs. Pass the PR and affected-package results to review. Return findings to the same implementation conversation; hand off shared edits as drafts for the owning team's decision.
 6. Apply and validate the factory definition:
    * **Warp-managed factory:** Save the edits in the factory dashboard.
    * **GitHub-backed factory:** Merge the edits into the production branch.
@@ -167,12 +167,12 @@ On a large monorepo, installing everything can exceed the 30-minute limit for on
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/monorepo-factory.md and adapt
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
-for repository and runner settings in my existing Blueprint factory for
+https://github.com/warpdotdev/warp-factory-examples/tree/21d3936ad7bed1af2748811e670c19d2a1388a4b/examples/24-monorepo-product
+for my Blueprint factory for
 OWNER/REPO. Put scoping, implementation, review, and handoff in its stages,
 with product scope, affected-package results, and the PR passed between them.
 Return findings to the same implementation conversation and PR.
-Keep this shape: one repository; a planning stage scoped to one product directory;
+Keep this shape: one repository; a scope stage limited to one product directory;
 an implementer that installs affected dependents and their dependencies
 before testing a shared edit and lists those edits in the pull request;
 a reviewer that checks the list and verification against the diff; a runner
