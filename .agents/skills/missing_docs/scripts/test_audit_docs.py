@@ -301,6 +301,35 @@ class TestSnapshotDispositions(unittest.TestCase):
 
 
 class TestConsistencyAudit(unittest.TestCase):
+    def test_team_deletion_seed_uses_consolidated_membership_page(self):
+        store = (
+            _DOCS_ROOT
+            / ".agents"
+            / "skills"
+            / "missing_docs"
+            / "references"
+            / "consistency_seeds.json"
+        )
+        seed = next(
+            item
+            for item in json.loads(store.read_text(encoding="utf-8"))["seeds"]
+            if item["id"] == "team-deletion-addon-credits"
+        )
+        canonical = "src/content/docs/knowledge-and-collaboration/teams.mdx"
+        retired = "src/content/docs/enterprise/team-management/teams.mdx"
+        self.assertIn(canonical, seed["affected_surfaces"])
+        self.assertEqual(seed["surface_dispositions"][canonical], "fixed")
+        self.assertNotIn(retired, seed["affected_surfaces"])
+        self.assertNotIn(retired, seed["surface_dispositions"])
+        self.assertTrue(any(
+            canonical in rule["paths"]
+            for rule in seed["deterministic_rules"]
+        ))
+        self.assertTrue(all(
+            retired not in rule["paths"]
+            for rule in seed["deterministic_rules"]
+        ))
+
     def test_approved_seed_store_partitions_all_24_findings(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)
         self.assertEqual(result["total_seeds"], 24)
