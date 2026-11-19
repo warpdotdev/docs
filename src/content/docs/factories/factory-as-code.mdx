@@ -177,7 +177,7 @@ agentDefaults:
 
 {/* VERIFY: Confirm public Blueprint availability and successful application of a complete definition before publication; parser validation does not check team-dependent resources. */}
 
-Declares the workflow's stages, workers, transitions, and gates. See [About Blueprints](/factories/blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
+Declares the workflow's stages, workers, transitions, and gates. See [Blueprints](/factories/blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
 
 The Blueprint derives worker delegation from stage assignments. Remove authored `spawnableBy` allowlists when adding it to an existing definition.
 
@@ -686,7 +686,7 @@ An agent's `harness` object is a sparse override of [`agentDefaults.harness`](#a
 ### `agentType`
 
 **Optional.**
-The agent's role: `CUSTOM` (default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every factory has one foreman, which serves as its entry point and the default automation target. See [About factory agents](/factories/factory-agents/) for role behavior.
+The agent's role: `CUSTOM` (default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every factory has one foreman, which serves as its entry point and the default automation target. See [Factory workers](/factories/factory-agents/) for role behavior.
 
 ## `automations/<name>/automation.md`
 
