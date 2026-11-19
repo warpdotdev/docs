@@ -146,6 +146,12 @@ jobs:
       - name: Test agent discovery catalog
         run: npm run test:agent-discovery
 
+      - name: Test Kapa agent retrieval proxy
+        run: npm run test:kapa-agent-retrieval
+
+      - name: Test markdown negotiation helpers
+        run: npm run test:markdown-negotiation
+
       - name: Build site
         run: npm run build
 
@@ -154,6 +160,9 @@ jobs:
 
       - name: Validate tracking redirect routes
         run: npm run test:tracking-routes
+
+      - name: Validate markdown negotiation routes
+        run: npm run test:markdown-negotiation-routes
 
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld

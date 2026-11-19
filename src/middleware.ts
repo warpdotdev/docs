@@ -6,15 +6,17 @@ import {
 } from './lib/docs-markdown.js';
 
 /**
- * Content negotiation middleware.
+ * Content negotiation middleware (dev / SSR only).
  *
- * When an agent sends `Accept: text/markdown` (or is identified by user-agent),
- * rewrite the request to the pre-rendered `.md` variant of the page. This lets
- * agents like Claude Code, Cursor, and OpenCode get clean markdown without
- * needing to discover the `.md` URL convention first.
+ * When an agent sends `Accept: text/markdown` (or falls back via `text/plain` /
+ * known agent user-agent), rewrite to the pre-rendered `.md` variant. This lets
+ * local tools get clean markdown without discovering the `.md` URL first.
  *
- * The `shouldServeMarkdown` helper handles both explicit Accept-header
- * negotiation and user-agent fallback detection (see `src/lib/docs-markdown.js`).
+ * Production static hosting cannot rely on this file: Vercel serves prerendered
+ * HTML before Astro middleware. `scripts/build-tracking-middleware.mjs` installs
+ * Build Output API middleware that rewrites only on explicit `Accept:
+ * text/markdown` (see `shouldServeMarkdownProduction`). Direct `*.md` URLs work
+ * in production without negotiation.
  */
 export const onRequest = defineMiddleware(async (context, next) => {
 	// Content negotiation only applies to on-demand (SSR) requests. During the
