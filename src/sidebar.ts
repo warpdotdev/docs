@@ -400,7 +400,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/how-factories-work', label: 'How factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
 					],
 				},
@@ -413,7 +413,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Blueprints',
 							items: [
-								{ slug: 'factories/blueprints', label: 'About Blueprints' },
+								{ slug: 'factories/blueprints', label: 'Blueprints' },
 								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
 								{ slug: 'factories/blueprints/routes', label: 'Configuring Blueprint transitions' },
 								{ slug: 'factories/blueprints/gates', label: 'Adding gates to a Blueprint' },
@@ -422,7 +422,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Factory workers',
 							items: [
-								{ slug: 'factories/factory-agents', label: 'About factory workers' },
+								{ slug: 'factories/factory-agents', label: 'Factory workers' },
 								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory workers' },
 								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom workers' },
 							],
@@ -450,7 +450,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Infrastructure',
 							items: [
-								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
+								{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure and security' },
 								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
