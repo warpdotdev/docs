@@ -50,7 +50,7 @@ flowchart LR
 * **Human handoff** - The factory presents the result, its evidence, and any findings, and updates the original work item. A person decides what happens next.
 * **Complete or Cancelled** - By default, the foreman completes the work item after a merge notification or confirmation that the pull request landed. Handoff alone doesn't complete it. A cancellation stops the work early.
 
-Stages and workers are named separately. One worker can run several stages; add a separate worker when a stage needs different tools or independent review. See [About factory workers](/factories/factory-agents/).
+Stages and workers are named separately. One worker can run several stages; add a separate worker when a stage needs different tools or independent review. See [Factory workers](/factories/factory-agents/).
 
 These lifecycle names describe the default workflow, not a required sequence or a list of Blueprint stage identifiers. A Blueprint's stage names come from its definition. Existing work retains the Blueprint selected when its run started, even after you apply a definition change.
 
@@ -78,7 +78,7 @@ A factory's workers, automations, runners, scorers, skills, and webhooks are con
 
 * [Blueprints](/factories/blueprints/) - Choose stages, transitions, and gates
 * [Sizing a factory](/factories/#sizing-a-factory) - Which repositories belong in one factory.
-* [About factory workers](/factories/factory-agents/) - What each default worker does and how to configure it.
+* [Factory workers](/factories/factory-agents/) - What each default worker does and how to configure it.
 * [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory.
 * [Measure and improve](/factories/measure-and-improve/) - Scorers, benchmarks, and Self-improvement.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent/) - Apply the same loop to a standalone agent.
