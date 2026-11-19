@@ -22,7 +22,7 @@ For a Warp-managed factory, create the worker in the <a href={VARS.FACTORY_WEB_A
 1. In the web app sidebar, click your factory to expand it, then click **Workers**.
 2. Click **New**.
 3. Enter a worker name and a description of its responsibilities.
-4. Under "Worker resources", choose the worker's [harness, model, host, and runner](/factories/factory-agents/configuration/) as needed. Add [MCP servers](/factories/mcp/) and [secrets](/platform/secrets/) for its tools.
+4. Under "Worker resources", choose the worker's [harness, model, host, and runner](/factories/factory-agents/configuration/) as needed. Add [MCP servers](/factories/mcp/) and [secrets](/factories/secrets/) for its tools.
 5. Under "Worker prompt", enter the worker's instructions.
 6. In the top-right corner, click **Save**.
 
@@ -61,7 +61,7 @@ Creating a worker alone does not add a workflow stage. See [Defining Blueprint s
 
 ## Dispatch a configured worker
 
-For delegated Blueprint stages, the coordinator selects the worker declared by the stage and supplies its stage-specific inputs. It continues that worker's existing conversation for later stages or revisions in the same task.
+For delegated Blueprint stages, the coordinator selects the worker declared by the stage and supplies its stage-specific inputs. It continues that worker's existing conversation for later stages or revisions on the same work item.
 
 For direct dispatch, the foreman uses `run_agents` to dispatch configured factory workers. It receives a list of available workers and their unique IDs (UIDs), then:
 
@@ -216,7 +216,7 @@ For each key, Warp uses the child value first. If no child value is available, W
 * The `WARP_METADATA_` prefix is for metadata only. Images, worker environments, and secrets must not set variables with this prefix.
 * Local runs in the Warp app or a standalone CLI do not receive these environment variables.
 
-Each person with access to a run can read its metadata. Do not put credentials in metadata. Use [Agent Secrets](/platform/secrets/) for credentials.
+Each person with access to a run can read its metadata. Do not put credentials in metadata. Use [factory secrets](/factories/secrets/) for credentials.
 
 ## Related pages
 

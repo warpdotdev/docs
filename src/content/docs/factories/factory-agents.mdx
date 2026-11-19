@@ -47,19 +47,23 @@ Choose a worker for each stage in the Blueprint. These responsibilities describe
 
 ### Triage
 
-Triage researches the codebase and related issues, reproducing problems when research doesn't establish the cause. It reports scope, complexity, and open questions so the foreman can choose clarification, planning, or implementation.
+The assigned worker researches the codebase and related issues, reproducing problems when research doesn't establish the cause. It reports scope, complexity, and open questions so the foreman can choose clarification, planning, or implementation.
 
-### Spec
+<span id="spec" />
 
-Spec defines requirements through the foreman and writes specifications with validation criteria in a draft pull request. Put approval requirements in the planning stage's [gates](/factories/blueprints/gates/) and route implementation only from approval of the current plan.
+### Planning
 
-### Implement
+The assigned worker clarifies requirements through the foreman and writes a specification with validation criteria in a draft pull request. Put approval requirements in the planning stage's [gates](/factories/blueprints/gates/) and route implementation only from approval of the current plan.
 
-Implement builds on the spec's branch and draft pull request. It adds tests, runs repository checks, and captures visual evidence of user-facing changes when [computer use](/agents/capabilities/computer-use/) is available. It revises changes after review but never merges.
+<span id="implement" />
+
+### Implementation
+
+The assigned worker builds on the spec's branch and draft pull request when one exists. It adds tests, runs repository checks, and captures visual evidence of user-facing changes when [Computer Use](/agents/capabilities/computer-use/) is available. It revises changes after review but never merges.
 
 ### Review
 
-Review checks requirements, code conventions, tests, security, and supporting evidence. The default lifecycle worker reviews its own change; assign a separate worker when your workflow requires independent review. Review can rerun validation and recommend revisions, but it doesn't approve or merge the pull request.
+The assigned worker checks requirements, code conventions, tests, security, and supporting evidence. The default lifecycle worker reviews its own change; assign a separate worker when your workflow requires independent review. The worker can rerun validation and recommend revisions, but it doesn't approve or merge the pull request.
 
 ## Built-in skills
 
