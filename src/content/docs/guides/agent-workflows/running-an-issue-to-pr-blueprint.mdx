@@ -1,0 +1,147 @@
+---
+title: Running an issue-to-PR Blueprint
+description: >-
+  Configure an issue-to-PR workflow in Warp Factories, approve a plan, request a revision, and inspect the resulting draft pull request.
+---
+
+Use a README improvement to try a Blueprint in Warp Factories before applying it to application code. You configure the workflow and its access, agents called [workers](https://docs.warp.dev/factories/factory-agents/) propose and review the change, and you decide when work can proceed.
+
+{/* VERIFY: Confirm public Blueprint availability and the companion example 02 revision before making this exercise runnable or publishing it. */}
+
+## Prerequisites
+
+* Complete the [Warp Factories quickstart](https://docs.warp.dev/factories/quickstart/) for account, team role, and GitHub setup. Factory runs need available shared team usage; add usage if needed. See [funding factory runs](https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
+* Use two repositories you control: a disposable fork for the README change, and a separate repository for the factory definition. The first is the code workers work on; the second stores their workflow. Check [plan eligibility for hosting your definition on GitHub](https://docs.warp.dev/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
+* Grant the Warp GitHub App access to both repositories. Runs need permission to read issues, update labels and comments, push branches, and open PRs. Keep human approval and merge requirements in your repository rules. See [GitHub permissions](https://docs.warp.dev/factories/integrations/github/#permissions).
+* Install Git and Python 3 on the machine where you prepare and validate the definition. Validation requires network access to Warp's service.
+
+## 1. Prepare a disposable work repository
+
+Start from a fixed README so the request has a change to make.
+
+1. On GitHub, fork [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) into your account. In the fork's **Settings** > **General**, enable **Issues**.
+2. In your terminal, clone your fork and create the exercise branch:
+
+   ```bash
+   git clone \
+     https://github.com/YOUR_GITHUB_USER/warp-factory-examples.git \
+     blueprint-work
+   cd blueprint-work
+   git switch -c blueprint-demo 76f0f06f59a3c3d5fc29eb7699fe281073fa58c1
+   git push -u origin blueprint-demo
+   ```
+
+   Replace `YOUR_GITHUB_USER` with the account that owns the fork.
+3. On GitHub, set the fork's default branch to `blueprint-demo`. Check that its root README does not yet explain single-example validation or exit code 2.
+
+## 2. Copy and configure the Blueprint definition
+
+Use the updated [issue-to-PR example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) as the factory definition, not as the work repository.
+
+{/* VERIFY: Replace this blocked acquisition step with the delivered Blueprint example revision and reconcile every substitution against that complete tree. Example 02 has not yet been migrated in this draft. */}
+
+Copy the contents of `examples/02-sdlc-issue-to-pr/` into the root of your separate definition repository, with `factory.yaml` at the root.
+
+In that copied definition:
+
+1. In `factory.yaml`, set `alias` to `blueprint-demo` and replace the sample work repositories with your fork. Update the repository filters in both `automations/github-mention-assign/` and `automations/github-pr-closed-or-merged/` to the same fork. In both automations, change `factory:Acme` to `factory:blueprint-demo`; preserve the mention, assignment, label, and closed-or-merged constraints.
+2. Remove the optional iOS extension together: its repository, `agents/mobile-build/`, `runners/macos-build.yaml`, the `mobile-build` Blueprint stage, and every transition or instruction that references it. Send non-mobile implementation directly to independent review.
+3. Keep this exercise GitHub-only. Remove the Slack and Linear integration declarations together with `automations/slack-app-mentions/`, `automations/slack-dms/`, and `automations/linear-agent-sessions/`.
+4. Replace the `api-service` setup command in `runners/linux-build.yaml` with setup appropriate to the examples fork. In the convention and testing skills, name the repository's Python checks rather than application build commands.
+
+Read the Blueprint beside the worker files. The foreman must route requests, the spec worker must wait for the plan-review answer, the implementer must reuse the existing branch and PR for revisions, and the reviewer must return findings without merging. Keep those decisions in the Blueprint rather than adding a second routing procedure to worker prompts.
+
+## 3. Validate and apply the definition
+
+Validation checks the definition's syntax; application also checks resources and access for your team.
+
+{/* VERIFY: Run the companion validator against the complete substituted v1alpha1 tree; confirm successful GitHub-backed application and record the applied revision. */}
+
+From an updated examples checkout that contains `scripts/validate_factory_files.py`, run:
+
+```bash
+python3 scripts/validate_factory_files.py DEFINITION_ROOT
+```
+
+Replace `DEFINITION_ROOT` with the path to the copied definition repository. Fix reported diagnostics before continuing. Exit code 2 means validation did not run and is not a pass.
+
+Commit and push the definition. Use the [GitHub-backed definition path](https://docs.warp.dev/factories/factory-as-code/#where-the-definition-lives) to connect that repository and apply its root definition. If you already have a disposable GitHub-backed factory, update its connected definition instead of creating a duplicate. Wait for a successful sync and compare the applied definition with your commit.
+
+{/* VERIFY: Confirm the exact create-or-select GitHub definition controls and live labels; verify runs check out blueprint-demo and target PRs to that default branch. */}
+
+Before sending work, confirm that the applied factory has your fork, the intended Blueprint, and only the GitHub automations from the example. Check that the work checkout and eventual PR base use `blueprint-demo`. A parser pass or a commit in the definition repository does not establish either result.
+
+## 4. Send a request that requires a plan
+
+You choose the scope and require approval even though this is a small change.
+
+1. In your fork, create an issue titled `Document single-example validation`.
+2. Apply `factory:blueprint-demo` before mentioning the foreman. Then post a new comment with `@warp` followed by:
+
+   ```text title="Issue request"
+   In the root README, document how to validate only the SDLC example with
+   python3 scripts/validate_factory_files.py examples/02-sdlc-issue-to-pr.
+   Explain that exit code 2 means validation did not run and is not a pass.
+   Keep the change to README.md. Propose a short plan and wait for my approval
+   before editing. Run the repository's convention check and report the
+   validator result honestly. Open a draft pull request. Do not merge.
+   ```
+
+The GitHub automation supplies the request to the foreman. The foreman selects planning because your request explicitly requires it; the spec worker returns a plan and opens its review gate.
+
+{/* VERIFY: Exercise labeled intake, overlapping PR follow-up triggers, and nonmatching events; confirm one intended path per delivery without assuming distinct events are deduplicated. */}
+
+Check the issue reply and linked run, not only its completion status. The plan must name the README-only scope and checks, and implementation must not start while the question is unanswered.
+
+## 5. Answer the plan-review gate
+
+In the original GitHub issue, read the foreman's plan and reply with a new `@warp` mention followed by:
+
+```text title="Plan approval"
+Approved. Keep the README-only scope, run the convention check, and open a
+draft pull request. Do not merge.
+```
+
+The spec worker reports your answer, and the foreman routes the approved plan to implementation. If you request plan changes instead, the route must return to planning and ask for another answer before implementation.
+
+{/* VERIFY: Observe the pending gate, approval, and requested-plan-changes path in an authorized run; confirm no editing starts before approval. */}
+
+## 6. Review the draft PR and request a revision
+
+The implementer edits the README and reports its checks and draft PR. The foreman sends the change to a separate reviewer; review findings return to implementation on the same branch and PR.
+
+1. Open the draft PR. Confirm the base is `blueprint-demo`, the diff changes only `README.md`, and the description reports the actual convention-check and validator outcomes.
+2. Read the independent review. Then return to the original issue conversation, mention `@warp`, and send:
+
+   ```text title="Same-PR revision"
+   Revise the same pull request to explain that validation needs network
+   access. Keep the README-only scope and rerun the convention check.
+   ```
+
+3. Check that the existing PR receives the revision and another independent review. Confirm the README now explains the command, exit code 2, and network requirement.
+
+{/* VERIFY: Complete the first draft PR and same-PR revision; verify the existing run retains its Blueprint after a definition edit and a new run selects the updated definition. */}
+
+## 7. Make the human handoff decision
+
+Review the final diff, check results, and findings yourself. A successful worker review is advisory. Leave the PR open for review, request another revision, or merge it through your normal process when you choose.
+
+This exercise stops before merge. The workflow must not treat delivery of a draft PR as a merge. If someone closes the PR without merging, the foreman must report closure rather than mark the work merged or complete.
+
+{/* VERIFY: Exercise closed-without-merge follow-up and confirm the work remains distinct from a verified merge. */}
+
+## Troubleshooting
+
+* **Validation cannot run** - Check Python, network access, and the service URL reported by the validator. Retry after restoring access; do not treat exit code 2 as success.
+* **The mention produces no workflow run** - Confirm the app can access the fork and the applied automation's repository, handle, and label filters match. Apply the label, then send a new mention. This example's specialized automation does not handle nonmatching events; do not assume another route does.
+* **An integration is unavailable** - Remove its declaration and automations together, or finish its connection before applying the definition.
+* **Work is waiting for you** - Answer the question in the original conversation. A question back or an unrelated message does not approve a plan.
+* **A definition change does not affect the current run** - Apply the definition and start separate test work. Follow-ups to the existing run keep its selected Blueprint.
+
+## Next steps
+
+The exercise connects a README issue to plan approval, independent review, and a same-PR revision, with merge left to you.
+
+* [About Blueprints](https://docs.warp.dev/factories/blueprints/) - Adapt stages, transitions, and gates
+* [Factory definition syntax](https://docs.warp.dev/factories/factory-as-code/#blueprint) - Change the versioned workflow configuration
+* [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Check a worker's proposed changes
