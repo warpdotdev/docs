@@ -4,7 +4,7 @@ description: >-
   Require human involvement at stage completion or when a condition holds in a Warp Factories Blueprint.
 ---
 
-A gate requires a worker to involve a person when a condition holds or a stage's work ends. Use it to request approval for an action or change, such as reviewing a plan before implementation or approving a migration discovered during the work.
+A gate pauses a Blueprint stage so a person can answer a question before work continues. You define the question, the answers needed, and when the worker must ask. For example, a planning stage can draft a plan, ask you to approve it or request changes, and wait for your answer before implementation starts.
 
 {/* VERIFY: Observe end-of-stage and conditional gates in an applied definition, including unanswered questions, requested changes, renewed approval, and no implementation before approval. */}
 
@@ -44,7 +44,15 @@ migration-review:
   outputs: Approval, requested changes, or a decision not to proceed.
 ```
 
-Write a condition the worker can assess from the task and its results. Include the material and context a person needs to answer. If several gates open together, the worker asks them together; every open question must be answered before the stage finishes.
+Write `when` as a plain-language condition the worker can assess from the task and its results, not a code expression. The worker checks it during the work and again before finishing the stage. Other conditions can ask for clarification or a choice, not only approval:
+
+| Example `when` condition | What the gate asks |
+| --- | --- |
+| The request leaves the intended API behavior unresolved. | Ask the requester which behavior to implement before editing code. |
+| The proposed fix requires a breaking change to a public API. | Present the compatibility impact and ask the API owner to approve the change, request another approach, or decline. |
+| Verification cannot run because a required test environment is unavailable. | Explain which checks remain unverified and ask whether to provide access, change the verification plan, or stop. |
+
+Include the material and context a person needs to answer in the gate's `prompt`. If several gates open together, the worker asks them together; every open question must be answered before the stage finishes.
 
 For a leaf stage, the worker doing the work checks its gates and relays questions through the foreman. A gate on a delegated group is checked by the worker that dispatched the group, after the group's result returns.
 
