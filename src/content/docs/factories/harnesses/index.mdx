@@ -11,7 +11,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 A harness is the agent runtime that works on a task. Choose the [Warp Agent](/factories/harnesses/warp-agent/), [Claude Code](/factories/harnesses/claude-code/), [Codex](/factories/harnesses/codex/), or [Pi](/factories/harnesses/pi/) for each factory agent. For example, use Claude Code for an implement agent and the Warp Agent for a review agent.
 
-Set the harness, model, and team-owned authentication in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness). For file-based configuration, set a default or per-agent override in the [factory definition](/factories/factory-as-code/#agentdefaultsharness).
+Set the harness, model, and team-owned authentication in [Configuring factory workers](/factories/factory-agents/configuration/#configuring-a-third-party-harness). For file-based configuration, set a default or per-agent override in the [factory definition](/factories/factory-as-code/#agentdefaultsharness).
 
 You can also select a harness for a standalone cloud run without creating a factory. The walkthrough shows these standalone cloud-agent surfaces.
 
@@ -36,7 +36,7 @@ With the [provider credentials described here](/factories/harnesses/authenticati
 
 ## How to switch harnesses
 
-For a factory agent, follow [Configuring factory agents](/factories/factory-agents/configuration/). The following alternatives select a harness for a standalone run.
+For a factory agent, follow [Configuring factory workers](/factories/factory-agents/configuration/). The following alternatives select a harness for a standalone run.
 
 ### Warp app
 
@@ -71,7 +71,7 @@ Agent orchestration tools can use `claude-code` as their Claude Code label. Foll
 
 ## Related pages
 
-* [Configuring factory agents](/factories/factory-agents/configuration/) - Select a harness and its team-owned auth secret
+* [Configuring factory workers](/factories/factory-agents/configuration/) - Select a harness and its team-owned auth secret
 * [Warp Agent harness](/factories/harnesses/warp-agent/)
 * [Claude Code harness](/factories/harnesses/claude-code/)
 * [Codex harness](/factories/harnesses/codex/)

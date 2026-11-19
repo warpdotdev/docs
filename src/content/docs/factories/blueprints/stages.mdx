@@ -49,13 +49,13 @@ Inputs and outputs are instructions, not typed schemas. “The checks passed” 
 
 A stage name and a worker name serve different purposes. Two stages can use the same worker with different procedures. The worker receives the named stage's instructions; it does not decide which other stage to do next.
 
-When a stage uses the worker already driving its workflow, it runs in that conversation. A different worker receives a delegated stage. For later revisions, the coordinator continues that worker's existing conversation for the task.
+When a stage uses the worker already driving its workflow, it runs in that conversation. A different worker receives a delegated stage. For later revisions, the coordinator continues that worker's existing conversation for the work item.
 
 Do not copy the Blueprint's full transition procedure into each worker's instructions. Keep communication rules and reusable behavior there; keep stage work in `prompt` and next-step decisions in [`to`](/factories/blueprints/routes/).
 
 ## Group related stages
 
-A stage can contain its own `start` and `stages` instead of a leaf `prompt`. Its worker drives that group, runs stages assigned to itself, and delegates other stages. Reaching the group's `end` returns its declared outputs to the enclosing workflow; it does not finish the whole task.
+A stage can contain its own `start` and `stages` instead of a leaf `prompt`. Its worker drives that group, runs stages assigned to itself, and delegates other stages. Reaching the group's `end` returns its declared outputs to the enclosing workflow; it does not finish the whole work item.
 
 Use a group when one worker needs to coordinate a subworkflow, such as implementation and review, before returning a single result. Stage names must be unique across the Blueprint. See [Blueprint syntax](/factories/factory-as-code/#blueprint) for the fields and constraints.
 
