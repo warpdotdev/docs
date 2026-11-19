@@ -411,6 +411,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				label: 'Factory configuration',
 				items: [
 						{
+							label: 'Blueprints',
+							items: [
+								{ slug: 'factories/blueprints', label: 'About Blueprints' },
+								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
+								{ slug: 'factories/blueprints/routes', label: 'Configuring Blueprint transitions' },
+								{ slug: 'factories/blueprints/gates', label: 'Adding gates to a Blueprint' },
+							],
+						},
+						{
 							label: 'Factory agents',
 							items: [
 								{ slug: 'factories/factory-agents', label: 'About factory agents' },
