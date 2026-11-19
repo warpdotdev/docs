@@ -10,7 +10,7 @@ next: false
 
 Use Warp Factories to coordinate changes to services that share a contract and an owner. Workers check the contract files in each repository, open one PR per changed service, and report the order in which a person must merge them. They do not test a live deployment.
 
-Adapt the complete Blueprint in [`related-services`](https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/related-services). The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their names, paths, and commands with yours.
+Adapt the complete Blueprint in [`related-services`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/related-services). The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their names, paths, and commands with yours.
 
 ## How a microservices factory is organized
 
@@ -168,7 +168,7 @@ Keep the example's single advisory contract review. Unambiguous findings go thro
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/microservices-factory.md and adapt
-https://github.com/warpdotdev/warp-factory-examples/tree/6d496241410e26f98d125166d020909bc3124148/examples/related-services
+https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/related-services
 for my factory.
 The provider repository is OWNER/PROVIDER and its contract file is
 CONTRACT_PATH. The consumer
