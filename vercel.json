@@ -52,30 +52,6 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*text/markdown.*"
-        }
-      ],
-      "destination": "/index.md"
-    },
-    {
-      "source": "/:path+",
-      "has": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*text/markdown.*"
-        }
-      ],
-      "destination": "/:path+.md"
-    }
-  ],
   "redirects": [
     {
       "source": "/enterprise/team-management/teams(/?)",
@@ -683,7 +659,7 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/api-sdk",
+      "source": "/platform/api-sdk(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
@@ -5448,7 +5424,7 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk",
+      "source": "/platform/agent-api-and-sdk(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
@@ -5683,7 +5659,7 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk/agent-1",
+      "source": "/platform/agent-api-and-sdk/agent-1(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
@@ -5693,7 +5669,7 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/cloud-agents/self-hosting/managed-worker-reference",
+      "source": "/agent-platform/cloud-agents/self-hosting/managed-worker-reference(/?)",
       "destination": "/factories/self-hosting/",
       "statusCode": 308
     },
@@ -6538,12 +6514,12 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk/agent",
+      "source": "/platform/agent-api-and-sdk/agent(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
-      "source": "/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk",
+      "source": "/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk(/?)",
       "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
