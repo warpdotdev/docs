@@ -24,6 +24,13 @@ See [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/) f
 
 ## Creating a team
 
+If your self-serve account has no team, initial setup in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> can create your first team:
+
+1. Sign in. If setup lists discoverable teams, choose **Create a new team** and enter a team name when requested.
+2. Click **Build your first Factory**. If setup does not show a team-name field, Warp creates a default-named team. After completing setup, confirm the selected team in the account menu.
+
+If setup says "Contact an admin to join a team," ask your admin for an invitation. The factory account menu's **New Team** control is for Enterprise workspace administration, not a general self-serve team-creation route.
+
 To create a self-serve team in the Warp app:
 
 1. Open **Settings** > **Teams**, or open **Warp Drive** and click **+ Create a team**.
@@ -43,11 +50,11 @@ To rename a self-serve team, open **Settings** > **Teams** in the Warp app. Clic
 
 ## Inviting team members
 
-Check the [member billing rules](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members) before sharing an invitation:
+Check the billing consequence for your product before sharing an invitation:
 
-* **Warp Terminal and local agents** - Paid per-seat subscriptions include all active team members. Adding a member adds a prorated seat charge.
-* **Warp Factories** - The Scale plan uses one team subscription rather than per-member subscription fees. Factory runs use shared funding, not a member's included personal allowance.
-* **Enterprise** - Membership charges and usage funding follow your contract.
+* **Warp Terminal and local agents** - Paid per-seat subscriptions include all active members. Adding a member adds a prorated seat charge. See [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
+* **Warp Factories** - Start uses purchased usage without a subscription; Scale uses one team subscription rather than per-member subscription fees. Members' factory runs consume shared funding, so additional activity can increase usage charges. See [factory plans and funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-factories-plans).
+* **Enterprise** - Membership charges and usage funding follow your [contract](/enterprise/support-and-resources/billing/).
 
 <span id="inviting-new-team-members" />
 <span id="warp-terminal-and-local-agent-teams" />
@@ -55,23 +62,33 @@ Check the [member billing rules](/support-and-community/plans-and-billing/pricin
 <span id="warp-factories-teams" />
 <span id="warp-factories-subscriptions" />
 
-In the Warp app, open **Settings** > **Teams**. Copy the team's invite link and share it with your colleagues through a secure channel.
+Self-serve team owners and admins can invite colleagues in a browser:
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/), confirm the intended team, and click **Teams**.
+2. Under **Invite by Email**, enter the addresses and click **Send**. Confirm they appear as pending invitations.
+3. To share a link instead, enable **Invite by Link** if needed. Click the copy control beside the link and share it through a secure channel.
+
+Non-admins can ask an owner or admin for an invite link. In the Warp app, the link is also available under **Settings** > **Teams**.
 
 For Enterprise invitations, including adding people to Hidden teams, follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
 
 ### Restricting team invites by domain
 
-Team owners and admins can restrict self-serve invitations to approved email domains:
+Team owners and admins can restrict joining through self-serve invite links to approved email domains:
 
 1. In the Warp app, open **Settings** > **Teams**.
 2. Toggle **Restrict by domain** on.
 3. Add the allowed email domains.
 
-Someone joining with an address outside the allowed domains must verify access to an address on an allowed domain.
+In the browser Admin Panel, open **Teams** and enable **Invite by Link**. Under "Restrict by domain," enter an approved domain and click **Add**. Confirm the domain appears in the list.
+
+Someone joining through a link with an address outside the allowed domains must verify access to an address on an allowed domain.
 
 ## Joining a team
 
-Open the invitation link and sign up or sign in to Warp. If the team restricts invitations by domain, complete the email verification requested during joining.
+Open the invitation link in a browser and sign up or sign in with the invited account. Check the team name and click **Join team**. For restricted-domain links, complete the requested email verification first.
+
+Return to the {VARS.FACTORY_WEB_APP}, reload if needed, and confirm the joined team appears in the account menu. Email invitations must match the invited email address and be unexpired; ask an admin for a new invitation if needed.
 
 Workspace membership does not automatically make you a member of every Enterprise team. For team discovery and workspace invitations, see [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/).
 
@@ -79,7 +96,7 @@ Workspace membership does not automatically make you a member of every Enterpris
 
 For eligible self-serve teams, an owner or admin can let colleagues with the same email domain find and join the team without a direct invitation.
 
-In the Warp app, open **Settings** > **Teams** and toggle **Make team discoverable** on. People who join this way follow the same [member billing rules](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members) as invited members.
+In the Warp app, open **Settings** > **Teams** and toggle **Make team discoverable** on. In the browser Admin Panel, open **Teams** and enable **Team Discovery** when that control is available. People who join this way follow the same [product-specific billing rules](#inviting-team-members) as invited members.
 
 ## Team roles and permissions
 
@@ -121,9 +138,9 @@ See [usage when team membership changes](/support-and-community/plans-and-billin
 
 ## Managing a team without Warp Terminal
 
-Factory admins can open the [Admin Panel](https://app.warp.dev/admin/) in a browser. In the {VARS.FACTORY_WEB_APP}, the account menu also provides **Admin panel**.
+In the {VARS.FACTORY_WEB_APP}, owners and admins open **Admin panel** from the account menu. In the Admin Panel, choose **Teams** for the membership procedures above or **Billing** for shared funding.
 
-See [Managing factory plans and billing](/factories/managing-plans-and-billing/#opening-the-admin-panel) for selecting the team and opening its billing settings.
+For your access level and an admin handoff, see [Checking your role](/knowledge-and-collaboration/roles-and-permissions/#checking-your-role). For role changes, follow [promoting admins](/knowledge-and-collaboration/roles-and-permissions/#promoting-or-demoting-admins) or [transferring ownership](/knowledge-and-collaboration/roles-and-permissions/#transferring-team-ownership).
 
 <span id="related-resources" />
 

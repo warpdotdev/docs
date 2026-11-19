@@ -4,10 +4,17 @@ description: >-
   Identify Warp team, workspace, and factory roles, check which plans support
   additional admins, and change team administration access.
 ---
+import { VARS } from '@data/vars';
 
 Your Warp role determines what you can administer. A team role applies to one team, an Enterprise workspace role controls administration across teams, and a factory role controls access to factory configuration and work.
 
 For example, an Enterprise workspace member who is an Engineering team admin can administer that team and its factories without workspace billing authority. A factory Editor can configure a factory without being a team admin.
+
+## Checking your role
+
+In the {VARS.FACTORY_WEB_APP}, open the account menu and confirm the selected team. Your badge shows "Member," "Admin," or "Workspace admin." A self-serve team owner also shows "Admin"; this badge does not distinguish ownership.
+
+Admins can open **Admin panel** and inspect their entry in the team's member list for the exact role. If your badge says "Member," ask the person who invited you or a known team admin for help. If you cannot identify an admin, [contact support](mailto:support@warp.dev). The Admin Panel is not a member-accessible directory.
 
 ## Team roles
 
@@ -89,7 +96,7 @@ Team admins manage team settings and membership. Workspace admins additionally m
 
 Where the plan includes spending controls, team admins set limits for their team and its members. Enterprise workspace owners and admins can manage those limits across the workspace's teams. See [Enterprise spending controls](/enterprise/support-and-resources/billing/#spending-controls) for usage caps and [self-serve purchase limits](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit) for limits on additional purchases.
 
-Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate actions. Follow [Managing factory plans and billing](/factories/managing-plans-and-billing/) for the factory billing routes.
+Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate actions. See [usage visibility](/support-and-community/plans-and-billing/credits/#who-can-see-team-usage) for reporting access and [Managing factory plans and billing](/factories/managing-plans-and-billing/) for browser billing routes.
 
 ### What members can do
 
@@ -101,15 +108,15 @@ A team-admin role does not override a workspace policy or make a plan-locked set
 
 ## Transferring team ownership
 
-This procedure applies to a self-serve team. Only the current owner can transfer ownership:
+This procedure applies to a self-serve team. Only the current owner can transfer ownership.
 
-1. In the Warp app, open **Settings** > **Teams** and find the member who will become the owner.
-2. Open their three-dots menu and click **Transfer ownership**.
-3. Complete the confirmation and check that the new owner is shown.
+The previous owner becomes a Member and loses administration access. If the team supports additional admins and you still need that access, ask the new owner or another admin to grant it separately. If the new owner's email is not on a work domain, Warp disables team discoverability.
 
-The previous owner becomes a Member. If the team supports additional admins and the previous owner still needs that access, grant it separately.
+1. Open the [Admin Panel](https://app.warp.dev/admin/) in a browser, confirm the team, and click **Teams**.
+2. Find the existing member who will become the owner. Open their member-actions menu and click **Transfer ownership**. If the list uses an editable role column instead, choose **Owner** from that member's role dropdown.
+3. In the confirmation, click **Transfer**. The page reloads with your updated access. Ask the new owner to confirm their Owner role.
 
-If the new owner's email is not on a work domain, Warp disables team discoverability.
+In the Warp app, the alternative route is **Settings** > **Teams**, then the member's three-dots menu > **Transfer ownership**.
 
 For independent Enterprise workspaces, follow [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles). Transferring workspace ownership does not transfer team roles.
 
