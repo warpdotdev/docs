@@ -32,9 +32,11 @@ start:
 
 The worker driving the workflow judges these prose conditions and takes the first match. Put the more specific condition first. Conditions are not Boolean expressions evaluated by a rules engine. They can refer to the incoming request, a stage's reported results, or a named gate's answer, such as plan approval or requested changes.
 
-### Send different requests to different stages
+<span id="send-different-requests-to-different-stages" />
 
-For a workflow with `docs`, `triage`, and `implement` stages, transition documentation-only changes to a documentation worker and unknown bugs to investigation:
+### Example: Send different requests to different stages
+
+This example routes documentation-only changes to a documentation worker and unknown bugs to investigation. It assumes a workflow with `docs`, `triage`, and `implement` stages:
 
 ```yaml title="Entry for documentation, investigation, and implementation"
 start:
@@ -111,5 +113,5 @@ Inspect the conversations, PR identity, and tested commits. A completed run alon
 ## Related pages
 
 * [Defining Blueprint stages](/factories/blueprints/stages/) - Supply the outputs conditions use
-* [Adding human gates to a Blueprint](/factories/blueprints/gates/) - Transition approval and requested changes separately
+* [Adding gates to a Blueprint](/factories/blueprints/gates/) - Transition approval and requested changes separately
 * [Factory automations](/factories/automations/) - Configure event matching without widening intake
