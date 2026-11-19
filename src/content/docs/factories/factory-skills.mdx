@@ -1,13 +1,15 @@
 ---
 title: Factory skills
 description: >-
-  Skills give a factory's agents repeatable, version-controlled procedures
-  that can be shared across every agent or scoped to just one.
+  Skills give a factory's workers repeatable, version-controlled procedures
+  that can be shared across every worker or scoped to just one.
 sidebar:
   label: "Factory skills"
 ---
 
-A skill gives an agent a repeatable procedure, such as a security review or incident runbook. Factory skills extend an agent's instructions without requiring changes to its prompt.
+A skill gives an agent a repeatable procedure, such as a security review or incident runbook. In a factory, these configured agents are called [workers](/factories/factory-agents/). Factory skills extend their instructions without requiring changes to their prompts.
+
+In a [Blueprint](/factories/blueprints/), the stage prompt names the work and the skills to use. Keep reusable check commands in a skill; keep stage handoffs, transitions, and gates in the Blueprint. A skill does not replace the workflow's stage order.
 
 ## Skill sources in a factory
 
@@ -16,9 +18,9 @@ A skill gives an agent a repeatable procedure, such as a security review or inci
 
 A factory run can use skills from three sources:
 
-* **Role and integration skills** - Default agents have GitHub skills for repository work. The foreman also has a Slack skill. Choosing Linear or Jira during setup gives relevant agents the tracker's skill and instructions. These skills come from roles and integrations, not files in your definition.
+* **Role and integration skills** - Default workers have GitHub skills for repository work. The foreman also has a Slack skill. Choosing Linear or Jira during setup gives relevant workers the tracker's skill and instructions. These skills come from roles and integrations, not files in your definition.
 * **Warp-provided skills** - Bundled capabilities include `oz-platform` for cloud agents, `factory-files` for factory definitions, and `factory-mcp` for sending work to factories.
-* **Custom skills** - Team-owned `SKILL.md` files live in the factory definition or are referenced from another location in the same repository or an external repository. They are shared across the factory or scoped to one agent and extend the built-in skills rather than replacing them.
+* **Custom skills** - Team-owned `SKILL.md` files live in the factory definition or are referenced from another location in the same repository or an external repository. They are shared across the factory or scoped to one worker and extend the built-in skills rather than replacing them.
 
 <span id="attribute-team-owned-skill-usage" />
 
@@ -31,15 +33,15 @@ Add a custom skill for procedures the built-in skills don't cover. For example:
 * Run required tests or lint checks.
 * Follow incident-response or triage runbooks.
 * Apply a security or compliance review checklist.
-* Teach a custom agent its job. Custom agents have no built-in skills.
+* Teach a custom worker its job. Custom workers have no built-in skills.
 
-Skills provide instructions, not access to tools or repositories. If a procedure requires credentials or an MCP connection, configure the agent's [secrets](/factories/secrets/) and [MCP servers](/factories/mcp/) through its [settings](/factories/factory-agents/configuration/#edit-agent-settings-and-instructions). For how that access is limited, see [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries).
+Skills provide instructions, not access to tools or repositories. If a procedure requires credentials or an MCP connection, configure the worker's [secrets](/factories/secrets/) and [MCP servers](/factories/mcp/) through its [settings](/factories/factory-agents/configuration/#edit-agent-settings-and-instructions). For how that access is limited, see [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries).
 
 <span id="custom-file-based-factory-skills" />
 
 ## Add or edit a skill
 
-Configure custom skills in the factory's [definition](/factories/factory-as-code/#directory-structure), not its agent settings. You need permission to edit that definition.
+Configure custom skills in the factory's [definition](/factories/factory-as-code/#directory-structure), not its worker settings. You need permission to edit that definition.
 
 To add or update a custom skill:
 
@@ -47,18 +49,18 @@ To add or update a custom skill:
    * **Warp-managed** - In the web app sidebar, expand your factory and click **Factory definition**.
    * **GitHub-backed** - Open the connected definition repository. See [Where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 2. Create or open the skill file for the scope you need:
-   * **Every agent** - `skills/<skill-name>/SKILL.md`, for shared procedures such as repository conventions.
-   * **One agent** - `agents/<agent-name>/skills/<skill-name>/SKILL.md`, for a role-specific procedure such as a security review.
+   * **Every worker** - `skills/<skill-name>/SKILL.md`, for shared procedures such as repository conventions.
+   * **One worker** - `workers/<worker-name>/skills/<skill-name>/SKILL.md`, for a role-specific procedure such as a security review. If the definition uses `agents/`, use `agents/<worker-name>/skills/<skill-name>/SKILL.md` instead. Keep the existing root, even when adding a skill.
 
-   Replace `<skill-name>` with the skill's directory name and `<agent-name>` with the agent's directory name.
+   Replace `<skill-name>` with the skill's directory name and `<worker-name>` with the worker's directory name.
 
-   For example, this layout shares repository conventions with every agent and gives only the foreman an incident-triage skill:
+   In a `workers/` tree, this shares repository conventions with every worker and gives only the foreman an incident-triage skill:
 
    ```text
    skills/
      repository-conventions/
        SKILL.md
-   agents/
+   workers/
      foreman/
        skills/
          incident-triage/
@@ -69,11 +71,11 @@ To add or update a custom skill:
    * **Warp-managed** - Save the definition. Warp validates and commits it.
    * **GitHub-backed** - Open a pull request. The factory's [pull request checks](/factories/factory-as-code/#pull-request-checks) validate the change, and merging to the production branch applies it.
 
-For an example of a shared skill and an agent-specific skill in one definition, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
+For an example of shared and agent-specific skills, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 
 ## Reference existing skills
 
-To reuse skills without copying them into the definition, create a `.yaml` or `.yml` reference file directly in `skills/` for every agent or `agents/<agent-name>/skills/` for one agent. Set `source` to the repository and `include` to the skills to load, then apply the definition change as described above.
+To reuse skills without copying them, create a `.yaml` or `.yml` reference file directly in `skills/` for every worker. For one worker, use `workers/<worker-name>/skills/` in a `workers/` tree or `agents/<worker-name>/skills/` in an `agents/` tree. Set `source` to the repository and `include` to the skills to load, then apply the definition change as described above.
 
 The source can be the repository containing your definition or an external repository. Pin it to a full commit SHA to keep using a particular version of the skill and its supporting files. See [Skill reference files](/factories/factory-as-code/#skill-reference-files) for same-repository, external-repository, and SHA-pinned examples.
 
@@ -83,8 +85,8 @@ When a Scorer with [Self-improvement](/factories/measure-and-improve/self-improv
 
 ## Related pages
 
-* [About factory agents](/factories/factory-agents/) - Understand the agents that use factory skills
-* [Creating custom agents](/factories/factory-agents/creating-custom-agents/) - Add specialized roles and skills
+* [About factory workers](/factories/factory-agents/) - Understand the workers that use factory skills
+* [Creating custom workers](/factories/factory-agents/creating-custom-agents/) - Add specialized roles and skills
 * [Factory definition syntax](/factories/factory-as-code/) - Look up definition files and fields
 * [Skills for agents](/agents/capabilities/skills/) - Write skills with arguments and supporting files
 * [Measure and improve a factory](/factories/measure-and-improve/) - Evaluate runs and propose improvements

@@ -10,7 +10,7 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 Warp Factories can automate development work like investigating bugs, preparing changes for review, and checking that an application behaves as expected. These recipes show how to configure a workflow in your existing factory, verify its results, and decide where human input is required.
 
-Each recipe combines agents, automations, skills, integrations, and repository controls. The examples use [definitions as code](/factories/factory-as-code/) so you can review and validate changes, or adapt them to a Warp-managed factory.
+Each recipe adds a path to your factory's [Blueprint](/factories/blueprints/): stages name the work and assigned [workers](/factories/factory-agents/), the agents configured for your factory. Transitions decide what happens next. Automations supply intake, skills hold reusable procedures, and repository controls enforce merging. The examples use [definitions as code](/factories/factory-as-code/); you can also edit a Warp-managed factory.
 
 ## Choose a use case
 
@@ -53,11 +53,11 @@ Choose one task your team can evaluate on its own, like triaging incoming issues
 
 Before you add an automation, choose the event that should start work and check whether it's handled by an existing automation. Update that automation where appropriate, or use nonoverlapping filters when separate automations serve different purposes. See [automation matching rules](/factories/automations/#how-matching-works).
 
-Follow the chosen recipe to configure the agents, access, and repository-specific instructions it needs. Test it on a sample issue or pull request, and review whether the output meets your expectations and respects the stopping point. Once that workflow works reliably, expand its scope or connect it to another stage.
+Follow the chosen recipe to configure its Blueprint stages, assigned workers, access, and repository-specific skills. Test it on a sample issue or pull request, and review whether the output meets your expectations and respects the stopping point. Once that workflow works reliably, expand its scope or connect it to another stage.
 
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
-* [About factory agents](/factories/factory-agents/) - Understand default roles and human decision points
-* [Factory automations](/factories/automations/) - Route provider events to agents with filters
+* [About factory workers](/factories/factory-agents/) - Choose resources and general instructions for stage work
+* [Factory automations](/factories/automations/) - Route provider events to workers with filters
 * [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions
