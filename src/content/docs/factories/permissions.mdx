@@ -5,7 +5,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Give teammates **Factory user** access to run work without changing the factory, or **Editor** access to configure its agents, repositories, and automations.
+Give teammates **Factory user** access to run work without changing the factory, or **Editor** access to configure its workers, repositories, and automations.
 
 Assigning Factory user and Editor roles requires an Enterprise plan. On all other plans, team members have Editor access.
 
@@ -32,7 +32,7 @@ Defaults apply to new and existing members without an assigned role. A workspace
 | --- | --- | --- | --- |
 | View the factory and run work | Yes | Yes | Yes |
 | Edit the factory's name, handle, and definition | No | Yes | Yes |
-| Configure agents, repositories, and automations | No | Yes | Yes |
+| Configure workers, repositories, and automations | No | Yes | Yes |
 | Attach existing secrets, MCP servers, and integrations | No | Yes | Yes |
 | Manage factory roles | No | No | Yes |
 | Create a factory | No | Yes | Yes |
@@ -70,7 +70,7 @@ The change applies only to this factory. The teammate keeps their existing role 
 
 Factory roles don’t grant access to repositories or external services. A run’s access to those resources depends on its configured [repository identity](/factories/factory-as-code/#credentialstrategy), [secrets](/factories/secrets/), and [MCP servers](/factories/factory-as-code/).
 
-Additionally, factory roles also don’t determine who can approve specifications or merge pull requests. Specification approval follows the foreman’s instructions, while your repository’s permissions and branch protection rules govern pull request approval and merging. See [Human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
+Factory roles don't determine who can approve specifications or merge pull requests. Configure [human decisions in the Blueprint](/factories/blueprints/#gates-ask-for-answers-not-automatic-approval). Repository permissions and branch protection govern pull request approval and merging.
 
 ## Related pages
 

@@ -420,11 +420,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{
-							label: 'Factory agents',
+							label: 'Factory workers',
 							items: [
-								{ slug: 'factories/factory-agents', label: 'About factory agents' },
-								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
-								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+								{ slug: 'factories/factory-agents', label: 'About factory workers' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory workers' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom workers' },
 							],
 						},
 						{
@@ -575,7 +575,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Plans and support',
+					label: 'Plans & support',
 					items: [
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',
