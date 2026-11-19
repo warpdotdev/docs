@@ -15,7 +15,7 @@ For example, your issue-to-PR workflow can send a well-defined bug directly to i
 * **Stage** - A unit of work with its own instructions, inputs, and outputs. A review stage can require findings against a particular PR head. See [Defining Blueprint stages](/factories/blueprints/stages/).
 * **Worker** - An agent configured for the factory, with its own instructions, model, harness, and tools. It runs assigned stages and keeps its conversation for later stages or revisions on the same work item. See [factory workers](/factories/factory-agents/).
 * **Transition** - Connects stages and selects what happens next. Review findings can return to implementation; accepted work can move to handoff. See [Configuring Blueprint transitions](/factories/blueprints/routes/).
-* **Gate** - Requires human involvement when a condition holds or a stage's work ends. A plan-review gate can require approval before implementation, with different transitions for approval and requested changes. See [Adding human gates to a Blueprint](/factories/blueprints/gates/).
+* **Gate** - Pauses a stage for a person's answer. A plan-review gate can require approval before implementation, with different transitions for approval and requested changes. See [Adding human gates to a Blueprint](/factories/blueprints/gates/).
 
 The Blueprint lives in `factory.yaml`. Each stage names a worker from the factory's worker definitions. A stage named `planning` might use the `spec` worker; another stage might use that same worker for a different procedure.
 
@@ -50,7 +50,9 @@ flowchart TB
 
 The transition order matters; the order you declare stages does not. If no condition fits, the worker asks for the missing decision instead of silently finishing. A follow-up resumes the stage it concerns rather than repeating intake.
 
-## Gates ask for answers, not automatic approval
+<span id="gates-ask-for-answers-not-automatic-approval" />
+
+## Human decisions at gates
 
 You choose what question a gate asks, which answers satisfy it, and when it opens. For a plan review, “changes requested” answers the question but sends the plan back for revision; it does not approve implementation.
 
