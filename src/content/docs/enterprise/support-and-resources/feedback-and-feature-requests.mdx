@@ -5,7 +5,7 @@ description: >-
   customer.
 ---
 
-Warp Enterprise customers have access to dedicated support channels for reporting issues, requesting features, and getting help. This page explains how to reach the right team and provide the information needed to resolve issues quickly.
+Report issues and request features through your dedicated Enterprise support channel or account manager.
 
 ## Enterprise support channels
 
@@ -20,16 +20,31 @@ For the fastest response, use your dedicated Slack or Teams channel. Warp engine
 
 ## Reporting bugs
 
-When reporting a bug, include the following to help Warp's team investigate quickly:
+Send bug reports through your dedicated Slack or Teams channel. Keep credentials and sensitive transcripts out of public issues.
+
+### Factory and browser issues
+
+For a factory issue, include:
+
+* A link to the affected run or work item, and the factory involved. See [Inspect runs](/factories/factory-dashboard/#inspect-runs) to find the run.
+* What happened, what you expected, steps to reproduce, and the time of failure.
+* Visible error text and relevant context that helps support identify the run.
+* Browser and OS details if the problem is browser-specific.
+
+You don't need a Terminal block or local app logs for a browser-only report. If the Warp app is involved, include the diagnostics below.
+
+### Warp app issues
+
+For an issue in the Warp app, include:
 
 1. **Description** - What happened and what you expected to happen.
 2. **Steps to reproduce** - How to trigger the issue.
-3. **Conversation ID** (for Agent issues) - Right-click on the Agent conversation block in question, select **Copy conversation ID**, and include it in your report. When an Agent conversation produces an error, an option to copy the conversation ID also appears inline. See [Gathering conversation ID](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-ai-conversation-id) for more details.
+3. **Conversation ID** (for agent issues) - Right-click the agent conversation block, click **Copy conversation ID**, and include it in your report. An error can also show an inline copy option. See [Gathering AI conversation ID](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-ai-conversation-id).
 4. **Logs** (if relevant) - See [Gathering logs](#gathering-logs) below.
 5. **Environment details** - OS, Warp version, and any relevant configuration.
 
 :::note
-Most Enterprise teams have user-generated content (UGC) collection disabled, which limits the diagnostic information available from conversation IDs. Logs and detailed reproduction steps are especially important for Enterprise bug reports.
+If your organization disables content collection, a conversation ID provides less diagnostic information. Include detailed reproduction steps and relevant logs. You don't need to enable collection for an ordinary support request.
 :::
 
 ### Gathering logs
@@ -40,7 +55,7 @@ Warp's logs do not contain console input or output. Log file locations by platfo
 * **Windows** - `%LOCALAPPDATA%\warp\Warp\data\logs\warp.log*`
 * **Linux** - `~/.local/state/warp-terminal/warp.log*`
 
-You can also access logs directly in the app: open the **Command Palette** (`⌘+P` on macOS / `Ctrl+Shift+P` on Windows/Linux) and search for **View Warp Logs**.
+You can also access logs in the Warp app: open the **Command Palette** (`⌘+P` on macOS or `Ctrl+Shift+P` on Windows/Linux) and search for **View Warp Logs**.
 
 For detailed log gathering instructions, including how to zip logs and capture crash reports, see [Sending Feedback & Logs](/support-and-community/troubleshooting-and-support/sending-us-feedback/).
 
@@ -60,6 +75,8 @@ For security or privacy inquiries, reach out to the appropriate team directly:
 
 For all other inquiries — including billing, technical issues, and feature requests — contact your account manager or dedicated Slack/Teams channel.
 
-## Related resources
+<span id="related-resources" />
+
+## Related pages
 
 * [Troubleshooting login](/enterprise/support-and-resources/troubleshooting-login/) - Resolve login and SSO issues

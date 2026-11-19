@@ -7,9 +7,9 @@ sidebar:
   label: "Zero data retention (ZDR)"
 ---
 
-Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. For factory inference, ZDR coverage depends on the model and whose provider account serves the request, not where the agent runs commands.
+Provider Zero Data Retention (ZDR) is a provider's commitment not to retain prompts and responses. For factory inference, coverage depends on the model and whose provider account serves the request, not where the agent runs commands.
 
-Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference.
+With Warp-managed inference, Warp supplies the provider account. Review the [provider retention guidance](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) before choosing an inference option.
 
 <span id="choose-inference-covered-by-provider-zdr" />
 
@@ -21,6 +21,8 @@ How you check provider ZDR coverage depends on whose provider account serves inf
 
 * **Warp-managed inference** - Avoid [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Check every agent's model and any separate feature model settings or overrides, not only the foreman's model.
 * **Your provider account** - Verify ZDR with your provider for your specific account, model, and configuration. This check applies to team-managed keys and endpoints, BYOLLM, and direct Claude Code or Codex calls. Warp's agreements don't establish ZDR for those requests, even if you avoid the listed models. If your endpoint routes to other providers, verify their retention policies too.
+
+With [Claude linked billing](/agents/inference/claude-platform-linked-billing/#how-linked-billing-works), only billing moves to your Claude organization. Requests remain in Warp's organization under Warp's retention settings, including applicable ZDR; your Claude organization's ZDR settings do not transfer. Read the [public preview limitations](/agents/inference/claude-platform-linked-billing/#public-preview-limitations) before linking.
 
 Some factory features use models other than the agent's selected model. Avoiding models that require retention does not by itself confirm ZDR coverage for every AI request. If your organization requires that coverage, contact Warp before sending sensitive work to your factory.
 
@@ -50,7 +52,7 @@ Self-hosting execution does not establish provider ZDR or move saved run data. T
 
 ## Reviewing your factory's inference settings
 
-Self-serve teams can change models and overrides manually, but don't have a team-wide model-blocking control. The Business plan supports shared provider keys and endpoints. The Enterprise plan adds [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
+Self-serve teams can change models and overrides manually, but don't have a team-wide model-blocking control. For shared provider keys and endpoints, see [plan eligibility by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility). Enterprise plans for Warp Factories add [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
 
 Review defaults and overrides in the factory web app or your GitHub repository, depending on where your factory definition is hosted:
 

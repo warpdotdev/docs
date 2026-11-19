@@ -9,15 +9,23 @@ Link your Claude organization to Warp through OAuth to pay Anthropic directly fo
 
 Claude linked billing is available only on Warp Enterprise, with an active agreement and access to the feature. Contact your Warp account team if the linking controls aren't available.
 
+<span id="public-preview-limitations" />
+
+:::caution[Public preview limitations]
+If your workload requires HIPAA or FERPA compliance, or customer-managed encryption keys (CMEK), do not use Claude linked billing during public preview.
+:::
+
 ## How linked billing works
 
 Your workspace shares one link to a Claude organization. Each team opts in separately to charge its Claude usage to that organization instead of its Warp balance. Teams that don't opt in keep their existing billing method.
+
+Only the billing relationship moves to your Claude organization. Requests still run in Warp's organization, so Warp's organization settings govern retention, including applicable Zero Data Retention (ZDR), rate limits, and enabled features. Your Claude organization's ZDR settings, IP allowlists, and encryption keys do not carry over.
 
 ## Supported Claude usage
 
 Linked billing covers the Warp Agent on desktop, CLI, web, and cloud, including subagents and factory runs billed to the team. It doesn't apply to Claude Code or other tools that connect directly to Anthropic.
 
-Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or custom endpoints. Your team's existing model access, data residency, and retention restrictions still apply.
+Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or custom endpoints. It doesn't expand the models available to your team.
 
 ## Before you link
 
