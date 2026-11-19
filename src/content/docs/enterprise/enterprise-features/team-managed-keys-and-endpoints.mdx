@@ -30,8 +30,6 @@ For Warp Factories, these credentials configure inference for the Warp Agent, no
 
 ## How team-managed providers differ from self-serve BYOK and BYOLLM
 
-Warp offers several ways to bring your own AI infrastructure. Use this table to pick the right one, and follow the links for full details.
-
 | Name | Configured by | Stored | Works with cloud agents | Plans |
 | --- | --- | --- | --- | --- |
 | **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | See [eligibility by product](#plan-eligibility) |
@@ -92,12 +90,8 @@ This doesn't disable member-managed keys and endpoints. Review that separate set
 
 ## Member experience
 
-Members select a model from the picker without configuring team credentials:
-
 * **Custom endpoints** - Each enabled team endpoint model appears in the model picker as its own entry, showing the model's name (or alias) and the endpoint name. Members select it like any other model.
 * **First-party keys** - Members select the standard model for a provider (for example, a Claude, GPT, or Gemini model). Routing follows [member key precedence and the Claude linked-billing exception](#member-key-precedence).
-
-If the admin allows members to add their own keys and endpoints, members can still do so through the standard self-serve [BYOK](/agents/inference/bring-your-own-api-key/) and [custom inference endpoint](/agents/inference/custom-inference-endpoint/) settings.
 
 ## Billing behavior
 
