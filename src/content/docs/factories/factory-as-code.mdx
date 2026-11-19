@@ -69,6 +69,27 @@ webhooks/
 
 See the [example factory definition](#example-factory-definition), the minimal [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart), or the full [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
 
+### Worker and agent field names
+
+The schema accepts worker-named fields and their legacy agent-named aliases. Set only one name from each pair in the same object.
+
+| Worker field | Legacy alias | Location |
+| --- | --- | --- |
+| `workerDefaults` | `agentDefaults` | `factory.yaml` |
+| `workerRole` | `agentType` | Worker or agent frontmatter |
+| `worker` | `agent` | Automation frontmatter or benchmark suite |
+| `workers` | `agents` | Scorer frontmatter or a benchmark configuration |
+
+In a benchmark configuration's `workers` list, each entry names its target with `worker`. In the legacy `agents` list, each entry uses `agent`:
+
+```yaml
+configurations:
+  - name: Baseline
+    workers:
+      - worker: reviewer
+        model: auto
+```
+
 ## Validate a definition
 
 Warp validates syntax, required fields, and resource access before applying a definition. A Warp-managed factory validates on save; a GitHub-backed factory validates in pull requests to its production branch by default. Use [`github.factoryConfigChecks`](#github) to extend checks to other branches. Warp applies the definition as one unit and keeps the last valid definition if validation fails.
@@ -116,6 +137,7 @@ Warp publishes unauthenticated JSON Schemas for editor completion and validation
 | `webhook.schema.json` | Webhook YAML files |
 | `benchmark_suite.schema.json` | Benchmark suite YAML files |
 | `benchmark_suite_task.schema.json` | Benchmark task YAML files |
+| `skill_reference.schema.json` | Shared or worker-specific skill reference YAML files |
 | `common.schema.json` | Shared field definitions |
 
 For completion and inline validation in the VS Code YAML extension, add the document URL on the first line:
@@ -487,8 +509,10 @@ Configures scheduled self-improvement for a GitHub-backed factory:
 
 ### `agentDefaults`
 
-**Required.**
+**Required as `workerDefaults` or `agentDefaults`.** Set only one.
 Execution defaults inherited by every agent. Declare exactly one of [`model`](#agentdefaultsmodel) or [`harness`](#agentdefaultsharness). Agents can override these defaults.
+
+The fields below apply under either name.
 
 ```yaml
 agentDefaults:
@@ -649,7 +673,7 @@ All frontmatter keys are optional.
 | Field | Description |
 | --- | --- |
 | `description` | What the agent does. |
-| [`agentType`](#agenttype) | The agent's role. |
+| `workerRole` or [`agentType`](#agenttype) | The agent's role. Set only one. |
 | `credentialStrategy` | Overrides the factory-level [`credentialStrategy`](#credentialstrategy). Omit it to keep the agent's current setting. |
 | `spawnableBy` | Agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list exact agent names. |
 | `networkPolicy` | Combines with the factory's [`networkPolicy`](#networkpolicy); denials at either scope take precedence over user-configured allowances. |
@@ -687,8 +711,8 @@ unresolved product questions to a human.
 | Field | Required | Default | Description |
 | --- | --- | --- | --- |
 | <span id="enabled" />`enabled` | No | `true` | Turns the automation on or off. |
-| <span id="agent" />`agent` | No | Foreman | The agent that handles the automation's runs. Mutually exclusive with `stage`. |
-| <span id="stage" />`stage` | No | None | Enters a named Blueprint stage through the foreman. Requires a Blueprint; cannot be combined with `agent` or execution overrides. |
+| <span id="agent" />`worker` or `agent` | No | Foreman | The worker that handles the automation's runs. Set only one. Mutually exclusive with `stage`. |
+| <span id="stage" />`stage` | No | None | Enters a named Blueprint stage through the foreman. Requires a Blueprint; cannot be combined with `worker`, `agent`, or execution overrides. |
 
 Use `stage` when the event must enter a particular part of the workflow, rather than repeat normal intake. Keep the automation body focused on the event's context; the stage owns its procedure and worker settings. A follow-up to existing work retains that task's selected Blueprint.
 
@@ -699,7 +723,7 @@ One or more events that start runs. Each trigger declares `provider` and `event`
 
 For exact provider and event strings, per-event filter keys, and examples, see [Events and filters for factory automations](/factories/automation-triggers/).
 
-Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
+Slack, Microsoft Teams, Linear, and Jira triggers require the matching [factory integration](/factories/connect-your-factory/#choose-a-source) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
@@ -847,7 +871,7 @@ tasks:
 | --- | --- | --- | --- |
 | <span id="name-1" />`name` | Yes | None | Suite display name; must be unique in the factory. |
 | <span id="description-2" />`description` | No | Not specified | What the suite measures. |
-| <span id="agent-1" />`agent` or `worker` | Exactly one target | None | The factory agent used for every task. Use `worker` in a `workers/` definition; `agent` remains supported. Mutually exclusive with `stage`. |
+| <span id="agent-1" />`worker` or `agent` | Exactly one target | None | The factory worker used for every task. Set only one. Mutually exclusive with `stage`. |
 | `stage` | Exactly one target | None | Blueprint stage to enter directly for each trial. Trials stop when that stage completes. Mutually exclusive with `agent` or `worker`. |
 
 ### `correctnessScorer`
@@ -865,7 +889,7 @@ Overrides the built-in Correctness judge for this suite, independently of the ag
 **Optional.**
 One to six reusable configurations. Warp uses these presets when a benchmark run doesn't supply configurations. Each configuration requires a unique `name`.
 
-The optional `agents` list pins factory agents to models and harnesses for the configuration's trials. In a `workers/` definition, use `workers` with `worker` entries instead. The `agents` and `agent` forms remain supported.
+The optional `workers` list, or its legacy alias `agents`, pins factory workers to models and harnesses for the configuration's trials. Set only one list. The following table uses the legacy names:
 
 | Field in `configurations[].agents[]` | Required | Description |
 | --- | --- | --- |
@@ -946,8 +970,8 @@ exactly one declared label.
 
 ### `agents`
 
-**Required.**
-The agents whose runs the scorer evaluates. A string names one agent and scores only that run. To include child runs as evidence, use an object with required `name` and optional `includeDescendants: true`.
+**Required as `workers` or `agents` for worker-scoped scoring.** Set only one.
+The workers whose runs the scorer evaluates. A string names one worker and scores only that run. To include child runs as evidence, use an object with required `name` and optional `includeDescendants: true`.
 
 ```yaml
 agents:

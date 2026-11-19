@@ -39,7 +39,7 @@ The table summarizes filter categories. For exact provider and event strings, pe
 | [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
 | [Azure DevOps](/factories/integrations/azure-devops/) | Repository, branches, work item types, labels, and people |
 | [Linear](/factories/integrations/linear/) | Team, project, issue, labels, workflow state, and people |
-| [Jira](/factories/integrations/jira/) | Projects |
+| [Jira](/factories/integrations/jira/) | Projects, labels, statuses, and mention keywords, depending on the event |
 | [Custom webhooks](/factories/webhooks/) | Webhook and JSON payload |
 
 For webhook pattern syntax, see [Payload filters for webhook triggers](#payload-filters-for-webhook-triggers).
@@ -87,9 +87,9 @@ Plain lists include matching values; `not_in` excludes them. The [same matching 
 
 ### Target a Blueprint stage
 
-For an event that must enter a particular stage, replace `agent` with `stage` in the automation's frontmatter. For example, `stage: review` enters a stage named `review` in your Blueprint. Keep the existing trigger filters and exclusions.
+For an event that must enter a particular stage, replace `worker` (or its legacy alias `agent`) with `stage` in the automation's frontmatter. For example, `stage: review` enters a stage named `review` in your Blueprint. Keep the existing trigger filters and exclusions.
 
-The foreman receives the event and enters the named stage; that stage's worker supplies its execution settings. Do not combine `stage` with `agent` or [execution overrides](/factories/factory-as-code/#execution-overrides). Put the review procedure in the stage, not a competing workflow in the automation body.
+The foreman receives the event and enters the named stage; that stage's worker supplies its execution settings. Do not combine `stage` with `worker`, `agent`, or [execution overrides](/factories/factory-as-code/#execution-overrides). Put the review procedure in the stage, not a competing workflow in the automation body.
 
 After applying the definition, send a new matching event and inspect its stage and worker. Also test an event outside the filters and one that could match another automation. Each matching automation can act; transition order inside the Blueprint does not deduplicate intake.
 
