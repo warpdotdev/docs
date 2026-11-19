@@ -76,13 +76,47 @@ The automation editor doesn't change execution settings. Worker-targeted automat
 
 ## Edit definitions in the Factory definition tab
 
-**Factory definition** is the factory dashboard's view of the definition files that [definitions as code](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
+Edit [definition files](/factories/factory-as-code/) according to their host:
 
-* **Hosted by Warp** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
+* **Hosted by Warp** - Browse and edit the definition files, or clone the repository to work locally. Saving in the editor commits changes to the selected branch.
 * **Hosted by GitHub** - Edit the definition through pull requests in your repository; **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
-When a worker proposes a change to a definition hosted by Warp, a spec review for the branch appears on [Home](/factories/factory-home/) when the **Waiting on you** filter is selected. Open the spec review to comment on the diff, select **Request changes** to send feedback to the worker, or select **Approve & merge** to merge the change.
+Worker proposals appear on [Home](/factories/factory-home/) under **Waiting on you**. Open the review to comment on the diff, send feedback with **Request changes**, or merge with **Approve & merge**.
+
+### Clone a Warp-hosted definition
+
+You need Git and a Warp account with factory access.
+
+1. In **Factory definition**, open the actions menu beside **Save**, then click **Clone repository**.
+2. Install the [{VARS.WARP_CLI}](/agents/cli/quickstart/#1-install-the-warp-agent-cli). Run `warp` and sign in through the browser, not with a Warp API key.
+3. Run the dialog's authentication setup in bash or zsh once per machine. It replaces credential helpers for that host with a helper that obtains short-lived credentials from the signed-in CLI.
+4. Run the dialog's clone command. Enter the new directory.
+
+### Push and review a branch
+
+Git pushes can't update the protected production branch. Other branches don't deploy changes. Merge through the dashboard to update the factory.
+
+1. Locally, create a branch:
+
+   ```bash
+   git switch -c update-review-instructions
+   ```
+
+2. Edit the definition files. Check the diff, then commit and push:
+
+   ```bash
+   git diff
+   git add PATH_TO_CHANGED_FILE
+   git commit -m "Update review instructions"
+   git push -u origin update-review-instructions
+   ```
+
+   Replace `PATH_TO_CHANGED_FILE` with each file you edited.
+
+3. In **Factory definition**, open the branch selector showing the current branch. Search for and choose `update-review-instructions`. **Save** commits further edits to that branch. The production branch is marked "Production".
+4. In the actions menu, click **Create PR** to open a review against production. The action then becomes **View PR**.
+5. Inspect the diff and merge checks. If authorized, click **Approve & merge**, then confirm.
 
 ## Score and benchmark
 
