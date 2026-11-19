@@ -12,7 +12,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp Factories is open, flexible infrastructure for building your own software factory. [Define your workflows as code](/factories/factory-as-code/), connect them to your repositories and tools, and use [evaluation and benchmarks](/factories/measure-and-improve/) to measure results and compare changes.
 
-Your factory puts agents to work on your team’s development tasks. For example, it can take an issue from Slack, GitHub, Linear, or Jira, investigate it, implement a change, and return a pull request for review. You define how the work moves between agents and where people need to make decisions.
+Your factory assigns configured agents, called [workers](/factories/factory-agents/), to your team’s development tasks. For example, it can take an issue from Slack, GitHub, Linear, or Jira, investigate it, implement a change, and return a pull request for review. You define how the work moves between stages and where people need to make decisions.
 
 Before sending sensitive work, review [ZDR, data collection, and storage for factory runs](/factories/zero-data-retention/).
 
@@ -27,13 +27,18 @@ Before sending sensitive work, review [ZDR, data collection, and storage for fac
     href="/factories/quickstart/"
     description="Follow setup instructions to connect repositories and send your first request."
   />
+  <LinkCard
+    title="Take the Warp Learn course"
+    href={VARS.LEARN_URL}
+    description="A free, hands-on course with videos and lessons on building, configuring, and improving a software factory."
+  />
 </CardGrid>
 
 ## What a factory does
 
 A factory can work through a backlog of tasks, fix defects reported in a support channel, or review incoming pull requests across several repositories.
 
-Start with one task, such as [reviewing a pull request](/factories/use-cases/code-review/). You choose the review criteria. The agent returns findings for you to review, and you decide what to address and whether to merge. [Test a small configuration change](/factories/guides/testing-and-tuning-your-factory/) before expanding its workload.
+Start with one task, such as [reviewing a pull request](/factories/use-cases/code-review/). You choose the review criteria. The worker returns findings for you to review, and you decide what to address and whether to merge. [Test a small configuration change](/factories/guides/testing-and-tuning-your-factory/) before expanding its workload.
 
 <figure style={{ maxWidth: "736px" }}>
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
@@ -44,28 +49,32 @@ Start with one task, such as [reviewing a pull request](/factories/use-cases/cod
 
 ### Work items
 
-A work item is one request the factory acts on. This can be an issue, a support thread, a pull request, or a scheduled job. It keeps its source context from intake to handoff, however many agents contribute along the way.
+A work item is one request the factory acts on. This can be an issue, a support thread, a pull request, or a scheduled job. It keeps its source context from intake to handoff, however many workers contribute along the way.
 
-### Foreman and factory agents
+<span id="foreman-and-factory-agents" />
 
-The foreman is the agent that coordinates a factory's work and communicates with you. See [About factory agents](/factories/factory-agents/) for their roles, and [Configuring factory agents](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
+### Foreman and factory workers
+
+The foreman coordinates the top-level workflow: it sends requests to the assigned workers, relays questions and your answers, and returns results for your review. It continues the same worker conversations for follow-ups. See [Factory workers](/factories/factory-agents/) for their roles, and [Configuring factory workers](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
 ### Stages and checkpoints
 
-Factory agents handle different stages of the software development lifecycle. The default agents cover triage, planning, implementation, and review.
+Factory workers run the stages of the software development lifecycle. The default Blueprint covers triage, planning, implementation, and review.
+
+A [Blueprint](/factories/blueprints/) defines the workflow's stages, what happens in each stage, who does the work, and when a person needs to make a decision. To change a review loop or approval requirement, edit the Blueprint. Configure worker resources and shared behavior in the worker definitions.
 
 <figure style={{ maxWidth: "563px" }}>
 ![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)
 <figcaption>The software factory loop.</figcaption>
 </figure>
 
-The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [How Warp Factories work](/factories/how-factories-work/).
+The coordinating worker follows the Blueprint's transitions to skip unnecessary stages or return work for revisions. A plan-review gate waits for your answer before the workflow continues. Workflow policy does not grant merge access; repository permissions and branch protection control approval and merging. See [How Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
-A factory's repositories, agents, automations, runners, skills, and MCP servers are declared in definition files hosted by Warp or in a GitHub repository your team owns. Changes to a definition hosted by GitHub go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
+A factory's repositories, workers, automations, runners, skills, and MCP servers are declared in definition files hosted by Warp or in a GitHub repository your team owns. Changes to a definition hosted by GitHub go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
 
 ### Work sources
 
@@ -75,7 +84,7 @@ The [Factory MCP](/factories/factory-mcp/) lets a local coding agent send work t
 
 ### Execution
 
-Every agent run in a factory is an ordinary [cloud agent run](/platform/) on the {VARS.WARP_AUTOMATION_PLATFORM}. Runs execute on Warp-hosted compute by default; Enterprise teams can keep checkout and execution on their own infrastructure with [managed self-hosting](/factories/self-hosting/). See [infrastructure and security](/factories/infrastructure-and-security/) for runners, inference, and credential boundaries.
+Every worker run in a factory is an ordinary [cloud agent run](/platform/) on the {VARS.WARP_AUTOMATION_PLATFORM}. Runs execute on Warp-hosted compute by default; Enterprise teams can keep checkout and execution on their own infrastructure with [managed self-hosting](/factories/self-hosting/). See [infrastructure and security](/factories/infrastructure-and-security/) for runners, inference, and credential boundaries.
 
 ### Evaluate and improve factory work
 
@@ -95,14 +104,15 @@ Group the repositories that ship together into one factory, and keep separate pr
 * One factory for your marketing site
 * One factory for your data pipelines
 
-Don't split the same repositories across factories by team or task, such as frontend and platform. Add [custom agents](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) to specialize instead.
+Don't split the same repositories across factories by team or task, such as frontend and platform. Add [custom workers](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) to specialize instead.
 
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
+* <a href={VARS.LEARN_URL}>Warp Learn</a> - Free course with videos and lessons on setup, configuration, and optimization
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
-* [About factory agents](/factories/factory-agents/) - Understand default agent roles
-* [Configuring factory agents](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions
+* [Factory workers](/factories/factory-agents/) - Understand default worker roles
+* [Configuring factory workers](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions
 * [Multi-agent orchestration](/platform/orchestration/) - Fan out ad-hoc parent and child agents outside a standing factory
 * [Definitions as code](/factories/factory-as-code/) - The definition file format, with working examples in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 * [Transitioning from Oz](/platform/transitioning-from-oz/) - Assess an existing web app, CLI, SDK, or API workflow.

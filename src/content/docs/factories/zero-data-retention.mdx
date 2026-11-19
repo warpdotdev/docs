@@ -7,7 +7,7 @@ sidebar:
   label: "Zero data retention (ZDR)"
 ---
 
-Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. For factory inference, ZDR coverage depends on the model and whose provider account serves the request, not where the agent runs commands.
+Under provider Zero Data Retention (ZDR), AI providers must not retain your prompts and responses. For factory inference, ZDR coverage depends on the model and whose provider account serves the request, not where the worker runs commands.
 
 Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models on every plan when Warp supplies the provider account. This is called Warp-managed inference.
 
@@ -19,10 +19,10 @@ Factory runs cannot use personal API keys or endpoint configurations stored on y
 
 How you check provider ZDR coverage depends on whose provider account serves inference:
 
-* **Warp-managed inference** - Avoid [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Check every agent's model and any separate feature model settings or overrides, not only the foreman's model.
+* **Warp-managed inference** - Avoid [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). Check every worker's model and any separate feature model settings or overrides, not only the foreman's model.
 * **Your provider account** - Verify ZDR with your provider for your specific account, model, and configuration. This check applies to team-managed keys and endpoints, BYOLLM, and direct Claude Code or Codex calls. Warp's agreements don't establish ZDR for those requests, even if you avoid the listed models. If your endpoint routes to other providers, verify their retention policies too.
 
-Some factory features use models other than the agent's selected model. Avoiding models that require retention does not by itself confirm ZDR coverage for every AI request. If your organization requires that coverage, contact Warp before sending sensitive work to your factory.
+Some factory features use models other than the worker's selected model. Avoiding models that require retention does not by itself confirm ZDR coverage for every AI request. If your organization requires that coverage, contact Warp before sending sensitive work to your factory.
 
 <span id="understand-collection-and-storage" />
 
@@ -50,7 +50,7 @@ Self-hosting execution does not establish provider ZDR or move saved run data. T
 
 ## Reviewing your factory's inference settings
 
-Self-serve teams can change models and overrides manually, but don't have a team-wide model-blocking control. The Business plan supports shared provider keys and endpoints. The Enterprise plan adds [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
+Review [plan eligibility](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) before configuring shared provider keys and endpoints. Team-wide [model restrictions in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings) require the Enterprise plan for Warp Factories.
 
 Review defaults and overrides in the factory web app or your GitHub repository, depending on where your factory definition is hosted:
 
@@ -61,5 +61,5 @@ Review defaults and overrides in the factory web app or your GitHub repository, 
 
 * [Privacy and data control](/support-and-community/privacy-and-security/privacy/) - Review the shared provider policy and collection controls
 * [Agent model choice](/agents/inference/model-choice/) - Find models that require provider retention
-* [About factory infrastructure and security](/factories/infrastructure-and-security/) - Review hosting, inference, networking, and credential boundaries
+* [Factory infrastructure and security](/factories/infrastructure-and-security/) - Review hosting, inference, networking, and credential boundaries
 * [Self-hosted agent data storage](/factories/self-hosting/data-storage/) - Configure where run data is stored

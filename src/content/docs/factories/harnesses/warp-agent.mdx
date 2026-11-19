@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 The Warp Agent is Warp's built-in harness for factory agents and standalone cloud runs. It runs commands, edits code, and coordinates work across models and tools.
 
-For a factory, select the Warp Agent and a model in [Configuring factory agents](/factories/factory-agents/configuration/). It does not need a separate third-party harness auth secret. The same runtime powers [Agent Mode](/agents/) locally, but cloud runs use the resources configured for the run rather than your laptop's session.
+For a factory, select the Warp Agent and a model in [Configuring factory workers](/factories/factory-agents/configuration/). It does not need a separate third-party harness auth secret. The same runtime powers [Agent Mode](/agents/) locally, but cloud runs use the resources configured for the run rather than your laptop's session.
 
 ## Key features
 
@@ -41,7 +41,7 @@ The Warp Agent can coordinate children with different harnesses. For example:
 
 For ad hoc orchestration, distinguish children launched into separate cloud environments from children running inside the parent's environment. Sharing an environment definition does not mean sharing a running filesystem. See [Multi-agent orchestration](/platform/orchestration/#where-parent-and-child-agents-can-run) for the execution modes.
 
-Factory named-agent dispatch is a separate configuration path: a foreman using the Warp Agent, Claude Code, or Codex can dispatch configured factory agents. Each named agent uses its own configuration, including environment and harness, unless overridden. Do not assume every child inherits the parent's secrets, MCP servers, or integrations. See [Configuring factory agents](/factories/factory-agents/configuration/).
+Factory named-agent dispatch is a separate configuration path: a foreman using the Warp Agent, Claude Code, or Codex can dispatch configured factory agents. Each named agent uses its own configuration, including environment and harness, unless overridden. Do not assume every child inherits the parent's secrets, MCP servers, or integrations. See [Configuring factory workers](/factories/factory-agents/configuration/).
 
 ## When to choose Warp Agent
 
