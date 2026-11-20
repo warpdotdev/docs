@@ -92,7 +92,7 @@ Use the {VARS.WARP_PLATFORM_API} to retrieve a selected result without scraping 
 
    Select the row for `dependency-audit.csv`, not the first artifact. No rows means the response contains no matching file entries; check the run and producing worker before continuing. If an entry lacks `data.artifact_uid`, don't substitute its document or notebook UID.
 
-   The run response uses `PLAN`, `PULL_REQUEST`, `SCREENSHOT`, `FILE`, and `EXTERNAL_REFERENCE`. Recordings use `FILE` with a video MIME type, not a separate video artifact type. Open the `data.url` destination for a pull request or external reference instead of passing it to artifact download.
+   The run response uses `PLAN`, `PULL_REQUEST`, `SCREENSHOT`, `FILE`, and `EXTERNAL_REFERENCE`. Recordings use `FILE` with a video MIME type, not a separate video artifact type. For a pull request or external reference, follow the destination URL in `data.url` instead of passing it to artifact download.
 
 3. Fetch metadata for the selected artifact. Replace `ARTIFACT_UID` with its `data.artifact_uid`:
 
