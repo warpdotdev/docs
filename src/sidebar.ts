@@ -230,7 +230,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'knowledge-and-collaboration/warp-drive/agent-mode-context', label: 'Agent Mode context' },
 							],
 						},
-						{ label: 'Team management', link: '/factories/teams/' },
+						{ slug: 'knowledge-and-collaboration/teams', label: 'Team management' },
 						{ slug: 'knowledge-and-collaboration/roles-and-permissions', label: 'Roles & permissions' },
 						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Admin Panel' },
 						{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session sharing' },
@@ -578,7 +578,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Plans & support',
 					items: [
-						{ slug: 'factories/teams', label: 'Team management' },
+						{ label: 'Team management', link: '/knowledge-and-collaboration/teams/' },
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
@@ -861,7 +861,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Team management',
 					items: [
 						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
-						{ label: 'Team management', link: '/factories/teams/' },
+						{ label: 'Team management', link: '/knowledge-and-collaboration/teams/' },
 						{ label: 'Admin Panel', link: '/knowledge-and-collaboration/admin-panel/' },
 						{ label: 'Roles & permissions', link: '/knowledge-and-collaboration/roles-and-permissions/' },
 					],

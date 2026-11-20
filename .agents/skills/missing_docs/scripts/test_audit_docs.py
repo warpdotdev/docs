@@ -315,10 +315,10 @@ class TestConsistencyAudit(unittest.TestCase):
             for item in json.loads(store.read_text(encoding="utf-8"))["seeds"]
             if item["id"] == "team-deletion-addon-credits"
         )
-        canonical = "src/content/docs/factories/teams.mdx"
+        canonical = "src/content/docs/knowledge-and-collaboration/teams.mdx"
         retired_paths = (
             "src/content/docs/enterprise/team-management/teams.mdx",
-            "src/content/docs/knowledge-and-collaboration/teams.mdx",
+            "src/content/docs/factories/teams.mdx",
         )
         self.assertIn(canonical, seed["affected_surfaces"])
         self.assertEqual(seed["surface_dispositions"][canonical], "fixed")
