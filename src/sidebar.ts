@@ -448,7 +448,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/automation-triggers' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 						{ slug: 'factories/permissions', label: 'Factory permissions' },
-						{ label: 'Team roles & administration', link: '/knowledge-and-collaboration/roles-and-permissions/' },
 						{
 							label: 'Infrastructure',
 							items: [
