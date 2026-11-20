@@ -572,6 +572,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/factory-home' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
+						{ slug: 'factories/artifacts', label: 'Artifacts' },
 					],
 				},
 				{
