@@ -44,18 +44,24 @@ For a job created directly through the Agent API that must exit immediately, set
 
 Add this script to the job your orchestrator starts. `CI_JOB_ID` must be unique for each job.
 
-This example uses one Default Service Account agent key for both the worker and `run-cloud`. When those actions run in different processes, use a self-hosted worker key for the worker and an agent key for the run creator.
+This example follows the best practice of using different credentials for the worker and run creation. Supply them through your secret manager: `WARP_WORKER_API_KEY` for the self-hosted worker and `WARP_RUN_API_KEY` for the caller creating this standalone run on the worker's team. Use a short-lived personal key for ad hoc runs or an agent key for an authorized agent. See [Choosing and creating API keys](/agents/cli/oz-cli/api-keys/).
+
+Set `WARP_TEAM_UID` in the job environment to the worker's team UID. Run `WARP_API_KEY="$WARP_RUN_API_KEY" oz whoami` to list the caller's teams and find the matching team ID.
+
+For an external system submitting work to a factory, use that factory's foreman key with [factory endpoints](/factories/factory-api/) instead. The worker key does not authorize factory submissions.
 
 ```bash title="run-agent.sh"
 #!/usr/bin/env bash
 set -euo pipefail
 
-: "${WARP_API_KEY:?Set WARP_API_KEY in the job environment}"
+: "${WARP_WORKER_API_KEY:?Set WARP_WORKER_API_KEY in the job environment}"
+: "${WARP_RUN_API_KEY:?Set WARP_RUN_API_KEY in the job environment}"
+: "${WARP_TEAM_UID:?Set WARP_TEAM_UID to the worker team UID}"
 : "${CI_JOB_ID:?Set CI_JOB_ID to a unique job identifier}"
 
 worker_id="external-${CI_JOB_ID}"
 
-oz-agent-worker \
+WARP_API_KEY="$WARP_WORKER_API_KEY" oz-agent-worker \
   --worker-id "$worker_id" \
   --backend direct \
   --one-shot \
@@ -64,7 +70,8 @@ worker_pid=$!
 
 trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
 
-oz agent run-cloud \
+WARP_API_KEY="$WARP_RUN_API_KEY" oz agent run-cloud \
+  --team="$WARP_TEAM_UID" \
   --host "$worker_id" \
   --prompt "Run the test suite, fix failures, and open a pull request."
 
