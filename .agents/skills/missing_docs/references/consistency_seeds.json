@@ -97,12 +97,12 @@
       "affected_surfaces": [
         "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
-        "src/content/docs/knowledge-and-collaboration/teams.mdx"
+        "src/content/docs/factories/teams.mdx"
       ],
       "surface_dispositions": {
         "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx": "fixed",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed",
-        "src/content/docs/knowledge-and-collaboration/teams.mdx": "fixed"
+        "src/content/docs/factories/teams.mdx": "fixed"
       },
       "recheck_condition": "Team deletion validation or Add-on Credits lifecycle behavior changes.",
       "deterministic_rules": [
@@ -112,7 +112,7 @@
           "patterns": ["Any remaining add-on credits tied to the team are no longer usable"],
           "paths": [
             "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
-            "src/content/docs/knowledge-and-collaboration/teams.mdx"
+            "src/content/docs/factories/teams.mdx"
           ]
         }
       ]

@@ -54,13 +54,23 @@
   ],
   "redirects": [
     {
+      "source": "/knowledge-and-collaboration/teams(/?)",
+      "destination": "/factories/teams/",
+      "statusCode": 308
+    },
+    {
+      "source": "/knowledge-and-collaboration/teams.md",
+      "destination": "/factories/teams.md",
+      "statusCode": 308
+    },
+    {
       "source": "/enterprise/team-management/teams(/?)",
-      "destination": "/knowledge-and-collaboration/teams/",
+      "destination": "/factories/teams/",
       "statusCode": 308
     },
     {
       "source": "/enterprise/team-management/teams.md",
-      "destination": "/knowledge-and-collaboration/teams.md",
+      "destination": "/factories/teams.md",
       "statusCode": 308
     },
     {
@@ -2660,7 +2670,7 @@
     },
     {
       "source": "/features/teams(/?)",
-      "destination": "/knowledge-and-collaboration/teams/",
+      "destination": "/factories/teams/",
       "statusCode": 308
     },
     {
@@ -4145,7 +4155,7 @@
     },
     {
       "source": "/warp/knowledge-and-collaboration/teams(/?)",
-      "destination": "/knowledge-and-collaboration/teams/",
+      "destination": "/factories/teams/",
       "statusCode": 308
     },
     {
@@ -7055,12 +7065,12 @@
     },
     {
       "source": "/team/index.md",
-      "destination": "/knowledge-and-collaboration/teams/",
+      "destination": "/factories/teams/",
       "statusCode": 308
     },
     {
       "source": "/team(/?)",
-      "destination": "/knowledge-and-collaboration/teams/",
+      "destination": "/factories/teams/",
       "statusCode": 308
     },
     {
