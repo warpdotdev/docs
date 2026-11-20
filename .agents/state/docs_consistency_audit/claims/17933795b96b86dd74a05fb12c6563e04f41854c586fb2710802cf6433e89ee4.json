@@ -1,6 +1,739 @@
 {
-  "claims": [],
-  "page_sha256": "6a37d32179ff1b7f72b0865a39a40c70978c25138eb0d21f7187f56a7f2f600d",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:74987d624a251f121837f797cccd82baa4ec5ea18ffbf2d41ac3cd3ab675bb8e",
+      "claim_id": "sha256:a12e809f4ea34f41c97653d2ca67ce6c33ec2eaeb440bf2ca505635295f59d52",
+      "entity": "full-terminal-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "interactive-terminal-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The agent can see the live terminal buffer, write commands, respond to prompts, and hand control back to you at any time.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:87d6794ee5664378941fef8cdb35a1cc713ef2efbc172e6467136c78b9f9beac",
+      "claim_id": "sha256:6930ea1bbbfefdf3593703f462a59fa32ad3f2625e8535c1e5bcbc37e9415b6f",
+      "entity": "full-terminal-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "can-attach-to-user-started-process",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can either ask the agent to start an interactive program, or you can start it yourself and then tag the agent in once the tool is already running.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Overview",
+        "heading_anchor": "overview",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:6f4e7125b213de04e7040d1edbf406fe1a0bdba057565b477537605a6e4d2057",
+      "claim_id": "sha256:ac2d8de26d4e90c6373bcb17a13e47bda539f2fbda83c821b609005c144c80bd",
+      "entity": "full-terminal-use-takeover",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "leaves-shell-open",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The shell stays open, and you can type directly into the same session.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Switching control between user and the agent",
+        "heading_anchor": "switching-control-between-user-and-the-agent",
+        "line_end": 79,
+        "line_start": 79,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:0670d7ea7ee5170b80f94421f20a6fc61f1ed0eaebac5fee2c68596be8a06c54",
+      "claim_id": "sha256:7b4c22d330f466afc4229ed4ca03f6189525017b9dcbce4559cc01b6de3098f1",
+      "entity": "full-terminal-use-takeover",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stops-agent-actions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use the Takeover control to stop the agent from typing or performing any actions.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Switching control between user and the agent",
+        "heading_anchor": "switching-control-between-user-and-the-agent",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:5b79b157a59c8a585d6eb8f4af86a7eef8e20d73984cb37b59f739dcd1d35137",
+      "claim_id": "sha256:fb2de7352ef1170e10fa2dbc95eaa7609cca8c0877d37c6ff1c21c248f82d58c",
+      "entity": "long-running-command-prompts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "queued-by-default",
+      "qualifiers": {
+        "actors": [
+          "agent-started-command"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When the agent starts a long-running command itself, prompts you submit while it drives that command are queued by default instead of steering the agent mid-command.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Prompts queue while the agent drives a command it started",
+        "heading_anchor": "prompts-queue-while-the-agent-drives-a-command-it-started",
+        "line_end": 104,
+        "line_start": 104,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d6a99181e2a3836932960cf16bedbb61e056c7c41295ed62d44c4d1fc44e99c0",
+      "claim_id": "sha256:c8f1e75c4e80dc89b37cc57b4cfd661b6a37506202329d4bc51fd25d6cc593bf",
+      "entity": "long-running-command-prompts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "queued-by-default",
+      "qualifiers": {
+        "actors": [
+          "user-started-command"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "if you start a command and tag the agent in, your prompts keep steering the agent immediately.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Prompts queue while the agent drives a command it started",
+        "heading_anchor": "prompts-queue-while-the-agent-drives-a-command-it-started",
+        "line_end": 104,
+        "line_start": 104,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:ad2418aa403daec40b46e40ccd1e7c23e79fefcb9b3b2175049e97c04a24f46e",
+      "claim_id": "sha256:dfb4ae15af265d93aebd07195afcc4828b9c2d5c605722fac98e33edb048f125",
+      "entity": "long-running-command-prompts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "automatically-sent-on-command-completion",
+      "qualifiers": {
+        "actors": [
+          "agent-started-command"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp sends them to the agent automatically when the command finishes.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Prompts queue while the agent drives a command it started",
+        "heading_anchor": "prompts-queue-while-the-agent-drives-a-command-it-started",
+        "line_end": 104,
+        "line_start": 104,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:a11617e5d76ef8e6fcb7c341a8ea0ae29cb4d676a1d4e0ccb475c0e4e6f04cb5",
+      "claim_id": "sha256:3147ea327562869cdb867a7f3c93f85edbd21983a22c91d6f7e2a11e43ad5ded",
+      "entity": "full-terminal-use-conversation",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "creates-terminal-block-after-exit",
+      "qualifiers": {
+        "actors": [
+          "terminal-view"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When you exit, an agent conversation block appears in your terminal block list",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Long-running commands in terminal vs agent view",
+        "heading_anchor": "long-running-commands-in-terminal-vs-agent-view",
+        "line_end": 117,
+        "line_start": 117,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c313f2d25fb906bc4b5d4bf1889faee65ef5f2b2f3a8ac5547a842ded5df9233",
+      "claim_id": "sha256:3f36137ca50c2c7bc859bd4dfd7c0a9e0ed722b0df0a7aeb261ff64b69afa577",
+      "entity": "full-terminal-use-conversation",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "creates-terminal-block-after-exit",
+      "qualifiers": {
+        "actors": [
+          "agent-view"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No separate block is created in the terminal block list",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Long-running commands in terminal vs agent view",
+        "heading_anchor": "long-running-commands-in-terminal-vs-agent-view",
+        "line_end": 124,
+        "line_start": 124,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d2c51d272915998080a6f500f8b5172347de9f9f3750ba185228ae1d0ba84679",
+      "claim_id": "sha256:8b917346d35fd03f1ed884c05be2303ce012452d8d9f8e27e2700d88444835bf",
+      "entity": "full-terminal-use-hidden-responses",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "user-query-dismiss-delay",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When agent responses are hidden, your own agent requests automatically dismiss after **4 seconds** to keep the terminal clear.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Showing and hiding agent responses",
+        "heading_anchor": "showing-and-hiding-agent-responses",
+        "line_end": 145,
+        "line_start": 145,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 4,
+        "raw": "4 seconds",
+        "type": "duration"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:f3698fb5b08e265ee3bd76f660a49f4d84792905c2b9bb6e12e36140ec01231b",
+      "claim_id": "sha256:875e2921ba8d7eb922f6dbe2b2485d2dc0e0e6126c6322438f69ab038e652699",
+      "entity": "full-terminal-use-hidden-responses",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "changes-terminal-output",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "this only affects the agent's messages and proposals; your terminal state and command output remain unchanged.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Showing and hiding agent responses",
+        "heading_anchor": "showing-and-hiding-agent-responses",
+        "line_end": 141,
+        "line_start": 141,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:888eecacaf3dec76e15c8fdce1a9b3b6e0136004b993fa34a74ff475090a39fd",
+      "claim_id": "sha256:8235c7adb5c8653474874f3857806832dbe358fa8e2aaba3b1fb8916dc09c924",
+      "entity": "full-terminal-use-write-permission",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "approval-frequency",
+      "qualifiers": {
+        "actors": [
+          "ask-on-first-write"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Ask on first write**: The first write to a shell process requires approval. After that, all subsequent writes for that specific process/command will be approved.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Global permission settings",
+        "heading_anchor": "global-permission-settings",
+        "line_end": 181,
+        "line_start": 181,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "first-write-per-process"
+        ],
+        "raw": [
+          "first-write-per-process"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:7ec57915e44659c693a18cc21e8ed1c27b32da3461c7c79da8e6cb3e38d2505d",
+      "claim_id": "sha256:f814b0b3709e088162c682e81a89b4400dc3e3bbb17d2381bec70f71ea0b0206",
+      "entity": "full-terminal-use-write-permission",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "approval-frequency",
+      "qualifiers": {
+        "actors": [
+          "always-ask"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Always ask**: Every write to the shell process from the agent requires your explicit approval.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Global permission settings",
+        "heading_anchor": "global-permission-settings",
+        "line_end": 182,
+        "line_start": 182,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "every-write"
+        ],
+        "raw": [
+          "every-write"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:b683205d17473f782946cb9728cb40f7e829db3db38399ec90ac8555a4b3d92f",
+      "claim_id": "sha256:780320dfbca2110630fa8da170c9602518ea4a0d1ad28f666c049e41604d6f6f",
+      "entity": "full-terminal-use-write-permission",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "approval-frequency",
+      "qualifiers": {
+        "actors": [
+          "always-allow"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Always allow**: The agent can write to the shell process without prompting you each time.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Global permission settings",
+        "heading_anchor": "global-permission-settings",
+        "line_end": 183,
+        "line_start": 183,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "no-prompt"
+        ],
+        "raw": [
+          "no-prompt"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:a1f817f4198953c4273a143e5f633e36a3de1f419b9988bcc62e023d1cf936f4",
+      "claim_id": "sha256:c3a42dcc9977b283218dddb364c0df19f432ce3a59e1bb43df2fb8dff9f7fb48",
+      "entity": "full-terminal-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "secret-redaction-applies",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "All [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) features still apply during Full Terminal Use",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Global permission settings",
+        "heading_anchor": "global-permission-settings",
+        "line_end": 188,
+        "line_start": 188,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:bd604aec6e710c6a0c2cdf104e346f9d9ed6f72defa4293b43a9ff156baff2ca",
+      "claim_id": "sha256:fff9a8afd80e30abfea030d8ef46d092ae9a59dacffdf7577fb27b5eb06ffca9",
+      "entity": "full-terminal-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "uses-standard-usage-billing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Agent interactions during Full Terminal Use follow [standard usage billing](/support-and-community/plans-and-billing/credits/).",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/full-terminal-use",
+        "canonical_route": "/agents/capabilities/full-terminal-use",
+        "content_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
+        "heading": "Usage",
+        "heading_anchor": "usage",
+        "line_end": 195,
+        "line_start": 195,
+        "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/full-terminal-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
   "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
   "schema_version": 1
 }

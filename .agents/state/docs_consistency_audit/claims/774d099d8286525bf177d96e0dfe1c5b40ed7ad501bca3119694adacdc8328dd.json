@@ -1,6 +1,361 @@
 {
-  "claims": [],
-  "page_sha256": "1a732866656832e6c3a93f2d32d7774da34d8f5f45a9875e5831f0b77af131cd",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:12723c0dc7d29fa753dd750c5bdc5c709acdae29798b8be03d9b061e6f7193cf",
+      "claim_id": "sha256:2a8cece200565aa8329a12a34e34f4bff83f463f36c271a5abac43c513df7ccf",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bundled-browser",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Computer Use environments ship with a bundled Chromium browser",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "The bundled browser",
+        "heading_anchor": "the-bundled-browser",
+        "line_end": 14,
+        "line_start": 14,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "chromium"
+        ],
+        "raw": [
+          "chromium"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8a6b26a11f2410d787ac73550a82e4d4f156ebe352a602cc038cac4320b47c50",
+      "claim_id": "sha256:8e889a81143d4d8cf7426fd09d848adbbb4d9612284493575d519e19ea5de251",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-on-any-base-image",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "runs on any environment base image",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "The bundled browser",
+        "heading_anchor": "the-bundled-browser",
+        "line_end": 14,
+        "line_start": 14,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:138d41e42f09fc2e494cf0e7395509795b75257a65ff5ca88fbe8ff8efbbcb0f",
+      "claim_id": "sha256:c77a0090ef2937b6a35a01833b319e2f215c3760735a55d6b32f230f85e74781",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "executable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The browser is on the agent's `PATH` as `chromium`",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "The bundled browser",
+        "heading_anchor": "the-bundled-browser",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "chromium",
+        "raw": "chromium",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0f92328b292f0d227a63c815ef9d690f39817cb67200e6a4ecc5cc0e35d0bb68",
+      "claim_id": "sha256:91868c25a70b03658dcda3614498264696bfd0b586f7f591f1193bcf94e1ad74",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "environment-variables",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the `CHROMIUM_BIN` and `BROWSER` environment variables point to it.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "The bundled browser",
+        "heading_anchor": "the-bundled-browser",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "CHROMIUM_BIN",
+          "BROWSER"
+        ],
+        "raw": [
+          "CHROMIUM_BIN",
+          "BROWSER"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e7e9bd48e5c6de61840e7111cb0df0a89e7fac3c4b4130fc008fa5d459a6a8d8",
+      "claim_id": "sha256:d020ee4119f77cd8d32ebae936fe19409f8d5e26eedda574c795cb3458ca7708",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "prefer-existing-browser",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If your environment's base image already provides a browser, the agent uses that instead of the bundled one.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "The bundled browser",
+        "heading_anchor": "the-bundled-browser",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e1bacd0f2299f694e11bdaa2a2b7092bfd1adcb5b5407203781678d244cba6f3",
+      "claim_id": "sha256:e785e79067cf6ad0d9d55a4a4be791b2b713fa702dbb23775531d569e335a1bc",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bundled-playwright-cli",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Computer Use environments also bundle the Playwright CLI (`playwright-cli`)",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "Two ways to drive the browser",
+        "heading_anchor": "two-ways-to-drive-the-browser",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ac7af7cac58007e2cca14f29d21e9f5d426135941c045ab0f7830af4f13ba352",
+      "claim_id": "sha256:89d846a0fe80cd20c7022f024bd0eb5c2ce8a114c6a654ac12d42761e0603906",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "playwright-downloads-own-browser",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The bundled Playwright CLI drives the bundled Chromium rather than downloading its own browser build",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "Two ways to drive the browser",
+        "heading_anchor": "two-ways-to-drive-the-browser",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f8064e0e58d6f7899b59a09858fabd9abca31e820c84ef70d83e5ed65fe56102",
+      "claim_id": "sha256:22b6392da913e5c3f5c5051c214be6f02f66af86ca0c5261fbc034b6c427ac59",
+      "entity": "computer-use-browser",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cdp-attachment",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the agent can attach the Playwright CLI to a browser it launched manually with a Chrome DevTools Protocol (CDP) endpoint:",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/browser-use",
+        "canonical_route": "/agents/capabilities/computer-use/browser-use",
+        "content_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
+        "heading": "Attaching to a running browser",
+        "heading_anchor": "attaching-to-a-running-browser",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/browser-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "84ac06e7d11481bb8d841c4e36585db638f5a02d322f42ef636bf9eb450cfb9d",
   "path": "src/content/docs/agents/capabilities/computer-use/browser-use.mdx",
   "schema_version": 1
 }

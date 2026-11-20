@@ -2,10 +2,53 @@
   "claims": [
     {
       "category": "privacy",
+      "claim_content_fingerprint": "sha256:89c689310a101092e757e0b25dd7b944ceb8ea75e20ffa2bf8f12bf8bba57012",
+      "claim_id": "sha256:b8a19a99fc8d13176b263e2d464ae369fbf9dcee11f62af277d7dd5a22b7538c",
+      "entity": "shared-session-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "uploaded-to-warp",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When you share an agent session, Warp uploads the session's scrollback and live output to Warp's servers and generates a shareable link.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
       "claim_content_fingerprint": "sha256:7e7c564437d48643be90e5518f103d9a04dfd2d36e90c21674d3771916d337ff",
       "claim_id": "sha256:aae218536afe78810cedb5ed5030c68af03d7f429ce915bee48548aa09f8adf6",
       "entity": "shared-session-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "retention-period",
       "qualifiers": {
@@ -26,7 +69,7 @@
       "source": {
         "canonical_identity": "route:/agents/local-agents/session-sharing",
         "canonical_route": "/agents/local-agents/session-sharing",
-        "content_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
         "heading": "How long shared data is kept",
         "heading_anchor": "how-long-shared-data-is-kept",
         "line_end": 45,
@@ -44,13 +87,13 @@
       }
     },
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:3ee815796e7dcc14d4888454ff6c12e616b617e06a31a45ed3ce289dcc9a4785",
-      "claim_id": "sha256:f1a4838c50575f07248f9c7bb6b1d194a748bfa24a182d65e3f68e35e6329ba0",
-      "entity": "shared-session-data",
-      "extraction_confidence": 0.95,
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:f7565873f4c65feea37bdd7ee5e1dba7a82fef92dd6abd315802c004219dce93",
+      "claim_id": "sha256:97d31a478f0c52f408c0628d6e5f5265f53851190b2458775579706d3dfb4a57",
+      "entity": "shared-session",
+      "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "retention-period",
+      "predicate": "viewers-must-sign-in",
       "qualifiers": {
         "actors": [],
         "architectures": [],
@@ -65,11 +108,186 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "The share link can no longer be opened after the one-week expiry.",
+      "quote": "Viewers must sign in to a Warp account to open a shared session.",
       "source": {
         "canonical_identity": "route:/agents/local-agents/session-sharing",
         "canonical_route": "/agents/local-agents/session-sharing",
-        "content_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Who can access a shared session",
+        "heading_anchor": "who-can-access-a-shared-session",
+        "line_end": 66,
+        "line_start": 66,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:fa494f20997622b8846ae387a353ff87d55b59926c53eb427193420db587ffc2",
+      "claim_id": "sha256:b453d10c57bc9daf35fcd43a69b4abab26cdae467ea1d47ed9f4a20677fcc092",
+      "entity": "shared-session",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-public-link-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "admin-sharing-policy",
+          "viewer-sign-in-required"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Anyone with the link** - Available as a setting when you want broader access",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Who can access a shared session",
+        "heading_anchor": "who-can-access-a-shared-session",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:26df818049baefd4494998c0024d552bbc62727e708767525f0631cb64b7d6c6",
+      "claim_id": "sha256:36c881c80cb66982708f313a5f1172ea21050e167c95ca0ba5737397a331550f",
+      "entity": "shared-session",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "admin-can-disable-link-sharing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Workspace admins can disable invites and link sharing for the team by policy.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Who can access a shared session",
+        "heading_anchor": "who-can-access-a-shared-session",
+        "line_end": 66,
+        "line_start": 66,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:71ed5783eb73ab65593df170b344599d4a507e3032b914ca919d03006e234849",
+      "claim_id": "sha256:74be7f0ee72a1615284d18630f309cad703d2d9cf3d7099ed27212b3046e5e63",
+      "entity": "shared-session-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "secret-redaction-applies",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "[Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) isn't applied to Session Sharing.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Secrets in shared sessions",
+        "heading_anchor": "secrets-in-shared-sessions",
+        "line_end": 71,
+        "line_start": 71,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:ed0c6c5ea5e09a57c061a70f7582e660a6fe16b60783ae11449da069f74073c5",
+      "claim_id": "sha256:32d3855999f2b0ef7664bdf8c50ba50e0d2d33eca2ac50178daeec7b63e2fda0",
+      "entity": "shared-session-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "single-share-deletion-before-expiry",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "There's currently no separate control to delete a single shared session's data before that expiry.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
         "heading": "Stopping a share",
         "heading_anchor": "stopping-a-share",
         "line_end": 49,
@@ -82,16 +300,188 @@
       "source_class": "canonical-doc",
       "topic": "privacy",
       "value": {
-        "normalized": 604800,
-        "type": "duration"
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:43aefbf83dad86c4df61611bcaaf774447c207b9ee40718c3c4421a9135491d2",
+      "claim_id": "sha256:5581502c6ef193265ad505f6c77758562fe001f03ee8882e6e3ec9496556172d",
+      "entity": "shared-session",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stopping-share-ends-live-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Stopping a share immediately ends live access for every participant",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Stopping a share",
+        "heading_anchor": "stopping-a-share",
+        "line_end": 49,
+        "line_start": 49,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
       }
     },
     {
       "category": "privacy",
-      "claim_content_fingerprint": "sha256:e52c88d67b3f81cdf48fbcbb268d43f32d86d89f746e5c81e2cc9a03155942ef",
+      "claim_content_fingerprint": "sha256:ce0b72a62380c564114775859ef1d761bc058386ac129ed8e4d8af81407df810",
+      "claim_id": "sha256:b34898fd2f1971181376ff1f785d166c614f1a706da458426ad269c1381c9b46",
+      "entity": "shared-session-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "sharing-sends-content-to-model",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Sharing a session doesn't, by itself, send its contents to a model.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "AI and shared sessions",
+        "heading_anchor": "ai-and-shared-sessions",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:fb8a84fb7bfa3fd718952693bc8f48f5c4c0c0a6112b6e24e84c3fa02d98e550",
+      "claim_id": "sha256:c4f0103b1da60a4e6053cfab0ed7b6012fdb903895b45212f72ab654f17f8eda",
+      "entity": "shared-session-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "included-in-ai-indexing",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Shared sessions are excluded from Warp Drive's AI indexing",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "AI and shared sessions",
+        "heading_anchor": "ai-and-shared-sessions",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:991b753ad701dbdba17ef7eb43e6fe97f9d485223d97bbd0bab4b71692186356",
+      "claim_id": "sha256:8d6f25f1be9810d5b48cd87f0e9190b797b7f7d1c965be9d38c5008dc634e590",
+      "entity": "shared-session-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "ai-content-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "An agent only sees a shared session's terminal content when someone actually uses an AI feature inside that session",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "AI and shared sessions",
+        "heading_anchor": "ai-and-shared-sessions",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": "only when AI is used inside shared session",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:4d3b713d428f546f66131a73548ff8a783d1de3de19a578e2015159ba0a9cfaa",
       "claim_id": "sha256:a1a17fce45a9521dacedc8c1f53720bf95c48eb23c8abd52c0e882fb521450f1",
       "entity": "account-deletion-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "deletion-job-interval",
       "qualifiers": {
@@ -108,11 +498,11 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "Deletion jobs run every 24 hours",
+      "quote": "Deletion jobs run every 24 hours, so removal is not immediate.",
       "source": {
         "canonical_identity": "route:/agents/local-agents/session-sharing",
         "canonical_route": "/agents/local-agents/session-sharing",
-        "content_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
         "heading": "Stopping a share",
         "heading_anchor": "stopping-a-share",
         "line_end": 55,
@@ -128,9 +518,99 @@
         "normalized": 86400,
         "type": "duration"
       }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:1688919393eeca8791633b2d6519c58763d6e85eedaf074f56f4ebf522f9f6b7",
+      "claim_id": "sha256:647d92d3ff5a9205561046cb5ad5138e247a660d7e70b16063491dd0b6fd8ed5",
+      "entity": "shared-session",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-web-without-install",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "web"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No app install required.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Viewing shared sessions",
+        "heading_anchor": "viewing-shared-sessions",
+        "line_end": 105,
+        "line_start": 105,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:d70ceeff73db8b45693fc7812bfae9697fefbd68972f80a71ec3e7ff460ab661",
+      "claim_id": "sha256:5829676c7d94877bcaa250874f4270c739d9017f1a362b4eb3525e14d7dabbc2",
+      "entity": "shared-session-edit-access",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "allows-command-execution",
+      "qualifiers": {
+        "actors": [
+          "approved-editors"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Execute commands",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
+        "heading": "Edit access",
+        "heading_anchor": "edit-access",
+        "line_end": 127,
+        "line_start": 127,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+  "page_sha256": "daea2152f6dd0ec74cefe65f0ae85ad406131f0dfa96f02e951c0f68fd52ce48",
   "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
   "schema_version": 1
 }

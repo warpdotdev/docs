@@ -1,6 +1,236 @@
 {
-  "claims": [],
-  "page_sha256": "ec04c22a89f9afa025cb1e4d1c30b43c1d1e56cd81fc33c02407e0313848ca72",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:f152151cf963a45063b71c9a639247c5f6c64b8eae6ba24f3f79899bd7425a27",
+      "claim_id": "sha256:3ade8034df3626ff87d319787acde97e510581e355350b35acdad449d6e788ee",
+      "entity": "external_authentication_required",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `401 Unauthorized`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "content_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 401,
+        "raw": 401,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9458577d69d6492fbac35addcbac8a2da5aa42a8bcadf26a8c5eb4dfc76c2492",
+      "claim_id": "sha256:6e7398722c778f16291f059fdd3b1ec65ac43fa1770f9d00d4a6cb66f2012f40",
+      "entity": "external_authentication_required",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "content_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dc8ec9523921484ebf3d5bd98475079f2f61e1e98dd361ec5108ab410659f41",
+      "claim_id": "sha256:f5dcdf55c8a45f45d92750e8a949d87e65950853361d3fc49a3fd6d2a70cb62d",
+      "entity": "external_authentication_required",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "content_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:26143375b63859c448fd4491294a00e91955afc8df53bc3a1b167c34dcc50ff4",
+      "claim_id": "sha256:9f2a4625c1b3e098b68276ce2ac11f4dcb90fc48c605ba581183c48facf09dd1",
+      "entity": "external_authentication_required",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "extra-metadata-fields",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "## Additional metadata fields\n\nThis error includes extra fields beyond the standard response format:\n\n* **`provider`** \u2014 The external service name (for example, `\"github\"`, `\"slack\"`, `\"linear\"`)\n* **`auth_url`** \u2014 A URL to complete the authorization flow (when available)\n* **`inaccessible_repos`** \u2014 A list of repository names the agent cannot access (when applicable)\n\n---\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "content_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
+        "heading": "Additional metadata fields",
+        "heading_anchor": "additional-metadata-fields",
+        "line_end": 40,
+        "line_start": 31,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "provider",
+          "auth_url",
+          "inaccessible_repos"
+        ],
+        "raw": [
+          "provider",
+          "auth_url",
+          "inaccessible_repos"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7942003fc0eca406070e42755f3d1f063472fa27b3771f2951e8114c75d184ac",
+      "claim_id": "sha256:1e78d8a26ccc5b32ebbf774cc7abad49688a35197e9ef413f4fc0841dd8fe0cd",
+      "entity": "slack-linear-account-matching",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "email-must-match-warp-account",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Ensure your Slack or Linear account is associated with the same email as your Warp account.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required",
+        "content_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
+        "heading": "Account matching failed",
+        "heading_anchor": "account-matching-failed",
+        "line_end": 109,
+        "line_start": 109,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "c1f099a1151340fdb6a9bb3c397ae7dcdf598fb56896b3c096d73b929bc64639",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/external-authentication-required.mdx",
   "schema_version": 1
 }

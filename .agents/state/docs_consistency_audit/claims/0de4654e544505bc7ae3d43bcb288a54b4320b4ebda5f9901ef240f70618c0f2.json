@@ -2,10 +2,59 @@
   "claims": [
     {
       "category": "cli",
+      "claim_content_fingerprint": "sha256:d9759500f031fe6c4fd09727472b1840a9fa3e2f70f5153b13dfa7025432fa79",
+      "claim_id": "sha256:6ac5a327ac065604bbe52753e01314f02b8e8d91f0f92bd3c4e9b80a6b3f45e0",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-platforms",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A computer running macOS (Apple Silicon or Intel), Linux (x64 or Arm64), or Windows (x64 or Arm64).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "Prerequisites",
+        "heading_anchor": "prerequisites",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "macos-arm64",
+          "macos-x64",
+          "linux-x64",
+          "linux-arm64",
+          "windows-x64",
+          "windows-arm64"
+        ],
+        "type": "support-matrix"
+      }
+    },
+    {
+      "category": "cli",
       "claim_content_fingerprint": "sha256:2bea5f26a815d012bcbcaf81fca2914c457e0225a36c1303f2cb7b6228063e8d",
       "claim_id": "sha256:85e04e71ee759eee0c468562ca757d7f9e18d486ce33b303b72f02bd3846a58c",
       "entity": "warp-agent-cli",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "self-updates",
       "qualifiers": {
@@ -27,7 +76,7 @@
       "quote": "the only one that keeps the CLI up to date on its own.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
-        "content_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
         "heading": "1. Install the Warp Agent CLI",
         "heading_anchor": "1-install-the-warp-agent-cli",
         "line_end": 19,
@@ -49,7 +98,7 @@
       "claim_content_fingerprint": "sha256:3b2e9f4f373d57ed9ec671814a0c17564ef6ce0c18947b60644e7aca28803aac",
       "claim_id": "sha256:0f37b76e9c4e22440a53cc2f2fb73f88eb9717af4170ec15b1c70add375636c8",
       "entity": "warp-agent-cli",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "self-updates",
       "qualifiers": {
@@ -71,7 +120,7 @@
       "quote": "Homebrew installations don't update themselves.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
-        "content_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
         "heading": "1. Install the Warp Agent CLI",
         "heading_anchor": "1-install-the-warp-agent-cli",
         "line_end": 42,
@@ -93,7 +142,7 @@
       "claim_content_fingerprint": "sha256:9e0a97cdff7278208ffb718fccc4088992cd5ab66742edfba7df8ed0acf6fb13",
       "claim_id": "sha256:0f37b76e9c4e22440a53cc2f2fb73f88eb9717af4170ec15b1c70add375636c8",
       "entity": "warp-agent-cli",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "self-updates",
       "qualifiers": {
@@ -115,7 +164,7 @@
       "quote": "Homebrew owns the installation, so the CLI never replaces it.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
-        "content_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
         "heading": "1. Install the Warp Agent CLI",
         "heading_anchor": "1-install-the-warp-agent-cli",
         "line_end": 59,
@@ -131,9 +180,264 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:ef8946d6ee6a1a4216eff5ea1fe2f3931dacc5cf181b16ea25af1356b64d96ea",
+      "claim_id": "sha256:9b93811a139b69a6977b8fc389901b52d7e1d0512f514c172ec1b8592928e510",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "update-checks-disable-setting",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "To turn off update checks, set `general.autoupdate_enabled` to `false`",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "1. Install the Warp Agent CLI",
+        "heading_anchor": "1-install-the-warp-agent-cli",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "general.autoupdate_enabled",
+        "type": "parameter"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:0b3fb07b31a63a25ff7785d102323b43450bd8122e9a3a8a31f2e01b39d13a21",
+      "claim_id": "sha256:aaa310ec4cfd2746e7cee4bdc2ffeaea629d3493c644dae90266523014013134",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-desktop-app",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "doesn't require the app to be installed.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "2. Log in",
+        "heading_anchor": "2-log-in",
+        "line_end": 66,
+        "line_start": 66,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:bdf57db3d2f15ed371d4e608e5407009ee2eaee2feef47242c5ab963b7f08fed",
+      "claim_id": "sha256:ee3be8e32104d9407dc692b2124eeddc75b3d2066076e2d11faed22596c16520",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "logout-signs-out-browser",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "signs out your browser session too.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "2. Log in",
+        "heading_anchor": "2-log-in",
+        "line_end": 74,
+        "line_start": 74,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:39244191f6fa6aba9a47d5df181b56da2ff6cdb5f2733c052e6e3780de2a9fc7",
+      "claim_id": "sha256:e7a47f132298295fa6c598e0146cb1747f66486eb3e85eb3a3f38ebcf5ef4309",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "headless-api-key-environment",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "ci",
+          "headless"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "2. Log in",
+        "heading_anchor": "2-log-in",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "WARP_API_KEY",
+        "type": "parameter"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:b1573c44a8d0403efa46a193d1d21202e4f47bb96e25220e874ab704c5f24d14",
+      "claim_id": "sha256:8963682357cacf5163afc7893d34c33bed7ce77a041d31a3cce3a62faf86e604",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "resume-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "warp --resume CONVERSATION_TOKEN",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "5. Exit and resume",
+        "heading_anchor": "5-exit-and-resume",
+        "line_end": 111,
+        "line_start": 111,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--resume",
+        "type": "flag"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:ca0c36ab996a6ba08d8f225dd8ba69623b614fdbfee2e713592b119674fe479c",
+      "claim_id": "sha256:9cb9939d04730811dc99c730895a6ce7e8b910810c75317492699cb58b0f3f3c",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "exit-interrupt-count",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Press `Ctrl+C` twice in a row to exit",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
+        "heading": "5. Exit and resume",
+        "heading_anchor": "5-exit-and-resume",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": 2,
+        "type": "integer"
+      }
     }
   ],
-  "page_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+  "page_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
   "path": "src/content/docs/agents/cli/quickstart.mdx",
   "schema_version": 1
 }

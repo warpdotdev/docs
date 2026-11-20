@@ -1,6 +1,346 @@
 {
-  "claims": [],
-  "page_sha256": "22edeb4a3824bdadbc0d1da19bf7333323a2f26bfb3eee40d35a249026f08d52",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:9b3cd783a9a10cadafc51abbdf100c77199652b8dc98c2706de43a61a4c3b36a",
+      "claim_id": "sha256:13b4916024e921e23c23782a636515646da335adf226c1aac1af213ceac07c18",
+      "entity": "oz-mcp-flag",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "accepted-formats",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `--mcp` flag accepts four formats:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "Using the `--mcp` flag",
+        "heading_anchor": "using-the-mcp-flag",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "uuid",
+          "managed-integration-id",
+          "inline-json",
+          "file-path"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ec7f5e64a8bee81dc8b1d5d2117b33c90b99f1d524233b4a5e6673a56752019d",
+      "claim_id": "sha256:2475432c6abddbca9e1c885b1ac607a15d46e642f3294b58bd2a9557d5284480",
+      "entity": "oz-mcp-flag",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "repeatable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can repeat `--mcp` to include multiple servers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "Using the `--mcp` flag",
+        "heading_anchor": "using-the-mcp-flag",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9487c2d70bbe40655fd211e70a55f7bed6cc85d38a9dd00f0314e0d15152579b",
+      "claim_id": "sha256:014c2852dc28bd141488a9bde2af014d08eaab2505ca85abf0b1d9a47129b0cf",
+      "entity": "oz-mcp-flag",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "managed-integration-identifiers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp recognizes these managed integration ids:\n\n* `linear` \u2014 the hosted [Linear](/factories/integrations/linear/) MCP server\n* `slack` \u2014 the hosted [Slack](/factories/integrations/slack/) MCP server\n* `jira` \u2014 the hosted [Jira](/factories/integrations/jira/) MCP server",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "Passing Warp-managed integration servers by id",
+        "heading_anchor": "passing-warp-managed-integration-servers-by-id",
+        "line_end": 72,
+        "line_start": 68,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": [
+          "linear",
+          "slack",
+          "jira"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:492d17aa621946cf63fd1560b7908544269b97d1b9d2eff16977b1f22a86fc54",
+      "claim_id": "sha256:8fbfd300a89fae6cf0c1bccaab6923d56150249ba4df9b413abb576746007f00",
+      "entity": "oz-mcp-flag",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "managed-ids-general-standalone-aliases",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "standalone"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "These short IDs are not general aliases for a service in an ordinary standalone CLI run.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "Passing Warp-managed integration servers by id",
+        "heading_anchor": "passing-warp-managed-integration-servers-by-id",
+        "line_end": 75,
+        "line_start": 75,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:98de731de0ef11b5b1faa0a0ca1a55658194d1cc9232442996235828eb4ff910",
+      "claim_id": "sha256:6d655666c011da70fb14a784bb2022bf357d2fc946fd13d9e97eb0aaf706dcf2",
+      "entity": "oz-mcp-flag",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "unresolved-integration-reference",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If an integration reference can't be resolved in the run's context, the server is skipped.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "Passing Warp-managed integration servers by id",
+        "heading_anchor": "passing-warp-managed-integration-servers-by-id",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "server-skipped",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4a3fc297bd5fa0f061c83db3a5ae8a34e92d7df73727a75a734ffd673d84d192",
+      "claim_id": "sha256:21d2512d033cd3ad52cd2339897d52cde6e06fa4493fbf5f8c7670143066a91f",
+      "entity": "mcp-environment-variables",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "synced-between-machines",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp syncs MCP server configuration between machines logged in with your Warp account, but **does not** sync the environment variables used in that configuration.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "Environment variables on remote machines",
+        "heading_anchor": "environment-variables-on-remote-machines",
+        "line_end": 121,
+        "line_start": 121,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9f173d5bb8f2f34b3e137b79aefb40d152ff7300e1e85bb11dfeec715cde69b4",
+      "claim_id": "sha256:7f40b40132ded7791e9ab1fa56b88141b8eb16e85a863b59b44589a6bdf8fc98",
+      "entity": "mcp-configuration",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "all-configured-servers-started-every-run",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI does not start every configured MCP server for every run.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:677261b5f01bd89b24a31acedad073e6886b3106d88e6701ff896954c03bf92e",
+      "claim_id": "sha256:82e354f850e5cb8d8684ffc6f99727af7a37660c7c5573885a2e84f8c1804689",
+      "entity": "mcp-profile-allowlist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-start-installed-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A selected agent profile can start installed servers on its MCP allowlist",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "content_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/mcp-servers/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
   "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
   "schema_version": 1
 }

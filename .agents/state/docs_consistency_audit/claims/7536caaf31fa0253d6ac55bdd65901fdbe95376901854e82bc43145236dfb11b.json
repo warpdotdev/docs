@@ -1,6 +1,234 @@
 {
-  "claims": [],
-  "page_sha256": "3f6e5c4f6bbba536d4b19506e1e5547ebcd5b17ef5d59b9ad8181336d1516f37",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:1573abd4af932b8b0349e3b052463271a591b185240a2257eebd0a140af1d34f",
+      "claim_id": "sha256:11450b2d4a4ffa97c8ffb3dae7142aa5e85a00c434057fc979b1fb971b4e1548",
+      "entity": "content_policy_violation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `403 Forbidden`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "content_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 403,
+        "raw": 403,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9458577d69d6492fbac35addcbac8a2da5aa42a8bcadf26a8c5eb4dfc76c2492",
+      "claim_id": "sha256:1eebbe4f0f067321b8bc078a9c315a977523a5ea23900ac16d130aec69698e22",
+      "entity": "content_policy_violation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "content_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dc8ec9523921484ebf3d5bd98475079f2f61e1e98dd361ec5108ab410659f41",
+      "claim_id": "sha256:7c4d7b5377819694a0bad7caab3914ed6d6bc9d12c3a43d7fdc9a410a9d0e0a8",
+      "entity": "content_policy_violation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "content_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7cc9f62a4eb12311bcc08ef97bd46482b8a5c015dcd8b236153ed06109d4c929",
+      "claim_id": "sha256:53d2bafe8214bb06b454753987e205faed70b8d5c6edc5c950ac5ade4e7b5199",
+      "entity": "content_policy_violation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "checked-inputs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `content_policy_violation` error occurs when the task prompt or environment setup commands are flagged by the platform's automated content policy checks.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "content_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "task-prompt",
+          "environment-setup-commands"
+        ],
+        "raw": [
+          "task-prompt",
+          "environment-setup-commands"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e1b66ae514a1c0cd42d96fa26b966e0af2cb026cfc3c7daf74f6dfd29a5fcc05",
+      "claim_id": "sha256:17c592ae85379d1094a439fd9e453deff638eb2c657110e0a867506f2d916981",
+      "entity": "content_policy_violation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "reveals-flagged-content",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For security reasons, the error message is intentionally generic and does not describe what specifically was flagged.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation",
+        "content_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
+        "heading": "When does this occur?",
+        "heading_anchor": "when-does-this-occur",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "344dc190aff0e38abca02b674e9342f1af9a86d6c2eb38cb947b85111a234297",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/content-policy-violation.mdx",
   "schema_version": 1
 }

@@ -1,6 +1,477 @@
 {
-  "claims": [],
-  "page_sha256": "af92f7d783d81e9b4934b607b1ab925810e30db6d175a5e64e286362ebf84a06",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:3ca5caa332df1a4a2ba9fa4c3bad88e5fd700fe393edd9295878c29a8f729e56",
+      "claim_id": "sha256:fc12eaa175835cb7f670d17a7fab6fe7e99e580a2a3d860771254c11f2a7532d",
+      "entity": "oz-integrations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-team-membership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "integrations (Slack, Linear) require team membership.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e610374001c21582de02dffe82f0a5c99d5ced8fa363b423557ea08245bb4ad2",
+      "claim_id": "sha256:9beecca82cad847ac9728f5a56831d159bbd4e4c80a9ada93ecae9fb75b97fd9",
+      "entity": "oz-cloud-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-team-membership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "individual-cli-run"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "cloud agents can be run individually via CLI without a team",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e8e778594efe307db7804490e8562429df90c4db60383a2d3d60ad2d0337133b",
+      "claim_id": "sha256:44025957c60603f0edd90d1bc1f24a0fdd3bfb6044c563db6a455ff9c53e83f5",
+      "entity": "oz-integrations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "setup-per-team",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You only need to complete this setup once per Warp team",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 22,
+        "line_start": 22,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1f1790308a046e3722bd347bfdc9eb23c501b11a6ddcc48678756e626eb7e52e",
+      "claim_id": "sha256:93a7c3fc7af78637cac39fa9cc6b372a3632fa647b22e3808d5af2aca946bd84",
+      "entity": "oz-environments",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "reusable-across-integrations",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It can be reused across Slack, Linear, and terminal triggers.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "Before you begin",
+        "heading_anchor": "before-you-begin",
+        "line_end": 92,
+        "line_start": 92,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7e45860c449789925f345081c01937fa38745a899eb27a964967180a679f3233",
+      "claim_id": "sha256:bd3116800673c7a0e92f651fadc04758179f421de2a122eb927330be41922ebc",
+      "entity": "oz-environment-create",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "description-max-characters",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "optional description (max 240 characters).",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "Option 2: Create an environment with the CLI",
+        "heading_anchor": "option-2-create-an-environment-with-the-cli",
+        "line_end": 151,
+        "line_start": 151,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": 240,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f77b30b2b0581d08bc365071d612e16d04ace133d21832cc076cf02570ed723c",
+      "claim_id": "sha256:08da90442df63bb70ba1dd505a950f94005588bf2aadf0650c3d59226638454d",
+      "entity": "oz-github-public-repos",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "read-without-authorization",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Agents can read code without authorization, but cannot write or open PRs.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "How GitHub authorization works",
+        "heading_anchor": "how-github-authorization-works",
+        "line_end": 180,
+        "line_start": 180,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:637dea827ba935426889f06830762c7986daed385ccc36b303c64e5bc2d51f87",
+      "claim_id": "sha256:25e78096ea4631a08d06ada2fd970b45b84083b323adc9649958de5c06e97e6d",
+      "entity": "oz-github-private-repos",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-triggering-user-write-access",
+      "qualifiers": {
+        "actors": [
+          "user-triggered"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Warp GitHub App must have access and the triggering user must have write permissions.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "How GitHub authorization works",
+        "heading_anchor": "how-github-authorization-works",
+        "line_end": 181,
+        "line_start": 181,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:57740172e043c91a258e170d56b10746ee079870cc12a11b2e7efa2585f0432a",
+      "claim_id": "sha256:3e5b59ea8c87f2047b176f97a835cd11db19dd81d60253dcac8d91aa610d76a3",
+      "entity": "oz-agent-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "github-authentication",
+      "qualifiers": {
+        "actors": [
+          "agent-api-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "Team-level GitHub authorization",
+        "heading_anchor": "team-level-github-authorization",
+        "line_end": 196,
+        "line_start": 196,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": "GitHub App when team GitHub authorization configured",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:135927178ef5a1d51839aa84f9c8b32f4099777e4bf41ceee0e37bd2f55cf320",
+      "claim_id": "sha256:b4166488f7ace55522c07a1b8ee2054bb21f56b17cf4cc55dc8a78b2eab1791a",
+      "entity": "oz-integration-create",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "github-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "isn't created with `oz integration create`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "3. Setting up an integration",
+        "heading_anchor": "3-setting-up-an-integration",
+        "line_end": 233,
+        "line_start": 233,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bf14b40a8cf81e0ad01d3b144751ed025099a940714d5c35c33f3a4184a867a0",
+      "claim_id": "sha256:2caf9d1d01c9485f3886a618731f8bd580f8d38c85751fed29f71bd6441f4938",
+      "entity": "oz-integration-create",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "omitted-environment-prompts",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If you omit `--environment`, the CLI will show a list of environments and prompt you to choose one.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "3. Setting up an integration",
+        "heading_anchor": "3-setting-up-an-integration",
+        "line_end": 223,
+        "line_start": 223,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fdfacbfa95f1548bdb0c63912bfcbf9148a68e140057c13d0713add73e80abf0",
+      "claim_id": "sha256:379ee029d19f2032c700fba957ce67f3036ed9008a9a6e7241147ad753270f29",
+      "entity": "oz-managed-run-container",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "destroyed-after-run",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-hosted-managed"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "After the run completes, the container is torn down. Each run starts from a clean, isolated environment.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/integration-setup",
+        "canonical_route": "/agents/cli/oz-cli/integration-setup",
+        "content_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+        "heading": "How are environments used at runtime?",
+        "heading_anchor": "how-are-environments-used-at-runtime",
+        "line_end": 295,
+        "line_start": 295,
+        "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/integration-setup/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
   "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
   "schema_version": 1
 }

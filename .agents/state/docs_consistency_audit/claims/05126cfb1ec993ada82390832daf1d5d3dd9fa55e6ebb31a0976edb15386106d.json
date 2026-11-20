@@ -1,5 +1,1508 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:807a716231a80a52d369091424b08bb2073009668f8d0c6bace2b3c911898817",
+      "claim_id": "sha256:746369144ee41b74b84d09a03dbbe762cb1847c552a96e6246b59d2d102a798d",
+      "entity": "telemetry",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "optional",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Disable telemetry and crash reporting at any time while retaining full functionality",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Transparency and control",
+        "heading_anchor": "transparency-and-control",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:1cb41bb73d5957a60c57695850af86372aeaa706b071b45f1a945c6df4a52894",
+      "claim_id": "sha256:3e6edbaea15c5c37e8ab8a6e423141faa9118b4de57472f9ebc8618804ab72f8",
+      "entity": "warp-client",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "source-license",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's client code is published under [AGPL v3]",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Transparency and control",
+        "heading_anchor": "transparency-and-control",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "AGPL v3"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:599e94f21e3c41d66385d62901f0080892328446739b859434a683b6c7a485fa",
+      "claim_id": "sha256:db80945974b73de1d7f3333e3638911056a8cba5dfd72ebd9116255a528e07ee",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "claude-fable-5",
+          "claude-fable-5.1",
+          "claude-fable-5.2",
+          "provider-retention-required-models"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "meaning they do not store or train on your data.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 26,
+        "line_start": 26,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:581086d8717b9809e637e844fb91af5fb89b7ea777b5274f276fb0185b5274e8",
+      "claim_id": "sha256:fb46633f475d4a57fffecb8289e0bb3c407a7e8f132b0de337d2d00388f0916a",
+      "entity": "data-collection",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "business",
+          "enterprise"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "paid-teams"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Data collection is enabled by default.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 31,
+        "line_start": 31,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:d869c85f0beaf3ad888ec8f697e30d44987c88910f86411b481481cb6c0ae1f8",
+      "claim_id": "sha256:5fab816a17bb0788199621543e96a31a554a052e2d2a37478260cf370dfc95a2",
+      "entity": "data-collection",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Data collection is **disabled by default**.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:e645030e5147e07dfbc820e6db3220e3a8631b805c1191f4737219e8e6f23ace",
+      "claim_id": "sha256:a8ea8600b01bbd80eafd3f35f2b838f9795f136a4b2485b7114cdb2921c3e80f",
+      "entity": "provider-retention-required-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enterprise-enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For Enterprise teams, these models are **off by default**; a workspace admin must explicitly enable them",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:f1f0a3566086e74e86ddb7cc517842f1d8204f73b244e36baa21f72ae320e638",
+      "claim_id": "sha256:3d3acdec338d1ae0d1123de60a191b31c78b4fda9aa528edd717d948b339fa47",
+      "entity": "cloud-conversation-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-for-product-functionality",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "require storing conversation data to function.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:3ef37caf998dff2a82ebc113b06aeda9f2220f83c271c790c5bc2896cacaae49",
+      "claim_id": "sha256:4ec9f05e022e970b01a8c3007a63964c73a7b7fcc775ebc252422db97d6b7cb4",
+      "entity": "telemetry",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "collected-categories",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "telemetry-enabled"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "1. **Product usage analytics** - High-level metrics on feature adoption and usage patterns (e.g., \"Agent Mode was opened,\" \"workflow was executed\").\n2. **Performance and stability** - Crash reports, error tracking, and performance metrics to identify and fix issues.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Telemetry categories",
+        "heading_anchor": "telemetry-categories",
+        "line_end": 50,
+        "line_start": 49,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": [
+          "product-usage-analytics",
+          "performance-and-stability"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:23481c563a75e40d292149f6feb964c7a407d3d0b450027445529e7b030d1d68",
+      "claim_id": "sha256:4087f369031796f8efebf3798bde27f7f1f55c985063f07362d83c0a3eeb6cf3",
+      "entity": "analytics-usage-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "collected",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "telemetry-disabled"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "With telemetry disabled, Warp stops collecting usage and interaction data for analytics purposes.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Disabling telemetry",
+        "heading_anchor": "disabling-telemetry",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:95cd96f4dd96bdd3b87b5792f34d73dbaf246e33c7356e686a2e1fd7ccfcfa9e",
+      "claim_id": "sha256:a729ac211a2f9ba00ca7352795888f3a7f6d5b23f3dd4438d6970283ecf81379",
+      "entity": "codebase-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "raw-code-stored",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the raw code is not stored, only the resulting embeddings are retained",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Where your data lives",
+        "heading_anchor": "where-your-data-lives",
+        "line_end": 73,
+        "line_start": 73,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:b75bcf1a4cd830a52ce944813dc4bea8590e7a039be4dc125305d0f8f1471d33",
+      "claim_id": "sha256:cdc21f2a101f65a84dfa2671960c0b566793c6f2aa73b384f4491d043b2216d8",
+      "entity": "codebase-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "code-transmitted-for-embedding",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "During indexing, code is sent to Warp's servers to generate embeddings",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Where your data lives",
+        "heading_anchor": "where-your-data-lives",
+        "line_end": 73,
+        "line_start": 73,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:33b5a9b3861f7efbc15f8eb6fc4f13d7734c655545ddaa2991dae2e7a4a2d64a",
+      "claim_id": "sha256:792c46b0debf0bef645909bff01f8ff241d79d6aa4cfc0a7c5b3c54b377f75f1",
+      "entity": "team-managed-provider-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-server-side",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "team-managed-keys"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the keys are encrypted and stored server-side",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Where your data lives",
+        "heading_anchor": "where-your-data-lives",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:d8e9c1d154bfe6dda8bb34385abe223f24c17acf1296d727abaa551c124a45f4",
+      "claim_id": "sha256:a4a03301935a73224af37ff339d6d2779befec69dd3d9b26a065fd312eec3b54",
+      "entity": "team-managed-provider-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "delivered-to-cloud-agent-environments",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "team-managed-keys"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "never delivered to cloud agent environments.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Where your data lives",
+        "heading_anchor": "where-your-data-lives",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:d3b0b3f15825ebfcf51334931a1728af95dbfe5b42dc0d932f86cbb982c91ad2",
+      "claim_id": "sha256:d31b718cd3bae80d11f0942b6f06e7a59180203a2ddaf94504b1918d405ff691",
+      "entity": "self-hosted-cloud-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "code-context-transits-warp",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Where your data lives",
+        "heading_anchor": "where-your-data-lives",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:346769b187ab037dcb5e77e7de63d0c4b442cc83b4b9bd613fd2a4742c7d2a9f",
+      "claim_id": "sha256:3336c17d0e63d021dc58d4a0752b6bfe2801995ddd7774fc7fdacab173ab870a",
+      "entity": "warp-server-transit",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "minimum-tls-version",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "All data transmitted to Warp servers uses TLS 1.2 or higher",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Encryption",
+        "heading_anchor": "encryption",
+        "line_end": 81,
+        "line_start": 81,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": "1.2",
+        "type": "version"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:855e98fced306a195b3104ae004b0f76d539df8808684e93a644fa38f3df83ab",
+      "claim_id": "sha256:c5e60be29fa5175b20bf0d187b4940915de1454b6812becb8594321fa381b67c",
+      "entity": "user-data-at-rest",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "encryption",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp encrypts all user data at rest using AES-256",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Encryption",
+        "heading_anchor": "encryption",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "AES-256"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:d1ce55524979ec31910f873a303f98f1d4b2b3ed2d1046e8a66e188e2cf59ea0",
+      "claim_id": "sha256:5e82c9ef59bf81d81a667c59e49127b045e3fba3ff7d131b5242eff809848a95",
+      "entity": "secret-redaction",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "masks-before-provider-transmission",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "secret-redaction-enabled"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When Secret Redaction is enabled, Warp masks matching sensitive information before sending terminal or AI content to LLM providers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Secret redaction",
+        "heading_anchor": "secret-redaction",
+        "line_end": 86,
+        "line_start": 86,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:09ed45a5becc0817b2828497cdeb25e08e9cd86b70828e99c914525b22a239fd",
+      "claim_id": "sha256:5dfc05f7608d4f7cf3a069262a5d356062e06c5c710199f8e1a4fcd5663abd36",
+      "entity": "telemetry-redaction",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "separate-from-terminal-redaction",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Telemetry payload redaction is a separate mechanism.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Secret redaction",
+        "heading_anchor": "secret-redaction",
+        "line_end": 93,
+        "line_start": 93,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:15b2788f8c5633cd397bd0310ece5a5035916c1f7ca9b346b8446a0bf705527c",
+      "claim_id": "sha256:22fb9c258431c107b86dddd9255b6f49f6c29b8b64d273878ad2db23a9df4e34",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "claude-fable-5",
+          "claude-fable-5.1",
+          "claude-fable-5.2",
+          "provider-retention-required-models"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's contracted LLM providers do not retain or train on your data",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Data retention",
+        "heading_anchor": "data-retention",
+        "line_end": 99,
+        "line_start": 99,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:8137ae089618519d3ea0e26701010e162613958d80c70788698ecd63d25a8044",
+      "claim_id": "sha256:2bcff8f7a52bef6b11dc5fe5388ec758e69683c4440b104586bd604ee8758e8e",
+      "entity": "telemetry-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retention-period",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When collected, Warp retains telemetry data indefinitely for analytics and debugging",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Data retention",
+        "heading_anchor": "data-retention",
+        "line_end": 100,
+        "line_start": 100,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": [
+          "indefinite"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:6d518939bb9ed29cf7eac8d462d960e40d670e492884b1fbea5632dac3852970",
+      "claim_id": "sha256:5f52f541e3adda8f2741e90aca6fdc994a38e43b9a3ed6a79e524eeca5d5e4fc",
+      "entity": "account-data-deletion",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "processing-deadline",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "legal-and-contractual-obligations"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Data retention",
+        "heading_anchor": "data-retention",
+        "line_end": 101,
+        "line_start": 101,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": 2592000,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:8d02e097d48e5a0e810a3ed3d1550469816ee656ea0d4f8d6052c71ec34adc1a",
+      "claim_id": "sha256:f237854f13e2807f5122a24beb3b5790b2a2c7846bd2f5b7f8bb1cad97df099a",
+      "entity": "warp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "soc-2-type-ii-certified",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp is SOC 2 Type II certified",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "SOC 2 Type II",
+        "heading_anchor": "soc-2-type-ii",
+        "line_end": 107,
+        "line_start": 107,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:1bd103ae22afdf043028ae5155f94d0fd09894d167956001a7a0818cf27f825d",
+      "claim_id": "sha256:63972d10de9e8e04dc33cf8b1b0bca257ca92cb9f5455650f9da78df98e51dda",
+      "entity": "soc-2-reports",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-upon-request",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "SOC 2 reports are available to Enterprise customers upon request.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "SOC 2 Type II",
+        "heading_anchor": "soc-2-type-ii",
+        "line_end": 114,
+        "line_start": 114,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:863e83dc6750f60a56752b52e58b183ad4ae62ed34b848b24b44731415d16c5a",
+      "claim_id": "sha256:0056ed9f8771bbdb13e9910b1a0396ed7a0b6ba830c904a4265660cf2330cafb",
+      "entity": "warp-hosted-infrastructure",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-provider",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Hosted on GCP with SOC 2 and ISO 27001 certified datacenters",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Warp-hosted infrastructure",
+        "heading_anchor": "warp-hosted-infrastructure",
+        "line_end": 122,
+        "line_start": 122,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "GCP"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:94a88d11399f771d04ffa178af3e76030c156136d99a83fdaf99798fdc050ac9",
+      "claim_id": "sha256:7b3e1f3559a467a334a3bb8866e8deeeee78251ec20473e4eccd9db037dba412",
+      "entity": "self-hosted-cloud-runs",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "code-context-transits-warp",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's servers",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Self-hosted deployments",
+        "heading_anchor": "self-hosted-deployments",
+        "line_end": 133,
+        "line_start": 133,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "deployment",
+      "claim_content_fingerprint": "sha256:6e5330297b9fa2e6d138dbab6a3894133dbc76c6b1cd851b1d76c33c23b07bd7",
+      "claim_id": "sha256:2d576616fc9e80a4e744ed968ddd12a2174947e0bb8229c0a648ba41ec4eaa76",
+      "entity": "unmanaged-self-hosted-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-operating-systems",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "unmanaged"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Supports Linux, macOS, and Windows with no Docker dependency.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Self-hosted deployments",
+        "heading_anchor": "self-hosted-deployments",
+        "line_end": 136,
+        "line_start": 136,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "deployment",
+      "value": {
+        "normalized": [
+          "linux",
+          "macos",
+          "windows"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "deployment",
+      "claim_content_fingerprint": "sha256:603c85227dec658a2f6e6330764a5fb4d4f044f2407875110722877828921f40",
+      "claim_id": "sha256:640fdf09dbf9e9f1be479c7e2cd94c6fbe598aad012363e1efc69eb9f824f205",
+      "entity": "unmanaged-self-hosted-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-docker",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "unmanaged"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Supports Linux, macOS, and Windows with no Docker dependency.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Self-hosted deployments",
+        "heading_anchor": "self-hosted-deployments",
+        "line_end": 136,
+        "line_start": 136,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "deployment",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "deployment",
+      "claim_content_fingerprint": "sha256:96ba1b5ffa62d243bac02529ff5c0930bc0308892e320d17efd9d195d8617547",
+      "claim_id": "sha256:b18d9e8411948a78ab1cd6b2d3f5a58822d90c8074b6d4698828011b28a58983",
+      "entity": "self-hosted-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-inbound-network-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No inbound network access is required.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Self-hosted deployments",
+        "heading_anchor": "self-hosted-deployments",
+        "line_end": 139,
+        "line_start": 139,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "deployment",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:6f56939ba8491beb238e7cceb814f0502fd6465a9f694315ad022913a75a9222",
+      "claim_id": "sha256:1d1b50f9213f78908fe41803d3c5312eb6ab004c22cf8b41120004d293f354f4",
+      "entity": "sso",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-protocols",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "any SAML 2.0 or OpenID Connect (OIDC) compatible provider",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Single Sign-On (SSO)",
+        "heading_anchor": "single-sign-on-sso",
+        "line_end": 149,
+        "line_start": 149,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "saml-2.0",
+          "oidc"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:bfffb2deea481ff552a12b827544734ce328da82a306287365c544467a86ac1c",
+      "claim_id": "sha256:1535b11da940c12a716d7fe439adb9c1cefd62b03ad28fd79a58fa2f873b0698",
+      "entity": "team-access",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp uses role-based access control with three roles \u2014 Team Owner, Team Admin, and Member",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Team permissions",
+        "heading_anchor": "team-permissions",
+        "line_end": 155,
+        "line_start": 155,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "team-owner",
+          "team-admin",
+          "member"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:2af2ba0e99b5093dc45c869c9fa289a9cb724c9106317307291a6d4bc5431a19",
+      "claim_id": "sha256:2edd9baabfc7ac1349d36c387257c35046fb71cf0dd1a5a32ef144b40c846acb",
+      "entity": "byollm-cloud-credentials",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-by-warp",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byollm"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp never stores your cloud credentials or API keys",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Bring Your Own LLM (BYOLLM)",
+        "heading_anchor": "bring-your-own-llm-byollm",
+        "line_end": 178,
+        "line_start": 178,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:d502b84fd36609d8ee637ae2d941036889a9a707e138698fa2d0f9640e19f00d",
+      "claim_id": "sha256:96e1fd2193d32f6bd8ab98093c00db489bf2bb477120d5715ccbc6966f8bf021",
+      "entity": "byollm-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "billed-to-cloud-account",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byollm"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Inference costs billed directly to your cloud account",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Bring Your Own LLM (BYOLLM)",
+        "heading_anchor": "bring-your-own-llm-byollm",
+        "line_end": 179,
+        "line_start": 179,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:1cf120c2941a496db1bcccdf19a821889d9380e5a857fdee39920b9c0d742099",
+      "claim_id": "sha256:e47a0fdc1d2088ca8139dd0128399530be2bae386ffee9bd4a1a6c7ae016892d",
+      "entity": "docker-sandboxes",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "ephemeral",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "docker-sandboxes"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Sandboxes are destroyed after use, leaving no trace",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Docker Sandboxes",
+        "heading_anchor": "docker-sandboxes",
+        "line_end": 190,
+        "line_start": 190,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:c7dcf32f4a9c4ac36bffc35b5a6390ed0bf9b4cbf1b06558bec3144d9207ad19",
+      "claim_id": "sha256:7845716db803cbd3dc98b1cd45d6946f639470a5dfb2dd8ac2450b0e89877070",
+      "entity": "agent-actions",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "logged-with-full-context",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud-conversation-storage-enabled"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When cloud conversation storage is enabled, agent actions are logged with full context for review",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "content_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
+        "heading": "Agent permissions",
+        "heading_anchor": "agent-permissions",
+        "line_end": 199,
+        "line_start": 199,
+        "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/security-overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "02eb86f32e541ef040a711b163b717a77def394f1766b4028e20dac238f6b79e",
   "path": "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
   "schema_version": 1

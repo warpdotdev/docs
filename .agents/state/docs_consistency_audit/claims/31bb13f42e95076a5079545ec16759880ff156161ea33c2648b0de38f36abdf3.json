@@ -1,6 +1,577 @@
 {
-  "claims": [],
-  "page_sha256": "7b2331b1482899749aafe5060b4175afe71f826146a45f8b1dfe46dd271f81d6",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:63a3a5d9ea585b9cc73b371f1766d130883069df0078a359d441805bf933c105",
+      "claim_id": "sha256:bc15f13e18882229f4a36b10489cfb14c87a8ef56215cc5fc865df24cfe979db",
+      "entity": "team-membership",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "multiple-teams-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "multi-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Users can belong to one team in a single-team workspace or multiple teams in a [multi-team workspace](/enterprise/team-management/workspaces/).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "What is a team?",
+        "heading_anchor": "what-is-a-team",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:d28a43136833305ee60f1fdba8a5aafbf421a8ac133bb12362664f92d9b0fddc",
+      "claim_id": "sha256:968bc4b9d81d13120a5256845397b1e223056dbf468f29c8e0755ab8726ebd92",
+      "entity": "multi-team-workspace",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "team-creation-requires-workspace-admin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "multi-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "In a multi-team workspace, workspace admins create teams from the Admin Panel.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Creating a team",
+        "heading_anchor": "creating-a-team",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:fb249fce775e4a1f803e3d7df262cc208c85a31d8b77891d54e88f6a101c6d32",
+      "claim_id": "sha256:e9d31b95a18aaa206763fca8170bc2c56a468bbd3e39552f98daff2855306521",
+      "entity": "team-membership",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "additional-seat-prorated",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "paid"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On paid plans, adding new members automatically adds them as paid seats. New members are billed on a prorated basis for the remainder of the billing cycle.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Inviting team members",
+        "heading_anchor": "inviting-team-members",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:fb58194f6b76b0d57359397abd712516b18e142ab82f9a23cb8b71695b809038",
+      "claim_id": "sha256:1c803f8f98bfeeacf5036c9f5192230ff4e4fb50b64d0b10f90d62e4b6b6e4dd",
+      "entity": "team-domain-restriction",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "email-domain-verification-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "users who attempt to join with a non-matching email domain will be prompted to authenticate via an emailed link sent to an email address on an allowed domain.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Restricting team invites by domain",
+        "heading_anchor": "restricting-team-invites-by-domain",
+        "line_end": 53,
+        "line_start": 53,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:c1549bfd8755b0337a3b66a481cd89c2d915359dbad02c1c7ba73e6564af27d9",
+      "claim_id": "sha256:674cefa074a1849160503c3bf3b3bb77e77978a31c83110fb1eb6f5d43cf2420",
+      "entity": "team-owner",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "deletion-requires-no-other-members",
+      "qualifiers": {
+        "actors": [
+          "team-owner"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Can delete a team, but only after removing all other team members first.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Leaving and deleting teams",
+        "heading_anchor": "leaving-and-deleting-teams",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:5251d55f69458ffab73234c051e8d5f3edd791cd6e81c9e38ca3eaab6cdbf4d7",
+      "claim_id": "sha256:e7865c9aa8a527ce6b832edf0c8d80d7a64163f879f0161914e73a676d17bc3a",
+      "entity": "team-deletion",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "unused-purchased-usage-blocks",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A team can't be deleted while it has unused purchased usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Leaving and deleting teams",
+        "heading_anchor": "leaving-and-deleting-teams",
+        "line_end": 65,
+        "line_start": 65,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:fef081595d8a2ded25970a376f1a5ac3688606aa124b471742d53a77ebcb6213",
+      "claim_id": "sha256:25318b713100cb697ca81285b6b5b5ba7a7894dbdb2e0bfe548dabd20a216f96",
+      "entity": "team-purchased-usage",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "ownership-after-member-leaves",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-serve"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "On self-serve plans, purchased usage stays tied to the team that bought it.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Purchased usage when membership changes",
+        "heading_anchor": "purchased-usage-when-membership-changes",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": [
+          "team"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:199fddbc09d2ad6c97c6199c91cc9875da7766d190adcbf020b41bceb9ce3d93",
+      "claim_id": "sha256:34c153b2a43a1f17453e1ab49fa190d853111aa701f8aebfbd16ccac51b3d85a",
+      "entity": "team-purchased-usage",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "access-restored-on-rejoin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-serve"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "rejoining restores access to unused, unexpired usage.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Purchased usage when membership changes",
+        "heading_anchor": "purchased-usage-when-membership-changes",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:8ec3d6cb17bf81062a98dbd94cd088e58e1a70959e26f756b5424893d1a4cc33",
+      "claim_id": "sha256:08069bad1190cba491a4790af846bbaeef37e2aa7292f72ca7ea87bbfce79c65",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-owners",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "There can only be one Owner per team.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Team roles and permissions",
+        "heading_anchor": "team-roles-and-permissions",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:3e45f6bbc34882005c3213669f04b884dfb1af7389a5216e266871aaa677a925",
+      "claim_id": "sha256:6b59d372bf63e7dbc606e4d569562b0a6e2fec16a9461ac3b4c2ee6617f6a885",
+      "entity": "team-admin",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-transfer-ownership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Same permissions as the Owner, except they cannot transfer team ownership.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Team roles and permissions",
+        "heading_anchor": "team-roles-and-permissions",
+        "line_end": 107,
+        "line_start": 107,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:f7bb1b3f10594ef64fd8bb40b2a1a7b3cdd2f40d14eec829891b6230e15b7822",
+      "claim_id": "sha256:0e2e81d978887aa9e7d61443ef2b8feafdb46a6435bb96f72147d61b791d5d77",
+      "entity": "team-admin",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-modify-owner-role",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team Admins cannot demote or modify the Team Owner's role.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Multi-admin support",
+        "heading_anchor": "multi-admin-support",
+        "line_end": 143,
+        "line_start": 143,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:9d7a509bb9d1128138373dc3730a8f9aae5bb5912214eb6bb842a90562d42955",
+      "claim_id": "sha256:1975c1caaa14800e460424dd3a79dc73c40aedf80d9ff539021cdb2ccc7b697b",
+      "entity": "team-owner",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "only-actor-can-transfer-ownership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Only the current Team Owner can initiate an ownership transfer.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Transferring team ownership",
+        "heading_anchor": "transferring-team-ownership",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:8076f0a4ffe2102a2545aea0f8234b23eacd36eee056d8ef77d6913bd0b3a4d0",
+      "claim_id": "sha256:7f01eca78c6539967d22f57f2a9ef9d7ab3837f86fe0a3f1935da675a5d7b76b",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp uses three roles to manage team access:\n\n* **Team Owner** - Full access to the Admin Panel and all team settings. Can manage members, assign roles, configure policies, and transfer ownership. There can only be one Owner per team.\n* **Team Admin** - Same permissions as the Owner, except they cannot transfer team ownership. Teams on Enterprise plans can have multiple admins.\n* **Member** - Standard access to Warp features and team resources. Members can use agents, access shared Warp Drive resources, and configure personal settings within the limits set by admins.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/teams.mdx",
+        "content_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
+        "heading": "Team roles and permissions",
+        "heading_anchor": "team-roles-and-permissions",
+        "line_end": 108,
+        "line_start": 104,
+        "path": "src/content/docs/enterprise/team-management/teams.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/teams/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "owner",
+          "admin",
+          "member"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "page_sha256": "a6ed7e2b8aaebdd37baecb5937f826812ad10573a5d99b80eea8a437ec43a2e3",
   "path": "src/content/docs/enterprise/team-management/teams.mdx",
   "schema_version": 1
 }

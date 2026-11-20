@@ -1,6 +1,496 @@
 {
-  "claims": [],
-  "page_sha256": "5b081c39552faee715abc14cafa76b61a47feea18a29a15608c74df7d3faa1ee",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:bea4c4c5eec58a456480e2c11fe5f7eac1db50f477ec6190195148b3fce68ab3",
+      "claim_id": "sha256:8e490d701c9df56e9fb5c2db95697d6121087ae29f4a9d07403f079f9faf99e2",
+      "entity": "third-party-cli-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "detected-automatically",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp auto-detects supported CLI agents",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:7873ce7aa70e207e273fdd64e2c3a36021934e23a7afffaaf9b34b215958f0fb",
+      "claim_id": "sha256:a4344a1d0e918162d7edfda4624eca550028f8e8f28e2a87aa5487f46413a05b",
+      "entity": "third-party-cli-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "appear-in-conversation-panel",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Claude Code, Codex, OpenCode, and other third-party CLI agents do **not** appear there.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Where third-party CLI agents appear",
+        "heading_anchor": "where-third-party-cli-agents-appear",
+        "line_end": 53,
+        "line_start": 53,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d86f3a9187701eee2594be2eb58e34e56fa4ca4352bf8c7f74a703c26bdf4069",
+      "claim_id": "sha256:ca49c57411c8cba9ca59c538e671c0fb2bfb8767d27be002418be0af376dd3b3",
+      "entity": "third-party-cli-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "appear-in-agent-management-panel",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Third-party CLI agents do **not** appear there.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Where third-party CLI agents appear",
+        "heading_anchor": "where-third-party-cli-agents-appear",
+        "line_end": 54,
+        "line_start": 54,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:470219cbd0175f09555241bdad192e951bcb6da627712d66fbbb90f888891d5c",
+      "claim_id": "sha256:e8265f607e61273f11f219bb454afd86533e7722351b27939ab203ca754caa08",
+      "entity": "third-party-cli-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "status-location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Vertical tabs and the agent toolbelt** - Show live third-party CLI agent status while the process is running in a pane.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Where third-party CLI agents appear",
+        "heading_anchor": "where-third-party-cli-agents-appear",
+        "line_end": 55,
+        "line_start": 55,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "vertical tabs and agent toolbelt",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:9b470cc1ecc1e17763b84172acc104269563f7926509d2114963a3319ec097f7",
+      "claim_id": "sha256:2209e0c228f7031208577ecbd8b625db525bfed64eea456247ae075880ab53fd",
+      "entity": "cli-agent-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-setup",
+      "qualifiers": {
+        "actors": [
+          "claude-code",
+          "codex",
+          "opencode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Agent notifications in Claude Code, OpenCode, and Codex require a one-time setup.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Feature support",
+        "heading_anchor": "feature-support",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:05b71dbc114da64f2877c35d029da1152bba56cab93267eb8cc7d80f46244521",
+      "claim_id": "sha256:50f5a649a492162449ae190be8b2ea03fd23cd335f6f2c504df0a82dac521d0f",
+      "entity": "cli-agent-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "| Agent notifications | \u2713 | \u2713 | \u2713 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 |",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Feature support",
+        "heading_anchor": "feature-support",
+        "line_end": 67,
+        "line_start": 67,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "claude-code",
+          "codex",
+          "opencode"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:6b068a195ca560468719960d74f90f8622f8536a4c6fe4af26945ceb8ceaf767",
+      "claim_id": "sha256:deb2d0af67044eb3bfa8b9349f5f14e3e10bebed685e4d9b6259bf14d8b43531",
+      "entity": "cli-agent-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "actors": [
+          "antigravity"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "requires-structured-notifications"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Antigravity** (`agy` or `antigravity`) also supports these features and can report task completion and requests for input when its CLI emits structured notifications.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Feature support",
+        "heading_anchor": "feature-support",
+        "line_end": 76,
+        "line_start": 76,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:2f3161640d1a1688ad7b18f446bd7cde9000a06d8954c945386d500f71608d44",
+      "claim_id": "sha256:cdfe8a5bfd5998b37d892a9138dc82e53038bc49b67f7520f812ab005a4c6073",
+      "entity": "cli-agent-toolbelt",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "layout-persists",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your layout is saved and persists across app restarts.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Customizing the toolbelt",
+        "heading_anchor": "customizing-the-toolbelt",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:900ddf9e5337846df64fe5a694d701b465174d3d44c5d25c33207aefdfcf2891",
+      "claim_id": "sha256:ff514881f3ade92918b2d4bd5bef5a84072555e12b59bcb6aaa98f58ced3ce77",
+      "entity": "remote-control",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-third-party-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Remote Control** - Publishes a running third-party session so you can monitor or steer it from another device.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Where third-party CLI agents appear",
+        "heading_anchor": "where-third-party-cli-agents-appear",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e594500493b6ba9337a7c3838ef6b6dda435fcc6e1299edf75196744f1046022",
+      "claim_id": "sha256:e2a346974ec2a9c4c1ea54d361e8594432a1aa3bceaddabbc65fbf14f910e145",
+      "entity": "codex-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "setup-mechanism",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Codex uses a native config change.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Feature support",
+        "heading_anchor": "feature-support",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "native-config-change"
+        ],
+        "raw": [
+          "native-config-change"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f4fe00befdc2140ff68f4c18b21060302eefe7bd8a337899bd582abd5ea0d952",
+      "claim_id": "sha256:2ed262848db5caf93701b777ebf95c5aed3f0114feec3054ff3364c45e28dc81",
+      "entity": "claude-code-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-plugin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Claude Code and OpenCode use a Warp notification plugin.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/overview",
+        "canonical_route": "/agents/cli-agents/overview",
+        "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
+        "heading": "Feature support",
+        "heading_anchor": "feature-support",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/agents/cli-agents/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
   "path": "src/content/docs/agents/cli-agents/overview.mdx",
   "schema_version": 1
 }

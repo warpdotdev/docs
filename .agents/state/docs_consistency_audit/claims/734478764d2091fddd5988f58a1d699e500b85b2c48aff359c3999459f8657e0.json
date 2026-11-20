@@ -1,19 +1,19 @@
 {
   "claims": [
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:9d2ec02c465ec3c5f00f918f8f4462213f7c66651249c53ef3aa56f9779edc7b",
-      "claim_id": "sha256:42d02dca83bebc50e060b8ede679741f69efdbee37b05c61b5adbedf1e640533",
-      "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:887619d8cb04715a2f25577f76ee0c145a944b40962fc62cf65a243d79e38892",
+      "claim_id": "sha256:4d3f3f0806a36d9eb7382cca93c0f31652299a6ed12c21349984ac439c79d88d",
+      "entity": "hosted-agent-runs",
+      "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "used-for-training",
+      "predicate": "execution-isolation",
       "qualifiers": {
-        "actors": [
-          "llm-providers"
-        ],
+        "actors": [],
         "architectures": [],
-        "environments": [],
+        "environments": [
+          "warp-hosted"
+        ],
         "exceptions": [],
         "install_methods": [],
         "legacy": false,
@@ -24,41 +24,41 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "They do not store or train on your data.",
+      "quote": "Agents execute in **isolated Docker containers** on Warp-hosted infrastructure (GCP).",
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
-        "heading": "High-level data flow",
-        "heading_anchor": "high-level-data-flow",
-        "line_end": 30,
-        "line_start": 30,
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 39,
+        "line_start": 39,
         "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/architecture-and-deployment/",
         "visibility": "public"
       },
       "source_class": "canonical-doc",
-      "topic": "privacy",
+      "topic": "product-behavior",
       "value": {
-        "normalized": false,
-        "type": "boolean"
+        "normalized": "isolated docker containers",
+        "type": "free-text"
       }
     },
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:9d2ec02c465ec3c5f00f918f8f4462213f7c66651249c53ef3aa56f9779edc7b",
-      "claim_id": "sha256:e2bd91263fb7b04c43b7e59b5c9a54c871dbcb20d15b7525c5712d893ad2fb6d",
-      "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:4841f1bd57b103e74a7d7c59501429c207b52f4fcbfae38bb445de25352dba51",
+      "claim_id": "sha256:5e778a6b35bdb2a167d968e00fc4bc615ef00534f302c46efa72bc8125350d63",
+      "entity": "hosted-agent-runs",
+      "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "retained-by-model-provider",
+      "predicate": "environment-destroyed-after-run",
       "qualifiers": {
-        "actors": [
-          "llm-providers"
-        ],
+        "actors": [],
         "architectures": [],
-        "environments": [],
+        "environments": [
+          "warp-hosted"
+        ],
         "exceptions": [],
         "install_methods": [],
         "legacy": false,
@@ -69,48 +69,44 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "They do not store or train on your data.",
+      "quote": "Environments are ephemeral and destroyed after each run.",
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
-        "heading": "High-level data flow",
-        "heading_anchor": "high-level-data-flow",
-        "line_end": 30,
-        "line_start": 30,
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 41,
+        "line_start": 41,
         "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/architecture-and-deployment/",
         "visibility": "public"
       },
       "source_class": "canonical-doc",
-      "topic": "privacy",
+      "topic": "product-behavior",
       "value": {
-        "normalized": false,
+        "normalized": true,
         "type": "boolean"
       }
     },
     {
       "category": "plan-gating",
-      "claim_content_fingerprint": "sha256:992dfc5f4b0c7423a10f02d84c957508675b597d1e1c7b0ebe4a1b5cc20da7d0",
-      "claim_id": "sha256:ca5bfb6e1f3fa7ee8036e6892692a4b9bb3783327e742bf415dcb968266ea2a4",
+      "claim_content_fingerprint": "sha256:df8c8164f812568f4312b4f71a99262a43c91e40f38b85229cb09335c6a8958e",
+      "claim_id": "sha256:2156afcf5c994b3aa08889fca241cd43bbdcdba0b199de3301902df3720f319f",
       "entity": "self-hosted-execution",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "minimum-plan",
       "qualifiers": {
         "actors": [],
         "architectures": [],
-        "environments": [
-          "self-hosted"
-        ],
+        "environments": [],
         "exceptions": [],
         "install_methods": [],
         "legacy": false,
         "operating_systems": [],
-        "plans": [
-          "enterprise"
-        ],
+        "plans": [],
         "release_statuses": [],
         "shells": [],
         "time_scope": null,
@@ -120,7 +116,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
         "heading": "Self-hosted execution",
         "heading_anchor": "self-hosted-execution",
         "line_end": 63,
@@ -136,9 +132,542 @@
         "normalized": "ENTERPRISE",
         "type": "plan"
       }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:47ac20395c1a60488e9de45661589fa27e30013b38d723cf04d0cc6b94685aad",
+      "claim_id": "sha256:d04117069dccb984f2602ca5d45416b7f7fbd2cf58eb9b2e9ce2a313e7139a91",
+      "entity": "self-hosted-unmanaged",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-docker",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted",
+          "unmanaged"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Supports Linux, macOS, and Windows with no Docker dependency.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Deployment modes",
+        "heading_anchor": "deployment-modes",
+        "line_end": 75,
+        "line_start": 75,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:07efd87bc280580479a502b87e915dab23d29cd750d564ecfb09876fec8b5b72",
+      "claim_id": "sha256:1cbb010833d12fc76e57f242ba279baee5df7fad9525ca3a2fde9d15a34d1e96",
+      "entity": "self-hosted-unmanaged",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-platforms",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted",
+          "unmanaged"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Supports Linux, macOS, and Windows with no Docker dependency.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Deployment modes",
+        "heading_anchor": "deployment-modes",
+        "line_end": 75,
+        "line_start": 75,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "linux",
+          "macos",
+          "windows"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "networking",
+      "claim_content_fingerprint": "sha256:96ba1b5ffa62d243bac02529ff5c0930bc0308892e320d17efd9d195d8617547",
+      "claim_id": "sha256:4031eef796cfbe4ff7523f875267046757fde7eabd723daedde87f25f150f4ea",
+      "entity": "self-hosted-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-inbound-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No inbound network access is required.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Network requirements",
+        "heading_anchor": "network-requirements",
+        "line_end": 89,
+        "line_start": 89,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:98a1f31e2b6ad3b93aa1b5ad23b771e697cd22d51acc189896d4bb05dc1a0ee7",
+      "claim_id": "sha256:e92c0776569e59309417ced60fe2ac24a337f265d8c2d33d6b2ddc2293a3dc38",
+      "entity": "self-hosted-code-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "transits-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Code context, tool output, and uploaded files can still become prompts or stored run data",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Split architecture",
+        "heading_anchor": "split-architecture",
+        "line_end": 70,
+        "line_start": 70,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5918afe6fab8cd8172b3f4e8932464edce5970824c272478939a84ce3631957f",
+      "claim_id": "sha256:6db1ab0e2391ad7faec7a79be5f88c2dae2e94069baa78dd33dff69ee4d132d7",
+      "entity": "self-hosted-code-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "transits-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "prompts and run records that include code to pass through Warp's servers.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "When to use",
+        "heading_anchor": "when-to-use",
+        "line_end": 99,
+        "line_start": 99,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1d048aa051ba8867cbb51b2d2db5a92072cd3702352be24580fc7855c6813e2c",
+      "claim_id": "sha256:18513ced2fb89760b40c93ac26f3d5f7ee55f0b82befc2397f2f8ab7a449dbe3",
+      "entity": "self-hosted-managed",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "execution-isolation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "managed",
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The selected backend determines where tasks execute and how they are isolated.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Deployment modes",
+        "heading_anchor": "deployment-modes",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "backend-dependent",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2869e24874a8b6a5e9f577bf464673758d584553f08eadfd9f996b842a9225dd",
+      "claim_id": "sha256:ab3aeea8d932a8a2e30c69f72c91360bc141eb1ce52d09f1779cb2a57b4859c9",
+      "entity": "self-hosted-worker",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "control-connection",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "managed",
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The self-hosted runner process connects to the {VARS.WARP_AUTOMATION_PLATFORM} via WebSocket and receives tasks automatically.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Deployment modes",
+        "heading_anchor": "deployment-modes",
+        "line_end": 83,
+        "line_start": 83,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": "outbound websocket",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:beb5095142d3a3ffb15c93bbdd7a636c2bfae2586b417bbf947ba917098ccc9f",
+      "claim_id": "sha256:15c01dfeaf17f3b7fb18e8a2f139834e996ebd79888edc1a9fe1c1ea4e7d369c",
+      "entity": "self-hosted-repository-checkouts",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "remain-on-customer-infrastructure",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Repository checkouts and version history remain on your infrastructure. Code excerpts can still appear in prompts and transcripts.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "What stays on customer infrastructure (self-hosted)",
+        "heading_anchor": "what-stays-on-customer-infrastructure-self-hosted",
+        "line_end": 123,
+        "line_start": 123,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7702768d9e7944ebfb8830445bd58e1f83da442a0059b68d1fcc17e2506f858f",
+      "claim_id": "sha256:aa164a5fa7774500300ef954d145cab918c2482248bc98547988b953fb9165e0",
+      "entity": "warp-agent-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "transits-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Warp Agent routes prompts and responses through Warp to the configured provider.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Data sent to Warp's servers",
+        "heading_anchor": "data-sent-to-warps-servers",
+        "line_end": 135,
+        "line_start": 135,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:16d017002bd3943aa9b0483b58c32605ad8f292731ce4c8f901ab76617a1ae4e",
+      "claim_id": "sha256:1881bdf1bed0dcf477240fca00d6e4bdbe53b2b7d02a3bf4675010ebb8388400",
+      "entity": "third-party-harness-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "calls-provider-directly",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Claude Code and Codex call their providers directly.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Data sent to Warp's servers",
+        "heading_anchor": "data-sent-to-warps-servers",
+        "line_end": 135,
+        "line_start": 135,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:677c7adcc58c9bdfabde48ef1ca8c44d0401adc9bf3d5bee0d15d86c969540ed",
+      "claim_id": "sha256:378ec0aa81f7e45de3bc7c96cd93e583747523d1457a555b44b10ea2df54d4f2",
+      "entity": "cloud-agent-run-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-after-workspace-destruction",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Transcripts, prompt attachments, and uploaded artifacts remain stored after the execution workspace is removed.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "Data sent to Warp's servers",
+        "heading_anchor": "data-sent-to-warps-servers",
+        "line_end": 136,
+        "line_start": 136,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a3159f7fed25adb0ae5c30e04a7aa736532e9d56d88bf5ea338297a072968317",
+      "claim_id": "sha256:a613f7b61a8aa7a0a61639a44b7b8364ff5ca438eb8dcf4ed352edd5e6443855",
+      "entity": "provider-retention",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "determined-by-execution-location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "depends on the [model and provider account you use](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr), not where the agent runs.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "heading": "High-level data flow",
+        "heading_anchor": "high-level-data-flow",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+  "page_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
   "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
   "schema_version": 1
 }
