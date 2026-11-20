@@ -59,7 +59,9 @@ For urgent billing issues, email [billing@warp.dev](mailto:billing@warp.dev).
 
 ### Spending controls
 
-Administrators can configure monthly spending limits and receive alerts to prevent unexpected charges. Configure these controls in the [Warp Admin Panel](https://app.warp.dev/admin/) under the **Billing** tab.
+Team admins can set spending limits for their team and its individual members. Workspace owners and admins can set those limits for any team in their workspace.
+
+Configure spending limits and alerts in the [Warp Admin Panel](https://app.warp.dev/admin/) under **Billing**. Permission to change limits does not establish permission to change payment details or modify a contract.
 
 #### Monthly spending limits
 
@@ -78,7 +80,13 @@ These Enterprise limits cap usage, not purchases. Self-serve plans instead offer
 
 To review usage by member, see the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/).
 
-Multi-team workspaces can also have a workspace-level cap above their team limits. See [Workspace spend limits](/enterprise/team-management/workspaces/#workspace-spend-limits).
+#### Workspace spending limits
+
+Workspace owners and admins can set monthly workspace-wide limits for total, local agent, and cloud agent spending, plus separate per-user limits for unassigned users. These controls also apply to workspaces with one team.
+
+Workspace, team, and individual limits are independent. The first applicable limit reached blocks further usage within its scope.
+
+{/* VERIFY: confirm what team admins see when a workspace limit blocks usage before documenting that notice */}
 
 #### Monthly spend alerts
 
@@ -99,4 +107,4 @@ For enterprises with credit pools, administrators receive alerts as the team cre
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM billing and configuration
 * [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Share provider keys and custom endpoints across the team; inference routes through your accounts
 * [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/) - Programmatic access to team usage and spend data
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure spending limits and billing settings
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Configure spending limits and billing settings

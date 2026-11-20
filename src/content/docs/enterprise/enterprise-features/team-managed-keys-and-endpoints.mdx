@@ -16,7 +16,7 @@ Unlike [personal BYOK](/agents/inference/bring-your-own-api-key/) and [personal 
 
 | Product | Plans that include team-managed keys and endpoints |
 | --- | --- |
-| Warp Terminal and local agents | Business and Enterprise |
+| Warp Terminal | Business and Enterprise |
 | Warp Factories | Scale and Enterprise |
 
 For Warp Factories, these credentials configure inference for the Warp Agent, not a third-party harness. See [harness authentication](/factories/harnesses/authentication/) for those credentials.
@@ -35,8 +35,8 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 | Name | Configured by | Stored | Works with cloud agents | Plans |
 | --- | --- | --- | --- | --- |
 | **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | See [eligibility by product](#plan-eligibility) |
-| **[Personal BYOK](/agents/inference/bring-your-own-api-key/)** | Each member | Locally on the member's device | No | Free and eligible paid plans for Warp Terminal and local agents |
-| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and eligible paid plans for Warp Terminal and local agents |
+| **[Personal BYOK](/agents/inference/bring-your-own-api-key/)** | Each member | Locally on the member's device | No | Free and eligible paid plans for Warp Terminal |
+| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and eligible paid plans for Warp Terminal |
 | **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise agreement |
 | **[BYOLLM — Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | No (interactive sessions only) | Enterprise agreement |
 
@@ -64,14 +64,14 @@ For local runs, when the admin allows member-managed keys and endpoints, a membe
 
 ### Prerequisites
 
-* You have admin access to your team's [Admin Panel](/enterprise/team-management/admin-panel/).
+* You have admin access to your team's [Admin Panel](/knowledge-and-collaboration/admin-panel/).
 * Your organization has a [plan that includes team-managed inference](#plan-eligibility).
 
 ### Configure keys and endpoints
 
-Configure team providers from the [Admin Panel](/enterprise/team-management/admin-panel/) **Models** page, where a **First-party API keys** card and a **Custom endpoints** card sit alongside the Direct API and AWS Bedrock cards.
+Configure team providers from the [Admin Panel](/knowledge-and-collaboration/admin-panel/) **Models** page, where a **First-party API keys** card and a **Custom endpoints** card sit alongside the Direct API and AWS Bedrock cards.
 
-1. In the [Admin Panel](/enterprise/team-management/admin-panel/), go to the **Models** page.
+1. In the [Admin Panel](/knowledge-and-collaboration/admin-panel/), go to the **Models** page.
 2. To add a team API key, use the **First-party API keys** card: enter the key for a provider (OpenAI, Anthropic, or Google) and save it. Each provider row shows whether a key is configured without revealing the stored value.
 3. To add a team custom endpoint, use the **Custom endpoints** card: enter a name, a base URL, an API key, and at least one model (a model name plus an optional alias), then save. An endpoint can't be saved without a name, a valid base URL, an API key, and at least one model.
 4. Choose whether members may add their own keys and endpoints. When this is off, Warp won't use any key or endpoint a member adds, even if they've saved one — their saved keys are preserved for when it's turned back on.
@@ -119,7 +119,7 @@ Warp uses the stored credentials to call your provider without delivering them t
 
 Requests sent through your team's keys or endpoints are subject to your providers' terms, not Warp's ZDR agreements. You'll need to verify retention with your provider for your specific account, model, and configuration. If your endpoint uses other model providers, verify their retention policies too. Warp cannot enforce provider ZDR for these requests.
 
-Team admins manage content collection for service improvement through "UGC Data Collection" in the [Admin Panel's Privacy settings](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). Disabling it doesn't stop storage of cloud agent transcripts, attachments, or artifacts.
+Team admins manage content collection for service improvement through "UGC Data Collection" in the [Admin Panel's Privacy settings](/knowledge-and-collaboration/admin-panel/#managing-team-content-collection-in-the-admin-panel). Disabling it doesn't stop storage of cloud agent transcripts, attachments, or artifacts.
 
 Review [run-data storage options](/support-and-community/privacy-and-security/privacy/#product-storage) separately. For factory runs, follow [factory ZDR guidance](/factories/zero-data-retention/).
 
@@ -131,6 +131,6 @@ Review [run-data storage options](/support-and-community/privacy-and-security/pr
 * [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Self-serve, user-level OpenAI-compatible endpoints.
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — BYOLLM overview: route inference through [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) or [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/).
 * [Private networking](/enterprise/enterprise-features/private-networking/) — Connect a private team-managed LLM gateway without a public endpoint.
-* [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings and model routing.
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) — Configure team settings and model routing.
 * [Model Choice](/agents/inference/model-choice/) — Full list of supported models.
 * [Contact sales](https://www.warp.dev/contact-sales) — Get help with Enterprise setup.

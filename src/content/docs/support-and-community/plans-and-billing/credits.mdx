@@ -41,6 +41,12 @@ A credit is a usage unit, not a token or a fixed number of prompts.
 
 The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
 
+### Who can see team usage
+
+On the Scale plan for Warp Factories, non-admin members see their own usage. Team admins see per-user team usage totals with unlimited history. Their reporting scope follows the [team or workspace they administer](/knowledge-and-collaboration/roles-and-permissions/#workspace-roles-and-team-roles).
+
+Enterprise admin reporting adds user and cost-type breakdowns, including workspace platform usage. See [Enterprise billing](/enterprise/support-and-resources/billing/) for contract-specific controls.
+
 ### Charges and estimates
 
 Recorded dollar totals represent Warp usage charges, not the total price of your subscription or usage purchases. Older usage can have estimated costs, credit-only details, or no breakdown. An unavailable amount does not mean the run was free. Bills from your own inference provider are not fully represented in Warp's totals.
@@ -49,11 +55,13 @@ Recorded dollar totals represent Warp usage charges, not the total price of your
 
 ## Included and purchased usage
 
-### Warp Terminal and local agents
+<span id="warp-terminal-and-local-agents" />
 
-Build, Max, and Business subscriptions for Warp Terminal and local agents allocate included usage per seat. Included usage resets monthly, including on annual subscriptions, and does not roll over. Check **Settings** > **Billing and usage** in the Warp app for your allowance rather than assuming it matches a new subscription.
+### Warp Terminal
 
-After a member's allowance runs out, eligible runs draw from purchased usage. The Free plan for Warp Terminal and local agents supports [usage purchases](/support-and-community/plans-and-billing/add-on-credits/#warp-terminal-and-local-agents) without subscribing, or [personal inference](/agents/inference/bring-your-own-api-key/).
+Build, Max, and Business subscriptions for Warp Terminal allocate included usage per seat. Included usage resets monthly, including on annual subscriptions, and does not roll over. Check **Settings** > **Billing and usage** in the Warp app for your allowance rather than assuming it matches a new subscription.
+
+After a member's allowance runs out, eligible runs draw from purchased usage. The Free plan for Warp Terminal supports [usage purchases](/support-and-community/plans-and-billing/add-on-credits/#warp-terminal-and-local-agents) without subscribing, or [personal inference](/agents/inference/bring-your-own-api-key/).
 
 ### Warp Factories
 
@@ -102,7 +110,7 @@ Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/se
 
 ### Hosted compute rates
 
-The rates below apply to Free, Build, Max, and Business accounts for Warp Terminal and local agents billed in dollars, with no additional compute markup. They are configured compute rates, not a live lookup of a provider's invoice. Enterprise margins, discounts, and credit conversions follow your contract. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount you pay to buy usage, not these metered rates.
+The rates below apply to Free, Build, Max, and Business accounts for Warp Terminal billed in dollars, with no additional compute markup. They are configured compute rates, not a live lookup of a provider's invoice. Enterprise margins, discounts, and credit conversions follow your contract. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount you pay to buy usage, not these metered rates.
 
 Match your [runner's operating system, architecture, and instance shape](/factories/runners/) to the rates below. Available shapes and default sizes depend on your plan.
 
