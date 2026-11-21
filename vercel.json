@@ -6294,6 +6294,16 @@
       "statusCode": 308
     },
     {
+      "source": "/developer(/?)",
+      "destination": "/factories/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/developers(/?)",
+      "destination": "/factories/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
       "source": "/developers/cli",
       "destination": "/agents/cli/oz-cli/",
       "statusCode": 308

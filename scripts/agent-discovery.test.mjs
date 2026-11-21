@@ -80,3 +80,26 @@ test('discovery manifests do not use retired Oz wording or URLs', async () => {
 	assert.doesNotMatch(serialized, /\boz\b/i);
 	assert.doesNotMatch(serialized, /\/oz(?:[/#?"]|$)/i);
 });
+
+test('developer portal entry points resolve to the API and SDK overview', async () => {
+	const { redirects } = await readJson('vercel.json');
+	for (const source of ['/developer(/?)', '/developers(/?)']) {
+		const rule = redirects.find((entry) => entry.source === source);
+		assert.ok(rule, `missing redirect for ${source}`);
+		assert.equal(rule.destination, '/factories/api-and-sdk/');
+		assert.equal(rule.statusCode, 308);
+	}
+	// The more specific /developers/cli redirect must keep working (in either slash form).
+	assert.ok(redirects.some((entry) => /^\/developers\/cli(\(\/\?\))?$/.test(entry.source)));
+});
+
+test('auth.md documents API authentication with live docs links', async () => {
+	const auth = await readFile(repoFile('public/auth.md'), 'utf8');
+	assert.match(auth, /^# Warp Agent API Authentication/m);
+	assert.match(auth, /Authorization: Bearer YOUR_WARP_API_KEY/);
+	// Mirrors the bearerAuth scheme in developers/agent-api-openapi.yaml.
+	assert.match(auth, /Warp API key or a supported Warp-issued user token/);
+	assert.match(auth, /https:\/\/app\.warp\.dev\/api\/v1/);
+	assert.match(auth, new RegExp(`${DOCS_ORIGIN}/openapi\\.json`));
+	assert.doesNotMatch(auth, /\/reference\/cli\//, 'use the current API keys page, not the legacy redirect');
+});
