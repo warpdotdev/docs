@@ -40,7 +40,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
    * Tests for behavior changes and visual evidence for user-facing changes.
    * Missing requirements or decisions that need a maintainer's input.
 
-   The [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) uses the `agents/` layout: shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`. Adapt those instructions to your existing layout.
+   The [`sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr) uses the `agents/` layout: shared guidance in `skills/repository-conventions/` and implementation-only instructions in `agents/implementer/skills/testing-standards/`. Adapt those instructions to your existing layout.
 
 4. In `factory.yaml`, configure Blueprint entry transitions for approved implementation and unresolved decisions. Add a planning-approval gate when needed. Connect implementation to independent review, and return findings to the same implementation conversation and PR. Pass the issue, acceptance criteria, and existing PR between stages.
 
@@ -79,7 +79,7 @@ The foreman coordinates implementation and independent review in this [recipe](/
 
    For events sent by bots, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
-   The [`01-single-repo-quickstart` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) supplies a GitHub label trigger and implementation instructions. Adapt those parts to your existing Blueprint, retaining independent review.
+   The [`single-repo-quickstart` example](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/single-repo-quickstart) supplies a GitHub label trigger and implementation instructions. Adapt those parts to your existing Blueprint, retaining independent review.
 
    </TabItem>
    <TabItem label="Linear">
@@ -135,9 +135,9 @@ The foreman coordinates implementation and independent review in this [recipe](/
 Read https://docs.warp.dev/factories/use-cases/issue-implementation.md and
 set up issue implementation in my factory for OWNER/REPO, started when a
 maintainer applies the READINESS_LABEL label. Use
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
+https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/single-repo-quickstart
 for the trigger and implementation instructions, and the skill layout in
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
+https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr
 for shared conventions and implementation procedures.
 Keep my existing workers/ or agents/ root and worker filenames. Put
 worker-scoped skills beside the worker file, without mixing roots.

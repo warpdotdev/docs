@@ -67,7 +67,7 @@ webhooks/
   internal-ci.yaml
 ```
 
-See the [example factory definition](#example-factory-definition), the minimal [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart), or the full [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
+See the [example factory definition](#example-factory-definition), the minimal [`single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/single-repo-quickstart), or the full [`sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr).
 
 ### Worker and agent field names
 
@@ -604,7 +604,7 @@ The `oz` harness supplies its own credentials and rejects `auth` and `reasoningL
 
 Pi requires `model` in `provider/model` form. A managed secret or team default must match the model's provider. For credentials configured on your self-hosted worker, use `auth.source: workerEnvironment`. See [Configuring the Pi harness](/factories/harnesses/pi/).
 
-For per-agent harnesses and managed-secret authentication, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
+For per-agent harnesses and managed-secret authentication, see [`multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
 
 #### `agentDefaults.workerHost`
 
@@ -768,7 +768,7 @@ The `harness` object uses the same sparse override as an agent. Automation-level
 ## `runners/<name>.yaml`
 
 **Optional resource.**
-Runner files define compute. Agents and automations select a file by name with `runner`. See [cloud agent runners](/factories/runners/) for runtime behavior and [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) for Linux and macOS examples.
+Runner files define compute. Agents and automations select a file by name with `runner`. See [cloud agent runners](/factories/runners/) for runtime behavior and [`sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr) for Linux and macOS examples.
 
 ```yaml title="runners/linux-build.yaml"
 description: Linux runner for payments builds and tests
@@ -1170,7 +1170,7 @@ agentDefaults:
   workerHost: SELF_HOSTED_WORKER_ID
 ```
 
-Replace `SELF_HOSTED_WORKER_ID` with the worker's ID and pair it with a runner whose `platform` matches the worker. See the [Self-hosting quickstart](/factories/self-hosting/quickstart/) or copy [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+Replace `SELF_HOSTED_WORKER_ID` with the worker's ID and pair it with a runner whose `platform` matches the worker. See the [Self-hosting quickstart](/factories/self-hosting/quickstart/) or copy [`self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/self-hosted-worker).
 
 ## Related pages
 
