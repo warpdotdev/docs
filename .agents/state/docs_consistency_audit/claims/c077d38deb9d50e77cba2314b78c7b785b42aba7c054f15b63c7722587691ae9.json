@@ -1,6 +1,259 @@
 {
-  "claims": [],
-  "page_sha256": "86167d23325e38c6bc65f9261b555a70e5c7d85b3a56292425b5230a290ea83f",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:208a5246ecbdf81ddd9bb209e17f6345bf72e52c261f81456655f4094c54cf16",
+      "claim_id": "sha256:1b75f6f7e9b58ab83d6a7f6a668183bc6d67907edbb4e6fcecf09baa86ac83f9",
+      "entity": "run-artifacts",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "writing-sandbox-file-uploads",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Writing a file in the sandbox doesn't upload it.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/artifacts/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9c0a24b8feed44fbe489a190ff8509d21b35a1ec1fac9f97397f7caf62e645c2",
+      "claim_id": "sha256:ab5123d276615059445dc8f4bbd364f25e4277a8843718898bf4c8cac8698dfa",
+      "entity": "oz-artifact-get",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "downloads-file",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Print metadata for an artifact without downloading it.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "heading": "`oz artifact get`",
+        "heading_anchor": "oz-artifact-get",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/artifacts/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c5b38bed43b54164d9dc8179718d340b992b3903bc02c067a8befea1c3070a9b",
+      "claim_id": "sha256:1fe04e91fbc011537f8b626323cd9a08fb33afdcb60ae8b89c0dfce645d0e5df",
+      "entity": "oz-artifact-get",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "json-output-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use `--output-format json` for a structured response",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "heading": "`oz artifact get`",
+        "heading_anchor": "oz-artifact-get",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/artifacts/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:61e4b9f1272d38c1444935b7e94d36dae18421ee662c8442114530e1355bbf54",
+      "claim_id": "sha256:b242c2c2999a492fdec4d34d7e58aa8b7e4ba56dd95193beb966a90269545a54",
+      "entity": "oz-artifact-download",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "output-path-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**`--out <PATH>`** (`-o`) - Write the downloaded artifact to a specific file path.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "heading": "Flags",
+        "heading_anchor": "flags",
+        "line_end": 54,
+        "line_start": 54,
+        "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/artifacts/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--out",
+        "raw": "--out",
+        "type": "flag"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e951664bfa4f3e4c5123970d9229d982c3028a3714eba2906242c7cf561131f8",
+      "claim_id": "sha256:c81d2e7a923e0dd0183d47a8977159028934e5686794b5d9efe2264028380b5e",
+      "entity": "oz-artifact-download",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "default-output-path",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When omitted, the file is written to the current directory using the artifact's stored file name.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "heading": "Flags",
+        "heading_anchor": "flags",
+        "line_end": 54,
+        "line_start": 54,
+        "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/artifacts/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "current-directory-stored-filename",
+        "raw": "current-directory-stored-filename",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:23bcabe88364776340bbe63ca38af12538620a5cb8122d47b01a5bc5811ec5bd",
+      "claim_id": "sha256:970dc1f8efd270cd9908efed2ce6d4bfa643383ae85021eda21c4c317f99432b",
+      "entity": "run-artifacts-file",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "artifact-id-field",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Select the intended file's `data.artifact_uid` from its `FILE` entry",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "heading": "Examples",
+        "heading_anchor": "examples",
+        "line_end": 70,
+        "line_start": 70,
+        "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/artifacts/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "data.artifact_uid",
+        "raw": "data.artifact_uid",
+        "type": "parameter"
+      }
+    }
+  ],
+  "page_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
   "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
   "schema_version": 1
 }

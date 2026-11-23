@@ -5,7 +5,7 @@
       "claim_content_fingerprint": "sha256:0b6701cc8a07858461b3e197f5019ce0e1aa6d6729f6ac4327a530392775441b",
       "claim_id": "sha256:c7e36b56afea70251d668e862fda8b319cd3b0857d354d2da52b04a7df8873e7",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "available-environments",
       "qualifiers": {
@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Capabilities",
         "heading_anchor": "capabilities",
         "line_end": 27,
@@ -53,7 +53,7 @@
       "claim_content_fingerprint": "sha256:9625b5fb8e8ff51482c5cb1abb625482abf8c8273bf2aae7ad2ede9fb48a4b7a",
       "claim_id": "sha256:a1a4a62fe471b38fdbbd746d5b8ce65841fedc16fcb2aa22468251a67ecd86ae",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "enabled-by-default",
       "qualifiers": {
@@ -82,7 +82,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -105,7 +105,7 @@
       "claim_content_fingerprint": "sha256:3ce041c678f4dfe352295a7bd452e822e475767e2ecdcde25ed2b2fd636efc95",
       "claim_id": "sha256:5c3851155734bd3a623afac42a3f932ffcba39e27b5d4ba0c13ce607d0e9f7ee",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "enabled-by-default",
       "qualifiers": {
@@ -130,7 +130,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -153,7 +153,7 @@
       "claim_content_fingerprint": "sha256:9f6a1de83972e775e6bda4066683ce487fa23943c2a814954d7e670af0453646",
       "claim_id": "sha256:d2f6b1e0b072969104bd4b89667353a0e9b1d9c45afcbf7b043022622a51a465",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "enabled-by-default",
       "qualifiers": {
@@ -180,7 +180,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Warp app settings",
         "heading_anchor": "warp-app-settings",
         "line_end": 43,
@@ -203,7 +203,7 @@
       "claim_content_fingerprint": "sha256:0ce8f9d22cee013d1d8878437db9edb3d4789c9ff7d128c4d163bb49a8bfec80",
       "claim_id": "sha256:ff5a2a0a9ebe6f765be845c21a96ecb8a58da5d8a3ceb44b9a696bd0a2c7322c",
       "entity": "oz-agent-run-cloud-computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "enable-flag",
       "qualifiers": {
@@ -224,7 +224,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "CLI",
         "heading_anchor": "cli",
         "line_end": 50,
@@ -247,7 +247,7 @@
       "claim_content_fingerprint": "sha256:f61db62ab76f005a98787530bc2e84483a377a857325aa3c782b7ea3465f1bf3",
       "claim_id": "sha256:5209c0a384d7c194d9312e378d179b40ff2dbd80c0764a5e1f705ace9c38fb45",
       "entity": "oz-agent-run-cloud-computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "disable-flag",
       "qualifiers": {
@@ -268,7 +268,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "CLI",
         "heading_anchor": "cli",
         "line_end": 51,
@@ -291,7 +291,7 @@
       "claim_content_fingerprint": "sha256:5f2562b2abecc42aa5d4cc95cc047e0c77a860947d1b81f19e4842842d403fbd",
       "claim_id": "sha256:be7facd30357d2a1a823f87c939071e9aa1b9e5497b48946a8af44f24384bb60",
       "entity": "cloud-run-computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "configuration-field",
       "qualifiers": {
@@ -312,7 +312,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -335,7 +335,7 @@
       "claim_content_fingerprint": "sha256:6110a9d8d31bbd0ae34de10a3dcb6a58e41cc42663f5a1c650c8fd1ffe003e2e",
       "claim_id": "sha256:9831948827feb0afe79e78b91e922d3037e7a0854cb7d8a7c7437c9d41625979",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "enabled-by-default",
       "qualifiers": {
@@ -360,7 +360,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -383,7 +383,7 @@
       "claim_content_fingerprint": "sha256:8fe438abbdc613c36d60eb0ed5f70c5aa244ed1ffbfea8aab34807db0a9ed8d5",
       "claim_id": "sha256:190a1202db56f72a0ce481cec55d260a26a30c48745a7b855cbb7baef25e5eea",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "enabled-by-default",
       "qualifiers": {
@@ -408,7 +408,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -431,7 +431,7 @@
       "claim_content_fingerprint": "sha256:47fb33b88125262a3786d7699f055d672067bf8d96095beeba15d5d32b6d69be",
       "claim_id": "sha256:5be1355f3bf91ed77a58ca3075134bbf5b1a8423018d2de3b7767b7bf55384c9",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "access-to-local-machine",
       "qualifiers": {
@@ -454,7 +454,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 84,
@@ -477,7 +477,7 @@
       "claim_content_fingerprint": "sha256:f834761797df2a8319cb8dced1255cdbfbb3198b48337eb715215501376a2139",
       "claim_id": "sha256:8c8a848d43d9dcf39d1c080bc73607daa815f24c0c2fb3249683a92c58c4f4a1",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "applications-must-be-installed-in-environment",
       "qualifiers": {
@@ -498,7 +498,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 86,
@@ -521,7 +521,7 @@
       "claim_content_fingerprint": "sha256:23ec26956559ad595a1cf2ba05ffc76520d4d1f3476b4833b75a571e7be14bfc",
       "claim_id": "sha256:e66920c0fd6c4ade9dd3795a524c0bfe4c4ff9c3ecc5ec91a7d398c7439fb930",
       "entity": "computer-use-browser",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "bundled-browser",
       "qualifiers": {
@@ -542,7 +542,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 86,
@@ -569,7 +569,7 @@
       "claim_content_fingerprint": "sha256:b3957f92088020963acc1c98b54b3750fb3aae0a3e4ad5b3e4cac294afb1a995",
       "claim_id": "sha256:a70dc2c8b66c8f98711d0fe1364df9722d9d542d13963ba36449a4a973e02915",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "supported-model-family",
       "qualifiers": {
@@ -590,7 +590,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Model selection",
         "heading_anchor": "model-selection",
         "line_end": 90,
@@ -617,7 +617,7 @@
       "claim_content_fingerprint": "sha256:78ccbc784b393955e53f271fbe21f3d9e30864e8ce279e35600b80039ec70d7e",
       "claim_id": "sha256:2e38ba75c5691e25678957ddac927d58a023810e3c6bba1b107cc4ecbb4f123a",
       "entity": "computer-use",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "automatic-model-selection",
       "qualifiers": {
@@ -638,7 +638,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Model selection",
         "heading_anchor": "model-selection",
         "line_end": 90,
@@ -661,7 +661,7 @@
       "claim_content_fingerprint": "sha256:8502ed776303a8d0e73515a0f763526e7fd5e9582e2398014b1c8e3005bc2866",
       "claim_id": "sha256:f3b3a3e0768fd1bb7b9571141c40bedf7b522b24862c821845c2e8d787bc1f8c",
       "entity": "computer-use-recording",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "captures-local-desktop",
       "qualifiers": {
@@ -682,7 +682,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
         "heading": "Recording sessions",
         "heading_anchor": "recording-sessions",
         "line_end": 96,
@@ -699,9 +699,103 @@
         "raw": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2655ac6f6a8891c720f5bb1b314f786c4a951f7bff9d5a4502073c7721500d45",
+      "claim_id": "sha256:0e3f9743993f44c678251ce6601405169e4d8bbe957b63afccbf197a2fa05893",
+      "entity": "computer-use-recording",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "idle-time-trimmed",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "with idle time trimmed out.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "heading": "Recording sessions",
+        "heading_anchor": "recording-sessions",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8ed477f62678b6ef8d9a92ad5d4a791f266020e7c66a8d64aa2f6b1b193df80e",
+      "claim_id": "sha256:2d2e3ee1cc1eab355d36ecd01468a76adb8857ccec223791b658d2a3d093ecf7",
+      "entity": "computer-use",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "web-configurable-entry-points",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "you can enable or disable Computer Use for:\n\n* **New agent runs** - Configure Computer Use when starting a new agent run from the web app\n* **Scheduled agent runs** - Enable Computer Use for [scheduled agents](/platform/triggers/scheduled-agents/) managed from the web app\n* **Integrations** - Configure Computer Use for Slack, Linear, and other [integration-triggered agents](/platform/integrations/)",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "heading": "Web app",
+        "heading_anchor": "web-app",
+        "line_end": 76,
+        "line_start": 72,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "new-runs",
+          "scheduled-runs",
+          "integrations"
+        ],
+        "raw": [
+          "new-runs",
+          "scheduled-runs",
+          "integrations"
+        ],
+        "type": "enum"
+      }
     }
   ],
-  "page_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+  "page_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
   "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
   "schema_version": 1
 }

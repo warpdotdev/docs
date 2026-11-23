@@ -1,7 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
@@ -11,6 +10,7 @@
     "src/content/docs/enterprise/support-and-resources/billing.mdx",
     "src/content/docs/enterprise/team-management/admin-panel.mdx",
     "src/content/docs/enterprise/team-management/teams.mdx",
+    "src/content/docs/factories/api-and-sdk/index.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/insufficient-credits.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-not-configured.mdx",
@@ -20,9 +20,14 @@
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/operation-not-supported.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/resource-not-found.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/resource-unavailable.mdx",
+    "src/content/docs/factories/artifacts.mdx",
     "src/content/docs/factories/automation-triggers.mdx",
     "src/content/docs/factories/automations.mdx",
     "src/content/docs/factories/benchmarks.mdx",
+    "src/content/docs/factories/blueprints.mdx",
+    "src/content/docs/factories/blueprints/gates.mdx",
+    "src/content/docs/factories/blueprints/routes.mdx",
+    "src/content/docs/factories/blueprints/stages.mdx",
     "src/content/docs/factories/code-forges/other-code-forges.mdx",
     "src/content/docs/factories/connect-your-factory.mdx",
     "src/content/docs/factories/deployment-patterns.mdx",
@@ -126,6 +131,7 @@
     "src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx",
     "src/content/docs/guides/agent-workflows/how-to-run-unattended-agents.mdx",
     "src/content/docs/guides/agent-workflows/how-to-use-voice-and-images-to-prompt-coding-agents.mdx",
+    "src/content/docs/guides/agent-workflows/running-an-issue-to-pr-blueprint.mdx",
     "src/content/docs/guides/agent-workflows/set-up-a-software-factory.mdx",
     "src/content/docs/guides/agent-workflows/understanding-your-codebase.mdx",
     "src/content/docs/guides/agent-workflows/using-images-as-context-with-warp.mdx",
@@ -1247,56 +1253,56 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 384,
+          "character_count": 348,
           "heading": "",
-          "line_end": 13,
+          "line_end": 11,
           "line_start": 9
         },
         {
           "anchor": "what-gets-attached",
           "character_count": 677,
           "heading": "What gets attached",
-          "line_end": 20,
-          "line_start": 14
+          "line_end": 18,
+          "line_start": 12
         },
         {
           "anchor": "attachment-modes",
           "character_count": 864,
           "heading": "Attachment modes",
-          "line_end": 32,
-          "line_start": 21
+          "line_end": 30,
+          "line_start": 19
         },
         {
           "anchor": "changing-the-attachment-mode",
           "character_count": 320,
           "heading": "Changing the attachment mode",
-          "line_end": 40,
-          "line_start": 33
+          "line_end": 38,
+          "line_start": 31
         },
         {
           "anchor": "sharing-captures-outside-pull-requests",
           "character_count": 1159,
           "heading": "Sharing captures outside pull requests",
-          "line_end": 54,
-          "line_start": 41
+          "line_end": 52,
+          "line_start": 39
         },
         {
           "anchor": "where-else-artifacts-appear",
-          "character_count": 355,
+          "character_count": 264,
           "heading": "Where else artifacts appear",
-          "line_end": 61,
-          "line_start": 55
+          "line_end": 56,
+          "line_start": 53
         },
         {
           "anchor": "related-pages",
           "character_count": 681,
           "heading": "Related pages",
-          "line_end": 68,
-          "line_start": 62
+          "line_end": 63,
+          "line_start": 57
         }
       ],
-      "character_count": 4702,
-      "extraction_status": "unchanged",
+      "character_count": 4575,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1305,39 +1311,39 @@
         },
         {
           "anchor": "what-gets-attached",
-          "line_start": 14,
+          "line_start": 12,
           "text": "What gets attached"
         },
         {
           "anchor": "attachment-modes",
-          "line_start": 21,
+          "line_start": 19,
           "text": "Attachment modes"
         },
         {
           "anchor": "changing-the-attachment-mode",
-          "line_start": 33,
+          "line_start": 31,
           "text": "Changing the attachment mode"
         },
         {
           "anchor": "sharing-captures-outside-pull-requests",
-          "line_start": 41,
+          "line_start": 39,
           "text": "Sharing captures outside pull requests"
         },
         {
           "anchor": "where-else-artifacts-appear",
-          "line_start": 55,
+          "line_start": 53,
           "text": "Where else artifacts appear"
         },
         {
           "anchor": "related-pages",
-          "line_start": 62,
+          "line_start": 57,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
-      "source_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+      "source_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
       "title": "Screenshots and videos in pull requests"
     },
     "src/content/docs/agents/capabilities/computer-use/browser-use.mdx": {
@@ -1520,14 +1526,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 648,
+          "character_count": 650,
           "heading": "Related pages",
           "line_end": 140,
           "line_start": 134
         }
       ],
-      "character_count": 8166,
-      "extraction_status": "unchanged",
+      "character_count": 8168,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1618,7 +1624,7 @@
       "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/capabilities/computer-use/",
-      "source_sha256": "3aad562691a0e29dd7be51ed90d4f8ef98c9133140e1b02f5f638e4d46eee042",
+      "source_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
       "title": "Computer Use for agents"
     },
     "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx": {
@@ -2266,28 +2272,28 @@
         },
         {
           "anchor": "saving-and-sharing",
-          "character_count": 1536,
+          "character_count": 1682,
           "heading": "Saving and sharing",
-          "line_end": 99,
+          "line_end": 101,
           "line_start": 73
         },
         {
           "anchor": "using-plans-across-conversations",
           "character_count": 716,
           "heading": "Using plans across conversations",
-          "line_end": 109,
-          "line_start": 100
+          "line_end": 111,
+          "line_start": 102
         },
         {
           "anchor": "next-steps",
           "character_count": 436,
           "heading": "Next steps",
-          "line_end": 115,
-          "line_start": 110
+          "line_end": 117,
+          "line_start": 112
         }
       ],
-      "character_count": 6454,
-      "extraction_status": "unchanged",
+      "character_count": 6600,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -2321,19 +2327,19 @@
         },
         {
           "anchor": "using-plans-across-conversations",
-          "line_start": 100,
+          "line_start": 102,
           "text": "Using plans across conversations"
         },
         {
           "anchor": "next-steps",
-          "line_start": 110,
+          "line_start": 112,
           "text": "Next steps"
         }
       ],
       "path": "src/content/docs/agents/capabilities/planning.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/planning/",
-      "source_sha256": "2cbc44fe4c66aa8774232bb28e74947a138616ba8c81993acb8f4250d2fa1026",
+      "source_sha256": "68e4010f929d52fa944b53e54dbce71d5cca9f545bd3645d08f27a984806a80c",
       "title": "Agent planning and execution"
     },
     "src/content/docs/agents/capabilities/rules.mdx": {
@@ -4559,147 +4565,161 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 545,
+          "character_count": 496,
           "heading": "",
           "line_end": 16,
           "line_start": 9
         },
         {
           "anchor": "personal-vs-agent-keys",
-          "character_count": 1135,
+          "character_count": 1032,
           "heading": "Personal vs. agent keys",
-          "line_end": 25,
+          "line_end": 24,
           "line_start": 17
         },
         {
+          "anchor": "finding-the-factorys-foreman",
+          "character_count": 621,
+          "heading": "Finding the factory's foreman",
+          "line_end": 32,
+          "line_start": 25
+        },
+        {
           "anchor": "self-hosted-worker-api-keys",
-          "character_count": 459,
+          "character_count": 861,
           "heading": "Self-hosted worker API keys",
-          "line_end": 29,
-          "line_start": 26
+          "line_end": 38,
+          "line_start": 33
         },
         {
           "anchor": "creating-an-api-key",
-          "character_count": 254,
+          "character_count": 308,
           "heading": "Creating an API key",
-          "line_end": 33,
-          "line_start": 30
+          "line_end": 42,
+          "line_start": 39
         },
         {
           "anchor": "creating-a-self-hosted-worker-api-key",
-          "character_count": 620,
+          "character_count": 622,
           "heading": "Creating a self-hosted worker API key",
-          "line_end": 44,
-          "line_start": 34
+          "line_end": 53,
+          "line_start": 43
         },
         {
           "anchor": "from-the-web-app-recommended",
-          "character_count": 635,
+          "character_count": 807,
           "heading": "From the web app (recommended)",
-          "line_end": 55,
-          "line_start": 45
+          "line_end": 64,
+          "line_start": 54
         },
         {
           "anchor": "from-the-warp-app",
-          "character_count": 976,
+          "character_count": 786,
           "heading": "From the Warp app",
-          "line_end": 72,
-          "line_start": 56
+          "line_end": 76,
+          "line_start": 65
         },
         {
           "anchor": "how-key-type-affects-billing-and-github-access",
           "character_count": 176,
           "heading": "How key type affects billing and GitHub access",
-          "line_end": 76,
-          "line_start": 73
+          "line_end": 80,
+          "line_start": 77
         },
         {
           "anchor": "personal-api-key-behavior",
-          "character_count": 232,
+          "character_count": 331,
           "heading": "Personal API key behavior",
-          "line_end": 82,
-          "line_start": 77
+          "line_end": 86,
+          "line_start": 81
         },
         {
           "anchor": "agent-api-key-behavior",
           "character_count": 630,
           "heading": "Agent API key behavior",
-          "line_end": 90,
-          "line_start": 83
+          "line_end": 94,
+          "line_start": 87
         },
         {
           "anchor": "authenticating-with-api-keys",
           "character_count": 679,
           "heading": "Authenticating with API keys",
-          "line_end": 111,
-          "line_start": 91
+          "line_end": 115,
+          "line_start": 95
         },
         {
           "anchor": "managing-api-keys",
-          "character_count": 711,
+          "character_count": 638,
           "heading": "Managing API keys",
-          "line_end": 125,
-          "line_start": 112
+          "line_end": 127,
+          "line_start": 116
         },
         {
           "anchor": "deleting-api-keys",
-          "character_count": 412,
+          "character_count": 413,
           "heading": "Deleting API keys",
-          "line_end": 131,
-          "line_start": 126
+          "line_end": 133,
+          "line_start": 128
         },
         {
           "anchor": "manage-api-keys-from-the-cli",
           "character_count": 251,
           "heading": "Manage API keys from the CLI",
-          "line_end": 135,
-          "line_start": 132
+          "line_end": 137,
+          "line_start": 134
         },
         {
           "anchor": "list-keys",
           "character_count": 385,
           "heading": "List keys",
-          "line_end": 147,
-          "line_start": 136
+          "line_end": 149,
+          "line_start": 138
         },
         {
           "anchor": "create-a-key",
           "character_count": 540,
           "heading": "Create a key",
-          "line_end": 157,
-          "line_start": 148
+          "line_end": 159,
+          "line_start": 150
         },
         {
-          "anchor": "a-personal-key-that-expires-in-30-days",
-          "character_count": 90,
-          "heading": "A personal key that expires in 30 days",
-          "line_end": 160,
-          "line_start": 158
+          "anchor": "a-short-lived-personal-key-for-ad-hoc-requests",
+          "character_count": 101,
+          "heading": "A short-lived personal key for ad hoc requests",
+          "line_end": 162,
+          "line_start": 160
         },
         {
-          "anchor": "an-agent-key-scoped-to-a-cloud-agent-with-no-expiration",
-          "character_count": 132,
-          "heading": "An agent key scoped to a cloud agent, with no expiration",
-          "line_end": 164,
-          "line_start": 161
+          "anchor": "an-integration-key-for-the-target-factorys-foreman",
+          "character_count": 804,
+          "heading": "An integration key for the target factory's foreman",
+          "line_end": 170,
+          "line_start": 163
         },
         {
           "anchor": "expire-a-key",
-          "character_count": 323,
+          "character_count": 327,
           "heading": "Expire a key",
-          "line_end": 175,
-          "line_start": 165
+          "line_end": 181,
+          "line_start": 171
         },
         {
           "anchor": "best-practices",
-          "character_count": 1140,
+          "character_count": 919,
           "heading": "Best practices",
-          "line_end": 183,
-          "line_start": 176
+          "line_end": 189,
+          "line_start": 182
+        },
+        {
+          "anchor": "related-pages",
+          "character_count": 353,
+          "heading": "Related pages",
+          "line_end": 194,
+          "line_start": 190
         }
       ],
-      "character_count": 10556,
-      "extraction_status": "unchanged",
+      "character_count": 12320,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4712,101 +4732,111 @@
           "text": "Personal vs. agent keys"
         },
         {
+          "anchor": "finding-the-factorys-foreman",
+          "line_start": 25,
+          "text": "Finding the factory's foreman"
+        },
+        {
           "anchor": "self-hosted-worker-api-keys",
-          "line_start": 26,
+          "line_start": 33,
           "text": "Self-hosted worker API keys"
         },
         {
           "anchor": "creating-an-api-key",
-          "line_start": 30,
+          "line_start": 39,
           "text": "Creating an API key"
         },
         {
           "anchor": "creating-a-self-hosted-worker-api-key",
-          "line_start": 34,
+          "line_start": 43,
           "text": "Creating a self-hosted worker API key"
         },
         {
           "anchor": "from-the-web-app-recommended",
-          "line_start": 45,
+          "line_start": 54,
           "text": "From the web app (recommended)"
         },
         {
           "anchor": "from-the-warp-app",
-          "line_start": 56,
+          "line_start": 65,
           "text": "From the Warp app"
         },
         {
           "anchor": "how-key-type-affects-billing-and-github-access",
-          "line_start": 73,
+          "line_start": 77,
           "text": "How key type affects billing and GitHub access"
         },
         {
           "anchor": "personal-api-key-behavior",
-          "line_start": 77,
+          "line_start": 81,
           "text": "Personal API key behavior"
         },
         {
           "anchor": "agent-api-key-behavior",
-          "line_start": 83,
+          "line_start": 87,
           "text": "Agent API key behavior"
         },
         {
           "anchor": "authenticating-with-api-keys",
-          "line_start": 91,
+          "line_start": 95,
           "text": "Authenticating with API keys"
         },
         {
           "anchor": "managing-api-keys",
-          "line_start": 112,
+          "line_start": 116,
           "text": "Managing API keys"
         },
         {
           "anchor": "deleting-api-keys",
-          "line_start": 126,
+          "line_start": 128,
           "text": "Deleting API keys"
         },
         {
           "anchor": "manage-api-keys-from-the-cli",
-          "line_start": 132,
+          "line_start": 134,
           "text": "Manage API keys from the CLI"
         },
         {
           "anchor": "list-keys",
-          "line_start": 136,
+          "line_start": 138,
           "text": "List keys"
         },
         {
           "anchor": "create-a-key",
-          "line_start": 148,
+          "line_start": 150,
           "text": "Create a key"
         },
         {
-          "anchor": "a-personal-key-that-expires-in-30-days",
-          "line_start": 158,
-          "text": "A personal key that expires in 30 days"
+          "anchor": "a-short-lived-personal-key-for-ad-hoc-requests",
+          "line_start": 160,
+          "text": "A short-lived personal key for ad hoc requests"
         },
         {
-          "anchor": "an-agent-key-scoped-to-a-cloud-agent-with-no-expiration",
-          "line_start": 161,
-          "text": "An agent key scoped to a cloud agent, with no expiration"
+          "anchor": "an-integration-key-for-the-target-factorys-foreman",
+          "line_start": 163,
+          "text": "An integration key for the target factory's foreman"
         },
         {
           "anchor": "expire-a-key",
-          "line_start": 165,
+          "line_start": 171,
           "text": "Expire a key"
         },
         {
           "anchor": "best-practices",
-          "line_start": 176,
+          "line_start": 182,
           "text": "Best practices"
+        },
+        {
+          "anchor": "related-pages",
+          "line_start": 190,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/api-keys/",
-      "source_sha256": "78b31b4eaa9dc0dce9df00e14a534e128c0d92d1547dff09e95116e4fddf0579",
-      "title": "API keys for the {{WARP_AGENT_CLI}}"
+      "source_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+      "title": "Creating and managing API keys"
     },
     "src/content/docs/agents/cli/oz-cli/artifacts.mdx": {
       "candidate_sections": [
@@ -4847,28 +4877,21 @@
         },
         {
           "anchor": "examples",
-          "character_count": 336,
+          "character_count": 808,
           "heading": "Examples",
-          "line_end": 72,
+          "line_end": 73,
           "line_start": 56
-        },
-        {
-          "anchor": "pull-the-latest-run-for-a-scheduled-agent-grab-its-first-artifact",
-          "character_count": 295,
-          "heading": "Pull the latest run for a scheduled agent, grab its first artifact",
-          "line_end": 78,
-          "line_start": 73
         },
         {
           "anchor": "related",
           "character_count": 254,
           "heading": "Related",
-          "line_end": 82,
-          "line_start": 79
+          "line_end": 77,
+          "line_start": 74
         }
       ],
-      "character_count": 3390,
-      "extraction_status": "unchanged",
+      "character_count": 3566,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4901,20 +4924,15 @@
           "text": "Examples"
         },
         {
-          "anchor": "pull-the-latest-run-for-a-scheduled-agent-grab-its-first-artifact",
-          "line_start": 73,
-          "text": "Pull the latest run for a scheduled agent, grab its first artifact"
-        },
-        {
           "anchor": "related",
-          "line_start": 79,
+          "line_start": 74,
           "text": "Related"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/artifacts/",
-      "source_sha256": "86167d23325e38c6bc65f9261b555a70e5c7d85b3a56292425b5230a290ea83f",
+      "source_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
       "title": "Artifacts"
     },
     "src/content/docs/agents/cli/oz-cli/federate.mdx": {
@@ -5874,14 +5892,14 @@
         },
         {
           "anchor": "learn-more",
-          "character_count": 600,
+          "character_count": 606,
           "heading": "Learn more",
           "line_end": 139,
           "line_start": 134
         }
       ],
-      "character_count": 6580,
-      "extraction_status": "unchanged",
+      "character_count": 6586,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5937,7 +5955,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/mcp-servers/",
-      "source_sha256": "57a68230dfd6d6306a2f5cd5a67ad786a19494a0acea18f2dbc94f18e23f8e10",
+      "source_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
       "title": "MCP servers (CLI reference)"
     },
     "src/content/docs/agents/cli/oz-cli/quickstart.mdx": {
@@ -7026,7 +7044,7 @@
         }
       ],
       "character_count": 7476,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7177,7 +7195,7 @@
         }
       ],
       "character_count": 7102,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7319,7 +7337,7 @@
         }
       ],
       "character_count": 10673,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7434,7 +7452,7 @@
         }
       ],
       "character_count": 4023,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7574,7 +7592,7 @@
         }
       ],
       "character_count": 4954,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7747,7 +7765,7 @@
         }
       ],
       "character_count": 10354,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7919,7 +7937,7 @@
         }
       ],
       "character_count": 8917,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8255,7 +8273,7 @@
         }
       ],
       "character_count": 12945,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8853,7 +8871,7 @@
         }
       ],
       "character_count": 8155,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11734,13 +11752,13 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 931,
+          "character_count": 909,
           "heading": "Related pages",
           "line_end": 167,
           "line_start": 159
         }
       ],
-      "character_count": 10037,
+      "character_count": 10015,
       "extraction_status": "changed",
       "headings": [
         {
@@ -11847,7 +11865,7 @@
       "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
       "role": "docs-prose",
       "route": "/enterprise/enterprise-features/architecture-and-deployment/",
-      "source_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+      "source_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
       "title": "Architecture and deployment"
     },
     "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx": {
@@ -11861,56 +11879,56 @@
         },
         {
           "anchor": "supported-providers",
-          "character_count": 1434,
+          "character_count": 1467,
           "heading": "Supported providers",
-          "line_end": 35,
+          "line_end": 31,
           "line_start": 16
         },
         {
           "anchor": "key-features",
           "character_count": 513,
           "heading": "Key features",
-          "line_end": 41,
-          "line_start": 36
+          "line_end": 37,
+          "line_start": 32
         },
         {
           "anchor": "how-byollm-works",
           "character_count": 620,
           "heading": "How BYOLLM works",
-          "line_end": 47,
-          "line_start": 42
+          "line_end": 43,
+          "line_start": 38
         },
         {
           "anchor": "billing-behavior",
           "character_count": 724,
           "heading": "Billing behavior",
-          "line_end": 53,
-          "line_start": 48
+          "line_end": 49,
+          "line_start": 44
         },
         {
           "anchor": "how-is-byollm-different-from-byok",
-          "character_count": 1220,
+          "character_count": 1236,
           "heading": "How is BYOLLM different from BYOK?",
-          "line_end": 70,
-          "line_start": 56
+          "line_end": 66,
+          "line_start": 52
         },
         {
           "anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
           "character_count": 537,
           "heading": "What data does Warp store? Do you store our cloud credentials?",
-          "line_end": 78,
-          "line_start": 75
+          "line_end": 74,
+          "line_start": 71
         },
         {
           "anchor": "related-pages",
           "character_count": 814,
           "heading": "Related pages",
-          "line_end": 93,
-          "line_start": 85
+          "line_end": 89,
+          "line_start": 81
         }
       ],
-      "character_count": 7475,
-      "extraction_status": "unchanged",
+      "character_count": 7524,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -11924,54 +11942,54 @@
         },
         {
           "anchor": "key-features",
-          "line_start": 36,
+          "line_start": 32,
           "text": "Key features"
         },
         {
           "anchor": "how-byollm-works",
-          "line_start": 42,
+          "line_start": 38,
           "text": "How BYOLLM works"
         },
         {
           "anchor": "billing-behavior",
-          "line_start": 48,
+          "line_start": 44,
           "text": "Billing behavior"
         },
         {
           "anchor": "faq",
-          "line_start": 54,
+          "line_start": 50,
           "text": "FAQ"
         },
         {
           "anchor": "how-is-byollm-different-from-byok",
-          "line_start": 56,
+          "line_start": 52,
           "text": "How is BYOLLM different from BYOK?"
         },
         {
           "anchor": "does-byollm-work-with-auto",
-          "line_start": 71,
+          "line_start": 67,
           "text": "Does BYOLLM work with Auto?"
         },
         {
           "anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
-          "line_start": 75,
+          "line_start": 71,
           "text": "What data does Warp store? Do you store our cloud credentials?"
         },
         {
           "anchor": "can-admins-enforce-provider-only-routing",
-          "line_start": 79,
+          "line_start": 75,
           "text": "Can admins enforce provider-only routing?"
         },
         {
           "anchor": "related-pages",
-          "line_start": 85,
+          "line_start": 81,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
       "role": "docs-prose",
       "route": "/enterprise/enterprise-features/bring-your-own-llm/",
-      "source_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+      "source_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
       "title": "Bring Your Own LLM"
     },
     "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx": {
@@ -14534,7 +14552,7 @@
         }
       ],
       "character_count": 3475,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16946,7 +16964,7 @@
         }
       ],
       "character_count": 1571,
-      "extraction_status": "new",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -16988,6 +17006,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "73cd669db86143156a24d0865e8816f6bdc863cb"
+    "docs": "7a7e436768dca1ad3a0129759e46f6b903896ec1"
   }
 }

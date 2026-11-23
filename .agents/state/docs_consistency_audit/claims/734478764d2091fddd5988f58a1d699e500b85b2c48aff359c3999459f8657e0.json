@@ -28,7 +28,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 39,
@@ -73,7 +73,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "How it works",
         "heading_anchor": "how-it-works",
         "line_end": 41,
@@ -116,7 +116,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Self-hosted execution",
         "heading_anchor": "self-hosted-execution",
         "line_end": 63,
@@ -162,7 +162,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Deployment modes",
         "heading_anchor": "deployment-modes",
         "line_end": 75,
@@ -208,7 +208,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Deployment modes",
         "heading_anchor": "deployment-modes",
         "line_end": 75,
@@ -257,7 +257,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Network requirements",
         "heading_anchor": "network-requirements",
         "line_end": 89,
@@ -301,7 +301,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Split architecture",
         "heading_anchor": "split-architecture",
         "line_end": 70,
@@ -345,7 +345,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "When to use",
         "heading_anchor": "when-to-use",
         "line_end": 99,
@@ -390,7 +390,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Deployment modes",
         "heading_anchor": "deployment-modes",
         "line_end": 84,
@@ -435,7 +435,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Deployment modes",
         "heading_anchor": "deployment-modes",
         "line_end": 83,
@@ -479,7 +479,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "What stays on customer infrastructure (self-hosted)",
         "heading_anchor": "what-stays-on-customer-infrastructure-self-hosted",
         "line_end": 123,
@@ -521,7 +521,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Data sent to Warp's servers",
         "heading_anchor": "data-sent-to-warps-servers",
         "line_end": 135,
@@ -563,7 +563,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Data sent to Warp's servers",
         "heading_anchor": "data-sent-to-warps-servers",
         "line_end": 135,
@@ -607,7 +607,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "Data sent to Warp's servers",
         "heading_anchor": "data-sent-to-warps-servers",
         "line_end": 136,
@@ -649,7 +649,7 @@
       "source": {
         "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
         "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
-        "content_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
         "heading": "High-level data flow",
         "heading_anchor": "high-level-data-flow",
         "line_end": 30,
@@ -665,9 +665,156 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:aa4bb48408d77fcd1a6dc973bfbecc01e153d08b92dbe5cef9c9dd878ad51d1b",
+      "claim_id": "sha256:0bc206bff46eb8748d385f2f12acef8e131f29829da5513dab51bdba8e1d87ed",
+      "entity": "self-hosted-managed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "supported-backends",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "managed",
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "for Docker, Kubernetes, Direct, and Command options.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
+        "heading": "Deployment modes",
+        "heading_anchor": "deployment-modes",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "docker",
+          "kubernetes",
+          "direct",
+          "command"
+        ],
+        "raw": [
+          "docker",
+          "kubernetes",
+          "direct",
+          "command"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7d8d312b6d9501cd2326c7ca9a02321c349d072aae7c7784fafec2343ab26f94",
+      "claim_id": "sha256:fac04b00991902c90dd31560664113c5180e899a902efe3d7324c3912f323583",
+      "entity": "cloud-agent-run-data",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "storage-configurable-by-enterprise-admin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise admins can configure where this data is stored through [self-hosted agent data storage](/factories/self-hosting/data-storage/).",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
+        "heading": "Data sent to Warp's servers",
+        "heading_anchor": "data-sent-to-warps-servers",
+        "line_end": 136,
+        "line_start": 136,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9bcf35569d5d3d4fbc047c306053b74a8b258598a944a2d33740ceef5d52fb39",
+      "claim_id": "sha256:db6bc9395694efd16aa027664f1f89e49440d4cc21c16e14c216c300edc857f6",
+      "entity": "self-hosted-managed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "requires-docker-hub-and-github",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "managed",
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For managed mode: access to Docker Hub and GitHub (for container images and repository access)",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
+        "heading": "Network requirements",
+        "heading_anchor": "network-requirements",
+        "line_end": 94,
+        "line_start": 94,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "networking",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "b6b6eefa30b5f6e505419df95ea85d96b18807f103ce8b3c86057a473d9a8b37",
+  "page_sha256": "02156f58bf9bb1af21595e989562e25f7978256e38da6a4145a2ea0af6d4fbdd",
   "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
   "schema_version": 1
 }

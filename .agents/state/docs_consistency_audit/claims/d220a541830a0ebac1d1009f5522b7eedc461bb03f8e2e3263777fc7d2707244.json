@@ -25,7 +25,7 @@
       "quote": "BYOLLM is only available on Warp's Enterprise plan.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "",
         "heading_anchor": "",
         "line_end": 13,
@@ -67,7 +67,7 @@
       "quote": "BYOLLM supports two cloud providers today",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "Supported providers",
         "heading_anchor": "supported-providers",
         "line_end": 18,
@@ -89,7 +89,7 @@
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:9d15eed1165af69e4ae9d9d14629c3950ad338bed43d8dcab384a2e0a3980c2d",
+      "claim_content_fingerprint": "sha256:1dd5c8dcb2ed12fd5e9184314d85fecc935f08e10e0a6b972de32f08cc0d9917",
       "claim_id": "sha256:ce127a23ee512933635ae91e664336b2042055460ea7e73a9ac8461910e89917",
       "entity": "bedrock-byollm",
       "extraction_confidence": "high",
@@ -109,14 +109,14 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "| Works with cloud agents | Yes | Not yet (planned) |",
+      "quote": "| Works with cloud agents | Yes | Not yet |",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "Supported providers",
         "heading_anchor": "supported-providers",
-        "line_end": 33,
-        "line_start": 33,
+        "line_end": 29,
+        "line_start": 29,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -131,7 +131,7 @@
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:87a517e20fe28097d373c4c5d76cd6ebc8cae3b2ddf29f590f48f61b7f982255",
+      "claim_content_fingerprint": "sha256:32be7b5cbbe465484cdc6f2be63dbb89211a75561e2e21ba562b0aba6807b206",
       "claim_id": "sha256:4bb34b0d499931673eca66fca7777a3af8e2ee3652e32bb203929ee526588b77",
       "entity": "gemini-enterprise-byollm",
       "extraction_confidence": "high",
@@ -151,56 +151,14 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "| Works with cloud agents | Yes | Not yet (planned) |",
+      "quote": "| Works with cloud agents | Yes | Not yet |",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "Supported providers",
         "heading_anchor": "supported-providers",
-        "line_end": 33,
-        "line_start": 33,
-        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "product-behavior",
-      "value": {
-        "normalized": false,
-        "type": "boolean"
-      }
-    },
-    {
-      "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:9d6b6b7cfc3b6683aac784c358191fb146a4eea7182d84a1bfe4b25c088e7461",
-      "claim_id": "sha256:38ac9969f4c79abf593c197d271f73aac62900b83b59638869d268d3f4afa665",
-      "entity": "byollm-azure-foundry",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "available",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Azure Foundry support is coming soon.",
-      "source": {
-        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
-        "heading": "Supported providers",
-        "heading_anchor": "supported-providers",
-        "line_end": 24,
-        "line_start": 24,
+        "line_end": 29,
+        "line_start": 29,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -241,11 +199,11 @@
       "quote": "Warp **does not store or log** your cloud credentials for either provider.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "What data does Warp store? Do you store our cloud credentials?",
         "heading_anchor": "what-data-does-warp-store-do-you-store-our-cloud-credentials",
-        "line_end": 77,
-        "line_start": 77,
+        "line_end": 73,
+        "line_start": 73,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -283,11 +241,11 @@
       "quote": "Your cloud provider bills BYOLLM inference directly rather than consuming Warp-provided inference usage.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "Billing behavior",
         "heading_anchor": "billing-behavior",
-        "line_end": 50,
-        "line_start": 50,
+        "line_end": 46,
+        "line_start": 46,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -325,11 +283,11 @@
       "quote": "Applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) and Warp-hosted compute charges remain.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "Billing behavior",
         "heading_anchor": "billing-behavior",
-        "line_end": 50,
-        "line_start": 50,
+        "line_end": 46,
+        "line_start": 46,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -367,11 +325,11 @@
       "quote": "Auto model selection is disabled if an admin disables **any** Direct API model, regardless of BYOLLM configuration.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "Does BYOLLM work with Auto?",
         "heading_anchor": "does-byollm-work-with-auto",
-        "line_end": 73,
-        "line_start": 73,
+        "line_end": 69,
+        "line_start": 69,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -411,11 +369,11 @@
       "quote": "**Personal BYOK (Bring Your Own API Key)** lets you configure provider API keys on your device for local Warp Agent runs.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "How is BYOLLM different from BYOK?",
         "heading_anchor": "how-is-byollm-different-from-byok",
-        "line_end": 58,
-        "line_start": 58,
+        "line_end": 54,
+        "line_start": 54,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -430,8 +388,8 @@
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:8c0c72d30135b77badc05be7975c957d81ca5d0644d6c384b00dba8af7d90661",
-      "claim_id": "sha256:88a64377471ec037e4f6e15246872a88d47f6c3e1d65338d7c00c9d5a84b2d00",
+      "claim_content_fingerprint": "sha256:25823dbd180817452ae3774e6c49fbf4edd10659b39e7fafd65cdfe8b06b1087",
+      "claim_id": "sha256:04ffd31955057e2a6dc184af7ae17dde354495438468cc74e7ad630c062bf14f",
       "entity": "team-managed-providers",
       "extraction_confidence": "high",
       "polarity": "affirmative",
@@ -444,23 +402,20 @@
         "install_methods": [],
         "legacy": false,
         "operating_systems": [],
-        "plans": [
-          "business",
-          "enterprise"
-        ],
+        "plans": [],
         "release_statuses": [],
         "shells": [],
         "time_scope": null,
         "versions": []
       },
-      "quote": "Business and Enterprise admins can instead configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud Warp Agent runs.",
+      "quote": "Admins on [eligible plans by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) can instead configure shared API keys and endpoints for local and cloud Warp Agent runs.",
       "source": {
         "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
-        "content_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
         "heading": "How is BYOLLM different from BYOK?",
         "heading_anchor": "how-is-byollm-different-from-byok",
-        "line_end": 62,
-        "line_start": 62,
+        "line_end": 58,
+        "line_start": 58,
         "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
         "repository": "warpdotdev/docs",
         "route": "/enterprise/enterprise-features/bring-your-own-llm/",
@@ -472,9 +427,365 @@
         "normalized": true,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bf98a92c474ab5d7d81e9585da6d8aae52096f15d80db5fd3a6072dffe6f231e",
+      "claim_id": "sha256:c065e9ea618fec5ba2cf96ed99e597ce0904504acc147594f57f6d330c0ade43",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "eligible-inference-routed-to-cloud-account",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When BYOLLM is enabled for a model, Warp redirects eligible inference calls to your configured cloud provider instead of using model providers' direct APIs.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "How BYOLLM works",
+        "heading_anchor": "how-byollm-works",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:61dff66a0519c783fca81b36de60252c922580343e6dcfc317c7aeff9a908650",
+      "claim_id": "sha256:c20b0bafa37a5c951ab0dd7725483d9cf78f1a47ff9f89d343420d9f9f7b3329",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "supported-model-families",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Anthropic (Claude) and OpenAI models hosted in your AWS account.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "anthropic-claude",
+          "openai"
+        ],
+        "raw": [
+          "anthropic-claude",
+          "openai"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ed6c40ee29cb7d25bfe65db60cbbe131074bb75ff6df5aa19eeb65c5f4c76ef6",
+      "claim_id": "sha256:878e2b8dd70160cbf3e6dc88cc46379da361f9b7cfa7b3c5e8875cb9bb38d75b",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "supported-model-families",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Gemini and Claude partner models hosted in your Google Cloud project",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "gemini",
+          "claude"
+        ],
+        "raw": [
+          "gemini",
+          "claude"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:db57c35d1fe3fd4b05de067760bb2f20c476e2da7831d97f944d986e31746485",
+      "claim_id": "sha256:abb6cced6de28dd4bf8cb7d41b9e7b628be3aad9e039c47dd040b162ebf564a5",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "interactive-credentials",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "interactive"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Interactive requests use each member's AWS CLI session credentials",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": "member-aws-cli-session",
+        "raw": "member-aws-cli-session",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:04c2102f396e6575e2349dfb4c4cbca81a215930ddc89eacc42b90ac6ad3ae6f",
+      "claim_id": "sha256:375fd00a7cfd08c02f64d355dff70723744f7e584bb97a249b388a1064f7fb07",
+      "entity": "bedrock-byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "cloud-credentials",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "cloud agent runs assume an IAM role via OIDC.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": "iam-role-via-oidc",
+        "raw": "iam-role-via-oidc",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:92df2eaea006793c13e6e26ce9feb610bccca518840f015fc0f477f32347c9b6",
+      "claim_id": "sha256:ff777d7cccbf3fe975731d50ddc40e3439991f7ca3830a089fa221b447ad49cf",
+      "entity": "gemini-enterprise-byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "interactive-credentials",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "interactive"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "using short-lived Workload Identity Federation (WIF) credentials rooted in the member's Warp session.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Supported providers",
+        "heading_anchor": "supported-providers",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": "short-lived-wif-rooted-in-warp-session",
+        "raw": "short-lived-wif-rooted-in-warp-session",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3d41d4df0f87b46602bda15bf58587441cd6350e2801e0b98f70f647cc2c20d4",
+      "claim_id": "sha256:88e21b5d2bbd4e2d90e417a5ec3369cc72ba9df64e668638a2ccfbd41c3d4729",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "external-costs-fully-represented-in-warp-totals",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "External inference costs are not fully represented in Warp's usage totals.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Billing behavior",
+        "heading_anchor": "billing-behavior",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fb7e3248b749250478e48fc3aeb14f16a6453e787c8218860e6fe91af258dd92",
+      "claim_id": "sha256:a4a51c39b5b3cf48a24db39b9422cfc3a6fd689e8d56cce511f26a00bbaff602",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "auto-selected-enabled-provider-model-routes-through-cloud-account",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "any-disabled-direct-api-model-disables-auto"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "if the selected model is enabled for your configured provider, the request routes through your cloud account.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "content_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
+        "heading": "Does BYOLLM work with Auto?",
+        "heading_anchor": "does-byollm-work-with-auto",
+        "line_end": 69,
+        "line_start": 69,
+        "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "c4d5066c717945b440fb43866f45c61b16d2af351ae7adf81a774539ae20d9b7",
+  "page_sha256": "881817e1bdfd2358920eb0c850bd651c299dc2068e13eb99a79f336576ef482a",
   "path": "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
   "schema_version": 1
 }

@@ -5,7 +5,7 @@
       "claim_content_fingerprint": "sha256:27f957f4a13cb1e19d8e292724d9acee4847f0d7373910f60dcda5756e65af65",
       "claim_id": "sha256:766696a49994a5f17d86e6d7da5b0c37e9037e7f118c7266985d89469d6351e4",
       "entity": "computer-use-pr-artifacts",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "automatically-attached",
       "qualifiers": {
@@ -28,11 +28,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "",
         "heading_anchor": "",
-        "line_end": 12,
-        "line_start": 12,
+        "line_end": 10,
+        "line_start": 10,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -51,7 +51,7 @@
       "claim_content_fingerprint": "sha256:9be7b4c0066136ec891baba16596ad7b5e4cb05f37f25139887116941383357b",
       "claim_id": "sha256:26ce53eb5977ef6def7cc94d8999f4fc7528b19ee1c431c6a69b3ae24292e781",
       "entity": "computer-use-pr-artifacts",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "maximum-screenshots",
       "qualifiers": {
@@ -72,11 +72,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "What gets attached",
         "heading_anchor": "what-gets-attached",
-        "line_end": 16,
-        "line_start": 16,
+        "line_end": 14,
+        "line_start": 14,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -95,7 +95,7 @@
       "claim_content_fingerprint": "sha256:cbf8dab2259d967a43851930596c48cea2e93136bb2583fe2a2ce1b76fec7128",
       "claim_id": "sha256:ac4a6cd9ff0bfd3d6ee5898d37e1137a511cd1f53a975a10110128fb29288bd8",
       "entity": "computer-use-pr-artifacts",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "attachment-timing",
       "qualifiers": {
@@ -116,11 +116,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "What gets attached",
         "heading_anchor": "what-gets-attached",
-        "line_end": 19,
-        "line_start": 19,
+        "line_end": 17,
+        "line_start": 17,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -139,7 +139,7 @@
       "claim_content_fingerprint": "sha256:9f304e2ddf009abd7c7477337a2a26582a46ee1585011a5b11dac7f8a00c4ac7",
       "claim_id": "sha256:8b42802b9402d9bf96804994b88fed92a2c11309c28756f52c8ae7682fd8c410",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "default-mode",
       "qualifiers": {
@@ -160,11 +160,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
-        "line_end": 25,
-        "line_start": 25,
+        "line_end": 23,
+        "line_start": 23,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -187,7 +187,7 @@
       "claim_content_fingerprint": "sha256:eca21c5bf2aea8645212d2c098003530fc6151e34d7d02cdf622295fd513e368",
       "claim_id": "sha256:42877432af5fc6bd09001b58cca03ef9b28e0423e7e3e0dc70f2d2e2e9f50fc5",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "checks-viewer-access",
       "qualifiers": {
@@ -210,11 +210,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
-        "line_end": 25,
-        "line_start": 25,
+        "line_end": 23,
+        "line_start": 23,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -233,7 +233,7 @@
       "claim_content_fingerprint": "sha256:1e112ae72a3e0a94d9eb41c60258fcdf82472def258ea9b07d19534f325c3ea0",
       "claim_id": "sha256:bc8674fd0edc8cea442447091a6e1b02c00548d46075714b785923ebac064673",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "publicly-downloadable",
       "qualifiers": {
@@ -256,11 +256,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
-        "line_end": 30,
-        "line_start": 30,
+        "line_end": 28,
+        "line_start": 28,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -279,7 +279,7 @@
       "claim_content_fingerprint": "sha256:284bbfd177ddef582741fbdf474328ac662044e4c683e36a4d39fa802c692224",
       "claim_id": "sha256:582528db957b0cebf4b96fb25c8cce056145666e3ba6564e8b4cba04ee801159",
       "entity": "computer-use-pr-artifacts",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "automatically-attached",
       "qualifiers": {
@@ -302,11 +302,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
-        "line_end": 27,
-        "line_start": 27,
+        "line_end": 25,
+        "line_start": 25,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -325,7 +325,7 @@
       "claim_content_fingerprint": "sha256:28e24477926c8ec2f67a292f522ade5c663526a05b2a7a87a26d69a207b659b8",
       "claim_id": "sha256:0d0ed815040ab3e73730f9c88dbb395b49ea16717446bee82ef29306633cd825",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "configuration-actor",
       "qualifiers": {
@@ -346,11 +346,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Changing the attachment mode",
         "heading_anchor": "changing-the-attachment-mode",
-        "line_end": 35,
-        "line_start": 35,
+        "line_end": 33,
+        "line_start": 33,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -373,7 +373,7 @@
       "claim_content_fingerprint": "sha256:40f02896d568665ccb76b07531c318dcb99fd53aaaaa264d2d1261828b4f534a",
       "claim_id": "sha256:288d7e0fecf2c39e53e943a2fce907eb2c36a98734cfdbc7ecf9a528216c19e4",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "shareable-runs",
       "qualifiers": {
@@ -394,11 +394,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
-        "line_end": 43,
-        "line_start": 43,
+        "line_end": 41,
+        "line_start": 41,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -417,7 +417,7 @@
       "claim_content_fingerprint": "sha256:812086d8df49d19ac52f693e5b7cc366f003835fb4ba32254d2e50a8c4ce62fd",
       "claim_id": "sha256:e60e40cb601e8d717bc5459aff0c1606654b15aa94adc88a19ceba1245f32bbd",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "embed-request-publishes-media",
       "qualifiers": {
@@ -440,11 +440,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
-        "line_end": 50,
-        "line_start": 50,
+        "line_end": 48,
+        "line_start": 48,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -463,7 +463,7 @@
       "claim_content_fingerprint": "sha256:4d5574a787d4ea23c79caf06381dd1d4007d970a8cbb73e790b25dbc84a1393f",
       "claim_id": "sha256:ed8a69b88f1a79d3c262d32a255b76341a246eee2466d63d52d878d473b19c3d",
       "entity": "computer-use-artifact-sharing",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "can-get-sharing-links",
       "qualifiers": {
@@ -486,11 +486,11 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
-        "line_end": 51,
-        "line_start": 51,
+        "line_end": 49,
+        "line_start": 49,
         "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
@@ -503,9 +503,146 @@
         "raw": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:28423c4969cbca0ed772e757e62d3feb81155003020e6209f8a60d38b6a112b4",
+      "claim_id": "sha256:7fbe20df23d73a38951c0bd18317734dd04015607488a2ec811e63726610fef3",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "sign-in-required",
+      "qualifiers": {
+        "actors": [
+          "link-only-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Viewers who aren't signed in are directed to sign in, and Warp checks whether they can view the artifact.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "heading": "Sharing captures outside pull requests",
+        "heading_anchor": "sharing-captures-outside-pull-requests",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5615637fcdef8c100cad2932d3b83178d7a0a4d4e3d6d8c8f38b0f6072520be9",
+      "claim_id": "sha256:ddea1102a6d7d1cec64da213d3c3f6d2db9961f05025b5befb091f249ec19387",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "sign-in-required",
+      "qualifiers": {
+        "actors": [
+          "embed-mode"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Public artifacts created for embeds open without signing in.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "heading": "Sharing captures outside pull requests",
+        "heading_anchor": "sharing-captures-outside-pull-requests",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b0076c4fed5f3f513ac828aceebfc6481f2249b6dafc1742849aacb5d376dfcb",
+      "claim_id": "sha256:64f6372b11908220cc3a8870ba3e1f2ae490f75c9fb132f7dd95ad5a369d567d",
+      "entity": "computer-use-artifact-sharing",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "setting-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A team-level **Agent artifact attachments** setting controls how agents share captures in pull requests and other destinations:",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "heading": "Attachment modes",
+        "heading_anchor": "attachment-modes",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "team"
+        ],
+        "raw": [
+          "team"
+        ],
+        "type": "enum"
+      }
     }
   ],
-  "page_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
+  "page_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
   "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
   "schema_version": 1
 }
