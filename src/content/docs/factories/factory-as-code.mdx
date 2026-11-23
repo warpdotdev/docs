@@ -1,10 +1,10 @@
 ---
-title: Factory definition syntax
+title: Factory definition as code
 description: >-
   Look up the file structure, configuration fields, and supported values
   used to define factory agents, automations, and other resources.
 sidebar:
-  label: "Factory definition"
+  label: "Factory definition as code"
 ---
 import { VARS } from '@data/vars';
 
@@ -848,7 +848,7 @@ Factory members who can access the router can also select it from model catalogs
 ## `benchmarks/<suite-slug>/suite.yaml`
 
 **Optional resource.**
-Benchmark suite files define trials for one agent, with reusable configurations and an ordered task list. The directory slug is the suite's stable identity; changing `name` doesn't move the file. See [benchmarks](/factories/benchmarks/) for how to run a suite.
+Benchmark suite files define trials for one agent or Blueprint stage, with reusable configurations and an ordered task list. The directory slug is the suite's stable identity; changing `name` doesn't move the file. See [benchmarking factory configurations](/factories/benchmarks/) for how to run a suite.
 
 ```yaml title="benchmarks/pull-request-review/suite.yaml"
 name: Pull request review
@@ -871,7 +871,18 @@ tasks:
 | --- | --- | --- | --- |
 | <span id="name-1" />`name` | Yes | None | Suite display name; must be unique in the factory. |
 | <span id="description-2" />`description` | No | Not specified | What the suite measures. |
-| <span id="agent-1" />`worker` or `agent` | For worker-targeted suites | None | The factory worker used for every task in the suite. Set only one. |
+| <span id="agent-1" />`worker` or `agent` | Exactly one target | None | The factory worker used for every task. Set only one. Mutually exclusive with `stage`. |
+| `stage` | Exactly one target | None | Blueprint stage to enter directly for each trial. Trials stop when that stage completes. Mutually exclusive with `agent` or `worker`. |
+
+### `correctnessScorer`
+
+**Optional.**
+Overrides the built-in Correctness judge for this suite, independently of the agent under test. Omit an override to inherit its default.
+
+| Field | Description |
+| --- | --- |
+| `model` | Judge model or factory model-router reference. Defaults to the factory's scoring model. |
+| `runner` | Named factory runner used by the judge. |
 
 ### `configurations`
 
@@ -911,12 +922,11 @@ startingRepoRefs:
 
 | Field | Required | Default | Description |
 | --- | --- | --- | --- |
-| <span id="title" />`title` | Yes | None | Task display name; doesn't need to match the task slug. |
+| <span id="title" />`title` | Yes | None | Task display name; must be unique within the suite and doesn't need to match the task slug. |
 | <span id="prompt" />`prompt` | Yes | None | Instructions sent to the agent. |
 | <span id="successcriteria" />`successCriteria` | Yes | None | Correctness Scorer's evaluation criteria. |
 | <span id="sourcerunid" />`sourceRunId` | No | Not specified | ID of the prior run that produced the task; can refer to a deleted run. |
 | <span id="tags" />`tags` | No | Not specified | Ordered list of task labels. |
-| <span id="linearseed" />`linearSeed` | No | Not specified | JSON-compatible starting state for the trial's isolated Linear workspace. |
 
 ### `startingRepoRefs`
 
