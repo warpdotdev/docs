@@ -11,19 +11,21 @@ next: false
 
 Configure a factory in Warp Factories to accept delegated issues from one Linear team and attach the resulting pull requests to those issues. A person reviews and merges the code changes.
 
-Use an existing factory with a foreman and an implementation agent, or adapt the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. The steps below replace its issue-label intake with Linear delegation.
+Use the Blueprint created during [factory setup](/factories/quickstart/). Configure clarification, implementation, review, and handoff in its stages before adding Linear intake.
 
 ## Prerequisites
 
 * A [factory](/factories/quickstart/) with access to the target repository and permission to push branches and open pull requests.
 * Linear [connected to the factory](/factories/integrations/linear/#connect-linear), with the Warp app authorized to access your team. A factory connects either Linear or Jira, not both.
 * Each requester's Linear account linked to their Warp account.
-* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Available shared team usage for factory runs. Add usage if needed. See [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
 * Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Configure the agent-session trigger
 
 Delegating an issue to Warp or mentioning the app in a comment opens a Linear agent session. Use the `linear` / `agent_session_created` trigger with `teams` to limit which teams' sessions this automation handles.
+
+Keep session acknowledgement, PR attachment, and the issue-state requirements below in the stage procedures. Intake filters do not replace the [Blueprint's transitions](/factories/blueprints/routes/).
 
 1. In the factory dashboard, open **Automations** and find the existing Linear agent-session automation. Connecting Linear creates one for the selected teams. Reuse it to avoid duplicate runs.
    * **Warp-managed factory** - Edit the automation in the dashboard.
@@ -42,7 +44,7 @@ Delegating an issue to Warp or mentioning the app in a comment opens a Linear ag
    Someone delegated a Linear issue to this factory, or mentioned it in a
    comment, and Linear opened an agent session. The session's issue is the work
    item. Acknowledge in the session first, then drive the issue to a pull
-   request. Delegate to the implementation agent with the issue reference and
+   request through the configured Blueprint, supplying the issue reference and
    acceptance criteria. Require tests and a verification summary on the pull
    request. Attach the pull request to the issue and post its link and results
    in the session. Ask for missing requirements before implementation.
@@ -89,12 +91,12 @@ Replies in the agent session continue the same run, so answer the foreman's ques
 With the instructions above, check for:
 
 * **Acknowledgement** - The foreman restates the requested change in the issue's agent session before implementation. The factory's [Runs page](/factories/factory-dashboard/#inspect-runs) shows the foreman and implementation runs.
-* **Pull request** - The implementation agent opens a pull request with tests and a verification summary.
+* **Pull request** - The implementation worker opens a pull request with tests and a verification summary.
 * **Handoff** - The foreman attaches the pull request to the issue and posts its link and verification summary in the session.
 
 When Warp claims the session, an issue outside a started, completed, or canceled state may move to the team's available started state, such as In Progress. This can happen even if the foreman stops to ask for requirements.
 
-The foreman makes no additional workflow-state change. A person reviews and merges the pull request and decides later state changes. To request a transition such as In Review, add it to the foreman's prompt.
+The foreman makes no additional workflow-state change. A person reviews and merges the pull request and decides later state changes. To request a transition such as In Review, add it to the handoff stage's procedure.
 
 ## Unmatched and vague requests
 
@@ -124,10 +126,11 @@ one. Validate the definition before applying it, then list what I still have
 to do by hand: connect Linear to the factory, authorize team access, and have
 each requester link their Linear user to their Warp account. Finish by
 telling me how to delegate a first test issue and what I should see in the
-issue's agent session and on the pull request. Configure the foreman to
-confirm scope, ask for missing requirements, delegate to the implementation
-agent, and attach the PR to the issue with verification results in the
-session. Require tests and human review; never merge. Explain Warp's
+issue's agent session and on the pull request. Configure scope confirmation,
+clarification, implementation, independent review, and handoff in the existing
+Blueprint. Pass the issue and acceptance criteria between stages, and keep
+revisions on the same PR. Attach the PR to the issue with verification results
+in the session. Require tests and human review; never merge. Explain Warp's
 automatic claim-time transition and make no additional workflow-state
 change or attempt to undo it. Include tests for an unmatched team, a
 session reply, and the issue's state when Warp claims the session.

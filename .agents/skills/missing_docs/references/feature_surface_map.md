@@ -435,6 +435,11 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
+# Runtime support operations are x-internal upstream and absent from the
+# released export at warp-server e5b793f750. Recheck public publication and GA.
+POST /harness-support/publish-pr-media -> internal
+POST /harness-support/screenshot-upload-target -> internal
+POST /harness-support/wait-for-events -> internal
 # Cumulative Claude Code / Codex usage snapshot for the current cloud execution
 # (publishHarnessUsage). Marked `x-internal: true` upstream; harness-support tag
 # is excluded from the released docs OpenAPI copy.
@@ -463,6 +468,16 @@ POST /agent/runs/{runId}/previews -> internal
 # recheck them with the server publication workflow owner as exports change.
 GET /factory -> internal
 GET /factory/access -> internal
+# Setup blueprint lookup is x-internal upstream and absent from the released
+# export at warp-server e5b793f750; recheck this operation before documenting it.
+GET /factory-setup/default-blueprints/{variant} -> internal
+# Backfill preview has its own unpublished operation; a released scorer sibling
+# does not release it. Recheck public publication and GA availability.
+POST /factory/{uid}/scorers/{scorer_uid}/backfill/preview -> internal
+# Prototype queries are x-internal upstream and absent from the released
+# export at warp-server e5b793f750. No public API instructions.
+GET /metrics-prototype -> internal
+GET /metrics-prototype/{metric} -> internal
 # Personal factory task inbox (router/handlers/public_api/factory_inbox.go).
 # Sibling of the unreleased `/factory` REST surface; released OpenAPI has no
 # `/factory-inbox` paths either. Stays internal until the Factory API ships.
@@ -1072,9 +1087,21 @@ FileBackedExecutionProfiles
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
-# Non-GA at warp 3fe2ac6765; driver.rs resolves skill references only behind
-# this dogfood flag. Recheck GA promotion and stable inclusion before drafting.
+# GA on current warp a45a951935, but a server flag remains off in production
+# at warp-server e5b793f750. Recheck production availability before drafting.
 FactorySkillReferences
+# Preview process-liveness sampling, not a customer configuration surface
+# (execute/shell_command.rs); retain its status-change delta until GA.
+LrcActivitySignal
+# Non-GA at warp a45a951935. Retain all added-flag deltas and recheck promotion;
+# these entries do not establish production availability or a terminal verdict.
+AgentPromptSteering
+GitMirrorCache
+ManagedMcpCredentialRefresh
+PreviewUrlsMcp
+RestoreLocalSubtree
+# Local/experimental cloud skill discovery in agent_sdk/driver.rs, not GA.
+CwdScopedCloudSkills
 LSPAsATool
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView

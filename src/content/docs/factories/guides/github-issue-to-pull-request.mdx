@@ -11,13 +11,13 @@ next: false
 
 Start work in Warp Factories when a GitHub issue receives a readiness label or is assigned to the factory. The foreman checks the requirements and posts the pull request link on the issue. A person reviews and merges the changes.
 
-Use an existing factory with a foreman and an implementation agent, or start with the [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example. It includes label-based intake; the steps below also show assignment-based intake.
+Use the Blueprint created during [factory setup](/factories/quickstart/). Configure its stages to clarify scope, implement, review, and hand off the PR with checks and an issue-closing reference. The [`single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/single-repo-quickstart) example supplies a label-based trigger, not a replacement for your Blueprint.
 
 ## Prerequisites
 
 * A [factory](/factories/quickstart/) [connected to GitHub](/factories/integrations/github/), with the target repository included in both the factory and GitHub App installation. The connection must permit branch pushes and pull requests.
 * Membership in the factory's Warp team and a GitHub account linked to Warp for each requester.
-* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Available shared team usage for factory runs. Add usage if needed. See [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs).
 * Permission to edit the [factory definition](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Choose the intake signal
@@ -48,10 +48,10 @@ triggers:
       repos: [acme/api-service]
       labels: [factory-ready]
 ---
-A maintainer labeled an issue `factory-ready`. Read the issue, restate the
-deliverable, and drive it to a pull request. Post progress as comments on the
-issue. Ask for missing requirements before implementation. Delegate to the
-implementation agent, require tests and a verification summary, and include
+A maintainer labeled an issue `factory-ready`. Follow the configured Blueprint.
+Use the issue as the request and post progress as comments there. Ask for
+missing requirements before implementation. Require tests and a verification
+summary, and include
 Closes #ISSUE_NUMBER in the pull request description using this issue's
 number. Post the PR link and verification results on the issue.
 A person reviews and merges; do not merge.
@@ -72,10 +72,10 @@ triggers:
       labels: ["factory:Acme"]
 ---
 A maintainer assigned an issue carrying this factory's routing label to the
-factory. Read the issue and restate the deliverable in a comment. If the
-issue is not actionable, ask for missing requirements and stop. Otherwise,
-delegate to the implementation agent, require tests and a verification
-summary, and include Closes #ISSUE_NUMBER in the pull request description
+factory. Follow the configured Blueprint and restate the deliverable in a
+comment. If the issue is not actionable, ask for missing requirements and
+pause dependent work. Require tests and a verification summary, and include
+Closes #ISSUE_NUMBER in the pull request description
 using this issue's number. Post progress, the PR link, and verification
 results on the issue. A person reviews and merges; do not merge.
 ```
@@ -98,6 +98,8 @@ Apply the definition change:
 Validation does not confirm repository access or assignment availability. Test the configured trigger with a real issue event before relying on it.
 
 ## Delegate from GitHub
+
+Intake filters select issues; the [Blueprint's transitions](/factories/blueprints/routes/) select what happens between stages.
 
 1. Write the issue with the requested behavior, verifiable acceptance criteria, and tests to add. Labels and assignments carry no task instructions; the issue's title, body, and comments provide that context.
 
@@ -165,8 +167,11 @@ issue assigned to warp that should start work, one unlabeled issue that
 should not, and a second matching event that continues the first work item.
 Check all existing automations for overlap, including the label-applied
 automation. Preserve their unrelated triggers and existing exclusions.
-Configure scope confirmation, clarification, implementation delegation,
-tests, a closing issue reference, and PR verification results on the issue.
+Configure scope confirmation, clarification, implementation, independent
+review, and handoff in the existing Blueprint. Pass the issue and acceptance
+criteria between stages; return review findings to the same implementation
+conversation and PR. Require tests, a closing issue reference, and PR
+verification results on the issue.
 Require human review; never merge. List manual access steps separately,
 including confirming that warp is assignable; do not grant extra permissions.
 ```

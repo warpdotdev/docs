@@ -31,7 +31,10 @@
     "test:platform-reference-migration": "node scripts/validate-platform-reference-migration.mjs",
     "test:article-retirements": "node scripts/validate-article-retirements.mjs",
     "test:page-title-order": "node scripts/validate-page-title-order.mjs",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "test:kapa-agent-retrieval": "node --test src/lib/kapa-agent-retrieval.test.mjs",
+    "test:markdown-negotiation": "node --test scripts/markdown-negotiation.test.mjs src/lib/docs-markdown-retrieve.test.mjs",
+    "test:markdown-negotiation-routes": "node scripts/validate-markdown-negotiation-routes.mjs"
   },
   "engines": {
     "node": "^20.19.0 || ^22.12.0 || ^24"

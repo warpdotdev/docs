@@ -400,7 +400,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/how-factories-work', label: 'How factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
 					],
 				},
@@ -411,11 +411,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				label: 'Factory configuration',
 				items: [
 						{
-							label: 'Factory agents',
+							label: 'Blueprints',
 							items: [
-								{ slug: 'factories/factory-agents', label: 'About factory agents' },
-								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
-								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+								{ slug: 'factories/blueprints', label: 'Blueprints' },
+								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
+								{ slug: 'factories/blueprints/routes', label: 'Configuring Blueprint transitions' },
+								{ slug: 'factories/blueprints/gates', label: 'Adding gates to a Blueprint' },
+							],
+						},
+						{
+							label: 'Factory workers',
+							items: [
+								{ slug: 'factories/factory-agents', label: 'Factory workers' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory workers' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom workers' },
 							],
 						},
 						{
@@ -441,7 +450,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Infrastructure',
 							items: [
-								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
+								{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure and security' },
 								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
@@ -563,10 +572,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/factory-home' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
+						{ slug: 'factories/artifacts', label: 'Artifacts' },
 					],
 				},
 				{
-					label: 'Plans and support',
+					label: 'Plans & support',
 					items: [
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',
@@ -898,6 +908,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Agent workflows',
 					items: [
+						{ slug: 'guides/agent-workflows/running-an-issue-to-pr-blueprint', label: 'Running an issue-to-PR Blueprint' },
 						{ slug: 'guides/agent-workflows/how-to-review-ai-generated-code', label: 'Review AI-generated code' },
 						{ slug: 'guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs', label: 'Attach agent context to PRs' },
 						{ slug: 'guides/agent-workflows/how-to-run-unattended-agents', label: 'Run agents unattended' },
