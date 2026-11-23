@@ -8,9 +8,9 @@ next: false
 ---
 import { VARS } from '@data/vars';
 
-Test your factory with small changes before expanding its workload. Evaluate the output and cost, adjust one setting, and repeat the test.
+Test your factory on small changes from your backlog before expanding its workload. Record output quality and cost as a baseline, change one setting, then compare a fresh trial from the same starting commit.
 
-The example adds a "Copy link" button. Adapt it to your repository. Configure the approval and review path before testing; a request prompt does not replace the Blueprint's workflow.
+The example adds a "Copy link" button to an existing app. If you do not have an app to test, use [the committed-spec exercise](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/product-change-implementation#exercise-edit-a-committed-spec) to document helper tests in a disposable fork. That draft exercise still needs setup and runtime verification. Configure approval and review in your Blueprint before sending a request.
 
 ## Prerequisites
 
@@ -21,8 +21,6 @@ The example adds a "Copy link" button. Adapt it to your repository. Configure th
 
 ## Test with a small change
 
-Choose changes from your own backlog.
-
 1. Choose two or three changes, each small enough for one pull request. Use agreed requirements or reproducible bugs; resolve major product questions before testing.
 2. Record the starting commit, current behavior, requested behavior, and acceptance criteria for the first change.
 
@@ -31,14 +29,14 @@ Choose changes from your own backlog.
 
    Check for a draft pull request containing the spec and a request for your approval. Implementation must wait.
 4. Review the committed spec. Ask for revisions or edit its branch if needed.
-5. When the spec is ready, explicitly approve the current version in the same conversation. Check that implementation reuses the spec pull request, runs the requested checks, and returns review findings and any questions for you. Do not merge test output.
+5. In the same conversation, explicitly approve the spec's current committed revision, including any direct edits you made. Check that implementation reuses the spec PR and reports the requested checks and independent review. Request a revision on that PR and confirm another independent review covers the new head. Do not merge test output.
 
 ## Evaluate the run
 
-### Read the runs
+### Inspect the worker runs
 
 1. In the web app sidebar, click **Runs**. Related worker runs group under their parent.
-2. Check that the spec preceded implementation and that implementation waited for your approval. Other activity, such as answering a question, is not itself an approval failure.
+2. Check that the spec preceded implementation and implementation waited for your approval. The factory can answer questions while it waits, but it must not implement.
 3. Open the runs to inspect their timelines, cost, and sessions. Check which files the spec worker read, whether implementation ran the reported checks, and whether review examined the diff.
 
 ### Check the outputs
@@ -61,6 +59,7 @@ For the button example, "copies the URL" needs a test of the exact copied value.
 
 * Findings identify the problem, location, severity, and correction.
 * Defects are distinguished from product decisions requiring your judgment.
+* The reviewed SHA matches the delivered head after corrections. Contract changes return to the spec for revision and fresh approval.
 
 For example, a missing assertion for a required fallback is a test gap. Choosing behavior the spec never defined needs a product decision, not an automatic correction.
 
@@ -75,22 +74,22 @@ For example, a missing assertion for a required fallback is a test gap. Choosing
 2. On the factory's **Dashboard** page, compare **Cost per PR** and **Most expensive PRs** across runs. These are comparison metrics, not invoice totals. See [factory cost metrics](/factories/measure-and-improve/#read-metrics-on-the-dashboard-page).
 3. Record gaps against your team's standards for scope, tests, and description quality.
 
-A [Scorer](/factories/measure-and-improve/scorers/) classifies completed runs against criteria you write, such as whether the worker ran tests before opening the pull request. Try it on a run from its run page and compare its reasoning with your own review before using sampled scoring.
+A [Scorer](/factories/measure-and-improve/scorers/) evaluates completed runs against criteria you write, such as whether the worker ran tests before opening the PR. Try it from a completed run's page. Compare its reasoning with your review before using it on a sample of runs.
 
 ## Tune one setting
 
-Choose one adjustment based on the results. Test prompt and model changes separately.
+Test prompt and model changes separately.
 
 | Observation | Adjustment to test | Stage or worker |
 | --- | --- | --- |
 | Implementation made an unresolved product decision | Require the spec to surface that decision for approval | Planning stage |
 | The spec is too detailed | Shorten its template for small changes | Planning stage |
-| Implementation costs too much | Compare another supported model on the same task | Implement |
+| Implementation costs too much | Compare another supported model on the same task | Implementation worker |
 | Review reports irrelevant style findings | Narrow the blocking criteria without removing correctness checks | Review stage |
 | Review misses defects | Add the missed failure mode to the instructions | Review stage |
 | A worker skips a required check | Name the repository's exact check command | The worker that skipped it |
 
-1. Choose the owning configuration. For stage procedures, transitions, or gates, edit the Blueprint in `factory.yaml`. For shared procedures, edit the attached skill. For models or instructions shared across stages, open the relevant worker on **Workers** and edit its "Model" setting or **Prompt**. In a GitHub-backed factory, edit its existing worker file under [`workers/` or `agents/`](/factories/factory-as-code/#directory-structure), preserving its root and filename.
+1. Edit the configuration that controls the result you want to change. For stage procedures, transitions, or gates, edit the Blueprint in `factory.yaml`. For shared procedures, edit the attached skill. For a worker's model or instructions shared across stages, open that worker on **Workers** and edit its "Model" setting or **Prompt**. In a GitHub-backed factory, edit the existing file under [`workers/` or `agents/`](/factories/factory-as-code/#directory-structure). Keep its directory and filename.
 2. Apply a definition-file change by saving **Factory definition** for a Warp-managed factory, or merging the definition pull request into its production branch for a GitHub-backed factory. Confirm validation passes. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
    Change one worker's model, not `agentDefaults.model`, which also affects workers inheriting that default. For model comparisons, use a [benchmark](/factories/benchmarks/) before changing production; a completed run's page can supply a benchmark task.
@@ -107,7 +106,7 @@ Repeat a test with unchanged settings before attributing a difference to tuning.
 * An implementation meeting the acceptance criteria.
 * Review findings that match the checks you would make yourself.
 
-Expand one dimension at a time: task size, task type, or intake source. A reproducible bug, review-only request, and documentation change may need different workers; see [factory use cases](/factories/use-cases/).
+Expand one dimension at a time: task size, task type, or intake source. Choose workers for the task rather than sending every request through the same stages. See [factory use cases](/factories/use-cases/).
 
 As volume grows, use sampled Scorers and the [practical improvement loop](/factories/measure-and-improve/#run-a-practical-improvement-loop), while keeping human review.
 
@@ -129,14 +128,16 @@ for my explicit approval. Do not start implementation before I approve
 this spec, even if a previous test was approved.
 
 After approval, implement on the spec's branch and pull request, run the
-documented checks, and run one review pass. Return the pull request,
+documented checks, and run independent review. Correct actionable findings
+on the same PR, then independently review the revised head. Ask me about
+contract changes and get fresh approval of the revised spec. Return the pull request,
 verification results, and unresolved questions. Never merge. Report a
 missing tool or permission rather than claiming an unrun check passed.
 ```
 
 ## Troubleshooting
 
-**Implementation starts before approval.** Stop the run and inspect its Blueprint. Check that planning has an approval gate and that implementation's incoming transition requires approval of the current plan. Also check [overlapping automations](/factories/troubleshooting/#one-action-starts-two-runs) before starting a fresh test.
+**Implementation starts before approval.** Stop the run and inspect its Blueprint. Check that the stage that writes the spec has an approval gate and that the route into implementation requires approval of the current committed spec. Also check [overlapping automations](/factories/troubleshooting/#one-action-starts-two-runs) before starting a fresh test.
 
 **The new trial continues earlier work.** A follow-up retains context. Start through **New Chat**, remove references to the earlier work item, and verify the requested baseline and new branch before approving.
 
