@@ -18,11 +18,7 @@ BYOLLM is only available on Warp's Enterprise plan. [Contact sales](https://www.
 BYOLLM supports two cloud providers today, each with its own dedicated setup guide:
 
 * **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** - Route inference through supported Anthropic (Claude) and OpenAI models hosted in your AWS account. Interactive requests use each member's AWS CLI session credentials, and cloud agent runs assume an IAM role via OIDC.
-* **[BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/)** - Route inference through Gemini and Claude partner models hosted in your Google Cloud project, using short-lived Workload Identity Federation (WIF) credentials rooted in the member's Warp session.
-
-:::caution
-Azure Foundry support is coming soon.
-:::
+* **[BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/)** - Route interactive inference through Gemini and Claude partner models hosted in your Google Cloud project, using short-lived Workload Identity Federation (WIF) credentials rooted in the member's Warp session. Factory runs are not supported; this is not a general-purpose Vertex AI integration.
 
 Use the comparison below to pick a provider, then follow its setup guide for configuration steps.
 
@@ -30,7 +26,7 @@ Use the comparison below to pick a provider, then follow its setup guide for con
 | --- | --- | --- |
 | Models | Anthropic (Claude) and OpenAI | Gemini (native) and Claude (Vertex AI partner models) |
 | Credential mechanism | AWS CLI session (interactive); IAM role via OIDC (cloud agents) | Workload Identity Federation (WIF), rooted in the Warp session |
-| Works with cloud agents | Yes | Not yet (planned) |
+| Works with cloud agents | Yes | Not yet |
 | Setup guide | [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) | [BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/) |
 
 ## Key features
@@ -59,7 +55,7 @@ See each provider's page for provider-specific routing and fallback behavior: [A
 
 **BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
 
-Business and Enterprise admins can instead configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud Warp Agent runs. See the [configuration comparison](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm) for the differences in credentials, storage, and cloud support.
+Admins on [eligible plans by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) can instead configure shared API keys and endpoints for local and cloud Warp Agent runs. See the [configuration comparison](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm) for the differences in credentials, storage, and cloud support.
 
 | Feature | Personal BYOK | BYOLLM |
 | --- | --- | --- |
@@ -84,10 +80,10 @@ Yes. Admins can disable Direct API access for models on the **Models** page so e
 
 ## Related pages
 
-* [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) — Route inference through your AWS account
-* [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) — Route inference through your Google Cloud project
-* [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) — Admin-configured shared provider keys and custom endpoints
-* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Self-serve, user-level API keys
-* [Model Choice](/agents/inference/model-choice/) — Full list of supported models
-* [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
-* [Contact sales](https://www.warp.dev/contact-sales) — Get help with Enterprise setup
+* [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) - Route inference through your AWS account
+* [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) - Route inference through your Google Cloud project
+* [Team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
+* [Agent model choice](/agents/inference/model-choice/) - Full list of supported models
+* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - Configure team settings
+* [Contact sales](https://www.warp.dev/contact-sales) - Get help with Enterprise setup

@@ -102,7 +102,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{
-							label: 'Windows and Tabs',
+							label: 'Windows & Tabs',
 							collapsed: true,
 							items: [
 								{ slug: 'terminal/windows', label: 'Overview' },
@@ -214,7 +214,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Knowledge and collaboration',
+					label: 'Knowledge & collaboration',
 					items: [
 						{
 							label: 'Warp Drive overview',
@@ -309,8 +309,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agents/inference/custom-routers', label: 'Custom routers' },
 								'agents/inference/bring-your-own-api-key',
 								{ slug: 'agents/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
-								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
+								'agents/inference/claude-platform-linked-billing',
 								{ slug: 'agents/inference/chatgpt-subscription', label: 'ChatGPT subscription' },
+								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
 							],
 						},
 						{ slug: 'agents/local-agents/interactive-code-review', label: 'Interactive code review' },
@@ -390,7 +391,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			badge: { text: 'Early Access', variant: 'note' },
 			// Group labels are noun phrases naming a subject area, not imperative
 			// verbs. Every other tab does this -- 'Agent configuration',
-			// 'Triggers & integrations', 'Plans and billing', 'Team management' --
+			// 'Triggers & integrations', 'Plans & billing', 'Team management' --
 			// so 'Configure / Connect / Operate' read as a different product's
 			// sidebar. Two of these deliberately mirror the Automation Platform tab
 			// next door, since the underlying concepts are the same.
@@ -399,21 +400,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/how-factories-work', label: 'How factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
-					],
-				},
-				{
-					label: 'Factory use cases',
-					items: [
-						{ slug: 'factories/use-cases', label: 'Overview' },
-						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
-						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
-						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
-						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
-						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
-						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
 					],
 				},
 				{
@@ -423,11 +411,32 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				label: 'Factory configuration',
 				items: [
 						{
-							label: 'Factory agents',
+							label: 'Blueprints',
 							items: [
-								{ slug: 'factories/factory-agents', label: 'About factory agents' },
-								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
-								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+								{ slug: 'factories/blueprints', label: 'Blueprints' },
+								{ slug: 'factories/blueprints/stages', label: 'Defining Blueprint stages' },
+								{ slug: 'factories/blueprints/routes', label: 'Configuring Blueprint transitions' },
+								{ slug: 'factories/blueprints/gates', label: 'Adding gates to a Blueprint' },
+							],
+						},
+						{
+							label: 'Factory workers',
+							items: [
+								{ slug: 'factories/factory-agents', label: 'Factory workers' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory workers' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom workers' },
+							],
+						},
+						{
+							label: 'Harnesses',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/harnesses', label: 'Overview' },
+								{ slug: 'factories/harnesses/warp-agent', label: 'Warp Agent' },
+								{ slug: 'factories/harnesses/claude-code', label: 'Claude Code' },
+								{ slug: 'factories/harnesses/codex', label: 'Codex' },
+								{ slug: 'factories/harnesses/pi', label: 'Pi' },
+								{ slug: 'factories/harnesses/authentication', label: 'Authentication' },
 							],
 						},
 						{ slug: 'factories/factory-skills', label: 'Factory skills' },
@@ -435,15 +444,28 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// now the Automations primitive's conceptual home, parallel to Factory
 						// agents and Factory skills, not just a filters reference.
 						{ slug: 'factories/automations', label: 'Factory automations' },
-						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{ slug: 'factories/automation-triggers' },
+						{ slug: 'factories/factory-as-code', label: 'Factory definition as code' },
 						{ slug: 'factories/permissions', label: 'Factory permissions' },
 						{
 							label: 'Infrastructure',
 							items: [
-								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
+								{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure and security' },
+								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
+								{ slug: 'factories/zero-data-retention', label: 'Zero data retention (ZDR)' },
 								{ slug: 'factories/runners', label: 'Runners' },
+								{
+									label: 'Environments',
+									collapsed: true,
+									items: [
+										{ slug: 'factories/environments', label: 'Overview' },
+										{ slug: 'factories/environments/configuring-environments', label: 'Configuring environments' },
+										{ slug: 'factories/environments/troubleshooting-environments', label: 'Troubleshooting' },
+									],
+								},
+								{ slug: 'factories/mcp', label: 'MCP servers for agents' },
 								{
 									label: 'Managed self-hosting',
 									collapsed: true,
@@ -464,6 +486,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								},
 								{
 									label: 'Secrets',
+									collapsed: true,
 									items: [
 										{ slug: 'factories/secrets', label: 'Managing factory secrets' },
 										{ slug: 'factories/secrets/aws-ecr', label: 'AWS ECR credentials' },
@@ -509,6 +532,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{ slug: 'factories/integrations/permissions' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
 						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
@@ -544,17 +568,64 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// The factory dashboard and inbox are operational surfaces. Measurement
-					// and optimization pages live earlier under 'Measure and improve'.
 					label: 'Management & observability',
 					items: [
-						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
+						{ slug: 'factories/factory-home' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
+						{ slug: 'factories/artifacts', label: 'Artifacts' },
+						{ slug: 'factories/preview-urls', label: 'Preview URLs' },
 					],
 				},
-				// Keep troubleshooting as a direct trailing item rather than creating a
-				// singleton group.
-				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
+				{
+					label: 'Plans & support',
+					items: [
+						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
+						'support-and-community/plans-and-billing/credits',
+						'support-and-community/plans-and-billing/add-on-credits',
+						{ slug: 'support-and-community/plans-and-billing/pricing-faqs', label: 'Pricing FAQs' },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
+						{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
+						{ label: 'Contact support', link: '/support-and-community/#contact-support' },
+					],
+				},
+				{
+					label: 'Guides',
+					items: [
+						{ slug: 'factories/guides', label: 'Overview' },
+						{ slug: 'factories/guides/structuring-your-factory', label: 'Factory boundaries' },
+						{
+							label: 'Configure your factory',
+							items: [
+								{ slug: 'factories/guides/web-application-factory', label: 'Web application factory' },
+								{ slug: 'factories/guides/monorepo-factory', label: 'Monorepo factory' },
+								{ slug: 'factories/guides/microservices-factory', label: 'Microservices factory' },
+								{ slug: 'factories/guides/multi-repository-factory', label: 'Multi-repository factory' },
+							],
+						},
+						{ slug: 'factories/guides/testing-and-tuning-your-factory', label: 'Testing and tuning' },
+						{
+							label: 'Connect work intake',
+							items: [
+								{ slug: 'factories/guides/slack-to-pull-request', label: 'Slack to pull request' },
+								{ slug: 'factories/guides/jira-to-pull-request', label: 'Jira to pull request' },
+								{ slug: 'factories/guides/linear-to-pull-request', label: 'Linear to pull request' },
+								{ slug: 'factories/guides/github-issue-to-pull-request', label: 'GitHub issue to pull request' },
+							],
+						},
+					],
+				},
+				{
+					label: 'Factory use cases',
+					items: [
+						{ slug: 'factories/use-cases', label: 'Overview' },
+						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
+						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
+						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
+						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
+						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
+						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
+					],
+				},
 			],
 		},
 		{
@@ -591,33 +662,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{
-							// Runtime (which agent executes the run) is kept separate from
-							// configuration (how any run is set up) -- HYC review, 8/14.
-							// 'Harness' is product terminology, not docs jargon: it is the
-							// Agent harness dropdown in the Warp app, the Harness field in the
-							// web app, --harness on the CLI, and the harness field in the API.
-							label: 'Harnesses',
-							collapsed: true,
-							items: [
-								{ slug: 'platform/harnesses', label: 'Overview' },
-								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent (Default)' },
-								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
-								{ slug: 'platform/harnesses/codex', label: 'Codex' },
-								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
-							],
-						},
-						{
-							// Every page here is cross-harness, verified 8/14: platform/agents has
-							// zero harness-specific content; skills-as-agents documents
-							// .claude/skills/ and .codex/skills/; secrets uses OPENAI_API_KEY as its
-							// example and both third-party harness pages link to it; mcp states no
-							// harness constraint. Do not add Warp-Agent-specific pages to this group.
 							label: 'Agent configuration',
 							collapsed: true,
 							items: [
 								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
-								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
-								{ slug: 'platform/mcp', label: 'MCP servers' },
+								{ label: 'Skills for agents', link: '/agents/capabilities/skills/#running-agents-from-skills' },
 								'platform/secrets',
 							],
 						},
@@ -649,15 +698,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
-						{ slug: 'platform/execution-security', label: 'Execution security' },
-					],
-				},
-				{
-					label: 'Environments',
-					items: [
-						{ slug: 'platform/environments', label: 'Overview' },
-						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
-						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
 					],
 				},
 				{
@@ -750,7 +790,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				// the Automation Platform, API & Reference, and Enterprise tabs.
 				{ slug: 'support-and-community', label: 'Overview' },
 				{
-					label: 'Troubleshooting and support',
+					label: 'Troubleshooting & support',
 					items: [
 						{ slug: 'support-and-community/troubleshooting-and-support/sending-us-feedback', label: 'Sending Feedback & Logs' },
 						'support-and-community/troubleshooting-and-support/known-issues',
@@ -761,7 +801,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Plans and billing',
+					label: 'Plans & billing',
 					items: [
 						{ slug: 'support-and-community/plans-and-billing', label: 'Overview' },
 						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, pricing, and refunds' },
@@ -772,7 +812,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Privacy, security, and licensing',
+					label: 'Privacy, security, & licensing',
 					items: [
 						'support-and-community/privacy-and-security/privacy',
 						'support-and-community/privacy-and-security/secret-redaction',
@@ -810,7 +850,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Security and compliance',
+					label: 'Security & compliance',
 					items: [
 						{ slug: 'enterprise/security-and-compliance/security-overview', label: 'Security overview' },
 						{ slug: 'enterprise/security-and-compliance/sso', label: 'Single Sign-On (SSO)' },
@@ -839,7 +879,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Support and resources',
+					label: 'Support & resources',
 					items: [
 						'enterprise/support-and-resources/billing',
 						{ slug: 'enterprise/support-and-resources/troubleshooting-login', label: 'Troubleshooting login' },
@@ -869,6 +909,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Agent workflows',
 					items: [
+						{ slug: 'guides/agent-workflows/running-an-issue-to-pr-blueprint', label: 'Running an issue-to-PR Blueprint' },
 						{ slug: 'guides/agent-workflows/how-to-review-ai-generated-code', label: 'Review AI-generated code' },
 						{ slug: 'guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs', label: 'Attach agent context to PRs' },
 						{ slug: 'guides/agent-workflows/how-to-run-unattended-agents', label: 'Run agents unattended' },
@@ -889,7 +930,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/build-a-triage-agent', label: 'Build a triage agent' },
 						{ slug: 'guides/agent-workflows/write-product-and-tech-specs-with-agents', label: 'Write specs with agents' },
 						{ slug: 'guides/agent-workflows/set-up-a-software-factory', label: 'Set up your software factory' },
-						{ slug: 'guides/agent-workflows/run-a-software-factory-in-the-cloud', label: 'Run a software factory in the cloud' },
 						{ slug: 'guides/agent-workflows/build-a-self-improving-agent', label: 'Build a self-improving agent' },
 					],
 				},
@@ -901,7 +941,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/configuration/how-to-set-tech-stack-preferences-with-rules', label: 'Set tech stack preferences with Rules' },
 						{ slug: 'guides/configuration/how-to-set-coding-preferences-with-rules', label: 'Set coding preferences with Rules' },
 						{ slug: 'guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles', label: 'Configure Agent Profiles (YOLO & strategic)' },
-						{ slug: 'guides/configuration/how-to-use-agent-profiles-efficiently', label: 'Use Agent Profiles efficiently' },
 						{ slug: 'guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents', label: 'Use tokens efficiently' },
 						{ slug: 'guides/configuration/creating-rules-for-agents', label: 'Create reusable Rules for your team' },
 						{ slug: 'guides/configuration/trigger-reusable-actions-with-saved-prompts', label: 'Trigger reusable actions with saved prompts' },

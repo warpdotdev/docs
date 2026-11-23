@@ -35,8 +35,11 @@ The `low`, `medium`, `high`, `xhigh`, and `max` suffixes select increasing reaso
 
 | Model | Supported `model_id` values |
 | --- | --- |
+| GPT-6.2 Astra | `gpt-6-2-astra-low`, `gpt-6-2-astra-medium`, `gpt-6-2-astra-high`, `gpt-6-2-astra-xhigh`, `gpt-6-2-astra-max` |
+| GPT-6.2 Sol | `gpt-6-2-sol-low`, `gpt-6-2-sol-medium`, `gpt-6-2-sol-high`, `gpt-6-2-sol-xhigh`, `gpt-6-2-sol-max` |
 | GPT-6 Astra | `gpt-6-astra-low`, `gpt-6-astra-medium`, `gpt-6-astra-high`, `gpt-6-astra-xhigh`, `gpt-6-astra-max` |
 | GPT-6.1 Sol | `gpt-6-1-sol-low`, `gpt-6-1-sol-medium`, `gpt-6-1-sol-high`, `gpt-6-1-sol-xhigh`, `gpt-6-1-sol-max` |
+| GPT-6.1 Terra | `gpt-6-1-terra-low`, `gpt-6-1-terra-medium`, `gpt-6-1-terra-high`, `gpt-6-1-terra-xhigh` |
 | GPT-6 Sol | `gpt-6-sol-low`, `gpt-6-sol-medium`, `gpt-6-sol-high`, `gpt-6-sol-xhigh`, `gpt-6-sol-max` |
 | GPT-6 Luna | `gpt-6-luna-low`, `gpt-6-luna-medium`, `gpt-6-luna-high`, `gpt-6-luna-xhigh`, `gpt-6-luna-max` |
 | GPT-5.6 Sol | `gpt-5-6-sol-low`, `gpt-5-6-sol-medium`, `gpt-5-6-sol-high`, `gpt-5-6-sol-xhigh` |
@@ -55,6 +58,7 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 | --- | --- | --- |
 | Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` | `claude-5-5-opus-high` |
 | Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` | `claude-5-opus-high` |
+| Claude Fable 5.2 | `claude-5-2-fable-low`, `claude-5-2-fable-medium`, `claude-5-2-fable-high`, `claude-5-2-fable-xhigh`, `claude-5-2-fable-max` | Choose an effort-specific ID |
 | Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` | `claude-5-1-fable-high` |
 | Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` | `claude-5-fable-high` |
 | Claude Sonnet 5.5 | `claude-5-5-sonnet-low`, `claude-5-5-sonnet-medium`, `claude-5-5-sonnet-high`, `claude-5-5-sonnet-xhigh`, `claude-5-5-sonnet-max` | `claude-5-5-sonnet-xhigh` |
@@ -71,13 +75,17 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.
 
 :::caution
-Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
+Some Anthropic models require data retention regardless of your **Help improve Warp** setting. Check [models requiring provider retention](#models-requiring-provider-retention) before selecting a model.
 :::
 
 #### Google
 
-| Model | `model_id` |
+| Model | Supported `model_id` values |
 | --- | --- |
+| Gemini 4 Neon | `gemini-4-neon-low`, `gemini-4-neon-medium`, `gemini-4-neon-high`, `gemini-4-neon-xhigh` |
+| Gemini 4 Hydrogen | `gemini-4-hydrogen-low`, `gemini-4-hydrogen-medium`, `gemini-4-hydrogen` (high), `gemini-4-hydrogen-xhigh` |
+| Gemini 4 Carbon | `gemini-4-carbon-low`, `gemini-4-carbon` (medium), `gemini-4-carbon-high` |
+| Gemini 4 Argon | `gemini-4-argon` |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
 | Gemini 3.8 Flash | `gemini-3.8-flash` |
 | Gemini 3.7 Flash | `gemini-3.7-flash` |
@@ -114,6 +122,7 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 | --- | --- |
 | GLM 5.3 | `glm-5.3-fireworks` |
 | GLM 5.3 Flash | `glm-5.3-flash-fireworks` |
+| Kimi K3.1 Pro | `kimi-k3.1-pro-fireworks` |
 | Kimi K3 | `kimi-k3-fireworks` |
 | Minimax 3 | `minimax-3-fireworks` |
 | Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
@@ -152,23 +161,47 @@ You can configure the base model for each [Agent Profile](/agents/capabilities/a
 
 Edit your default profile or any other profile directly in **Settings** > **Agents** > **Profiles**.
 
-### Zero data retention policies
+### Reviewing inference and privacy in Terminal
 
-Warp integrates with multiple large language model (LLM) providers to power its AI-driven features.
+Before sending sensitive content through Warp Terminal:
 
-**These providers include, but are not limited to:**
+1. In the Warp app's prompt input, click the model name and choose a model that isn't among the [models that require data retention](#models-requiring-provider-retention).
+2. In **Settings** > **Agents** > **Profiles**, review the active profile's base model. For a [custom router](/agents/inference/custom-routers/), review every target and its default.
+3. In **Settings** > **Agents** > **Warp Agent**, review personal keys, endpoints, and subscriptions, plus any [team configuration](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). Search Settings for `API keys` to find personal keys. For customer-managed inference, verify provider ZDR; review [BYOK fallback](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior) if enabled.
+4. In **Settings** > **Privacy**, review **Help improve Warp**, **Send crash reports**, and **Store AI conversations in the cloud** separately. See [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage).
 
-* OpenAI
-* Anthropic
-* Google
-* xAI
-* Fireworks AI
+Confirm the model displayed before your next prompt.
 
-Warp has executed **Zero Data Retention (ZDR)** agreements with these providers. This means that, by default across all plans:
+### Reviewing inference and privacy for factories
 
-* LLM providers commit not to train their models on any customer-generated data processed through Warp’s services.
-* LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.
+For factory runs, ask a team admin to review the [Models settings in the Admin Panel](/enterprise/team-management/admin-panel/#models-settings) for shared provider credentials and the model restrictions available on your plan. Review [team content collection in the Admin Panel](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel) separately.
 
-Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
+Then review the factory's [agent models and overrides](/factories/factory-agents/configuration/#reviewing-inference-for-provider-zdr). See [factory ZDR guidance](/factories/zero-data-retention/) for provider coverage and run-storage boundaries.
 
-Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
+<span id="zero-data-retention-policies" />
+
+### Zero data retention (ZDR)
+
+Warp's provider Zero Data Retention (ZDR) agreements apply to supported models on every plan when Warp supplies the provider account. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) for the policy.
+
+Some models require provider data retention and aren't covered by these agreements.
+
+<span id="models-requiring-provider-retention" />
+
+#### Models that require data retention
+
+This list applies to Warp-managed inference in both Warp Terminal and factory runs.
+
+Anthropic requires data retention for safety, abuse monitoring, and compliance. This requirement applies to the following models at every effort level:
+
+* Claude Fable 5
+* Claude Fable 5.1
+* Claude Fable 5.2
+
+Turning off the **Help improve Warp** toggle doesn't remove these retention requirements.
+
+For Enterprise teams, these models are disabled by default and a workspace admin must enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
+
+If you use your own provider account, [verify retention with your provider](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr). Choosing a model outside this list doesn't establish ZDR coverage for requests through your own provider account.
+
+For factory-specific model settings and coverage limits, use [factory ZDR guidance](/factories/zero-data-retention/).

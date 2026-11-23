@@ -403,7 +403,7 @@ No. Unlike [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedro
 
 ### Does Gemini Enterprise work with cloud agents?
 
-Not yet. Gemini Enterprise currently routes interactive agent requests in the Warp app. Cloud agent BYOLLM is available today through [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/#enabling-byollm-for-cloud-agents), and Gemini Enterprise support for cloud agents is planned.
+Not yet. Gemini Enterprise routes interactive agent requests in the Warp app, not cloud runs. For cloud agent BYOLLM, use [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/#enabling-byollm-for-cloud-agents).
 
 ### Which Claude models route through my project?
 
@@ -413,12 +413,14 @@ Claude models offered as Vertex AI partner models (current Sonnet, Opus, Haiku, 
 
 Yes. Admins can disable Direct API access for models on the **Models** page so eligible requests only route through your project. Note that disabling any Direct API model also disables Auto model selection.
 
-## Related resources
+<span id="related-resources" />
+
+## Related pages
 
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM overview and provider comparison
 * [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) - Route inference through your AWS account
-* [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
+* [Team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
-* [Model Choice](/agents/inference/model-choice/) - Full list of supported models
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings
+* [Agent model choice](/agents/inference/model-choice/) - Full list of supported models
+* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - Configure team settings
 * [Contact sales](https://www.warp.dev/contact-sales) - Get help with Enterprise setup

@@ -346,7 +346,7 @@ However, when using BYOLLM:
 
 **BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
 
-Business and Enterprise admins can also centrally manage BYOK itself: [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) let an admin configure shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents. The table below compares BYOLLM with the self-serve, user-level form of BYOK. For a side-by-side comparison that also includes team-managed keys and endpoints, see [How team-managed providers differ from self-serve BYOK and BYOLLM](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm).
+Admins on [eligible plans by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) can also configure shared provider keys and OpenAI-compatible endpoints for interactive requests and cloud agents. The table below compares BYOLLM with personal BYOK; see the [full configuration comparison](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm) for team-managed options.
 
 | Feature | BYOK | BYOLLM |
 | --- | --- | --- |
@@ -366,12 +366,14 @@ Warp **does not store or log** your cloud credentials.
 
 Yes. Admins can configure routing policies to require specific models to use BYOLLM and disable direct API access to Warp-managed model endpoints.
 
-## Related resources
+<span id="related-resources" />
 
-* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — BYOLLM overview and provider comparison
-* [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) — Route inference through your Google Cloud project
+## Related pages
+
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM overview and provider comparison
+* [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) - Route inference through your Google Cloud project
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/)
-* [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) — Business and Enterprise admins configure shared provider keys and custom endpoints for the team
-* [Model Choice](/agents/inference/model-choice/) — Full list of supported models
-* [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
-* [Contact Sales](https://www.warp.dev/contact-sales) — Get help with enterprise setup
+* [Team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure shared provider keys and custom endpoints
+* [Agent model choice](/agents/inference/model-choice/) - Full list of supported models
+* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - Configure team settings
+* [Contact sales](https://www.warp.dev/contact-sales) - Get help with Enterprise setup

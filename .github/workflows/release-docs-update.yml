@@ -106,7 +106,7 @@ jobs:
           PY
 
       # Installs the stable oz CLI and runs the release_updates skill in the
-      # release-docs Oz environment (K5KStCm5aYvhfBJb8cHol6).
+      # release-docs Oz environment (Da24V6PPnpdMlmfkppRb1i).
       # WARP_API_KEY is the Docs Agent's API key.
       # DOCS_SLACK_BOT_TOKEN must be added to the environment for Slack notifications.
       - name: Install Oz CLI
@@ -165,7 +165,7 @@ jobs:
           WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
         run: |
           OUTPUT=$(oz agent run-cloud \
-            --environment K5KStCm5aYvhfBJb8cHol6 \
+            --environment Da24V6PPnpdMlmfkppRb1i \
             --skill warpdotdev/docs:release_updates \
             --prompt "$(cat /tmp/oz_prompt.txt)")
           echo "$OUTPUT"

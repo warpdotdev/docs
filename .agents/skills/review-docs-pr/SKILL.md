@@ -72,12 +72,18 @@ review focus areas, this pass is the human-review-blocking gate defined in
 
 ## Review Instructions
 
+Read and apply `.agents/references/compliance-claims-policy.md`. Flag customer-facing HIPAA references, implications of HIPAA-regulated-workload or HIPAA business associate agreement support, and other compliance promises without current Security or Legal approval as critical accuracy findings and request changes. Existing docs, source code, general approvals, and public `VERIFY` markers do not satisfy that policy.
+
 Review this documentation PR for the docs repository.
 
 Focus on:
 1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
-3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers and lists. For setup instructions, check each requirement:
+3. **Content quality**: Apply the [Content review process](../../../AGENTS.md#content-review-process) to new drafts and revisions. Check that the heading and opening reveal the answer or first action, choices explain when and where to act, and examples resolve uncertainty without adding unsupported behavior. Check for proper frontmatter and appropriate headers and lists. For setup instructions, check each requirement:
+   * Prerequisites precede dependent steps. Conditions needed to decide whether, when, or by whom to act precede the action. Procedure-wide requirements stay in prerequisites rather than being repeated in each step.
+   * Goal-first instructions name the destination when readers choose where to make a change. Established procedures give the location and action directly. In behavior explanations, an unambiguous qualification can follow the main statement. Don't request reordering solely to enforce a preferred pattern.
+   * Each instruction has its own sentence. Separate purposes, conditions, or locations are not bundled with a semicolon.
+   * Reader actions, automatic product behavior, and other people's responsibilities are distinct. Interface names are exact and pronouns unambiguous.
    * The task is stated before fields or example names.
    * Each selection explains what the agent, environment, or credential is used for, not only its name.
    * Readers can find the supported path to edit or select an existing resource instead of creating a duplicate.
@@ -96,7 +102,7 @@ Focus on:
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to the `redirects` array in `vercel.json` when needed.
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
 7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
-8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
+8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Read once for repetition and remove sentences that add no information needed to understand, decide, act, or verify. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
 9. **Unreleased features**: For any PR, agent-marked or not, apply item 5 of the v1 contract above to server-backed claims. A launch PR is not exempt; Gate 0 applies to launches too.
 10. **AEO/source-data fit**:
 
@@ -104,7 +110,7 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 
 Include an editorial verdict in the review rationale: reader task, concept ownership across siblings, unnecessary scaffolds or repetition removed, unsupported assurances, and useful understanding preserved. Identify each unconfirmed claim and its narrow correction. Removing a page or changing its purpose requires human approval; a transition guide is not interchangeable with a chooser.
 
-Use `.agents/rules/oz-style-guidelines.md` for framing and the canonical glossary for terminology. Historical Oz references, commands, and package names are not automatic rename findings.
+Read and apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for terminology. Check definitions, openings, descriptions, and changed explanatory copy against rule P1, including definitions of a customer's factory. Team-of-agents and equivalent staffing metaphors are important positioning findings, not optional style preferences. Preserve shipped role names and literal interfaces. Verify technical promises independently under rule P2; when source evidence is missing, report insufficient evidence rather than approval. Historical Oz references, commands, and package names are not automatic rename findings.
 
 ### Severity Labels (Required)
 

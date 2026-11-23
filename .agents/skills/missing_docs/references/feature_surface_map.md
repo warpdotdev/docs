@@ -55,7 +55,7 @@ CrossRepoContext -> src/content/docs/agents/capabilities/codebase-context.mdx
 FullSourceCodeEmbedding -> src/content/docs/agents/capabilities/codebase-context.mdx
 SearchCodebaseUI -> src/content/docs/agents/capabilities/codebase-context.mdx
 RemoteCodebaseIndexing -> src/content/docs/agents/capabilities/codebase-context.mdx
-CloudEnvironments -> src/content/docs/platform/environments.md
+CloudEnvironments -> src/content/docs/factories/environments.mdx
 CloudMode -> src/content/docs/platform/index.mdx
 AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
 ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
@@ -191,7 +191,7 @@ ArtifactCommand -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
 OzIdentityFederation -> src/content/docs/agents/cli/oz-cli/federate.mdx
 
 # Third-party harness support
-AgentHarness -> src/content/docs/platform/harnesses/index.mdx
+AgentHarness -> src/content/docs/factories/harnesses/index.mdx
 
 # Image context for cloud agents
 AmbientAgentsImageUpload -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
@@ -353,6 +353,15 @@ oz harness-support -> internal
 POST /agent/run -> src/content/docs/factories/api-and-sdk/index.mdx
 GET /agent/runs -> src/content/docs/factories/api-and-sdk/index.mdx
 GET /agent/runs/{runId} -> src/content/docs/factories/api-and-sdk/index.mdx
+# These operations are now present in the released export; supersedes their
+# earlier internal audit dispositions without changing the generated contract.
+POST /agent/runs/batch-get -> src/content/docs/factories/api-and-sdk/index.mdx
+GET /agent/runs/{runId}/diagnostics -> src/content/docs/factories/api-and-sdk/index.mdx
+# x-internal upstream and absent from the released export on 2026-11-05.
+# Recheck each method/path through the server publisher before documenting it.
+GET /agent/runs/{runId}/blueprint -> internal
+GET /agent/runs/{runId}/blueprint-routing -> internal
+GET /teams -> internal
 
 # OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
 GET /oauth/authorize -> internal
@@ -426,6 +435,11 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
+# Runtime support operations are x-internal upstream and absent from the
+# released export at warp-server e5b793f750. Recheck public publication and GA.
+POST /harness-support/publish-pr-media -> internal
+POST /harness-support/screenshot-upload-target -> internal
+POST /harness-support/wait-for-events -> internal
 # Cumulative Claude Code / Codex usage snapshot for the current cloud execution
 # (publishHarnessUsage). Marked `x-internal: true` upstream; harness-support tag
 # is excluded from the released docs OpenAPI copy.
@@ -437,8 +451,6 @@ GET /agent/runs/{runId}/harness-usage -> internal
 # workflow's released export before treating these as public API operations.
 GET /agent/previews -> internal
 GET /agent/previews/{previewId} -> internal
-POST /agent/runs/batch-get -> internal
-GET /agent/runs/{runId}/diagnostics -> internal
 # Run-scoped preview listing is x-internal upstream and absent from the
 # released export at warp-server b3186896ec. Recheck public publication and GA.
 GET /agent/runs/{runId}/previews -> internal
@@ -456,6 +468,16 @@ POST /agent/runs/{runId}/previews -> internal
 # recheck them with the server publication workflow owner as exports change.
 GET /factory -> internal
 GET /factory/access -> internal
+# Setup blueprint lookup is x-internal upstream and absent from the released
+# export at warp-server e5b793f750; recheck this operation before documenting it.
+GET /factory-setup/default-blueprints/{variant} -> internal
+# Backfill preview has its own unpublished operation; a released scorer sibling
+# does not release it. Recheck public publication and GA availability.
+POST /factory/{uid}/scorers/{scorer_uid}/backfill/preview -> internal
+# Prototype queries are x-internal upstream and absent from the released
+# export at warp-server e5b793f750. No public API instructions.
+GET /metrics-prototype -> internal
+GET /metrics-prototype/{metric} -> internal
 # Personal factory task inbox (router/handlers/public_api/factory_inbox.go).
 # Sibling of the unreleased `/factory` REST surface; released OpenAPI has no
 # `/factory-inbox` paths either. Stays internal until the Factory API ships.
@@ -475,6 +497,12 @@ POST /factory-inbox/notifications/unread -> internal
 # (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
 # marked `x-internal: true` upstream.
 GET /factory-inbox/notifications/{uid} -> internal
+# Push operations are x-internal upstream and absent from the released export
+# on 2026-11-05. Recheck public publication and GA availability individually.
+POST /factory-inbox/push/apns/devices -> internal
+POST /factory-inbox/push/apns/devices/unregister -> internal
+GET /factory-inbox/push/preferences -> internal
+PATCH /factory-inbox/push/preferences -> internal
 # Answer all questions on a current inbox notification with one root-run
 # follow-up (answerFactoryQuestions / AnswerFactoryQuestionsHandler,
 # factory_inbox.go). Same unreleased `/factory-inbox` namespace; operation
@@ -485,6 +513,11 @@ GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
 GET /factory/{uid} -> internal
+# x-internal upstream and absent from the released export on 2026-11-05.
+# Recheck this operation's public publication and GA availability.
+GET /factory/{uid}/blueprint-run-summaries -> internal
+# Already present in the released contract; no hand-written API instructions.
+POST /factory/{uid}/blueprint-proposal -> src/content/docs/factories/factory-api.mdx
 # The owning team's model catalog plus the factory and team-cloud router
 # definitions applied to it (listFactoryModels). Marked `x-internal: true`
 # upstream; same unreleased `/factory` namespace.
@@ -744,8 +777,9 @@ GET /agent/events/stream -> internal
 # src/content/docs/platform/warp-hosting.mdx under "Networking". Revisit and
 # report publication drift to the server workflow owner if the marker comes off.
 GET /networking/egress-ranges -> internal
-# Canonical operation exists but has not reached the released docs export.
-GET /networking/policies -> internal
+# Present in the released export as of 2026-11-05; supersedes the earlier
+# internal audit disposition. The generated API reference owns the contract.
+GET /networking/policies -> src/content/docs/factories/api-and-sdk/index.mdx
 
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
@@ -1053,6 +1087,21 @@ FileBackedExecutionProfiles
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
+# GA on current warp a45a951935, but a server flag remains off in production
+# at warp-server e5b793f750. Recheck production availability before drafting.
+FactorySkillReferences
+# Preview process-liveness sampling, not a customer configuration surface
+# (execute/shell_command.rs); retain its status-change delta until GA.
+LrcActivitySignal
+# Non-GA at warp a45a951935. Retain all added-flag deltas and recheck promotion;
+# these entries do not establish production availability or a terminal verdict.
+AgentPromptSteering
+GitMirrorCache
+ManagedMcpCredentialRefresh
+PreviewUrlsMcp
+RestoreLocalSubtree
+# Local/experimental cloud skill discovery in agent_sdk/driver.rs, not GA.
+CwdScopedCloudSkills
 LSPAsATool
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView

@@ -1,0 +1,117 @@
+---
+title: Configuring Blueprint transitions
+description: >-
+  Configure entry points, ordered conditions, and revision loops in a Warp Factories Blueprint, then check the paths with concrete requests.
+---
+
+A transition tells the worker coordinating a Blueprint which stage to run next. You configure each stage's destination in `to`, either as one unconditional next stage or as a list of destinations with conditions. These paths can run stages in sequence, skip unnecessary work, return work for revision, or finish the workflow.
+
+For example, after an implementation stage returns a PR and check results, `to: review` sends work to the review stage. The coordinator gathers the review stage's declared inputs, including that PR and its tested head, and runs review with its assigned worker. Review's outgoing conditions then choose between returning findings to implementation and finishing with an accepted change.
+
+{/* VERIFY: Apply and exercise the transition examples, including overlapping conditions, unmatched outcomes, same-PR revisions, and existing-run definition retention before publication. */}
+
+## Set the entry transition
+
+In `factory.yaml`, `blueprint.start.to` chooses where new work enters. For one starting stage, use a scalar:
+
+```yaml title="Entry inside blueprint"
+start:
+  to: plan
+```
+
+For multiple paths, use ordered objects with `stage` and `when`. For example, if your Blueprint declares `plan` and `implement`:
+
+```yaml title="Conditional entry inside blueprint"
+start:
+  to:
+    - stage: plan
+      when: The request has unresolved decisions or explicitly requires a plan.
+    - stage: implement
+      when: The request is fully defined.
+```
+
+The worker driving the workflow judges these prose conditions and takes the first match. Put the more specific condition first. Conditions are not Boolean expressions evaluated by a rules engine. They can refer to the incoming request, a stage's reported results, or a named gate's answer, such as plan approval or requested changes.
+
+<span id="send-different-requests-to-different-stages" />
+
+### Example: Send different requests to different stages
+
+This example routes documentation-only changes to a documentation worker and unknown bugs to investigation. It assumes a workflow with `docs`, `triage`, and `implement` stages:
+
+```yaml title="Entry for documentation, investigation, and implementation"
+start:
+  to:
+    - stage: docs
+      when: The request is fully defined and changes only documentation.
+    - stage: triage
+      when: The cause or scope of the reported problem needs investigation.
+    - stage: implement
+      when: The request is fully defined and needs a code change.
+```
+
+Declare all three stages and their workers under `blueprint.stages`. A defined documentation change takes the first transition, not the implementation transition. A request that fits none of these conditions needs clarification.
+
+## Return review findings for revision
+
+1. In `blueprint.stages.implement`, set `to: review`.
+2. In the `review` stage, require outputs that distinguish findings from acceptance of a particular head.
+3. Replace review's unconditional exit with:
+
+   ```yaml title="Transitions inside the review stage"
+   to:
+     - stage: implement
+       when: Review found actionable changes for implementation.
+     - stage: end
+       when: Review accepted the current PR head with no changes required.
+   ```
+
+Every item in a conditional list needs `when`. For one unconditional transition, use `to: review` or `to: end`, not a list entry with a missing condition.
+
+The destination must be a sibling stage or `end`. The order of stage declarations does not set execution order. If no condition fits, the coordinator asks for the missing decision rather than silently treating the work as complete.
+
+Keep the PR and branch in the implementation stage's inputs and prompt so a revision updates the existing change. A return transition does not mean “open another PR.”
+
+## Stop after investigation
+
+For a triage-only workflow, return findings without starting implementation. With `investigator` and `foreman` workers declared, use these sibling stages and set `blueprint.start.to: triage`:
+
+```yaml title="Investigation and handoff stages"
+triage:
+  worker: investigator
+  inputs: The issue and repository context.
+  prompt: Investigate the reported problem. Do not edit code.
+  outputs: Evidence, affected files, open questions, and the recommended next action.
+  to: handoff
+handoff:
+  worker: foreman
+  inputs: The investigation findings.
+  prompt: Return the findings and questions to the requester. Do not start implementation.
+  outputs: The findings delivered to the requester.
+  to: end
+```
+
+Here, `end` finishes the configured workflow after handoff. It does not mean that the bug was fixed or a pull request was merged.
+
+Follow-ups to existing work resume the stage they concern. They do not repeat the entry rules as if every review reply were a new request.
+
+## Test the paths
+
+After [validation and application](/factories/factory-as-code/#validate-a-definition), start new test work in a disposable repository you control. Existing work items keep the definition selected when they started.
+
+| Test input or outcome | What to check |
+| --- | --- |
+| A request with an unresolved product decision | Planning runs before implementation |
+| A well-defined fix that also explicitly requires a plan | The first entry condition selects planning, not the broader implementation path |
+| A defined documentation-only request with the three-way entry example | The documentation stage runs, not implementation |
+| An investigation using the triage-only example | Findings return to the requester without code changes or implementation |
+| Actionable independent-review findings | The existing implementation conversation updates the same PR, then returns to review |
+| An outcome that satisfies neither review condition | The coordinator asks for a decision and does not finish |
+| A definition edit followed by a reply to an existing work item | The existing work item keeps its earlier workflow; separate new work uses the applied change |
+
+Inspect the conversations, PR identity, and tested commits. A completed run alone does not prove that the intended transition was taken.
+
+## Related pages
+
+* [Defining Blueprint stages](/factories/blueprints/stages/) - Supply the outputs conditions use
+* [Adding gates to a Blueprint](/factories/blueprints/gates/) - Transition approval and requested changes separately
+* [Factory automations](/factories/automations/) - Configure event matching without widening intake

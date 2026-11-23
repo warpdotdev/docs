@@ -7,8 +7,6 @@ description: >-
   Linear, issue comments, and chat while controlling access.
 ---
 
-import { VARS } from '@data/vars';
-
 When a cloud agent run opens or updates a pull request, the screenshots and video recordings it captured with [Computer Use](/agents/capabilities/computer-use/) are attached to the PR description automatically. Reviewers get visual proof of the change — a rendered UI state, a recorded flow, a bug reproduction — without leaving the pull request.
 
 ## What gets attached
@@ -54,15 +52,12 @@ Tell the agent where to share the captures. For example: "Post the screenshots t
 
 ## Where else artifacts appear
 
-Pull requests aren't the only place captures end up:
-
-* **In the conversation** - Screenshots and recordings appear as blocks in the agent's conversation as they're captured.
-* **On the run page** - Open the run in the [{VARS.WEB_APP}](/platform/oz-web-app/#runs) to view, play, or download all artifacts the run produced.
+To find captures alongside plans, uploaded reports, and linked outputs, see [Finding and sharing artifacts](https://docs.warp.dev/factories/artifacts/). The artifact workflow also applies to standalone cloud runs outside a factory.
 
 ## Related pages
 
-* [Computer Use](/agents/capabilities/computer-use/) - Control Computer Use and understand security considerations.
-* [Testing and recordings](/agents/capabilities/computer-use/testing-and-recordings/) - How the recording pipeline works and what finished videos contain.
-* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - The full reference for team settings, including the Platform section.
-* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open and inspect cloud agent run transcripts.
-* [Privacy](/support-and-community/privacy-and-security/privacy/) - Warp's data handling policies, including how run artifacts are stored.
+* [Computer Use for agents](/agents/capabilities/computer-use/) - Control Computer Use and understand security considerations
+* [Testing and recordings](/agents/capabilities/computer-use/testing-and-recordings/) - How the recording pipeline works and what finished videos contain
+* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - The full reference for team settings, including the Platform section
+* [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) - Open and inspect cloud agent run transcripts
+* [Privacy and data control](/support-and-community/privacy-and-security/privacy/) - Warp's data handling policies, including how run artifacts are stored

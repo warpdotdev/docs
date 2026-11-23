@@ -31,11 +31,33 @@ New factories have default automations enabled for GitHub activity:
 
 To confirm the connection works, mention **@warp** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
 
+## GitHub MCP
+
+GitHub MCP gives factory agents managed tools for GitHub API operations, such as reading issues, opening pull requests, and posting reviews. Agents use these tools instead of the GitHub CLI (`gh`). Ordinary Git operations, including clone, fetch, commit, and push, still use `git`.
+
+GitHub MCP is enabled by default for new factories. Factories created before the rollout keep their existing setting until you opt in. Changes apply to new Warp-hosted runs, not runs already in progress.
+
+### Enable GitHub MCP for an existing factory
+
+* **Integrations** - For a Warp-managed factory, open **Settings** > **Integrations** > **GitHub** in the [factory dashboard](/factories/factory-dashboard/) and toggle **Use GitHub MCP** on. The change saves automatically.
+* **Definition file** - Add `mcpEnabled: true` under the existing `github` mapping in `factory.yaml`, or add the mapping if it's absent:
+
+```yaml title="factory.yaml"
+github:
+  mcpEnabled: true
+```
+
+For a Warp-managed definition, open **Factory definition** in the factory dashboard, edit `factory.yaml`, and save. For a GitHub-backed definition, merge the change into its production branch and wait for a successful definition sync.
+
+If your factory's GitHub skill still instructs agents to use `gh`, update it using the [example pull request migrating the default GitHub skill to GitHub MCP](https://github.com/warpdotdev/warp-factory-examples/pull/13).
+
+Start a new Warp-hosted run and ask the agent to list open pull requests in a connected repository. Confirm the run uses GitHub MCP tools rather than `gh`.
+
 ## Add a custom automation
 
 For events without a default automation, add a GitHub trigger and narrow it with the filters below. See [editing automation filters](/factories/automations/#edit-filters-on-an-automation).
 
-For failed CI on the default branch, adapt this automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations):
+For failed CI on the default branch, adapt this automation from [`common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/common-automations):
 
 ```markdown title="automations/ci-failure-triage/automation.md"
 ---
@@ -104,7 +126,7 @@ Commit status triggers don't fire for pending statuses. In a definition file, us
 
 ## Mention the factory
 
-Add the factory's `factory:<alias>` label to the issue or pull request, then mention **@warp** in the opening body or a new comment. The alias is the **Foreman name** in the factory dashboard's **Identity** settings. Warp creates the label with the factory, and the factory replies in the same thread.
+Add the factory's `factory:<alias>` label to the issue or pull request, then mention **@warp** in the opening body or a new comment. The alias is the "Foreman name" in the factory dashboard's **Identity** settings. Warp creates the label with the factory, and the factory replies in the same thread.
 
 {/* VISUAL: An issue with the factory:<alias> label and an @warp mention -- the two-part mention ritual is easy to miss from prose alone. */}
 
@@ -129,6 +151,35 @@ Branches and pull requests the factory creates follow the repository's normal ru
 ## Permissions
 
 Runs authenticate with the GitHub App installation. Its repositories and permissions control access; [automation filters](/factories/automations/) only control when work starts.
+
+The [Warp Factories GitHub App](https://github.com/apps/warp-factories) requests the following permissions. Repository permissions apply to the repositories covered by the installation. A run doesn't necessarily use every grant.
+
+| Repository permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Actions (`actions`) | Write | Read CI logs and artifacts, and manage workflow runs | Broader than receiving workflow-completion events |
+| Administration (`administration`) | Read | Inspect repository settings, collaborators, and rules | Doesn't grant permission to change repository settings |
+| Checks (`checks`) | Write | Read check results and publish factory-definition checks | Separate from commit statuses |
+| Code scanning alerts (`security_events`) | Read | Inspect code-scanning findings for security work | Doesn't grant permission to change alerts |
+| Commit statuses (`statuses`) | Read | Inspect CI status on commits | Doesn't grant permission to publish commit statuses |
+| Contents (`contents`) | Write | Read code and create branches, commits, and repository changes | Repository rules and branch protection still apply |
+| Dependabot alerts (`vulnerability_alerts`) | Read | Inspect dependency vulnerability alerts for security work | Doesn't grant permission to change alerts |
+| Issues (`issues`) | Write | Read and update issues, comments, labels, and assignments | Broader than the issues matched by a trigger |
+| Metadata (`metadata`) | Read | Read basic repository information | Required by GitHub for installed apps |
+| Pull requests (`pull_requests`) | Write | Open and update pull requests, and post reviews and review comments | Required reviews and merge rules still apply |
+| Workflows (`workflows`) | Write | Update GitHub Actions workflow files | Separate from managing workflow runs |
+
+The app also requests permissions outside the repository:
+
+| Permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Organization members (`members`) | Read | Read organization membership, including checking an installer's organization role | Doesn't grant permission to manage membership |
+| Account email addresses (`emails`) | Read | Read a connected user's email addresses for account identification | Requires user authorization; isn't an installation-token grant |
+
+At installation, choose **All repositories** or **Only select repositories** to control repository access. Connecting a person's GitHub account is separate from installing the app. Repository selection doesn't narrow the organization or account permissions above.
+
+For example, a filter that starts work only on `main` doesn't restrict the installation token to `main`. Repository rules, including branch protection, still apply.
+
+To narrow access or uninstall the app, manage the installation in [GitHub's installation settings](https://github.com/settings/installations). Removing a trigger stops that route into the factory; it doesn't revoke the app's credentials.
 
 See [GitHub permissions and identity](/platform/integrations/github/#permissions-and-identity) for the full credential model.
 
@@ -160,7 +211,7 @@ GitHub triggers skip bot events by default. This includes completed GitHub Actio
 2. Click **More filters**. In the "Skip bot events" dropdown, choose **Self (Warp-owned bots)** to admit third-party bots while excluding Warp-owned bots, or **None** to admit all bots.
 3. Click **Save**, then generate a new matching event and check the factory's [Runs page](/factories/factory-dashboard/#inspect-runs).
 
-For [definitions as code](/factories/factory-as-code/), set `filter.skip_bots` to `self` or `none`. Omitted `skip_bots` defaults to `all`. Admitting Warp-owned bots can cause feedback loops when the factory's own actions match the trigger.
+For [factory definition files](/factories/factory-as-code/), set `filter.skip_bots` to `self` or `none`. Omitted `skip_bots` defaults to `all`. Admitting Warp-owned bots can cause feedback loops when the factory's own actions match the trigger.
 
 ### Filter options don't load
 
@@ -176,5 +227,6 @@ The check runs only for factories whose [definition is managed as code](/factori
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Factory automations](/factories/automations/) - Configure event matching
 * [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting) - Diagnose events that don't start work

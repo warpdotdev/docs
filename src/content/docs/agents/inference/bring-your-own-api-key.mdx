@@ -15,7 +15,7 @@ Your provider bills inference routed through your keys. Applicable [platform cha
 <VideoEmbed url="https://youtu.be/jbSBnbPzQwY" title="How to BYOK to the Warp Agent" />
 
 :::note
-BYOK is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
+Personal BYOK is available on the Free plan and eligible paid plans for Warp Terminal and local agents for individuals and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan for Warp Terminal and local agents.
 :::
 
 ## How BYOK differs from custom inference endpoints and BYOLLM
@@ -24,25 +24,25 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 
 | Name | Meaning | Plans |
 | --- | --- | --- |
-| **Personal BYOK** | Use your own API key for OpenAI, Anthropic, or Google models in local Warp Agent runs. Keys are stored on your device. | Free and all eligible paid plans |
-| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Connect local Warp Agent runs to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
-| **[Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | An admin configures shared provider keys or endpoints for local and cloud Warp Agent runs. | Business and Enterprise |
-| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Route inference through your organization's AWS Bedrock or Gemini Enterprise (Vertex AI) account. See the provider guides for cloud support. | Enterprise only |
-| **[SuperGrok subscription](/agents/inference/grok-subscription/)** | Connect your SuperGrok subscription to use Grok models through your xAI account. Tokens are stored locally on your device. | Free and all eligible paid plans |
+| **Personal BYOK** | Use your own API key for OpenAI, Anthropic, or Google models in local Warp Agent runs. Keys are stored on your device. | Free and eligible paid plans for Warp Terminal and local agents |
+| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Connect local Warp Agent runs to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and eligible paid plans for Warp Terminal and local agents |
+| **[Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | An admin configures shared provider keys or endpoints for local and cloud Warp Agent runs. | See [eligibility by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) |
+| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Route inference through your organization's AWS Bedrock or Gemini Enterprise (Vertex AI) account. See the provider guides for cloud support. | Enterprise agreement |
+| **[SuperGrok subscription](/agents/inference/grok-subscription/)** | Connect your SuperGrok subscription to use Grok models through your xAI account. Tokens are stored locally on your device. | Free and eligible paid plans for Warp Terminal and local agents |
 | **[ChatGPT subscription](/agents/inference/chatgpt-subscription/)** | Connect your ChatGPT plan to use eligible OpenAI models with the Warp Agent in the Warp app. | See [Warp pricing](https://www.warp.dev/pricing) |
 
 See [Warp pricing](https://www.warp.dev/pricing) for current plan availability.
 
-Cloud runs incur platform charges for billable agent time. Local runs on Business and Enterprise that use customer-supplied inference also incur platform charges. See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for rates and contract-specific terms.
+Cloud runs incur platform charges for billable agent time. Customer-supplied inference in local runs can also incur these charges. See [platform billing by product](/support-and-community/plans-and-billing/platform-credits/#when-platform-charges-apply).
 
-You can't connect a Claude consumer subscription to the Warp Agent. To use your own Anthropic account, configure BYOK; Anthropic bills API usage separately from a subscription.
+You can't connect a Claude consumer subscription to the Warp Agent. For API-key access to your Anthropic account, configure BYOK; Anthropic bills API usage separately from a subscription. For organization-linked billing without an API key, see [Managing Claude linked billing](/agents/inference/claude-platform-linked-billing/).
 
 ## How BYOK works
 
 Personal API keys are stored in your device's secure storage. When you select a provider model with a key icon, your prompt, context, and key pass through Warp's servers to that provider. Warp does not retain your personal API key.
 
 :::caution
-Personal BYOK keys work for local Warp Agent runs, not [cloud runs](/platform/). Business and Enterprise teams can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which Warp stores securely for local and cloud inference.
+Personal BYOK keys work for local Warp Agent runs, not [cloud runs](/platform/). Use [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for shared inference in factory runs.
 :::
 
 ## Enabling BYOK
@@ -86,7 +86,7 @@ Personal BYOK doesn't change the inference configuration of these features:
 | ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
 | [Active AI Recommendations](/agents/local-agents/active-ai/) | No                  | Always included with Build and higher plans.                         |
 | [Codebase Context](/agents/capabilities/codebase-context/)               | Yes                 | Uses Warp-provided inference.                  |
-| [Cloud Agents](/platform/) | Yes                 | Personal keys aren't available. Business and Enterprise teams can use [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/); applicable platform and Warp-hosted compute charges remain. |
+| [Cloud Agents](/platform/) | Yes                 | Personal keys aren't available. Eligible teams can use [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility); applicable platform and Warp-hosted compute charges remain. |
 
 ### Failover and fallback behavior
 
@@ -105,29 +105,33 @@ You can update or replace your keys anytime by opening **Settings** and searchin
 
 ### Zero Data Retention (ZDR) and BYOK
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** policies with all of its contracted LLM providers. No customer AI data is retained, stored, or used for training by the model providers.
+Warp has a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security).
 
-BYOK prompts and responses transit Warp's backend (see [How BYOK works](#how-byok-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
+Warp's [provider ZDR policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) applies to supported models accessed through Warp's provider accounts, but not to requests made through your own key.
 
-However, when you use your own API key:
+Provider-side retention for BYOK depends on your provider account settings. Verify ZDR with your provider for the specific account, model, and configuration. Warp cannot enforce provider ZDR for BYOK.
 
-* Data retention policies on the **provider side** depend on your provider’s account settings.
-* Warp cannot enforce ZDR for requests sent through your API keys.
-* If your Anthropic, OpenAI, or Google account does not have ZDR enabled, your requests may be retained by the provider according to their terms.
+BYOK prompts and responses [pass through Warp's servers](#how-byok-works). Warp applies your account's privacy settings to this content, including any settings enforced by your organization.
 
-### BYOK on Business and Enterprise plans
+In the Warp app, **Help improve Warp** controls analytics and content collection for service improvement. **Store AI conversations in the cloud** controls [cloud storage of your personal Terminal conversations](/agents/local-agents/cloud-conversations/). See the [analytics and storage controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage) for details.
 
-Personal BYOK is configured on each member's device, including on Business and Enterprise. Those keys work for local Warp Agent runs in the app or CLI, not [cloud agents](/platform/).
+<span id="byok-on-business-and-enterprise-plans" />
 
-For shared keys that work in local and cloud runs, configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) in the [Admin Panel](/enterprise/team-management/admin-panel/).
+### Warp Terminal and local agent teams
+
+Personal BYOK is configured on each member's device. Those keys work for local Warp Agent runs in the app or CLI, not [cloud agents](/platform/). Business and Enterprise plans for Warp Terminal and local agents also support centrally managed keys in the [Admin Panel](/enterprise/team-management/admin-panel/).
+
+### Warp Factories teams
+
+The Scale and Enterprise plans for Warp Factories support [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). An admin configures shared credentials in the Admin Panel; these work for factory runs using the Warp Agent. Third-party harnesses use separate [harness credentials](/factories/harnesses/authentication/).
 
 <span id="related-resources" />
 
 ## Related pages
 
-* **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** - Route Warp through any OpenAI-compatible endpoint, such as OpenRouter, LiteLLM, z.ai, or an internal gateway.
-* **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** - Enterprise-managed inference through your cloud provider or approved infrastructure.
-* **[SuperGrok subscription](/agents/inference/grok-subscription/)** - Use Grok models through your xAI account.
-* **[ChatGPT subscription](/agents/inference/chatgpt-subscription/)** - Use eligible OpenAI models in Warp Agent conversations in the Warp app through your ChatGPT plan.
-* **[Model choice](/agents/inference/model-choice/)** - Full list of supported models and `model_id` values.
-* **[Usage and billing](/support-and-community/plans-and-billing/credits/)** - Inference, compute, and platform charges.
+* [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) - Route Warp through any OpenAI-compatible endpoint, such as OpenRouter, LiteLLM, z.ai, or an internal gateway
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - Enterprise-managed inference through your cloud provider or approved infrastructure
+* [SuperGrok subscription](/agents/inference/grok-subscription/) - Use Grok models through your xAI account
+* [Connecting a ChatGPT subscription](/agents/inference/chatgpt-subscription/) - Use eligible OpenAI models in Warp Agent conversations in the Warp app through your ChatGPT plan
+* [Agent model choice](/agents/inference/model-choice/) - Full list of supported models and `model_id` values
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges

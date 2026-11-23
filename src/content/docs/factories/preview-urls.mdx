@@ -1,0 +1,87 @@
+---
+title: Previewing URLs
+description: >-
+  View your factory's changes in your browser with preview URLs, share them with your team, and manage their expiration.
+sidebar:
+  label: "Preview URLs"
+---
+import { VARS } from '@data/vars';
+
+Preview URLs let you access servers running in a sandbox, allowing you to preview UI changes, test endpoints and share changes with teammates before deploying.
+Preview URLs are not production deployments and stop working when a sandbox shuts down.
+
+## Requirements
+
+* A factory run on a Warp-hosted Namespace sandbox.
+* The app's dependencies, startup instructions, and any required services or test data available in the sandbox. Configure these through [runners](/factories/runners/) and [factory repositories and setup](/factories/factory-as-code/).
+* Preview URLs enabled for both the owning workspace and team. Administrators can [change this policy](#controlling-preview-availability).
+
+## Accessing a preview URL
+
+After asking your factory to create a preview URL for your changes, use either of these access methods:
+
+* Browser access: Open the returned preview URL and sign in to Warp if needed.
+* Programmatic access: Use your [Warp API key](https://docs.warp.dev/agents/cli/oz-cli/api-keys/).
+
+```bash
+curl "$PREVIEW_URL" \
+  --header "X-Warp-Preview-Authorization: Bearer ${WARP_API_KEY}"
+```
+
+## Managing a preview URL
+
+In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open the producing run's conversation and its **Artifacts** tab. Under **Preview URLs**, open the labeled preview or copy its link.
+Using the action menu, you can delete the preview or change its label, scope, and expiration time.
+
+You can also ask the agent to manage the preview URL's settings directly:
+> Can you rename the preview URL to “Updated Dashboard” and change its scope from private to team?
+
+### Scope
+
+| Scope | Who can open it | Who can edit or delete it |
+| --- | --- | --- |
+| `PRIVATE` | • Run creator <br /> • Admins of the owning team or workspace | • Run creator <br /> • Admins of the owning team or workspace |
+| `TEAM` | • Run creator <br /> • Admins of the owning team or workspace <br /> • Members of the owning team | • Run creator <br /> • Admins of the owning team or workspace |
+
+Preview URLs use private scope by default. Preview URLs created by service accounts cannot use team scope.
+
+:::caution
+If follow-ups are enabled, anyone can ask the agent in the producing run to modify or delete its preview URLs. Review [factory follow-up restrictions](/factories/factory-as-code/#restrictfollowupstostarter) separately.
+:::
+
+### Expiration and sandbox lifetime
+
+A preview's lifetime is capped by the sandbox's remaining lifetime. A preview stops working when it expires, is deleted, or its sandbox shuts down. Extending a preview doesn't extend the sandbox's lifetime.
+
+### Deleting a preview
+
+While deleting a preview removes access to its URL, it doesn't stop the underlying development server or sandbox.
+
+## Controlling preview availability
+
+Workspace administrators control preview availability for the workspace and its teams. In the [Admin Panel](https://app.warp.dev/admin/), select the workspace or team, then open **Platform**. In the "Preview URLs" section, toggle **Enable preview URLs**.
+
+Disabling previews permanently deletes active preview URLs in that scope. Enabling previews at the team level doesn't override a workspace-level disable.
+
+## Supported connections
+
+Preview URLs support the following over HTTP/1.1:
+
+* Hot module replacement (HMR)
+* Regular HTTP requests
+* WebSockets
+* Server-sent events (SSE)
+* Streaming HTTP responses
+* File uploads
+* File downloads
+* Long-running requests
+* Cookie-authenticated requests
+* Redirects
+
+Cross-origin requests aren't supported. Browser login lets you interact with the app from its own preview page, but doesn't let other websites use your login to interact with it.
+
+## Related pages
+
+* [Finding and sharing artifacts](/factories/artifacts/) - Retrieve saved results rather than a running app
+* [Runners for Warp Factories](/factories/runners/) - Prepare the app's execution environment
+* [Computer Use verification](/factories/use-cases/computer-use-verification/) - Ask an agent to exercise the interface and capture evidence
