@@ -1,11 +1,11 @@
 ---
 title: Permissions for factory integrations
 description: >-
-  Review permission scopes, credential types, and access boundaries for GitHub,
-  GitLab, Linear, Jira, Slack, and Microsoft Teams integrations.
+  Review provider permissions, credential types, and access boundaries for
+  factory integrations, including Azure DevOps, GitHub, Jira, and Slack.
 ---
 
-Factory integrations grant access to your code, issues, and conversations. Use the integration-specific tables to review the requested scopes separately from the actions a factory performs and the events that start work.
+Factory integrations grant access to your code, issues, and conversations. Review provider grants and identities separately from the actions a factory performs and the events that start work. For setup roles and attaching an existing connection, see [Connect a source](/factories/connect-your-factory/#connect-a-source).
 
 ## Permissions by integration
 
@@ -15,6 +15,7 @@ Each integration page distinguishes required scopes, declared app permissions, a
 | --- | --- | --- |
 | [GitHub](/factories/integrations/github/#permissions) | GitHub App installation token; account linking identifies the requester separately | Registered repository, organization, and account permissions with read or write levels |
 | [GitLab](/factories/integrations/gitlab/#permissions) | User OAuth for setup; manager and factory service-account tokens with separate membership roles | Required setup scopes and provisioned service-account scopes and roles |
+| [Azure DevOps](/factories/integrations/azure-devops/#how-identities-and-access-work) | Personal OAuth for setup; a Manager provisions dedicated factory identities for Git and pull request operations | Identity access and [required administrator approvals](/factories/integrations/azure-devops/#required-administrator-permissions), not a complete OAuth scope inventory |
 | [Linear](/factories/integrations/linear/#permissions) | Workspace app authorization, separate from a teammate's Warp account link | Staging configuration dated 2026-10-29: scopes and app actor; review workspace consent for installed access |
 | [Jira](/factories/integrations/jira/#permissions) | Forge app scopes with distinct app and user token paths | Marketplace-declared permissions, read impersonation, and checks of user permissions before writes |
 | [Slack](/factories/integrations/slack/#permissions) | Per-factory bot token plus manager authorization for app provisioning | Requested factory bot and setup-user scopes; separate manager bot request scopes from the 2026-10-29 staging configuration |

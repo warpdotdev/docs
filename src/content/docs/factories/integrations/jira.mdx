@@ -13,15 +13,17 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 ## Prerequisites
 
 * A Jira Cloud site. Jira Server and Data Center are not supported.
-* A Jira site admin to install the Warp app and connect the site to your Warp workspace.
-* A factory in the connected workspace and permission to edit its [definition](/factories/factory-as-code/).
+* A Jira site admin to install the Warp app and approve site access.
+* [Editor access](/factories/permissions/) to the factory whose Jira projects and automations you want to configure.
+
+For a new shared Jira connection, involve your Warp team owner or admin on self-serve, or workspace owner or admin on Enterprise, to coordinate setup. Once the site is connected, an Editor can attach it to the factory. [Personal Jira account linking](/platform/integrations/jira/#connecting-your-jira-account-to-warp) is a separate step for each person who starts work.
 
 ## Connect Jira and add an automation
 
 1. **Open Jira setup.** Choose **Jira** while creating a factory. To connect it later, open the top-level **Integrations** page in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, find **Jira**, and click **Connect**.
 2. **Install Warp for Jira and connect the site.** A Jira site admin installs the app on the Jira Cloud site. In Jira, open **Apps** > **Manage apps** > **Warp** > **Configure**, then click **Connect to Warp**. Once connected, Jira is available to every factory in the workspace. See the [Jira installation steps](/platform/integrations/jira/#setup) for the full app flow.
 
-If you aren't a Jira site admin, choose **Someone else** during setup and email the request or copy the approval link to a site admin. The link expires after seven days, and you can resend or revoke it while the request is pending.
+If the Warp admin needs someone else to approve Jira access, the Warp admin chooses **Someone else** during setup and emails the request or copies the approval link to a Jira site admin. The link expires after seven days. The requesting Warp admin can resend or revoke it while the request is pending.
 
 3. **Connect Jira to the factory.** In the factory dashboard, open **Settings** > **Integrations**, connect **Jira**, select the projects this factory works with, then click **Enable**. If you connected Jira while creating the factory, select the projects before finishing setup. Each factory opts in separately even though the Jira site is connected to the workspace.
 

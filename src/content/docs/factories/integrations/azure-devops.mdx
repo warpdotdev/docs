@@ -27,6 +27,7 @@ Each factory identity consists of a separate Microsoft Entra application and ser
 ## Requirements
 
 * Membership in a [Warp team](/knowledge-and-collaboration/teams/).
+* A team-wide [Editor role or inherited Admin access](/factories/permissions/) to create a factory.
 * An Azure DevOps Services organization at `dev.azure.com` with the project and repositories the factory needs.
 * An Azure DevOps account with read access to the organization, project, and selected repositories.
 * Access to Microsoft Entra and Azure DevOps administrators with the [required permissions](#required-administrator-permissions).
@@ -51,7 +52,7 @@ Start from factory setup to connect your account, select repositories, and provi
 1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to the factory list, click **+** to create a factory.
 2. In the code host step, find the Azure DevOps row and click **Connect**. Complete the Microsoft sign-in to connect your Azure DevOps user.
 3. Choose an Azure DevOps organization and project, then select the repositories the factory will use. Only resources your connected user can read appear.
-4. If the organization already has an active Azure DevOps Manager, continue setup. Otherwise, connect the Manager yourself or send the setup link to the required administrators.
+4. If the organization already has an active Azure DevOps Manager, continue setup. Otherwise, involve your Warp team owner or admin on self-serve, or workspace owner or admin on Enterprise, to coordinate the shared connection and approval links.
 
    Different people can complete the Microsoft Entra and Azure DevOps approvals. Each administrator can use the setup link without a Warp account.
 5. Complete the Manager approval in this order:
