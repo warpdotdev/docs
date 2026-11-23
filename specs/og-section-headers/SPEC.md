@@ -6,7 +6,7 @@ Add a section label above each documentation preview title. Keep the accepted
 design in [PR #956](https://github.com/warpdotdev/docs/pull/956). Use one stable
 section per URL, even when several navigation tabs link to that URL.
 
-- Status: proposal; awaiting approval of this committed specification.
+- Status: revised proposal; awaiting approval of the gray-label specification.
 - Requester: `hongyi-chen`.
 - Implementation baseline: `86309f7e8700339e7fa542f5a09fad36a477594a`.
 - Reuse PR #956 and branch `factory/dynamic-og-images`.
@@ -27,6 +27,18 @@ The requester replied, “go for it, let’s try it”, to this direction:
 This reply aligns the design direction. It does not approve an unwritten spec
 or waive approval. The dimensions and resolver details below are proposed
 implementation choices, not pixel-level requester decisions.
+
+On the committed proposal, the requester replied:
+
+> sure, does it have to be black, should it be a different color, like grey perhaps?
+
+Use a neutral gray eyebrow in response to this feedback. The recommended
+`#555555` value below is a design choice, not a hex value selected by the
+requester. Keep the revised proposal pending approval.
+
+The requester also asked for “just 1-2 images directly in this slack thread”.
+Keep broad coverage in internal and PR proof. Send only one or two clean
+images directly in Slack, without paths or gallery caption bars.
 
 ## Product behavior
 
@@ -90,7 +102,8 @@ Preserve the accepted 1200×630 canvas:
 
 Add the section as an eyebrow, not another badge:
 
-- Font: Azeret SemiMono Medium, 24px, black, uppercase.
+- Font: Azeret SemiMono Medium, 24px, uppercase.
+- Color: neutral gray `#555555`, fully opaque. Keep the page title black.
 - Tracking: −2%. Line height: 115%.
 - Left edge: x=64px.
 - Bottom edge: 24px above the rendered title's top edge.
@@ -101,6 +114,12 @@ Add the section as an eyebrow, not another badge:
 
 This layout leaves the title's full width available. The longest proposed
 label, AUTOMATION PLATFORM, does not compete with the logo or pill.
+
+The gray makes the section secondary to the black title without adding
+another accent color. Using WCAG linearized-sRGB relative luminance,
+`#555555` against `#D5DFE2` has a contrast ratio of **5.4964:1**. Keep section
+text at or above 4.5:1. Do not use the reference palette's lighter `#8D8B82`
+for this text: it produces only **2.5183:1** on the accepted background.
 
 ## Technical design
 
@@ -135,7 +154,8 @@ References below use the implementation baseline.
 | --- | --- | --- |
 | Ownership | Stable URL-family mapping. Shared billing and transition pages keep the agreed home labels. | First navigation match follows current tab activation but changes when navigation is reordered. |
 | Label vocabulary | Existing eight tab names. This names the section readers can find. | Product-only labels omit Support, Enterprise, Changelog, and Guides. Singular AGENT diverges from navigation. |
-| Placement | Black eyebrow above the title. Keep the accepted DOCUMENTATION pill. | Replacing the pill removes its existing role. A second badge adds competing chrome. |
+| Placement | Section eyebrow above the title. Keep the accepted DOCUMENTATION pill. | Replacing the pill removes its existing role. A second badge adds competing chrome. |
+| Eyebrow color | Neutral gray `#555555` makes the section secondary and provides 5.4964:1 contrast. | Black has stronger contrast but competes with the title. Palette gray `#8D8B82` is softer but fails the 4.5:1 text threshold at 2.5183:1. |
 | Generic pages | Omit the eyebrow on root and unknown routes. | Guessing from the title or current tab can assign the wrong product. |
 | Maintenance | One path-family resolver, with tests for cross-linked and unlisted pages. | Per-page frontmatter adds authoring work. Parsing navigation retains shared-page ambiguity and couples preview ownership to tab order. |
 
@@ -148,6 +168,8 @@ References below use the implementation baseline.
   new ownership in site navigation.
 - Assumption: 24px eyebrow type and a 24px title gap provide the intended small
   label. These dimensions require visual verification.
+- Assumption: `#555555` is the neutral gray to try in response to the
+  requester's color feedback. The requester did not select this exact value.
 - Assumption: section-aware alt text preserves the information added visually.
 
 ## Out of scope
@@ -172,6 +194,9 @@ References below use the implementation baseline.
     produce different PNGs and correct metadata.
   - Every label fits on one line; label, title, logo, and pill do not overlap.
     Preserve 64px margins, title bounds, colors, and full title text.
+  - The eyebrow uses opaque `#555555`; the title remains black. Calculate
+    text/background contrast from linearized-sRGB relative luminance and
+    assert a ratio of at least 4.5:1 for `#555555` against `#D5DFE2`.
   - Short, long, unbroken, Unicode, and markup-like titles with a section.
   - Existing font-failure, offline-cache, fallback, write-failure, and
     article-body-preservation behavior.
@@ -211,7 +236,12 @@ PNGs. Require screenshots, not video, because the deliverable is static.
   label, shared billing, `/api`, root, and the Unicode fixture. Inspect reduced
   600×315 versions of the longest title and longest section label.
 - Report the visible label, title, wrapping, spacing, and clipping for each
-  critical case. Check that reduced images keep the label readable.
+  critical case. Check that reduced images keep the gray label readable and
+  visually secondary to the black title.
 - Attach the contact sheet and critical screenshots to the existing PR's
   managed proof block. Identify the verified implementation head. Do not
   present the baseline screenshots as proof of the new section labels.
+- For requester-facing Slack proof, upload only one or two clean native
+  card images directly in the thread. Do not add paths, caption bars, white
+  strips, or browser framing to these images. Put context in the surrounding
+  message. Do not send the broad contact sheet or gallery links in Slack.
