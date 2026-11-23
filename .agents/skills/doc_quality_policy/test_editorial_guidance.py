@@ -1,14 +1,110 @@
 """Objective guidance invariants; prose quality is evaluated separately."""
+import importlib.util
 import re
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+LINK_CHECKER_SPEC = importlib.util.spec_from_file_location(
+    "check_links", ROOT / ".agents/skills/check_for_broken_links/check_links.py")
+check_links = importlib.util.module_from_spec(LINK_CHECKER_SPEC)
+LINK_CHECKER_SPEC.loader.exec_module(check_links)
 
 
 class EditorialGuidanceTests(unittest.TestCase):
     def text(self, path):
         return (ROOT / path).read_text()
+
+    def test_guidance_and_positioning_tests_run_in_early_ci(self):
+        workflow = self.text(".github/workflows/ci.yml")
+        editorial = workflow.split("  docs-technical-references:", 1)[0]
+        for command in (
+            "python3 .agents/skills/doc_quality_policy/test_editorial_guidance.py",
+            "python3 .agents/skills/style_lint/test_factory_positioning.py",
+        ):
+            self.assertIn(command, editorial)
+            self.assertLess(editorial.index(command),
+                            editorial.index("Run style_lint --changed"))
+
+    def test_agent_styling_has_no_conflicting_glossary_rule(self):
+        glossary = self.text(".agents/references/terminology.md")
+        self.assertIn("- **agent** / **agents**", glossary)
+        self.assertNotIn('Capitalize when referring to the feature: "Agent," "Agents."', glossary)
+        for phrase in ("an Agent", "your Agent", "help Agents", "helps Agents"):
+            self.assertNotIn(phrase, glossary)
+        self.assertIn("Do not bold agent names", self.text("AGENTS.md"))
+        self.assertNotIn("Bold **Foreman name**", glossary)
+        self.assertNotIn("**foreman agent**", glossary)
+        self.assertNotIn("**Foreman name**", glossary)
+        self.assertIn('"Foreman name"', glossary)
+        for template in ("conceptual", "feature-doc"):
+            self.assertIn(
+                "except agent names and non-clickable UI field labels",
+                self.text(f".agents/templates/{template}.md"),
+            )
+
+    def test_maintenance_approval_and_review_record_are_defined(self):
+        skill = self.text(".agents/skills/sync_terminology/SKILL.md")
+        for requirement in (
+            "docs/terminology-maintenance",
+            "Durable review record",
+            "no verified",
+            "baseline",
+            "source_revisions",
+            "terms_reviewed",
+            "partial",
+            "Zach Lloyd or his designated delegate",
+            "Do not create a new issue",
+        ):
+            self.assertIn(requirement, skill)
+        positioning = self.text(".agents/rules/warp-positioning.md")
+        self.assertIn("Source direction:", positioning)
+        self.assertIn("not a dependency for routine drafting", positioning)
+        self.assertIn("Docs maintainers own", positioning)
+        self.assertIn("less-coached", self.text(".agents/references/writing-examples.md"))
+
+    def test_positioning_rename_has_no_stale_active_references(self):
+        canonical = ".agents/rules/warp-positioning.md"
+        obsolete = "oz-" + "style-guidelines.md"
+        self.assertTrue((ROOT / canonical).is_file())
+        self.assertFalse((ROOT / ".agents/rules" / obsolete).exists())
+        paths = [ROOT / "AGENTS.md"]
+        for directory in ("rules", "references", "skills"):
+            paths.extend((ROOT / ".agents" / directory).rglob("*.md"))
+            paths.extend((ROOT / ".agents" / directory).rglob("*.py"))
+        for path in paths:
+            self.assertNotIn(obsolete, path.read_text(), str(path))
+
+    def test_repository_glossary_has_no_external_sync_dependency(self):
+        skill = self.text(".agents/skills/sync_terminology/SKILL.md")
+        self.assertNotIn("NOTION_DICTIONARY_PAGE_ID", skill)
+        self.assertNotIn("Notion MCP", skill)
+        self.assertNotIn("Notion is the source of truth", skill)
+        self.assertIn("weekly", skill)
+        self.assertIn("human review", skill)
+        glossary = self.text(".agents/references/terminology.md")
+        self.assertIn("authoritative glossary", glossary)
+        self.assertIn("Maintaining this glossary", glossary)
+
+    def test_positioning_preserves_roles_without_the_team_exception(self):
+        positioning = self.text(".agents/rules/warp-positioning.md")
+        self.assertIn("including a customer's factory", positioning)
+        self.assertIn("foreman", positioning)
+        self.assertIn("UI strings", positioning)
+        self.assertNotIn("its agents can collaborate as a team", positioning)
+        review = self.text(".agents/skills/review-docs-pr/SKILL.md")
+        self.assertNotIn("do not flag accurate descriptions of collaboration", review)
+        self.assertIn("insufficient evidence", review)
+
+    def assert_agents_links(self, path, text):
+        links = re.findall(r"\]\(([^)]+AGENTS\.md)#([^)]+)\)", text)
+        self.assertIn("check-connected-procedures", [anchor for _, anchor in links],
+                      f"{path}: missing #check-connected-procedures link")
+        checker = check_links.LinkChecker(ROOT)
+        for target, anchor in links:
+            self.assertEqual((path.parent / target).resolve(), ROOT / "AGENTS.md")
+            valid, error, _ = checker.check_fragment(f"{target}#{anchor}", path)
+            self.assertTrue(valid, error)
 
     def test_canonical_reader_test_is_referenced(self):
         agents = self.text("AGENTS.md")
@@ -24,7 +120,7 @@ class EditorialGuidanceTests(unittest.TestCase):
 
     def test_retirement_promises_are_not_reintroduced(self):
         for path in ("AGENTS.md", ".agents/references/terminology.md",
-                     ".agents/rules/oz-style-guidelines.md"):
+                     ".agents/rules/warp-positioning.md"):
             text = self.text(path)
             self.assertNotIn("until 2026-10-06", text)
             self.assertNotIn("retired and wrapped", text)
@@ -61,16 +157,116 @@ class EditorialGuidanceTests(unittest.TestCase):
         self.assertNotIn("Each edit is additive", text)
 
     def test_positioning_retains_each_supported_pillar_once(self):
-        text = self.text(".agents/rules/oz-style-guidelines.md")
+        text = self.text(".agents/rules/warp-positioning.md")
         for pillar in ("Choice of models and harnesses", "Visibility and intervention",
                        "Incremental adoption and configuration", "Team workflows",
                        "Developer control", "Measurement and improvement"):
             self.assertEqual(text.count(f"* **{pillar}** -"), 1, pillar)
 
+    def test_positioning_entry_points_reference_the_canonical_file(self):
+        canonical = ".agents/rules/warp-positioning.md"
+        self.assertTrue((ROOT / canonical).is_file())
+        for path in ("AGENTS.md", ".agents/references/terminology.md",
+                     ".agents/skills/draft_docs/SKILL.md",
+                     ".agents/skills/review-docs-pr/SKILL.md",
+                     ".agents/skills/style_lint/SKILL.md"):
+            self.assertIn(canonical, self.text(path), path)
+        for skill in ("draft_conceptual", "draft_procedural", "draft_quickstart",
+                      "draft_reference", "draft_troubleshooting", "draft_faq",
+                      "draft_guide", "draft_feature_doc"):
+            text = self.text(f".agents/skills/{skill}/SKILL.md")
+            self.assertIn("draft_docs", text, skill)
+            self.assertIn("AGENTS.md", text, skill)
+
+    def test_factory_guidance_does_not_reintroduce_product_definitions(self):
+        for path in ("AGENTS.md", ".agents/references/terminology.md",
+                     ".agents/skills/style_lint/SKILL.md",
+                     ".agents/skills/draft_docs/evals/evals.json"):
+            text = self.text(path)
+            for phrase in ("**Warp Factories** is the product",
+                           "Warp's product for deploying",
+                           "Warp's product implementation",
+                           '"Warp Factories" is the product',
+                           "Warp Factories is the product name"):
+                self.assertNotIn(phrase, text, path)
+
     def test_quickstart_timing_can_be_omitted_when_unverified(self):
         for path in ("AGENTS.md", ".agents/skills/draft_quickstart/SKILL.md",
                      ".agents/templates/quickstart.md"):
             self.assertIn("omit it when unverified", self.text(path))
+
+    def test_connected_procedure_checks_have_one_canonical_home(self):
+        agents = self.text("AGENTS.md")
+        self.assertEqual(agents.count("#### Check connected procedures"), 1)
+        section = agents.split("#### Check connected procedures\n", 1)[1].split("\n### ", 1)[0]
+        for check in ("Starting work", "Overlapping rules", "Existing exclusions",
+                      "Unmatched inputs", "Work already in progress",
+                      "Passing work to the next stage", "Tests"):
+            self.assertIn(f"* **{check}** -", section)
+        for skill in ("draft_docs", "review-docs-pr"):
+            path = ROOT / f".agents/skills/{skill}/SKILL.md"
+            self.assert_agents_links(path, path.read_text())
+
+    def test_other_valid_agents_heading_links_are_allowed(self):
+        for skill in ("draft_docs", "review-docs-pr"):
+            with self.subTest(skill=skill):
+                path = ROOT / f".agents/skills/{skill}/SKILL.md"
+                text = path.read_text() + (
+                    "\n[Reader-understanding test]"
+                    "(../../../AGENTS.md#reader-understanding-test)\n")
+                self.assert_agents_links(path, text)
+
+    def test_missing_connected_procedures_link_is_rejected(self):
+        for skill in ("draft_docs", "review-docs-pr"):
+            with self.subTest(skill=skill):
+                path = ROOT / f".agents/skills/{skill}/SKILL.md"
+                text = path.read_text().replace(
+                    "AGENTS.md#check-connected-procedures", "AGENTS.md#procedural")
+                with self.assertRaisesRegex(AssertionError, "check-connected-procedures"):
+                    self.assert_agents_links(path, text)
+
+    def test_nonexistent_agents_heading_link_is_rejected(self):
+        for skill in ("draft_docs", "review-docs-pr"):
+            with self.subTest(skill=skill):
+                path = ROOT / f".agents/skills/{skill}/SKILL.md"
+                text = path.read_text() + (
+                    "\n[Missing section](../../../AGENTS.md#missing-guidance-heading)\n")
+                with self.assertRaisesRegex(AssertionError, "missing-guidance-heading"):
+                    self.assert_agents_links(path, text)
+
+    def test_setup_jobs_are_listed_separately(self):
+        agents = self.text("AGENTS.md")
+        section = agents.split("**Separate setup, instructions, and testing.**", 1)[1]
+        section = section.split("\n- **", 1)[0]
+        for job in ("Configuration", "Access", "Instructions", "Testing"):
+            self.assertIn(f"  - **{job}** -", section)
+        self.assertIn("State instructions explicitly", agents)
+        self.assertIn("Do not expect readers to infer a required action", agents)
+
+    def test_new_guidance_does_not_use_the_compressed_shorthand(self):
+        paths = ("AGENTS.md", ".agents/skills/draft_docs/SKILL.md",
+                 ".agents/skills/review-docs-pr/SKILL.md",
+                 ".agents/skills/aeo_brief/SKILL.md",
+                 ".agents/templates/procedural.md", ".agents/templates/feature-doc.md")
+        for path in paths:
+            text = self.text(path)
+            for phrase in ("cumulative routing exclusions", "continued-conversation ownership",
+                           "existing-agent paths", "umbrella signal", "When examples compose"):
+                self.assertNotIn(phrase, text, path)
+
+    def test_setup_template_hints_state_actions_and_remain_bracketed(self):
+        for template in ("procedural", "feature-doc"):
+            text = self.text(f".agents/templates/{template}.md")
+            self.assertNotIn("<!--", text)
+            hints = [line for line in text.splitlines() if line.startswith("[")]
+            for instruction in ("State what the reader is configuring",
+                                "If readers can reuse an agent or resource",
+                                "Give configuration choices",
+                                "If this procedure connects to another",
+                                "Preserve existing filters and exclusions",
+                                "Verify whether configuration changes affect"):
+                self.assertTrue(any(instruction in hint and hint.endswith("]")
+                                    for hint in hints), (template, instruction))
 
 
 if __name__ == "__main__":

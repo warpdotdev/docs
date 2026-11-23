@@ -72,17 +72,37 @@ review focus areas, this pass is the human-review-blocking gate defined in
 
 ## Review Instructions
 
+Read and apply `.agents/references/compliance-claims-policy.md`. Flag customer-facing HIPAA references, implications of HIPAA-regulated-workload or HIPAA business associate agreement support, and other compliance promises without current Security or Legal approval as critical accuracy findings and request changes. Existing docs, source code, general approvals, and public `VERIFY` markers do not satisfy that policy.
+
 Review this documentation PR for the docs repository.
 
 Focus on:
 1. **Broken links**: Check for potential broken internal links (relative paths, cross-space links). You can run the broken link checker at `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` if helpful.
 2. **Style guide compliance**: Reference `AGENTS.md` for documentation standards (voice, formatting, terminology).
-3. **Content quality**: Check for clarity, accuracy, proper frontmatter, and appropriate use of headers/lists.
-4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
+3. **Content quality**: Apply the [Content review process](../../../AGENTS.md#content-review-process) to new drafts and revisions. Check that the heading and opening reveal the answer or first action, choices explain when and where to act, and examples resolve uncertainty without adding unsupported behavior. Check for proper frontmatter and appropriate headers and lists. For setup instructions, check each requirement:
+   * Prerequisites precede dependent steps. Conditions needed to decide whether, when, or by whom to act precede the action. Procedure-wide requirements stay in prerequisites rather than being repeated in each step.
+   * Goal-first instructions name the destination when readers choose where to make a change. Established procedures give the location and action directly. In behavior explanations, an unambiguous qualification can follow the main statement. Don't request reordering solely to enforce a preferred pattern.
+   * Each instruction has its own sentence. Separate purposes, conditions, or locations are not bundled with a semicolon.
+   * Reader actions, automatic product behavior, and other people's responsibilities are distinct. Interface names are exact and pronouns unambiguous.
+   * The task is stated before fields or example names.
+   * Each selection explains what the agent, environment, or credential is used for, not only its name.
+   * Readers can find the supported path to edit or select an existing resource instead of creating a duplicate.
+   * Configuration, access setup, skill or prompt instructions, and testing are separate steps or groups of related steps.
+   * Safety limits appear beside the relevant action and inside prompts that can be copied separately.
+   * Tests use explained sample inputs, require credentials only when needed, follow applied configuration changes, and check observed behavior rather than only run completion.
+   * Proposed sentence edits still make sense when read with the whole paragraph and surrounding steps.
+4. **Code snippets**: Verify that examples, commands, and configuration work as documented. When procedures connect, read their examples together and check:
+   * Which event starts each task, which agent receives it, and what information passes to the next stage.
+   * Whether several rules can match the same input, whether that is intended, and how the conditions prevent unwanted matches.
+   * Whether adding a new condition preserves existing filters and exclusions.
+   * What happens when an input matches none of the specialized rules.
+   * Whether changing a rule affects new tasks, existing conversations, or both; verify any claim that existing work moves to another agent.
+   * Where each stage stops, which decisions require a person, and whether tests cover matching, overlapping, unmatched, and continued work.
+   Use [Check connected procedures](../../../AGENTS.md#check-connected-procedures) for the full checks. If a technical detail is uncertain, use `answer_question` to verify against the docs or search the source code.
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to the `redirects` array in `vercel.json` when needed.
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
 7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
-8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
+8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Read once for repetition and remove sentences that add no information needed to understand, decide, act, or verify. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
 9. **Unreleased features**: For any PR, agent-marked or not, apply item 5 of the v1 contract above to server-backed claims. A launch PR is not exempt; Gate 0 applies to launches too.
 10. **AEO/source-data fit**:
 
@@ -90,7 +110,7 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 
 Include an editorial verdict in the review rationale: reader task, concept ownership across siblings, unnecessary scaffolds or repetition removed, unsupported assurances, and useful understanding preserved. Identify each unconfirmed claim and its narrow correction. Removing a page or changing its purpose requires human approval; a transition guide is not interchangeable with a chooser.
 
-Use `.agents/rules/oz-style-guidelines.md` for framing and the canonical glossary for terminology. Historical Oz references, commands, and package names are not automatic rename findings.
+Read and apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for terminology. Check definitions, openings, descriptions, and changed explanatory copy against rule P1, including definitions of a customer's factory. Team-of-agents and equivalent staffing metaphors are important positioning findings, not optional style preferences. Preserve shipped role names and literal interfaces. Verify technical promises independently under rule P2; when source evidence is missing, report insufficient evidence rather than approval. Historical Oz references, commands, and package names are not automatic rename findings.
 
 ### Severity Labels (Required)
 
@@ -117,9 +137,9 @@ Use the `answer_question` skill to search the documentation and source code for 
 ### AEO review guidance
 
 For AEO-driven docs PRs, review the diff through these questions:
-- **Source rationale** - Is it clear which Peec prompt, search-query cluster, recommendation, or content gap motivated the change? If not, ask for the source signal or suggest narrowing the scope.
+- **Source rationale** - Does the brief or PR rationale name the exact query or recommendation and what was measured? For each proposed topic, does it distinguish direct supporting data from the author's recommendation? Data about a broad topic does not prove demand for every narrower topic. If evidence is missing, ask for it or narrow the claim; do not invent demand.
 - **Vocabulary translation** - Does the draft preserve high-intent search terms where useful while translating awkward source-data language into natural docs language?
-- **Reader value** - Would the page help a developer complete or understand a real workflow, or is it collecting loosely related keywords?
+- **Reader value** - Does the page help a developer complete or understand its intended task? Read the opening and description without the title or navigation: both must identify the relevant product and make sense on their own. Do not require the product name in every heading or add unrelated topics to include more search terms.
 - **Terminology and UI surfaces** - Are product names, settings paths, panel names, and navigation labels consistent with `AGENTS.md`, `.agents/references/terminology.md`, and the actual UI?
 - **Scannability** - Are dense procedures broken into numbered steps, bullets, or concise subsections with expected outcomes?
 - **Duplication risk** - Should the content update an existing page, link to an existing page, or be merged with related content instead of living as a new standalone doc?

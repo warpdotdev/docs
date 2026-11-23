@@ -1,0 +1,199 @@
+{
+  "baselineCommit": "df8c590486a6419d5c589bcf4254570dc23a6d37",
+  "pages": [
+    {
+      "oldPath": "/platform/mcp/",
+      "newPath": "/factories/mcp/",
+      "anchors": [
+        "when-to-use-mcp-servers",
+        "warp-managed-integration-tools-in-factories",
+        "how-mcp-configuration-works",
+        "configuration-schema",
+        "supported-fields",
+        "example-configuration",
+        "connect-directly-by-url",
+        "using-mcp-servers-in-an-agent-config-file",
+        "requirements-and-defaults",
+        "oauth-authentication",
+        "limitations",
+        "learn-more"
+      ]
+    },
+    {
+      "oldPath": "/platform/environments/",
+      "newPath": "/factories/environments/",
+      "anchors": [
+        "what-an-environment-includes",
+        "how-environments-fit-into-cloud-agent-runs",
+        "when-to-use-an-environment",
+        "container-user-and-permissions",
+        "container-users-and-permissions",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/environments/configuring-environments/",
+      "newPath": "/factories/environments/configuring-environments/",
+      "anchors": [
+        "prerequisites",
+        "create-an-environment-in-the-web-app",
+        "create-an-environment-with-guided-setup",
+        "create-an-environment-with-the-cli",
+        "environment-design-and-best-practices",
+        "configure-container-users",
+        "understand-how-warp-chooses-the-container-user",
+        "prepare-images-and-setup-commands",
+        "manage-environments",
+        "list-environments",
+        "view-an-environment",
+        "update-an-environment",
+        "delete-an-environment",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/environments/troubleshooting-environments/",
+      "newPath": "/factories/environments/troubleshooting-environments/",
+      "anchors": [
+        "setup-commands-fail-on-a-fresh-container",
+        "setup-command-n-timed-out",
+        "permission-denied-or-eacces",
+        "external_authentication_required",
+        "vm-failed-before-the-agent-could-run",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/harnesses/",
+      "newPath": "/factories/harnesses/",
+      "anchors": [
+        "what-stays-the-same",
+        "plan-requirements",
+        "billing",
+        "how-to-switch-harnesses",
+        "warp-app",
+        "web-app",
+        "api-and-sdk",
+        "harness-identifiers",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/harnesses/authentication/",
+      "newPath": "/factories/harnesses/authentication/",
+      "anchors": [
+        "connecting-claude-code-credentials",
+        "create-an-anthropic-api-key",
+        "store-the-api-key",
+        "warp-desktop-app",
+        "web-app",
+        "cli",
+        "connecting-codex-credentials",
+        "create-an-openai-api-key",
+        "store-the-api-key-1",
+        "warp-desktop-app-1",
+        "web-app-1",
+        "cli-1",
+        "managing-harness-auth-secrets",
+        "troubleshooting",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/harnesses/warp-agent/",
+      "newPath": "/factories/harnesses/warp-agent/",
+      "anchors": [
+        "key-features",
+        "how-it-works",
+        "available-models",
+        "cross-harness-orchestration",
+        "when-to-choose-warp-agent",
+        "starting-a-warp-agent-run",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/harnesses/claude-code/",
+      "newPath": "/factories/harnesses/claude-code/",
+      "anchors": [
+        "key-features",
+        "available-models",
+        "credentials-and-billing",
+        "starting-a-claude-code-run",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/harnesses/codex/",
+      "newPath": "/factories/harnesses/codex/",
+      "anchors": [
+        "key-features",
+        "available-models",
+        "credentials-and-billing",
+        "starting-a-codex-run",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/execution-security/",
+      "newPath": "/factories/self-hosting/security-and-networking/",
+      "baselineCommit": "2f14364088df8d43d22ba98478b100c158323038",
+      "legacyPaths": [
+        "/agent-platform/cloud-agents/self-hosting/security-and-networking/",
+        "/platform/self-hosting/security-and-networking/"
+      ],
+      "anchors": [
+        "data-boundaries",
+        "network-requirements",
+        "backend-specific-security-considerations",
+        "docker-backend",
+        "kubernetes-backend",
+        "direct-backend",
+        "command-backend",
+        "unmanaged",
+        "vpn-and-on-premises-access",
+        "llm-inference-and-byollm",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/",
+      "newPath": "/platform/",
+      "anchors": [
+        "what-is-a-cloud-agent-run",
+        "observability-and-steerability",
+        "monitor-inspect-and-share-cloud-agent-runs",
+        "what-cloud-agents-are-designed-for",
+        "how-cloud-agents-work",
+        "what-you-get-by-default",
+        "codebase-context",
+        "centralized-configuration",
+        "api-access-to-tasks",
+        "api-access-to-runs",
+        "using-cloud-agents-with-or-without-the-warp-app",
+        "billing-and-plan-requirements",
+        "for-cloud-agents-via-cliapi",
+        "for-integrations-slacklinear",
+        "learn-more",
+        "related-pages"
+      ]
+    },
+    {
+      "oldPath": "/platform/overview/",
+      "newPath": "/platform/overview/",
+      "anchors": [
+        "how-a-run-works",
+        "integrations-and-triggers",
+        "inspecting-results",
+        "environments",
+        "hosts",
+        "the-cli",
+        "api-and-sdks",
+        "secrets",
+        "shared-configuration",
+        "measuring-factory-work",
+        "related-pages"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+---
+title: Environments for factory agents
+sidebar:
+  label: "Environments"
+description: >-
+  Use an existing environment to give factory agents a shared container image, repositories, and setup commands.
+---
+
+Warp Factories manages repositories and workspace setup by default. You don't need to create a separate environment to start a factory. Select repositories in the [factory definition](/factories/factory-as-code/), and configure compute, the image, and setup commands through [runners](/factories/runners/).
+
+An environment groups a container image, repositories, and setup commands for a cloud agent run. Reuse an existing environment when your factory agents need its toolchain and workspace configuration. Set `agentDefaults.environmentId` in the [factory definition](/factories/factory-as-code/#agentdefaultsenvironmentid) to select it.
+
+Environments also work with standalone cloud agents, without a factory. See [Configuring cloud agent environments](/factories/environments/configuring-environments/) to create or manage one.
+
+## What an environment includes
+
+An existing environment supplies these settings:
+
+* **Docker image** - The image that provides the toolchain and dependencies for your code. A self-hosted Kubernetes worker with a [`default_image`](/factories/self-hosting/managed-kubernetes/) can run without a separate environment.
+* **Repositories** - One or more repos that the agent clones into its workspace.
+* **Setup commands** - Commands that prepare the workspace, such as dependency installation, builds, or code generation.
+* **Environment variables** - Runtime values that you set in the Docker image or container configuration.
+* **Agent Secrets** - Credentials and sensitive values that Warp injects at runtime. Configure [factory secrets](/factories/secrets/) separately; standalone workflows use [Agent Secrets](https://docs.warp.dev/platform/secrets/).
+
+For container-based execution, Warp provides [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments) with common languages and tools. You can also use an official image or publish your own.
+
+## How environments fit into cloud agent runs
+
+An environment supplies workspace configuration. The run's model, instructions, and MCP connections have their own configuration:
+
+* **Execution host and runner** - Select where the work runs and its compute configuration. Compare [Warp-hosted execution](/factories/warp-hosting/) with [self-hosting](/factories/self-hosting/), and see [runners](/factories/runners/).
+* **Model** - Select a model in [factory agent configuration](/factories/factory-agents/configuration/).
+* **Agent Profiles** - Set permissions, model choice, and defaults for standalone Warp Agent runs. See [Agent Profiles](/agents/capabilities/agent-profiles-permissions/).
+* **Rules** - Provide instructions that guide agent responses and decisions. See [Rules](/agents/capabilities/rules/).
+* **MCP servers** - Connect agents to external tools and data. See [Connecting MCP servers to agents](/factories/mcp/).
+* **Per-run context** - Supplies task-specific data, such as a Slack thread, PR metadata, or CI logs.
+
+## When to use an environment
+
+Use an existing environment when its image, repositories, and setup are already maintained for the work your factory agents perform. For example:
+
+* **CI and remote automation** - Keep the image, repositories, and setup consistent across runs.
+* **Team workflows** - A shared environment gives every teammate the same image, repos, and setup commands.
+* **Toolchain-specific work** - Use an environment when the workflow depends on particular language versions, linters, build tools, or system packages.
+
+Factory automations use the factory-managed workspace unless you select an existing environment. Standalone integrations and scheduled runs can select environments independently of a factory. Interactive local runs use the current checkout and machine setup instead.
+
+<a id="container-user-and-permissions"></a>
+
+## Container users and permissions
+
+Linux container runs use a non-root user by default. See [configuring container users](/factories/environments/configuring-environments/#configure-container-users) for image, setup-command, and migration requirements.
+
+## Related pages
+
+* [Configuring cloud agent environments](/factories/environments/configuring-environments/) - Create, configure, and manage environments
+* [Troubleshooting cloud agent environments](/factories/environments/troubleshooting-environments/) - Fix setup, authorization, permissions, and image failures
+* [Runners](/factories/runners/) - Configure the compute that hosts environments
+* [Scheduled agents](/platform/triggers/scheduled-agents/) - Run cloud agents on a recurring cadence in a shared environment
+* [Deployment patterns](/factories/deployment-patterns/) - Choose between Warp-hosted and self-hosted execution

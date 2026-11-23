@@ -4,7 +4,11 @@
 
 # Warp Documentation Style Guide
 
-This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Use it as the authoritative reference when creating or updating any page in the Astro Starlight repository.
+This guide establishes standards for writing and revising Warp documentation. It covers voice, formatting, content types, and terminology. Keep the full writing rules here. Skills and templates must state the actions needed for their tasks and link here for additional detail. Document product behavior in the relevant product documentation, not in general writing rules.
+
+## Compliance claims
+
+Before writing, reviewing, or answering from docs, apply [the compliance claims policy](.agents/references/compliance-claims-policy.md). Warp is not HIPAA compliant; omit HIPAA from customer-facing content and never imply support for HIPAA-regulated workloads or a HIPAA business associate agreement. Other compliance claims require a current Warp Security or Legal-approved source for the exact claim and scope. Omit unsupported claims and flag them in the internal handoff or PR evidence.
 
 ## Writing style
 
@@ -14,11 +18,26 @@ This guide establishes standards for writing Warp documentation. It covers voice
 - **User-focused**: Use second person ("you") and active voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
 - **Plain over polished**: Prefer the short word and the declarative sentence. A page should read like a capable colleague explaining something, not like a spec or a launch post.
+- **State instructions explicitly**: Name the action, where to perform it, and the result to check. Do not expect readers to infer a required action from an example, a section name, or a phrase such as "apply best practices." Follow this rule in documentation, skills, templates, and writing guidelines. Link to background information without using the link as a substitute for the instruction.
 
 Our reference points are the GitHub and Vercel docs: short declarative sentences, concrete examples, restrained formatting, and no selling.
 
+Apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for names. Use `.agents/references/writing-examples.md` for examples of how to apply the writing rules.
+
+#### Reader goals, control, and evidence
+
+Start with the problem or decision the reader faces, then explain the action and its consequence. For configurable workflows, name what the reader controls and how they can check the result. A feature list or a source-code description cannot establish who needs a page.
+
+Connect measurement to a decision: establish a baseline, compare a configuration on comparable work, then decide whether to keep the change. Do not equate automation or token consumption with useful output.
+
+When features sound similar, explain the decision the reader faces and when to use each option. Name what they want to change and where to change it. Explain consequences where they make the choice, not only later in the procedure. Repeatability alone does not distinguish shared infrastructure from standalone automation. Shared configuration can support different workflows; do not imply that every input follows an identical sequence.
+
+Use a concrete example to explain the mechanism, not an adjective to imply a benefit. Keep limitations beside the choice they affect. A polished sentence with an unsupported claim still needs correction.
+
+Borrow directness and explicit reasoning from the reference writing, not an author's identity or personal experiences. Procedures use second-person instructions; references give precise lookup information. Neither needs a founder's anecdote, a slogan, or every positioning pillar.
+
 #### Define, show, link
-Introduce a concept in one to three plain sentences, give a concrete example, then link out for depth. Repeat that pattern instead of front-loading the page with context.
+Introduce a concept in one to three plain sentences. Follow with a concrete example, then link out for depth. Choose a realistic case that resolves uncertainty about an option, a value to enter, or what happens next. Include the details that affect the outcome. Verify the example against the documented behavior.
 - ✅ "A workflow is an automated process that runs one or more jobs. For example, a workflow can label new issues automatically. For more information, see [Writing workflows](...)."
 - ❌ "Before diving into the components, it helps to align on a few terms:" followed by a glossary of everything the page explains later anyway.
 
@@ -39,12 +58,20 @@ When readers need exact fields, IDs, or runtime labels, order the explanation fr
 
 Explain an identifier by what it lets the reader select or load, not by its storage or schema name. Include a literal product or runtime label only when the reader needs it to find a value, and introduce it after the plain-language concept.
 
+Before listing fields or example values:
+
+* **State the task** - Say what the reader is configuring. A name alone does not explain the purpose.
+* **Explain the selections** - Say what each selected agent, environment, or credential is used for. Do not give only its example name.
+* **Give the action and location** - Name the field, menu, command, or file the reader changes, then give the value.
+
+For example, write "Create an automation that checks broken documentation links. In the 'Name' field, enter `Weekly link check`," not only "Enter `Weekly link check` in the 'Name' field."
+
 This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
 
 When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
 
 #### Every sentence earns its place
-Cut sentences that narrate the page, restate what the reader just read, or explain the obvious consequence of the previous sentence.
+Keep a sentence if it helps the reader understand, decide, act, or verify. Cut introductions that repeat the heading, sentences that narrate the page, and summaries that merely restate the previous paragraph. Preserve prerequisites, exceptions, and consequences that change what the reader should do.
 - **No meta-openers** - Never open with "This page covers/explains/walks through...". The title and description already frame the page; state the thing itself.
   - ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`."
   - ❌ "This page covers how the integration works, how to set it up, and common automation patterns for development teams."
@@ -86,7 +113,7 @@ The reader came for the product, not the writer's presence in the page.
 - **Describe the present** - Write how the product works now. Renames and history belong in time-boxed transition notes or the changelog, not woven through pages ("the built-in harness is the Warp Agent harness", not "Oz is retired product language").
 
 #### The read-aloud test
-Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist.
+Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist. After changing a sentence, reread the whole paragraph and the steps before and after it. Check that the task is still named, pronouns refer to the right things, required actions are still in order, and no explanation is repeated unnecessarily.
 
 #### Cut again
 A plain-language rewrite still under-cuts on the first pass. Follow it with a deletion-only pass that removes:
@@ -104,9 +131,9 @@ Apply the [reader-understanding test](#reader-understanding-test) before cutting
 - Never use em dashes in procedural or instructional text
 
 #### Active vs. passive voice
-Use active voice whenever possible. Active voice is clearer and more direct.
-- ✅ "Warp indexes your codebase to help Agents understand your code."
-- ❌ "Your codebase is indexed by Warp to help Agents understand your code."
+Use active voice whenever possible. Name who does what: distinguish the reader's actions, automatic product behavior, and another person's responsibilities. Use the exact interface names readers see.
+- ✅ "Warp indexes your codebase to help agents understand your code."
+- ❌ "Your codebase is indexed by Warp to help agents understand your code."
 
 Passive voice is acceptable when the action's recipient is more important than the agent, or when the agent is unknown or irrelevant:
 - ✅ "A critical security vulnerability was discovered in the authentication module." (emphasis on the vulnerability, not who found it)
@@ -120,9 +147,18 @@ When a task is required, use clear, direct verbs. Avoid ambiguous modal verbs li
 - ❌ "You should configure an environment before running cloud agents." (must I, or is it just a suggestion?)
 
 #### Vague nouns and pronouns
-If a pronoun could refer to more than one thing, replace it with the specific noun.
+If a pronoun could refer to more than one person, feature, or object, repeat the specific name.
 - ✅ "After you merge your pull request, you can delete the branch."
 - ❌ "After you merge your pull request, you can delete it." (delete the PR or the branch?)
+
+#### Separate instructions and clarify their order
+Give each instruction its own sentence. Split sentences that bundle actions with different purposes, conditions, or locations. Do not use a semicolon to pair separate instructions. Keep closely related details together when they describe one action.
+
+Order instructions by what the reader needs to know first. State a condition before the action when it determines whether, when, or by whom the action should be performed. Put procedure-wide requirements in prerequisites. Don't repeat conditions already established by the heading or prerequisites.
+
+When readers are choosing where to make a change, name the goal before its destination. Within an established procedure, give the location and action directly. Keep qualifications beside the statements they limit. In behavior explanations, a qualification can follow the main statement when the meaning is clear. Don't rewrite clear sentences solely to enforce a preferred order.
+- ✅ "To change a page's wording, edit its Markdown file. To change its position in navigation, edit `src/sidebar.ts`."
+- ❌ "Change a page's wording in its Markdown file; use `src/sidebar.ts` to change its position in navigation."
 
 #### Stacked modifiers
 Avoid strings of nouns that create ambiguity. Use prepositions to clarify relationships.
@@ -163,7 +199,7 @@ These practices serve both human accessibility needs and AI agent consumption (A
 
 **Writing for agents (AEO):**
 - **Descriptive headers**: Use specific, parseable headers ("Configuring environments") not vague ones ("Getting set up"). Agents use headers as semantic signals to extract answers.
-- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. This helps agents extract self-contained answers.
+- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. Name the relevant product in the opening and description so a reader who sees either without the navigation knows which product it describes. Do not repeat the product name in every heading or add topics only to include search keywords.
 - **Frontmatter descriptions**: Agents and search engines use the `description` field to determine relevance before reading the full page. Write descriptions as standalone summaries.
 - **Consistent terminology**: Agents struggle when the same concept has multiple names. Use the glossary terms consistently.
 - **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.agents/templates/` enforce this.
@@ -246,7 +282,7 @@ Clean, descriptive URLs rank better in search and are more shareable.
 - Avoid thin pages with only a sentence or two — consolidate with related content instead. When two pages cover nearly the same topic, merge them.
 
 ### Opening paragraphs
-The first paragraph sets expectations for the entire page. Lead with what the feature does and its primary benefit.
+Put the answer, decision, or first action near the top so readers do not need the whole page to find it. In a how-to, state what the reader will accomplish and give the prerequisites needed to begin. In reference material, lead with the definition or behavior the reader came to look up. In a feature overview, state what the feature does and its primary benefit. Add background where it helps readers understand what follows.
 - ✅ "Environments ensure your cloud agents run with the same toolchain and setup every time, regardless of where they're triggered from."
 - ❌ "This page explains environments."
 
@@ -256,24 +292,28 @@ Search engines and AI agents give extra weight to the first paragraph. Lead with
 
 ### Lists
 - Use bulleted lists for features, benefits, or non-sequential items
-- Use numbered lists only for step-by-step processes
+- Use numbered lists for procedures where order matters, in the order readers perform the actions
 - End each numbered step in a procedure with a period
-- Bold the key term or feature name at the start of each list item
+- Bold the key term or feature name at the start of each feature-list item, except agent names and non-clickable UI field labels
 - Follow the bold term with a dash and explanation
 - Closing link lists start with the link, not a bold term. See [Closing section](#closing-section) for their format.
 
 Example:
 ```markdown
-* **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code
+* **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code
 * **Code Review** - Review, edit, and manage Git diffs in real time
 ```
 
 ### Emphasis
 Use formatting consistently to distinguish different types of content:
-- **Bold** — UI elements, key terms on first use in a list, feature names in context
+- **Bold** — clickable UI controls and feature-list lead terms; not agent names or non-clickable field labels
 - *Italic* — introducing a new term inline (not a feature name), titles of external works
 - `Backticks` — code, commands, file paths, keyboard keys, config values, CLI flags
 - Underline — avoid (poor web accessibility, looks like a link)
+
+Do not bold agent names in explanatory prose or list lead terms. Write "the foreman routes the request" or "foreman - Routes requests," not a bold role name. Use lowercase for generic agents and default roles; proper feature names keep their capitalization. Exact UI strings, configured names, and code identifiers retain their literal spelling.
+
+Use quotation marks for a non-clickable UI field label, such as "Foreman name." Bold identifies an actual clickable UI control, not a label merely because it appears on screen. Keep the bold feature-list lead terms defined above; they do not make an agent name or field label an exception.
 
 ### Code examples
 - Always specify the language identifier for syntax highlighting (`bash`, `yaml`, `json`, etc.)
@@ -284,6 +324,7 @@ Use formatting consistently to distinguish different types of content:
 - Always explain what a placeholder represents
 - Include context about what the code does
 - Provide both simple examples and real-world scenarios
+- Use sample data that readers can understand. If a test needs a prepared file, record, or other test input, explain what it contains and where to get or create it. Do not give an internal test code without explaining it. Require test credentials only when the documented test needs authentication.
 
 ### Images and media
 - Always include descriptive alt text (describe what the image shows, not just "screenshot")
@@ -457,6 +498,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
 - Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
 - Use quotation marks, not bold, for a field or label name that is not itself clickable. The interactive control next to it (the dropdown, the input, the option you choose from it) still gets bold.
+- Agent names in explanatory prose and lists remain unbolded; naming an agent does not identify a clickable control.
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
@@ -511,7 +553,7 @@ Each type has its own title convention. Sentence case applies to all of them; th
 
 These rules apply regardless of content type:
 
-- **Lead with user benefit**: Open with what the reader can accomplish, not the technical implementation.
+- **Lead with the reader's task**: Follow [Opening paragraphs](#opening-paragraphs). Give the answer or first action before background or technical implementation.
 - **Orient the reader before UI, CLI, or URL instructions**: When referencing a menu path, CLI command, or URL for the first time on a page, identify the application, website, or tool. Don't assume the reader knows which surface you mean.
   - ✅ "In the Warp app, click your profile photo, then go to **Settings** > **Platform**."
   - ✅ "In the Oz web app (oz.warp.dev), click **Schedules**."
@@ -529,7 +571,19 @@ These rules apply regardless of content type:
   - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
   - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
 - **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
-- **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
+- **Use one positioning source**: Follow `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
+
+#### Check connected procedures
+
+When readers can combine procedures from this page and related pages, read and check those procedures together:
+
+* **Starting work** - Identify the event that starts each task, the rule that handles it, and the agent that receives it.
+* **Overlapping rules** - Check whether the same event can match more than one rule. State whether both rules are intended to act. If only one should act, explain how to make their conditions exclude each other; do not assume their order prevents overlap.
+* **Existing exclusions** - When adding a condition to a rule, preserve the conditions already there. For example, adding a label to an exclusion list must not remove labels the rule already excludes.
+* **Unmatched inputs** - State what happens when an input matches none of the specialized rules. Verify whether a general rule handles it or no task starts.
+* **Work already in progress** - Verify whether configuration changes affect only new tasks or also existing work. Check which agent, settings, permissions, and conversation continue to be used. Do not promise that changing a rule transfers existing work unless that behavior is verified.
+* **Passing work to the next stage** - State what information the next agent receives, what result it must return, where it stops, and which decisions require a person.
+* **Tests** - Include a matching input, an input that matches overlapping conditions, an input that matches none of those conditions, and an existing conversation when the workflow supports continuation. State the expected result for each test. If a test cannot be run, record that limit rather than reporting success.
 
 ### Conceptual
 
@@ -569,20 +623,27 @@ These rules apply regardless of content type:
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
-- **Keep prerequisites concise.** State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details, and put conditional instructions beside the step that needs them. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
+- **Keep prerequisites concise and early.** Put requirements before the steps that depend on them. State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details. State a step-specific condition before its action when it determines whether, when, or by whom to act. Put procedure-wide requirements in prerequisites rather than repeating them in each step. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
+  - Give each instruction its own sentence even when related actions share a numbered step. Keep details of a single action together.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
   - **Separate reference detail from the action.** Link a long lookup list to its owning reference. Keep facts needed for the immediate choice beside the step; use a short callout only within the callout budget.
     - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
     - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
+- **Separate setup, instructions, and testing.** Give each of these jobs its own step or group of related steps:
+  - **Configuration** - Show where to create or edit the agent and choose its repository, environment, runtime, or other required settings.
+  - **Access** - Show where to configure the tools, permissions, URLs, and credentials the agent needs. State when credentials are optional or required; do not require a test account for a path that needs no sign-in.
+  - **Instructions** - List what the agent must do in its skill or prompt. Writing an instruction does not install a tool or grant permission to use it.
+  - **Testing** - Apply the configuration before testing. Give a concrete test input and describe the behavior and evidence that prove it worked. A completed run alone does not prove the requested checks happened.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
   - ✅ "Export your API key so the CLI can authenticate your requests automatically."
   - ❌ "Export your API key as an environment variable." (why?)
+- **Support existing configurations.** If the reader can reuse an agent or resource, show how to find and edit or select it as well as how to create a new one. For file-based setup, identify the existing file or agent directory to edit. Do not tell readers to create a duplicate or imply that a new resource takes over existing work.
 - **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
   - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
   - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
-- Include expected outcomes after key steps so the reader can confirm they're on track.
+- After key steps, state what readers should see or how to verify the result before moving on.
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
 - **Explain the default before the override.** When documenting configurable infrastructure or advanced settings, state the default behavior and the common case first, then cover manual overrides. Don't lead with the full matrix of options before establishing what "just works" out of the box.
@@ -592,7 +653,7 @@ These rules apply regardless of content type:
 **Template**: `.agents/templates/procedural.md`
 #### Reader-understanding test
 
-Keep the context the reader needs for the choice, consequence, or success signal near the step. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
+Keep the information needed to make a choice, understand a consequence, or check a result beside the relevant step. Explain what a selected agent, environment, or credential is used for, not only its example name. Put safety limits beside the action they restrict. Repeat those limits inside a prompt that readers can copy and use separately from the page. Use the shortest clear wording without leaving required actions unstated. An explanation elsewhere does not replace information needed to follow the current step.
 
 Cut repetition that adds no understanding. Link background not needed for the immediate task. For example, retain why a Docker image needs the project's toolchain; cut a second paragraph repeating that execution happens in the cloud.
 
@@ -633,7 +694,7 @@ Cut repetition that adds no understanding. Link background not needed for the im
 **When to use**: For CLI commands, API endpoints, configuration options, keyboard shortcuts, error codes.
 
 **Structure**:
-1. Brief intro stating what is documented and how to use the reference
+1. Definition or behavior the reader came to look up, with brief orientation only where needed
 2. Syntax or usage pattern
 3. Options, parameters, or fields (with descriptions)
 4. Examples
@@ -772,7 +833,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 
 Past roughly 1500 words, cut padding and repeated sibling-page content first. Split only if the remaining useful content still needs separate pages; preserve necessary facts by linking or relocating them.
 
-**Existing examples**: `agents/capabilities/skills.mdx`, `platform/environments.mdx`
+**Existing examples**: `agents/capabilities/skills.mdx`, `factories/environments.mdx`
 
 **Template**: `.agents/templates/feature-doc.md`
 
@@ -811,6 +872,7 @@ Use the same link-list format in both sections:
 - Separate a description from the link with a spaced hyphen (` - `), not an em dash, en dash, or colon.
 - Capitalize the description's first word and preserve proper-name capitalization. Use sentence case, not title case.
 - Keep descriptions short and omit terminal punctuation. Explain the reader's next action or the destination's value rather than repeating its title.
+- Name an action, not only a capability: "Compare configurations on the same tasks," not "Includes a dashboard." Do not repeat a neighboring link's guidance in another destination's description.
 
 ```markdown
 * [Third-party CLI agents overview](/agents/cli-agents/overview/) - Compare supported CLI agent integrations
@@ -832,7 +894,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
 - **Warp Drive** - Shared workspace for saving and organizing commands, workflows, and environment variables across your team.
-- **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
+- **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
 - **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
@@ -922,16 +984,16 @@ The platform is not something you address — it runs and coordinates agents, an
 
 ### Warp Factories terminology
 
-This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+**Warp Factories** names the infrastructure platform and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun. Use `.agents/rules/warp-positioning.md` for the platform's positioning and its distinction from a customer's workflow.
 
-- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "Warp Factories is in Early Access" (the platform name; verify availability separately)
 - ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
 - ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
-- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+- ❌ "Factories" on its own to mean the platform → write "Warp Factories"
 
 Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
 
-**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — "Factory name," "Foreman name," "Factory integrations," "Add your Factory to your team," "Factory running!", and the **Factory definition** sidebar label — retain their displayed spelling. Non-clickable labels remain quoted rather than bold.
 
 See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 
@@ -944,6 +1006,7 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
+- Qualify plans by product and keep their billing flows separate. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for Warp Terminal and local agent subscriptions versus Warp Factories plans.
 - **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. Explain the billing unit where it affects the reader's task, not in every paragraph. Name plans naturally: "Free," "Build," "Max," "Business," and "Enterprise," not "dollar-billed Free" or "self-serve dollar Max."
 - **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
 - **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
@@ -1043,6 +1106,13 @@ All documentation should be written with search discoverability in mind — both
 ### SEO data
 When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.agents/skills/docs-seo-audit/`) can identify technical SEO issues.
 
+When using search data to recommend content:
+
+* **Name the evidence** - Record the exact query or recommendation and what the data measured in the brief or PR rationale.
+* **Distinguish broad topics from specific topics** - Data about a broad topic does not show demand for every narrower topic within it. For each proposed topic, say whether there is direct supporting data or whether it is your editorial recommendation.
+* **Describe missing data accurately** - If no matching query was found, say that. Do not claim it proves there is no demand.
+* **Keep the agreed scope** - Improve the page's answer to its intended question. Do not add unrelated topics or promise unsupported behavior to include more search terms.
+
 ## Quality checklist
 
 Before publishing any documentation, verify:
@@ -1065,6 +1135,11 @@ Before publishing any documentation, verify:
 - [ ] Cross-references to related features are included
 - [ ] The closing section uses the content-type heading and link-list format defined in [Closing section](#closing-section)
 - [ ] Instructions include expected outcomes after key steps
+- [ ] The heading and opening make the answer, decision, or first action easy to find
+- [ ] Prerequisites precede dependent steps; conditions needed to decide whether, when, or by whom to act precede the action without repeating established context
+- [ ] Each instruction has its own sentence, with the actor, action, and location clear
+- [ ] Decision points explain which option applies, where to act, and any consequence of the choice
+- [ ] Examples resolve a realistic uncertainty and match verified behavior; uncertain details are flagged for verification
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
 - [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (see Voice & tone)
@@ -1076,12 +1151,15 @@ Before publishing any documentation, verify:
 
 ## Content review process
 
-1. **Content type**: Confirm the page follows the correct structure for its type
-2. **Accuracy**: Verify all technical details and instructions
-3. **Consistency**: Check terminology and formatting against this guide
-4. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
-5. **Completeness**: Include necessary context, examples, and next steps
-6. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
+Apply this pass to new drafts and revisions before delivery:
+
+1. **Opening and structure**: Read the heading and opening paragraph. Can readers find the answer or first action without reading the entire page? Confirm the structure matches the content type.
+2. **Procedure order**: Scan each procedure in order. Does every prerequisite precede the step that needs it? Are conditions needed to decide whether, when, or by whom to act clear before the action, without repeating conditions already established? Apply [Separate instructions and clarify their order](#separate-instructions-and-clarify-their-order) when checking sentence order.
+3. **Separate instructions**: Split sentences that bundle actions with different purposes, conditions, or places in the product. Check that the actor and next action remain clear in the surrounding paragraph.
+4. **Decisions and completeness**: At each choice, can readers tell which option applies and what to do next? Preserve the context, exceptions, consequences, and next steps needed to complete the task.
+5. **Accuracy and consistency**: Verify product terms, instructions, examples, and expected results against available authoritative sources. Flag uncertain details for verification under the existing verification contract. Check formatting against this guide.
+6. **Repetition**: Read once for repetition. Apply [Cut again](#cut-again) to remove sentences that add no information the reader needs.
+7. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
 
 # Agent-specific guidance
 

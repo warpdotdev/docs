@@ -4,14 +4,10 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 
 ## content-negotiation
 
-**Expected status**: fail
-**Reason**: Vercel serves static files before evaluating rewrites. Since all doc pages are pre-rendered as static HTML, header-conditional rewrites (`Accept: text/markdown`) never fire — the CDN matches the static file first and returns HTML. Astro's `middlewareMode: 'edge'` also doesn't work because the edge function's `next()` forwards to `/_render`, which doesn't exist for static pages.
-**Mitigation**: The practical agent experience is already good despite this check failing:
-- The llms.txt directive on every page tells agents that `.md` URLs are available
-- `<link rel="alternate" type="text/markdown">` in `<head>` provides a machine-readable signal
-- Agents that read either of these (Claude Code, Cursor, OpenCode) get clean markdown
-- The `.md` URL convention works for 92%+ of pages
-**Action**: No fix available on Vercel's static hosting. Would require migrating to a platform where middleware runs before static file serving (e.g., Cloudflare Pages). Accept as a platform limitation.
+**Expected status**: pass
+**Reason**: Header negotiation used to fail because Vercel serves pre-rendered HTML before `vercel.json` rewrites and Astro middleware. Production now installs a native Build Output API routing middleware (`markdown-negotiation`) in `postbuild`, which runs before the filesystem handler and rewrites eligible doc paths to their `.md` variants when `Accept`/`User-Agent` asks for markdown.
+**Mitigation**: Direct `.md` URLs, `<link rel="alternate" type="text/markdown">`, and llms.txt remain available as explicit discovery paths.
+**Action**: None. If this check fails again, verify `npm run build` emitted `.vercel/output/functions/markdown-negotiation.func` and that the route sits before the filesystem handler (`npm run test:markdown-negotiation-routes`).
 
 ## content-start-position
 

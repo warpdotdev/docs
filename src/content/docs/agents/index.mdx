@@ -50,19 +50,31 @@ Separately from the Warp Agent, Warp gives third-party CLI coding agents first-c
 
 ---
 
-## The platform behind the agent
+## Automate and coordinate agent work
 
-The [**{VARS.WARP_AUTOMATION_PLATFORM}**](/platform/overview/) is Warp's programmable system for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
+The **{VARS.WARP_AUTOMATION_PLATFORM}** lets you delegate work to cloud agents without keeping your laptop running. Agents can investigate failed builds, review pull requests, or handle recurring maintenance. Runs start from schedules, connected tools, or API requests.
 
-To automate an entire workflow rather than a single task, use [Warp Factories](/factories/). Built on the {VARS.WARP_AUTOMATION_PLATFORM}, a factory runs a team of cloud agents that triage, spec, implement, review, and verify work.
+Use the CLI, API, or SDK to incorporate agents into your own systems. You configure their environments and tool access, then inspect runs to follow progress and review results.
 
-The {VARS.WARP_AUTOMATION_PLATFORM} tab covers the platform in full.
+→ [Explore the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/)
+
+---
+
+## Build a software factory
+
+To automate more of your team’s software development, use Warp Factories, the open infrastructure for building your own software factory. For example, a factory can investigate an issue, implement a fix, and return a pull request for review. You define the workflow as code. Evals and benchmarks help you improve quality and reduce costs over time.
+
+→ [Explore Warp Factories](/factories/)
 
 ---
 
 ## Privacy and security
 
-Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers. No customer AI data is retained, stored, or used for training.
+Warp has obtained a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security). You can request the report through [Warp's Trust Center](/enterprise/security-and-compliance/trust-center/).
+
+When choosing an agent model, review the [provider Zero Data Retention (ZDR) policy](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) and [models that require provider retention](/agents/inference/model-choice/#models-requiring-provider-retention). These explain what AI providers retain from your prompts and responses.
+
+Warp's own data collection and saved conversations have [separate controls](/support-and-community/privacy-and-security/privacy/#provider-retention-analytics-and-storage). Turning off analytics doesn't turn off conversation storage. For factory runs, follow the [factory ZDR guidance](/factories/zero-data-retention/) to review inference and run storage.
 
 You can disable Warp's AI features entirely in **Settings** > **Agents** > **Warp Agent**.
 

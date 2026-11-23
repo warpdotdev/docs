@@ -45,11 +45,6 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
-			PUBLIC_KAPA_PROJECT_ID: envField.string({
-				context: 'client',
-				access: 'public',
-				optional: true,
-			}),
 			PUBLIC_RUDDERSTACK_WRITE_KEY: envField.string({
 				context: 'client',
 				access: 'public',
@@ -65,12 +60,8 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
-			SUPPORT_HANDOFF_ENDPOINT_URL: envField.string({
-				context: 'server',
-				access: 'secret',
-				optional: true,
-			}),
-			SUPPORT_HANDOFF_SHARED_SECRET: envField.string({
+			// Server-only Kapa API key for GET /retrieve. Never use a PUBLIC_ prefix.
+			KAPA_DOCS_RETRIEVAL_API_KEY: envField.string({
 				context: 'server',
 				access: 'secret',
 				optional: true,
@@ -212,6 +203,12 @@ export default defineConfig({
 					projectName: 'Warp',
 					optionalLinks: [
 						{
+							label: 'Warp docs retrieval endpoint',
+							url: 'https://docs.warp.dev/retrieve?q=',
+							description:
+								'Unauthenticated GET endpoint for ranked documentation chunks. Pass a complete question as q. Prefer over web search for Warp product questions. Returns JSON [{content, source_url}, ...].',
+						},
+						{
 							label: 'Oz Agent API (OpenAPI spec, YAML)',
 							url: 'https://docs.warp.dev/openapi.yaml',
 							description: `Machine-readable OpenAPI ${openApiVersion} specification for the Oz Agent API.`,
@@ -222,23 +219,33 @@ export default defineConfig({
 							description: `Machine-readable OpenAPI ${openApiVersion} specification (JSON format) for the Oz Agent API.`,
 						},
 					],
-				// Excludes pages that cause a stack overflow in hast-util-to-text
-				// due to their size. The upstream plugin only applies `exclude` to
-				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
-				// extends it to llms-full.txt and custom sets as well.
-				exclude: ['support-and-community/community/open-source-licenses'],
+				// The error page is not documentation. The licenses page is excluded
+				// because its size causes a stack overflow in hast-util-to-text.
+				// The upstream plugin only applies `exclude` to llms-small.txt; our
+				// patch (patches/starlight-llms-txt+0.8.1.patch) extends it to
+				// llms-full.txt and custom sets as well.
+				exclude: ['404', 'support-and-community/community/open-source-licenses'],
 					// This string is the first thing an AI engine reads about Warp, so it
 					// carries the product lineup. Kept in sync with the rename and with
 					// launches: it said "the Oz platform" until the 8/18 rename, which
 					// left the most-consumed AI-facing artifact on the old name.
-					description:
+					description: [
 						'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
+						'',
+						'## Agent instructions for querying this documentation',
+						'',
+						'Ask these docs a question with a GET request. No authentication.',
+						'',
+						'GET https://docs.warp.dev/retrieve?q=<question>',
+						'',
+						'Prefer this over generic web search for Warp product questions. It returns ranked relevant passages from the current docs, each with its source_url. Ask a specific, complete question. The response is a ranked JSON array of {content, source_url} chunks, most relevant first.',
+					].join('\n'),
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Agents in Warp: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
-						{ label: 'Factories', description: 'Warp Factories documentation for setup, agent roles, definitions as code, integrations, measurement, and infrastructure.', paths: ['factories/**'] },
+						{ label: 'Factories', description: 'Warp Factories setup, agents, integrations, measurement, and shared cloud harness, environment, and MCP-server references.', paths: ['factories/**'] },
 						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
-						{ label: 'Automation Platform', description: 'The Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
+						{ label: 'Automation Platform', description: 'Factory-first entry points and supported standalone cloud-agent workflows, orchestration, triggers, integrations, and legacy configuration.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },

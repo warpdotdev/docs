@@ -48,6 +48,16 @@ Use the Peec MCP when available. Prefer source data over invented SEO advice.
 
 Keep Peec output compact. The brief should explain what the data suggests, not reproduce a full report.
 
+For each content recommendation:
+
+* Record the exact query or recommendation and what the data measured.
+* Say whether the data supports that specific topic or only a broader topic. A query about software testing, for example, does not by itself show demand for every testing tool.
+* If you recommend a narrower topic without direct supporting data, label it as your editorial recommendation rather than measured demand.
+* If no matching query was found, say that; do not claim it proves there is no demand.
+* Keep the recommendation within the page's agreed purpose. Do not add unrelated topics or unsupported product promises to include more search terms.
+
+See [SEO data in AGENTS.md](../../../AGENTS.md#seo-data) for the shared rules.
+
 ## Repo research workflow
 
 Ground every recommendation in the current docs:

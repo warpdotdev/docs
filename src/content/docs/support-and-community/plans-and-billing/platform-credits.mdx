@@ -5,26 +5,26 @@ description: >-
   including how platform usage differs from inference and compute.
 ---
 
-Platform usage covers running and managing agents through Warp. Cloud runs, including [Warp Factories](/factories/) runs, and local runs on Business and Enterprise that use customer-supplied inference incur charges for billable agent time. These charges draw from your eligible usage balance; Enterprise billing follows your contract.
+Platform usage covers running and managing agents through Warp, including orchestration, integrations, and run tracking. Cloud runs, including [Warp Factories](/factories/) runs, incur charges for billable agent time. Some local runs also incur these charges, depending on the [product and plan billed for the work](#when-platform-charges-apply).
 
-Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on Business and Enterprise plans.
+Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
 
 :::caution
-BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
+Personal BYOK and endpoints have [organization-size and plan requirements](/agents/inference/bring-your-own-api-key/). Factory runs use [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) or harness credentials, not keys stored on a member's device.
 :::
 
 <span id="how-platform-credits-are-measured" />
 
 ## How platform usage is measured
 
-An *agent hour* is one hour of billable agent activity. Partial hours are billed proportionally. See [Warp pricing](https://www.warp.dev/pricing) for current rates; Enterprise rates follow your contract.
+An *agent hour* (AH) is one hour of billable agent activity. On Free, Build, Max, and Business accounts for Warp Terminal and local agents billed in dollars, platform usage costs $3 per AH, or $0.05 per billable minute. Partial hours are billed proportionally: 30 minutes of billable activity costs $1.50. Enterprise rates and credit-billed accounts follow your contract.
 
-Agent hours are not the same as a run's elapsed time. Queued time, provisioning before the agent starts, and idle time between turns are excluded.
+Agent hours are not the same as a run's elapsed time. Queued time, provisioning before the agent starts, idle time between turns, and time blocked waiting for human input are excluded. Waiting for a model response during active execution is different from waiting for a person.
 
-Billable activity depends on the [harness](/platform/harnesses/):
+Billable activity depends on the [harness](/factories/harnesses/):
 
 * **Warp Agent** - After initial setup, time spent generating responses. Command and tool execution time, such as a five-minute test suite, isn't billable as platform usage.
-* **Claude Code and Codex** - Active runtime, including command execution and time spent waiting on the model provider.
+* **Third-party harnesses** - Active runtime, including command execution and time spent waiting on the model provider.
 
 Billable time stops when the agent finishes, fails, or is cancelled.
 
@@ -41,24 +41,30 @@ These are cost components, not independent allowances. A run can incur more than
 For example, a cloud run with Warp-provided inference on Warp-hosted compute incurs all three components. See [usage and billing](/support-and-community/plans-and-billing/credits/) for how they draw from your balance.
 
 <span id="when-platform-credits-apply" />
+<span id="uses-platform-credits" />
 
 ## When platform charges apply
 
 Whether a run incurs platform charges depends on where it runs and who pays for inference.
 
-<span id="uses-platform-credits" />
+### Warp Terminal and local agents
 
-### Uses platform services
+| Plan for Warp Terminal and local agents | Local platform charges |
+| --- | --- |
+| Free, Build, or Max | None, whether inference is supplied by Warp or by you |
+| Business or Enterprise | Billable agent time when using customer-supplied inference, including connected ChatGPT subscriptions; no separate platform charge for Warp-provided inference |
 
-* **Cloud runs** - Billable agent time incurs platform charges regardless of the harness, inference provider, or compute host. Self-hosted workers avoid Warp-hosted compute charges, not platform charges. Enterprise exceptions follow your contract.
-* **Local runs on Business or Enterprise with customer-supplied inference** - Platform charges apply when the run uses BYOK, a connected subscription, a custom inference endpoint, or BYOLLM instead of Warp-provided inference.
+### Warp Factories
+
+Factory runs incur platform charges for billable agent time on Start, Scale, and Enterprise plans for Warp Factories, regardless of harness, inference provider, or compute host. A local run billed under a team's Scale plan for Warp Factories also incurs platform charges when it uses customer-supplied inference. Enterprise rates and exceptions follow your contract.
+
+Self-hosted workers avoid Warp-hosted compute charges, not platform charges.
 
 <span id="doesnt-use-platform-credits" />
 
 ### Doesn't incur platform charges
 
-* **Local runs on Free, Build, or Max** - No platform charge, whether inference is provided by Warp or by you.
-* **Local runs on Business or Enterprise with Warp-provided inference** - Inference is charged without a separate platform charge.
+* **Local runs with Warp-provided inference** - Inference is charged without a separate platform charge.
 * **Regular terminal usage** - Shell commands and non-AI terminal features don't consume agent usage.
 * **Third-party agent CLIs run directly** - Running `claude`, `codex`, or another CLI yourself, outside a Warp-managed run, doesn't incur Warp platform charges.
 
@@ -70,7 +76,7 @@ In the Warp app, open **Settings** > **Billing and usage** to check account usag
 
 Detailed turn, conversation, and factory summaries show platform cost when available. These cost summaries are not agent-hour counters, and a run's displayed duration is not a substitute for billable agent hours.
 
-Platform charges draw from the billed user or agent's eligible usage balances. See [included and purchased usage](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) for allocation and spending order.
+Factory platform charges draw from [shared team or workspace funding](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs), not a member's personal included allowance. For other runs, see [included and purchased usage](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) for allocation and spending order.
 
 ## Related pages
 
