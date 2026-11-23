@@ -29,9 +29,11 @@ Pin the worker image to the immutable timestamp tag or digest from the [worker r
 These steps cover Warp Agent runs without Computer Use. Computer Use uses an additional image. Contact your Warp account team before enabling it in a worker pool that blocks public-registry access.
 :::
 
-:::caution
-Claude Code and Codex runs use the `-acp-sidecar` image by default. Mirror it and map it with `sidecar_image_mappings`; if you map only the `-cli-sidecar` repository, ACP runs try to pull the adapter image from Docker Hub. With the legacy Kubernetes `coding_cli_sidecars` option, a bare harness key maps the ACP repository to your terminal image too, so the agent runs that harness over a terminal and follow-ups lose native streaming and file attachments; add a `<harness>_acp` entry to keep ACP. See [`coding_cli_sidecars`](/factories/self-hosting/reference/#config-file-fields).
-:::
+Claude Code and Codex runs use the Agent Client Protocol (ACP) by default. Mirror their `-acp-sidecar` images and map the full source repository names, such as `docker.io/warpdotdev/warp-claude-acp-sidecar`, in `sidecar_image_mappings`. With Helm, use `kubernetesBackend.sidecarImageMappings`. See the [mapping fields](/factories/self-hosting/reference/#config-file-fields).
+
+Starting with worker release `v2026-11-05-20-19-00`, if you map a harness's `-cli-sidecar` repository but omit its `-acp-sidecar` mapping, the worker maps the ACP repository to the same mirrored CLI image. It preserves the destination's explicit tag or digest, or uses `latest` when neither is set. The agent then runs over a terminal (PTY), without native streaming or file attachments in follow-ups. This fallback happens when the worker loads its configuration, not after an image pull fails. Upgrade older workers to this release or newer before relying on CLI-only mappings.
+
+The legacy Kubernetes `coding_cli_sidecars` option also maps both repositories to the configured CLI image. To use ACP, replace that option with explicit ACP repository keys in `sidecar_image_mappings`.
 
 ## Copying images into the registry
 
