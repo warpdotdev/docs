@@ -44,9 +44,11 @@ images directly in Slack, without paths or gallery caption bars.
 ### Readability revision
 
 After seeing the implemented gray labels, the requester asked, “Maybe a bit
-bigger? It's hard to read”. Increase the section eyebrow from 24px to 32px:
-16px instead of 12px when a 1200×630 card is displayed at 600×315.
-This explicit sizing revision supersedes only the original 24px type size.
+bigger? It's hard to read”. The section eyebrow increased from 24px to 32px.
+After seeing those cards, the requester asked, “Maybe a bit bigger? Still small”.
+Increase the eyebrow to 48px: 24px at 600×315 and 12.8px at 320×168,
+compared with 16px and 8.5px for the 32px version.
+This explicit sizing revision supersedes only the section type size.
 Keep the gray color, Medium weight, tracking, line height, 24px title gap,
 title fitting, margins, pill, and section ownership unchanged.
 
@@ -112,7 +114,7 @@ Preserve the accepted 1200×630 canvas:
 
 Add the section as an eyebrow, not another badge:
 
-- Font: Azeret SemiMono Medium, 32px, uppercase.
+- Font: Azeret SemiMono Medium, 48px, uppercase.
 - Color: neutral gray `#555555`, fully opaque. Keep the page title black.
 - Tracking: −2%. Line height: 115%.
 - Left edge: x=64px.
@@ -176,7 +178,7 @@ References below use the implementation baseline.
 - Assumption: the URL-family table, `/api` exception, and known-family
   inheritance implement the agreed stable-home direction. They do not assign
   new ownership in site navigation.
-- The original 24px eyebrow was increased to 32px after readability feedback.
+- The original 24px eyebrow increased to 32px, then 48px after further feedback.
   Verify the revised size at native and reduced preview sizes while keeping
   the approved 24px title gap.
 - Assumption: `#555555` is the neutral gray to try in response to the
