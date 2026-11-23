@@ -70,10 +70,10 @@ function escapeMarkup(text) {
 	})[character]);
 }
 
-function renderText(text, size, color, family = fontFamily, tracking = -0.05) {
+function renderText(text, size, color, family = fontFamily, tracking = -0.05, lineHeight = 1.15) {
 	return sharp({
 		text: {
-			text: `<span foreground="${color}" letter_spacing="${Math.round(size * tracking * 1024)}" line_height="${Math.round(size * 1.15 * 1024)}">${escapeMarkup(text)}</span>`,
+			text: `<span foreground="${color}" letter_spacing="${Math.round(size * tracking * 1024)}" line_height="${Math.round(size * lineHeight * 1024)}">${escapeMarkup(text)}</span>`,
 			font: `${family} ${size}`,
 			width: 1072,
 			dpi: 72,
@@ -90,7 +90,7 @@ export async function renderOgImage(title, section = '') {
 
 	let text;
 	for (let size = 112; size >= 28; size -= 2) {
-		const candidate = await renderText(title, size, '#000000');
+		const candidate = await renderText(title, size, '#000000', `${fontFamily} Medium`, -0.05, 1.05);
 		if (candidate.info.width <= 1072 && candidate.info.height <= 280) {
 			text = candidate;
 			break;
@@ -109,7 +109,7 @@ export async function renderOgImage(title, section = '') {
 	return sharp(background).composite([
 		{ input: logo, left: 64, top: 64 },
 		{ input: label.data, left: 920 + Math.round((216 - label.info.width) / 2), top: 64 + Math.round((44 - label.info.height) / 2) },
-		...(eyebrow ? [{ input: eyebrow.data, left: 64, top: 566 - text.info.height - 24 - eyebrow.info.height }] : []),
+		...(eyebrow ? [{ input: eyebrow.data, left: 64, top: 566 - text.info.height - 32 - eyebrow.info.height }] : []),
 		{ input: text.data, left: 64, top: 566 - text.info.height },
 	]).png().toBuffer();
 }

@@ -6,7 +6,7 @@ Add a section label above each documentation preview title. Keep the accepted
 design in [PR #956](https://github.com/warpdotdev/docs/pull/956). Use one stable
 section per URL, even when several navigation tabs link to that URL.
 
-- Status: approved and implemented; section size revised for readability on 2026-11-23.
+- Status: approved and implemented; typography revised on 2026-11-23.
 - Requester: `hongyi-chen`.
 - Implementation baseline: `86309f7e8700339e7fa542f5a09fad36a477594a`.
 - Reuse PR #956 and branch `factory/dynamic-og-images`.
@@ -48,9 +48,22 @@ bigger? It's hard to read”. The section eyebrow increased from 24px to 32px.
 After seeing those cards, the requester asked, “Maybe a bit bigger? Still small”.
 Increase the eyebrow to 48px: 24px at 600×315 and 12.8px at 320×168,
 compared with 16px and 8.5px for the 32px version.
-This explicit sizing revision supersedes only the section type size.
-Keep the gray color, Medium weight, tracking, line height, 24px title gap,
-title fitting, margins, pill, and section ownership unchanged.
+That sizing revision changed only the section type size. It retained the
+gray color, Medium weight, tracking, line height, title fitting, margins,
+pill, and section ownership.
+
+### Heading typography revision
+
+The requester then asked, “tighten up the line height of the heading, and
+give a little more margin under the eyebrow”, followed by “also is the
+heading medium? try medium weight if not!”.
+
+Use the genuine Azeret SemiMono Medium face for the main title instead of
+Regular. Tighten title leading from 115% to 105% and increase the gap under
+the eyebrow from 24px to 32px. Keep the eyebrow at 48px, Medium, `#555555`,
+with 115% leading. Keep the title's fitting limits and bottom alignment:
+the changed font metrics and leading can affect wrapping, but the full
+title must remain inside the safe area without truncation.
 
 ## Product behavior
 
@@ -108,8 +121,8 @@ Preserve the accepted 1200×630 canvas:
 - Terminal-blue `#1008FF` DOCUMENTATION pill at the upper right, with a black
   outline and white text.
 - Outer margins: 64px.
-- Bottom-aligned black uppercase title in Azeret SemiMono Regular.
-- Title tracking: −5%. Line height: 115%.
+- Bottom-aligned black uppercase title in Azeret SemiMono Medium.
+- Title tracking: −5%. Line height: 105%.
 - Pill font: Azeret SemiMono Medium. Tracking: −2%.
 
 Add the section as an eyebrow, not another badge:
@@ -118,7 +131,7 @@ Add the section as an eyebrow, not another badge:
 - Color: neutral gray `#555555`, fully opaque. Keep the page title black.
 - Tracking: −2%. Line height: 115%.
 - Left edge: x=64px.
-- Bottom edge: 24px above the rendered title's top edge.
+- Bottom edge: 32px above the rendered title's top edge.
 - Keep the label on one line within the existing 1072px content width.
 - Keep the title inside its existing 280px maximum height. Keep the title's
   bottom edge at y=566px.
@@ -179,8 +192,8 @@ References below use the implementation baseline.
   inheritance implement the agreed stable-home direction. They do not assign
   new ownership in site navigation.
 - The original 24px eyebrow increased to 32px, then 48px after further feedback.
-  Verify the revised size at native and reduced preview sizes while keeping
-  the approved 24px title gap.
+  Verify the revised typography at native and reduced preview sizes with
+  the current 32px title gap.
 - Assumption: `#555555` is the neutral gray to try in response to the
   requester's color feedback. The requester did not select this exact value.
 - Assumption: section-aware alt text preserves the information added visually.
