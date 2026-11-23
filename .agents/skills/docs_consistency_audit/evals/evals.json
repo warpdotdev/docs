@@ -46,6 +46,40 @@
         "A duplicate receipt or losing push race is a successful no-op.",
         "Exactly one invocation can mutate state or produce a notification."
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Preview a blocked audit notification locally: redirect normalization failed before extraction, 0/390 pages extracted, and the authoritative saved state contains two active findings and no completed full audit. Use blocked-report and notification. Do not post to Slack or mutate saved state.",
+      "expected_output": "One payload explaining the purpose, redirect-checker failure, coverage, two saved findings not rechecked, next action, and links labeled by purpose. No zero-findings or success claim.",
+      "files": [],
+      "assertions": [
+        "The headline states that the audit could not check docs, without a run UUID.",
+        "The blocker, 0/390 page coverage, and repair/rerun action are explicit.",
+        "Prior findings are not presented as newly verified.",
+        "The standing PR is described as audit history, not documentation fixes."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Preview a partial audit notification locally with a newly verified privacy contradiction and two older active findings carried forward. Explain the conflict, link its public pages, and identify the required human review. Do not post to Slack.",
+      "expected_output": "A partial-audit payload with a short conflict explanation, public page links, human policy review, and a warning that carried-forward findings were not rechecked.",
+      "files": [],
+      "assertions": [
+        "The message distinguishes partial coverage from a completed full audit.",
+        "The finding includes public page links and a human-review action.",
+        "No prior finding is resolved because it is absent from partial coverage."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Preview an early preflight failure where saved audit state cannot be fetched and page coverage is unknown. Use blocked-report without --state-dir. Do not load default-branch state or post to Slack.",
+      "expected_output": "A failure payload stating that history could not be loaded, counts and coverage are unknown, and source/state access must be restored before rerunning.",
+      "files": [],
+      "assertions": [
+        "Unknown counts are not replaced with zero.",
+        "No stale fallback state is read or changed.",
+        "The message explains the next action without exposing raw exceptions or private evidence."
+      ]
     }
   ]
 }

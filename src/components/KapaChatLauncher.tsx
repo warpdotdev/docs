@@ -4,36 +4,60 @@ import {
 	Children,
 	isValidElement,
 	useEffect,
-	useMemo,
 	useRef,
 	useState,
 } from 'react';
-import { CaptchaAction, KapaProvider, useCaptcha, useChat } from '@kapaai/react-sdk';
-import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/client';
+import {
+	KapaProvider,
+	useChat,
+	useConversationHistory,
+} from '@kapaai/react-sdk';
+import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
+import {
+	KAPA_CONVERSATION_HISTORY_OPTIONS,
+	clearActiveThreadId,
+	deleteStoredConversation,
+	getConversationHistoryView,
+	isOwnedHistoryStorageEvent,
+	readActiveThreadId,
+	readHistoryUiSnapshot,
+	renameStoredConversation,
+	resolveMountRestore,
+	resolvePostDeleteNavigation,
+	resolveRestoreAttempt,
+	validateRenameTitle,
+	writeActiveThreadId,
+} from '../lib/kapa-conversation-history.mjs';
 import {
 	LuExternalLink,
 	LuCheck,
 	LuCopy,
+	LuHistory,
 	LuLoaderCircle,
 	LuMessageSquare,
+	LuPencil,
 	LuPlug,
+	LuPlus,
 	LuSend,
-	LuSquarePen,
 	LuThumbsDown,
 	LuThumbsUp,
+	LuTrash2,
 	LuX,
 } from 'react-icons/lu';
 import './KapaChatLauncher.css';
+import {
+	getConversationScrollBehavior,
+	getLatestResponseCompletionKey,
+	scrollMessageContainerToBottom,
+	shouldScrollLatestResponseToBottom,
+	shouldShowSupportEscalation,
+} from '../lib/kapa-support-escalation.js';
 
 const integrationId = PUBLIC_KAPA_INTEGRATION_ID;
-const projectId = PUBLIC_KAPA_PROJECT_ID?.trim() || '';
 const title = 'Ask Warp';
 const welcomeMessage = 'What do you want to know about Warp?';
-const uncertaintyThreshold = 0.15;
-const conversationLengthThreshold = 3;
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const warpDocsMcpUrl = 'https://warp.mcp.kapa.ai';
 const warpDocsMcpConfig = JSON.stringify(
 	{
@@ -47,58 +71,32 @@ const warpDocsMcpConfig = JSON.stringify(
 
 type FeedbackReaction = 'upvote' | 'downvote';
 type McpCopyTarget = 'config' | 'url';
-type GenericRecord = Record<string, unknown>;
-type HandoffApiSuccess = {
-	message?: string;
+type ConversationHistoryView = {
+	title: string;
+	empty: string;
+	privacy: string;
+	rename: string;
+	delete: string;
+	confirmDelete: string;
+	confirmDeleteAction: string;
+	cancelDeleteAction: string;
+	renameSave: string;
+	renameCancel: string;
+	current: string;
+	missingThread: string;
+	isEmpty: boolean;
+	items: Array<{
+		threadId: string;
+		title: string;
+		generatedTitle: string;
+		isActive: boolean;
+	}>;
 };
 
-function isObject(value: unknown): value is GenericRecord {
-	return typeof value === 'object' && value !== null;
-}
+type NewConversationOptions = {
+	openHistory?: boolean;
+};
 
-function readNumberField(record: GenericRecord, key: string) {
-	const value = record[key];
-	if (typeof value === 'number' && Number.isFinite(value)) return value;
-	if (typeof value === 'string') {
-		const parsed = Number(value);
-		if (Number.isFinite(parsed)) return parsed;
-	}
-	return null;
-}
-
-function readBooleanField(record: GenericRecord, key: string) {
-	const value = record[key];
-	if (typeof value === 'boolean') return value;
-	if (typeof value === 'string') {
-		const normalized = value.trim().toLowerCase();
-		if (normalized === 'true') return true;
-		if (normalized === 'false') return false;
-	}
-	return null;
-}
-
-function getUncertaintyScore(metadata: unknown) {
-	if (!isObject(metadata)) return null;
-	return (
-		readNumberField(metadata, 'uncertainty') ??
-		readNumberField(metadata, 'uncertainty_score') ??
-		readNumberField(metadata, 'uncertaintyScore')
-	);
-}
-
-function isAnswerUncertain(metadata: unknown) {
-	if (!isObject(metadata)) return false;
-	const flag =
-		readBooleanField(metadata, 'is_uncertain') ??
-		readBooleanField(metadata, 'isUncertain');
-	if (flag === true) return true;
-	const score = getUncertaintyScore(metadata);
-	return score !== null ? score >= uncertaintyThreshold : false;
-}
-
-function isValidEmailAddress(value: string) {
-	return emailPattern.test(value.trim());
-}
 function getChatErrorMessage(error: unknown) {
 	const message = typeof error === 'string' ? error : String(error ?? '');
 	const normalized = message.toLowerCase();
@@ -519,23 +517,41 @@ function ChatCodeBlock({
 	);
 }
 
-function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversation }: {
+function ChatSurface({
+	title,
+	welcomeMessage,
+	autoOpen = false,
+	initialHistoryOpen = false,
+	onNewConversation,
+}: {
 	title: string;
 	welcomeMessage: string;
 	autoOpen?: boolean;
-	onNewConversation: () => void;
+	initialHistoryOpen?: boolean;
+	onNewConversation: (options?: NewConversationOptions) => void;
 }) {
 	const [isOpen, setIsOpen] = useState(autoOpen);
 	const [query, setQuery] = useState('');
-	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
-	const [storedThreadId, setStoredThreadId] = useState<string | null>(null);
+	const [isHistoryOpen, setIsHistoryOpen] = useState(initialHistoryOpen);
+	const [historyThreads, setHistoryThreads] = useState<
+		Array<{ threadId: string; title: string; createdAt?: number; updatedAt?: number; qas?: unknown[] }>
+	>([]);
+	const [titleOverrides, setTitleOverrides] = useState<Record<string, string>>({});
+	const [renamingThreadId, setRenamingThreadId] = useState<string | null>(null);
+	const [renameDraft, setRenameDraft] = useState('');
+	const [renameError, setRenameError] = useState<string | null>(null);
+	const [pendingDeleteThreadId, setPendingDeleteThreadId] = useState<string | null>(null);
+	const [historyStatusMessage, setHistoryStatusMessage] = useState<string | null>(null);
+	const renameInputRef = useRef<HTMLInputElement | null>(null);
+	const deleteConfirmRef = useRef<HTMLButtonElement | null>(null);
+	const deleteTriggerRef = useRef<HTMLButtonElement | null>(null);
+	const threadIdRef = useRef<string | null>(null);
+	/** Guards StrictMode double-invoke so mount restore runs once per surface. */
+	const mountRestoreAttemptedRef = useRef(false);
+	/** Last latest-response completion key we already scrolled to bottom for. */
+	const scrolledCompletionKeyRef = useRef<string | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
-	const [handoffEmailInput, setHandoffEmailInput] = useState('');
-	const [handoffQaId, setHandoffQaId] = useState<string | null>(null);
-	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
-	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
-	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
 	const [copiedMcpValue, setCopiedMcpValue] = useState<McpCopyTarget | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -552,7 +568,11 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		submitQuery,
 		threadId,
 	} = useChat();
-	const { executeCaptcha } = useCaptcha();
+	const {
+		enabled: isConversationHistoryEnabled,
+		restoreThread,
+		threads: conversationHistoryThreads,
+	} = useConversationHistory();
 
 	useEffect(() => {
 		setIsAppleDevice(isMac());
@@ -565,46 +585,173 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		};
 	}, []);
 
-	useEffect(() => {
-		const savedThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
-		if (savedThreadId) {
-			setStoredThreadId(savedThreadId);
+	const applyHistorySnapshot = (options?: { allowActiveRemount?: boolean }) => {
+		const snapshot = (
+			readHistoryUiSnapshot as unknown as (input: {
+				sdkThreads?: unknown;
+				activeThreadId?: string | null;
+			}) => {
+				threads: Array<{ threadId: string; title: string; createdAt?: number; updatedAt?: number; qas?: unknown[] }>;
+				titleOverrides: Record<string, string>;
+				activeThreadMissing: boolean;
+				view: ConversationHistoryView;
+			}
+		)({
+			sdkThreads: conversationHistoryThreads,
+			activeThreadId: threadIdRef.current,
+		});
+		setHistoryThreads(snapshot.threads);
+		setTitleOverrides({ ...snapshot.titleOverrides });
+
+		if (
+			renamingThreadId &&
+			!snapshot.threads.some((thread: { threadId: string }) => thread.threadId === renamingThreadId)
+		) {
+			setRenamingThreadId(null);
+			setRenameDraft('');
+			setRenameError(null);
 		}
-	}, []);
+		if (
+			pendingDeleteThreadId &&
+			!snapshot.threads.some((thread: { threadId: string }) => thread.threadId === pendingDeleteThreadId)
+		) {
+			setPendingDeleteThreadId(null);
+		}
+
+		if (options?.allowActiveRemount !== false && snapshot.activeThreadMissing) {
+			clearActiveThreadId();
+			setHistoryStatusMessage(snapshot.view.missingThread);
+			onNewConversation({ openHistory: snapshot.threads.length > 0 });
+			return snapshot;
+		}
+		return snapshot;
+	};
 
 	useEffect(() => {
+		applyHistorySnapshot({ allowActiveRemount: false });
+
+		if (!isConversationHistoryEnabled || mountRestoreAttemptedRef.current) return;
+		mountRestoreAttemptedRef.current = true;
+
+		const decision = resolveMountRestore(readActiveThreadId(), {
+			currentThreadId: threadIdRef.current,
+		});
+		if (decision.action === 'none' || decision.action === 'already-active') return;
+		if (decision.action === 'clear-stale') {
+			clearActiveThreadId();
+			if (decision.message) setHistoryStatusMessage(decision.message);
+			return;
+		}
+		// Disk proved the thread is restorable; native restore keeps backend continuity.
+		restoreThread(decision.threadId as string);
+	}, [isConversationHistoryEnabled, restoreThread]);
+
+	useEffect(() => {
+		applyHistorySnapshot({ allowActiveRemount: false });
+	}, [conversationHistoryThreads]);
+
+	useEffect(() => {
+		threadIdRef.current = threadId;
 		if (!threadId) return;
-		setStoredThreadId(threadId);
-		localStorage.setItem('warp_docs_kapa_thread_id', threadId);
+		// shouldPersistThreadId runs inside writeActiveThreadId so deleted IDs stay gone.
+		writeActiveThreadId(threadId);
 	}, [threadId]);
 
 	useEffect(() => {
-		if (!isOpen || !messagesRef.current) return;
-		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-	}, [conversation.length, isOpen]);
+		const onStorage = (event: StorageEvent) => {
+			if (!isOwnedHistoryStorageEvent(event)) return;
+			applyHistorySnapshot({ allowActiveRemount: true });
+		};
+		window.addEventListener('storage', onStorage);
+		return () => {
+			window.removeEventListener('storage', onStorage);
+		};
+	}, [conversationHistoryThreads, renamingThreadId, pendingDeleteThreadId, onNewConversation]);
 
 	useEffect(() => {
-		if (!isOpen || !messagesRef.current) return;
+		if (!renamingThreadId || !renameInputRef.current) return;
+		renameInputRef.current.focus();
+		renameInputRef.current.select();
+	}, [renamingThreadId]);
+
+	useEffect(() => {
+		if (!pendingDeleteThreadId || !deleteConfirmRef.current) return;
+		deleteConfirmRef.current.focus();
+	}, [pendingDeleteThreadId]);
+
+	useEffect(() => {
+		if (!isOpen || !messagesRef.current || isHistoryOpen) return;
+		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+	}, [conversation.length, isOpen, isHistoryOpen]);
+
+	useEffect(() => {
+		if (!isOpen || !messagesRef.current || isHistoryOpen) return;
 		if (!isGeneratingAnswer && !isPreparingAnswer) return;
 		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-	}, [conversation, isGeneratingAnswer, isOpen, isPreparingAnswer]);
+	}, [conversation, isGeneratingAnswer, isOpen, isHistoryOpen, isPreparingAnswer]);
 
+	// After the latest assistant response completes (and when its CTA/controls
+	// appear), scroll the message container to its true bottom so the full card
+	// clears the composer. Avoid scrollIntoView(nearest) — it can stop early.
 	useEffect(() => {
-		if (!handoffQaId || !isOpen) return;
-		const frame = window.requestAnimationFrame(() => {
-			const inlineForm = document.getElementById(`sl-kapa-handoff-inline-${handoffQaId}`);
-			if (!inlineForm) return;
-			inlineForm.scrollIntoView({
-				behavior: 'smooth',
-				block: 'nearest',
+		const isBusy = isGeneratingAnswer || isPreparingAnswer;
+		const lastIndex = conversation.length - 1;
+		const lastQa = lastIndex >= 0 ? conversation[lastIndex] : null;
+		const downvoted = Boolean(
+			lastQa?.id &&
+				(lastQa.reaction === 'downvote' || downvotedAnswerIds[lastQa.id] === true)
+		);
+		const completionKey = getLatestResponseCompletionKey({
+			conversationLength: conversation.length,
+			responseIndex: lastIndex,
+			responseId: lastQa?.id ?? null,
+			answer: lastQa?.answer ?? null,
+			isDownvoted: downvoted,
+		});
+		if (
+			!shouldScrollLatestResponseToBottom({
+				isOpen,
+				isHistoryOpen,
+				isBusy,
+				completionKey,
+				lastScrolledKey: scrolledCompletionKeyRef.current,
+			})
+		) {
+			return;
+		}
+
+		let cancelled = false;
+		let innerFrame = 0;
+		let settleFrame = 0;
+		const behavior = getConversationScrollBehavior(window);
+		const scrollToBottom = () => {
+			if (cancelled || !messagesRef.current || !completionKey) return;
+			scrolledCompletionKeyRef.current = completionKey;
+			scrollMessageContainerToBottom(messagesRef.current, { behavior });
+			// Second settle pass after feedback/CTA layout commits.
+			settleFrame = window.requestAnimationFrame(() => {
+				if (cancelled || !messagesRef.current) return;
+				messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
 			});
-			const emailInput = inlineForm.querySelector<HTMLInputElement>('input[type="email"]');
-			emailInput?.focus();
+		};
+
+		const outerFrame = window.requestAnimationFrame(() => {
+			innerFrame = window.requestAnimationFrame(scrollToBottom);
 		});
 		return () => {
-			window.cancelAnimationFrame(frame);
+			cancelled = true;
+			window.cancelAnimationFrame(outerFrame);
+			if (innerFrame) window.cancelAnimationFrame(innerFrame);
+			if (settleFrame) window.cancelAnimationFrame(settleFrame);
 		};
-	}, [handoffQaId, isOpen, conversation.length]);
+	}, [
+		conversation,
+		downvotedAnswerIds,
+		isGeneratingAnswer,
+		isHistoryOpen,
+		isOpen,
+		isPreparingAnswer,
+	]);
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
@@ -654,13 +801,18 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const hasConversation = conversation.length > 0;
 	const isBusy = isGeneratingAnswer || isPreparingAnswer;
+	const conversationHistory = getConversationHistoryView(
+		historyThreads,
+		threadId,
+		titleOverrides
+	) as ConversationHistoryView;
+
+	const refreshHistoryFromDisk = () => applyHistorySnapshot({ allowActiveRemount: false });
 
 	const submit = () => {
 		const value = query.trim();
 		if (!value || isBusy) return;
-		closeHandoffForm();
 		submitQuery(value);
-		setHasStartedConversation(true);
 		setQuery('');
 	};
 
@@ -681,113 +833,103 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		return reaction === 'downvote' || downvotedAnswerIds[qaId] === true;
 	};
 
-	const shouldShowHandoffForAnswer = (qa: {
-		id?: string | null;
-		answer?: string | null;
-		metadata?: unknown;
-		reaction?: string | null;
-	}) => {
-		if (!qa.answer?.trim()) return false;
-		const conversationLengthTriggered = conversation.length >= conversationLengthThreshold;
-		const downvoteTriggered = isDownvoted(qa.id ?? null, qa.reaction ?? null);
-		const uncertaintyTriggered = isAnswerUncertain(qa.metadata);
-		return conversationLengthTriggered || downvoteTriggered || uncertaintyTriggered;
-	};
+	const shouldShowSupportForAnswer = (
+		qa: {
+			id?: string | null;
+			answer?: string | null;
+			reaction?: string | null;
+		},
+		responseIndex: number
+	) =>
+		shouldShowSupportEscalation({
+			answer: qa.answer,
+			responseIndex,
+			conversationLength: conversation.length,
+			isDownvoted: isDownvoted(qa.id ?? null, qa.reaction ?? null),
+		});
 
-	const buildConversationTranscript = () => {
-		if (!conversation.length) return 'No conversation history yet.';
-		return conversation
-			.map((qa, index) => {
-				const sources = qa.sources?.length
-					? `\nSources:\n${qa.sources.map((source) => `- ${source.title}: ${source.source_url}`).join('\n')}`
-					: '';
-				return `Q${index + 1}: ${qa.question}\nA${index + 1}: ${qa.answer || '(no answer generated yet)'}${sources}`;
-			})
-			.join('\n\n');
-	};
-
-	const buildConversationLink = (currentThreadId: string | null) => {
-		if (!projectId || !currentThreadId) return null;
-		return `https://app.kapa.ai/${projectId}/conversations/${currentThreadId}`;
-	};
-
-	const openHandoffForm = (qaId: string) => {
-		setHandoffQaId(qaId);
-		setHandoffErrorMessage(null);
-		setHandoffSuccessMessage(null);
-	};
-
-	const closeHandoffForm = () => {
-		setHandoffQaId(null);
-		setHandoffErrorMessage(null);
-		setHandoffSuccessMessage(null);
-	};
-
-	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
-		if (isSubmittingHandoff) return;
-		const userEmail = handoffEmailInput.trim().toLowerCase();
-		if (!isValidEmailAddress(userEmail)) {
-			setHandoffErrorMessage('Enter a valid email address to continue.');
+	const restoreSavedConversation = (savedThreadId: string) => {
+		if (renamingThreadId || pendingDeleteThreadId) return;
+		const attempt = resolveRestoreAttempt(savedThreadId);
+		if (!attempt.ok) {
+			setHistoryStatusMessage(attempt.message || conversationHistory.missingThread);
+			refreshHistoryFromDisk();
 			return;
 		}
-		const localStorageThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
-		const activeThreadId = threadId || storedThreadId || localStorageThreadId;
-		if (!activeThreadId) {
-			setHandoffErrorMessage('Missing Kapa thread context; please send another message and try again.');
+		setHistoryStatusMessage(null);
+		// Disk already proved the thread is restorable; native restore keeps backend continuity.
+		restoreThread(savedThreadId);
+		setIsHistoryOpen(false);
+	};
+
+	const beginRename = (savedConversation: ConversationHistoryView['items'][number]) => {
+		setPendingDeleteThreadId(null);
+		setHistoryStatusMessage(null);
+		setRenamingThreadId(savedConversation.threadId);
+		setRenameDraft(savedConversation.title);
+		setRenameError(null);
+	};
+
+	const cancelRename = () => {
+		setRenamingThreadId(null);
+		setRenameDraft('');
+		setRenameError(null);
+	};
+
+	const commitRename = (threadIdToRename: string) => {
+		const validation = validateRenameTitle(renameDraft);
+		if (!validation.ok) {
+			setRenameError(validation.error);
 			return;
 		}
-
-		const question = qa.question?.trim();
-		if (!question) {
-			setHandoffErrorMessage('Missing question context for handoff.');
+		const result = renameStoredConversation(threadIdToRename, validation.title);
+		if (!result.ok) {
+			setRenameError(result.error || 'Could not rename conversation.');
 			return;
 		}
+		refreshHistoryFromDisk();
+		cancelRename();
+	};
 
-		const conversationLink = buildConversationLink(activeThreadId);
+	const requestDelete = (threadIdToDelete: string) => {
+		cancelRename();
+		setHistoryStatusMessage(null);
+		deleteTriggerRef.current = document.activeElement as HTMLButtonElement | null;
+		setPendingDeleteThreadId(threadIdToDelete);
+	};
 
-		setIsSubmittingHandoff(true);
-		setHandoffErrorMessage(null);
-		setHandoffSuccessMessage(null);
-		try {
-			let captcha;
-			try {
-				captcha = await executeCaptcha(CaptchaAction.FeedbackSubmit);
-			} catch {
-				setHandoffErrorMessage('Captcha verification could not be completed. Please try again.');
-				return;
-			}
-			if (!captcha?.token || !captcha?.key) {
-				setHandoffErrorMessage('Captcha verification did not return a token. Please try again.');
-				return;
-			}
-			const response = await fetch('/api/support-handoff', {
-				method: 'POST',
-				headers: {
-					'content-type': 'application/json',
-				},
-				body: JSON.stringify({
-					user_email: userEmail,
-					question,
-					page_url: window.location.href,
-					conversation_transcript: buildConversationTranscript(),
-					kapa_project_id: projectId || null,
-					kapa_thread_id: activeThreadId,
-					kapa_conversation_url: conversationLink || null,
-					captcha_token: captcha.token,
-					captcha_header: captcha.key,
-				}),
-			});
-			const payload: HandoffApiSuccess & { message?: string } = await response.json().catch(() => ({}));
-			if (!response.ok) {
-				setHandoffErrorMessage(payload.message || 'Could not create support ticket. Please try again.');
-				return;
-			}
-			setHandoffSuccessMessage(payload.message || 'Support ticket created successfully.');
-		} catch {
-			setHandoffErrorMessage('Could not reach support handoff service. Please try again.');
-		} finally {
-			setIsSubmittingHandoff(false);
+	const cancelDelete = () => {
+		setPendingDeleteThreadId(null);
+		window.requestAnimationFrame(() => {
+			deleteTriggerRef.current?.focus();
+		});
+	};
+
+	const confirmDelete = (threadIdToDelete: string) => {
+		deleteStoredConversation(threadIdToDelete);
+		const snapshot = refreshHistoryFromDisk();
+		setPendingDeleteThreadId(null);
+		const navigation = resolvePostDeleteNavigation({
+			deletedThreadId: threadIdToDelete,
+			activeThreadId: threadId,
+			remainingThreadCount: snapshot.threads.length,
+		});
+		if (navigation.remount) {
+			// Remount drops stale SDK memory for the deleted active thread.
+			// Keep history open when other saved conversations remain.
+			clearActiveThreadId();
+			onNewConversation({ openHistory: navigation.openHistory });
+			return;
 		}
+		window.requestAnimationFrame(() => {
+			deleteTriggerRef.current?.focus();
+		});
+	};
+
+	const startFreshConversation = () => {
+		// Clear before remount so the next surface cannot restore the prior thread.
+		clearActiveThreadId();
+		onNewConversation({ openHistory: false });
 	};
 
 	const openPanel = () => {
@@ -883,26 +1025,41 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 			>
 					<div className="sl-kapa-panel">
 						<header className="sl-kapa-panel__header">
-						<button
-							type="button"
-							className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
-							onClick={onNewConversation}
-							disabled={!hasStartedConversation}
-							aria-label="New conversation"
-							data-tooltip="New conversation"
-						>
-							<LuSquarePen aria-hidden="true" />
-						</button>
+						<div className="sl-kapa-panel__header-start">
+							<button
+								type="button"
+								className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
+								onClick={() => setIsHistoryOpen((isOpen) => !isOpen)}
+								disabled={!isConversationHistoryEnabled || isBusy}
+								aria-label={
+									isHistoryOpen ? 'Return to current conversation' : 'Open conversation history'
+								}
+								aria-controls="sl-kapa-conversation-history"
+								aria-pressed={isHistoryOpen}
+								data-tooltip={isHistoryOpen ? 'Current conversation' : 'Conversation history'}
+							>
+								<LuHistory aria-hidden="true" />
+							</button>
+							<button
+								type="button"
+								className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
+								onClick={startFreshConversation}
+								aria-label="New conversation"
+								data-tooltip="New conversation"
+							>
+								<LuPlus aria-hidden="true" />
+							</button>
+						</div>
 						<div className="sl-kapa-panel__header-actions">
 							<Popover.Root>
 								<Popover.Trigger asChild>
 									<button
 										type="button"
-										className="sl-kapa-mcp-connect__trigger"
-										aria-label="Connect to Warp Docs with MCP"
+										className="sl-kapa-icon-button sl-kapa-icon-button--ghost sl-kapa-icon-button--tooltip-end sl-kapa-mcp-connect__trigger"
+										aria-label="Connect with MCP"
+										data-tooltip="Connect with MCP"
 									>
 										<LuPlug aria-hidden="true" />
-										<span>Connect with MCP</span>
 									</button>
 								</Popover.Trigger>
 								<Popover.Content
@@ -997,6 +1154,183 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 						</header>
 
 						<div className="sl-kapa-panel__body" ref={messagesRef}>
+						{isHistoryOpen ? (
+							<section
+								className="sl-kapa-history"
+								id="sl-kapa-conversation-history"
+								aria-labelledby="sl-kapa-conversation-history-title"
+							>
+								<div className="sl-kapa-history__header">
+									<div>
+										<h2 id="sl-kapa-conversation-history-title">{conversationHistory.title}</h2>
+										<p>{conversationHistory.privacy}</p>
+									</div>
+								</div>
+								{historyStatusMessage ? (
+									<p className="sl-kapa-history__status" role="status" aria-live="polite">
+										{historyStatusMessage}
+									</p>
+								) : null}
+								{conversationHistory.isEmpty ? (
+									<p className="sl-kapa-history__empty">{conversationHistory.empty}</p>
+								) : (
+									<ul className="sl-kapa-history__list">
+										{conversationHistory.items.map((savedConversation) => {
+											const isRenaming = renamingThreadId === savedConversation.threadId;
+											const isPendingDelete = pendingDeleteThreadId === savedConversation.threadId;
+											return (
+												<li key={savedConversation.threadId}>
+													<div
+														className="sl-kapa-history__row"
+														data-active={savedConversation.isActive ? 'true' : undefined}
+														data-pending-delete={isPendingDelete ? 'true' : undefined}
+													>
+														{isRenaming ? (
+															<form
+																className="sl-kapa-history__rename"
+																onSubmit={(event) => {
+																	event.preventDefault();
+																	commitRename(savedConversation.threadId);
+																}}
+															>
+																<label className="sr-only" htmlFor={`sl-kapa-history-rename-${savedConversation.threadId}`}>
+																	{conversationHistory.rename}
+																</label>
+																<input
+																	ref={renameInputRef}
+																	id={`sl-kapa-history-rename-${savedConversation.threadId}`}
+																	type="text"
+																	value={renameDraft}
+																	onChange={(event) => {
+																		setRenameDraft(event.target.value);
+																		setRenameError(null);
+																	}}
+																	onKeyDown={(event) => {
+																		if (event.key === 'Escape') {
+																			event.preventDefault();
+																			cancelRename();
+																		}
+																	}}
+																	aria-invalid={renameError ? true : undefined}
+																	aria-describedby={
+																		renameError
+																			? `sl-kapa-history-rename-error-${savedConversation.threadId}`
+																			: undefined
+																	}
+																/>
+																<div className="sl-kapa-history__row-actions">
+																	<button
+																		type="submit"
+																		className="sl-kapa-history__icon-button"
+																		aria-label={conversationHistory.renameSave}
+																		data-tooltip={conversationHistory.renameSave}
+																	>
+																		<LuCheck aria-hidden="true" />
+																	</button>
+																	<button
+																		type="button"
+																		className="sl-kapa-history__icon-button"
+																		onClick={cancelRename}
+																		aria-label={conversationHistory.renameCancel}
+																		data-tooltip={conversationHistory.renameCancel}
+																	>
+																		<LuX aria-hidden="true" />
+																	</button>
+																</div>
+																{renameError ? (
+																	<p
+																		className="sl-kapa-history__rename-error"
+																		id={`sl-kapa-history-rename-error-${savedConversation.threadId}`}
+																	>
+																		{renameError}
+																	</p>
+																) : null}
+															</form>
+											) : isPendingDelete ? (
+														<div
+															className="sl-kapa-history__confirm"
+															role="group"
+															aria-label={conversationHistory.confirmDelete}
+															onKeyDown={(event) => {
+																if (event.key === 'Escape') {
+																	event.preventDefault();
+																	cancelDelete();
+																}
+															}}
+														>
+															<p className="sl-kapa-history__confirm-copy" role="status">
+																{conversationHistory.confirmDelete}
+															</p>
+															<div className="sl-kapa-history__row-actions">
+																<button
+																	ref={deleteConfirmRef}
+																	type="button"
+																	className="sl-kapa-history__text-button sl-kapa-history__text-button--danger"
+																	onClick={() => confirmDelete(savedConversation.threadId)}
+																>
+																	{conversationHistory.confirmDeleteAction}
+																</button>
+																<button
+																	type="button"
+																	className="sl-kapa-history__text-button"
+																	onClick={cancelDelete}
+																>
+																	{conversationHistory.cancelDeleteAction}
+																</button>
+															</div>
+														</div>
+														) : (
+															<>
+																<button
+																	type="button"
+																	className="sl-kapa-history__open"
+																	onClick={() => restoreSavedConversation(savedConversation.threadId)}
+																	aria-label={savedConversation.title}
+																	aria-current={savedConversation.isActive ? 'page' : undefined}
+																>
+																	<span className="sl-kapa-history__open-title">{savedConversation.title}</span>
+																	{savedConversation.isActive ? (
+																		<span className="sl-kapa-history__active">{conversationHistory.current}</span>
+																	) : null}
+																</button>
+																{/* z-index above full-row open control; stopPropagation keeps restore from firing. */}
+																<div className="sl-kapa-history__row-actions">
+																	<button
+																		type="button"
+																		className="sl-kapa-history__icon-button"
+																		onClick={(event) => {
+																			event.stopPropagation();
+																			beginRename(savedConversation);
+																		}}
+																		aria-label={conversationHistory.rename}
+																		data-tooltip={conversationHistory.rename}
+																	>
+																		<LuPencil aria-hidden="true" />
+																	</button>
+																	<button
+																		type="button"
+																		className="sl-kapa-history__icon-button"
+																		onClick={(event) => {
+																			event.stopPropagation();
+																			requestDelete(savedConversation.threadId);
+																		}}
+																		aria-label={conversationHistory.delete}
+																		data-tooltip={conversationHistory.delete}
+																	>
+																		<LuTrash2 aria-hidden="true" />
+																	</button>
+																</div>
+															</>
+														)}
+													</div>
+												</li>
+											);
+										})}
+									</ul>
+								)}
+							</section>
+						) : (
+							<>
 						{!hasConversation && (
 							<div className="sl-kapa-empty-state">
 								<p className="sl-kapa-empty-state__title">Ask a question</p>
@@ -1004,7 +1338,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 							</div>
 						)}
 
-						{conversation.map((qa) => (
+						{conversation.map((qa, responseIndex) => (
 							<div className="sl-kapa-message-group" key={qa.id ?? `temp-${qa.question}`}>
 								<div className="sl-kapa-message sl-kapa-message--user">{qa.question}</div>
 								<div className="sl-kapa-message sl-kapa-message--assistant">
@@ -1084,75 +1418,26 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 											>
 												<LuThumbsDown aria-hidden="true" />
 											</button>
-											{shouldShowHandoffForAnswer(qa) ? (
-												<button
-													type="button"
-													className="sl-kapa-feedback__handoff"
-													onClick={() => openHandoffForm(qa.id as string)}
-												>
-													Create ticket
-												</button>
-											) : null}
 										</div>
 									) : null}
-									{handoffQaId === qa.id && !isBusy && shouldShowHandoffForAnswer(qa) ? (
-										<div
-											className="sl-kapa-handoff-inline"
-											id={`sl-kapa-handoff-inline-${qa.id}`}
-										>
-											<label htmlFor={`sl-kapa-handoff-email-${qa.id}`}>
-												Your Warp account email
-											</label>
-											<form
-												className="sl-kapa-handoff-inline__row"
-												onSubmit={(event) => {
-													event.preventDefault();
-													void submitSupportHandoff(qa);
-												}}
-											>
-												<input
-													id={`sl-kapa-handoff-email-${qa.id}`}
-													type="email"
-													placeholder="you@company.com"
-													value={handoffEmailInput}
-													onChange={(event) => setHandoffEmailInput(event.target.value)}
-													required
-												/>
-												<button
-													type="submit"
-													className="sl-kapa-feedback__handoff sl-kapa-feedback__handoff--submit"
-													disabled={isSubmittingHandoff}
-												>
-													{isSubmittingHandoff ? 'Submitting…' : 'Submit'}
-												</button>
-												<button
-													type="button"
-													className="sl-kapa-feedback__handoff sl-kapa-feedback__handoff--ghost"
-													onClick={closeHandoffForm}
-													disabled={isSubmittingHandoff}
-												>
-													Cancel
-												</button>
-											</form>
-											{handoffErrorMessage ? (
-												<p className="sl-kapa-handoff-inline__status sl-kapa-handoff-inline__status--error">
-													{handoffErrorMessage}
-												</p>
-											) : null}
-											{handoffSuccessMessage ? (
-												<p className="sl-kapa-handoff-inline__status sl-kapa-handoff-inline__status--success">
-													{handoffSuccessMessage}
-												</p>
-											) : null}
-										</div>
+									{shouldShowSupportForAnswer(qa, responseIndex) ? (
+										<p className="sl-kapa-support">
+											Need more help?{' '}
+											<a href="/support-and-community/troubleshooting-and-support/sending-us-feedback/">
+												View support options
+											</a>
+											.
+										</p>
 									) : null}
 								</div>
 							</div>
 						))}
 
 						{error ? <div className="sl-kapa-error">{getChatErrorMessage(error)}</div> : null}
+							</>
+						)}
 						</div>
-						<footer className="sl-kapa-panel__footer">
+						{!isHistoryOpen ? <footer className="sl-kapa-panel__footer">
 						<form className="sl-kapa-form" onSubmit={onSubmit}>
 							<input
 								ref={inputRef}
@@ -1207,7 +1492,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 								</Popover.Content>
 							</Popover.Root>
 						</div>
-						</footer>
+						</footer> : null}
 					</div>
 			</dialog>
 		</div>
@@ -1217,25 +1502,16 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: boolean } = {}) {
 	const [chatSessionKey, setChatSessionKey] = useState(0);
 	const [sessionAutoOpen, setSessionAutoOpen] = useState(autoOpen);
-	const callbacks = useMemo(
-		() => ({
-			askAI: {
-				onAnswerGenerationCompleted: (data: { threadId?: string | null }) => {
-					if (data.threadId) {
-						localStorage.setItem('warp_docs_kapa_thread_id', data.threadId);
-					}
-				},
-			},
-		}),
-		[]
-	);
+	const [sessionOpenHistory, setSessionOpenHistory] = useState(false);
 	if (!integrationId) {
 		return null;
 	}
-	const startNewConversation = () => {
-		// `autoOpen` is read once by each keyed `ChatSurface` remount so the
-		// fresh conversation opens immediately without controlling later renders.
+	const startNewConversation = (options?: NewConversationOptions) => {
+		// `autoOpen` / `initialHistoryOpen` are read once by each keyed
+		// `ChatSurface` remount so the fresh session opens immediately without
+		// controlling later renders.
 		setSessionAutoOpen(true);
+		setSessionOpenHistory(options?.openHistory === true);
 		setChatSessionKey((key) => key + 1);
 	};
 
@@ -1243,7 +1519,7 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 		<KapaProvider
 			key={chatSessionKey}
 			integrationId={integrationId}
-			callbacks={callbacks}
+			conversationHistory={KAPA_CONVERSATION_HISTORY_OPTIONS}
 			// Anonymous first-party cookie (`kapa_web_id`). Default in the Kapa
 			// React SDK; set explicitly so we do not accidentally ship `none` again.
 			// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
@@ -1253,6 +1529,7 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 				title={title}
 				welcomeMessage={welcomeMessage}
 				autoOpen={sessionAutoOpen}
+				initialHistoryOpen={sessionOpenHistory}
 				onNewConversation={startNewConversation}
 			/>
 		</KapaProvider>

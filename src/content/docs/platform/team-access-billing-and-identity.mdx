@@ -148,7 +148,7 @@ There are two places you may encounter this installation flow:
 
 ### How this relates to environments
 
-An [environment](/platform/environments/) is a template for a cloud agent's sandbox — it defines the Docker image, repos, and setup commands, but it does not carry its own GitHub permissions. The same environment can be used by different users or by agent API key runs, and each will authenticate to GitHub independently.
+An [environment](/factories/environments/) is a template for a cloud agent's sandbox — it defines the Docker image, repos, and setup commands, but it does not carry its own GitHub permissions. The same environment can be used by different users or by agent API key runs, and each will authenticate to GitHub independently.
 
 The environment configuration and the **Enabled GitHub Orgs** setting in the Admin Panel serve different purposes:
 
@@ -215,7 +215,7 @@ Runs triggered by an `@warp-agent` mention through the [GitHub integration](/pla
 
 Cloud agent runs consume usage dollars or credits, depending on your plan. They also incur [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable agent time, plus charges for Warp-hosted compute and Warp-provided inference.
 
-On self-serve team plans, billing follows the trigger:
+For factory runs, use the [shared funding requirements](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs). On self-serve team plans, standalone cloud-run billing follows the trigger:
 
 * **Runs acting as you** - Use your eligible included and purchased usage on the team. See [team purchase balances](/support-and-community/plans-and-billing/add-on-credits/#tracking-purchases-and-team-usage) for shared and member-specific balances.
 * **Agent API key runs** - Use eligible shared team usage, not the team owner's personal included allowance. Cloud agents don't receive a separate per-seat allowance.

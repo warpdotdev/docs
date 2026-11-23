@@ -1,0 +1,30 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:warp.dev:server:documentation",
+      "displayName": "Warp Documentation MCP Server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://docs.warp.dev/.well-known/mcp.json",
+      "capabilities": ["Search Warp documentation", "Retrieve Warp documentation"],
+      "description": "Search and retrieve content from Warp's official documentation",
+      "representativeQueries": ["How do I use Warp agents?", "How do I use Warp Factories?"]
+    },
+    {
+      "identifier": "urn:air:warp.dev:api:agent",
+      "displayName": "Warp Agent API",
+      "type": "application/openapi+json;version=3.2",
+      "url": "https://docs.warp.dev/openapi.json",
+      "capabilities": ["Create cloud agent runs", "Inspect cloud agent runs"],
+      "description": "OpenAPI description for programmatically creating, managing, and querying Warp cloud agent runs.",
+      "representativeQueries": ["Create a Warp cloud agent run", "Check the status of a Warp agent run"]
+    },
+    {
+      "identifier": "urn:air:warp.dev:resource:docs-llms",
+      "displayName": "Warp Documentation LLM Index",
+      "type": "text/plain",
+      "url": "https://docs.warp.dev/llms.txt",
+      "description": "Machine-readable index of the Warp documentation, with links to the full, abridged, and per-section text sets.",
+      "representativeQueries": ["Find the Warp documentation for AI agents", "Get the full Warp documentation as plain text"]
+    }
+  ]
+}

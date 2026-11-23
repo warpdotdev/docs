@@ -71,6 +71,8 @@ An agent run represents a single execution of a cloud agent, created with a prom
 
 See the [**{VARS.WARP_PLATFORM_API} reference**](/api) for details on how runs are created and listed.
 
+To select a run's plan, screenshot, recording, or uploaded report by artifact UID, follow [Finding and sharing artifacts](/factories/artifacts/#retrieving-an-artifact-with-the-api).
+
 ## Agent configuration
 
 You can influence how an agent runs using `AmbientAgentConfig`, including:
@@ -84,6 +86,22 @@ You can influence how an agent runs using `AmbientAgentConfig`, including:
 * `mcp_servers` to enable specific tools via MCP
 
 See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
+
+### Running a skill
+
+To start a standalone cloud run with reusable instructions, send this body to `POST /agent/runs`:
+
+```json
+{
+  "prompt": "Review the latest changes and report missing tests. Do not modify files.",
+  "config": {
+    "environment_id": "ENVIRONMENT_ID",
+    "skill_spec": "OWNER/REPO:code-review"
+  }
+}
+```
+
+Replace `ENVIRONMENT_ID` with the environment that provides the repository and dependencies, and `OWNER/REPO:code-review` with your repository and skill name. The skill provides the base instructions; `prompt` supplies context for this run. See [Skills for agents](/agents/capabilities/skills/) for skill files and discovery.
 
 ### Skill actions in conversation data
 

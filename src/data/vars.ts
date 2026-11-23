@@ -67,4 +67,6 @@ export const VARS = {
   // URLs
   GET_STARTED_URL:          "https://www.warp.dev/get-started",
   CONTACT_SALES_URL:        "https://www.warp.dev/contact-sales",
+  // Free hands-on course for building a software factory step by step.
+  LEARN_URL:                "https://www.warp.dev/learn",
 } as const;

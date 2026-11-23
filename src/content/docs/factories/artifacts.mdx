@@ -1,0 +1,130 @@
+---
+title: Finding and sharing artifacts
+description: >-
+  Find plans, screenshots, recordings, and uploaded files from Warp Factories, and choose how to retrieve or share each result.
+sidebar:
+  label: "Artifacts"
+---
+import { VARS } from '@data/vars';
+
+Artifacts let you return to a plan, inspect visual evidence, or download a report produced by Warp Factories. They also belong to standalone cloud agent runs outside a factory. For example, ask an agent to upload a dependency report so you can retrieve it after the run ends.
+
+## Artifacts and linked outputs
+
+A run is one agent execution. Its conversation contains the messages, actions, and reported results. A factory work item can involve several runs and workers, so its results aren't limited to the foreman's conversation.
+
+| Result | What to open or retrieve | Sharing consideration |
+| --- | --- | --- |
+| Plan | The plan link, or plan content through the API | Check the plan's sharing permissions separately from media permissions |
+| Screenshot | A media-page link or downloadable image | Private links require access; public media is accessible to anyone with the URL |
+| Video recording | A media-page link or downloadable video file | Computer Use capture-sharing policy doesn't apply to every uploaded video |
+| Uploaded report or other file | File metadata and downloadable content | Don't treat a download URL as a public publishing control |
+| Pull request | The code host's URL | The code host controls access |
+| Issue or other external reference | The destination system's URL | Reporting the link doesn't copy its contents into Warp or grant access |
+
+A file left on a worker's filesystem isn't automatically a saved artifact. Ask the agent to upload the file and return it as a result. Keep code changes in a repository and pull request rather than relying on a sandbox file.
+
+## Finding artifacts
+
+Start from the work item or run whose result you need. Use the [factory dashboard](/factories/factory-dashboard/#inspect-runs) to inspect its runs and conversations. For standalone runs, follow [cloud agent session sharing](https://docs.warp.dev/platform/viewing-cloud-agent-runs/).
+
+{/* VERIFY: Complete the production factory artifact-entry procedure and observe work-item aggregation, plan or media opening, and file retrieval with a non-sensitive fixture; authenticated navigation is not available in this environment. */}
+
+If a result is missing, inspect the producing worker's conversation. Confirm that the agent uploaded or reported the result, rather than only mentioning a local path. For programmatic discovery, use the [run's artifact entries](#retrieving-an-artifact-with-the-api).
+
+## Requesting a saved result
+
+### Request an uploaded report
+
+Send this prompt to an agent with file-upload capability:
+
+> Create `dependency-audit.csv` using only this sample data: package `web-ui`, version `1.2.0`, status `review`; package `csv-export`, version `2.0.1`, status `ok`. Use the columns `package,version,status`. Upload the CSV as an artifact and return its reference. Don't use real dependency or customer data.
+
+Retrieve the uploaded report and compare the header and both rows with the sample data. A response containing only the sandbox path isn't a saved result.
+
+### Request a plan without implementation
+
+> Create a plan for adding CSV export to a demo application's results table. Include implementation steps and validation criteria. Return a plan link for review. Don't implement the plan or change code.
+
+Open the returned plan and review the proposed work before asking the agent to implement it. See [Agent planning and execution](https://docs.warp.dev/agents/capabilities/planning/) for editing, version history, and Markdown export.
+
+## Sharing an artifact
+
+Choose the reference for the recipient and task:
+
+* **Plan link** - Use the plan's sharing controls. Export Markdown when you need a version checked into a repository. See [saving and sharing plans](https://docs.warp.dev/agents/capabilities/planning/#saving-and-sharing).
+* **Private media link** - Ask the capturing agent to return links to selected screenshots or recordings. Warp checks the viewer's access when the link opens. Copying a link doesn't grant access.
+* **Public media embed** - Use only for content you intend to publish. Requesting permitted embed URLs makes the media accessible to anyone with the URL. [Media attachment modes](https://docs.warp.dev/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes) own the team policy and controls.
+* **Uploaded file** - Retrieve its content through the [API](#retrieving-an-artifact-with-the-api) or the supported legacy [artifact CLI](https://docs.warp.dev/agents/cli/oz-cli/artifacts/). Don't assume the media-embed workflow publishes arbitrary files.
+* **External link** - Share the pull request, issue, or other destination URL. The recipient still needs access in that system.
+
+{/* VERIFY: Confirm plan-link ACLs and their relationship to artifact API access using an authorized viewer, a signed-out viewer, and a signed-in viewer without fixture access before publishing plan-sharing instructions. */}
+
+For example, with [Computer Use](https://docs.warp.dev/agents/capabilities/computer-use/) available, ask:
+
+> In the demo application, record the CSV export flow and capture the completed export state. Use only non-sensitive sample data. Return access-checked links in this conversation. Don't publish public embeds or post to another system.
+
+Open the links to check that they show the requested flow and state. For PR attachments, follow [Screenshots and videos in pull requests](https://docs.warp.dev/agents/capabilities/computer-use/artifacts-in-prs/) rather than manually publishing media. Captures from child agents belong to those child runs; ask the capturing agent for its links.
+
+## Retrieving an artifact with the API
+
+Use the {VARS.WARP_PLATFORM_API} to retrieve a selected result without scraping conversation text. You need a run you can access, a [Warp API key](https://docs.warp.dev/agents/cli/oz-cli/api-keys/), `curl`, and `jq`. Configure the key as `WARP_API_KEY` using the linked authentication instructions.
+
+1. In your terminal, fetch the known run. Replace `RUN_ID` with that run's identifier:
+
+   ```bash
+   RUN_ID=RUN_ID
+   curl --fail --silent --show-error \
+     -H "Authorization: Bearer $WARP_API_KEY" \
+     "https://app.warp.dev/api/v1/agent/runs/$RUN_ID" \
+     --output run.json
+   ```
+
+2. List uploaded files by UID, name, and MIME type:
+
+   ```bash
+   jq -r '(.artifacts // [])[]
+     | select(.artifact_type == "FILE")
+     | select(.data.artifact_uid != null and .data.artifact_uid != "")
+     | [.data.artifact_uid, .data.filename, .data.mime_type]
+     | @tsv' run.json
+   ```
+
+   Select the row for `dependency-audit.csv`, not the first artifact. No rows means the response contains no matching file entries; check the run and producing worker before continuing. If an entry lacks `data.artifact_uid`, don't substitute its document or notebook UID.
+
+   The run response uses `PLAN`, `PULL_REQUEST`, `SCREENSHOT`, `FILE`, and `EXTERNAL_REFERENCE`. Recordings use `FILE` with a video MIME type, not a separate video artifact type. For a pull request or external reference, follow the destination URL in `data.url` instead of passing it to artifact download.
+
+3. Fetch metadata for the selected artifact. Replace `ARTIFACT_UID` with its `data.artifact_uid`:
+
+   ```bash
+   ARTIFACT_UID=ARTIFACT_UID
+   curl --fail --silent --show-error \
+     -H "Authorization: Bearer $WARP_API_KEY" \
+     "https://app.warp.dev/api/v1/agent/artifacts/$ARTIFACT_UID" \
+     --output artifact.json
+   ```
+
+   For `FILE` and `SCREENSHOT`, the response contains `data.download_url`, `data.expires_at`, and `data.content_type`. For `PLAN`, it returns content inline rather than a downloadable file. The [API reference](/api) defines the response fields and errors.
+
+   {/* VERIFY: Use a controlled plan edit to confirm current-content retrieval before documenting whether the API result reflects later notebook changes or a snapshot. */}
+
+4. For the selected report, follow the download redirect and save the CSV:
+
+   ```bash
+   curl --fail --silent --show-error --location \
+     -H "Authorization: Bearer $WARP_API_KEY" \
+     "https://app.warp.dev/api/v1/agent/artifacts/$ARTIFACT_UID/download" \
+     --output dependency-audit.csv
+   ```
+
+   Check the downloaded rows against the report request. The endpoint redirects to a temporary signed URL. Keep the artifact UID as the durable reference and request a fresh URL when needed. Don't store signed URLs as permanent share links or print them in logs.
+
+Private retrieval requires authentication and authorization. An existing public artifact can be retrieved without authentication, but the retrieval endpoints don't make an artifact public. A `401` means authentication is required; a `403` means the caller lacks access. A `404` can mean a missing artifact or unsupported type.
+
+## Related pages
+
+* [Factory dashboard](/factories/factory-dashboard/) - Inspect the runs behind a work item
+* [Agent planning and execution](https://docs.warp.dev/agents/capabilities/planning/) - Edit and export plans
+* [Screenshots and videos in pull requests](https://docs.warp.dev/agents/capabilities/computer-use/artifacts-in-prs/) - Choose media attachment policy
+* [Artifacts CLI reference](https://docs.warp.dev/agents/cli/oz-cli/artifacts/) - Retrieve files through the legacy CLI
+* [{VARS.WARP_PLATFORM_API} reference](/api)

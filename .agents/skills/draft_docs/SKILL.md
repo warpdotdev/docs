@@ -5,7 +5,7 @@ description: Draft new Warp documentation pages or update existing ones using es
 
 # Draft Docs
 
-This skill guides the process of drafting new documentation pages or updating existing ones for Warp's documentation (referred to as "docs"), which lives at https://docs.warp.dev. All style rules, content type structures, formatting standards, and terminology live in `AGENTS.md` at the docs repo root. That file is the single source of truth and must be read before drafting new docs.
+This skill guides the process of drafting new documentation pages or updating existing ones for Warp's documentation (referred to as "docs"), which lives at https://docs.warp.dev. All style rules, content type structures, formatting standards, and terminology live in `AGENTS.md` at the docs repo root. That file is the single source of truth and must be read before drafting or revising docs.
 
 ## How to use
 
@@ -63,7 +63,7 @@ Also clarify: Is this a new page or an update to an existing page?
 ### 3. Read the style guide
 Read `AGENTS.md` in the docs repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
 
-Use `.agents/rules/oz-style-guidelines.md` as the canonical positioning source and `.agents/references/terminology.md` for names. Do not infer a product promise or migration deadline from older marketing guidance.
+Read and apply `.agents/rules/warp-positioning.md` as the canonical positioning source and `.agents/references/terminology.md` for names. Use `.agents/references/writing-examples.md` when drafting or materially revising explanatory copy. Check definitions, openings, and descriptions against the infrastructure/workflow distinction before drafting. Do not define a customer's factory as a team of agents. Preserve shipped role names. Positioning is not evidence of shipped behavior or compatibility.
 
 ### 3.5. Confirm the doc should exist, then design it
 
@@ -118,6 +118,8 @@ Once the content type is identified:
 Read 2-3 strong examples in the target section to match existing patterns and conventions.
 
 ### 6. Research source code (if needed)
+Before verifying claims, read and apply `.agents/references/compliance-claims-policy.md`. Omit HIPAA and unsupported compliance promises from customer-facing content; record missing Security or Legal approval in the internal handoff or PR evidence, not a public `VERIFY` marker. This exception overrides the generic source and marker options below.
+
 For technical accuracy, optionally look in Warp's source repositories:
 - **warp-internal** - Client-side code (Rust, Swift, etc.)
 - **warp-server** - Server-side code (Go)
@@ -152,7 +154,7 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
 - **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. Prefer the concrete object or outcome over a vague section label. ✅ `## How key type affects billing and GitHub access` / `## Configuring Workload Identity Federation` ❌ `## More details` / `## Overview` / `## Additional information` / `## Other`
 - **Frontmatter `description` is a standalone search summary** — One to two sentences, roughly 50–160 characters, stating the user benefit and primary keywords. It must make sense out of context, in a search result or an AI citation. ✅ `description: Environments keep cloud agents on a consistent toolchain across every trigger.` ❌ `description: This page describes environments.` ❌ a description that only restates the title
-- **Bold + dash format for feature lists** — `* **Term** - Description`, not `* Term: Description` and not `* **Term** — Description`. Use a hyphen with spaces around it as the separator after the bold term. Closing link lists use the link-first format below instead.
+- **Bold + dash format for feature lists** — `* **Term** - Description`, not `* Term: Description` and not `* **Term** — Description`. Use a hyphen with spaces around it as the separator after the lead term. Agent names and non-clickable UI field labels remain unbolded even in lists; use lowercase generic roles and quoted field labels. Closing link lists use the link-first format below instead.
 - **Closing link-list format** — Follow `AGENTS.md` → Closing section: `* [Destination title](URL) - Short description`, with no bold wrapper or redundant label. Descriptions are optional; when useful, capitalize the first word, preserve proper-name casing, and omit terminal punctuation. Explain why to open the page rather than repeating its title. Use a spaced hyphen, never an em dash, en dash, or colon. Apply this to both `## Related pages` and `## Next steps`, even when an existing example uses a different style.
 - **Unordered list marker is `*`** — Match the templates and existing docs. Reserve `-` for nested lists whose parent already uses `*`; use `1.` for numbered procedures. ✅ `* **Codebase Context** - Warp indexes your Git-tracked codebase` ❌ `- **Codebase Context** - ...` as the top-level marker on a new page
 - **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
@@ -161,10 +163,11 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
 - **Orient the reader before every Settings path, CLI command, or URL** — On first reference in the page, name the app or tool. ✅ `In the Warp app, go to **Settings** > **AI** > **Knowledge**.` ❌ `Go to **Settings** > **AI** > **Knowledge**.`
 - **Verify labels, flags, and defaults against source** — Before documenting a button name, Settings path, CLI flag, permission default, or eligibility rule, confirm it in `warp-internal` / `warp-server` or the live UI. ✅ `warp --auto-approve` after checking `TuiArgs` ❌ inventing `--fast-forward` from memory or an old PR description
+- **Qualify plans by product** — Follow the glossary's product-qualified plan rule. Separate Warp Terminal and local agent plans from Warp Factories plans before describing eligibility, balances, upgrades, or seat billing. Write “the Scale plan for Warp Factories,” not “Warp Factories Scale,” and never blend plan names from the two offerings into one list. Keep each product's billing path beside its instructions.
 - **Document durable behavior, not ephemeral chrome** — Prefer workflows, shortcuts, and outcomes that stay true when styling shifts. Drop glyph colors, pixel-level layout narration, and other pure presentation detail unless the reader must recognize them to succeed. ✅ "Press `Ctrl+C` once to stop the in-progress response." ❌ a full inventory of pending/running/failed glyph colors
 - **State availability honestly** — If a capability is preview-only, platform-limited, interactive-only, or not yet in cloud agents, say so next to the claim. Never describe limited-preview behavior as generally available. ✅ "Linux post-processing adds smart cut; macOS applies a uniform speedup." ❌ listing smart cut as a property of every recording
 - **Cover team-wide and admin effects** — For integrations and team features, state who can install, whether every teammate gets access immediately, and any per-user auth or admin steps on the external system. ✅ "A Jira admin must install the app; each teammate links their own account for run attribution." ❌ setup steps that only describe the installer's happy path
-- **Section order follows reader chronology** — Prerequisites and requirements before setup, setup before usage, usage before advanced options. ✅ `## Prerequisites` → `## Set up the integration` → `## Start a run` ❌ setup steps before the reader knows what they need
+- **Opening and section order serve the reader's task** — Put the answer, decision, or first action near the top. State a how-to's outcome and prerequisites before dependent steps. Lead reference material with the definition or behavior being looked up. Order requirements before setup, setup before usage, and usage before advanced options (AGENTS.md → Opening paragraphs and Procedural).
 - **Keep error messages out of the main flow** — Do not weave full error strings through conceptual or procedural sections. Put them in a dedicated `## Troubleshooting` section near the end, formatted symptom → cause → fix. ✅ one Troubleshooting section with the exact error as a bold lead-in ❌ repeating the same error callout after every step
 - **Use callouts sparingly** — Prefer body prose. At most one or two callouts per page unless the content type template requires more, never two callouts back to back, and at most one per section. ✅ a single `:::note` for a non-obvious prerequisite ❌ a `:::note` / `:::tip` after every subsection
 - **No AI-ism buzzwords or meta-openers** — Never open with "This page covers/explains/walks through..."; state the thing itself. Avoid marketing adjectives (seamless, powerful, robust, comprehensive), inflated verbs (leverage, streamline, empower, unlock), restated cause-and-effect ("This process ensures..."), and recap lines. See AGENTS.md → Voice & tone for the full lists. ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`." ❌ "This page covers how the integration works, how to set it up, and common automation patterns."
@@ -173,8 +176,8 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Cut length before shipping** — Brevity is a drafting rule, not only a review checklist item. After the first complete draft, run a deletion-only "Cut again" pass (AGENTS.md → Voice & tone → Cut again): remove framing lines, restated cause-and-effect, internal implementation detail the reader cannot act on, and boilerplate a parent page already owns. Prefer one concrete sentence over a paragraph that re-explains the same step. A page past ~1500 words usually still has padding — cut first; split only if the remaining content still does not fit. ✅ a setup section that states only the required clicks and links out for credential types ❌ a multi-paragraph walkthrough of harness internals on a how-to page
 - **Document the user-visible model, not internal architecture** — Internal components (orchestrators, control planes, lifecycle state machines) get at most one sentence, and only when the reader can act on them. ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard." ❌ "The orchestration layer runs on Warp's servers (cloud control plane) and tracks lifecycle state (created → running → completed/failed)." / ❌ a public how-to that narrates how validation walks the AST
 - **Descriptive link text, and no dead-end pages** — Never use "here", "this page", or a bare URL as link text. End every new page with `## Next steps` (quickstarts and tutorials) or `## Related pages` (every other type), containing at least one internal link whose anchor names the destination topic. Do not use "Further reading" or "See also". ✅ `Learn more about [Codebase Context](/code/codebase-context/)` ❌ `Click [here](/code/codebase-context/)` ❌ ending a new feature page with no cross-links
-- **Disambiguate conditional and multi-clause wording** — If a sentence has two plausible readings (especially with "when", "if", "can", or stacked clauses), rewrite it so only one meaning remains. Prefer one idea per sentence. ✅ `Cloud handoff keeps your conversation's model only when that model is available in the cloud.` ❌ `Cloud handoff keeps your conversation's model when it can run in the cloud.` (keeps the model when it can? or only when cloud supports the model?)
-- **Lead instructional sentences with the action or goal** — In steps, keyboard shortcuts, and "how to" sentences, put the action or goal first, then the control or condition. Readers should not need prior context to know what values or targets you mean. ✅ `To open the searchable environment and model selectors, press Ctrl+E.` ❌ `To change either value, press Ctrl+E.` (which values?)
+- **Separate instructions and clarify the actor** — Give each instruction its own sentence, not a semicolon joining separate actions. Keep details of one action together. Distinguish reader actions, automatic product behavior, and other people's responsibilities. Replace an ambiguous pronoun with the specific name. Rewrite conditional or multi-clause wording until it has only one reading (AGENTS.md → Language guidelines).
+- **Order instructions for the reader's decision** — Distinguish applicability conditions from reader goals. Lead with a condition when readers must decide whether, when, or by whom to act. Name the goal before the destination when readers choose where to make a change. In established procedures, give the location and action directly. Keep procedure-wide requirements in prerequisites. Don't repeat established conditions or reorder clear behavior explanations solely to enforce a preferred order (AGENTS.md → Separate instructions and clarify their order).
 - **Screenshots for hard-to-describe UI** — When a page documents a visual surface (statusline chips, tab bars, settings panes, multi-control layouts, benchmark editors), include a screenshot after the prose that introduces that surface. Prefer prose for straightforward clicks, and prefer one well-placed figure over repeating the same surface. Always use descriptive alt text, never "screenshot". Do not invent or request screenshots of internal-only, flagged, or unfinished UI. ✅ a statusline screenshot after the paragraph that names the chips ❌ describing chip layout in a long paragraph with no image when humans keep asking "should we include a screenshot?"
 - **Orientation media goes early; never stack videos** — When a page has a product demo video or a wide orientation screenshot, place the highest-level one near the top of the page (after the opening paragraph or key-features list), not buried after long conceptual sections. Never place two `<VideoEmbed>` blocks back to back — pick the better orientation video for above-the-fold, and link or place the second one later next to the section it illustrates. ✅ one overview video after the intro, with a second demo only under the matching how-to section ❌ two consecutive `VideoEmbed`s mid-page with no prose between them
 - **`VideoEmbed` requires a specific `title`** — Every `<VideoEmbed>` must include a `title` prop that names the integration, workflow, feature, or task shown. ✅ `<VideoEmbed url="..." title="Warp Agent CLI conversation transcript walkthrough" />` ❌ `<VideoEmbed url="..." />` or a generic title like `"video"` / `"demo"`
@@ -183,6 +186,30 @@ These rules are frequently violated by agents. Apply them carefully during draft
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
 
 During the deletion pass, apply AGENTS.md → Procedural → Reader-understanding test. A concept explained elsewhere may still be necessary beside a step for a direct-arrival reader. Omit optional scaffold sections rather than filling them with repetition.
+
+At each decision point, explain when to use each option and where to make the change. State consequences beside the choice. Use a realistic example to resolve uncertainty about an option, value, or expected result. Verify the details that affect its outcome (AGENTS.md → Reader goals, control, and evidence and Define, show, link).
+
+For each setup procedure:
+
+* State what the reader is configuring before listing fields or example names. For example, say "Create an automation that checks broken links" before giving the automation's name.
+* Explain what each selected agent, environment, or credential is used for. Give the field, command, or file to change and the value to use.
+* Show how to edit or select an existing agent or resource when the task supports reuse. For file-based setup, identify the existing file or agent directory instead of assuming the example name matches every factory.
+* Separate configuration choices, tool and credential access, skill or prompt instructions, and test execution into distinct steps or groups of related steps. Do not imply that writing a skill installs tools or grants access.
+* Put safety limits beside the action they restrict and inside any prompt that readers can copy separately.
+* Explain the sample test input. Require test credentials only if that test needs authentication. Apply configuration changes before testing, and name the behavior and evidence to check; do not treat a completed run as proof.
+* After editing a sentence, reread the whole paragraph and the surrounding steps. Check that the purpose is still clear, references are unambiguous, and actions remain in the correct order.
+
+When readers can combine this procedure with another:
+
+* Identify which event starts each task and which agent receives it.
+* Check whether one input can match several rules. Say whether that is intended. If only one rule should act, give conditions that prevent the other rules from matching.
+* Preserve existing filters and exclusions when adding new ones. Do not replace an existing exclusion list with only the new value.
+* Explain what happens to inputs that match none of the specialized rules.
+* Verify whether the changes affect new tasks, existing conversations, or both. Do not claim that changing a rule transfers work to another agent without verifying that behavior.
+* State what passes to the next stage, what result it returns, where it stops, and which decisions require human approval.
+* Test matching, overlapping, and unmatched inputs, plus an existing conversation when continuation is supported. Give the expected result for each case and record tests that could not be run.
+
+These checks follow [Order from intent to technical detail](../../../AGENTS.md#order-from-intent-to-technical-detail), [Procedural](../../../AGENTS.md#procedural), and [Check connected procedures](../../../AGENTS.md#check-connected-procedures) in `AGENTS.md`.
 
 Record an editorial verdict in the PR rationale: reader task, concept ownership across siblings, repetition and unnecessary scaffolds removed, unsupported assurances corrected, and useful understanding preserved. Link or relocate necessary facts rather than deleting them for length. Removing a page or changing its purpose requires human approval; identify each unsupported claim and its narrow correction instead.
 
@@ -217,7 +244,7 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] The outcome is the lightest correct one — an existing page was updated unless a new page is genuinely justified
 - [ ] Frontmatter description is a standalone search summary (benefit + keywords; not "This page describes..." and not a restatement of the title)
 - [ ] Content follows the structure for its content type
-- [ ] Section order follows reader chronology (requirements → setup → usage → advanced → troubleshooting)
+- [ ] The heading and opening reveal the answer, decision, or first action; section order follows reader chronology (requirements → setup → usage → advanced → troubleshooting)
 - [ ] Error messages and failure modes live in Troubleshooting, not woven through the main flow
 - [ ] Callouts are sparse (usually 0–2 per page), never consecutive, and not used as a substitute for body prose
 - [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (AGENTS.md → Voice & tone)
@@ -235,9 +262,12 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Link text names the destination topic (not "here" / "this page" / raw URLs)
 - [ ] The first Settings path, CLI command, or URL on the page names the app or tool
 - [ ] Non-clickable field labels use quotation marks; only interactive controls and chosen options are bold
-- [ ] Instructions include expected outcomes
-- [ ] Instructional sentences lead with the action or goal before the control, shortcut, or condition
-- [ ] Conditional or multi-clause sentences have only one clear reading (no ambiguous "when/if/can" stacking)
+- [ ] Prerequisites precede dependent steps; conditions needed to decide whether, when, or by whom to act precede the action without repeating established context
+- [ ] Each instruction has its own sentence; separate purposes, conditions, or locations are not bundled
+- [ ] Reader actions, automatic behavior, and other people's responsibilities are clear; pronouns have one meaning
+- [ ] Each decision explains which option applies, where to act, and any consequence
+- [ ] Sentence order follows [Separate instructions and clarify their order](../../../AGENTS.md#separate-instructions-and-clarify-their-order), not a fixed pattern that repeats context or reorders clear explanations
+- [ ] Key steps include expected results or verification actions; examples and results match available authoritative sources
 - [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
 - [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
 - [ ] UI labels, CLI flags, permission defaults, and eligibility claims were verified against source or the live product — anything unverified is marked inline and reported per step 9.5
@@ -250,6 +280,8 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Visual UI surfaces that are hard to reconstruct from prose include a screenshot (or an explicit note that no screenshot is available yet)
 - [ ] Orientation video or wide screenshot sits near the top when the page has one; no two `VideoEmbed`s are back to back
 - [ ] Every `VideoEmbed` includes a specific `title` prop describing the workflow or feature shown
+
+Complete the [Content review process](../../../AGENTS.md#content-review-process) for both new drafts and revisions, including the final repetition pass. Preserve details that change the reader's actions.
 
 ### 9.5. Report unverified claims
 

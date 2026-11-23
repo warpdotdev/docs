@@ -1,4 +1,29 @@
 paths:
+  /networking/policies:
+    get:
+      summary: List built-in network policies
+      description: |
+        Return Warp-managed network policies grouped by name, with every published
+        version and its included allowed hosts. Use a name and version in networkPolicy.extends.
+        Policies do not include the platform's system-required egress rules.
+      operationId: listNetworkPolicies
+      tags:
+        - networking
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 'Built-in policies sorted by name, with versions sorted lexicographically'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListNetworkPoliciesResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /networking/egress-ranges:
     get:
       summary: List Warp-hosted agent egress ranges
@@ -63,6 +88,27 @@ paths:
           required: false
           schema:
             type: string
+        - name: sort_by
+          in: query
+          description: Field used to sort factories. Title comparisons are case-insensitive.
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - title
+            default: updated_at
+        - name: sort_order
+          in: query
+          description: Direction used to sort factories.
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: desc
         - name: limit
           in: query
           description: 'Maximum number of factories to return (default 50, max 100).'
@@ -73,7 +119,14 @@ paths:
             maximum: 100
         - name: cursor
           in: query
-          description: Opaque cursor returned by a previous list response.
+          description: |
+            To get the next page, pass `page_info.next_cursor` from the previous
+            response and keep the same sorting. Omitted `sort_by` and `sort_order`
+            use their defaults (`updated_at` and `desc`), even when a cursor is
+            provided. If the resolved sorting differs from the cursor, the
+            request returns HTTP 400. For example, after requesting
+            `sort_by=title&sort_order=asc`, repeat both parameters with
+            `cursor=<next_cursor>` to continue in ascending title order.
           required: false
           schema:
             type: string
@@ -84,6 +137,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListFactoriesResponse'
+        '400':
+          description: 'Invalid limit, sort parameters, or cursor, including a cursor that does not match the requested sorting.'
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
           description: Authentication required
           content:
@@ -547,6 +606,53 @@ paths:
           $ref: '#/components/responses/FactoryAccessDenied'
         '404':
           description: Factory not found or not accessible
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/factory/{uid}/blueprint-proposal':
+    post:
+      summary: Generate a blueprint proposal for a factory
+      description: |
+        Starts an agent run that proposes a blueprint, as a pull request, for a
+        factory that does not yet have one.
+      operationId: startFactoryBlueprintProposal
+      tags:
+        - factory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          description: The public UID of the factory.
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Blueprint proposal run started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryRunResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found or not accessible
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: 'The factory already has a blueprint, or has no foreman agent to run the proposal'
           content:
             application/problem+json:
               schema:
@@ -1857,8 +1963,8 @@ paths:
     get:
       summary: Get raw third-party harness usage
       description: |
-        Return the latest cumulative raw usage snapshot retained for a
-        Claude Code or Codex run. Missing metrics are represented as an
+        Return the latest retained snapshot of raw usage for a
+        Claude Code, Codex, or Pi run. Missing metrics are represented as an
         unavailable result rather than zero. Access uses the same run view
         authorization as transcript reads.
       operationId: getRunHarnessUsage
@@ -2318,6 +2424,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /agent/runs/batch-get:
+    post:
+      summary: Get multiple runs by ID
+      description: |
+        Retrieve run details for 1–100 run IDs. Returns a top-level array in
+        input order, preserving duplicates with one result per input occurrence.
+        Each result contains the requested run_id and exactly one of `run`, the
+        same run object returned by getRun, or `error`, the standard API error
+        getRun would return for that ID. Authorization and per-run errors
+        follow getRun semantics. Completed batches return HTTP 200 even when
+        every result is an error; shared infrastructure failures fail the
+        request with HTTP 500.
+      operationId: batchGetRuns
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchGetRunsRequest'
+      responses:
+        '200':
+          description: One run or error per requested ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGetRunsResponse'
+        '400':
+          description: Malformed body or invalid run_ids list
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/agent/runs/{runId}':
     get:
       summary: Get run details
@@ -2336,6 +2490,12 @@ paths:
           required: true
           schema:
             type: string
+        - name: include_diagnostics
+          in: query
+          description: Include diagnostic messages for this run.
+          schema:
+            type: boolean
+            default: false
       responses:
         '200':
           description: Run details
@@ -2415,6 +2575,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/agent/runs/{runId}/diagnostics':
+    get:
+      summary: Get run diagnostics
+      description: Retrieve diagnostics recorded for an agent run.
+      operationId: getRunDiagnostics
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run diagnostics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunDiagnosticsResponse'
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/agent/runs/{runId}/conversation':
     get:
       summary: Get normalized run conversation
@@ -2434,6 +2641,21 @@ paths:
           required: true
           schema:
             type: string
+        - name: scope
+          in: query
+          description: |
+            Portion of the conversation to return. `full` returns the entire
+            conversation. `final_message` returns only the text of the last
+            assistant message after the most recent user message, as a single
+            root step with one message; `steps` is empty when that turn has no
+            assistant text yet.
+          required: false
+          schema:
+            type: string
+            enum:
+              - full
+              - final_message
+            default: full
       responses:
         '200':
           description: Normalized conversation
@@ -2442,7 +2664,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ConversationResponse'
         '400':
-          description: Missing run ID
+          description: Missing run ID or invalid scope
           content:
             application/json:
               schema:
@@ -2634,10 +2856,11 @@ paths:
       description: |
         Cancel the request the agent is currently working on without ending
         the run or tearing down its sandbox. The run stays in progress and
-        accepts follow-ups afterwards. Only live runs on the Warp harness
-        can be interrupted; use `POST /agent/runs/{runId}/cancel` to end a
-        run outright. A 202 means the platform accepted the cancel; the agent
-        applies it asynchronously.
+        accepts follow-ups afterwards. Only live runs on the Warp harness,
+        or on a third-party harness driven over ACP, can be interrupted; use
+        `POST /agent/runs/{runId}/cancel` to end a run outright. A 202 means
+        the platform accepted the cancel; the agent applies it
+        asynchronously.
       operationId: interruptRun
       tags:
         - agent
@@ -2686,7 +2909,8 @@ paths:
             The run cannot be interrupted right now. `reason` is one of
             `no_live_session` (no reachable session, or the session has not
             registered a conversation yet), `session_ended`, or
-            `unsupported_harness` (a non-Oz harness has no turn-level cancel).
+            `unsupported_harness` (a third-party harness driven through a
+            terminal rather than ACP has no turn-level cancel).
           content:
             application/json:
               schema:
@@ -3660,7 +3884,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
       requestBody:
         required: true
         content:
@@ -3724,7 +3948,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
       responses:
         '204':
           description: Scorer deleted
@@ -4087,7 +4311,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
         - name: limit
           in: query
           description: 'Maximum number of results to return (1-100, default 50)'
@@ -4185,7 +4409,7 @@ paths:
           required: true
           schema:
             type: string
-            description: Scorer UUID or temporary positive decimal integer ID.
+            format: uuid
         - name: start_date
           in: query
           description: 'RFC3339 UTC range start, inclusive. Defaults to 30 days before end_date.'
@@ -4212,6 +4436,26 @@ paths:
           required: false
           schema:
             type: boolean
+        - name: agent_uid
+          in: query
+          description: |
+            Filter pass-rate and judge-run cost metrics by the evaluated agents.
+            Cost metrics are returned only when `include_cost=true`.
+            Omit the parameter to include all agents.
+            Send `agent_uid=` to select no agents: counts and costs are zero
+            and pass rates are null for every period and the range aggregate.
+            Inference cost is counted once per judge conversation within the
+            selected agents. Total cost remains all-time; period costs use
+            the requested date range.
+          required: false
+          allowEmptyValue: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
       responses:
         '200':
           description: The scorer's pass-rate series and range aggregate
@@ -5601,8 +5845,554 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/factory/{uid}/factory-roles/{user_uid}':
+    parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory
+        required: true
+        schema:
+          type: string
+      - name: user_uid
+        in: path
+        description: The public UID of the user. The user must be a member of the team that owns the Factory.
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get a user's Factory permission role on a Factory
+      description: |
+        Return the user's effective and assigned Factory permission roles on the given Factory.
+      operationId: getFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The user's Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    put:
+      summary: Set a user's Factory permission role on a Factory
+      description: |
+        Set the user's Factory permission role on the given Factory. Requires permission to manage Factory roles.
+      operationId: setFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetFactoryRoleRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  role: USER
+      responses:
+        '200':
+          description: The user's updated Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/factory/{uid}/factory-roles':
+    parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory
+        required: true
+        schema:
+          type: string
+    get:
+      summary: List Factory permission roles on a Factory
+      description: |
+        Return the effective and assigned Factory permission roles of each team member on the given Factory, ordered by user UID.
+      operationId: listFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Factory permission roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    patch:
+      summary: Update Factory permission roles on a Factory
+      description: |
+        Set the same Factory permission role on the given Factory for each selected user. Requires permission to manage Factory roles.
+      operationId: updateFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFactoryRolesRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  user_uids:
+                    - user_uid_1
+                    - user_uid_2
+                  role: USER
+      responses:
+        '200':
+          description: Every team member's Factory permission roles on the given Factory after the update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/team/{team_uid}/factory-roles/{user_uid}':
+    parameters:
+      - name: team_uid
+        in: path
+        description: The public UID of the team
+        required: true
+        schema:
+          type: string
+      - name: user_uid
+        in: path
+        description: The public UID of the user. The user must be a member of the team.
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get a user's team-wide Factory permission role
+      description: |
+        Return the user's team-wide effective and assigned Factory permission roles. Requires permission to manage Factory roles.
+      operationId: getTeamFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The user's team-wide Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    put:
+      summary: Set a user's team-wide Factory permission role
+      description: |
+        Set the user's team-wide Factory permission role. A Factory-specific role takes precedence. Requires permission to manage Factory roles.
+      operationId: setTeamFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetFactoryRoleRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  role: USER
+      responses:
+        '200':
+          description: The user's updated team-wide Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRoleResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/team/{team_uid}/factory-roles':
+    parameters:
+      - name: team_uid
+        in: path
+        description: The public UID of the team
+        required: true
+        schema:
+          type: string
+    get:
+      summary: List team-wide Factory permission roles
+      description: |
+        Return the team-wide effective and assigned Factory permission roles of each team member, ordered by user UID. Requires permission to manage Factory roles.
+      operationId: listTeamFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Team-wide Factory permission roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    patch:
+      summary: Update team-wide Factory permission roles
+      description: |
+        Set the same team-wide Factory permission role for each selected user. A Factory-specific role takes precedence. Requires permission to manage Factory roles.
+      operationId: updateTeamFactoryRoles
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFactoryRolesRequest'
+            examples:
+              assign:
+                summary: Assign a Factory permission role
+                value:
+                  user_uids:
+                    - user_uid_1
+                    - user_uid_2
+                  role: USER
+      responses:
+        '200':
+          description: Every team member's team-wide Factory permission roles after the update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryUserRolesResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+  '/team/{team_uid}/default-factory-role':
+    parameters:
+      - name: team_uid
+        in: path
+        description: The public UID of the team
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get the team default Factory permission role
+      description: |
+        Return the team default and the role that members inherit if they have no assigned role. Requires permission to manage Factory roles.
+      operationId: getTeamDefaultFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: The team default Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultFactoryRoleResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
+    put:
+      summary: Set the team default Factory permission role
+      description: |
+        Set the team default. Send null to remove the team default. This operation fails if the workspace has a default. Requires permission to manage Factory roles.
+      operationId: setTeamDefaultFactoryRole
+      tags:
+        - factory-permissions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetDefaultFactoryRoleRequest'
+            examples:
+              assign:
+                summary: Set the default
+                value:
+                  stored_default_role: USER
+              clear:
+                summary: Clear the default
+                value:
+                  stored_default_role: null
+      responses:
+        '200':
+          description: The updated team default Factory permission role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultFactoryRoleResponse'
+        '400':
+          $ref: '#/components/responses/FactoryPermissionInvalidRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryPermissionDenied'
+        '404':
+          $ref: '#/components/responses/FactoryPermissionNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryPermissionInternalError'
 components:
   schemas:
+    FactoryRole:
+      type: string
+      description: Factory permission role. ADMIN comes from a team or workspace admin role and cannot be assigned.
+      enum:
+        - USER
+        - EDITOR
+        - ADMIN
+    FactoryUserRole:
+      type: object
+      required:
+        - user_uid
+        - effective_role
+        - assigned_role
+      properties:
+        user_uid:
+          type: string
+          description: Public UID of the user.
+        effective_role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: The Factory permission role that applies to the user.
+        assigned_role:
+          oneOf:
+            - $ref: '#/components/schemas/FactoryRole'
+            - type: 'null'
+          description: |
+            The role set for the user at this level: on the given Factory for Factory
+            endpoints, or team-wide for team endpoints. Null when no role is set at
+            this level, in which case the user falls back to the next level.
+    FactoryUserRoleResponse:
+      allOf:
+        - $ref: '#/components/schemas/FactoryUserRole'
+        - type: object
+          required:
+            - can_manage
+          properties:
+            can_manage:
+              type: boolean
+              description: Whether the caller can change this role.
+    FactoryUserRolesResponse:
+      type: object
+      required:
+        - roles
+        - can_manage
+      properties:
+        roles:
+          type: array
+          description: Team members and their Factory permission roles.
+          items:
+            $ref: '#/components/schemas/FactoryUserRole'
+        can_manage:
+          type: boolean
+          description: Whether the caller can change these roles.
+    SetFactoryRoleRequest:
+      type: object
+      required:
+        - role
+      properties:
+        role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: USER or EDITOR. ADMIN cannot be assigned.
+    UpdateFactoryRolesRequest:
+      type: object
+      required:
+        - user_uids
+        - role
+      properties:
+        user_uids:
+          type: array
+          minItems: 1
+          maxItems: 1000
+          description: Public UIDs of the users to update. Each user must be a member of the team. Duplicate UIDs are applied once.
+          items:
+            type: string
+            minLength: 1
+        role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: USER or EDITOR. ADMIN cannot be assigned.
+    SetDefaultFactoryRoleRequest:
+      type: object
+      required:
+        - stored_default_role
+      properties:
+        stored_default_role:
+          oneOf:
+            - $ref: '#/components/schemas/FactoryRole'
+            - type: 'null'
+          description: USER or EDITOR. Send null to remove the team default. You must send this field.
+    DefaultFactoryRoleSource:
+      type: string
+      description: |
+        Where effective_default_role comes from.
+          - TEAM_DEFAULT: The team default, stored_default_role.
+          - WORKSPACE_DEFAULT: The workspace default, which takes precedence over the team default.
+          - SYSTEM_DEFAULT: EDITOR. Applies when no default is set, or when the team does not have an enterprise plan.
+      enum:
+        - TEAM_DEFAULT
+        - WORKSPACE_DEFAULT
+        - SYSTEM_DEFAULT
+    DefaultFactoryRoleResponse:
+      type: object
+      required:
+        - stored_default_role
+        - effective_default_role
+        - source
+        - can_edit
+      properties:
+        stored_default_role:
+          oneOf:
+            - $ref: '#/components/schemas/FactoryRole'
+            - type: 'null'
+          description: |
+            The team default that an admin set. Null when no admin set a team default.
+            Members inherit this role only if source is TEAM_DEFAULT.
+        effective_default_role:
+          $ref: '#/components/schemas/FactoryRole'
+          description: The role that members inherit if they have no assigned role.
+        source:
+          $ref: '#/components/schemas/DefaultFactoryRoleSource'
+        can_edit:
+          type: boolean
+          description: Whether the caller can change the team default.
+    BuiltinNetworkPolicy:
+      type: object
+      description: One published Warp-managed network policy version.
+      required:
+        - name
+        - version
+        - allowed_hosts
+        - is_latest
+      properties:
+        name:
+          type: string
+          examples:
+            - warp/package-registries
+        version:
+          type: string
+          description: Exact semantic version.
+          examples:
+            - 1.0.0
+        allowed_hosts:
+          type: array
+          items:
+            type: string
+          description: Literal hosts granted by this policy version.
+        is_latest:
+          type: boolean
+          description: Whether this is the highest stable version selected by the latest alias.
+    BuiltinNetworkPolicyGroup:
+      type: object
+      description: A Warp-managed network policy and its published versions.
+      required:
+        - name
+        - latest_version
+        - versions
+      properties:
+        name:
+          type: string
+          examples:
+            - warp/package-registries
+        latest_version:
+          type:
+            - string
+            - 'null'
+          description: 'Highest stable version selected by the latest alias, or null if none exists.'
+          examples:
+            - 1.0.0
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuiltinNetworkPolicy'
+    ListNetworkPoliciesResponse:
+      type: object
+      required:
+        - policies
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuiltinNetworkPolicyGroup'
     EgressRangesResponse:
       type: object
       required:
@@ -5722,8 +6512,8 @@ components:
           items:
             $ref: '#/components/schemas/FactoryCodeForge'
           description: |
-            Effective source-control providers for the factory. When the
-            effective set is empty, this contains the primary code_forge.
+            Enabled source-control providers for the factory. Empty when the
+            factory has no enabled forge; never contains NONE.
         repositories:
           type: array
           items:
@@ -5763,6 +6553,19 @@ components:
             Default credential strategy for runs executed by the factory's
             named agents. Always a concrete value; factories default to
             EXECUTOR unless explicitly set to CREATOR.
+        restrict_followups_to_starter:
+          type: boolean
+          description: |
+            When true, only the Warp user who started a run may send it
+            follow-ups. Senders on Slack, GitHub, Linear and other
+            integrations are matched to Warp users through their linked
+            accounts; follow-ups from agents and the system are unaffected.
+        allow_service_account_followups:
+          type: boolean
+          description: |
+            When true, follow-ups sent with a service account's API key are
+            accepted even though restrict_followups_to_starter is true. Has
+            no effect while restrict_followups_to_starter is false.
         integrations:
           type:
             - array
@@ -5865,6 +6668,11 @@ components:
         corresponding agent default; an explicit empty collection overrides
         the agent default with no values.
       properties:
+        model_id:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Default Warp model for scorers without an authored override. Does not inherit the agent model.
         default_runner_uid:
           type: string
           description: Default runner UID for scorers. Omitted to inherit the agent default.
@@ -6108,8 +6916,10 @@ components:
           allOf:
             - $ref: '#/components/schemas/FactoryRepositoryCodeForge'
           description: |
-            The concrete forge hosting this repository. Omitted means the
-            factory's primary code_forge.
+            The concrete forge hosting this repository. Always present in
+            responses. On update it may be omitted only when the factory has
+            exactly one enabled code forge, which it then defaults to; on
+            create, omission means the factory's code_forge.
         provider_metadata:
           type: object
           additionalProperties:
@@ -6325,7 +7135,12 @@ components:
         - kind
         - created_at
         - recipients
+        - task
       properties:
+        task:
+          allOf:
+            - $ref: '#/components/schemas/FactoryTask'
+          description: The task this notification belongs to.
         notification_uid:
           type: string
           description: Identifier accepted by the dismiss endpoint.
@@ -7953,6 +8768,69 @@ components:
             $ref: '#/components/schemas/CodexAttributedUsage'
         toolCalls:
           $ref: '#/components/schemas/HarnessToolCalls'
+    PiHarnessUsagePayload:
+      type: object
+      additionalProperties: false
+      description: |
+        Earlier conversation usage retained through compaction still counts.
+        Summary-generation and nested-tool inference without provider/model identity
+        remains unpriced. Estimates cover recognized models on direct Anthropic and
+        OpenAI only, using server list prices without unrecorded tier, speed, or
+        geography modifiers. Unknown models contribute no estimated cost; available
+        priced buckets are retained and the estimate is marked incomplete.
+      required:
+        - attribution
+      properties:
+        attribution:
+          type: array
+          maxItems: 64
+          description: 'Disjoint usage buckets, separated by identity and field completeness.'
+          items:
+            $ref: '#/components/schemas/PiAttributedUsage'
+        toolCalls:
+          $ref: '#/components/schemas/HarnessToolCalls'
+    PiAttributedUsage:
+      type: object
+      additionalProperties: false
+      required:
+        - usage
+      properties:
+        provider:
+          type:
+            - string
+            - 'null'
+          minLength: 1
+          maxLength: 256
+        model:
+          type:
+            - string
+            - 'null'
+          minLength: 1
+          maxLength: 256
+        maxInputTokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+          description: Largest per-request input plus cache reads and writes in this bucket.
+        usage:
+          $ref: '#/components/schemas/PiTokenUsage'
+    PiTokenUsage:
+      type: object
+      additionalProperties: false
+      description: Pi-native counts. Input excludes cache reads and writes; reasoning is included in output.
+      properties:
+        input:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        output:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cacheRead:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cacheWrite:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cacheWrite1h:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        reasoning:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        totalTokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
     HarnessUsageCounter:
       type:
         - integer
@@ -8101,11 +8979,13 @@ components:
       oneOf:
         - $ref: '#/components/schemas/ClaudeHarnessUsageEnvelope'
         - $ref: '#/components/schemas/CodexHarnessUsageEnvelope'
+        - $ref: '#/components/schemas/PiHarnessUsageEnvelope'
       discriminator:
         propertyName: harness
         mapping:
           CLAUDE_CODE: '#/components/schemas/ClaudeHarnessUsageEnvelope'
           CODEX: '#/components/schemas/CodexHarnessUsageEnvelope'
+          PI: '#/components/schemas/PiHarnessUsageEnvelope'
     ClaudeHarnessUsageEnvelope:
       type: object
       additionalProperties: false
@@ -8186,6 +9066,46 @@ components:
               $ref: '#/components/schemas/RetainedHarnessUsageCoverage'
             payload:
               $ref: '#/components/schemas/CodexHarnessUsagePayload'
+    PiHarnessUsageEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+        - metricsVersion
+        - harness
+        - executionId
+        - captureSequence
+        - capturedAt
+        - snapshot
+      properties:
+        metricsVersion:
+          type: integer
+          enum:
+            - 1
+          description: 'Server-owned storage format metadata, not the producer''s parser version.'
+        harness:
+          type: string
+          enum:
+            - PI
+        executionId:
+          type: integer
+          format: int64
+        captureSequence:
+          type: integer
+          format: int64
+        capturedAt:
+          type: string
+          format: date-time
+        snapshot:
+          type: object
+          additionalProperties: false
+          required:
+            - coverage
+            - payload
+          properties:
+            coverage:
+              $ref: '#/components/schemas/RetainedHarnessUsageCoverage'
+            payload:
+              $ref: '#/components/schemas/PiHarnessUsagePayload'
     RetainedHarnessUsageCoverage:
       type: object
       additionalProperties: false
@@ -8358,6 +9278,50 @@ components:
             `X-Warp-Team-Uid` header, or the API key's team. Null when a user
             request has no team selected and the list spans every team the
             user belongs to.
+    BatchGetRunsRequest:
+      type: object
+      required:
+        - run_ids
+      properties:
+        run_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+          description: 'Run IDs to retrieve, in result order. Duplicates are preserved.'
+    BatchGetRunsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/BatchGetRunResult'
+    BatchGetRunResult:
+      description: Result for one requested run ID. Exactly one of `run` or `error` is present.
+      oneOf:
+        - $ref: '#/components/schemas/BatchGetRunSuccess'
+        - $ref: '#/components/schemas/BatchGetRunError'
+    BatchGetRunSuccess:
+      type: object
+      required:
+        - run_id
+        - run
+      properties:
+        run_id:
+          type: string
+          description: 'Requested run ID, echoed from the request.'
+        run:
+          $ref: '#/components/schemas/RunItem'
+    BatchGetRunError:
+      type: object
+      required:
+        - run_id
+        - error
+      properties:
+        run_id:
+          type: string
+          description: 'Requested run ID, echoed from the request.'
+        error:
+          $ref: '#/components/schemas/Error'
     RunItem:
       type: object
       required:
@@ -8383,6 +9347,11 @@ components:
           description: Human-readable title for the run
         state:
           $ref: '#/components/schemas/RunState'
+        waiting_on_run_ids:
+          type: array
+          items:
+            type: string
+          description: Runs that this run is waiting to receive messages from. Present only in WAITING state.
         execution_location:
           $ref: '#/components/schemas/RunExecutionLocation'
         prompt:
@@ -8483,6 +9452,11 @@ components:
           items:
             $ref: '#/components/schemas/ArtifactItem'
           description: 'Artifacts created during the run (plans, pull requests, etc.)'
+        diagnostics:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunDiagnostic'
+          description: 'Diagnostics for this run, only included on request.'
         agent_skill:
           $ref: '#/components/schemas/AgentSkill'
         scope:
@@ -8497,6 +9471,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AIRunTimelineEvent'
+    GetRunDiagnosticsResponse:
+      type: object
+      description: Response body for listing diagnostics recorded for a run.
+      required:
+        - diagnostics
+      properties:
+        diagnostics:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunDiagnostic'
+    RunDiagnostic:
+      type: object
+      description: A diagnostic recorded for an agent run. Diagnostics are non-fatal warnings and informational messages about the run.
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+          description: When the diagnostic was recorded.
     AIRunTimelineEvent:
       type: object
       description: A setup or lifecycle event recorded for an agent run.
@@ -8528,7 +9533,9 @@ components:
           description: Optional event-specific JSON payload. Contents vary by event type.
     AIRunTimelineEventType:
       type: string
-      description: Type of timeline event recorded for a run.
+      description: |
+        Type of timeline event recorded for a run. A `skill_sources_resolved`
+        event's payload is a `SkillSourcesResolvedPayload`.
       enum:
         - oz_run_created
         - oz_run_claimed
@@ -8542,6 +9549,7 @@ components:
         - oz_run_errored
         - vm_shutdown
         - run_retry_scheduled
+        - skill_sources_resolved
     ConversationResponse:
       type: object
       required:
@@ -8897,6 +9905,9 @@ components:
           required:
             - status
           properties:
+            artifact_uid:
+              type: string
+              description: Artifact identifier for authenticated inline preview
             status:
               type: string
               description: |
@@ -9070,6 +10081,13 @@ components:
           description: |
             What the run's platform usage was billed at, in US dollars. Runs that
             predate billed-amount tracking fall back to an estimated cost.
+        platform_duration_seconds:
+          type: number
+          format: double
+          minimum: 0
+          description: |
+            Recorded billable platform runtime for this run, in seconds.
+            Omitted when unavailable; zero when recorded as zero.
         total_tokens:
           type: integer
           format: int64
@@ -9254,6 +10272,14 @@ components:
           description: |
             Inference usage charged using a custom endpoint, keyed by the
             custom model's config key.
+        claude_linked_billing_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: |
+            Claude tokens billed to the team's linked Claude organization, keyed by model ID.
+            Token costs are zero because Warp does not bill these tokens.
+            Separately applicable Warp web-tool costs remain included.
         platform_usage_in_cents:
           type: number
           format: double
@@ -9294,6 +10320,7 @@ components:
         - PENDING
         - CLAIMED
         - INPROGRESS
+        - WAITING
         - SUCCEEDED
         - FAILED
         - BLOCKED
@@ -9305,6 +10332,7 @@ components:
         - PENDING: Run is being prepared
         - CLAIMED: Run has been claimed by a worker
         - INPROGRESS: Run is actively being executed
+        - WAITING: Run is waiting for messages from waiting_on_run_ids
         - SUCCEEDED: Run completed successfully
         - FAILED: Run failed
         - BLOCKED: Run is blocked (e.g., awaiting user input or approval)
@@ -9365,9 +10393,10 @@ components:
         - LOCAL
         - REMOTE
       description: |
-        Where the run executed:
-        - LOCAL: Executed in the user's local Warp environment
-        - REMOTE: Executed by a remote/cloud worker
+        Execution location of the run's latest execution, including ended executions:
+        - LOCAL: The latest execution is assigned to the machine running Warp or Oz, or to the same process as its cloud parent.
+        - REMOTE: The latest execution is remote or unassigned, or the run has no executions.
+        This is not a liveness indicator. A newer execution can change the classification; the task's legacy worker assignment is ignored.
     AmbientAgentConfig:
       type: object
       description: Configuration for a cloud agent run
@@ -10910,6 +11939,15 @@ components:
         A non-empty value replaces that default. Empty secrets and mcp_servers
         collections explicitly clear the optional Factory defaults.
       properties:
+        model_id:
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 255
+          description: |
+            Authored Warp model override. On create, omission or null inherits
+            scorer_defaults.model_id. On PATCH, omission leaves it unchanged
+            and null resets to that default. A model must resolve after saving.
         default_runner_uid:
           type:
             - string
@@ -10935,6 +11973,27 @@ components:
             inherit the Factory agent defaults; an empty object attaches none.
           additionalProperties:
             $ref: '#/components/schemas/MCPServerConfig'
+    ScorerScopeMode:
+      type: string
+      description: |
+        Scorer selection policy: whole tasks, every Factory agent, or a
+        configured set of agents or blueprint stages. This differs from the
+        concrete target of one recorded evaluation.
+      enum:
+        - all_agents
+        - selected_agents
+        - selected_stages
+        - task
+    EvaluationScopeMode:
+      type: string
+      description: |
+        Kind of one concrete evaluation target. Benchmarks choose one target;
+        recorded scores identify what was actually evaluated. Agent and stage
+        identities are carried in separate fields.
+      enum:
+        - task
+        - agent
+        - stage
     CreateScorerRequest:
       type: object
       description: |
@@ -10947,7 +12006,6 @@ components:
         - allowed_classifications
         - threshold
         - scope_mode
-        - model_id
       properties:
         factory_uid:
           type: string
@@ -10986,11 +12044,8 @@ components:
             Score a run's classified label must meet or exceed to pass, from 0
             to 1.
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-          description: Whether the scorer applies to every factory agent or selected agents
+          $ref: '#/components/schemas/ScorerScopeMode'
+          description: 'Scorer selection policy for whole tasks, every Factory agent, selected agents, or selected blueprint stages'
         agent_uids:
           type: array
           description: |
@@ -11004,9 +12059,20 @@ components:
           description: |
             Selected agents and their evidence policy. Required and non-empty
             for selected_agents when agent_uids is omitted; must be empty for
-            all_agents and cannot be combined with agent_uids.
+            all_agents or selected_stages and cannot be combined with agent_uids.
           items:
             $ref: '#/components/schemas/ScorerAgentInput'
+        stages:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          description: |
+            Blueprint stage names. Required for selected_stages and mutually
+            exclusive with agent_uids and agents. Available only for blueprint
+            factories.
+          items:
+            type: string
+            minLength: 1
         sampling_rate:
           type:
             - number
@@ -11028,8 +12094,8 @@ components:
           minLength: 1
           maxLength: 255
           description: |
-            LLM model dispatched judge runs use to evaluate this scorer's
-            rubric.
+            Compatibility alias for agent_config.model_id. When both are
+            present, they must be equal nonblank strings. Null is rejected.
         self_improvement_enabled:
           type: boolean
           description: |
@@ -11094,13 +12160,10 @@ components:
             to two decimal places. 0 stops automatic scoring; manual dispatch
             still works.
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
+          $ref: '#/components/schemas/ScorerScopeMode'
           description: |
             New scope mode. Defaults to the scorer's current mode when only
-            agent_uids or agents is supplied.
+            agent_uids, agents, or stages is supplied.
         agent_uids:
           type: array
           description: |
@@ -11115,10 +12178,21 @@ components:
           description: |
             Complete replacement selected-agent configuration. Required and
             non-empty when the resulting scope_mode is selected_agents and
-            agent_uids is omitted; must be empty for all_agents and cannot be
-            combined with agent_uids.
+            agent_uids is omitted; must be empty for all_agents or selected_stages
+            and cannot be combined with agent_uids.
           items:
             $ref: '#/components/schemas/ScorerAgentInput'
+        stages:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          description: |
+            Complete replacement blueprint stage membership. Required when the
+            resulting scope_mode is selected_stages and mutually exclusive with
+            agent_uids and agents. Available only for blueprint factories.
+          items:
+            type: string
+            minLength: 1
         model_id:
           type: string
           minLength: 1
@@ -11152,7 +12226,6 @@ components:
       type: object
       required:
         - scorer_uid
-        - id
         - factory_uid
         - name
         - description
@@ -11162,6 +12235,7 @@ components:
         - self_improvement_enabled
         - scorer_kind
         - scope_mode
+        - stages
         - agent_uids
         - agents
         - sampling_rate
@@ -11175,9 +12249,6 @@ components:
         self_improvement_enabled:
           type: boolean
           description: Whether self-improvement is enabled for this scorer
-        id:
-          type: integer
-          description: Scorer identifier
         factory_uid:
           type: string
           description: UID of the factory that owns the scorer
@@ -11201,19 +12272,21 @@ components:
         scorer_kind:
           $ref: '#/components/schemas/ScorerKind'
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-          description: Whether the scorer applies to every factory agent or selected agents
+          $ref: '#/components/schemas/ScorerScopeMode'
+          description: 'Scorer selection policy for whole tasks, every Factory agent, selected agents, or selected blueprint stages'
+        stages:
+          type: array
+          items:
+            type: string
+          description: Blueprint stage names the scorer applies to; empty unless scope_mode is selected_stages
         agent_uids:
           type: array
-          description: Agents attached to a selected_agents scorer; empty for all_agents
+          description: Agents attached to the scorer; empty unless scope_mode is selected_agents
           items:
             type: string
         agents:
           type: array
-          description: Selected agents and whether each evaluation includes its run descendants
+          description: Selected agents and whether each evaluation includes its run descendants; empty unless scope_mode is selected_agents
           items:
             $ref: '#/components/schemas/ScorerAgentInput'
         sampling_rate:
@@ -11269,7 +12342,6 @@ components:
       type: object
       required:
         - scorer_uid
-        - id
         - factory_uid
         - name
         - description
@@ -11277,6 +12349,7 @@ components:
         - allowed_classifications
         - threshold
         - scope_mode
+        - stages
         - agents
         - scorer_kind
         - sampling_rate
@@ -11289,9 +12362,6 @@ components:
       properties:
         scorer_uid:
           $ref: '#/components/schemas/ScorerUID'
-        id:
-          type: integer
-          description: Scorer identifier
         factory_uid:
           type: string
           description: Public UID of the factory that owns the scorer
@@ -11313,16 +12383,18 @@ components:
           format: double
           description: 'Score a run''s classified label must meet or exceed to pass, from 0 to 1'
         scope_mode:
-          type: string
-          enum:
-            - all_agents
-            - selected_agents
-          description: all_agents (every agent in the scorer's factory) or selected_agents
+          $ref: '#/components/schemas/ScorerScopeMode'
+          description: 'Scorer selection policy for whole tasks, every Factory agent, selected agents, or selected blueprint stages'
+        stages:
+          type: array
+          items:
+            type: string
+          description: Blueprint stage names the scorer applies to; empty unless scope_mode is selected_stages
         agents:
           type: array
           items:
             $ref: '#/components/schemas/ScorerScopeAgent'
-          description: Named agents in scope; empty when the scorer covers all factory agents
+          description: Named agents in scope; empty unless scope_mode is selected_agents
         scorer_kind:
           $ref: '#/components/schemas/ScorerKind'
         sampling_rate:
@@ -11409,9 +12481,21 @@ components:
         - attempted_at
         - is_in_flight
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Actual evaluated scope. Absent means unknown legacy identity; never inferred from the current scorer.
+        agent_uid:
+          type: string
+          description: 'Agent actually evaluated, when recorded.'
+        factory_task_uid:
+          type: string
+          description: Optional Factory task identity for linking. Older task roots may have none.
         run_id:
           type: string
-          description: The selected agent run that anchors the scoring attempt
+          description: 'The scored run; for a stage scorer, the Factory task''s top-level run'
+        stage_name:
+          type: string
+          description: Blueprint stage this attempt evaluates; present only for stage scorers
         conversation_id:
           type:
             - string
@@ -11689,21 +12773,29 @@ components:
       type: object
       required:
         - scorer_uid
-        - scorer_id
         - scorer_name
         - attempt_status
         - is_in_flight
         - trigger_source
         - attempted_at
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Actual evaluated scope. Absent means unknown legacy identity; never inferred from the current scorer.
+        agent_uid:
+          type: string
+          description: 'Agent actually evaluated, when recorded.'
+        factory_task_uid:
+          type: string
+          description: Optional Factory task identity for linking. Older task roots may have none.
         scorer_uid:
           $ref: '#/components/schemas/ScorerUID'
-        scorer_id:
-          type: integer
-          description: The evaluation that attempted this run
         scorer_name:
           type: string
           description: Display name of the evaluation
+        stage_name:
+          type: string
+          description: Blueprint stage this attempt evaluates; present only for stage scorers
         attempt_status:
           $ref: '#/components/schemas/RunScoreAttemptStatus'
         is_in_flight:
@@ -11883,8 +12975,7 @@ components:
         `secrets_append` is an exception: it appends secrets idempotently and
         must be the only supplied field, including fields supplied as `null`.
         `network_policy` is also an exception: omission preserves the policy,
-        null clears it, and an object replaces it wholesale. An object with
-        no allowed hosts carries deny-all intent.
+        null clears it, and an object replaces it wholesale.
       properties:
         name:
           type: string
@@ -12321,6 +13412,36 @@ components:
           type:
             - string
             - 'null'
+    BenchmarkCorrectnessScorerConfig:
+      type: object
+      additionalProperties: false
+      description: 'Optional resource overrides for the managed Correctness judge, independent of tested agents and user scorers.'
+      properties:
+        runner_uid:
+          type: string
+          minLength: 1
+          description: 'Same-Factory runner UID. Omitted inherits Factory agent defaults, then the judge environment.'
+        model_id:
+          type: string
+          minLength: 1
+          description: 'Judge model ID. Omitted inherits Factory scoring defaults, then the platform judge default.'
+    BenchmarkCorrectnessScorerPatch:
+      type:
+        - object
+        - 'null'
+      additionalProperties: false
+      description: Omission preserves overrides. Null resets both. An empty object changes neither field; a null child resets only that field.
+      properties:
+        runner_uid:
+          type:
+            - string
+            - 'null'
+          minLength: 1
+        model_id:
+          type:
+            - string
+            - 'null'
+          minLength: 1
     BenchmarkSuite:
       type: object
       required:
@@ -12332,6 +13453,11 @@ components:
         - created_at
         - updated_at
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Effective evaluation target; task is explicit, never inferred from its routing agent.'
+        correctness_scorer:
+          $ref: '#/components/schemas/BenchmarkCorrectnessScorerConfig'
         uid:
           type: string
         factory_uid:
@@ -12407,9 +13533,10 @@ components:
       required:
         - uid
         - name
-        - agent_uid
-        - factory_agent_type
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Set task without agent_uid, factory_agent_type or stage_name to evaluate a whole task through the normal Factory entry. Omitted PATCH target fields preserve the target; existing agent UID/type and stage forms remain valid.'
         uid:
           type: string
         name:
@@ -12418,6 +13545,7 @@ components:
           type: string
         agent_uid:
           type: string
+          description: 'Agent to benchmark, supplied together with factory_agent_type.'
         factory_agent_type:
           type: string
         tasks:
@@ -12517,12 +13645,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BenchmarkRepoRef'
+    BenchmarkOptionalName:
+      type: string
+      maxLength: 200
+      description: Optional display name. Surrounding whitespace is trimmed; empty clears the name.
     BenchmarkConfigurationInput:
+      oneOf:
+        - $ref: '#/components/schemas/BenchmarkOverrideConfigurationInput'
+    BenchmarkOverrideConfigurationInput:
       type: object
+      additionalProperties: false
+      description: Optional execution overrides for a configuration that runs the production Factory definition.
       properties:
-        display_name:
+        computer_use_model:
           type: string
-          description: Optional name for this configuration.
+          description: Optional computer-use model override for the entire trial tree. Omitted or empty preserves agent defaults without enabling computer use or changing harnesses.
+        display_name:
+          $ref: '#/components/schemas/BenchmarkOptionalName'
         harness:
           type: string
         model:
@@ -12551,6 +13690,11 @@ components:
     BenchmarkSuitePatchRequest:
       type: object
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Set task without agent_uid, factory_agent_type or stage_name to evaluate a whole task through the normal Factory entry. Omitted PATCH target fields preserve the target; existing agent UID/type and stage forms remain valid.'
+        correctness_scorer:
+          $ref: '#/components/schemas/BenchmarkCorrectnessScorerPatch'
         name:
           type: string
         description:
@@ -12577,6 +13721,8 @@ components:
       required:
         - repetition_count
       properties:
+        display_name:
+          $ref: '#/components/schemas/BenchmarkOptionalName'
         configurations:
           type: array
           description: |
@@ -12595,13 +13741,10 @@ components:
         scorer_selection:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/ScorerUID'
-              - type: integer
-                minimum: 1
+            $ref: '#/components/schemas/ScorerUID'
           description: |
-            Allowlist of live scorer UUIDs (or temporary positive numeric IDs) for this factory, applied to every trial
-            in the run. Empty or absent means all applicable scorers. IDs must
+            Allowlist of live scorer UUIDs for this factory, applied to every trial
+            in the run. Empty or absent means all applicable scorers. UUIDs must
             belong to the suite's factory and team (any status except deleted).
         tasks:
           type: array
@@ -12683,6 +13826,11 @@ components:
         - execution
         - scoring
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Effective evaluation scope frozen at launch.
+        display_name:
+          $ref: '#/components/schemas/BenchmarkOptionalName'
         uid:
           type: string
           description: 'existing benchmark Run UID, including legacy non-UUID identities.'
@@ -12912,6 +14060,9 @@ components:
         - harness_auth_secret_name
         - agent_configs
       properties:
+        computer_use_model:
+          type: string
+          description: Frozen explicit computer-use model override for the trial tree. Omitted or empty preserves agent defaults.
         uid:
           type: string
           description: 'stable Run-local public configuration identity, without exposing its stored integer ID.'
@@ -13122,6 +14273,9 @@ components:
             - $ref: '#/components/schemas/BenchmarkTrialScoringState'
             - type: 'null'
           description: existing effective ledger status after binding/cutoff checks; null when no ledger row exists.
+        error_message:
+          type: string
+          description: 'retained user-facing scoring failure message, frozen when this pair settled without a score; omitted when unavailable.'
     BenchmarkTrialResults:
       type: object
       required:
@@ -13157,6 +14311,15 @@ components:
         - outcome
         - latest_judge_run_id
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: 'Actual evaluated scope, absent when unknown.'
+        agent_uid:
+          type: string
+        stage_name:
+          type: string
+        factory_task_uid:
+          type: string
         scorer_uid:
           type: string
           description: resolved canonical scorer UUID.
@@ -13388,7 +14551,7 @@ components:
       properties:
         cost_usd:
           type: string
-          description: 'public-rate estimated provider total, not a Warp-billed amount.'
+          description: 'Estimated inference total, not a Warp-billed amount.'
         incomplete:
           type: boolean
           description: existing signal that estimate inputs/pricing are incomplete.
@@ -13407,6 +14570,9 @@ components:
         model:
           type: string
           description: provider model identity used for this estimate.
+        provider:
+          type: string
+          description: 'Model provider identity reported by the harness, when available.'
         cost_usd:
           type: string
           description: estimate subtotal for this model.
@@ -13463,6 +14629,9 @@ components:
         - attempts
         - judge_runs
       properties:
+        status_message:
+          type: string
+          description: 'user-facing status message of the Trial''s current execution, when retained.'
         started_at:
           type:
             - string
@@ -13521,6 +14690,9 @@ components:
         agent_run_id:
           type: string
           description: judge execution ID retained in the durable dispatch row.
+        state:
+          $ref: '#/components/schemas/BenchmarkExecutionState'
+          description: 'underlying judge execution state, omitted when the execution is no longer retained.'
     BenchmarkResultsSummary:
       type: object
       required:
@@ -13540,6 +14712,9 @@ components:
         - scorer_count
         - narrative
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Effective evaluation scope frozen at launch.
         factory_uid:
           type: string
           description: authorized owning Factory UID.
@@ -13672,6 +14847,9 @@ components:
         - execution
         - scoring
       properties:
+        scope_mode:
+          $ref: '#/components/schemas/EvaluationScopeMode'
+          description: Effective evaluation scope frozen at launch.
         factory_uid:
           type: string
           description: authorized owning Factory UID.
@@ -14109,6 +15287,13 @@ components:
         page_info:
           $ref: '#/components/schemas/BenchmarkPageInfo'
   securitySchemes:
+    firebaseIDToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Firebase ID token
+      description: |
+        Authentication via a Firebase ID token in the Authorization header.
+        Checks token revocation and whether the account is disabled.
     bearerAuth:
       type: http
       scheme: bearer
@@ -14279,6 +15464,30 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Error'
+    FactoryPermissionInvalidRequest:
+      description: 'Invalid request, role, or target team member'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryPermissionDenied:
+      description: 'Human caller required, insufficient authority, or feature unavailable'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryPermissionNotFound:
+      description: Resource not found or not visible to the caller
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryPermissionInternalError:
+      description: Internal server error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
     FactoryBranchStatusResponse:
       description: Current observation of the tracked Branch
       headers:
@@ -14378,6 +15587,10 @@ tags:
     summary: Benchmarks
     parent: factory
     description: 'Operations for managing benchmark suites, tasks, runs, trials, and results'
+  - name: factory-permissions
+    summary: Permissions
+    parent: factory
+    description: Operations for viewing and managing Factory permission roles
   - name: networking
     summary: Networking
     parent: agent

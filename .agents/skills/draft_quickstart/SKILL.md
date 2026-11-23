@@ -17,6 +17,8 @@ A tutorial for a product area requires that its quickstart already exist. If you
 
 ## Workflow
 
+Read and apply `.agents/references/compliance-claims-policy.md` before drafting, including its omission and internal-reporting rules.
+
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **quickstart template** at `.agents/templates/quickstart.md`.
 
 ## Frontmatter description

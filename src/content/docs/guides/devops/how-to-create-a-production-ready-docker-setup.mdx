@@ -1,8 +1,7 @@
 ---
-title: "Create a production-ready Docker setup"
+title: "Create and verify a Docker setup"
 description: >-
-  Use Agents in Warp to generate optimized Dockerfiles, docker-compose
-  configs, and .dockerignore files for multi-stage production deployments.
+  Use agents in Warp to create a Docker setup for your application, then build and test it locally before deployment.
 sidebar:
   label: "Create a production-ready Docker setup"
 tags:
@@ -12,12 +11,11 @@ tags:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-Learn how to use Warp’s AI to automatically build a clean, multi-stage Docker setup for both development and production.
+Learn how to use Warp’s coding agent to containerize your application, then build and test the application locally.
 
 <VideoEmbed url="https://youtu.be/zdQdEauSF6Q?si=CoOdDjiffiw-et6r" title="Creating a production-ready Docker setup with Warp video" />
 
-This tutorial shows how to create a **complete Docker environment** in minutes using Warp.\
-Warp’s AI can analyze your entire codebase, generate **Dockerfiles**, **.dockerignore**, and **docker-compose.yml** — all optimized for small image size and multi-service orchestration.
+Warp’s AI can analyze your codebase and generate **Dockerfiles**, **.dockerignore**, and **docker-compose.yml**. Review the generated files for your application’s dependencies, startup commands, networking, and secret handling before building the image.
 
 Although this example uses a generic web app, the same pattern applies to **Python**, **Node.js**, **Go**, and other ecosystems.
 
@@ -32,8 +30,8 @@ Although this example uses a generic web app, the same pattern applies to **Pyth
 
    Use this prompt inside Warp’s AI input:
 
-   ```
-   "Analyze my entire project directory structure, package files, and configuration to generate a complete production-ready Docker setup. I need:
+   ```text
+   "Analyze my project directory structure, package files, and configuration to propose a Docker setup for review. I need:
 
    A multi-stage Dockerfile optimized for my specific language/framework with proper layer caching, security best practices, and minimal image size
    A docker-compose.yml for both development and production environments with all necessary services, networks, volumes, and environment variable handling
@@ -41,20 +39,24 @@ Although this example uses a generic web app, the same pattern applies to **Pyth
    Startup scripts and health check configurations
    Documentation explaining each Docker command and why specific choices were made
 
-   Please detect my project type automatically and configure everything accordingly. Include comments explaining the optimization decisions."
+   Explain your assumptions and the commands needed to build and test this application. Stop with the diff for my review; do not deploy or push an image."
 
    ```
-   Warp will detect frameworks, infer services, and produce a ready-to-run setup.
+   Check the detected framework, required services, and startup command against your application's configuration.
 
 3. #### Review and customize
 
-   Warp outputs:
+   Review the generated files for:
 
-   * Optimized base images
-   * Cached build layers
-   * Correct dependency stages
-   * Unified environment management
+   * Base image version and vulnerability findings
+   * Build layer caching
+   * Build and runtime dependencies
+   * Environment variables and secret handling
 
    You can easily adjust service names or ports in the generated compose file.
+
+   Run `docker compose config` to validate the Docker Compose configuration. Follow the build and startup instructions to build the images and run the application locally. Run the relevant application test and exercise a key user flow or API endpoint to check that the containerized application behaves as expected.
+
+   Before deploying, review the configuration against your environment's security access and recovery requirements.
 
 </Steps>

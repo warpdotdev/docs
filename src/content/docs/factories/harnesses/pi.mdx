@@ -1,0 +1,59 @@
+---
+title: Configuring the Pi harness
+description: >-
+  Run Pi as a Warp Factories agent with a provider API key or authentication
+  from your self-hosted worker.
+sidebar:
+  label: "Pi"
+---
+import { VARS } from '@data/vars';
+
+Pi is a coding agent that supports multiple model providers. Use it as a factory agent's harness for tasks such as implementing changes through your team's OpenAI account.
+
+## Models and credentials
+
+Choose a model from Pi's catalog in the agent's "Model" dropdown. Pi uses `provider/model` identifiers; available models depend on the selected credential or configured provider team defaults.
+
+On Warp-hosted runs, Pi uses the selected model provider's configured team default unless you select a different team-owned provider secret. Pi accepts compatible Anthropic and OpenAI API key secrets, as well as LLM provider API key secrets for other providers in its catalog. A personal key stored on your device is not a factory credential.
+
+Your provider bills inference. Warp's [platform and hosted-compute charges](/factories/harnesses/#billing) still apply. Selecting Pi does not make every local Pi extension or feature available in a factory run.
+
+## Configuring a factory agent
+
+You need [editor or admin access](/factories/infrastructure-and-security/#factory-roles-and-permissions) to a factory, an [existing factory agent](/factories/factory-agents/), and a funded API account with a provider listed in Pi's catalog. Follow [harness plan requirements](/factories/harnesses/#plan-requirements) for access.
+
+For a Warp-managed factory:
+
+1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Expand your factory in the sidebar, click **Agents**, then open the agent's **Settings** tab.
+2. In the "Harness" dropdown, choose **Pi**.
+3. If you aren't using a team default, in the "Auth" dropdown, choose a compatible team-owned provider secret. To create one, click **New LLM provider API key**, complete the provider, name, and API key fields, then click **Create secret**.
+4. In the "Model" dropdown, choose a model from the provider's catalog. If you use a team default, "Auth" then displays **Team default** with the provider's secret name.
+5. Click **Save**.
+
+The saved settings show Pi, the selected model, and its authentication. Start a new task for this agent and inspect its run in the [factory dashboard](/factories/factory-dashboard/) to confirm that the intended harness and model were used and that the provider accepted the credential.
+
+For a GitHub-backed factory, edit the agent's definition files instead. Set `harness.type` to `pi`, use a `provider/model` identifier in `harness.model`, and select the credential with `harness.auth.source: managedSecret` and `harness.auth.secretName`. See [`agentDefaults.harness`](/factories/factory-as-code/#agentdefaultsharness) for factory defaults and per-agent overrides.
+
+## Using authentication from a self-hosted worker
+
+If your self-hosted worker already has Pi's provider authentication configured, use it without storing a provider secret in Warp.
+
+1. In the agent's **Settings** tab, choose your self-hosted host in the "Host" dropdown.
+2. In the "Auth" dropdown, choose **From worker environment**.
+3. In the "Model" field, enter the worker's model identifier in `provider/model` form, then click **Save**.
+
+Start a new task for the agent to confirm the worker can authenticate to that provider. This option is available only with a self-hosted host; see [self-hosting](/factories/self-hosting/) for worker setup.
+
+## Troubleshooting
+
+If no models appear, confirm that the selected secret belongs to the team and matches a provider in Pi's catalog, or that the intended provider has a configured team default. Changing to a different provider's credential clears an incompatible model selection; choose the model again before saving.
+
+If a run fails to authenticate, check the provider account's funding and key permissions. For **From worker environment**, check authentication on the selected worker rather than creating a personal device key.
+
+## Related pages
+
+* [Agent harnesses](/factories/harnesses/)
+* [Configuring factory workers](/factories/factory-agents/configuration/)
+* [Configuring harness authentication](/factories/harnesses/authentication/)
+* [Definitions as code](/factories/factory-as-code/)
+* [Self-hosting](/factories/self-hosting/)
