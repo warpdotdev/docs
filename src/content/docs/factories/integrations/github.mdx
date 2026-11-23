@@ -211,7 +211,7 @@ GitHub triggers skip bot events by default. This includes completed GitHub Actio
 2. Click **More filters**. In the "Skip bot events" dropdown, choose **Self (Warp-owned bots)** to admit third-party bots while excluding Warp-owned bots, or **None** to admit all bots.
 3. Click **Save**, then generate a new matching event and check the factory's [Runs page](/factories/factory-dashboard/#inspect-runs).
 
-For [definitions as code](/factories/factory-as-code/), set `filter.skip_bots` to `self` or `none`. Omitted `skip_bots` defaults to `all`. Admitting Warp-owned bots can cause feedback loops when the factory's own actions match the trigger.
+For [factory definition files](/factories/factory-as-code/), set `filter.skip_bots` to `self` or `none`. Omitted `skip_bots` defaults to `all`. Admitting Warp-owned bots can cause feedback loops when the factory's own actions match the trigger.
 
 ### Filter options don't load
 
