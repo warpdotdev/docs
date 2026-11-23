@@ -27,6 +27,11 @@ Before sending sensitive work, review [ZDR, data collection, and storage for fac
     href="/factories/quickstart/"
     description="Follow setup instructions to connect repositories and send your first request."
   />
+  <LinkCard
+    title="Take the Warp Learn course"
+    href={VARS.LEARN_URL}
+    description="A free, hands-on course with videos and lessons on building, configuring, and improving a software factory."
+  />
 </CardGrid>
 
 ## What a factory does
@@ -45,6 +50,8 @@ Start with one task, such as [reviewing a pull request](/factories/use-cases/cod
 ### Work items
 
 A work item is one request the factory acts on. This can be an issue, a support thread, a pull request, or a scheduled job. It keeps its source context from intake to handoff, however many workers contribute along the way.
+
+Use [Finding and sharing artifacts](/factories/artifacts/) to retrieve its uploaded reports, review plans and visual evidence, or open linked pull requests and issues.
 
 <span id="foreman-and-factory-agents" />
 
@@ -104,6 +111,7 @@ Don't split the same repositories across factories by team or task, such as fron
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
+* <a href={VARS.LEARN_URL}>Warp Learn</a> - Free course with videos and lessons on setup, configuration, and optimization
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
 * [Factory workers](/factories/factory-agents/) - Understand default worker roles
 * [Configuring factory workers](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions

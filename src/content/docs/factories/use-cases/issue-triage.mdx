@@ -42,7 +42,7 @@ This [recipe](/factories/use-cases/) sends intake to your foreman, which delegat
 
    See [factory skills](/factories/factory-skills/) for the file format.
 
-   The [`02-sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) has triage instructions you can adapt to your issue source. Reuse your assigned worker or [create one](/factories/factory-agents/creating-custom-agents/) rather than replacing the factory's Blueprint with the example.
+   The [`sdlc-issue-to-pr` example](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr) has triage instructions you can adapt to your issue source. Reuse your assigned worker or [create one](/factories/factory-agents/creating-custom-agents/) rather than replacing the factory's Blueprint with the example.
 4. In `factory.yaml`, [define a stage](/factories/blueprints/stages/) named `triage`. Assign its `worker`, declare the source issue as `inputs`, and require its `prompt` to use the triage skill without implementing. Declare evidence, classification, priority, and next action as `outputs`. Set `to` to a foreman handoff stage, whose `to` is `end`.
 
    Target `triage` with the automation's [`stage`](/factories/automations/#target-a-blueprint-stage) field, preserving every trigger filter. Keep the stopping rule in the stage procedure as well as the copyable intake below.
@@ -165,7 +165,7 @@ This [recipe](/factories/use-cases/) sends intake to your foreman, which delegat
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/use-cases/issue-triage.md and set up
 issue triage in my factory for OWNER/REPO. Adapt the triage instructions in
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr
+https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr
 as the starting point, adapted to my issue source.
 Keep my existing workers/ or agents/ root and worker filenames. Put
 worker-scoped skills beside the worker file, without mixing roots.

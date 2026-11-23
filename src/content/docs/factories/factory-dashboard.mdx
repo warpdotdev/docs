@@ -52,6 +52,8 @@ A run is a single agent execution. In a factory, the configured agent is called 
 
 Open a run to see its timeline, cost, and child runs. From there you can view the worker's full session, stop or score the run, or turn it into a benchmark task.
 
+To retrieve a report or share a plan, screenshot, or recording, see [Finding and sharing artifacts](/factories/artifacts/). A work item's results can come from several workers, not only the foreman's conversation.
+
 :::note
 Run pages don't include a chat input. **View worker** opens the worker's [shared agent session](/platform/viewing-cloud-agent-runs/), the conversation where you can inspect commands, outputs, and follow-up messages. You can send instructions while the sandbox is active; after it shuts down, the link opens the transcript.
 :::
@@ -78,11 +80,45 @@ The automation editor doesn't change execution settings. Worker-targeted automat
 
 **Factory definition** is the factory dashboard's view of the definition files that [definitions as code](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
 
-* **Hosted by Warp** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
+* **Hosted by Warp** - Browse and edit the definition files, or clone the repository to work locally. Saving in the editor commits changes to the branch you selected.
 * **Hosted by GitHub** - Edit the definition through pull requests in your repository; **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
 When a worker proposes a change to a definition hosted by Warp, a spec review for the branch appears on [Home](/factories/factory-home/) when the **Waiting on you** filter is selected. Open the spec review to comment on the diff, select **Request changes** to send feedback to the worker, or select **Approve & merge** to merge the change.
+
+### Clone a Warp-hosted definition
+
+You need Git and a Warp account with factory access.
+
+1. In the factory dashboard, open the **Factory definition tab**. Click the three-dot menu next to **Save**, then click **Clone repository**.
+2. Install the [{VARS.WARP_CLI}](/agents/cli/quickstart/#1-install-the-warp-agent-cli). Run `warp` and sign in through the browser, not with a Warp API key.
+3. Run the authentication setup from the **Clone repository** dialog in bash or zsh once per machine. It replaces credential helpers for that host with a helper that obtains short-lived credentials from the signed-in CLI.
+4. Run the clone command shown in the dialog, then change to the cloned repository's directory.
+
+### Push and review a branch
+
+To update the factory, push your changes to a separate branch, then review and merge them into the production branch through the factory dashboard. The production branch is protected from direct Git pushes, and changes on other branches don’t affect the running factory.
+
+1. Locally, create a branch:
+
+   ```bash
+   git switch -c update-review-instructions
+   ```
+
+2. Edit the definition files. Review the diff, then commit and push:
+
+   ```bash
+   git diff
+   git add PATH_TO_CHANGED_FILE
+   git commit -m "Update review instructions"
+   git push -u origin update-review-instructions
+   ```
+
+   Replace `PATH_TO_CHANGED_FILE` with each file you edited.
+
+3. Return to the factory dashboard and open the **Factory definition** tab. Open the branch selector, search for your feature branch (`update-review-instructions` in this example), and select it. If you make further edits, click **Save** to commit them to that branch.
+4. Click the three-dot menu next to **Save**, then click **Create PR** to open a pull request to merge your branch into the production branch.
+5. Inspect the diff and merge checks. If authorized, click **Approve & merge**, then confirm.
 
 ## Score and benchmark
 

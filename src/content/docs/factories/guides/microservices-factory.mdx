@@ -8,9 +8,9 @@ prev: false
 next: false
 ---
 
-Use Warp Factories to group services that share a contract and an owner. Workers verify changes against contract files in the repositories rather than a live deployment.
+Use Warp Factories to coordinate changes to services that share a contract and an owner. Workers check the contract files in each repository, open one PR per changed service, and report the order in which a person must merge them. They do not test a live deployment.
 
-Start with the Blueprint from [factory setup](/factories/quickstart/) and add the related repositories. The [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart) example supplies repository and runner settings. The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their names, paths, and commands with yours.
+Adapt the complete Blueprint in [`related-services`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/related-services). The examples below use a Go API and a Node web app sharing `openapi.yaml`; replace their names, paths, and commands with yours.
 
 ## How a microservices factory is organized
 
@@ -18,28 +18,28 @@ Group services in one factory when they share an API, schema, or event contract,
 
 This example allows only additive contract changes. For breaking changes, such as removing, renaming, or changing a field's type, the foreman explains what is needed instead and stops.
 
-Runs start with repository checkouts, not deployed services. Verify changes using contract files and fixtures. If a test needs a dependency such as a database, start it in the sandbox with the repository's documented command. Warp-hosted Linux runners support Docker containers.
+If a test needs a dependency such as a database, start it in the sandbox with the repository's documented command. Warp-hosted Linux runners support Docker containers.
 
-A change spanning services produces one pull request per repository. A person controls the merge order. See [coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/).
+See [coordinating changes across multiple repositories](/factories/guides/multi-repository-factory/) for merge-order guidance.
 
 | Part | Recommendation |
 | --- | --- |
 | Trigger | A maintainer applies `factory-ready` to an issue in any of the factory's repositories |
 | Repositories | The services that share a contract and an owner; the foreman's instructions name the provider |
-| Workers | Foreman, implement, and review; review only checks that the services agree |
+| Workers | A foreman, an implementer, and a reviewer limited to contract consistency |
 | Runner | One Linux image that carries every service's toolchain, with a per-service dependency prefetch |
 | Output | One pull request per changed service with its checks and contract-check results |
 
 ## Prerequisites
 
 * A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/) with access to every service repository.
-* A [Blueprint](/factories/blueprints/) with workers assigned to planning, implementation, and independent review.
+* A [Blueprint](/factories/blueprints/) with workers assigned to scope, implementation, and advisory contract review.
 * A provider contract file, such as `openapi.yaml`, and contract checks in each repository. The provider checks its handlers against the contract. Each consumer regenerates its client and type-checks all call sites.
 * Documented bootstrap and test commands for every service.
 
 ## Group related services
 
-1. Update the existing `factory.yaml` with the provider and its consumers, retaining its Blueprint. This fragment has one of each. Add consumers that share the contract and reviewers.
+1. In your existing `factory.yaml`, list the provider and its consumers. Keep the Blueprint alongside this configuration. The fragment below names one provider and one consumer.
 
    ```yaml title="factory.yaml"
    schemaVersion: v1alpha1
@@ -55,7 +55,7 @@ A change spanning services produces one pull request per repository. A person co
      runner: linux-services
    ```
 
-2. Define each repository's role in a shared [skill](/factories/factory-skills/). Require the Blueprint's planning stage to use it:
+2. Define each repository's role in the Blueprint's `scope` prompt, as the related-services example does. If you move shared instructions to a [skill](/factories/factory-skills/), require the stage to read it:
    * Identify the contract provider and its consumers.
    * Identify which services a request affects, order changes from provider to consumer, and decline work outside the factory.
 3. Create the `factory-ready` label in every service repository. GitHub labels are configured separately for each repository.
@@ -117,9 +117,11 @@ A change spanning services produces one pull request per repository. A person co
 
 ## Verify against contracts and dependencies
 
-In `factory.yaml`, configure the [Blueprint stages](/factories/blueprints/stages/) below. Pass the ordered repositories and compatibility decision from planning to implementation, then pass contract diffs and check results to review. Return findings to implementation; send incompatible changes to a human decision before any branch is created.
+In `factory.yaml`, pass the ordered repositories and compatibility decision from `scope` to `implement`, then pass contract diffs and check results to `review`. Configure the [Blueprint stages](/factories/blueprints/stages/) as follows.
 
-1. In the planning stage's `prompt`, require the compatibility policy from the shared skill:
+Keep the example's single advisory contract review. Unambiguous findings go through `correct` on the existing PRs, then to `handoff` without a second review. At handoff, require the foreman to name the reviewed SHA and current head for each PR and identify corrected heads that were not independently re-reviewed.
+
+1. In the `scope` stage's `prompt`, require the compatibility policy from the shared skill:
    * Change the provider first.
    * Allow only backward-compatible additions. Do not remove, rename, or change the types of existing fields or endpoints, or add required request fields.
    * For a breaking change, comment with an alternative, such as a versioned endpoint or coordinated deployment, and stop without creating a branch.
@@ -136,7 +138,7 @@ In `factory.yaml`, configure the [Blueprint stages](/factories/blueprints/stages
    * For a paired change, copy the provider branch's schema over the consumer's vendored copy. For consumer-only work, keep the vendored schema unchanged.
    * Run `npm run contract-check` to regenerate the client and type-check its callers, then `npm run lint && npm test`.
    * Probe the provider's current `main` schema using your contract check's schema-path option, or replace its input file. Record the result separately.
-   * After the probe, restore the vendored schema as input, regenerate the client, and rerun the normal checks. These checks must pass, and the final generated client must match the vendored schema, not the probe.
+   * After the probe, restore the vendored schema as input. Regenerate the client and rerun the normal checks. Require passing results and a final generated client that matches the vendored schema, not the probe.
    * For a pair, a probe failure caused by the new contract explains why the consumer merges second. For consumer-only work, the probe must pass; an unreleased dependency goes back to the foreman as a scope mismatch.
 4. In the review stage's `prompt`, require its assigned worker to confirm that:
    * For a pair, the provider's contract and consumer's vendored copy are identical, and the consumer uses the added fields with matching names and types.
@@ -166,8 +168,8 @@ In `factory.yaml`, configure the [Blueprint stages](/factories/blueprints/stages
 
 ```text title="Prompt"
 Read https://docs.warp.dev/factories/guides/microservices-factory.md and adapt
-https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart
-for repository and runner settings in my existing Blueprint factory.
+https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/related-services
+for my factory.
 The provider repository is OWNER/PROVIDER and its contract file is
 CONTRACT_PATH. The consumer
 repositories are CONSUMER_LIST. Replace acme/api-service and acme/webapp
@@ -178,14 +180,17 @@ provider changes first with backward-compatible additions only, never new
 required request fields. Every service runs its own
 checks and contract check, the consumer also checks against the
 provider's current default branch. After that probe, regenerate from the
-vendored schema and rerun positive checks before publishing. Consumer-only
+vendored schema and rerun the normal checks before publishing. Consumer-only
 work must pass against the current provider without a companion PR.
-Put planning, implementation, review, and handoff procedures in the Blueprint.
+Keep scope, implement, review, correct, and handoff in the Blueprint.
 Pass the ordered repositories, contract diffs, and check results between stages.
-Return review findings to the same implementation conversation and PRs.
-The reviewer checks contract consistency and that final verification.
-Validate the definition before you open a pull request, never
-merge, and list anything I still have to do myself: connecting GitHub,
+Use one advisory contract review. Correct unambiguous findings in the same
+implementation conversation and PRs, then hand off without a second review.
+Report each reviewed SHA and current head. Identify corrected heads that were
+not independently re-reviewed.
+The reviewer checks contract consistency and the recorded verification.
+Validate the definition before opening a pull request. Never merge.
+List anything I still have to do myself: connecting GitHub,
 creating the factory-ready label in each repository, adding a contract
 check where one is missing, and registering the definition.
 ```
@@ -193,7 +198,7 @@ check where one is missing, and registering the definition.
 ## Troubleshooting
 
 * **A service's bootstrap fails:** The image may lack its toolchain, or the command may run in the wrong directory. Use an image with every service's toolchain and start each setup command with `cd /workspace/REPOSITORY_NAME`.
-* **The consumer's contract check fails against the provider's `main`:** For a paired change, a failure caused by the new contract explains why the consumer merges second. Regenerate from the vendored schema and rerun positive checks before publishing. Unrelated failures need a fix; consumer-only work must pass against `main`.
+* **The consumer's contract check fails against the provider's `main`:** For a paired change, a failure caused by the new contract explains why the consumer merges second. Regenerate from the vendored schema and rerun the normal checks before publishing. Fix unrelated failures. Consumer-only work must pass against `main`.
 * **The worker tries to verify against a live service:** Runs start with repository checkouts, not deployed services. Point verification at contract files and fixtures, and document how to start test dependencies inside the sandbox.
 * **The foreman accepts a breaking change as additive:** The compatibility instructions or contract-diff check may be incomplete. Explicitly prohibit removals, renames, type changes, and new required request fields, and require the provider's contract diff in verification.
 

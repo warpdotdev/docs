@@ -5,6 +5,7 @@ from check_redirects import (
     load_redirects,
     redirect_source_matches_path,
     url_to_content_path,
+    vercel_source_to_regex,
 )
 
 
@@ -81,6 +82,39 @@ class RedirectSourceTests(unittest.TestCase):
                          if redirect_source_matches_path(r["source"], source)],
                         [],
                     )
+
+    def test_legacy_factory_aliases_accept_both_slash_forms(self):
+        aliases = (
+            ("/platform/api-sdk", "/factories/api-and-sdk/"),
+            ("/platform/agent-api-and-sdk", "/factories/api-and-sdk/"),
+            ("/platform/agent-api-and-sdk/agent-1", "/factories/api-and-sdk/"),
+            ("/platform/agent-api-and-sdk/agent", "/factories/api-and-sdk/"),
+            (
+                "/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk",
+                "/factories/api-and-sdk/",
+            ),
+            (
+                "/agent-platform/cloud-agents/self-hosting/managed-worker-reference",
+                "/factories/self-hosting/",
+            ),
+        )
+        redirects = load_redirects()
+        for alias, destination in aliases:
+            for path in (alias, alias + "/"):
+                with self.subTest(path=path):
+                    match = next(
+                        (rule for rule in redirects
+                         if vercel_source_to_regex(rule["source"]).fullmatch(path)),
+                        None,
+                    )
+                    self.assertIsNotNone(match)
+                    self.assertEqual(match["statusCode"], 308)
+                    self.assertEqual(match["destination"], destination)
+                    self.assertIsNotNone(url_to_content_path(destination))
+                    self.assertFalse(any(
+                        vercel_source_to_regex(rule["source"]).fullmatch(destination)
+                        for rule in redirects
+                    ))
 
     def test_restored_transition_page_has_no_redirect(self):
         route = "/platform/transitioning-from-oz"
