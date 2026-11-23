@@ -1,87 +1,20 @@
-# Section labels for documentation social previews
+# Documentation social previews
 
 ## Summary
 
-Add a section label above each documentation preview title. Keep the accepted
-design in [PR #956](https://github.com/warpdotdev/docs/pull/956). Use one stable
-section per URL, even when several navigation tabs link to that URL.
+Generate page-specific 1200×630 previews with stable section labels and complete,
+balanced titles. [PR #956](https://github.com/warpdotdev/docs/pull/956) implements
+this contract on `factory/dynamic-og-images`.
 
-- Status: approved and implemented; typography revised on 2026-11-23.
+- Status: approved and implemented.
 - Requester: `hongyi-chen`.
-- Implementation baseline: `86309f7e8700339e7fa542f5a09fad36a477594a`.
-- Reuse PR #956 and branch `factory/dynamic-og-images`.
-- Do not implement the header until the requester approves this specification.
+- Approval: [gray-label proposal](https://github.com/warpdotdev/docs/blob/0967f2266845e67d8350e7b74e44a6487463ddd4/specs/og-section-headers/SPEC.md),
+  approved with “yes go ahead, show me screenshots”.
+- Source: [request and typography refinements](https://warpdev.slack.com/archives/C09BVK0PL3Y/p1795414196360039).
+  The final dimensions below incorporate the requester's readability,
+  Medium-weight, spacing, and smaller balanced-headline decisions.
 
-## Requester decisions
-
-The requester replied, “go for it, let’s try it”, to this direction:
-
-- Keep DOCUMENTATION and add a small section label above the title.
-- Use existing tab names.
-- Label shared billing pages SUPPORT.
-- Label Transitioning from Oz AUTOMATION PLATFORM.
-- Do not choose the label from the first matching navigation tab.
-- Keep root and unknown pages generic.
-- Preserve full titles.
-
-This reply aligns the design direction. It does not approve an unwritten spec
-or waive approval. The dimensions and resolver details below are proposed
-implementation choices, not pixel-level requester decisions.
-
-On the committed proposal, the requester replied:
-
-> sure, does it have to be black, should it be a different color, like grey perhaps?
-
-Use a neutral gray eyebrow in response to this feedback. The recommended
-`#555555` value below is a design choice, not a hex value selected by the
-requester. The requester approved the committed gray-label proposal with
-“yes go ahead, show me screenshots”.
-
-The requester also asked for “just 1-2 images directly in this slack thread”.
-Keep broad coverage in internal and PR proof. Send only one or two clean
-images directly in Slack, without paths or gallery caption bars.
-
-### Readability revision
-
-After seeing the implemented gray labels, the requester asked, “Maybe a bit
-bigger? It's hard to read”. The section eyebrow increased from 24px to 32px.
-After seeing those cards, the requester asked, “Maybe a bit bigger? Still small”.
-Increase the eyebrow to 48px: 24px at 600×315 and 12.8px at 320×168,
-compared with 16px and 8.5px for the 32px version.
-That sizing revision changed only the section type size. It retained the
-gray color, Medium weight, tracking, line height, title fitting, margins,
-pill, and section ownership.
-
-### Heading typography revision
-
-The requester then asked, “tighten up the line height of the heading, and
-give a little more margin under the eyebrow”, followed by “also is the
-heading medium? try medium weight if not!”.
-
-Use the genuine Azeret SemiMono Medium face for the main title instead of
-Regular. Tighten title leading from 115% to 105% and increase the gap under
-the eyebrow from 24px to 32px. Keep the eyebrow at 48px, Medium, `#555555`,
-with 115% leading. Keep the title's fitting limits and bottom alignment:
-the changed font metrics and leading can affect wrapping, but the full
-title must remain inside the safe area without truncation.
-
-### Smaller, balanced headlines
-
-The requester next asked, “i think the headline size can be shrunk a bit.
-make sure the lines are similar lengths, it helps it make those sizing decisions”.
-
-Reduce each title's fitted font size to 90%, rounded down to an even pixel,
-with the existing 28px legibility floor. This lowers the largest title from
-112px to 100px and also reduces long titles that already needed smaller type.
-Measure whole-word lines in the actual Medium font. Choose the fewest
-feasible lines, then minimize squared unused width across every line,
-including the last. Preserve word order and all title text.
-
-Keep Pango's existing character-wrap and Unicode fallback when a token is
-too wide for whole-word balancing. Keep the 280px safe-area limit, 105%
-leading, −5% tracking, 32px eyebrow gap, and bottom alignment.
-
-## Product behavior
+## Section ownership
 
 1. Show one uppercase section label above the title on recognized section pages.
    Use TERMINAL, AGENTS, FACTORIES, AUTOMATION PLATFORM, CHANGELOG, SUPPORT,
@@ -104,116 +37,74 @@ leading, −5% tracking, 32px eyebrow gap, and bottom alignment.
    | `/guides` | GUIDES |
 
 4. Omit the section label on `/`, `/404`, and routes outside these families.
-   Keep the existing generic layout on those pages. An unlisted page inside a
-   recognized family still receives that family's label.
+   An unlisted page inside a recognized family still receives that family's label.
 5. A guide inside `/factories/guides` receives FACTORIES. A factory tutorial
    inside `/guides` receives GUIDES. The label identifies the docs section,
    not every subject mentioned by the page.
-6. Preserve the complete title with the smaller, balanced layout above.
-   Do not add ellipses, a subtitle, a divider, or a footer.
-7. Keep production-build generation and existing fallback behavior. This work
-   does not add dynamic previews to `astro dev`.
 
-### Why one URL can appear in several sections
-
-These are navigation links to the same canonical page, not duplicate content:
-
-| Page | Navigation locations | Source at the baseline |
-| --- | --- | --- |
-| [Usage and billing](https://docs.warp.dev/support-and-community/plans-and-billing/credits/) | Factories → Plans & support; Support → Plans & billing | `src/sidebar.ts:582,807` |
-| [Purchasing additional usage](https://docs.warp.dev/support-and-community/plans-and-billing/add-on-credits/) | Factories → Plans & support; Support → Plans & billing | `src/sidebar.ts:583,808` |
-| [Transitioning from Oz](https://docs.warp.dev/platform/transitioning-from-oz/) | Factories → Plans & support; Automation Platform → Overview | `src/sidebar.ts:585,654` |
-
-A social crawler sees the shared URL, not the navigation path. The comment at
-`src/sidebar.ts:652–653` records that the transition URL currently activates
-Factories. Its preview will intentionally say AUTOMATION PLATFORM.
+Shared billing pages (`credits` and `add-on-credits`) receive SUPPORT.
+`/platform/transitioning-from-oz` receives AUTOMATION PLATFORM even when
+linked from Factories. A social crawler sees the canonical URL, not the
+navigation path. URL-family ownership avoids navigation-order ambiguity
+without adding per-page frontmatter or changing tab activation.
 
 ## Visual design
 
-Preserve the accepted 1200×630 canvas:
+| Element | Contract |
+| --- | --- |
+| Canvas | 1200×630, chrome-blue `#D5DFE2`, 64px outer margins |
+| Lockup | Complete black Warp lockup at the upper left |
+| Pill | DOCUMENTATION at the upper right, `#1008FF`, black outline, white Azeret SemiMono Medium text, −2% tracking |
+| Title | Black uppercase Azeret SemiMono Medium, −5% tracking, 105% leading, maximum rendered size 100px |
+| Title bounds | 1072px width, 280px maximum height, left edge x=64px, bottom edge y=566px |
+| Section eyebrow | Uppercase Azeret SemiMono Medium, 48px, opaque `#555555`, −2% tracking, 115% leading |
+| Eyebrow position | One line within 1072px, x=64px, bottom edge 32px above the rendered title |
 
-- Chrome-blue background: `#D5DFE2`.
-- Complete black Warp lockup at the upper left.
-- Terminal-blue `#1008FF` DOCUMENTATION pill at the upper right, with a black
-  outline and white text.
-- Outer margins: 64px.
-- Bottom-aligned black uppercase title in Azeret SemiMono Medium.
-- Title tracking: −5%. Line height: 105%. Maximum rendered font size: 100px.
-- Pill font: Azeret SemiMono Medium. Tracking: −2%.
+The eyebrow moves with the fitted title block. The lockup and pill stay fixed.
+Root and unknown routes use the same title layout without an eyebrow.
+Do not add ellipses, a subtitle, a divider, or a footer.
 
-Add the section as an eyebrow, not another badge:
+Gray keeps the section secondary to the black title. Using linearized-sRGB
+luminance, `#555555` against `#D5DFE2` has a contrast ratio of **5.4964:1**.
+Keep section text at or above 4.5:1. The reference palette's lighter `#8D8B82`
+does not qualify: it produces only **2.5183:1**.
 
-- Font: Azeret SemiMono Medium, 48px, uppercase.
-- Color: neutral gray `#555555`, fully opaque. Keep the page title black.
-- Tracking: −2%. Line height: 115%.
-- Left edge: x=64px.
-- Bottom edge: 32px above the rendered title's top edge.
-- Keep the label on one line within the existing 1072px content width.
-- Keep the title inside its existing 280px maximum height. Keep the title's
-  bottom edge at y=566px.
-- Move the eyebrow with the fitted title block. Do not move the lockup or pill.
+### Title fitting and balancing
 
-This layout leaves the title's full width available. The longest proposed
-label, AUTOMATION PLATFORM, does not compete with the logo or pill.
+1. Find the largest fitting title size from 112px down to 28px in 2px steps,
+   using the actual Medium font and the title bounds above.
+2. Reduce that fitted size to 90%, rounded down to an even pixel, with a 28px
+   floor. This reduces both short headlines and long titles that already
+   require smaller type.
+3. Measure whole-word lines. Choose the fewest feasible lines, then minimize
+   the sum of squared unused widths, including the final line. Preserve word
+   order and the complete title.
+4. Retain Pango's character wrapping and Unicode fallback for overwide tokens
+   or a balanced layout that exceeds the bounds. Use the default image if
+   the renderer cannot fit the complete title legibly.
 
-The gray makes the section secondary to the black title without adding
-another accent color. Using WCAG linearized-sRGB relative luminance,
-`#555555` against `#D5DFE2` has a contrast ratio of **5.4964:1**. Keep section
-text at or above 4.5:1. Do not use the reference palette's lighter `#8D8B82`
-for this text: it produces only **2.5183:1** on the accepted background.
+## Build and metadata
 
-## Technical design
-
-References below use the implementation baseline.
-
-- `src/lib/og-image.js:73,86`: extend `renderOgImage` with an optional section.
-  Fit the title, reduce its size by 10%, and balance measured whole-word lines.
-  Render the section above the measured title. An omitted section preserves
-  the existing generic rendering.
-- `src/lib/social-image.js:3,12`: add one shared section resolver for the URL
-  mapping. Keep title extraction from rendered H1 and document-title fallback.
-  Include the section in image alt text when present, for example
-  `Warp Docs — Agents — Skills for agents`. Preserve existing alt text for
-  generic cards.
-- `src/integrations/og-images.js:21,26`: derive each page route from its path
-  relative to the output root. Normalize root `index.html`, nested
-  `index.html`, `.html`, and trailing slashes before resolution. Pass title and
-  section to the renderer.
-- Cache generated previews by both title and section. Equal titles in
-  different sections must not share the wrong card. Equal title-section pairs
-  may share a card. Keep PNG-content hashing for asset URLs.
-- `scripts/validate-og-images.mjs`: resolve the expected section for each
-  generated page. Validate section-aware metadata and all referenced PNGs.
-- `src/integrations/og-images.test.js:31,59`: extend the existing geometry,
-  design, deduplication, fallback, and metadata tests.
-- Preserve the hash-pinned build-only Azeret downloads and font cache.
-  Keep proprietary fonts out of git and deployed output.
-- Do not edit navigation, article titles, content frontmatter, or redirects.
-
-## Decisions and alternatives
-
-| Decision | Selected option and reason | Alternative and trade-off |
-| --- | --- | --- |
-| Ownership | Stable URL-family mapping. Shared billing and transition pages keep the agreed home labels. | First navigation match follows current tab activation but changes when navigation is reordered. |
-| Label vocabulary | Existing eight tab names. This names the section readers can find. | Product-only labels omit Support, Enterprise, Changelog, and Guides. Singular AGENT diverges from navigation. |
-| Placement | Section eyebrow above the title. Keep the accepted DOCUMENTATION pill. | Replacing the pill removes its existing role. A second badge adds competing chrome. |
-| Eyebrow color | Neutral gray `#555555` makes the section secondary and provides 5.4964:1 contrast. | Black has stronger contrast but competes with the title. Palette gray `#8D8B82` is softer but fails the 4.5:1 text threshold at 2.5183:1. |
-| Generic pages | Omit the eyebrow on root and unknown routes. | Guessing from the title or current tab can assign the wrong product. |
-| Maintenance | One path-family resolver, with tests for cross-linked and unlisted pages. | Per-page frontmatter adds authoring work. Parsing navigation retains shared-page ambiguity and couples preview ownership to tab order. |
-
-## Assumptions
-
-- Assumption: matching existing names means all eight tabs, with AGENTS plural.
-  The requester agreed to existing tab names but did not enumerate them.
-- Assumption: the URL-family table, `/api` exception, and known-family
-  inheritance implement the agreed stable-home direction. They do not assign
-  new ownership in site navigation.
-- The original 24px eyebrow increased to 32px, then 48px after further feedback.
-  Verify the revised typography at native and reduced preview sizes with
-  the current 32px title gap.
-- Assumption: `#555555` is the neutral gray to try in response to the
-  requester's color feedback. The requester did not select this exact value.
-- Assumption: section-aware alt text preserves the information added visually.
+- `src/lib/og-image.js` renders the card from the title and optional section.
+- `src/lib/social-image.js` owns section resolution, rendered-H1 extraction
+  with a document-title fallback, and shared OG/Twitter metadata. Alt text
+  includes the section when present, for example
+  `Warp Docs — Agents — Skills for agents`.
+- `src/integrations/og-images.js` generates previews during production builds,
+  not `astro dev`. It resolves routes relative to the output root, normalizes
+  `index.html`, `.html`, and trailing slashes, and replaces only head metadata.
+  Article HTML stays byte-for-byte intact.
+- Equal title-section pairs share a card. Different sections do not reuse the
+  wrong card. Asset URLs use PNG-content hashes.
+- Untitled pages and render or asset-write failures use `/og-image.png`.
+  Brand-font download or checksum failures stop the build rather than
+  silently substituting a font.
+- Azeret downloads are hash-pinned and cached for offline builds. Decoded fonts
+  stay in an OS temporary directory, outside git and deployed output.
+  Bundled Inter and Noto fallback fonts retain their licenses and sources in
+  `src/assets/og/fonts/`.
+- `scripts/validate-og-images.mjs` checks page metadata and referenced PNGs;
+  `src/integrations/og-images.test.js` covers rendering and failure behavior.
 
 ## Out of scope
 
@@ -227,7 +118,7 @@ References below use the implementation baseline.
 ### Automated checks
 
 - Run `npm ci` in the implementation checkout.
-- Run `npm run test:og-images`. Add named regressions for:
+- Run `npm run test:og-images`. Its regressions cover:
   - All eight labels, grouped URL families, `/api`, and `/quickstart`.
   - Shared billing → SUPPORT and transition → AUTOMATION PLATFORM.
   - Known-family unlisted pages, root, 404, unknown routes, and segment
@@ -237,9 +128,8 @@ References below use the implementation baseline.
     produce different PNGs and correct metadata.
   - Every label fits on one line; label, title, logo, and pill do not overlap.
     Preserve 64px margins, title bounds, colors, and full title text.
-  - The eyebrow uses opaque `#555555`; the title remains black. Calculate
-    text/background contrast from linearized-sRGB relative luminance and
-    assert a ratio of at least 4.5:1 for `#555555` against `#D5DFE2`.
+  - Opaque gray eyebrows, black titles, and at least 4.5:1 text contrast
+    calculated from linearized-sRGB relative luminance.
   - Short, long, unbroken, Unicode, and markup-like titles with a section.
   - Smaller type on both short and previously fitted long titles, measured
     balanced word breaks, and complete titles without orphaned final words
@@ -250,12 +140,12 @@ References below use the implementation baseline.
 - Run `npm run build`, then `npm run test:og-output`. Record actual page,
   preview, and fallback counts. Require zero unexpected fallbacks.
 - Run `npm run test:heading-tocs`, `npm run test:homepage-json-ld`,
-  `npm run test:agent-doc-outputs`, and `npm run test:tracking-routes`.
+  `npm run test:agent-doc-outputs`, `npm run test:docs-markdown`, and
+  `npm run test:tracking-routes`.
 - Run `npm run lint` and `npm run fmt` checks. Report Trunk as unavailable if
   it is absent; do not count an unavailable check as a pass.
-- Check `git diff --name-only 86309f7..HEAD` for new font binaries. Inspect the
-  production output inventory to confirm the build-only Azeret files remain
-  absent. Record these checks with the implementation evidence.
+- Check the tracked-file and production-output inventories for proprietary
+  Azeret binaries. Neither may contain them.
 
 ### Static visual proof
 
@@ -285,8 +175,7 @@ PNGs. Require screenshots, not video, because the deliverable is static.
   critical case. Check that reduced images keep the gray label readable and
   visually secondary to the black title.
 - Attach the contact sheet and critical screenshots to the existing PR's
-  managed proof block. Identify the verified implementation head. Do not
-  present the baseline screenshots as proof of the new section labels.
+  managed proof block. Identify the verified implementation head.
 - For requester-facing Slack proof, upload only one or two clean native
   card images directly in the thread. Do not add paths, caption bars, white
   strips, or browser framing to these images. Put context in the surrounding
