@@ -448,7 +448,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/automation-triggers' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 						{ slug: 'factories/permissions', label: 'Factory permissions' },
-						{ label: 'Team roles & administration', link: '/knowledge-and-collaboration/roles-and-permissions/' },
 						{
 							label: 'Infrastructure',
 							items: [
@@ -579,6 +578,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Plans & support',
 					items: [
+						{ label: 'Team management', link: '/knowledge-and-collaboration/teams/' },
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',

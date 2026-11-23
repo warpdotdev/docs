@@ -316,19 +316,23 @@ class TestConsistencyAudit(unittest.TestCase):
             if item["id"] == "team-deletion-addon-credits"
         )
         canonical = "src/content/docs/knowledge-and-collaboration/teams.mdx"
-        retired = "src/content/docs/enterprise/team-management/teams.mdx"
+        retired_paths = (
+            "src/content/docs/enterprise/team-management/teams.mdx",
+            "src/content/docs/factories/teams.mdx",
+        )
         self.assertIn(canonical, seed["affected_surfaces"])
         self.assertEqual(seed["surface_dispositions"][canonical], "fixed")
-        self.assertNotIn(retired, seed["affected_surfaces"])
-        self.assertNotIn(retired, seed["surface_dispositions"])
         self.assertTrue(any(
             canonical in rule["paths"]
             for rule in seed["deterministic_rules"]
         ))
-        self.assertTrue(all(
-            retired not in rule["paths"]
-            for rule in seed["deterministic_rules"]
-        ))
+        for retired in retired_paths:
+            self.assertNotIn(retired, seed["affected_surfaces"])
+            self.assertNotIn(retired, seed["surface_dispositions"])
+            self.assertTrue(all(
+                retired not in rule["paths"]
+                for rule in seed["deterministic_rules"]
+            ))
 
     def test_approved_seed_store_partitions_all_24_findings(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)

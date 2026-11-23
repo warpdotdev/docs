@@ -3,19 +3,19 @@ title: Workspaces for Enterprise teams
 sidebar:
   label: "Workspaces"
 description: >-
-  Workspaces group teams under one Enterprise account with shared membership,
-  billing, SSO, and company-wide settings.
+  Workspaces group one or more teams under an Enterprise account so admins
+  can manage membership, billing, and company-wide policies.
 ---
 import { VARS } from '@data/vars';
 
-A workspace groups one or more teams under a single Enterprise account. Workspace admins manage membership, billing, and company-wide policies across those teams. Single Sign-On (SSO) is configured at the workspace level.
+A workspace groups one or more teams under a single Enterprise account. Workspace admins manage membership, billing, and company-wide policies across those teams.
 
 ## Workspaces and teams
 
-A workspace provides company-wide administration, while teams organize shared resources and team-level settings.
+A workspace provides company-wide administration. A [Warp team](/knowledge-and-collaboration/teams/) groups people and resources so you can manage membership, access, and settings together.
 
 * **Workspace level** - Billing, SSO, domain capture, and organization-wide policies apply across teams.
-* **Team level** - Members share Warp Drive resources, cloud agent runs, environments, and secrets.
+* **Team level** - Members can share factories, cloud agent runs, environments, secrets, and Warp Drive content.
 * **Membership** - A user belongs to one workspace and can belong to multiple teams within it.
 
 ## Workspace roles
@@ -86,13 +86,13 @@ The member's workspace role updates in the list. Use the same menu to remove a m
 
 Workspace admins configure company-wide policies in the [Admin Panel](/knowledge-and-collaboration/admin-panel/). For supported settings, they can enforce a value across the workspace or select **Respect Team Setting** to let each team decide.
 
-SSO and domain capture apply at the workspace level. When a workspace admin enforces a setting, team admins see it as locked.
+[Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) and domain capture apply at the workspace level. When a workspace admin enforces a setting, team admins see it as locked.
 
-## Workspace spend limits
+<span id="workspace-spend-limits" />
 
-Workspace admins can set monthly limits for total, local agent, and cloud agent spending. They can also set a separate per-user limit for unassigned users. Team and individual limits remain independent, and the first applicable limit reached blocks further usage within its scope.
+## Workspace spending authority
 
-{/* VERIFY: confirm what team admins see when a workspace limit blocks usage before documenting that notice */}
+Workspace owners and admins manage spending controls across their workspace and its teams, including limits for unassigned users. See [Enterprise spending limits](/enterprise/support-and-resources/billing/#monthly-spending-limits) for cap types and how limits interact.
 
 ## Related pages
 
