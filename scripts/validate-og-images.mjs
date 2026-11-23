@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import sharp from 'sharp';
-import { socialImageMeta, socialImageTitle } from '../src/lib/social-image.js';
+import { socialImageMeta, socialImageSection, socialImageTitle } from '../src/lib/social-image.js';
 
 const root = process.argv[2]
 	? path.resolve(process.argv[2])
@@ -23,6 +23,7 @@ async function walk(directory) {
 		if (!entry.name.endsWith('.html')) continue;
 		const { document } = parseHTML(await readFile(filename, 'utf8'));
 		const title = socialImageTitle(document);
+		const section = socialImageSection(path.relative(root, filename).split(path.sep).join('/'));
 		const imageTags = document.querySelectorAll('meta[property="og:image"]');
 		assert.equal(imageTags.length, 1, `${filename}: duplicate or missing image`);
 		const url = new URL(imageTags[0].getAttribute('content'));
@@ -31,7 +32,7 @@ async function walk(directory) {
 			? /^\/(?:assets\/og\/[a-f0-9]{24}|og-image)\.png$/
 			: /^\/og-image\.png$/);
 		if (url.pathname === '/og-image.png') fallbackPages++;
-		for (const { attrs } of socialImageMeta(url.pathname, title)) {
+		for (const { attrs } of socialImageMeta(url.pathname, title, section)) {
 			const key = attrs.property ?? attrs.name;
 			const attribute = attrs.property ? 'property' : 'name';
 			const tags = document.querySelectorAll(`meta[${attribute}="${key}"]`);

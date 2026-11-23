@@ -9,6 +9,7 @@ import { parseHTML } from 'linkedom';
 import sharp from 'sharp';
 import { generateOgImages } from './og-images.js';
 import { renderOgImage } from '../lib/og-image.js';
+import { socialImageSection } from '../lib/social-image.js';
 
 async function validateOutput(root) {
 	await copyFile(new URL('../../public/og-image.png', import.meta.url), path.join(root, 'og-image.png'));
@@ -28,10 +29,35 @@ const examples = [
 	'CLI: <flags> & "quoted values" — what’s next?',
 ];
 
+test('resolves stable content homes across route forms without prefix or navigation-order guesses', () => {
+	for (const [family, section] of [
+		['terminal', 'Terminal'], ['code', 'Terminal'],
+		['knowledge-and-collaboration', 'Terminal'], ['getting-started', 'Terminal'],
+		['quickstart', 'Terminal'], ['agents', 'Agents'], ['factories', 'Factories'],
+		['api', 'Factories'], ['platform', 'Automation Platform'], ['changelog', 'Changelog'],
+		['support-and-community', 'Support'], ['enterprise', 'Enterprise'], ['guides', 'Guides'],
+	]) {
+		for (const route of [`/${family}`, `/${family}/`, `${family}/index.html`, `/${family}.html`,
+			`/${family}/new-page/`, `/${family}/new-page/index.html`, `/${family}/new-page.html`,
+			`/${family}/new-page/?from=other#heading`]) {
+			assert.equal(socialImageSection(route), section, route);
+		}
+		assert.equal(socialImageSection(`/${family}-extra/page`), '');
+	}
+	assert.equal(socialImageSection('/support-and-community/plans-and-billing/credits/'), 'Support');
+	assert.equal(socialImageSection('/support-and-community/plans-and-billing/add-on-credits/'), 'Support');
+	assert.equal(socialImageSection('/platform/transitioning-from-oz/'), 'Automation Platform');
+	assert.equal(socialImageSection('/factories/guides/unlisted'), 'Factories');
+	assert.equal(socialImageSection('/guides/factory-tutorial'), 'Guides');
+	for (const route of ['/', '/index.html', 'index.html', '/404', '/404.html', '/unknown/', '/constructor', '/toString', '/__proto__']) {
+		assert.equal(socialImageSection(route), '', route);
+	}
+});
+
 test('fits short, multiline, extreme, unbroken and Unicode titles within the safe area', async () => {
 	const cards = new Set();
 	for (const title of examples) {
-		const png = await renderOgImage(title);
+		const png = await renderOgImage(title, 'Automation Platform');
 		const metadata = await sharp(png).metadata();
 		assert.equal(metadata.format, 'png');
 		assert.equal(metadata.width, 1200);
@@ -85,36 +111,85 @@ test('uses the chrome-blue design with a documentation pill and bottom-aligned u
 	}
 });
 
+test('places every gray section label above the unchanged black title with readable contrast', async () => {
+	const title = 'Skills for agents';
+	const original = await renderOgImage(title);
+	for (const section of ['Terminal', 'Agents', 'Factories', 'Automation Platform', 'Changelog', 'Support', 'Enterprise', 'Guides']) {
+		const png = await renderOgImage(title, section);
+		const { data, info } = await sharp(png).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+		const gray = [];
+		const black = [];
+		for (let y = 200; y < 630; y++) {
+			for (let x = 0; x < 1200; x++) {
+				const offset = (y * info.width + x) * 3;
+				const rgb = data.subarray(offset, offset + 3);
+				if (rgb.every((channel) => channel === 85)) gray.push([x, y]);
+				if (rgb.every((channel) => channel === 0)) black.push([x, y]);
+			}
+		}
+		assert.ok(gray.length > 100, `${section}: opaque #555555 text must be visible`);
+		const left = Math.min(...gray.map(([x]) => x));
+		const right = Math.max(...gray.map(([x]) => x));
+		const top = Math.min(...gray.map(([, y]) => y));
+		const bottom = Math.max(...gray.map(([, y]) => y));
+		const titleTop = Math.min(...black.map(([, y]) => y));
+		assert.ok(left >= 64 && right < 1136 && top > 108);
+		assert.ok(bottom - top < 28, `${section}: label must stay on one line`);
+		assert.ok(titleTop - bottom >= 24 && titleTop - bottom <= 28, `${section}: preserve the 24px title gap`);
+		const region = { left: 0, top: titleTop, width: 1200, height: 630 - titleTop };
+		const actualTitle = await sharp(png).extract(region).raw().toBuffer();
+		const originalTitle = await sharp(original).extract(region).raw().toBuffer();
+		assert.ok(actualTitle.equals(originalTitle), 'Section labels must not change the full title or its layout');
+	}
+	const luminance = (rgb) => rgb.map((channel) => {
+		const value = channel / 255;
+		return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+	}).reduce((sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index], 0);
+	const contrast = (luminance([213, 223, 226]) + 0.05) / (luminance([85, 85, 85]) + 0.05);
+	assert.ok(contrast >= 4.5);
+	assert.ok(Math.abs(contrast - 5.4964) < 0.0001);
+});
+
 test('rejects unavailable or changed brand fonts and renders from an offline cache', async () => {
-	const expected = await renderOgImage('Tabs');
+	const expected = await renderOgImage('Tabs', 'Terminal');
 	const cache = fileURLToPath(new URL('../../node_modules/.cache/warp-og-fonts', import.meta.url));
 	const backup = path.join(await mkdtemp(`${cache}-test-`), 'fonts');
 	const renderer = new URL('../lib/og-image.js', import.meta.url).href;
 	const integration = new URL('./og-images.js', import.meta.url).href;
-	const run = (script) => spawnSync(process.execPath, ['--input-type=module', '-e', script]);
+	const run = (scenario) => spawnSync(process.execPath, ['--input-type=module', '-e', `
+		const scenario = process.argv[1];
+		globalThis.fetch = async () => {
+			if (scenario === 'offline') throw Error('Network disabled');
+			if (scenario === 'unavailable') return new Response('', { status: 503 });
+			return new Response('corrupt font');
+		};
+		if (scenario === 'offline') {
+			const { renderOgImage } = await import(process.argv[2]);
+			process.stdout.write(await renderOgImage('Tabs', 'Terminal'));
+		} else {
+			const { generateOgImages } = await import(process.argv[3]);
+			await generateOgImages('/unused-output', { warn() { throw Error('Unexpected fallback'); } });
+		}
+	`, scenario, renderer, integration]);
 	await rename(cache, backup);
 	try {
-		for (const [response, message] of [
-			["new Response('', { status: 503 })", /Cannot download OG font/],
-			["new Response('corrupt font')", /OG font checksum mismatch/],
+		for (const [scenario, message] of [
+			['unavailable', /Cannot download OG font/],
+			['corrupt', /OG font checksum mismatch/],
 		]) {
-			const result = run(`globalThis.fetch = async () => ${response};
-				const { generateOgImages } = await import(${JSON.stringify(integration)});
-				await generateOgImages('/unused-output', { warn() { throw Error('Unexpected fallback'); } });`);
+			const result = run(scenario);
 			assert.notEqual(result.status, 0);
 			assert.match(result.stderr.toString(), message);
 		}
 	} finally {
 		await rename(backup, cache);
 	}
-	const result = run(`globalThis.fetch = async () => { throw Error('Network disabled'); };
-		const { renderOgImage } = await import(${JSON.stringify(renderer)});
-		process.stdout.write(await renderOgImage('Tabs'));`);
+	const result = run('offline');
 	assert.equal(result.status, 0, result.stderr.toString());
 	assert.ok(result.stdout.equals(expected), 'Offline rendering must use the pinned brand fonts');
 });
 
-test('generates shared hashed assets and replaces duplicate metadata without altering scripts or article HTML', async () => {
+test('generates hashed assets and replaces duplicate metadata without altering scripts or article HTML', async () => {
 	const root = await mkdtemp(path.join(os.tmpdir(), 'docs-og-'));
 	const script = '<script>const example = \'<meta property="og:image" content="example">\';</script>';
 	const body = '<body><h1>Cr&eacute;er &amp; &lt;configure&gt; 🚀</h1><p class="page-subtitle">Do not put this subtitle in the image.</p><p data-test=\'preserve\'>Article.</p></body>';
@@ -143,13 +218,37 @@ test('generates shared hashed assets and replaces duplicate metadata without alt
 		assert.equal(meta(key)[0].getAttribute('content'), image);
 	}
 	assert.equal(meta('twitter:card')[0].getAttribute('content'), 'summary_large_image');
-	assert.equal(meta('og:image:alt')[0].getAttribute('content'), 'Warp Docs — Créer & <configure> 🚀');
-	assert.equal(meta('twitter:image:alt')[0].getAttribute('content'), 'Warp Docs — Créer & <configure> 🚀');
+	assert.equal(meta('og:image:alt')[0].getAttribute('content'), 'Warp Docs — Factories — Créer & <configure> 🚀');
+	assert.equal(meta('twitter:image:alt')[0].getAttribute('content'), 'Warp Docs — Factories — Créer & <configure> 🚀');
 	assert.equal(meta('og:title')[0].getAttribute('content'), 'Keep title');
 	assert.equal(meta('description')[0].getAttribute('content'), 'Keep description');
-	assert.equal((await readdir(path.join(root, 'assets/og'))).length, 1);
+	assert.equal((await readdir(path.join(root, 'assets/og'))).length, 2);
 	assert.equal((await sharp(path.join(root, new URL(image).pathname)).metadata()).width, 1200);
-	assert.ok((await readFile(path.join(root, new URL(image).pathname))).equals(await renderOgImage('Créer & <configure> 🚀')));
+	assert.ok((await readFile(path.join(root, new URL(image).pathname))).equals(await renderOgImage('Créer & <configure> 🚀', 'Factories')));
+	await validateOutput(root);
+});
+
+test('deduplicates equal title-section pairs but separates equal titles in different sections', async () => {
+	const root = await mkdtemp(path.join(os.tmpdir(), 'docs-og-sections-'));
+	const images = [];
+	for (const route of ['agents/index.html', 'agents/another/index.html', 'guides/index.html']) {
+		const filename = path.join(root, route);
+		await mkdir(path.dirname(filename), { recursive: true });
+		await writeFile(filename, '<html><head></head><body><h1>Quickstart</h1></body></html>');
+	}
+	const warnings = [];
+	await generateOgImages(root, { warn: (message) => warnings.push(message) });
+	assert.deepEqual(warnings, []);
+	for (const [route, section] of [['agents/index.html', 'Agents'], ['agents/another/index.html', 'Agents'], ['guides/index.html', 'Guides']]) {
+		const { document } = parseHTML(await readFile(path.join(root, route), 'utf8'));
+		images.push(document.querySelector('meta[property="og:image"]').getAttribute('content'));
+		for (const attribute of ['property="og:image:alt"', 'name="twitter:image:alt"']) {
+			assert.equal(document.querySelector(`meta[${attribute}]`).getAttribute('content'), `Warp Docs — ${section} — Quickstart`);
+		}
+	}
+	assert.equal(images[0], images[1]);
+	assert.notEqual(images[0], images[2]);
+	assert.equal((await readdir(path.join(root, 'assets/og'))).length, 2);
 	await validateOutput(root);
 });
 
@@ -183,13 +282,13 @@ test('uses document titles for custom pages and the existing default for untitle
 
 test('keeps metadata on a valid fallback when writing the rendered asset fails', async () => {
 	const root = await mkdtemp(path.join(os.tmpdir(), 'docs-og-write-failure-'));
-	await writeFile(path.join(root, 'index.html'), '<html><head></head><body><h1>Quickstart</h1></body></html>');
+	await writeFile(path.join(root, 'agents.html'), '<html><head></head><body><h1>Quickstart</h1></body></html>');
 	await mkdir(path.join(root, 'assets'));
 	await writeFile(path.join(root, 'assets/og'), 'Not a directory');
 	const warnings = [];
 	await generateOgImages(root, { warn: (message) => warnings.push(message) });
 	assert.equal(warnings.length, 1);
-	const { document } = parseHTML(await readFile(path.join(root, 'index.html'), 'utf8'));
+	const { document } = parseHTML(await readFile(path.join(root, 'agents.html'), 'utf8'));
 	assert.equal(document.querySelector('meta[property="og:image"]').getAttribute('content'), 'https://docs.warp.dev/og-image.png');
 	await validateOutput(root);
 });

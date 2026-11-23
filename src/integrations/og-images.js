@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import { loadOgAssets, renderOgImage } from '../lib/og-image.js';
-import { socialImageMeta, socialImageTitle } from '../lib/social-image.js';
+import { socialImageMeta, socialImageSection, socialImageTitle } from '../lib/social-image.js';
 
 export default function ogImages() {
 	return {
@@ -23,12 +23,13 @@ export async function generateOgImages(outputRoot, logger) {
 	const images = new Map();
 	let count = 0;
 
-	async function imageForTitle(title) {
+	async function imageForPage(title, section) {
 		if (!title) return '/og-image.png';
-		if (images.has(title)) return images.get(title);
+		const key = JSON.stringify([title, section]);
+		if (images.has(key)) return images.get(key);
 		let imagePath = '/og-image.png';
 		try {
-			const png = await renderOgImage(title);
+			const png = await renderOgImage(title, section);
 			const hash = createHash('sha256').update(png).digest('hex').slice(0, 24);
 			imagePath = `/assets/og/${hash}.png`;
 			await mkdir(path.join(outputRoot, 'assets/og'), { recursive: true });
@@ -37,7 +38,7 @@ export async function generateOgImages(outputRoot, logger) {
 			logger.warn(`Using default social image for "${title}": ${error.message}`);
 			imagePath = '/og-image.png';
 		}
-		images.set(title, imagePath);
+		images.set(key, imagePath);
 		return imagePath;
 	}
 
@@ -51,8 +52,9 @@ export async function generateOgImages(outputRoot, logger) {
 				const { document } = parseHTML(html);
 				if (!document.head) continue;
 				const title = socialImageTitle(document);
-				const imagePath = await imageForTitle(title);
-				await writeFile(filename, replaceSocialImageMeta(html, document, imagePath, title));
+				const section = socialImageSection(path.relative(outputRoot, filename).split(path.sep).join('/'));
+				const imagePath = await imageForPage(title, section);
+				await writeFile(filename, replaceSocialImageMeta(html, document, imagePath, title, section));
 				count++;
 			}
 		}
@@ -62,12 +64,12 @@ export async function generateOgImages(outputRoot, logger) {
 	return count;
 }
 
-function replaceSocialImageMeta(html, document, imagePath, title) {
+function replaceSocialImageMeta(html, document, imagePath, title, section) {
 	for (const meta of document.head.querySelectorAll('meta')) {
 		const key = meta.getAttribute('property') ?? meta.getAttribute('name') ?? '';
 		if (/^(og:image(?::.*)?|twitter:image(?::.*)?|twitter:card)$/.test(key)) meta.remove();
 	}
-	for (const { attrs } of socialImageMeta(imagePath, title)) {
+	for (const { attrs } of socialImageMeta(imagePath, title, section)) {
 		const meta = document.createElement('meta');
 		for (const [name, value] of Object.entries(attrs)) meta.setAttribute(name, value);
 		document.head.append(meta);

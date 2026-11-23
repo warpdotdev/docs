@@ -83,7 +83,7 @@ function renderText(text, size, color, family = fontFamily, tracking = -0.05) {
 	}).png().toBuffer({ resolveWithObject: true });
 }
 
-export async function renderOgImage(title) {
+export async function renderOgImage(title, section = '') {
 	title = title?.replace(/\s+/g, ' ').trim().toUpperCase();
 	if (!title || title.length > 2000) throw new Error('Title cannot fit a legible social image');
 	const { logo, label } = await loadOgAssets();
@@ -103,9 +103,13 @@ export async function renderOgImage(title) {
 		<rect x="920.5" y="64.5" width="215" height="43" rx="21.5" fill="#1008FF" stroke="#000000"/>
 	</svg>`);
 
+	const eyebrow = section
+		? await renderText(section.toUpperCase(), 24, '#555555', 'Azeret SemiMono Medium', -0.02)
+		: undefined;
 	return sharp(background).composite([
 		{ input: logo, left: 64, top: 64 },
 		{ input: label.data, left: 920 + Math.round((216 - label.info.width) / 2), top: 64 + Math.round((44 - label.info.height) / 2) },
+		...(eyebrow ? [{ input: eyebrow.data, left: 64, top: 566 - text.info.height - 24 - eyebrow.info.height }] : []),
 		{ input: text.data, left: 64, top: 566 - text.info.height },
 	]).png().toBuffer();
 }
