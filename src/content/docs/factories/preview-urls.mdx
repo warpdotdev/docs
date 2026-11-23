@@ -43,7 +43,7 @@ You can also ask the agent to manage the preview URL's settings directly:
 | `PRIVATE` | • Run creator <br /> • Admins of the owning team or workspace | • Run creator <br /> • Admins of the owning team or workspace |
 | `TEAM` | • Run creator <br /> • Admins of the owning team or workspace <br /> • Members of the owning team | • Run creator <br /> • Admins of the owning team or workspace |
 
-Preview URLs use private scope by default. Preview URLs created by service accounts cannot use team scope.
+Preview URLs use private scope by default for runs created by a person. Runs created by service accounts require team scope and cannot use private scope.
 
 :::caution
 If follow-ups are enabled, anyone can ask the agent in the producing run to modify or delete its preview URLs. Review [factory follow-up restrictions](/factories/factory-as-code/#restrictfollowupstostarter) separately.
