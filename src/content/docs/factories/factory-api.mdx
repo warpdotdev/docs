@@ -12,7 +12,7 @@ The factory endpoints are part of the {VARS.WARP_PLATFORM_API}. Use them to find
 
 ## Authentication
 
-For ad hoc requests, use a short-lived personal API key so requests respect your visibility and access controls. For an external service that submits work, use an agent API key scoped to the target factory's foreman. See [Choosing and creating API keys](/agents/cli/oz-cli/api-keys/#personal-vs-agent-keys) for key creation and how to identify that foreman.
+For ad hoc requests, use a short-lived personal API key so requests respect your visibility and access controls. For an external service that submits work, use an agent API key scoped to the target factory's foreman. See [Creating and managing API keys](/agents/cli/oz-cli/api-keys/#personal-vs-agent-keys) for key creation and how to identify that foreman.
 
 Send the key in the `Authorization: Bearer` header. A self-hosted worker key authenticates a worker daemon, not the external service calling these endpoints.
 
