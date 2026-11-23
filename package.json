@@ -14,7 +14,8 @@
     "typecheck": "astro check",
     "lint": "trunk check",
     "fmt": "trunk fmt",
-    "og:api": "node scripts/generate-og-api.mjs",
+    "test:og-images": "node --test src/integrations/og-images.test.js",
+    "test:og-output": "node scripts/validate-og-images.mjs",
     "favicon:generate": "node scripts/generate-favicons.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "test:heading-tocs": "node scripts/validate-heading-tocs.mjs",
@@ -65,6 +66,7 @@
     "svg-toolbelt": "^0.7.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2",
+    "wawoff2": "2.0.1",
     "yaml": "^2.8.3"
   },
   "overrides": {
