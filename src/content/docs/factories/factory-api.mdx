@@ -10,6 +10,12 @@ import { VARS } from '@data/vars';
 
 The factory endpoints are part of the {VARS.WARP_PLATFORM_API}. Use them to find a factory and start work from your own code without managing agent details. Call them from a chat bot, script, or service you control.
 
+## Authentication
+
+For ad hoc requests, use a short-lived personal API key so requests respect your visibility and access controls. For an external service that submits work, use an agent API key scoped to the target factory's foreman. See [Creating and managing API keys](/agents/cli/oz-cli/api-keys/#personal-vs-agent-keys) for key creation and how to identify that foreman.
+
+Send the key in the `Authorization: Bearer` header. A self-hosted worker key authenticates a worker daemon, not the external service calling these endpoints.
+
 ## Core endpoints
 
 * `GET /factory` - list factories your account can access. Add `search` to filter by name or alias, case-insensitive.
@@ -107,6 +113,19 @@ Content-Type: application/json
 ```
 
 Every field except `prompt` is optional. Omit `title` and the server derives one from the prompt. `ticket_ref` identifies the originating ticket in `<source>:<id>` form (for example `linear:PAY-123` or `jira:PROJ-456`); pass `ticket_url` to link the factory's task record back to it, or omit both for an adhoc reference.
+
+### Permissions and attribution
+
+An API key for the target factory's foreman can:
+
+* Submit new work with `POST /factory/{uid}/runs`. The caller must have permission to use the factory and act as its foreman; resolving the foreman on the server does not bypass these checks.
+* List that factory's work items with `GET /factory/{uid}/tasks`, including work created by other users. The optional `created_by` filter takes an email address to narrow the list; requests are not implicitly limited to work created by the key's owner.
+
+These permissions do not grant unrestricted factory configuration or access to other factories. A key for an unrelated agent does not automatically have permission to act as the target foreman.
+
+The run's creator and the work item's author reflect the key's authenticated user or agent. A foreman key records the foreman, not the human who minted the key. This is separate from the GitHub credentials and commit authorship used during execution.
+
+Use `POST /factory/{uid}/runs` to submit new work. `POST /factory/{uid}/tasks` instead binds an existing conversation to a work item; it does not start a new foreman run.
 
 ## Continue and monitor the run
 
