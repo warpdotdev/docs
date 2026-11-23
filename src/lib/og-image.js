@@ -70,7 +70,7 @@ function escapeMarkup(text) {
 	})[character]);
 }
 
-function renderText(text, size, color, family = fontFamily, tracking = -0.05, lineHeight = 1.15) {
+function renderText(text, size, color, family = fontFamily, tracking = -0.05, lineHeight = 1.15, wrap = 'word-char') {
 	return sharp({
 		text: {
 			text: `<span foreground="${color}" letter_spacing="${Math.round(size * tracking * 1024)}" line_height="${Math.round(size * lineHeight * 1024)}">${escapeMarkup(text)}</span>`,
@@ -78,9 +78,37 @@ function renderText(text, size, color, family = fontFamily, tracking = -0.05, li
 			width: 1072,
 			dpi: 72,
 			rgba: true,
-			wrap: 'word-char',
+			wrap,
 		},
 	}).png().toBuffer({ resolveWithObject: true });
+}
+
+async function renderBalancedTitle(title, size) {
+	const family = `${fontFamily} Medium`;
+	const original = await renderText(title, size, '#000000', family, -0.05, 1.05);
+	const words = title.split(' ');
+	if (words.length === 1) return original;
+	const layouts = new Array(words.length + 1);
+	layouts[words.length] = { lines: [], cost: 0 };
+	for (let start = words.length - 1; start >= 0; start--) {
+		let line = '';
+		for (let end = start; end < words.length; end++) {
+			line += `${line ? ' ' : ''}${words[end]}`;
+			const measured = await renderText(line, size, '#000000', family, -0.05, 1.05, 'none');
+			if (measured.info.width > 1072) break;
+			const rest = layouts[end + 1];
+			if (!rest) continue;
+			const lines = [line, ...rest.lines];
+			const cost = rest.cost + (1072 - measured.info.width) ** 2;
+			const best = layouts[start];
+			if (!best || lines.length < best.lines.length || (lines.length === best.lines.length && cost < best.cost)) {
+				layouts[start] = { lines, cost };
+			}
+		}
+	}
+	if (!layouts[0]) return original;
+	const balanced = await renderText(layouts[0].lines.join('\n'), size, '#000000', family, -0.05, 1.05, 'none');
+	return balanced.info.width <= 1072 && balanced.info.height <= 280 ? balanced : original;
 }
 
 export async function renderOgImage(title, section = '') {
@@ -92,7 +120,7 @@ export async function renderOgImage(title, section = '') {
 	for (let size = 112; size >= 28; size -= 2) {
 		const candidate = await renderText(title, size, '#000000', `${fontFamily} Medium`, -0.05, 1.05);
 		if (candidate.info.width <= 1072 && candidate.info.height <= 280) {
-			text = candidate;
+			text = await renderBalancedTitle(title, Math.max(28, Math.floor(size * 0.9 / 2) * 2));
 			break;
 		}
 	}

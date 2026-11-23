@@ -65,6 +65,22 @@ with 115% leading. Keep the title's fitting limits and bottom alignment:
 the changed font metrics and leading can affect wrapping, but the full
 title must remain inside the safe area without truncation.
 
+### Smaller, balanced headlines
+
+The requester next asked, “i think the headline size can be shrunk a bit.
+make sure the lines are similar lengths, it helps it make those sizing decisions”.
+
+Reduce each title's fitted font size to 90%, rounded down to an even pixel,
+with the existing 28px legibility floor. This lowers the largest title from
+112px to 100px and also reduces long titles that already needed smaller type.
+Measure whole-word lines in the actual Medium font. Choose the fewest
+feasible lines, then minimize squared unused width across every line,
+including the last. Preserve word order and all title text.
+
+Keep Pango's existing character-wrap and Unicode fallback when a token is
+too wide for whole-word balancing. Keep the 280px safe-area limit, 105%
+leading, −5% tracking, 32px eyebrow gap, and bottom alignment.
+
 ## Product behavior
 
 1. Show one uppercase section label above the title on recognized section pages.
@@ -93,7 +109,7 @@ title must remain inside the safe area without truncation.
 5. A guide inside `/factories/guides` receives FACTORIES. A factory tutorial
    inside `/guides` receives GUIDES. The label identifies the docs section,
    not every subject mentioned by the page.
-6. Preserve the complete title and its existing wrapping and shrinking policy.
+6. Preserve the complete title with the smaller, balanced layout above.
    Do not add ellipses, a subtitle, a divider, or a footer.
 7. Keep production-build generation and existing fallback behavior. This work
    does not add dynamic previews to `astro dev`.
@@ -122,7 +138,7 @@ Preserve the accepted 1200×630 canvas:
   outline and white text.
 - Outer margins: 64px.
 - Bottom-aligned black uppercase title in Azeret SemiMono Medium.
-- Title tracking: −5%. Line height: 105%.
+- Title tracking: −5%. Line height: 105%. Maximum rendered font size: 100px.
 - Pill font: Azeret SemiMono Medium. Tracking: −2%.
 
 Add the section as an eyebrow, not another badge:
@@ -151,8 +167,9 @@ for this text: it produces only **2.5183:1** on the accepted background.
 References below use the implementation baseline.
 
 - `src/lib/og-image.js:73,86`: extend `renderOgImage` with an optional section.
-  Measure the title with the existing algorithm. Render the section above the
-  measured title. An omitted section preserves the existing generic rendering.
+  Fit the title, reduce its size by 10%, and balance measured whole-word lines.
+  Render the section above the measured title. An omitted section preserves
+  the existing generic rendering.
 - `src/lib/social-image.js:3,12`: add one shared section resolver for the URL
   mapping. Keep title extraction from rendered H1 and document-title fallback.
   Include the section in image alt text when present, for example
@@ -224,6 +241,9 @@ References below use the implementation baseline.
     text/background contrast from linearized-sRGB relative luminance and
     assert a ratio of at least 4.5:1 for `#555555` against `#D5DFE2`.
   - Short, long, unbroken, Unicode, and markup-like titles with a section.
+  - Smaller type on both short and previously fitted long titles, measured
+    balanced word breaks, and complete titles without orphaned final words
+    when a more balanced layout fits without adding lines.
   - Existing font-failure, offline-cache, fallback, write-failure, and
     article-body-preservation behavior.
 - Run `npm run typecheck` and `npm run test:heading-vars`.

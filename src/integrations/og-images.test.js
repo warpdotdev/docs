@@ -29,6 +29,25 @@ const examples = [
 	'CLI: <flags> & "quoted values" — what’s next?',
 ];
 
+async function assertTitlePixels(png, text, size) {
+	const heading = await sharp({
+		text: {
+			text: `<span foreground="#000000" letter_spacing="${Math.round(size * -0.05 * 1024)}" line_height="${Math.round(size * 1.05 * 1024)}">${text}</span>`,
+			font: `Azeret SemiMono Medium ${size}`,
+			width: 1072,
+			dpi: 72,
+			rgba: true,
+			wrap: 'none',
+		},
+	}).png().toBuffer({ resolveWithObject: true });
+	const region = { left: 64, top: 200, width: 1072, height: 366 };
+	const actual = await sharp(png).extract(region).removeAlpha().raw().toBuffer();
+	const expected = await sharp({
+		create: { width: region.width, height: region.height, channels: 3, background: '#D5DFE2' },
+	}).composite([{ input: heading.data, left: 0, top: region.height - heading.info.height }]).removeAlpha().raw().toBuffer();
+	assert.ok(actual.equals(expected), `Preserve the complete Medium title at ${size}px with balanced lines and 105% leading: ${text}`);
+}
+
 test('resolves stable content homes across route forms without prefix or navigation-order guesses', () => {
 	for (const [family, section] of [
 		['terminal', 'Terminal'], ['code', 'Terminal'],
@@ -88,22 +107,7 @@ test('uses the chrome-blue design with a documentation pill and a Medium upperca
 	const pixel = (x, y) => [...data.subarray((y * info.width + x) * 3, (y * info.width + x) * 3 + 3)];
 	assert.deepEqual(pixel(0, 0), [213, 223, 226]);
 	assert.ok(png.equals(await renderOgImage('BLUEPRINTS BLUEPRINTS')), 'Titles must be uppercase');
-	const heading = await sharp({
-		text: {
-			text: `<span foreground="#000000" letter_spacing="${Math.round(112 * -0.05 * 1024)}" line_height="${Math.round(112 * 1.05 * 1024)}">BLUEPRINTS BLUEPRINTS</span>`,
-			font: 'Azeret SemiMono Medium 112',
-			width: 1072,
-			dpi: 72,
-			rgba: true,
-			wrap: 'word-char',
-		},
-	}).png().toBuffer({ resolveWithObject: true });
-	const region = { left: 64, top: 566 - heading.info.height, width: heading.info.width, height: heading.info.height };
-	const actual = await sharp(png).extract(region).removeAlpha().raw().toBuffer();
-	const expected = await sharp({
-		create: { width: region.width, height: region.height, channels: 3, background: '#D5DFE2' },
-	}).composite([{ input: heading.data }]).removeAlpha().raw().toBuffer();
-	assert.ok(actual.equals(expected), 'Headings must use the genuine Medium face with 105% leading');
+	await assertTitlePixels(png, 'BLUEPRINTS\nBLUEPRINTS', 100);
 	assert.deepEqual(pixel(1000, 66), [16, 8, 255]);
 	assert.deepEqual(pixel(1000, 64), [0, 0, 0]);
 	let whitePillPixels = 0;
@@ -124,6 +128,16 @@ test('uses the chrome-blue design with a documentation pill and a Medium upperca
 	]) {
 		const pixels = await sharp(png).extract(region).removeAlpha().raw().toBuffer();
 		assert.ok(pixels.every((channel, index) => channel === [213, 223, 226][index % 3]), 'No subtitle, divider, or footer belongs on the card');
+	}
+});
+
+test('balances complete titles across the fewest feasible lines rather than leaving short final words', async () => {
+	for (const [title, lines, size] of [
+		['Transitioning from Oz to Warp Factories', 'TRANSITIONING FROM\nOZ TO WARP FACTORIES', 88],
+		['BYOLLM: Gemini Enterprise (Vertex AI)', 'BYOLLM: GEMINI\nENTERPRISE (VERTEX AI)', 86],
+		['Coordinating changes across multiple repositories', 'COORDINATING\nCHANGES ACROSS\nMULTIPLE REPOSITORIES', 80],
+	]) {
+		await assertTitlePixels(await renderOgImage(title), lines, size);
 	}
 });
 
