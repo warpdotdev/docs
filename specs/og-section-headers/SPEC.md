@@ -6,7 +6,7 @@ Add a section label above each documentation preview title. Keep the accepted
 design in [PR #956](https://github.com/warpdotdev/docs/pull/956). Use one stable
 section per URL, even when several navigation tabs link to that URL.
 
-- Status: revised proposal; awaiting approval of the gray-label specification.
+- Status: approved and implemented; section size revised for readability on 2026-11-23.
 - Requester: `hongyi-chen`.
 - Implementation baseline: `86309f7e8700339e7fa542f5a09fad36a477594a`.
 - Reuse PR #956 and branch `factory/dynamic-og-images`.
@@ -34,11 +34,21 @@ On the committed proposal, the requester replied:
 
 Use a neutral gray eyebrow in response to this feedback. The recommended
 `#555555` value below is a design choice, not a hex value selected by the
-requester. Keep the revised proposal pending approval.
+requester. The requester approved the committed gray-label proposal with
+“yes go ahead, show me screenshots”.
 
 The requester also asked for “just 1-2 images directly in this slack thread”.
 Keep broad coverage in internal and PR proof. Send only one or two clean
 images directly in Slack, without paths or gallery caption bars.
+
+### Readability revision
+
+After seeing the implemented gray labels, the requester asked, “Maybe a bit
+bigger? It's hard to read”. Increase the section eyebrow from 24px to 32px:
+16px instead of 12px when a 1200×630 card is displayed at 600×315.
+This explicit sizing revision supersedes only the original 24px type size.
+Keep the gray color, Medium weight, tracking, line height, 24px title gap,
+title fitting, margins, pill, and section ownership unchanged.
 
 ## Product behavior
 
@@ -102,7 +112,7 @@ Preserve the accepted 1200×630 canvas:
 
 Add the section as an eyebrow, not another badge:
 
-- Font: Azeret SemiMono Medium, 24px, uppercase.
+- Font: Azeret SemiMono Medium, 32px, uppercase.
 - Color: neutral gray `#555555`, fully opaque. Keep the page title black.
 - Tracking: −2%. Line height: 115%.
 - Left edge: x=64px.
@@ -166,8 +176,9 @@ References below use the implementation baseline.
 - Assumption: the URL-family table, `/api` exception, and known-family
   inheritance implement the agreed stable-home direction. They do not assign
   new ownership in site navigation.
-- Assumption: 24px eyebrow type and a 24px title gap provide the intended small
-  label. These dimensions require visual verification.
+- The original 24px eyebrow was increased to 32px after readability feedback.
+  Verify the revised size at native and reduced preview sizes while keeping
+  the approved 24px title gap.
 - Assumption: `#555555` is the neutral gray to try in response to the
   requester's color feedback. The requester did not select this exact value.
 - Assumption: section-aware alt text preserves the information added visually.

@@ -104,7 +104,7 @@ export async function renderOgImage(title, section = '') {
 	</svg>`);
 
 	const eyebrow = section
-		? await renderText(section.toUpperCase(), 24, '#555555', 'Azeret SemiMono Medium', -0.02)
+		? await renderText(section.toUpperCase(), 32, '#555555', 'Azeret SemiMono Medium', -0.02)
 		: undefined;
 	return sharp(background).composite([
 		{ input: logo, left: 64, top: 64 },

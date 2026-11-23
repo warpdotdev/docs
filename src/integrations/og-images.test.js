@@ -111,7 +111,7 @@ test('uses the chrome-blue design with a documentation pill and bottom-aligned u
 	}
 });
 
-test('places every gray section label above the unchanged black title with readable contrast', async () => {
+test('places every 32px gray section label above the unchanged black title with readable contrast', async () => {
 	const title = 'Skills for agents';
 	const original = await renderOgImage(title);
 	for (const section of ['Terminal', 'Agents', 'Factories', 'Automation Platform', 'Changelog', 'Support', 'Enterprise', 'Guides']) {
@@ -134,7 +134,7 @@ test('places every gray section label above the unchanged black title with reada
 		const bottom = Math.max(...gray.map(([, y]) => y));
 		const titleTop = Math.min(...black.map(([, y]) => y));
 		assert.ok(left >= 64 && right < 1136 && top > 108);
-		assert.ok(bottom - top < 28, `${section}: label must stay on one line`);
+		assert.ok(bottom - top >= 20 && bottom - top < 37, `${section}: preserve enlarged 32px text on one line`);
 		assert.ok(titleTop - bottom >= 24 && titleTop - bottom <= 28, `${section}: preserve the 24px title gap`);
 		const region = { left: 0, top: titleTop, width: 1200, height: 630 - titleTop };
 		const actualTitle = await sharp(png).extract(region).raw().toBuffer();
