@@ -3,7 +3,7 @@ import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
-import { renderOgImage } from '../lib/og-image.js';
+import { loadOgAssets, renderOgImage } from '../lib/og-image.js';
 import { socialImageMeta, socialImageTitle } from '../lib/social-image.js';
 
 export default function ogImages() {
@@ -19,6 +19,7 @@ export default function ogImages() {
 }
 
 export async function generateOgImages(outputRoot, logger) {
+	await loadOgAssets();
 	const images = new Map();
 	let count = 0;
 

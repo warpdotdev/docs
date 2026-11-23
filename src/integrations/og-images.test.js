@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { copyFile, mkdtemp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { copyFile, mkdtemp, mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -39,32 +39,79 @@ test('fits short, multiline, extreme, unbroken and Unicode titles within the saf
 		cards.add(png.toString('base64'));
 
 		const { data, info } = await sharp(png)
-			.extract({ left: 0, top: 210, width: 1200, height: 310 })
+			.extract({ left: 0, top: 200, width: 1200, height: 430 })
 			.removeAlpha().raw().toBuffer({ resolveWithObject: true });
 		let titlePixels = 0;
 		for (let y = 0; y < info.height; y++) {
 			for (let x = 0; x < info.width; x++) {
 				const offset = (y * info.width + x) * info.channels;
-				if (data[offset] < 180 || data[offset + 1] < 180 || data[offset + 2] < 180) continue;
+				if (data[offset] > 40 || data[offset + 1] > 40 || data[offset + 2] > 40) continue;
 				titlePixels++;
-				assert.ok(x >= 80 && x < 1120 && y >= 10 && y < 300, `Title escaped padding: ${title}`);
+				assert.ok(x >= 64 && x < 1136 && y < 366, `Title escaped padding: ${title}`);
 			}
 		}
 		assert.ok(titlePixels > 1000, 'Title must be visible, not blank');
 	}
 	assert.equal(cards.size, examples.length, 'Every title must produce its own image');
-	assert.deepEqual(await renderOgImage('Quickstart'), await renderOgImage('Quickstart'));
+	assert.ok((await renderOgImage('Quickstart')).equals(await renderOgImage('Quickstart')));
 });
 
-test('leaves the auxiliary header and footer regions free of text', async () => {
+test('uses the chrome-blue design with a documentation pill and bottom-aligned uppercase title', async () => {
 	const png = await renderOgImage('Skills for agents');
+	const { data, info } = await sharp(png).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+	const pixel = (x, y) => [...data.subarray((y * info.width + x) * 3, (y * info.width + x) * 3 + 3)];
+	assert.deepEqual(pixel(0, 0), [213, 223, 226]);
+	assert.ok(png.equals(await renderOgImage('SKILLS FOR AGENTS')), 'Titles must be uppercase');
+	assert.deepEqual(pixel(1000, 66), [16, 8, 255]);
+	assert.deepEqual(pixel(1000, 64), [0, 0, 0]);
+	let whitePillPixels = 0;
+	let blackTitlePixels = 0;
+	for (let y = 64; y < 108; y++) {
+		for (let x = 920; x < 1120; x++) {
+			if (pixel(x, y).every((channel) => channel === 255)) whitePillPixels++;
+		}
+	}
+	for (let x = 64; x < 1136; x++) {
+		if (pixel(x, 565).every((channel) => channel < 40)) blackTitlePixels++;
+	}
+	assert.ok(whitePillPixels > 300, 'The documentation label must be white and visible');
+	assert.ok(blackTitlePixels > 20, 'The title must reach the 64px bottom margin');
 	for (const region of [
-		{ left: 370, top: 70, width: 750, height: 80 },
-		{ left: 80, top: 540, width: 1040, height: 70 },
+		{ left: 64, top: 150, width: 1072, height: 50 },
+		{ left: 0, top: 566, width: 1200, height: 64 },
 	]) {
 		const pixels = await sharp(png).extract(region).removeAlpha().raw().toBuffer();
-		assert.ok(pixels.every((channel) => channel < 50), 'Only the logo and page title belong on the card');
+		assert.ok(pixels.every((channel, index) => channel === [213, 223, 226][index % 3]), 'No subtitle, divider, or footer belongs on the card');
 	}
+});
+
+test('rejects unavailable or changed brand fonts and renders from an offline cache', async () => {
+	const expected = await renderOgImage('Tabs');
+	const cache = fileURLToPath(new URL('../../node_modules/.cache/warp-og-fonts', import.meta.url));
+	const backup = path.join(await mkdtemp(`${cache}-test-`), 'fonts');
+	const renderer = new URL('../lib/og-image.js', import.meta.url).href;
+	const integration = new URL('./og-images.js', import.meta.url).href;
+	const run = (script) => spawnSync(process.execPath, ['--input-type=module', '-e', script]);
+	await rename(cache, backup);
+	try {
+		for (const [response, message] of [
+			["new Response('', { status: 503 })", /Cannot download OG font/],
+			["new Response('corrupt font')", /OG font checksum mismatch/],
+		]) {
+			const result = run(`globalThis.fetch = async () => ${response};
+				const { generateOgImages } = await import(${JSON.stringify(integration)});
+				await generateOgImages('/unused-output', { warn() { throw Error('Unexpected fallback'); } });`);
+			assert.notEqual(result.status, 0);
+			assert.match(result.stderr.toString(), message);
+		}
+	} finally {
+		await rename(backup, cache);
+	}
+	const result = run(`globalThis.fetch = async () => { throw Error('Network disabled'); };
+		const { renderOgImage } = await import(${JSON.stringify(renderer)});
+		process.stdout.write(await renderOgImage('Tabs'));`);
+	assert.equal(result.status, 0, result.stderr.toString());
+	assert.ok(result.stdout.equals(expected), 'Offline rendering must use the pinned brand fonts');
 });
 
 test('generates shared hashed assets and replaces duplicate metadata without altering scripts or article HTML', async () => {
@@ -102,7 +149,7 @@ test('generates shared hashed assets and replaces duplicate metadata without alt
 	assert.equal(meta('description')[0].getAttribute('content'), 'Keep description');
 	assert.equal((await readdir(path.join(root, 'assets/og'))).length, 1);
 	assert.equal((await sharp(path.join(root, new URL(image).pathname)).metadata()).width, 1200);
-	assert.deepEqual(await readFile(path.join(root, new URL(image).pathname)), await renderOgImage('Créer & <configure> 🚀'));
+	assert.ok((await readFile(path.join(root, new URL(image).pathname))).equals(await renderOgImage('Créer & <configure> 🚀')));
 	await validateOutput(root);
 });
 
@@ -126,7 +173,7 @@ test('uses document titles for custom pages and the existing default for untitle
 	assert.match(document.querySelector('meta[property="og:image"]').getAttribute('content'), /\/assets\/og\//);
 	assert.equal(document.querySelector('meta[property="og:image:alt"]').getAttribute('content'), 'Warp Docs — API reference');
 	const customImage = new URL(document.querySelector('meta[property="og:image"]').getAttribute('content'));
-	assert.deepEqual(await readFile(path.join(root, customImage.pathname)), await renderOgImage('API reference'));
+	assert.ok((await readFile(path.join(root, customImage.pathname))).equals(await renderOgImage('API reference')));
 	const fallback = await sharp(new URL('../../public/og-image.png', import.meta.url).pathname).metadata();
 	assert.equal(fallback.format, 'png');
 	assert.equal(fallback.width, 1200);

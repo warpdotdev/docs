@@ -66,6 +66,7 @@
     "svg-toolbelt": "^0.7.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2",
+    "wawoff2": "2.0.1",
     "yaml": "^2.8.3"
   },
   "overrides": {
