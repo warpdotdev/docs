@@ -15,7 +15,7 @@ For a GitHub-backed factory, set `selfImprovement.failedRunThreshold` in `factor
 
 To run the check without waiting for the scheduled threshold, click **Run now** on the factory dashboard's **Self-improvement** page. An ad hoc run can include an agent with one unreviewed failure. You cannot choose which agents or failures it processes.
 
-A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
+A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory with [definition files](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
 
 The factory dashboard's **Self-improvement** page lists the pull requests these follow-up runs open. Each pull request includes a **Regressions addressed** section that links the failing runs and Scorer results behind it, so you can trace the change back to its evidence.
 
