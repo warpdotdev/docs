@@ -6,6 +6,86 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.11.19 (v0.2026.11.18.08.17)
+
+**Improvements**
+
+* Billing labels consistently distinguish included personal usage from included team usage. ([#16806](https://github.com/warpdotdev/warp/pull/16806)) — [@JaidenRatti](https://github.com/JaidenRatti) ✨
+* Cloud agent setup commands can persist environment variables to the run by writing KEY=VALUE lines to $WARP_VARS_FILE. ([#16749](https://github.com/warpdotdev/warp/pull/16749))
+
+**Bug fixes**
+
+* Cloud agent runs that finish and then sit idle until the sandbox runtime limit no longer change to Failed. ([#16893](https://github.com/warpdotdev/warp/pull/16893)) — [@captainsafia](https://github.com/captainsafia) ✨
+* Fixed preview apps rejecting valid requests or WebSocket connections because of mismatched origins. ([#16883](https://github.com/warpdotdev/warp/pull/16883)) — [@isaacyu-warp](https://github.com/isaacyu-warp) ✨
+* Fixed remote MCP servers that require a `User-Agent` header, such as Snowflake-hosted MCP servers, failing to start with “Unexpected status code: 400 Bad Request”. ([#16866](https://github.com/warpdotdev/warp/pull/16866)) — [@Legoben](https://github.com/Legoben) ✨
+* Fixed missing human co-author credit for eligible Slack follow-ups handled by third-party agents. ([#16842](https://github.com/warpdotdev/warp/pull/16842)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Fixed billing usage totals to respect whether your plan is billed in dollars or credits. ([#16838](https://github.com/warpdotdev/warp/pull/16838)) — [@jasonkeung](https://github.com/jasonkeung) ✨
+* Preserve each participant’s identity when sending shared-conversation messages to third-party agents. ([#16834](https://github.com/warpdotdev/warp/pull/16834)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Fixed cloud agent setup commands timing out when text from an earlier command remained in the input. ([#16808](https://github.com/warpdotdev/warp/pull/16808)) — [@seemeroland](https://github.com/seemeroland) ✨
+* Billing usage dollars now include the value of credits consumed from included allowances. ([#16804](https://github.com/warpdotdev/warp/pull/16804)) — [@jasonkeung](https://github.com/jasonkeung) ✨
+
+**Oz updates**
+
+* Local Oz uses existing Git authentication while GitHub API operations use managed MCP. ([#16847](https://github.com/warpdotdev/warp/pull/16847)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Managed MCP servers keep working through long Oz agent runs: their proxy credentials now refresh before they expire. ([#16891](https://github.com/warpdotdev/warp/pull/16891)) — [@Legoben](https://github.com/Legoben) ✨
+* Native Warp agents receive a notification when another run is waiting for their output. ([#16809](https://github.com/warpdotdev/warp/pull/16809))
+* Factory branch runs on Warp-managed Factories now load the branch’s skills instead of the production branch’s. ([#16890](https://github.com/warpdotdev/warp/pull/16890)) — [@ericli-warp](https://github.com/ericli-warp) ✨
+* Runs can reuse runner-prepared sandboxes while preparing their own repositories and configuration after assignment. ([#16853](https://github.com/warpdotdev/warp/pull/16853)) — [@captainsafia](https://github.com/captainsafia) ✨
+* Third-party agents can wait for messages from other agents without marking their tasks complete. ([#16807](https://github.com/warpdotdev/warp/pull/16807)) — [@seemeroland](https://github.com/seemeroland) ✨
+* Prewarmed sandboxes advertise deferred-repository support before accepting compatible runs. ([#16872](https://github.com/warpdotdev/warp/pull/16872)) — [@zachbai](https://github.com/zachbai) ✨
+* Third-party harness errors now include the harness’s error details instead of a bare “Internal error”. ([#16868](https://github.com/warpdotdev/warp/pull/16868))
+* Cloud runs that use multiple Git providers avoid unnecessary GitHub credential refreshes. ([#16831](https://github.com/warpdotdev/warp/pull/16831)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Remote child agents preserve human commit co-author credit from launches and later parent instructions. ([#16820](https://github.com/warpdotdev/warp/pull/16820)) — [@moirahuang](https://github.com/moirahuang) ✨
+* Fixed a preview proxy listener binding that could prevent cloud preview URLs from loading. ([#16833](https://github.com/warpdotdev/warp/pull/16833)) — [@isaacyu-warp](https://github.com/isaacyu-warp) ✨
+* Namespace previews serve development apps with a stable localhost Host and multiple app ports through one driver proxy. ([#16786](https://github.com/warpdotdev/warp/pull/16786))
+* Factories can defer repository checkouts until an agent needs them when configured in factory files. ([#16811](https://github.com/warpdotdev/warp/pull/16811))
+* Factories can load skills from other repositories through skill reference files. ([#16805](https://github.com/warpdotdev/warp/pull/16805)) — [@captainsafia](https://github.com/captainsafia) ✨
+
+### 2026.11.12 (v0.2026.11.11.08.17)
+
+**Improvements**
+
+* Billing labels consistently distinguish included personal usage from included team usage. ([#16806](https://github.com/warpdotdev/warp/pull/16806))
+
+**Bug fixes**
+
+* Fixed Codex and Claude authentication commands being mistaken for active agent sessions. ([#16723](https://github.com/warpdotdev/warp/pull/16723))
+
+**Oz updates**
+
+* Factories can defer repository checkouts until an agent needs them when configured in factory files. ([#16811](https://github.com/warpdotdev/warp/pull/16811))
+* MCP tool calls made by Codex, Claude Code, and Pi cloud agents now appear in run transcripts as the MCP calls they are, so Slack replies, Linear/Jira updates, and Factory actions are labelled and surfaced the same way as for Warp's own agent. ([#16790](https://github.com/warpdotdev/warp/pull/16790))
+* Parent agents receive available child failure, blocked, and cancellation context instead of status-only lifecycle events. ([#14888](https://github.com/warpdotdev/warp/pull/14888))
+* Clarify cloud-agent completion reporting and child-to-parent result handoffs. ([#16732](https://github.com/warpdotdev/warp/pull/16732))
+
+### 2026.11.05 (v0.2026.11.04.08.17)
+
+**Bug fixes**
+
+* Fixed custom inference endpoints being blocked when Warp credits run out. ([#16493](https://github.com/warpdotdev/warp/pull/16493)) — [@mvanhorn](https://github.com/mvanhorn) ✨
+* Fixed MCP connections to older servers that reject an unnegotiated protocol-version HTTP header. ([#16698](https://github.com/warpdotdev/warp/pull/16698))
+* Fixed connections to legacy MCP servers that reject newer protocol revisions with a transport-level version error. ([#16620](https://github.com/warpdotdev/warp/pull/16620))
+
+**Oz updates**
+
+* Optimized Git repository clones in Warp cloud agents ([#16552](https://github.com/warpdotdev/warp/pull/16552))
+* Fixed idle Oz agent sessions failing after repeated reconnections. ([#16696](https://github.com/warpdotdev/warp/pull/16696))
+* Fixed commands being blocked while session sharing starts, which could stall cloud agent startup. ([#16544](https://github.com/warpdotdev/warp/pull/16544))
+
+### 2026.11.03 (v0.2026.11.03.17.08)
+
+**Bug fixes**
+
+* Fixed custom inference endpoints being blocked when Warp credits run out. ([#16493](https://github.com/warpdotdev/warp/pull/16493)) — [@mvanhorn](https://github.com/mvanhorn) ✨
+* Fixed MCP connections to older servers that reject an unnegotiated protocol-version HTTP header. ([#16698](https://github.com/warpdotdev/warp/pull/16698))
+* Fixed connections to legacy MCP servers that reject newer protocol revisions with a transport-level version error. ([#16620](https://github.com/warpdotdev/warp/pull/16620))
+
+**Oz updates**
+
+* Optimized Git repository clones in Warp cloud agents ([#16552](https://github.com/warpdotdev/warp/pull/16552))
+* Fixed idle Oz agent sessions failing after repeated reconnections. ([#16696](https://github.com/warpdotdev/warp/pull/16696))
+* Fixed commands being blocked while session sharing starts, which could stall cloud agent startup. ([#16544](https://github.com/warpdotdev/warp/pull/16544))
+
 ### 2026.10.22 (v0.2026.10.21.08.25)
 
 **Improvements**
@@ -1807,7 +1887,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 #### Cloud Agents
 
 * **Run Cloud Agents from anywhere with built-in tracking** — start agents from Warp or via the CLI, triggers, or schedules. Every run is auditable and steerable. [Cloud Agents docs →](https://docs.warp.dev/platform/)
-* **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/platform/environments)
+* **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/factories/environments/)
 * **Track agents from the web** — manage runs, create schedules, configure environments, and set up integrations from any browser in the <a href="https://oz.warp.dev">Oz web app</a>.
 * **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
 * **Programmable by default** — orchestrate agents via the CLI and integrate Oz into tools and services via the [API reference](/factories/developer-tools/).

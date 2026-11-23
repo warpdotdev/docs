@@ -8,11 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run your first cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
-
-:::note
-This quickstart sets up the [managed architecture](/factories/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) to run `oz agent run` directly on any host.
-:::
+Start a self-hosted worker with the default Docker backend and route a test run to it. The {VARS.WARP_AUTOMATION_PLATFORM} routes the run, and your worker provides the compute.
 
 ---
 
@@ -90,6 +86,6 @@ For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).
 
 ## Next steps
 
-* [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
+* [Self-hosting overview](/factories/self-hosting/) - Review worker requirements and choose a backend
 * [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
 * [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.

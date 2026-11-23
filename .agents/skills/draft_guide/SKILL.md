@@ -20,6 +20,8 @@ Tutorials are more conversational than other content: a developer-to-developer c
 
 ## Workflow
 
+Read and apply `.agents/references/compliance-claims-policy.md` before drafting, including its omission and internal-reporting rules.
+
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **guide template** at `.agents/templates/guide-page.md`.
 
 Guide pages live in `src/content/docs/guides/` (the Guides Astro Starlight space), not in the main product reference sections. When placing the file, use these directories:

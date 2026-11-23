@@ -181,6 +181,27 @@ test('includes inert agent-only templates in generated Markdown', () => {
 	assert.doesNotMatch(markdown, /Search-only chrome\./);
 });
 
+test('preserves search-excluded file trees, directory nesting, and file comments', () => {
+	const html = createPage(`<p>Example project structure:</p>
+		<starlight-file-tree data-pagefind-ignore="true">
+			<ul><li class="directory"><details open>
+				<summary><span class="tree-entry"><span class="sr-only">Directory</span>project/</span></summary>
+				<ul><li class="directory"><details>
+					<summary><span class="tree-entry">api/</span></summary>
+					<ul><li class="file"><span class="tree-entry">AGENTS.md <span class="comment">API-specific rules</span></span></li></ul>
+				</details></li>
+				<li class="file"><span class="tree-entry">AGENTS.md <span class="comment">Project-wide rules</span></span></li></ul>
+			</details></li></ul>
+		</starlight-file-tree>
+		<p data-pagefind-ignore>Search-only chrome.</p><p>Following guidance.</p>`);
+	const markdown = convertHtmlToMarkdown(html);
+
+	assert.match(markdown, /- {3}project\/[\s\S]*\n {4}- {3}api\/[\s\S]*\n {8}- {3}AGENTS\.md API-specific rules/);
+	assert.match(markdown, /\n {4}- {3}AGENTS\.md Project-wide rules/);
+	assert.match(markdown, /Following guidance\./);
+	assert.doesNotMatch(markdown, /Directory|Search-only chrome|starlight-file-tree|<details/);
+});
+
 test('reconstructs Expressive Code lines and fence metadata', () => {
 	const html = createPage(`
 		<div class="expressive-code">

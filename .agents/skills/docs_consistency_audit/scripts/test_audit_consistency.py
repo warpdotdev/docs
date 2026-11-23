@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import copy
 import concurrent.futures
+import contextlib
 import datetime as dt
 import importlib.util
+import io
 import json
 import shutil
 import tempfile
@@ -604,6 +606,90 @@ class FingerprintAndLifecycleTests(unittest.TestCase):
         self.assertEqual(carried["status"], "active")
         self.assertEqual(carried["lifecycle"], "existing")
         self.assertTrue(carried["carried_forward_due_to_incomplete_run"])
+
+
+class PriorFindingTests(unittest.TestCase):
+    def setUp(self):
+        self.claims = [
+            claim(path="overview.mdx", topic="cli", value=5000),
+            claim(path="reference.mdx", topic="cli", value=3000),
+        ]
+        self.candidate = audit.generate_candidates(self.claims, RULES)[0]
+        self.saved = audit.normalize_finding({
+            **finding(*reversed(self.claims)),
+            "category": "permissions",
+            "topic": "cli",
+        })
+        self.previous = {"findings": {self.saved["finding_id"]: self.saved}}
+
+    def test_matches_stable_claim_pair_not_category_or_claim_order(self):
+        result = audit.prior_finding_for_candidate(self.candidate, self.previous)
+        self.assertEqual(result, self.saved)
+        self.assertEqual(result["category"], "permissions")
+        self.assertEqual(self.candidate["left"]["topic"], "cli")
+        result["title"] = "Changed locally"
+        self.assertEqual(self.saved["title"], "Conflicting limit")
+
+    def test_no_match_returns_none_even_with_same_topic_and_category(self):
+        unrelated = audit.normalize_finding({
+            **finding(self.claims[0], claim(path="other.mdx", topic="cli")),
+            "category": "cli",
+            "topic": "cli",
+        })
+        previous = {"findings": {unrelated["finding_id"]: unrelated}}
+        self.assertIsNone(audit.prior_finding_for_candidate(self.candidate, previous))
+        self.assertIsNone(audit.prior_finding_for_candidate(self.candidate, {"findings": {}}))
+
+    def test_ambiguous_saved_claim_pairs_are_rejected(self):
+        duplicate = copy.deepcopy(self.saved)
+        duplicate["category"] = "cli"
+        duplicate = audit.normalize_finding(duplicate)
+        previous = copy.deepcopy(self.previous)
+        previous["findings"][duplicate["finding_id"]] = duplicate
+        with self.assertRaisesRegex(audit.AuditError, "Multiple saved findings"):
+            audit.prior_finding_for_candidate(self.candidate, previous)
+
+    def test_command_reads_saved_state_without_mutating_it(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = root / "state"
+            candidates = root / "candidates.json"
+            audit.write_json(candidates, {"candidates": [self.candidate]})
+            audit.write_json(state / "findings.json", self.previous)
+            before = {path: path.read_bytes() for path in state.rglob("*") if path.is_file()}
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                status = audit.main([
+                    "prior-finding", "--candidates", str(candidates),
+                    "--candidate-id", self.candidate["candidate_id"],
+                    "--state-dir", str(state),
+                ])
+            self.assertEqual(status, 0)
+            self.assertEqual(json.loads(output.getvalue()), {
+                "candidate_id": self.candidate["candidate_id"],
+                "finding": self.saved,
+            })
+            self.assertEqual(before, {
+                path: path.read_bytes() for path in state.rglob("*") if path.is_file()
+            })
+
+    def test_command_rejects_unknown_or_duplicate_candidate_ids(self):
+        with tempfile.TemporaryDirectory() as directory:
+            candidates = Path(directory) / "candidates.json"
+            for items in ([], [self.candidate, self.candidate]):
+                with self.subTest(candidates=len(items)):
+                    audit.write_json(candidates, {"candidates": items})
+                    output = io.StringIO()
+                    errors = io.StringIO()
+                    with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
+                        status = audit.main([
+                            "prior-finding", "--candidates", str(candidates),
+                            "--candidate-id", self.candidate["candidate_id"],
+                            "--state-dir", directory,
+                        ])
+                    self.assertEqual(status, 2)
+                    self.assertEqual(output.getvalue(), "")
+                    self.assertIn("exactly one candidate", errors.getvalue())
 
 
 class PipelinePrepassTests(unittest.TestCase):

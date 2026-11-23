@@ -1,0 +1,336 @@
+{
+  "activation": {
+    "collector_pr": "https://github.com/warpdotdev/docs/pull/975",
+    "config_pr": "https://github.com/warpdotdev/docs-factory-config/pull/29",
+    "deployed": false,
+    "gates": [
+      "Human review and merge of collector and config drafts.",
+      "Human-approved factory sync/apply after merges and restored/validated production-history access.",
+      "Validate the recurring replacement before separately retiring the standalone schedule; this run changed no live schedule."
+    ],
+    "legacy_schedule_id": "LziMazxr8KQWQGL4lz14NC",
+    "legacy_schedule_unchanged": true,
+    "next_legacy_attempt": "2026-12-01T15:00:00Z"
+  },
+  "authorization": "User approved correcting and revalidating the deficient November human-edit evidence on the same task/PRs. This is not a second independent monthly catch-up.",
+  "collection_invocations": {
+    "authorized_corrective": 1,
+    "initial": 1,
+    "total": 2
+  },
+  "collection_version": "2cbab578c2f8a341eb7da7e82a1a3bf03a24f000",
+  "correction_version": 2,
+  "corrective_collection_exit_code": 2,
+  "corrective_scope": "GitHub human edits only; no run or review/comment recollection",
+  "date": "2026-11-01",
+  "disposition_explanations": {
+    "agent_assisted": "Explicit agent author/coauthor or bot-suggestion provenance; a personal account does not make this human work.",
+    "merge_noise": "Excluded multi-parent merge projection: not an isolated parent-to-commit editorial edit.",
+    "unresolved_attribution": "Actual file diff recovered, but independent human origin is not established; retained for review, not counted as human feedback."
+  },
+  "expanded_scan_counts": {
+    "agent_prs": 126,
+    "automated": 0,
+    "edit_commits": 109,
+    "edit_dispositions": {
+      "agent_assisted": 9,
+      "merge_noise": 2472,
+      "unresolved_attribution": 87
+    },
+    "edit_file_identities": 2568,
+    "feedback": 0,
+    "merged_prs": 134,
+    "original_edit_dispositions": {
+      "agent_assisted": 2,
+      "merge_noise": 1459,
+      "unresolved_attribution": 58
+    },
+    "original_edit_sources": 1519
+  },
+  "finished_at": "2026-11-01T19:49:10.149540+00:00",
+  "frozen_corrective_output_sha256": {
+    "coverage.json": "0aa8aef2813378ae78f36f731105cedff365e39f045c800321e4bcd4307b516d",
+    "feedback.jsonl": "8db9c0d3e737d6e6764d84ece1e41d99f41c4a278e50dd04329587db208565b7",
+    "human-edits.jsonl": "1a322df0d7825375f340032d1ac06c967e1452161ba10b56c62325570f8a66e3",
+    "source-reconciliation.jsonl": "5bfba76aca1abe66d4bb5cfa72f0c4204fd07c7f39e5ba40fbde25e2f39c956a"
+  },
+  "manual_diff_inspection": [
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/5a2a056fc4d8d8695a11e271388029d6264a54b2/src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/17e73edf94b4fecbc774640fe51616074f8c6155/src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+      "commit_sha": "5a2a056fc4d8d8695a11e271388029d6264a54b2",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Platform API errors \u2192 API error codes.",
+      "observed_change_category": "reference_title_revised",
+      "pr": "872",
+      "quality_direction": "not established",
+      "source_id": "github:edit:82f9ead7133c58aa965dee87a3c03f9d5e5f60e494bf95ef0b7813d10cdf8d08",
+      "stored_patch_sha256": "ac145a8cf09953dc839894e2407dda722d04831437d06d626886410edf48d91c"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/f09abcc0532887f681da7f84850f9089726010f8/src/content/docs/platform/orchestration/multi-agent-runs.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/5a2a056fc4d8d8695a11e271388029d6264a54b2/src/content/docs/platform/orchestration/multi-agent-runs.mdx",
+      "commit_sha": "f09abcc0532887f681da7f84850f9089726010f8",
+      "disposition": "agent_assisted",
+      "file": "src/content/docs/platform/orchestration/multi-agent-runs.mdx",
+      "human_origin": "explicit-agent-assistance",
+      "observed_change": "Added articles and shortened the description.",
+      "observed_change_category": "description_revised",
+      "pr": "872",
+      "quality_direction": "not established",
+      "source_id": "github:edit:1e4411660598c37b9369f6b6037cf9a4d23813a94493779bf28d5f9bcb5a15ed",
+      "stored_patch_sha256": "d96ca04482b6bfb678d1eba4ca199ea9bd0953a73bfe023ca63b249f15617e9f"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/1cc40bae325fb051932211cb06ab46b531e5f01d/src/content/docs/platform/transitioning-from-oz.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/50442e0abd64b34fa257ee1eac1ce0366fa6bfa5/src/content/docs/platform/transitioning-from-oz.mdx",
+      "commit_sha": "1cc40bae325fb051932211cb06ab46b531e5f01d",
+      "disposition": "agent_assisted",
+      "file": "src/content/docs/platform/transitioning-from-oz.mdx",
+      "human_origin": "explicit-agent-assistance",
+      "observed_change": "Replaced a transition claim with present-tense positioning.",
+      "observed_change_category": "positioning_prose_revised",
+      "pr": "875",
+      "quality_direction": "not established",
+      "source_id": "github:edit:dfee54a71e38298937b5905a2aba9f21aa412d8516bd922e41703733304f915e",
+      "stored_patch_sha256": "17b93f30497dcae9162b750c7c0c17ef6014310b36830a160318a2de22b6a4df"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/8d8de67ef7a7bf8fc998a12b2bbabe803b372658/src/content/docs/platform/quickstart.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/1f3bcd361eedc018fcda92623e5531ea469a49af/src/content/docs/platform/quickstart.mdx",
+      "commit_sha": "8d8de67ef7a7bf8fc998a12b2bbabe803b372658",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/platform/quickstart.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Added a one-sentence recap before next-step links.",
+      "observed_change_category": "quickstart_recap_added",
+      "pr": "875",
+      "quality_direction": "not established",
+      "source_id": "github:edit:65f4465a96eea6e59d00ec87307c39764d080c3ba813dc62becf82651ff65030",
+      "stored_patch_sha256": "3ff56c77495e7cd177004322f998b27e491d325313b5bd87792839afcf6cb75e"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/0160041ae12d0082aa6b9dd070ba8dc39448353a/src/content/docs/factories/use-cases/production-incident-resolution.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/b826c50e813cf3e87bc6e9147d2c217bb5a41b29/src/content/docs/factories/use-cases/production-incident-resolution.mdx",
+      "commit_sha": "0160041ae12d0082aa6b9dd070ba8dc39448353a",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/use-cases/production-incident-resolution.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Changed Resolve to Resolving and reframed the description.",
+      "observed_change_category": "task_title_and_description_revised",
+      "pr": "895",
+      "quality_direction": "not established",
+      "source_id": "github:edit:a777f6a3aaf07269ff68e07923730a18a4269180f0119c634f65003ffd182796",
+      "stored_patch_sha256": "9ac193b5bddd93667d0c34a3bf601d85f8a6fd693db9c0339fe2cbe33dfa116a"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/0160041ae12d0082aa6b9dd070ba8dc39448353a/src/content/docs/factories/use-cases/computer-use-verification.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/b826c50e813cf3e87bc6e9147d2c217bb5a41b29/src/content/docs/factories/use-cases/computer-use-verification.mdx",
+      "commit_sha": "0160041ae12d0082aa6b9dd070ba8dc39448353a",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/use-cases/computer-use-verification.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Changed Verify to Verifying and reframed the description.",
+      "observed_change_category": "task_title_and_description_revised",
+      "pr": "895",
+      "quality_direction": "not established",
+      "source_id": "github:edit:53adaee46037c3f32cea07b74fb0e39012423e95b60de609fbb94e9071eac214",
+      "stored_patch_sha256": "040af2b7c73e87afd7ed0c620812298f6556fa654ae17d759e23e4228b50655a"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/1d880e00d76c98768fb26c76285d517e22a3feb6/src/content/docs/factories/index.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/8d8de67ef7a7bf8fc998a12b2bbabe803b372658/src/content/docs/factories/index.mdx",
+      "commit_sha": "1d880e00d76c98768fb26c76285d517e22a3feb6",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/index.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Split a description into two sentences.",
+      "observed_change_category": "description_split",
+      "pr": "875",
+      "quality_direction": "not established",
+      "source_id": "github:edit:3872b0a85ea4c5be856e1d301c226493761b4565a694080a158269bac53b0800",
+      "stored_patch_sha256": "17c2deccc7c13456ddcceb69ecee0c0c255feddf595874b9a322b1dbf2c2681c"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/0160041ae12d0082aa6b9dd070ba8dc39448353a/src/content/docs/factories/use-cases/end-to-end-sdlc-automation.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/b826c50e813cf3e87bc6e9147d2c217bb5a41b29/src/content/docs/factories/use-cases/end-to-end-sdlc-automation.mdx",
+      "commit_sha": "0160041ae12d0082aa6b9dd070ba8dc39448353a",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/use-cases/end-to-end-sdlc-automation.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Changed Automate to Automating and reframed the description.",
+      "observed_change_category": "task_title_and_description_revised",
+      "pr": "895",
+      "quality_direction": "not established",
+      "source_id": "github:edit:5fea19636b20aece82764000245f0fff27fc98e2e25faba265d3632800aa1a40",
+      "stored_patch_sha256": "98f3178615e9a609303feba2e36346aeb6e82f241e213586bf6d3d7987a9ee06"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/1f3bcd361eedc018fcda92623e5531ea469a49af/src/content/docs/factories/developer-tools.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/8f8ad84d3349838e07fbbce38e58ebac07f59af3/src/content/docs/factories/developer-tools.mdx",
+      "commit_sha": "1f3bcd361eedc018fcda92623e5531ea469a49af",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/developer-tools.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Removed the sentence telling readers to choose an endpoint before endpoint links.",
+      "observed_change_category": "framing_prose_removed",
+      "pr": "875",
+      "quality_direction": "not established",
+      "source_id": "github:edit:2a026894682909b22e35c63ed986d5c4b30c3833a47661dafa9083710afd6761",
+      "stored_patch_sha256": "2765bad77bd8aef213a27bcfed03efeb8adc8bfd7fb19673720ef70023bb4566"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/4f4c8b72c7d8d99e31b86671646fd42e8dad5346/src/content/docs/factories/use-cases/issue-implementation.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/d3d8e58691c28c7b17794bd16e531afe33096f50/src/content/docs/factories/use-cases/issue-implementation.mdx",
+      "commit_sha": "4f4c8b72c7d8d99e31b86671646fd42e8dad5346",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/use-cases/issue-implementation.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Added an untrusted-requirements boundary inside the example prompt.",
+      "observed_change_category": "security_boundary_text_added",
+      "pr": "898",
+      "quality_direction": "not established",
+      "source_id": "github:edit:8a7bc7f3c94de4486f77fc4e7b8377c518f028fabe597a70d5d47e126e9d01b6",
+      "stored_patch_sha256": "24105ad50d7c7abe28111466b74cdc1f40e762553fa28cb30205b6844da8222c"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/bcf4f949d5d5fb4f210745729043491cd88a6571/src/content/docs/factories/api-and-sdk/index.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/c158b438158fa9ac502cd545a9cb19e1f1691d1f/src/content/docs/factories/api-and-sdk/index.mdx",
+      "commit_sha": "bcf4f949d5d5fb4f210745729043491cd88a6571",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/factories/api-and-sdk/index.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Removed the Models section repeating the preceding API reference link.",
+      "observed_change_category": "reference_section_removed",
+      "pr": "622",
+      "quality_direction": "not established",
+      "source_id": "github:edit:8aa6e51fdc0ef101f8145586ac9f35c8d431624976354ef790fbf57c08e39439",
+      "stored_patch_sha256": "94a7a2cb59f9e8aba52596430670504faf4ee184abf9816880d2c7b7e3f1d886"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/91e6cf60371a4cb35be9c2e7de19a01752d4ea48/src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/9d26e9fa53e7bb85f073126ef22941fec167028b/src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+      "commit_sha": "91e6cf60371a4cb35be9c2e7de19a01752d4ea48",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Removed in transit from the encryption claim; retained at rest.",
+      "observed_change_category": "security_claim_narrowed",
+      "pr": "869",
+      "quality_direction": "not established",
+      "source_id": "github:edit:d71874ce8d55422c165cd2fdb14f390562555ee8962a9ae429124cf38fb86722",
+      "stored_patch_sha256": "3defe177a89ea37d614f447612bbaffbccc58521738c11e00c4b172898333ed5"
+    },
+    {
+      "actionable": false,
+      "after_url": "https://github.com/warpdotdev/docs/blob/83ee1257dc5a6b3f49f13d5bae9696aa8f05e18f/src/content/docs/support-and-community/plans-and-billing/index.mdx",
+      "before_url": "https://github.com/warpdotdev/docs/blob/75edfcddd7cb04d1ac08afb2605a70286a3d6e5b/src/content/docs/support-and-community/plans-and-billing/index.mdx",
+      "commit_sha": "83ee1257dc5a6b3f49f13d5bae9696aa8f05e18f",
+      "disposition": "unresolved_attribution",
+      "file": "src/content/docs/support-and-community/plans-and-billing/index.mdx",
+      "human_origin": "unverified",
+      "observed_change": "Replaced a UI-display claim with an explanation based on billing terms.",
+      "observed_change_category": "billing_explanation_revised",
+      "pr": "869",
+      "quality_direction": "not established",
+      "source_id": "github:edit:c96ab7a1ca5fbb4e94349fea671636661d4bbd521df8fac9332e1e61e8234ad0",
+      "stored_patch_sha256": "6dfa544f78f0861385391f04ac49fd39c771e703952523d44d3271c8d1934011"
+    }
+  ],
+  "notification": "No Slack notification sent by implementation; requester communication remains with foreman.",
+  "offline_review_reclassification": {
+    "metadata_reads": 50,
+    "purpose": "Recover commit-message attribution missing from frozen file evidence, not a second collection",
+    "reclassified": [
+      {
+        "old_disposition": "human_corroborated",
+        "reason": "suggestion matches parent/path diff; personal-account human origin unverified",
+        "reviewed_disposition": "unresolved_attribution",
+        "source_id": "github:edit:82f9ead7133c58aa965dee87a3c03f9d5e5f60e494bf95ef0b7813d10cdf8d08"
+      }
+    ]
+  },
+  "original_1519_dispositions": {
+    "agent_assisted": 2,
+    "merge_noise": 1459,
+    "unresolved_attribution": 58
+  },
+  "original_projection_audit": {
+    "commits": 78,
+    "prs": 43,
+    "unchanged_input_sha256": {
+      "coverage.json": "4cf788ccd623583910b021c1c9c11c869e97565cee93130cb46f7d52e91bebe5",
+      "feedback.jsonl": "448bb787e0c501276b36e5175890d1277561942ed927480c86b42a330dfe95b1"
+    },
+    "unique_sources": 1519
+  },
+  "patch_coverage": {
+    "complete_file_diffs": 86,
+    "file_diffs": 96,
+    "ordinary_commits": 50,
+    "quality_direction": "unverified",
+    "redacted_patches": 0,
+    "stored_hunk_headers": 241,
+    "truncated_file_diffs": 10
+  },
+  "patterns": {
+    "actionable_targeted_patterns": 0,
+    "baseline": "Existing pre-rollout baseline remains unchanged.",
+    "candidate_observations_only": true,
+    "confirmed_human_corrections": 0,
+    "decision": "No editorial improvement PR: independent human origin and correction quality are unresolved. Recovered content is retained, not represented as no edits.",
+    "identical_input_evaluation": "Not run: no editorial skill/template improvement was proposed. Collector regression tests verify evidence handling, not improved editorial quality.",
+    "thresholds_unchanged": {
+      "actionable_pattern_minimum": 2,
+      "automated_occurrences": 3,
+      "repeated_human_prs": 2,
+      "skill_template_file_cap": 3,
+      "tagged_verified_human": 1
+    }
+  },
+  "remaining_gaps": [
+    "87 expanded-scan file diffs lack independently established human origin; one signed suggestion has content correspondence only.",
+    "10 patches are truncated at 12000 characters; immutable before/after links and full sanitized patch hashes remain available.",
+    "13 candidate PRs have no identifiable agent baseline; see corrective coverage omissions.",
+    "Production history previously returned 401; staging lookup of that production run returned 404. No history or other-environment coverage was restored by this GitHub-only correction."
+  ],
+  "retained_feedback": {
+    "historical_rows": 2374,
+    "initially_retained_comment_rows": 157,
+    "new_human_edit_rows": 0,
+    "note": "The correction does not revalidate initial comment authorship or turn retained general comments into targeted patterns.",
+    "prior_rows": 2531,
+    "sha256": "02c79cffd537998de11a323623be5a12bf58efea293342b2e01a9f64555c44c4"
+  },
+  "reviewed_analysis_version": "5201c56f7c1c17a9810091a286a2434feb780206",
+  "run_id": "01a1986a-2045-732c-96e6-21a8d7a09104",
+  "same_task_id": "01a19869-6c30-77b0-83be-5e3226e2bf47",
+  "started_at": "2026-11-01T19:46:27.977377+00:00",
+  "status": "original-source-recovery-complete; authorship-and-production-coverage-partial",
+  "supersedes_analysis_only": "2026-11-01-outcome.json; original observations and initial audit are preserved unchanged",
+  "unchanged_initial_durable_sha256": {
+    "2026-11-01-automated-observations.jsonl": "7bfaf5b790aae329af548e060a10c6dde253f494b1f27a5f501d82ca42967111",
+    "2026-11-01-coverage.json": "9c244a84b4253cb4bf525b11ff90be7bc722492a8096e82874d074fd1d348458",
+    "2026-11-01-excluded-agent-attribution.jsonl": "4d13c73f84045d63805dd2b9764d360637b89405b632bbd4b84b778e6ed57b16",
+    "2026-11-01-outcome.json": "5692f9f3e7bd3d5aefe747487e4ee785fe3af875b9f546b01e5c90e1dcdcbd81"
+  },
+  "window": {
+    "end": "2026-11-01T15:00:00Z",
+    "semantics": "[start,end) UTC",
+    "start": "2026-10-02T15:00:00Z"
+  }
+}

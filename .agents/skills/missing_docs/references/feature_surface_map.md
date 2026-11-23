@@ -55,7 +55,7 @@ CrossRepoContext -> src/content/docs/agents/capabilities/codebase-context.mdx
 FullSourceCodeEmbedding -> src/content/docs/agents/capabilities/codebase-context.mdx
 SearchCodebaseUI -> src/content/docs/agents/capabilities/codebase-context.mdx
 RemoteCodebaseIndexing -> src/content/docs/agents/capabilities/codebase-context.mdx
-CloudEnvironments -> src/content/docs/platform/environments.md
+CloudEnvironments -> src/content/docs/factories/environments.mdx
 CloudMode -> src/content/docs/platform/index.mdx
 AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
 ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
@@ -191,7 +191,7 @@ ArtifactCommand -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
 OzIdentityFederation -> src/content/docs/agents/cli/oz-cli/federate.mdx
 
 # Third-party harness support
-AgentHarness -> src/content/docs/platform/harnesses/index.mdx
+AgentHarness -> src/content/docs/factories/harnesses/index.mdx
 
 # Image context for cloud agents
 AmbientAgentsImageUpload -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
@@ -204,6 +204,8 @@ OzPlatformSkills -> src/content/docs/agents/capabilities/skills.mdx
 OzHandoff -> src/content/docs/platform/handoff/index.mdx
 HandoffLocalCloud -> src/content/docs/platform/handoff/local-to-cloud.mdx
 HandoffCloudCloud -> src/content/docs/platform/handoff/cloud-to-cloud.mdx
+# Periodic workspace uploads use the same declarations and opt-out as final snapshots.
+PeriodicHandoffCheckpoints -> src/content/docs/platform/handoff/snapshots.mdx
 
 # Orchestration / multi-agent runs is documented at
 # platform/orchestration/multi-agent-runs.mdx. The RunAgentsTool flag was removed
@@ -351,6 +353,15 @@ oz harness-support -> internal
 POST /agent/run -> src/content/docs/factories/api-and-sdk/index.mdx
 GET /agent/runs -> src/content/docs/factories/api-and-sdk/index.mdx
 GET /agent/runs/{runId} -> src/content/docs/factories/api-and-sdk/index.mdx
+# These operations are now present in the released export; supersedes their
+# earlier internal audit dispositions without changing the generated contract.
+POST /agent/runs/batch-get -> src/content/docs/factories/api-and-sdk/index.mdx
+GET /agent/runs/{runId}/diagnostics -> src/content/docs/factories/api-and-sdk/index.mdx
+# x-internal upstream and absent from the released export on 2026-11-05.
+# Recheck each method/path through the server publisher before documenting it.
+GET /agent/runs/{runId}/blueprint -> internal
+GET /agent/runs/{runId}/blueprint-routing -> internal
+GET /teams -> internal
 
 # OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
 GET /oauth/authorize -> internal
@@ -424,6 +435,11 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
+# Runtime support operations are x-internal upstream and absent from the
+# released export at warp-server e5b793f750. Recheck public publication and GA.
+POST /harness-support/publish-pr-media -> internal
+POST /harness-support/screenshot-upload-target -> internal
+POST /harness-support/wait-for-events -> internal
 # Cumulative Claude Code / Codex usage snapshot for the current cloud execution
 # (publishHarnessUsage). Marked `x-internal: true` upstream; harness-support tag
 # is excluded from the released docs OpenAPI copy.
@@ -431,20 +447,37 @@ POST /harness-support/usage -> internal
 # Read harness usage for a run (getHarnessUsage / agent_webhooks.go). Marked
 # `x-internal: true` upstream; not in developers/agent-api-openapi.yaml.
 GET /agent/runs/{runId}/harness-usage -> internal
+# Not in the released spec as of 2026-10-22. Recheck the server publication
+# workflow's released export before treating these as public API operations.
+GET /agent/previews -> internal
+GET /agent/previews/{previewId} -> internal
+# Run-scoped preview listing is x-internal upstream and absent from the
+# released export at warp-server b3186896ec. Recheck public publication and GA.
+GET /agent/runs/{runId}/previews -> internal
+DELETE /agent/runs/{runId}/previews/{previewId} -> internal
+PATCH /agent/runs/{runId}/previews/{previewId} -> internal
+POST /agent/runs/{runId}/scores -> internal
+POST /harness-support/conversation-data -> internal
 # Run-preview creation is x-internal upstream and absent from the released
 # Agent API spec. Recheck only when the operation is publicly released and GA.
 POST /agent/runs/{runId}/previews -> internal
 
-# Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
-# is now documented publicly (src/content/docs/factories/) as an Early Access
-# product, but its REST API is a different question: these routes are defined in
-# warp-server's canonical spec but marked `x-internal: true`, so the publish
-# filter strips them from the public docs copy and they are not part of the
-# released public Oz Agent API. They must not be hand-documented and stay
-# internal; revisit with the server publication workflow owner if/when those
-# `x-internal` markers come off. See SKILL.md "Public vs. private surfaces".
+# Factory REST operations are classified individually against the released
+# spec. Public factory guides alone do not establish an operation's release.
+# `internal` entries are audit deferrals, not server publication policy;
+# recheck them with the server publication workflow owner as exports change.
 GET /factory -> internal
 GET /factory/access -> internal
+# Setup blueprint lookup is x-internal upstream and absent from the released
+# export at warp-server e5b793f750; recheck this operation before documenting it.
+GET /factory-setup/default-blueprints/{variant} -> internal
+# Backfill preview has its own unpublished operation; a released scorer sibling
+# does not release it. Recheck public publication and GA availability.
+POST /factory/{uid}/scorers/{scorer_uid}/backfill/preview -> internal
+# Prototype queries are x-internal upstream and absent from the released
+# export at warp-server e5b793f750. No public API instructions.
+GET /metrics-prototype -> internal
+GET /metrics-prototype/{metric} -> internal
 # Personal factory task inbox (router/handlers/public_api/factory_inbox.go).
 # Sibling of the unreleased `/factory` REST surface; released OpenAPI has no
 # `/factory-inbox` paths either. Stays internal until the Factory API ships.
@@ -464,6 +497,12 @@ POST /factory-inbox/notifications/unread -> internal
 # (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
 # marked `x-internal: true` upstream.
 GET /factory-inbox/notifications/{uid} -> internal
+# Push operations are x-internal upstream and absent from the released export
+# on 2026-11-05. Recheck public publication and GA availability individually.
+POST /factory-inbox/push/apns/devices -> internal
+POST /factory-inbox/push/apns/devices/unregister -> internal
+GET /factory-inbox/push/preferences -> internal
+PATCH /factory-inbox/push/preferences -> internal
 # Answer all questions on a current inbox notification with one root-run
 # follow-up (answerFactoryQuestions / AnswerFactoryQuestionsHandler,
 # factory_inbox.go). Same unreleased `/factory-inbox` namespace; operation
@@ -474,6 +513,11 @@ GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
 GET /factory/{uid} -> internal
+# x-internal upstream and absent from the released export on 2026-11-05.
+# Recheck this operation's public publication and GA availability.
+GET /factory/{uid}/blueprint-run-summaries -> internal
+# Already present in the released contract; no hand-written API instructions.
+POST /factory/{uid}/blueprint-proposal -> src/content/docs/factories/factory-api.mdx
 # The owning team's model catalog plus the factory and team-cloud router
 # definitions applied to it (listFactoryModels). Marked `x-internal: true`
 # upstream; same unreleased `/factory` namespace.
@@ -514,6 +558,9 @@ GET /factory-files/schemas/{schema_version}/{document} -> internal
 POST /factory-files/validate -> internal
 # Factory review (AI review of a factory definition) and its refine loop.
 GET /factory/{uid}/review -> internal
+# Branch-review publication is x-internal and absent from the released export
+# at warp-server b3186896ec. A published sibling operation does not release it.
+POST /factory/{uid}/review -> internal
 POST /factory/{uid}/review/refine -> internal
 # Conflict/lint recovery uses the same Early Access gate and x-internal marker.
 POST /factory/{uid}/review/autofix -> internal
@@ -594,6 +641,9 @@ POST /factory-setup/connect-on-slack -> internal
 GET /factory/automations -> internal
 POST /factory/automations -> internal
 GET /factory/automations/events/{provider} -> internal
+# Trigger comparison is x-internal upstream and absent from the released
+# export at warp-server b3186896ec. Recheck through the server publisher.
+POST /factory/automations/matching-triggers -> internal
 GET /factory/automations/{id} -> internal
 PUT /factory/automations/{id} -> internal
 DELETE /factory/automations/{id} -> internal
@@ -601,23 +651,20 @@ PUT /factory/automations/{id}/subscriptions -> internal
 DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
 # Fires an automation's cron trigger immediately; `x-internal: true` upstream.
 POST /factory/automations/{id}/run -> internal
-GET /factory/scorers -> internal
-POST /factory/scorers -> internal
-PATCH /factory/scorers/{scorer_id} -> internal
-DELETE /factory/scorers/{scorer_id} -> internal
-GET /factory/scorers/{scorer_id}/results -> internal
-GET /factory/scorers/{scorer_id}/results/reasons -> internal
-GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
-# Date-bounded scoring backfill (createScoringBackfill). Factory tag; released
-# OpenAPI has zero /factory paths. Stays internal until the Factory API ships.
-POST /factory/scorers/{scorer_id}/backfill -> internal
-# The scorer pause/resume routes and the autofix-config trio were replaced by
-# the self-improvement-config routes below; their dead map entries were pruned.
-GET /factory/scorers/{scorer_id}/self-improvement-config -> internal
-PUT /factory/scorers/{scorer_id}/self-improvement-config -> internal
-DELETE /factory/scorers/{scorer_id}/self-improvement-config -> internal
+# Old global scorer and dispatch routes were removed. Their current,
+# factory-scoped public operations are covered by the released spec.
+GET /factory/{uid}/scorers -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/scorers -> src/content/docs/factories/factory-api.mdx
+PATCH /factory/{uid}/scorers/{scorer_uid} -> src/content/docs/factories/factory-api.mdx
+DELETE /factory/{uid}/scorers/{scorer_uid} -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/scorers/{scorer_uid}/results -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/scorers/{scorer_uid}/metrics -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/scorers/{scorer_uid}/dispatch -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/runs/{run_id}/scorer_dispatch -> src/content/docs/factories/factory-api.mdx
+# Backfill remains absent from the released spec; recheck publication separately.
+POST /factory/{uid}/scorers/{scorer_uid}/backfill -> internal
+GET /factory/{uid}/self-improvement/config -> internal
 GET /factory/runs/{run_id}/scores -> internal
-POST /factory/run-scoring/dispatches -> internal
 PUT /factory/automations/{id}/subscriptions/{subscription_id} -> internal
 GET /factory/{uid}/integrations/github/branches -> internal
 GET /factory/{uid}/integrations/github/labels -> internal
@@ -651,26 +698,44 @@ POST /factory/{uid}/integrations/slack/connection-test-greeting -> internal
 # internal.
 POST /factory/{uid}/integrations/linear/handoff -> internal
 POST /factory/{uid}/integrations/jira/handoff -> internal
-# Factory benchmark routes moved to suite-scoped paths
-# (router/handlers/public_api/benchmarks.go:279-317). Every operation carries
-# x-internal upstream and none appears in the released Agent API spec. Recheck
-# with the server publication workflow owner when the Factory REST API is publicly released.
-GET /factory/{uid}/benchmarks -> internal
-POST /factory/{uid}/benchmarks -> internal
-GET /factory/{uid}/benchmarks/{suite_uid} -> internal
-PATCH /factory/{uid}/benchmarks/{suite_uid} -> internal
-DELETE /factory/{uid}/benchmarks/{suite_uid} -> internal
-POST /factory/{uid}/benchmarks/{suite_uid}/tasks -> internal
-GET /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> internal
-PATCH /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> internal
-DELETE /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> internal
+# Factory benchmark operations already present in the released spec.
+GET /factory/{uid}/benchmarks -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/benchmarks -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid} -> src/content/docs/factories/factory-api.mdx
+PATCH /factory/{uid}/benchmarks/{suite_uid} -> src/content/docs/factories/factory-api.mdx
+DELETE /factory/{uid}/benchmarks/{suite_uid} -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/benchmarks/{suite_uid}/tasks -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> src/content/docs/factories/factory-api.mdx
+PATCH /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> src/content/docs/factories/factory-api.mdx
+DELETE /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> src/content/docs/factories/factory-api.mdx
 POST /factory/{uid}/benchmarks/{suite_uid}/tasks/from-run -> internal
-POST /factory/{uid}/benchmarks/{suite_uid}/runs -> internal
-GET /factory/{uid}/benchmarks/{suite_uid}/runs -> internal
-GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid} -> internal
-GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/results -> internal
-POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/cancel -> internal
+POST /factory/{uid}/benchmarks/{suite_uid}/runs -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid}/runs -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid} -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/results -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/trials -> src/content/docs/factories/factory-api.mdx
+GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/trials/{trial_uid} -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/cancel -> src/content/docs/factories/factory-api.mdx
 POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/rescore -> internal
+# Name-update operations are x-internal upstream and absent from the released
+# export at warp-server 9b20e42237. Recheck publication by HTTP method as well
+# as path: a published GET does not release the PATCH on the same path.
+PATCH /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid} -> internal
+PATCH /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/configurations/{configuration_uid} -> internal
+# Branch operations already published in the released spec.
+GET /factory/{uid}/branches/{branch_uid} -> src/content/docs/factories/factory-api.mdx
+DELETE /factory/{uid}/branches/{branch_uid} -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/branches/{branch_uid}/apply -> src/content/docs/factories/factory-api.mdx
+POST /factory/{uid}/branches -> internal
+# Remaining factory operations are not in the released export. A published
+# factory guide is not release evidence for these API operations.
+GET /factory-setup/model-presets -> internal
+GET /factory/{uid}/agents/{agent_uid}/models -> internal
+GET /factory/{uid}/apply -> internal
+GET /factory/{uid}/pr-test -> internal
+POST /factory/{uid}/routers -> internal
+PATCH /factory/{uid}/routers/{slug} -> internal
+GET /factory/{uid}/source/branches -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
@@ -712,6 +777,9 @@ GET /agent/events/stream -> internal
 # src/content/docs/platform/warp-hosting.mdx under "Networking". Revisit and
 # report publication drift to the server workflow owner if the marker comes off.
 GET /networking/egress-ranges -> internal
+# Present in the released export as of 2026-11-05; supersedes the earlier
+# internal audit disposition. The generated API reference owns the contract.
+GET /networking/policies -> src/content/docs/factories/api-and-sdk/index.mdx
 
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
@@ -996,6 +1064,10 @@ GitCredentialRefresh
 # State-mutating recovery for abnormal terminal lifecycle sequences — an internal
 # reliability mechanism with no user-facing configuration or UI, so it needs no docs.
 TerminalLifecycleRecovery
+# Internal runtime configuration fetch; no user-configurable surface.
+CloudAgentExecutionConfig
+# Automatic recovery of native cloud shells; no new user action or setting.
+CloudAgentShellRespawn
 # When Ctrl-C is forwarded to a third-party harness PTY, synthesize Cancelled for
 # the CLI agent session if the plugin never reports the interrupt. No setting,
 # menu, or CLI flag; Ctrl-C behavior is already documented.
@@ -1015,6 +1087,21 @@ FileBackedExecutionProfiles
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
+# GA on current warp a45a951935, but a server flag remains off in production
+# at warp-server e5b793f750. Recheck production availability before drafting.
+FactorySkillReferences
+# Preview process-liveness sampling, not a customer configuration surface
+# (execute/shell_command.rs); retain its status-change delta until GA.
+LrcActivitySignal
+# Non-GA at warp a45a951935. Retain all added-flag deltas and recheck promotion;
+# these entries do not establish production availability or a terminal verdict.
+AgentPromptSteering
+GitMirrorCache
+ManagedMcpCredentialRefresh
+PreviewUrlsMcp
+RestoreLocalSubtree
+# Local/experimental cloud skill discovery in agent_sdk/driver.rs, not GA.
+CwdScopedCloudSkills
 LSPAsATool
 EmbeddedCodeReviewComments
 InteractiveConversationManagementView
@@ -1043,12 +1130,7 @@ NativeShellCompletions
 HistorySearchRankingV2
 # ShellWidgetHandoff was promoted preview -> GA and mapped to command-search.mdx
 # in "Feature flags -> doc pages" above; its ignore entry was pruned.
-# Preview flag that uploads workspace handoff snapshots periodically during a
-# cloud agent run instead of only at the end. Requires OzHandoff, and is a no-op
-# for local runs and when `--no-snapshot` is set. Promoted dogfood -> preview, so
-# not GA and not documentable; re-check when the flag goes GA, at which point it
-# belongs on platform/handoff/.
-PeriodicHandoffCheckpoints
+# PeriodicHandoffCheckpoints is now GA and mapped to snapshots.mdx above.
 SshDragAndDrop
 ITermImages
 AIGeneratedOnboardingSuggestions
