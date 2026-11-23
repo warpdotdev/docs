@@ -24,6 +24,8 @@ A run is one agent execution. Its conversation contains the messages, actions, a
 
 A file left on a worker's filesystem isn't automatically a saved artifact. Ask the agent to upload the file and return it as a result. Keep code changes in a repository and pull request rather than relying on a sandbox file.
 
+To interact with servers running in a sandbox from your own browser, ask the agent for a [preview URL](/factories/preview-urls/).
+
 ## Finding artifacts
 
 Start from the work item or run whose result you need. Use the [factory dashboard](/factories/factory-dashboard/#inspect-runs) to inspect its runs and conversations. For standalone runs, follow [cloud agent session sharing](https://docs.warp.dev/platform/viewing-cloud-agent-runs/).
