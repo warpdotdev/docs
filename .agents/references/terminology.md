@@ -333,8 +333,9 @@ specific interface changes, not on an inferred retirement date:
 - **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
   *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
 
-- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/factories/self-hosting/data-storage/).
-  *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
+- **Artifacts** — Saved results and reported output references associated with agent runs: plans, screenshots, uploaded files (including recordings), pull requests, and external references. Uploaded file content is distinct from links to results hosted elsewhere; a sandbox file isn't automatically uploaded. See [Finding and sharing artifacts](/factories/artifacts/).
+  *Usage note:* The API uses `PLAN`, `PULL_REQUEST`, `SCREENSHOT`, `FILE`, and `EXTERNAL_REFERENCE`; a recording is a `FILE`, not a separate API type. Capitalize **Artifacts** for a named CLI or storage category; use lowercase for the generic noun. The file-storage category in [self-hosted agent data storage](/factories/self-hosting/data-storage/) doesn't imply Warp stores the contents of linked PRs or issues.
+  *Review record:* Artifact entry checked November 20, 2026 against `developers/agent-api-openapi.yaml` at `0074ba82260ecbbbd762e31fb3bb1730e13691ea`; this verifies the published API model, not live navigation or recipient access.
 
 - "Auth" — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
   *Usage note:* Preserve the field label's capitalization and use quotation marks, not bold, when the label is not clickable.

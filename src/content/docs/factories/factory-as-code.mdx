@@ -1,10 +1,10 @@
 ---
-title: Factory definition syntax
+title: Factory definition as code
 description: >-
   Look up the file structure, configuration fields, and supported values
   used to define factory agents, automations, and other resources.
 sidebar:
-  label: "Factory definition"
+  label: "Factory definition as code"
 ---
 import { VARS } from '@data/vars';
 
@@ -67,7 +67,7 @@ webhooks/
   internal-ci.yaml
 ```
 
-See the [example factory definition](#example-factory-definition), the minimal [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart), or the full [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
+See the [example factory definition](#example-factory-definition), the minimal [`single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/single-repo-quickstart), or the full [`sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr).
 
 ### Worker and agent field names
 
@@ -604,7 +604,7 @@ The `oz` harness supplies its own credentials and rejects `auth` and `reasoningL
 
 Pi requires `model` in `provider/model` form. A managed secret or team default must match the model's provider. For credentials configured on your self-hosted worker, use `auth.source: workerEnvironment`. See [Configuring the Pi harness](/factories/harnesses/pi/).
 
-For per-agent harnesses and managed-secret authentication, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
+For per-agent harnesses and managed-secret authentication, see [`multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/multi-harness). To use the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
 
 #### `agentDefaults.workerHost`
 
@@ -768,7 +768,7 @@ The `harness` object uses the same sparse override as an agent. Automation-level
 ## `runners/<name>.yaml`
 
 **Optional resource.**
-Runner files define compute. Agents and automations select a file by name with `runner`. See [cloud agent runners](/factories/runners/) for runtime behavior and [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) for Linux and macOS examples.
+Runner files define compute. Agents and automations select a file by name with `runner`. See [cloud agent runners](/factories/runners/) for runtime behavior and [`sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/sdlc-issue-to-pr) for Linux and macOS examples.
 
 ```yaml title="runners/linux-build.yaml"
 description: Linux runner for payments builds and tests
@@ -848,7 +848,7 @@ Factory members who can access the router can also select it from model catalogs
 ## `benchmarks/<suite-slug>/suite.yaml`
 
 **Optional resource.**
-Benchmark suite files define trials for one agent, with reusable configurations and an ordered task list. The directory slug is the suite's stable identity; changing `name` doesn't move the file. See [benchmarks](/factories/benchmarks/) for how to run a suite.
+Benchmark suite files define trials for one agent or Blueprint stage, with reusable configurations and an ordered task list. The directory slug is the suite's stable identity; changing `name` doesn't move the file. See [benchmarking factory configurations](/factories/benchmarks/) for how to run a suite.
 
 ```yaml title="benchmarks/pull-request-review/suite.yaml"
 name: Pull request review
@@ -871,7 +871,18 @@ tasks:
 | --- | --- | --- | --- |
 | <span id="name-1" />`name` | Yes | None | Suite display name; must be unique in the factory. |
 | <span id="description-2" />`description` | No | Not specified | What the suite measures. |
-| <span id="agent-1" />`worker` or `agent` | For worker-targeted suites | None | The factory worker used for every task in the suite. Set only one. |
+| <span id="agent-1" />`worker` or `agent` | Exactly one target | None | The factory worker used for every task. Set only one. Mutually exclusive with `stage`. |
+| `stage` | Exactly one target | None | Blueprint stage to enter directly for each trial. Trials stop when that stage completes. Mutually exclusive with `agent` or `worker`. |
+
+### `correctnessScorer`
+
+**Optional.**
+Overrides the built-in Correctness judge for this suite, independently of the agent under test. Omit an override to inherit its default.
+
+| Field | Description |
+| --- | --- |
+| `model` | Judge model or factory model-router reference. Defaults to the factory's scoring model. |
+| `runner` | Named factory runner used by the judge. |
 
 ### `configurations`
 
@@ -911,12 +922,11 @@ startingRepoRefs:
 
 | Field | Required | Default | Description |
 | --- | --- | --- | --- |
-| <span id="title" />`title` | Yes | None | Task display name; doesn't need to match the task slug. |
+| <span id="title" />`title` | Yes | None | Task display name; must be unique within the suite and doesn't need to match the task slug. |
 | <span id="prompt" />`prompt` | Yes | None | Instructions sent to the agent. |
 | <span id="successcriteria" />`successCriteria` | Yes | None | Correctness Scorer's evaluation criteria. |
 | <span id="sourcerunid" />`sourceRunId` | No | Not specified | ID of the prior run that produced the task; can refer to a deleted run. |
 | <span id="tags" />`tags` | No | Not specified | Ordered list of task labels. |
-| <span id="linearseed" />`linearSeed` | No | Not specified | JSON-compatible starting state for the trial's isolated Linear workspace. |
 
 ### `startingRepoRefs`
 
@@ -1170,7 +1180,7 @@ agentDefaults:
   workerHost: SELF_HOSTED_WORKER_ID
 ```
 
-Replace `SELF_HOSTED_WORKER_ID` with the worker's ID and pair it with a runner whose `platform` matches the worker. See the [Self-hosting quickstart](/factories/self-hosting/quickstart/) or copy [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+Replace `SELF_HOSTED_WORKER_ID` with the worker's ID and pair it with a runner whose `platform` matches the worker. See the [Self-hosting quickstart](/factories/self-hosting/quickstart/) or copy [`self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/self-hosted-worker).
 
 ## Related pages
 
