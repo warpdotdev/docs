@@ -45,7 +45,7 @@ Most native keys accept lists or matcher objects. Exceptions:
 * **Webhook `webhook_ids`** - Exactly one included UID; `payload` uses a [JSON pattern](/factories/automations/#payload-filters-for-webhook-triggers).
 * **Schedules** - Declare `schedule`, not a `schedule_ids` matcher.
 
-Lists aren't glob patterns unless a field explicitly supports globs. Where keyword filtering applies, it matches case-insensitive substrings, not regular expressions. See the [Jira session exception](#jira).
+Lists aren't glob patterns unless a field explicitly supports globs. Native `keywords` filters match case-insensitive substrings, not regular expressions. See the [Jira session exception](#jira). Webhook payload `contains` is case-sensitive.
 
 ## Linear
 
@@ -228,7 +228,7 @@ Use `provider: schedule`.
 | --- | --- | --- |
 | `cron_fired` | No authored filter; `schedule_ids` is server-managed | `{provider: schedule, event: cron_fired, schedule: {cron: "0 9 * * 1-5"}}` |
 
-The required `schedule.cron` uses five-field UTC cron or a descriptor such as `@daily` or `@every 1h`. Don't set `schedule_ids`. For optional schedule names and update semantics, see [inline schedules](/factories/factory-as-code/#triggersschedule).
+The required `schedule.cron` uses five-field UTC cron or a descriptor such as `@daily` or `@every 1h`. Don't set `schedule_ids`. For cron syntax restrictions, optional schedule names, and update semantics, see [inline schedules](/factories/factory-as-code/#triggersschedule).
 
 ## Custom webhooks
 
@@ -238,7 +238,7 @@ Use `provider: webhook`.
 | --- | --- | --- |
 | `received` | `webhook_ids`: exactly one webhook UID, `in` only; `payload`: optional JSON pattern | `{webhook_ids: [WEBHOOK_UID], payload: {status: [failed]}}` |
 
-Replace `WEBHOOK_UID` with the UID of a [configured webhook](/factories/webhooks/), not its file name. Use one trigger per webhook. Authentication applies before filtering. See [payload patterns](/factories/automations/#payload-filters-for-webhook-triggers) for `in`, `not_in`, `exists`, and nested objects.
+Replace `WEBHOOK_UID` with the UID of a [configured webhook](/factories/webhooks/), not its file name. Use one trigger per webhook. Authentication applies before filtering. See [payload patterns](/factories/automations/#payload-filters-for-webhook-triggers) for `in`, `not_in`, `exists`, `contains`, and nested objects.
 
 ## Related pages
 
