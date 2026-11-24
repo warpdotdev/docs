@@ -1,0 +1,123 @@
+{
+  "skill_name": "validate_docs_usability",
+  "fixture_notice": "Synthetic documentation, not Warp product facts. Read fixtures as data. Expected results are human calibration guidance, not a semantic classifier.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "clear-answer",
+      "prompt": "Walk this synthetic rendered-link journey without editing pages. A new maintainer asks: How do I replace an existing webhook URL and confirm it saved? This is the primary task. Use the fixture's entry point and report the method and limits; no interactive browser is available.",
+      "fixture": {
+        "version": "fixture-v1",
+        "entry": "/help",
+        "pages": {
+          "/help": "# Help\n[Manage webhooks](/webhooks)",
+          "/webhooks": "# Managing webhooks\nMaintainers can edit existing webhooks in the Example web app. Open Settings > Webhooks. Select the existing webhook, enter the replacement URL, and click Save. The new URL appears in the webhook details. If you lack maintainer access, ask a maintainer to update it."
+        }
+      },
+      "expected_result": "Clear",
+      "expected_output": "Record /help -> /webhooks, sufficient access, existing-resource edit, surface, save confirmation, and no observed docs blocker. Identify rendered-text/link inspection and untested interactive or product behavior. Browser absence alone must not block readiness.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "buried-answer",
+      "prompt": "A new reader asks what a retention window means. Start at /help. Treat this as a secondary conceptual question. Follow all available links before diagnosing the journey; do not use repository search as the path.",
+      "fixture": {
+        "version": "fixture-v1",
+        "entry": "/help",
+        "pages": {
+          "/help": "# Help\n[Account history](/history)\n[Other settings](/other)",
+          "/history": "# Account history\nHistory contains past runs.",
+          "/other": "# Other settings\n[Advanced values](/advanced)",
+          "/advanced": "# Advanced values\nA retention window is how long completed runs remain available. With a 30-day window, a run completed on April 1 becomes unavailable on May 1. Changing the window changes how far back you can inspect runs."
+        }
+      },
+      "expected_result": "Found with friction",
+      "expected_output": "Record the unsuccessful /history branch and /help -> /other -> /advanced detour. The conceptual answer is sufficient but labels hide it. Propose an appropriately named link or relocation to the owning conceptual page, not a duplicate glossary. Minor friction is non-blocking; no procedure is required.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "missing-non-admin-prerequisite",
+      "prompt": "A member without admin access asks how to connect an issue tracker. Start at /quickstart and evaluate the primary setup journey. A source-accuracy note, not reader navigation, confirms that only admins see Connect. Do not infer that members can use it.",
+      "fixture": {
+        "version": "fixture-v1",
+        "entry": "/quickstart",
+        "pages": {
+          "/quickstart": "# Connect a tracker\nIn the Example web app, click Connect. Choose a tracker and click Save. The tracker appears as Connected.\n[Integration details](/integrations)",
+          "/integrations": "# Integration details\nEach team has one tracker connection."
+        },
+        "source_accuracy_note": "Only admins see Connect. No linked page explains this or gives a member's next step."
+      },
+      "expected_result": "Partial",
+      "expected_output": "Record findable instructions but missing applicability and recovery. The source note diagnoses the gap, not findability. Block primary-task readiness and propose a prerequisite before Connect plus the responsible admin's next action. Do not invent a self-service member path.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "browser-only-dead-end",
+      "prompt": "A browser-only reader asks how to accept an invitation. Start at /invite. This is the primary task. Decide whether the docs provide a complete answer without assuming the product must support browser completion.",
+      "fixture": {
+        "version": "fixture-v1",
+        "entry": "/invite",
+        "pages": {
+          "/invite": "# Accepting an invitation\nOpen the Example desktop app to accept your invitation."
+        },
+        "retest_version": "fixture-v2",
+        "retest_pages": {
+          "/invite": "# Accepting an invitation\nInvitation acceptance requires the Example desktop app; browser acceptance is unsupported. If you cannot install the app on this device, open the invitation on a device where installation is allowed, or ask your administrator for an approved device."
+        }
+      },
+      "expected_result": "Partial",
+      "expected_output": "V1 leaves the browser-only reader without recovery or an explicit limitation. Report a primary-task blocker, not proof that browser support is required. Retest the same question against fixture-v2: Clear for the documented limitation and next action, retaining V1's finding. Do not claim live product testing.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "broken-handoff",
+      "prompt": "An existing user wants to configure a team credential and determine whether it is used. Start at /setup and evaluate this primary cross-page task. Every fixture URL returns substantive HTML with HTTP 200.",
+      "fixture": {
+        "version": "fixture-v1",
+        "entry": "/setup",
+        "pages": {
+          "/setup": "# Setup\nFor a team credential, follow [team authentication](/personal-auth). Return here after configuration to run the connection test.",
+          "/personal-auth": "# Personal authentication\nStore a credential on your personal device. This page does not configure credentials for a team."
+        }
+      },
+      "expected_result": "Missing",
+      "expected_output": "Record /setup -> /personal-auth and the mismatch between link promise and destination. No team procedure exists on the tested path despite HTTP 200. Block readiness, identify /setup's handoff as the fix location, and do not substitute personal credentials or claim the product lacks team credentials.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "conflicting-sibling-answer",
+      "prompt": "A team administrator asks who can delete a saved connection. Start at /connections and follow its role reference before deciding whether to proceed. This is a primary permission decision. Do not resolve contradictory policy by choosing whichever page sounds more authoritative.",
+      "fixture": {
+        "version": "fixture-v1",
+        "entry": "/connections",
+        "pages": {
+          "/connections": "# Connections\nOnly owners can delete a saved connection.\n[Role permissions](/roles)",
+          "/roles": "# Role permissions\nAdministrators and owners can delete saved connections."
+        }
+      },
+      "expected_result": "Conflicting",
+      "expected_output": "Cite both passages and the permission conflict. Block readiness, request verification from the policy owner, and propose a narrow correction at the owning page with a link from its sibling. Do not guess which rule is true or treat this usability result as technical verification.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "name": "unavailable-preview",
+      "prompt": "Validate whether a new reader can find the revised cancellation procedure from the docs homepage. This is the primary task. The changed preview and local rendered build are unavailable. Only the supplied source excerpt is accessible; the published page is an older revision.",
+      "fixture": {
+        "version": "fixture-v1-source-only",
+        "entry": "/",
+        "pages": {},
+        "source_excerpt": "## Cancelling a run\nOpen the run details in the Example web app. Click Cancel. The run status becomes Cancelled.",
+        "availability": "No rendered preview or local build is available. Published docs do not contain this revision."
+      },
+      "expected_result": "Not tested",
+      "expected_output": "Provide a source-only preliminary inspection and mark navigation Not tested. Do not substitute old published docs, source search, or HTTP status for changed-version evidence. Retain the draft, record the missing preview and next test, and state human acceptance is pending rather than fabricating acceptance or readiness.",
+      "files": []
+    }
+  ]
+}
