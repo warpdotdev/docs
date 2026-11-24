@@ -263,6 +263,10 @@ OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 # MCP reference (and the cloud agent MCP schema page).
 WellKnownMcpIds -> src/content/docs/agents/cli/oz-cli/mcp-servers.mdx
 
+# Preview sharing is already documented; the GA MCP and proxy plumbing do not
+# introduce a separate customer configuration surface.
+PreviewUrlsMcp -> src/content/docs/factories/preview-urls.mdx
+
 # When the shell rebinds Ctrl+R / Ctrl+T / Alt-C to fzf, atuin, or fzf.fish, hand
 # those keypresses off to the shell widget instead of Warp's Command Search.
 # Promoted preview -> GA; behavior documented on the Command Search page. The
@@ -362,6 +366,11 @@ GET /agent/runs/{runId}/diagnostics -> src/content/docs/factories/api-and-sdk/in
 GET /agent/runs/{runId}/blueprint -> internal
 GET /agent/runs/{runId}/blueprint-routing -> internal
 GET /teams -> internal
+# Both artifact operations are x-internal upstream and absent from the
+# released export at warp-server 3fe1b5a9bb on 2026-11-24.
+# Recheck each method/path through the server publisher before documenting it.
+GET /agent/artifacts/{uid}/pull-request -> internal
+GET /agent/artifacts/{uid}/pull-request/files/{file_id} -> internal
 
 # OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
 GET /oauth/authorize -> internal
@@ -736,6 +745,10 @@ GET /factory/{uid}/pr-test -> internal
 POST /factory/{uid}/routers -> internal
 PATCH /factory/{uid}/routers/{slug} -> internal
 GET /factory/{uid}/source/branches -> internal
+# x-internal upstream and absent from the released export on 2026-11-24.
+# Recheck each operation's public publication and GA availability.
+POST /factory/validate -> internal
+POST /factory/{uid}/git-token -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
@@ -1061,6 +1074,9 @@ CloudModeSetupV2
 CloudModeInputV2
 # Internal GitHub credential refresh during task runs (changelog-only behavior fix).
 GitCredentialRefresh
+# GA automatic refresh of existing managed MCP proxy credentials
+# (driver/managed_mcp_refresh.rs). No user-controlled lifetime or setup change.
+ManagedMcpCredentialRefresh
 # State-mutating recovery for abnormal terminal lifecycle sequences — an internal
 # reliability mechanism with no user-facing configuration or UI, so it needs no docs.
 TerminalLifecycleRecovery
@@ -1087,9 +1103,12 @@ FileBackedExecutionProfiles
 # rollout status (the audit computes that from code); entries here are ignored
 # because the toggle itself isn't a documentable surface, or because the
 # feature isn't user-facing yet — the snapshot diff flags promotions.
-# GA on current warp a45a951935, but a server flag remains off in production
-# at warp-server e5b793f750. Recheck production availability before drafting.
+# GA on current warp 4540015ee5, but server enforcement remains off in
+# production at warp-server 3fe1b5a9bb. Recheck before drafting.
 FactorySkillReferences
+# Third-party computer-use MCP injection is dogfood at warp 4540015ee5.
+# Retain the added-flag delta and recheck GA plus stable inclusion.
+ComputerUseMcp
 # Preview process-liveness sampling, not a customer configuration surface
 # (execute/shell_command.rs); retain its status-change delta until GA.
 LrcActivitySignal
@@ -1097,8 +1116,6 @@ LrcActivitySignal
 # these entries do not establish production availability or a terminal verdict.
 AgentPromptSteering
 GitMirrorCache
-ManagedMcpCredentialRefresh
-PreviewUrlsMcp
 RestoreLocalSubtree
 # Local/experimental cloud skill discovery in agent_sdk/driver.rs, not GA.
 CwdScopedCloudSkills
