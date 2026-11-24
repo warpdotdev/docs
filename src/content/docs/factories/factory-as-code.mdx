@@ -179,7 +179,7 @@ agentDefaults:
 
 Declares the workflow's stages, workers, transitions, and gates. See [Blueprints](/factories/blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
 
-The Blueprint derives stage delegation from worker assignments. Use [`spawnableBy`](#spawnableby) separately to permit additional ad hoc subagents.
+The Blueprint derives worker delegation from stage assignments.
 
 | Field | Description |
 | --- | --- |
@@ -675,7 +675,7 @@ All frontmatter keys are optional.
 | `description` | What the agent does. |
 | `workerRole` or [`agentType`](#agenttype) | The agent's role. Set only one. |
 | `credentialStrategy` | Overrides the factory-level [`credentialStrategy`](#credentialstrategy). Omit it to keep the agent's current setting. |
-| [`spawnableBy`](#spawnableby) | Workers allowed to start this worker. With a Blueprint, grants ad hoc subagent permission separately from stage delegation. |
+| [`spawnableBy`](#spawnableby) | Workers allowed to start this worker, in addition to those permitted by the Blueprint. |
 | `networkPolicy` | Combines with the factory's [`networkPolicy`](#networkpolicy); denials at either scope take precedence over user-configured allowances. |
 | `model`, `harness` | Override the corresponding [`agentDefaults`](#agentdefaults). Set at most one. |
 | `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` | Override the corresponding [`agentDefaults`](#agentdefaults), subject to each field's inheritance rules. |
