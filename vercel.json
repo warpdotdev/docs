@@ -55,42 +55,12 @@
   "redirects": [
     {
       "source": "/factories/teams(/?)",
-      "destination": "/knowledge-and-collaboration/teams/",
+      "destination": "/factories/teams-and-admin-controls/",
       "statusCode": 308
     },
     {
       "source": "/factories/teams.md",
-      "destination": "/knowledge-and-collaboration/teams.md",
-      "statusCode": 308
-    },
-    {
-      "source": "/enterprise/team-management/teams(/?)",
-      "destination": "/knowledge-and-collaboration/teams/",
-      "statusCode": 308
-    },
-    {
-      "source": "/enterprise/team-management/teams.md",
-      "destination": "/knowledge-and-collaboration/teams.md",
-      "statusCode": 308
-    },
-    {
-      "source": "/enterprise/team-management/admin-panel(/?)",
-      "destination": "/knowledge-and-collaboration/admin-panel/",
-      "statusCode": 308
-    },
-    {
-      "source": "/enterprise/team-management/admin-panel.md",
-      "destination": "/knowledge-and-collaboration/admin-panel.md",
-      "statusCode": 308
-    },
-    {
-      "source": "/enterprise/team-management/roles-and-permissions(/?)",
-      "destination": "/knowledge-and-collaboration/roles-and-permissions/",
-      "statusCode": 308
-    },
-    {
-      "source": "/enterprise/team-management/roles-and-permissions.md",
-      "destination": "/knowledge-and-collaboration/roles-and-permissions.md",
+      "destination": "/factories/teams-and-admin-controls.md",
       "statusCode": 308
     },
     {

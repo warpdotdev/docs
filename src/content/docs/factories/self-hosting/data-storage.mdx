@@ -87,7 +87,7 @@ See AWS's guide on [creating a bucket](https://docs.aws.amazon.com/AmazonS3/late
 
 ### 2. Open the connect dialog in the Admin Panel
 
-Self-hosted storage is configured in Warp's [Admin Panel](/knowledge-and-collaboration/admin-panel/). The storage connection dialog generates the exact policies that your IAM role needs.
+Self-hosted storage is configured in Warp's [Admin Panel](/factories/teams-and-admin-controls/). The storage connection dialog generates the exact policies that your IAM role needs.
 Open it before creating the role, so you can copy those values directly. It can be reopened at any time.
 
 In the Admin Panel, go to the **Platform** settings tab. Under **Agent data storage**, click **Connect external storage** and choose **AWS S3**. Enter your bucket name and region in the "Bucket" and "Region" fields, and leave the dialog open — the next two steps use the policies it displays below the form.
@@ -285,4 +285,4 @@ The bucket name or region is wrong, or the bucket doesn't exist. Confirm both ma
 * [Architecture](/platform/architecture/#data-security-and-boundaries) - How run data, control-plane data, and inference credentials flow through Warp's platform
 * [Self-hosting overview](/factories/self-hosting/) - Run agent compute on your own infrastructure instead of Warp-managed servers
 * [Cloud agent secrets](/platform/secrets/) - Store credentials agents use during a run
-* [Admin Panel for teams](/knowledge-and-collaboration/admin-panel/) - The full reference for team settings, including the Platform section
+* [Managing teams and admin controls in Warp Factories](/factories/teams-and-admin-controls/) - Find team roles and shared administration controls

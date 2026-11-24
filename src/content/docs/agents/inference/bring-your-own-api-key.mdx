@@ -15,7 +15,7 @@ Your provider bills inference routed through your keys. Applicable [platform cha
 <VideoEmbed url="https://youtu.be/jbSBnbPzQwY" title="How to BYOK to the Warp Agent" />
 
 :::note
-Personal BYOK is available on the Free plan and eligible paid plans for Warp Terminal for individuals and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan for Warp Terminal.
+Personal BYOK is available on the Free plan and eligible paid Warp Agent plans for individuals and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise Warp Agent plan.
 :::
 
 ## How BYOK differs from custom inference endpoints and BYOLLM
@@ -24,11 +24,11 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 
 | Name | Meaning | Plans |
 | --- | --- | --- |
-| **Personal BYOK** | Use your own API key for OpenAI, Anthropic, or Google models in local Warp Agent runs. Keys are stored on your device. | Free and eligible paid plans for Warp Terminal |
-| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Connect local Warp Agent runs to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and eligible paid plans for Warp Terminal |
+| **Personal BYOK** | Use your own API key for OpenAI, Anthropic, or Google models in local Warp Agent runs. Keys are stored on your device. | Free and eligible paid Warp Agent plans |
+| **[Personal custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Connect local Warp Agent runs to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and eligible paid Warp Agent plans |
 | **[Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | An admin configures shared provider keys or endpoints for local and cloud Warp Agent runs. | See [eligibility by product](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#plan-eligibility) |
 | **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Route inference through your organization's AWS Bedrock or Gemini Enterprise (Vertex AI) account. See the provider guides for cloud support. | Enterprise agreement |
-| **[SuperGrok subscription](/agents/inference/grok-subscription/)** | Connect your SuperGrok subscription to use Grok models through your xAI account. Tokens are stored locally on your device. | Free and eligible paid plans for Warp Terminal |
+| **[SuperGrok subscription](/agents/inference/grok-subscription/)** | Connect your SuperGrok subscription to use Grok models through your xAI account. Tokens are stored locally on your device. | Free and eligible paid Warp Agent plans |
 | **[ChatGPT subscription](/agents/inference/chatgpt-subscription/)** | Connect your ChatGPT plan to use eligible OpenAI models with the Warp Agent in the Warp app. | See [Warp pricing](https://www.warp.dev/pricing) |
 
 See [Warp pricing](https://www.warp.dev/pricing) for current plan availability.
@@ -119,11 +119,15 @@ In the Warp app, **Help improve Warp** controls analytics and content collection
 
 <span id="warp-terminal-and-local-agent-teams" />
 
-### Warp Terminal teams
+<span id="warp-terminal-teams" />
 
-Personal BYOK is configured on each member's device. Those keys work for local Warp Agent runs in the app or CLI, not [cloud agents](/platform/). Business and Enterprise plans for Warp Terminal also support centrally managed keys in the [Admin Panel](/knowledge-and-collaboration/admin-panel/).
+### Teams on Warp Agent plans
 
-### Warp Factories teams
+Personal BYOK is configured on each member's device. Those keys work for local Warp Agent runs in the app or CLI, not [cloud agents](/platform/). Business and Enterprise Warp Agent plans also support [team-managed keys in the Admin Panel](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#configuring-team-managed-keys-and-endpoints).
+
+<span id="warp-factories-teams" />
+
+### Teams on Warp Factories plans
 
 The Scale and Enterprise plans for Warp Factories support [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/). An admin configures shared credentials in the Admin Panel; these work for factory runs using the Warp Agent. Third-party harnesses use separate [harness credentials](/factories/harnesses/authentication/).
 

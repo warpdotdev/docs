@@ -32,9 +32,9 @@ For configuration steps and coverage limits, follow the [factory ZDR guidance](/
 
 ### Warp analytics and content collection
 
-In the Warp app, **Help improve Warp** controls product analytics and eligible content collection for service improvement, including AI interactions and console content. Turning it off stops that analytics and content collection, subject to [organization-enforced settings](/knowledge-and-collaboration/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
+In the Warp app, **Help improve Warp** controls product analytics and eligible content collection for service improvement, including AI interactions and console content. Turning it off stops that analytics and content collection, subject to [organization-enforced settings](/enterprise/team-management/admin-panel/#privacy-settings). **Send crash reports** is a separate control.
 
-Team admins manage content collection for service improvement in the [Admin Panel's Privacy settings](/knowledge-and-collaboration/admin-panel/#managing-team-content-collection-in-the-admin-panel). Personal analytics and crash preferences are separate from this team control.
+Team admins manage content collection for service improvement in the Admin Panel. Follow the guidance for [Warp Terminal](/knowledge-and-collaboration/admin-panel/#managing-team-content-collection-in-the-admin-panel), [Warp Factories](/factories/teams-and-admin-controls/#shared-settings-and-usage), or [Enterprise workspaces](/enterprise/team-management/admin-panel/#managing-team-content-collection-in-the-admin-panel). Personal analytics and crash preferences are separate from this team control.
 
 Collection preferences don't change provider retention requirements or turn off product storage. See [what Warp collects](#what-telemetry-data-does-warp-collect-and-why) and [how to change collection preferences](#how-to-disable-telemetry-and-crash-reporting).
 
@@ -75,7 +75,7 @@ For how Warp uses collected data, read the [Privacy Notice](https://www.warp.dev
 
 In the {VARS.FACTORY_WEB_APP}, open **Settings** > **Privacy** and toggle **Help improve Warp** off to change your personal analytics preference. The server also uses this preference for eligible content collection on requests running as you, when organization policy defers to individual preferences. It does not disable content collection for factory runs executing as a service account or change run-data storage.
 
-Admins review [team content collection in the Admin Panel](/knowledge-and-collaboration/admin-panel/#managing-team-content-collection-in-the-admin-panel). Plan-locked or organization-enforced values cannot be overridden through a personal preference. Contact [privacy@warp.dev](mailto:privacy@warp.dev) if you need help determining which policy applies.
+Team admins using Warp Factories review [team content collection in the Admin Panel](/factories/teams-and-admin-controls/#shared-settings-and-usage). Plan-locked or organization-enforced values cannot be overridden through a personal preference. Contact [privacy@warp.dev](mailto:privacy@warp.dev) if you need help determining which policy applies.
 
 1. In the Warp app, open **Settings** > **Privacy**.
 2. Toggle off **Help improve Warp** to stop analytics and content collection for service improvement. Review **Send crash reports** separately.
@@ -99,7 +99,7 @@ Deletion jobs run every 24 hours, so if you deleted your account and want to sig
 :::
 
 :::caution
-If you own a team with other members, [transfer ownership](/knowledge-and-collaboration/roles-and-permissions/#transferring-team-ownership) before deleting your account. Appointing another admin does not transfer ownership.
+If you own a self-serve team with other members, transfer ownership before deleting your account. Follow the [Warp Terminal procedure](/knowledge-and-collaboration/roles-and-permissions/#transferring-team-ownership) or [browser procedure for Warp Factories](/factories/teams-and-admin-controls/#managing-admins-and-ownership). Enterprise workspace owners follow [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles). Appointing another admin does not transfer ownership.
 :::
 
 ### Exhaustive telemetry table

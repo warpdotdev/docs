@@ -888,7 +888,7 @@ Use these terms consistently throughout all documentation. For the full canonica
 
 Product feature names retain their standard capitalization. Match the exact casing shown in the UI.
 
-- **Warp** (not "Warp Terminal" unless specifically distinguishing)
+- **Warp Terminal** for the terminal experience; **Warp** for the overall offering
 - **agent** / **agents** (lowercase) - the generic concept, covering any agent on any surface. See [Capitalizing "agent"](#capitalizing-agent) for the full rule.
 - **Agent Mode** (not "agent mode" or "Agent-mode")
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
@@ -903,6 +903,8 @@ Product feature names retain their standard capitalization. Match the exact casi
 ### Team and workspace terminology
 
 Use "team" by default for self-serve customers. Reserve "workspace" and workspace roles for Enterprise, except when matching a literal UI label or explaining an actual billing, permission, or policy scope. A self-serve team has one owner; additional admins depend on the plan and are not Enterprise-only. Adding an admin is not transferring ownership. Follow the [team and workspace glossary](.agents/references/terminology.md#team-and-workspace-terms) for scoped role definitions and literal-interface exceptions.
+
+Keep team and administration guidance scoped to the reader's product: Terminal collaboration, Automation Platform team controls, factory administration, or Enterprise workspace policies. Reuse the shared definitions, but link to the relevant product or setting rather than routing every reader through Terminal. Enterprise owns workspace-wide Admin Panel policy guidance.
 
 ### Capitalizing "agent"
 
@@ -1010,7 +1012,7 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
-- Use "Warp Terminal plans" and "Warp Factories plans" and keep their billing flows separate. Warp Terminal plans cover terminal features and local agent usage; do not introduce a separate "agent plans" category. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for eligibility and billing terminology.
+- Use "Warp Agent plans" and "Warp Factories plans" and keep their billing flows separate. Use "Warp Terminal" for the terminal experience and "the Warp Agent" for the built-in agent. The plan-family name does not change local versus cloud eligibility or funding rules. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for eligibility and billing terminology.
 - **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. Explain the billing unit where it affects the reader's task, not in every paragraph. Name plans naturally: "Free," "Build," "Max," "Business," and "Enterprise," not "dollar-billed Free" or "self-serve dollar Max."
 - **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
 - **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.

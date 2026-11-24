@@ -1,14 +1,13 @@
 ---
-title: Admin Panel
+title: Admin Panel for {{WARP_TERMINAL}}
 description: >-
-  The Warp Admin Panel is a browser-based interface for managing membership,
-  billing, and shared settings for teams and Enterprise workspaces.
+  Configure {{WARP_TERMINAL}} team policies for agent behavior, personal conversation sync, Codebase Context, and Warp Drive sharing.
 sidebar:
   label: Admin Panel
 ---
 import { VARS } from '@data/vars';
 
-Use the browser-based [Warp Admin Panel](https://app.warp.dev/admin/) to manage membership, billing, and shared configuration for a team or an [Enterprise workspace](/enterprise/team-management/workspaces/).
+The Warp Admin Panel is a browser-based interface for managing membership, billing, and shared settings for teams and Enterprise workspaces. In {VARS.WARP_TERMINAL}, use it to configure team collaboration and the settings members can change.
 
 Your [role](/knowledge-and-collaboration/roles-and-permissions/) determines administrative access; your plan and workspace policies determine editable settings.
 
@@ -22,7 +21,7 @@ Your [role](/knowledge-and-collaboration/roles-and-permissions/) determines admi
 2. Confirm the selected team or workspace before changing a setting.
 3. Open the section for the setting you want to change.
 
-In the {VARS.FACTORY_WEB_APP}, admins can also open the account menu and click **Admin panel**. See [Opening the Admin Panel](/factories/managing-plans-and-billing/#opening-the-admin-panel) for the factory billing route.
+For workspace-wide configuration, use the [Enterprise Admin Panel guidance](/enterprise/team-management/admin-panel/).
 
 <figure style={{ maxWidth: "563px" }}>
 ![Admin Panel with AI, privacy, code, billing, and sharing settings](../../../assets/terminal/admin-panel-overview.png)
@@ -60,19 +59,11 @@ Test policies with an approved group before broader enforcement. Confirm the sel
 <span id="business-plans" />
 <span id="enterprise-plans" />
 
-A plan-locked setting shows "Configuring this setting is not available on your plan." Review [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) for the distinction between Terminal subscriptions and factory plans.
+A plan-locked setting shows "Configuring this setting is not available on your plan." Review [Warp Agent plans](/support-and-community/plans-and-billing/plans-pricing-refunds/#warp-agent-plans) for plan requirements.
 
 See [Managing admins](/knowledge-and-collaboration/roles-and-permissions/#managing-admins) for multiple-admin availability by product and plan.
 
-Warp Factories plan differences include:
-
-| Plan | Data controls and usage visibility |
-| --- | --- |
-| Start | Does not include Scale's shared data controls or per-user team usage reporting |
-| Scale | Admins control content collection, cloud conversation storage, and telemetry collection; admins see per-user team usage totals with unlimited history, while non-admins see only their own usage |
-| Enterprise | Adds enforced secret redaction, a control to restrict direct API inference to the US, and customer-hosted data storage; usage reporting includes per-user and cost-type breakdowns, including workspace platform usage |
-
-The direct API inference control is not a guarantee that all data stays in the US. For customer-hosted run data, see [Self-hosted data storage](/factories/self-hosting/data-storage/).
+For factory-plan data controls and usage visibility, use [Warp Factories team administration](/factories/teams-and-admin-controls/#shared-settings-and-usage).
 
 ## Admin Panel sections
 
@@ -156,9 +147,7 @@ Self-serve customers must review their selected models and overrides using the [
 
 On **Billing**, review usage and the controls available for your plan. Self-serve [spend limits and auto-reload](/support-and-community/plans-and-billing/add-on-credits/) control additional purchases. Enterprise [pools and spending controls](/enterprise/support-and-resources/billing/) follow the contract.
 
-Enterprise supports monthly workspace, team, and per-user spend caps, separate local and cloud spending limits, and usage alerts.
-
-For browser-based factory funding, upgrade, and payment routes, use [Managing factory plans and billing](/factories/managing-plans-and-billing/).
+For workspace-wide spending authority and caps, use [Enterprise billing](/enterprise/support-and-resources/billing/).
 
 ### Sharing settings
 
@@ -171,19 +160,7 @@ See [Warp Drive sharing](/knowledge-and-collaboration/warp-drive/) before changi
 
 ### Platform settings
 
-Configure shared cloud-agent settings for the selected team.
-
-* **Agent artifact attachments** - Choose **Disabled**, **Link only**, or **Embed** for screenshots and videos. See [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/) for the security implications.
-* **Enabled GitHub Orgs** - Associates a team with GitHub App installations for the supported standalone cloud-agent workflows.
-
-In the Admin Panel, open **Platform**. Under **Enabled GitHub Orgs**, select the team's organizations.
-
-<figure style={{ maxWidth: "563px" }}>
-![Enabled GitHub Orgs setting in the Admin Panel Platform section](../../../assets/agent-platform/admin-panel-enabled-github-orgs.png)
-<figcaption>The Platform section includes team GitHub authorization.</figcaption>
-</figure>
-
-Repository access comes from the GitHub App installation's selection in [GitHub settings](https://github.com/settings/installations). Personal API key, agent API key, and integration-triggered runs use different identities. See [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) rather than applying one identity rule to every workflow.
+For shared cloud-agent controls, including **Enabled GitHub Orgs** and **Agent artifact attachments**, use [shared controls for standalone agents](/platform/teams-and-admin-controls/#configuring-shared-controls). Those controls are separate from Terminal collaboration settings.
 
 ## Multi-admin functionality
 
@@ -222,5 +199,5 @@ For access problems, contact [support@warp.dev](mailto:support@warp.dev) or your
 * [Managing team membership](/knowledge-and-collaboration/teams/)
 * [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/)
 * [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
-* [Managing factory plans and billing](/factories/managing-plans-and-billing/)
+* [Admin Panel for Enterprise workspaces](/enterprise/team-management/admin-panel/)
 * [Getting started for admins](/enterprise/getting-started/getting-started-enterprise/) - Configure Enterprise SSO, membership, and policies

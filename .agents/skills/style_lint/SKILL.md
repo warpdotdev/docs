@@ -55,7 +55,7 @@ python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 
 ### Terminology checks
 
-- **Product name casing**: "Warp Terminal" (→ "Warp"), "agent mode" (→ "Agent Mode"), "warp drive" (→ "Warp Drive"), "codebase context" (→ "Codebase Context"), "agent management panel" (→ "Agent Management Panel")
+- **Product name casing**: "agent mode" (→ "Agent Mode"), "warp drive" (→ "Warp Drive"), "codebase context" (→ "Codebase Context"), "agent management panel" (→ "Agent Management Panel"). "Warp Terminal" names the terminal experience; "Warp Agent plans" names the subscription family.
 - **Oz terms to avoid**: "agent identity", "agent identities", "Oz agent", "Oz cloud agent", "Oz subagent", "Oz conversation", "Ozzies", "Deploying an Oz", "The Oz Agent", "Oz is running", "AI agents"
 - **Deprecated terminology**: "whitelist" (→ "allowlist"), "blacklist"/"blocklist" (→ "denylist")
 - **External product names**: "Github" (→ "GitHub"), "github actions" (→ "GitHub Actions"), "MacOS" (→ "macOS"), "A.I." (→ "AI")

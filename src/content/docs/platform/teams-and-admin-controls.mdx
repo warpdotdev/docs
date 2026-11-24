@@ -1,0 +1,91 @@
+---
+title: Managing teams and admin controls on the {{WARP_AUTOMATION_PLATFORM}}
+description: >-
+  Manage {{WARP_AUTOMATION_PLATFORM}} team access, identify the right admin, and configure shared settings for standalone cloud-agent workflows.
+sidebar:
+  label: Teams and admin controls
+---
+import { VARS } from '@data/vars';
+
+A Warp team groups people and resources so you can manage membership, access, and settings together. Team members can share factories, environments, secrets, and Warp Drive content. Teams are available on self-serve and Enterprise plans.
+
+On the {VARS.WARP_AUTOMATION_PLATFORM}, teams share configuration for agent workflows. For example, a team can use a shared environment and team-owned secrets for a scheduled repository check instead of relying on one developer's personal credentials.
+
+Individual users can also start standalone cloud runs without a team. Membership, plan access, funding, and external authorization are separate requirements. Check [cloud run access and billing](/platform/team-access-billing-and-identity/) before configuring a workflow. For factory membership and controls, use [Warp Factories team administration](/factories/teams-and-admin-controls/).
+
+## Team roles and administrative scope
+
+A role defines what you can access and which actions you can take in Warp. Your effective permissions also depend on your plan, memberships, and applicable policies.
+
+* **Team owner** - Owns a self-serve team and can transfer ownership. Each self-serve team has one owner.
+* **Team admin** - Manages the team's membership and configurable settings. Additional admins depend on the plan and are not Enterprise-only.
+* **Member** - Uses shared resources within the applicable policies. Membership alone does not grant administration.
+
+Warp Agent plans support additional admins on Build, Max, Business, and Enterprise, but not standard Free. This does not establish factory-plan entitlements. See [plans and pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/) for the separate plan families.
+
+{/* VERIFY: Confirm legacy Warp Agent subscriptions and customer-facing treatment of account-specific admin entitlements before merge. */}
+
+An Enterprise workspace groups one or more teams under one account. Workspace owners and admins administer all of its teams; a team admin administers only their team. Workspace policies can lock team settings. See [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/).
+
+Cloud agent accounts are execution accounts for automations, not human team roles. Creating or selecting one does not promote a teammate. See [Cloud agent accounts](/platform/agents/) for their configuration and API keys.
+
+## Joining a team
+
+Ask a team owner or admin for an invitation. Open the invitation link in a browser, sign in with the invited account, and check the team name before clicking **Join team**. Complete domain verification if requested.
+
+For email invitations, use the invited email address and ask an admin to replace an expired invitation. Enterprise workspace membership does not automatically join every team; follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
+
+## Managing membership and admins
+
+Team owners and admins use the browser-based [Warp Admin Panel](https://app.warp.dev/admin/). Members who cannot open it should ask the person who invited them or a known admin for help. If no admin can be identified, [contact support](mailto:support@warp.dev).
+
+Before inviting someone to a paid per-seat Warp Agent plan, review [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members). Adding an active member adds a prorated seat charge; Enterprise terms follow the contract.
+
+1. Open the Admin Panel, confirm the intended team, and click **Teams**.
+2. Under **Invite by Email**, enter the addresses and click **Send**. Confirm they appear as pending invitations.
+3. To share a link instead, enable **Invite by Link** if needed. Copy the link and share it securely.
+
+Use "Restrict by domain" to limit a self-serve invite link to approved domains. Enter a domain, click **Add**, and confirm it appears in the list. People outside those domains must verify an allowed address before joining.
+
+On a plan supporting additional admins, open the member's three-dots menu and click **Promote to team admin** or **Demote team admin**. Complete any confirmation and verify the updated role. If the member list uses an editable role column, choose **Team Admin** to promote the member instead.
+
+{/* VERIFY: Exercise the member-menu and editable-role-column paths in the production Admin Panel, including demotion and confirmation behavior. */}
+
+Only the current self-serve owner can transfer ownership. In the team's member list, use **Transfer ownership**, or choose **Owner** in an editable role column. Confirm with **Transfer**. The previous owner becomes a Member; adding another admin does not transfer ownership. If the new owner's email is not on a work domain, Warp disables team discoverability.
+
+For Enterprise team creation, removals, and workspace-wide role changes, use [Managing Enterprise teams](/enterprise/team-management/teams/) and [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/).
+
+## Configuring shared controls
+
+In the Admin Panel, confirm the team or workspace before opening the relevant section. The plan determines which controls are available; workspace policies can restrict team admins.
+
+### GitHub authorization
+
+Under **Platform**, **Enabled GitHub Orgs** associates the team with GitHub App installations for supported standalone workflows. The app installation's repository selection is configured in GitHub, not by team membership alone.
+
+Follow [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) for setup. Personal API keys, agent API keys, and integration-triggered runs use different identities. Do not apply one run's repository-access or billing rule to every trigger.
+
+### Shared credentials and models
+
+Use [team secrets](/platform/secrets/#team-secrets) for standalone workflows that must not depend on an individual's secret. A secret's ownership and the run's configured secret grants are separate.
+
+Use **Models** for [team-managed provider keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on eligible plans. Shared credentials are not a model restriction. Enterprise [model policies](/enterprise/team-management/admin-panel/#models-settings) govern enforced model availability.
+
+### Artifacts and privacy
+
+Under **Platform**, **Agent artifact attachments** controls whether agents share captured screenshots and videos as links or embeds. Choose **Disabled**, **Link only**, or **Embed** after reviewing the [sharing and security implications](/agents/capabilities/computer-use/artifacts-in-prs/).
+
+For organization-level content collection, provider retention, and storage distinctions, use the [Enterprise Admin Panel privacy guidance](/enterprise/team-management/admin-panel/#privacy-settings) and [Privacy and data control](/support-and-community/privacy-and-security/privacy/). Disabling personal Terminal conversation sync does not disable cloud-run storage.
+
+## Usage and run visibility
+
+Use [cloud run access and billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) to determine the user or team billed for a standalone run. Schedules and agent API keys can draw from different balances. Check the balance for the billed account rather than assuming all team workflows use one personal allowance.
+
+Use the [cloud agent management surfaces](/platform/managing-cloud-agents/) to inspect runs. Enterprise workspace admins can manage team-owned runs across teams; that authority does not automatically grant access to personally owned runs. See [workspace run visibility](/enterprise/team-management/workspaces/#cloud-agent-run-visibility).
+
+## Related pages
+
+* [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/)
+* [Cloud agent accounts](/platform/agents/)
+* [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/)
+* [Admin Panel for Enterprise workspaces](/enterprise/team-management/admin-panel/)

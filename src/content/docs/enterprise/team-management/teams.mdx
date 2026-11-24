@@ -1,0 +1,83 @@
+---
+title: Managing Enterprise teams
+description: >-
+  Organize teams inside a Warp Enterprise workspace, manage invitations and visibility, and distinguish team membership from workspace access.
+sidebar:
+  label: Teams
+---
+
+A Warp team groups people and resources so you can manage membership, access, and settings together. Team members can share factories, environments, secrets, and Warp Drive content. Teams are available on self-serve and Enterprise plans.
+
+In Enterprise, a workspace groups one or more teams under a single account. Workspace admins manage membership, billing, and company-wide policies across those teams. Team admins manage their own teams within those policies.
+
+For example, a workspace member can administer the Engineering team without receiving workspace billing authority. See [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/).
+
+<span id="teams-and-workspaces" />
+<span id="what-is-a-team" />
+
+## Creating teams and choosing visibility
+
+<span id="creating-a-team" />
+
+Workspace admins create teams in the browser-based [Warp Admin Panel](https://app.warp.dev/admin/). Confirm the selected workspace before creating a team.
+
+Choose the visibility that matches how colleagues should join:
+
+* **Open** - Workspace members can discover the team and join it.
+* **Hidden** - The team does not appear in discovery; an admin adds members directly.
+
+Workspace admins can administer every team, including teams they do not personally belong to. Newly created Enterprise teams do not require a team owner; ownership belongs to the workspace.
+
+See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
+
+## Inviting and joining members
+
+<span id="warp-terminal-and-local-agent-subscriptions" />
+<span id="warp-factories-subscriptions" />
+
+<span id="inviting-new-team-members" />
+<span id="inviting-team-members" />
+<span id="restricting-team-invites-by-domain" />
+<span id="joining-a-team" />
+<span id="team-discoverability" />
+
+Membership charges and usage funding follow your [Enterprise agreement](/enterprise/support-and-resources/billing/). Review those terms before inviting colleagues.
+
+Workspace admins use workspace invitations to add people to the account and let them choose an Open team. A team invitation can add someone to an Open team and its workspace. Use email invitations to add people directly, including to Hidden teams. Domain capture and SSO are workspace-level controls, not settings for an individual team.
+
+Follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team) for invitation types and discovery. Workspace membership alone does not make someone a member of every team. An unassigned user belongs to the workspace but cannot start cloud-agent or factory runs until they join a team.
+
+## Managing team access
+
+<span id="permissions-overview" />
+<span id="team-roles-and-permissions" />
+<span id="multi-admin-support" />
+<span id="promoting-or-demoting-admins" />
+
+Workspace admins can assign team admins across the workspace. Team admins can add admins for their own team. Follow [Changing team admins](/enterprise/team-management/roles-and-permissions/#changing-team-admins).
+
+Team membership does not determine factory configuration access by itself. Factory roles and inherited Admin access are covered by [Managing factory permissions](/factories/permissions/).
+
+## Removing members and transferring ownership
+
+<span id="purchased-usage-when-membership-changes" />
+
+<span id="leaving-and-deleting-teams" />
+<span id="transferring-team-admin" />
+<span id="transferring-team-ownership" />
+<span id="add-on-credit-consequences-when-leaving-or-removing-members" />
+
+In the Admin Panel, confirm whether you intend to remove someone from one team or from the entire workspace. Removing a workspace member also removes them from every team in it. Members cannot leave an Enterprise workspace themselves; a workspace admin removes them.
+
+Only the workspace owner can transfer workspace ownership. The previous owner becomes an Admin, and existing team roles do not change. Follow [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles), rather than the self-serve team-ownership procedure.
+
+Purchased team usage remains tied to its team when membership changes. Enterprise pools and allocation changes follow the [billing agreement](/enterprise/support-and-resources/billing/).
+
+<span id="related-resources" />
+
+## Related pages
+
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/)
+* [Admin Panel for Enterprise workspaces](/enterprise/team-management/admin-panel/)
+* [Enterprise billing](/enterprise/support-and-resources/billing/)

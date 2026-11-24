@@ -230,7 +230,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'knowledge-and-collaboration/warp-drive/agent-mode-context', label: 'Agent Mode context' },
 							],
 						},
-						{ slug: 'knowledge-and-collaboration/teams', label: 'Team management' },
+						{ slug: 'knowledge-and-collaboration/teams', label: 'Teams and admin controls' },
 						{ slug: 'knowledge-and-collaboration/roles-and-permissions', label: 'Roles & permissions' },
 						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Admin Panel' },
 						{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session sharing' },
@@ -580,7 +580,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Plans & support',
 					items: [
-						{ label: 'Team management', link: '/knowledge-and-collaboration/teams/' },
+						{ slug: 'factories/teams-and-admin-controls', label: 'Teams and admin controls' },
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
@@ -697,7 +697,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'platform/handoff/snapshots', label: 'Snapshots' },
 							],
 						},
-						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
+						{ slug: 'platform/team-access-billing-and-identity', label: 'Cloud run access and billing' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 					],
@@ -759,6 +759,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
+					],
+				},
+				{
+					label: 'Teams and administration',
+					items: [
+						{ slug: 'platform/teams-and-admin-controls', label: 'Teams and admin controls' },
 					],
 				},
 			],
@@ -863,9 +869,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Team management',
 					items: [
 						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
-						{ label: 'Team management', link: '/knowledge-and-collaboration/teams/' },
-						{ label: 'Admin Panel', link: '/knowledge-and-collaboration/admin-panel/' },
-						{ label: 'Roles & permissions', link: '/knowledge-and-collaboration/roles-and-permissions/' },
+						{ slug: 'enterprise/team-management/teams', label: 'Teams' },
+						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin Panel' },
+						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles & permissions' },
 					],
 				},
 				{

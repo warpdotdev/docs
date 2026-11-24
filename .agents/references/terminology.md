@@ -41,7 +41,7 @@ Naming and formatting reviewed November 10, 2026 against `AGENTS.md` and the app
   *Usage note:* Use lowercase when contrasting with Agent Mode.
 
 - **Warp** — The agentic development environment for professional developers, built around a modern terminal and AI agents.
-  *Usage note:* Use "Warp" as the product name. Add "AI terminal" only when you need the positioning shorthand. Do not use "Warp Terminal" unless specifically distinguishing from the Automation Platform.
+  *Usage note:* Use "Warp" for the overall offering, "Warp Terminal" for the terminal experience, "the Warp Agent" for the built-in agent, and "Warp Agent plans" for the subscription family.
 
 ## Navigation and UI terms
 
@@ -164,6 +164,8 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 ## Team and workspace terms
 
 Naming and role definitions reviewed November 19, 2026 against the team/workspace review supplied by the docs maintainer and Admin Panel source. HYC and Isaiah confirmed team-first self-serve terminology and the single-owner distinction; Jason confirmed standard factory-plan roles; Eugene confirmed factory-role definitions. This is not a live-account test or a review of unrelated glossary sections. Plan conditions and action-specific permissions belong in the linked references, not a second entitlement matrix here.
+
+Documentation placement reviewed November 24, 2026 with HYC's feedback and docs-maintainer approval: keep shared definitions here, with product-specific guidance for [Warp Terminal](/knowledge-and-collaboration/teams/), [the Automation Platform](/platform/teams-and-admin-controls/), [Warp Factories](/factories/teams-and-admin-controls/), and [Enterprise administration](/enterprise/team-management/admin-panel/). This placement update does not create separate kinds of Warp teams or change role permissions.
 
 - **role** — A role defines what you can access and which actions you can take in Warp.
   *Usage note:* In team, workspace, and factory access guidance, describe roles in terms of both access and actions, not only administration. A person can have different roles at each scope. Effective permissions also depend on the plan, memberships, and applicable policies. Keep human access roles distinct from agent roles and agent execution permissions. See [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/).
@@ -482,9 +484,11 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
-- **Warp Terminal plans** — Plans covering terminal features and local agent usage. "Agent plans" does not name a separate plan family.
-- **Warp Factories plans** — Plans for factory workflows, separate from Warp Terminal plans.
-- **Product-qualified plans** — Name the product whenever discussing eligibility, funding, upgrades, or membership charges. Use “the Build plan for Warp Terminal” and “the Scale plan for Warp Factories,” not “Warp Factories Scale.” Keep each product's plans in separate sections or table columns; never blend names such as “Business, Scale, and Enterprise” into one list. A clearly named product heading can establish scope for the plan names beneath it. Qualify Enterprise terms by product or contract, too. Keep local versus cloud eligibility and billing explicit; shortening the plan name does not change those rules.
+Plan-family naming reviewed November 24, 2026 against HYC's PR #1067 review and the pricing page, with docs-maintainer approval. This naming update does not change eligibility or funding rules.
+
+- **Warp Agent plans** — The Free, Build, Max, Business, and Enterprise plan family for agent usage and included product features. Keep local versus cloud eligibility explicit; factory plans are separate.
+- **Warp Factories plans** — Plans for factory workflows, separate from Warp Agent plans.
+- **Product-qualified plans** — Name the plan family whenever discussing eligibility, funding, upgrades, or membership charges. Use “the Build plan for Warp Agent” and “the Scale plan for Warp Factories,” not “Warp Factories Scale.” Keep each family's plans in separate sections or table columns; never blend names such as “Business, Scale, and Enterprise” into one list. A clearly named heading can establish scope for the plan names beneath it. Qualify Enterprise terms by product or contract, too. Keep local versus cloud eligibility and billing explicit; shortening the plan name does not change those rules.
 - **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
 - **usage balance** — usage available to the user or team billed for the work, subject to the applicable billing rules.
   *Usage note:* Use "add usage" for the action of funding the balance, with "if needed" when an existing allowance may cover the work. Do not imply that every workflow uses a shared team balance or requires a new purchase.
