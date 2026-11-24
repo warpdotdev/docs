@@ -1012,7 +1012,7 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
-- Use "Warp Agent plans" and "Warp Factories plans" and keep their billing flows separate. Use "Warp Terminal" for the terminal experience and "the Warp Agent" for the built-in agent. The plan-family name does not change local versus cloud eligibility or funding rules. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for eligibility and billing terminology.
+- Prefer named tiers such as "the Build plan" or "the Business and Enterprise plans" when the context is clear. Use "Warp Agent plans" and "Warp Factories plans" to establish scope or distinguish the two families, not as a qualifier on every reference. Keep their billing flows separate. Use "Warp Terminal" for the terminal experience and "the Warp Agent" for the built-in agent. Shortening a plan reference does not change local versus cloud eligibility or funding rules. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for eligibility and billing terminology.
 - **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. Explain the billing unit where it affects the reader's task, not in every paragraph. Name plans naturally: "Free," "Build," "Max," "Business," and "Enterprise," not "dollar-billed Free" or "self-serve dollar Max."
 - **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
 - **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
