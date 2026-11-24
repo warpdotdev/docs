@@ -107,7 +107,7 @@ Without a payload filter, an automation starts a run for every delivery from its
 }
 ```
 
-Use an operator object where an array isn't enough: `in` (the same as a bare array), `not_in`, and `exists`. Nest objects to reach nested fields. For the full matching rules, limits, and how filters behave on missing keys and arrays, see [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers).
+Use an operator object where an array isn't enough: `in` (the same as a bare array), `not_in`, `exists`, or `contains` for case-sensitive substring matching. Nest objects to reach nested fields. For the full matching rules, limits, and how filters behave on missing keys and arrays, see [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers).
 
 ## What the run receives
 
