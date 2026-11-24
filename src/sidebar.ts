@@ -580,8 +580,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Plans & support',
 					items: [
-						{ slug: 'factories/teams-and-admin-controls', label: 'Teams and admin controls' },
-						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
+						{ slug: 'factories/teams-and-admin-controls', label: 'Teams' },
+						{ slug: 'factories/managing-plans-and-billing', label: 'Plans' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
 						{ slug: 'support-and-community/plans-and-billing/pricing-faqs', label: 'Pricing FAQs' },
