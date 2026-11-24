@@ -95,7 +95,7 @@ After applying the definition, send a new matching event and inspect its stage a
 
 ## Payload filters for webhook triggers
 
-A webhook trigger's optional `payload` filter matches the delivery's JSON body. Each key names a field that must match; an array lists allowed values. Use nested objects for nested fields and `in`, `not_in`, or `exists` for explicit conditions.
+A webhook trigger's optional `payload` filter matches the delivery's JSON body. Each key names a field that must match; an array lists allowed values. Use nested objects for nested fields and `in`, `not_in`, `exists`, or `contains` for explicit conditions.
 
 This trigger starts a run for opened or reopened pull requests from a GitHub webhook, skipping drafts and bot authors:
 
@@ -121,10 +121,19 @@ Replace `WEBHOOK_UID` with the webhook's UID. For selecting webhooks and testing
 * **Values match by type** - Strings match exactly and case-sensitively, numbers match numerically (`1` equals `1.0`), and booleans and `null` are matchable values.
 * **Missing keys** - A missing key fails `in` and passes `not_in`. For example, `{"env": {"not_in": ["dev"]}}` matches a delivery with no `env` field. A nested pattern object requires its key to be present.
 * **Arrays** - For an array of objects, a nested pattern matches if any element matches. For an array of scalars, `in` matches on any overlap and `not_in` requires none.
+* **Substring matching** - `contains` matches any listed case-sensitive, literal substring in a string or any string element of an array. Missing keys and non-string values don't match. Each substring must be a non-empty string.
 * **Combined operators** - Operators on the same field must all match. For example, combining `in` and `exists: true` requires both to hold.
 * **Limits** - A pattern nests up to 10 levels deep, holds up to 64 leaf fields, and lists up to 32 values per set.
-* **Validation** - Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in`.
+* **Validation** - Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in` or `contains`.
 * **Fail closed** - A filter that can't be evaluated never matches.
+
+For example, this `payload` filter matches `{"message": "upstream connection refused"}`, but not `{"message": "TIMEOUT"}`:
+
+```yaml
+payload:
+  message:
+    contains: [timeout, connection refused]
+```
 
 ## Troubleshooting
 
