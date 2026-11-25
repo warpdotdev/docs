@@ -81,6 +81,61 @@ export function buildWebMcpTools({ origin, fetch: fetchPage, loadPagefind }) {
 				return { url, markdown: await response.text() };
 			},
 		},
+		{
+			name: 'list_docs_pages',
+			description:
+				'Navigate the Warp documentation tree by listing page titles and URLs from the generated documentation catalog. Omit section to list all pages, or select a top-level section such as agents or factories.',
+			annotations: { readOnlyHint: true },
+			inputSchema: {
+				type: 'object',
+				properties: {
+					section: {
+						type: 'string',
+						minLength: 1,
+						description:
+							'Optional top-level documentation path segment, such as agents or factories. Must match a section present in the current documentation catalog.',
+					},
+				},
+				required: [],
+				additionalProperties: false,
+			},
+			async execute({ section } = {}) {
+				if (section !== undefined && (
+					typeof section !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(section)
+				)) {
+					throw new Error('Provide a top-level documentation section without slashes.');
+				}
+				const response = await fetchPage(new URL('/llms-small.txt', origin).href, {
+					redirect: 'error',
+					credentials: 'omit',
+				});
+				if (!response.ok) {
+					throw new Error(`Could not fetch the documentation catalog (${response.status}).`);
+				}
+				const catalog = await response.text();
+				// Generated page headers pair the title with its root-relative canonical path.
+				const headers = catalog.matchAll(
+					/^# ([^\n]+)\r?\n\r?\nCanonical page: \[(\/[^\]\s]*)\]\([^)]+\)\r?$/gm,
+				);
+				const pages = new Map();
+				for (const [, title, path] of headers) {
+					const url = new URL(path, origin);
+					if (url.origin === new URL(origin).origin) {
+						pages.set(url.href, { title: title.trim(), url: url.href });
+					}
+				}
+				if (!pages.size) throw new Error('The documentation catalog contains no page entries.');
+				const entries = [...pages.values()];
+				const sections = new Set(entries.map(({ url }) => new URL(url).pathname.split('/')[1]).filter(Boolean));
+				if (section !== undefined && !sections.has(section)) {
+					throw new Error(`Unknown documentation section. Choose one of: ${[...sections].join(', ')}.`);
+				}
+				return {
+					pages: entries.filter(({ url }) =>
+						section === undefined || new URL(url).pathname.split('/')[1] === section),
+				};
+			},
+		},
 	];
 }
 

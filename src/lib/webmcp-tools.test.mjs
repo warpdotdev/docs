@@ -43,13 +43,18 @@ test('builds documented, read-only tools and limits hydrated Pagefind results to
 		},
 	});
 	assert.equal(loaded, 0);
-	assert.deepEqual(tools.map((tool) => tool.name), ['search_docs_pages', 'get_page_markdown']);
+	assert.deepEqual(tools.map((tool) => tool.name), [
+		'search_docs_pages', 'get_page_markdown', 'list_docs_pages',
+	]);
 	for (const tool of tools) {
 		assert.ok(tool.description);
 		assert.deepEqual(tool.annotations, { readOnlyHint: true });
 		assert.equal(tool.inputSchema.type, 'object');
 		assert.equal(tool.inputSchema.additionalProperties, false);
-		assert.deepEqual(tool.inputSchema.required, Object.keys(tool.inputSchema.properties));
+		assert.deepEqual(
+			tool.inputSchema.required,
+			tool.name === 'list_docs_pages' ? [] : Object.keys(tool.inputSchema.properties),
+		);
 		for (const parameter of Object.values(tool.inputSchema.properties)) {
 			assert.equal(parameter.type, 'string');
 			assert.ok(parameter.description);
@@ -139,13 +144,13 @@ test('registers with document first, executes with mocked fetch, and cleans up o
 		registerTool() { assert.fail('document.modelContext takes precedence'); },
 	});
 	const cleanup = registerWebMcpTools();
-	assert.equal(registered.length, 2);
+	assert.equal(registered.length, 3);
 	assert.deepEqual(await registered[1].tool.execute({ path: '/' }), {
 		url: `${origin}/index.md`, markdown: '# Home',
 	});
 	cleanup();
 	cleanup();
-	assert.deepEqual(removed, ['search_docs_pages', 'get_page_markdown']);
+	assert.deepEqual(removed, ['search_docs_pages', 'get_page_markdown', 'list_docs_pages']);
 	assert.ok(registered.every(({ options }) => options.signal.aborted));
 });
 
@@ -157,7 +162,48 @@ test('falls back to navigator and no-ops when the API is unavailable', (t) => {
 		registerTool(tool) { names.push(tool.name); },
 	});
 	registerWebMcpTools()();
-	assert.deepEqual(names, ['search_docs_pages', 'get_page_markdown']);
+	assert.deepEqual(names, ['search_docs_pages', 'get_page_markdown', 'list_docs_pages']);
 	Object.defineProperty(globalThis.navigator, 'modelContext', { configurable: true, value: undefined });
 	assert.doesNotThrow(() => registerWebMcpTools()());
+});
+
+test('lists generated titles and same-origin page URLs, with optional exact section filtering', async () => {
+	const catalog = [
+		'# Warp overview\n\nCanonical page: [/](https://docs.warp.dev/)',
+		'# Skills for agents\n\nCanonical page: [/agents/skills/](https://docs.warp.dev/agents/skills/)',
+		'# Factory agents\n\nCanonical page: [/factories/agents/](https://docs.warp.dev/factories/agents/)',
+		'# Other agents\n\nCanonical page: [/agents-extra/](https://docs.warp.dev/agents-extra/)',
+		'# External\n\nCanonical page: [//evil.example/](https://evil.example/)',
+		'# Sidebar heading without a canonical page',
+	].join('\n\n');
+	const previewOrigin = 'https://preview.example';
+	const [, , list] = buildWebMcpTools({
+		origin: previewOrigin,
+		fetch: async (url, options) => {
+			assert.equal(url, `${previewOrigin}/llms-small.txt`);
+			assert.deepEqual(options, { redirect: 'error', credentials: 'omit' });
+			return { ok: true, text: async () => catalog };
+		},
+	});
+	assert.deepEqual(await list.execute({ section: 'agents' }), {
+		pages: [{ title: 'Skills for agents', url: `${previewOrigin}/agents/skills/` }],
+	});
+	const { pages } = await list.execute();
+	assert.equal(pages.length, 4);
+	assert.deepEqual(pages[0], { title: 'Warp overview', url: `${previewOrigin}/` });
+	await assert.rejects(list.execute({ section: 'unknown' }), /Unknown documentation section/);
+	await assert.rejects(list.execute({ section: '../agents' }), /without slashes/);
+});
+
+test('reports catalog HTTP failures and unexpected catalog format', async () => {
+	const [, , unavailable] = buildWebMcpTools({
+		origin,
+		fetch: async () => ({ ok: false, status: 503 }),
+	});
+	await assert.rejects(unavailable.execute(), /\(503\)/);
+	const [, , invalid] = buildWebMcpTools({
+		origin,
+		fetch: async () => ({ ok: true, text: async () => '<html>Not a catalog</html>' }),
+	});
+	await assert.rejects(invalid.execute(), /no page entries/);
 });
