@@ -97,7 +97,6 @@ test('fetches Markdown twins, normalizes trailing slashes, and handles the homep
 		['/', '/index.md'],
 		['/agents/capabilities/skills/', '/agents/capabilities/skills.md'],
 		['/agents/capabilities/skills', '/agents/capabilities/skills.md'],
-		['/agents///', '/agents.md'],
 	]) {
 		assert.deepEqual(await markdown.execute({ path }), {
 			url: `${origin}${twin}`,
@@ -206,4 +205,42 @@ test('reports catalog HTTP failures and unexpected catalog format', async () => 
 		fetch: async () => ({ ok: true, text: async () => '<html>Not a catalog</html>' }),
 	});
 	await assert.rejects(invalid.execute(), /no page entries/);
+});
+
+test('rejects decoded dot segments and unsafe path encodings before fetching', async () => {
+	let calls = 0;
+	const [, markdown] = buildWebMcpTools({
+		origin,
+		fetch: async () => {
+			calls++;
+			return { ok: true, text: async () => '# Must not be fetched' };
+		},
+	});
+	for (const path of [
+		'/agents/../../private/', '/%2e%2e/private/', '/%2E%2E/private/',
+		'/agents/./skills/', '/agents/%2e/skills/', '/agents/.%2e/private/',
+		'/agents/%2e./private/', '/agents/%252e%252e/private/',
+		'/agents//skills/', '/agents///', '/agents%2fskills/', '/agents%5cskills/',
+		'/agents/%00skills/', '/agents/%', '/agents/%GG/',
+		'//evil.example/private/', '/\\evil.example/private/', 'https://docs.warp.dev/private/',
+	]) {
+		await assert.rejects(markdown.execute({ path }), /root-relative/);
+	}
+	assert.equal(calls, 0);
+});
+
+test('rejects unsafe section syntax before fetching the catalog', async () => {
+	let calls = 0;
+	const [, , list] = buildWebMcpTools({
+		origin,
+		fetch: async () => { calls++; throw new Error('Must not fetch'); },
+	});
+	for (const section of [
+		'.', '..', '%2e%2e', '%2E', 'agents/../factories', '//agents',
+		'https://evil.example', '\\agents', 'agents%2ffactories', 'agents%5c',
+		'', null, 42,
+	]) {
+		await assert.rejects(list.execute({ section }), /top-level documentation section/);
+	}
+	assert.equal(calls, 0);
 });

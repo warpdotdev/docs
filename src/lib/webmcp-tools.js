@@ -59,14 +59,23 @@ export function buildWebMcpTools({ origin, fetch: fetchPage, loadPagefind }) {
 				additionalProperties: false,
 			},
 			async execute({ path }) {
+				const invalidPathMessage =
+					'Provide a root-relative documentation path without dot segments, queries, or fragments.';
+				let decodedPath;
+				try {
+					decodedPath = typeof path === 'string' ? decodeURIComponent(path) : '';
+				} catch {
+					throw new Error(invalidPathMessage);
+				}
 				if (
 					typeof path !== 'string' ||
-					!path.startsWith('/') ||
-					path.startsWith('//') ||
-					/[\\?#\s]/.test(path) ||
-					/%(?:2f|5c|00|0a|0d)/i.test(path)
+					!decodedPath.startsWith('/') ||
+					decodedPath.includes('//') ||
+					/[\\?#%\s\u0000-\u001f\u007f]/.test(decodedPath) ||
+					/%(?:2f|5c)/i.test(path) ||
+					decodedPath.split('/').some((segment) => segment === '.' || segment === '..')
 				) {
-					throw new Error('Provide a root-relative documentation path without a query or fragment.');
+					throw new Error(invalidPathMessage);
 				}
 				const page = new URL(path, origin);
 				if (page.origin !== new URL(origin).origin) {
