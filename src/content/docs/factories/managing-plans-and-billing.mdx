@@ -20,6 +20,32 @@ Factory runs use shared team or workspace funding, not a member's included perso
 
 On the Scale plan for Warp Factories, "Included team usage" shows the remaining monthly allowance. An "Included personal usage" balance does not fund factory runs. Enterprise balances and spending controls follow your contract.
 
+## Inference for factory workers
+
+Factory cloud workers do not use a personal ChatGPT, Claude.ai, or Codex
+*subscription* sign-in the way a local CLI might. Fund inference one of these
+ways:
+
+* **Warp-hosted models** - Select a Warp model on the worker. Usage draws
+  from the team's shared factory balance for Warp-provided inference, plus
+  compute and platform charges when they apply.
+* **Team-managed keys and endpoints** - Configure provider credentials in the
+  Admin Panel, then select those models on the
+  [Warp Agent harness](/factories/factory-as-code/#custom-inference-endpoints-and-byok).
+  Your provider bills API usage; Warp still charges platform usage and any
+  Warp-hosted compute.
+* **Third-party harness auth secrets** - Claude Code, Codex, and Pi
+  authenticate with
+  [team-owned API credentials](/factories/harnesses/authentication/), not a
+  ChatGPT or Claude consumer subscription. The provider bills that API
+  account.
+
+Personal [Bring Your Own Key](/agents/inference/bring-your-own-api-key/)
+settings saved only on a device are not available to factory cloud runs.
+Creating or configuring a factory can consume shared usage for setup and
+early runs even before you open a pull request. Check **Billing and usage**
+after first setup if the balance drops unexpectedly.
+
 ## Upgrading your factory plan
 
 Upgrade to the Scale plan for Warp Factories when you need shared monthly usage, third-party harnesses, team-managed inference, or a factory definition in your own repository.
