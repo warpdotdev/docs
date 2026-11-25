@@ -138,6 +138,16 @@ These high-traffic gaps now have verified public prose:
 - Empty/failed runs, GitHub setup/resume, continue after finish →
   `/factories/troubleshooting/`
 
+## Page feedback + Kapa improvement loop
+
+Every docs page footer can record thumbs via RudderStack
+`docs_page_feedback` (and Vercel `DocsPageFeedback`). Treat downvotes the
+same way as Kapa uncertain threads: group by `page_path`, read optional
+comments, then fix the owning page and note the change here.
+
+Full event contract and query notes:
+`.agents/references/docs-page-feedback.md`.
+
 ## Answering customer and SE questions
 
 - Lead with the shipped behavior and the canonical docs link.

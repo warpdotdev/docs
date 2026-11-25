@@ -179,6 +179,8 @@ Recurring Kapa / support themes. Start on the listed owners, then verify:
 
 - `.agents/references/factories-accuracy.md` — source order, page map,
   high-risk claims
+- `.agents/references/docs-page-feedback.md` — footer thumbs events and
+  Kapa/feedback rollups
 - `.agents/references/terminology.md` — glossary
 - `.agents/references/compliance-claims-policy.md` — compliance claims
 - `missing_docs` — coverage gaps against code and OpenAPI

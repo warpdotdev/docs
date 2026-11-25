@@ -1,0 +1,308 @@
+---
+/**
+ * Footer "Was this page helpful?" control.
+ *
+ * Storage strategy (intentionally not a database):
+ * - Primary: RudderStack `docs_page_feedback` track event, same pipeline as
+ *   `docs_404` (stg_website_events → Metabase). Agents and SE can query
+ *   downvoted paths the same way as broken URLs.
+ * - Secondary: Vercel Web Analytics custom event `DocsPageFeedback` when
+ *   `@vercel/analytics` is loaded (`window.va`). Good for the Vercel
+ *   dashboard; Pro/Enterprise required for custom events.
+ *
+ * Do not rename the RudderStack event or drop `page_path` / `vote` without
+ * updating `.agents/references/factories-accuracy.md` and any monitor that
+ * rolls feedback into docs improvements.
+ */
+interface Props {
+  /** Absolute page URL for analytics properties. */
+  pageUrl: string;
+  class?: string;
+}
+
+const { pageUrl, class: className } = Astro.props;
+const pagePath = (() => {
+  try {
+    return new URL(pageUrl).pathname;
+  } catch {
+    return pageUrl;
+  }
+})();
+---
+
+<div
+  class:list={['page-helpfulness', className]}
+  data-page-path={pagePath}
+  data-page-url={pageUrl}
+>
+  <div class="page-helpfulness__prompt" data-state="prompt">
+    <span class="page-helpfulness__label" id="page-helpfulness-label"
+      >Was this page helpful?</span
+    >
+    <div
+      class="page-helpfulness__actions"
+      role="group"
+      aria-labelledby="page-helpfulness-label"
+    >
+      <button
+        type="button"
+        class="page-helpfulness__btn"
+        data-vote="up"
+        aria-label="Yes, this page was helpful"
+      >
+        <span aria-hidden="true">👍</span>
+        <span class="page-helpfulness__btn-text">Yes</span>
+      </button>
+      <button
+        type="button"
+        class="page-helpfulness__btn"
+        data-vote="down"
+        aria-label="No, this page was not helpful"
+      >
+        <span aria-hidden="true">👎</span>
+        <span class="page-helpfulness__btn-text">No</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="page-helpfulness__thanks" data-state="thanks" hidden>
+    <p class="page-helpfulness__thanks-text">Thanks for the feedback.</p>
+  </div>
+
+  <form class="page-helpfulness__comment" data-state="comment" hidden>
+    <label class="page-helpfulness__comment-label" for="page-helpfulness-comment"
+      >What was missing or wrong? (optional)</label
+    >
+    <textarea
+      id="page-helpfulness-comment"
+      name="comment"
+      class="page-helpfulness__textarea"
+      maxlength="500"
+      rows="3"
+      placeholder="A short note helps us fix the page faster."
+    ></textarea>
+    <div class="page-helpfulness__comment-actions">
+      <button type="submit" class="page-helpfulness__btn page-helpfulness__btn--primary">
+        Send
+      </button>
+      <button type="button" class="page-helpfulness__btn" data-skip>
+        Skip
+      </button>
+    </div>
+  </form>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_PREFIX = 'docs-page-feedback:';
+    var roots = document.querySelectorAll('.page-helpfulness');
+    if (!roots.length) return;
+
+    function storageKey(path) {
+      return STORAGE_PREFIX + path;
+    }
+
+    function trackFeedback(props) {
+      var payload = {
+        page_path: props.page_path,
+        page_url: props.page_url,
+        vote: props.vote,
+        comment: props.comment || '',
+        referrer: document.referrer || '',
+      };
+
+      // RudderStack — primary store for agent/Metabase rollups.
+      if (window.rudderanalytics && typeof window.rudderanalytics.track === 'function') {
+        window.rudderanalytics.track('docs_page_feedback', payload);
+      }
+
+      // Vercel Web Analytics custom events (Pro/Enterprise).
+      if (typeof window.va === 'function') {
+        window.va('event', {
+          name: 'DocsPageFeedback',
+          data: {
+            pagePath: props.page_path,
+            vote: props.vote,
+            hasComment: props.comment ? 'true' : 'false',
+          },
+        });
+      }
+    }
+
+    function show(el) {
+      if (el) el.hidden = false;
+    }
+
+    function hide(el) {
+      if (el) el.hidden = true;
+    }
+
+    roots.forEach(function (root) {
+      var path = root.getAttribute('data-page-path') || window.location.pathname;
+      var url =
+        root.getAttribute('data-page-url') ||
+        window.location.origin + window.location.pathname;
+      var prompt = root.querySelector('[data-state="prompt"]');
+      var thanks = root.querySelector('[data-state="thanks"]');
+      var commentForm = root.querySelector('[data-state="comment"]');
+      var textarea = root.querySelector('textarea');
+      var pendingVote = null;
+
+      try {
+        if (window.localStorage && localStorage.getItem(storageKey(path))) {
+          hide(prompt);
+          hide(commentForm);
+          show(thanks);
+          return;
+        }
+      } catch (_e) {
+        // Private mode / blocked storage — still allow one-shot feedback.
+      }
+
+      function finish(vote, comment) {
+        trackFeedback({
+          page_path: path,
+          page_url: url,
+          vote: vote,
+          comment: comment || '',
+        });
+        try {
+          if (window.localStorage) {
+            localStorage.setItem(storageKey(path), vote);
+          }
+        } catch (_e) {}
+        hide(prompt);
+        hide(commentForm);
+        show(thanks);
+      }
+
+      root.querySelectorAll('[data-vote]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var vote = btn.getAttribute('data-vote');
+          if (!vote) return;
+          if (vote === 'down') {
+            pendingVote = 'down';
+            hide(prompt);
+            show(commentForm);
+            if (textarea) textarea.focus();
+            return;
+          }
+          finish('up', '');
+        });
+      });
+
+      if (commentForm) {
+        commentForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var text = textarea && textarea.value ? textarea.value.trim() : '';
+          finish(pendingVote || 'down', text.slice(0, 500));
+        });
+        var skip = commentForm.querySelector('[data-skip]');
+        if (skip) {
+          skip.addEventListener('click', function () {
+            finish(pendingVote || 'down', '');
+          });
+        }
+      }
+    });
+  })();
+</script>
+
+<style>
+  @layer starlight.core {
+    .page-helpfulness {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .page-helpfulness__prompt {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1rem;
+    }
+
+    .page-helpfulness__label,
+    .page-helpfulness__thanks-text,
+    .page-helpfulness__comment-label {
+      margin: 0;
+      color: var(--sl-color-gray-2);
+      font-size: var(--sl-text-sm);
+      font-weight: 500;
+    }
+
+    .page-helpfulness__actions,
+    .page-helpfulness__comment-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .page-helpfulness__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--sl-color-hairline-light);
+      border-radius: var(--sl-radius-sm, 0.25rem);
+      background: var(--sl-color-bg-nav, var(--sl-color-bg));
+      color: var(--sl-color-gray-2);
+      font: inherit;
+      font-size: var(--sl-text-sm);
+      line-height: 1.2;
+      cursor: pointer;
+    }
+
+    .page-helpfulness__btn:hover,
+    .page-helpfulness__btn:focus-visible {
+      color: var(--sl-color-white);
+      border-color: var(--sl-color-gray-4);
+      outline: none;
+    }
+
+    .page-helpfulness__btn--primary {
+      background: var(--sl-color-text-accent);
+      border-color: transparent;
+      color: var(--sl-color-black);
+    }
+
+    .page-helpfulness__btn--primary:hover,
+    .page-helpfulness__btn--primary:focus-visible {
+      filter: brightness(1.05);
+      color: var(--sl-color-black);
+    }
+
+    .page-helpfulness__comment {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 28rem;
+    }
+
+    .page-helpfulness__textarea {
+      width: 100%;
+      margin: 0;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid var(--sl-color-hairline-light);
+      border-radius: var(--sl-radius-sm, 0.25rem);
+      background: var(--sl-color-bg);
+      color: var(--sl-color-white);
+      font: inherit;
+      font-size: var(--sl-text-sm);
+      resize: vertical;
+      min-height: 4.5rem;
+    }
+
+    .page-helpfulness__textarea:focus-visible {
+      outline: 2px solid var(--sl-color-accent);
+      outline-offset: 1px;
+    }
+
+    .page-helpfulness__thanks-text {
+      color: var(--sl-color-gray-3);
+      font-weight: 400;
+    }
+  }
+</style>

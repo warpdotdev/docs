@@ -15,6 +15,9 @@ import { parse } from 'yaml';
 import { VARS } from '@data/vars';
 import WarpTopbar from '../components/WarpTopbar.astro';
 import DocsFeedbackLinks from '../components/DocsFeedbackLinks.astro';
+import PageHelpfulness from '../components/PageHelpfulness.astro';
+import RudderStackAnalytics from '../components/RudderStackAnalytics.astro';
+import Analytics from '@vercel/analytics/astro';
 import { socialImageMeta } from '../lib/social-image.js';
 const yamlContent = fs.readFileSync('developers/agent-api-openapi.yaml', 'utf-8');
 const specObject = parse(yamlContent);
@@ -178,6 +181,8 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
         border: 0;
       }
     </style>
+    <RudderStackAnalytics />
+    <Analytics />
   </head>
   <body>
     <script is:inline>
@@ -393,6 +398,7 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
     </script>
     <script is:inline src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.74.0" crossorigin="anonymous"></script>
     <div class="api-feedback-links">
+      <PageHelpfulness pageUrl="https://docs.warp.dev/api/" />
       <DocsFeedbackLinks
         editUrl="https://github.com/warpdotdev/docs/edit/main/developers/agent-api-openapi.yaml"
         pageUrl="https://docs.warp.dev/api/"
@@ -428,6 +434,33 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
       .light-mode .api-feedback-links {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
       }
+      .api-feedback-links .page-helpfulness {
+        margin-bottom: 0.65rem;
+      }
+      .api-feedback-links .page-helpfulness__label,
+      .api-feedback-links .page-helpfulness__thanks-text,
+      .api-feedback-links .page-helpfulness__comment-label {
+        color: var(--scalar-color-2);
+        font-size: 0.8125rem;
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
+      .api-feedback-links .page-helpfulness__btn {
+        background: var(--scalar-background-1);
+        border-color: var(--scalar-border-color);
+        color: var(--scalar-color-2);
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
+      .api-feedback-links .page-helpfulness__btn--primary {
+        background: var(--scalar-color-accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .api-feedback-links .page-helpfulness__textarea {
+        background: var(--scalar-background-1);
+        border-color: var(--scalar-border-color);
+        color: var(--scalar-color-1);
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
       .api-feedback-links .docs-feedback-links {
         color: var(--scalar-color-2);
         font-size: 0.8125rem;
@@ -446,7 +479,34 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
           right: 1rem;
           padding: 0.5rem 0.75rem;
         }
-        .api-feedback-links .docs-feedback-links {
+        .api-feedback-links .page-helpfulness {
+        margin-bottom: 0.65rem;
+      }
+      .api-feedback-links .page-helpfulness__label,
+      .api-feedback-links .page-helpfulness__thanks-text,
+      .api-feedback-links .page-helpfulness__comment-label {
+        color: var(--scalar-color-2);
+        font-size: 0.8125rem;
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
+      .api-feedback-links .page-helpfulness__btn {
+        background: var(--scalar-background-1);
+        border-color: var(--scalar-border-color);
+        color: var(--scalar-color-2);
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
+      .api-feedback-links .page-helpfulness__btn--primary {
+        background: var(--scalar-color-accent);
+        color: #fff;
+        border-color: transparent;
+      }
+      .api-feedback-links .page-helpfulness__textarea {
+        background: var(--scalar-background-1);
+        border-color: var(--scalar-border-color);
+        color: var(--scalar-color-1);
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+      }
+      .api-feedback-links .docs-feedback-links {
           font-size: 0.75rem;
         }
       }
