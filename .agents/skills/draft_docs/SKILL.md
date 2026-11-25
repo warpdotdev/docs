@@ -320,6 +320,19 @@ All redirects live in that one file, including redirects between top-level secti
 
 Always check the current list of redirects before adding a new one to avoid duplicates.
 
+### 11. Validate reader journeys
+
+After drafting, updating navigation, and running mechanical checks, run
+`.agents/skills/validate_docs_usability/SKILL.md` before presenting substantive
+content as ready for review. Use the audience and scenarios from the content
+design plan. Follow `.agents/references/docs-usability-validation.md` for
+scope, readiness, and evidence limits, including the browser fallback.
+
+Include the `## Usability validation` record in the interactive handoff and
+carry it into the PR body through `create_pr`. If a draft PR is needed to
+obtain a preview, record validation as pending until the walkthrough is done.
+After fixes, retest the same affected questions and connected journeys.
+
 ## Output
 
-Write the draft to its chosen path under `src/content/docs/`. Present the editorial verdict and unverified claims for review.
+Write the draft to its chosen path under `src/content/docs/`. Present the editorial verdict, unverified claims, and usability validation record for review.

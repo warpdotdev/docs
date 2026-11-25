@@ -149,6 +149,8 @@ If no source answers a field, say so rather than inventing an answer. "No spec e
 inferred from the setting's placement under **Settings** > **AI**" is a claim a reviewer can
 check. An invented reader is not.
 
+After drafting, use this plan's audience, goals, and high-impact scenarios to prepare questions for [usability validation](docs-usability-validation.md). The design plan establishes intent; the walkthrough tests whether the finished journey serves it.
+
 ## Where the plan lives
 
 Either form:

@@ -10,7 +10,7 @@ For example, an implementation stage takes an approved plan, makes the change, a
 
 Edit the stages under `blueprint.stages` in your factory's `factory.yaml`. If your existing definition has no Blueprint, add the [Blueprint fragment](/factories/factory-as-code/#blueprint) and retain your factory settings and schema version.
 
-Use workers already declared in the definition, or [create a custom worker](/factories/factory-agents/creating-custom-agents/). Replace any `spawnableBy` allowlists in those workers with stage worker assignments.
+Use workers already declared in the definition, or [create a custom worker](/factories/factory-agents/creating-custom-agents/). Stage worker assignments determine Blueprint delegation. Use [`spawnableBy`](/factories/factory-as-code/#spawnableby) separately to let workers launch ad hoc subagents for subtasks without assigning those runs a Blueprint stage.
 
 {/* VERIFY: Apply the stage examples in a complete definition and observe worker selection, stage-specific instructions, and the implementation-to-review handoff before publication. */}
 
