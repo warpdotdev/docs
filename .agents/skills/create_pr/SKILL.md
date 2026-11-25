@@ -108,6 +108,18 @@ Check existing redirects first to avoid duplicates.
 
 Include the trailing slash on `destination` and the `statusCode`, matching the existing entries.
 
+### 7. Validate reader journeys before readiness
+
+Run `.agents/skills/validate_docs_usability/SKILL.md` after drafting and
+mechanical checks for substantive public content, including updates to an
+existing PR. Apply `.agents/references/docs-usability-validation.md` for
+reduced-scope changes and readiness decisions. Reuse a current record only
+when its tested version covers the final diff and affected journeys.
+
+A draft PR may be opened to obtain a preview before the pass finishes.
+Keep its validation pending and do not present it as ready until the
+method's primary-task and untested-journey requirements are satisfied.
+
 ## PR Description Guidelines
 
 Structure your PR description with these sections, in this order. The feature summary comes first; everything else follows it.
@@ -192,6 +204,15 @@ Any PR that adds a page or makes a substantive update to one must carry the cont
 ```
 
 For the small corrections listed under "When a plan can be skipped" — typos, link fixes, terminology sweeps, generated updates, screenshot swaps — omit the section rather than filling it with placeholders.
+
+### Usability validation
+
+Include `## Usability validation` using
+`.agents/templates/usability-validation.md` for substantive public content.
+Carry forward the drafting record, tested version, results, findings, retests,
+and limitations. For reduced-scope changes, state the reason and actual
+navigation, link, or workflow checks instead of filling unused scaffolds.
+The method lives in `.agents/references/docs-usability-validation.md`.
 
 ### Unverified claims (required on drafting PRs)
 

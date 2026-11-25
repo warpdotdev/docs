@@ -1,6 +1,6 @@
 ---
 name: review-docs-pr
-description: Reviews documentation pull requests for the Warp docs repository. Checks for broken links, style guide compliance, content quality, AEO/source-data fit, and Astro Starlight structure. Use when reviewing documentation PRs or when you need to provide feedback on markdown documentation changes.
+description: Reviews documentation pull requests for the Warp docs repository. Checks reader journeys, broken links, style guide compliance, content quality, AEO/source-data fit, and Astro Starlight structure. Use when reviewing documentation PRs or providing feedback on documentation changes.
 ---
 
 # Review Documentation PR
@@ -111,6 +111,30 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 Include an editorial verdict in the review rationale: reader task, concept ownership across siblings, unnecessary scaffolds or repetition removed, unsupported assurances, and useful understanding preserved. Identify each unconfirmed claim and its narrow correction. Removing a page or changing its purpose requires human approval; a transition guide is not interchangeable with a chooser.
 
 Read and apply `.agents/rules/warp-positioning.md` for framing and `.agents/references/terminology.md` for terminology. Check definitions, openings, descriptions, and changed explanatory copy against rule P1, including definitions of a customer's factory. Team-of-agents and equivalent staffing metaphors are important positioning findings, not optional style preferences. Preserve shipped role names and literal interfaces. Verify technical promises independently under rule P2; when source evidence is missing, report insufficient evidence rather than approval. Historical Oz references, commands, and package names are not automatic rename findings.
+
+### Independent reader walkthrough
+
+Run `.agents/skills/validate_docs_usability/SKILL.md` for substantive public
+content. Repeat representative high-impact journeys at the evaluated head
+from plausible entry points instead of treating the author's record as proof.
+Use `.agents/references/docs-usability-validation.md` for result definitions,
+reduced scope, browser fallback, evidence, and readiness.
+
+Report a Missing, Partial, or Conflicting answer that prevents a primary task
+as an important finding. Minor friction is a suggestion. For an untested
+primary journey, report the limitation and whether human acceptance is pending;
+do not infer acceptance or fail a rendered-link pass solely because interactive
+browser tools are unavailable. Keep draft-preview work visibly pending.
+
+Preserve the `review.json` schema, concise summary, and signal format below.
+Return the `## Usability validation` record in the review response alongside
+`review.json`. In `summary`, state the tested version, method, and any material
+coverage limit within its existing sentence budget. Include question-level
+evidence for actionable findings in their comment bodies on changed lines.
+If a publisher only consumes JSON or signals, carry those findings and limits
+through its supported summary and comment fields rather than adding an
+unsupported JSON field. Do not edit the author's PR body or public docs
+without authorization.
 
 ### Severity Labels (Required)
 

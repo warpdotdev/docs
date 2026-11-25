@@ -163,6 +163,11 @@ When adding links, follow the link style guidance in `AGENTS.md` and validate wi
 
 ## Self-review before opening a PR
 
+Apply `.agents/references/docs-usability-validation.md` at reduced scope:
+follow each changed link from its source context to confirm the destination
+answers the reader's next question. Record the tested version, navigation,
+findings, and limitations. Link existence alone is not a useful handoff.
+
 Before opening a PR, verify every proposed change:
 - **Real signal** - Each link is backed by a Peec, Google Search Console, or existing-docs signal, not generic SEO advice.
 - **Reader value** - Each link helps a developer understand or complete a real workflow.

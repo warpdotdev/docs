@@ -127,10 +127,10 @@ cannot pass as `low`. Docs resolves or removes the marker before merging.
 
 ## Independent review (`review-docs-pr`)
 
-Every agent-marked PR gets an independent `review-docs-pr` pass, dispatched by
-`.github/workflows/agent-docs-review.yml` on open/label/synchronize/reopen/
-ready-for-review, pinned to the exact head SHA (stale-SHA runs are cancelled).
-The pass:
+Arrange an independent `review-docs-pr` pass for agent-marked PRs, pinned to
+the evaluated head SHA. There is no broad automatic review or approval
+workflow. The bounded advisory usability automation below does not replace
+this pass. Independent review:
 
 - Re-validates the declared risk level against the diff.
 - Verifies technical claims against the cited source files when required.
@@ -165,6 +165,33 @@ technical-accuracy checks.
 `.agents/skills/doc_quality_policy/check_compression_contract.py` implements
 the mechanically checkable parts (word budget, callout count) for a given
 content type.
+
+## Usability validation
+
+Every content-generating skill, including direct PR-producing paths, runs
+`.agents/skills/validate_docs_usability/SKILL.md` after drafting and mechanical
+checks and before substantive content is ready for review. Apply
+[the canonical method](docs-usability-validation.md) for scope, evidence,
+readiness, and the `## Usability validation` record. Mechanical and generated
+updates need only affected navigation and link checks; governance-only work
+needs relevant workflow tests.
+
+Independent review repeats representative high-impact journeys at the evaluated
+head. Report primary-task blockers as important findings and minor friction as
+suggestions. Record untested primary journeys and pending human acceptance
+without treating absent browser tooling alone as a blocker. A draft PR may
+remain open to obtain a preview or discuss findings.
+
+This is a workflow requirement, not a new machine-enforced PR-body contract.
+The existing contract checker still validates risk metadata and VERIFY
+accounting only. Usability does not replace source verification, compliance
+approval, shipped-availability checks, or engineering review.
+
+The advisory [usability workflow](../../.github/workflows/docs-usability.yml)
+records scope for human-authored PRs without requiring an agent label.
+Evaluator execution is disabled pending enforced isolation. See
+[prerequisites, outcomes, and retries](docs-usability-automation.md) before
+relying on it. A successful orchestration job is not a completed walkthrough.
 
 ## Feedback tags
 

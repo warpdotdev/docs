@@ -1161,6 +1161,10 @@ Apply this pass to new drafts and revisions before delivery:
 6. **Repetition**: Read once for repetition. Apply [Cut again](#cut-again) to remove sentences that add no information the reader needs.
 7. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
 
+## Usability validation
+
+Before handing off substantive public docs as ready for review, run `.agents/skills/validate_docs_usability/SKILL.md` after drafting and mechanical checks. Follow the [usability validation method](.agents/references/docs-usability-validation.md) to test reader questions from plausible entry points and record results in the PR body or interactive handoff. Independent review repeats representative high-impact journeys. Apply the method's reduced scope for mechanical changes and governance-only work.
+
 # Agent-specific guidance
 
 ## Figma MCP auto-detection

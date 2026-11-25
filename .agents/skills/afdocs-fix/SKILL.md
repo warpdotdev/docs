@@ -22,6 +22,13 @@ fixes touch site infrastructure (middleware, integrations, config), not
 content claims, and are typically `engineering-review-required` unless the
 change is provably a mechanical config update.
 
+## Usability validation
+
+Before readiness for review, apply `.agents/references/docs-usability-validation.md`
+to affected rendered entry points and handoffs after mechanical checks.
+Run `.agents/skills/validate_docs_usability/SKILL.md` for substantive content
+changes and include a scoped record. An AFDocs score does not establish usability.
+
 ## Prerequisites
 
 1. Run the audit skill first to produce a report:
