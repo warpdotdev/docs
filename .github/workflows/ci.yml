@@ -151,6 +151,12 @@ jobs:
       - name: Test Kapa agent retrieval proxy
         run: npm run test:kapa-agent-retrieval
 
+      - name: Test Kapa WebMCP configuration
+        run: npm run test:kapa-webmcp
+
+      - name: Test first-party WebMCP tools
+        run: npm run test:webmcp-tools
+
       - name: Test markdown negotiation helpers
         run: npm run test:markdown-negotiation
 

@@ -1,0 +1,9 @@
+<script>
+	import { registerWebMcpTools } from '../lib/webmcp-tools.js';
+
+	let cleanup = registerWebMcpTools();
+	window.addEventListener('pagehide', () => cleanup());
+	window.addEventListener('pageshow', (event) => {
+		if (event.persisted) cleanup = registerWebMcpTools();
+	});
+</script>
