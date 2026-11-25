@@ -1,0 +1,96 @@
+{
+  "skill_name": "validate_docs_usability",
+  "notice": "Grader only. Keep this file, descriptive case names, and grading feedback out of evaluator context until reports are frozen. These are calibration judgments, not automated semantic scores.",
+  "evals": [
+    {
+      "id": 1,
+      "primary_question_indexes": [0],
+      "name": "clear-answer",
+      "expected_results": ["Clear"],
+      "readiness": "ready",
+      "criteria": "Record /help -> /webhooks, sufficient access, existing-resource edit, surface, save confirmation, and no observed docs blocker. Identify rendered-text/link inspection and untested interactive or product behavior. Browser absence alone must not block readiness."
+    },
+    {
+      "id": 2,
+      "primary_question_indexes": [],
+      "name": "buried-answer",
+      "expected_results": ["Found with friction"],
+      "readiness": "ready",
+      "criteria": "Record the unsuccessful /history branch and /help -> /other -> /advanced detour. The conceptual answer is sufficient but labels hide it. Propose an appropriately named link or relocation to the owning conceptual page, not a duplicate glossary. Minor friction is non-blocking; no procedure is required."
+    },
+    {
+      "id": 3,
+      "primary_question_indexes": [0],
+      "name": "missing-non-admin-prerequisite",
+      "expected_results": ["Partial"],
+      "readiness": "blocked",
+      "criteria": "Record findable instructions but missing applicability and recovery. The source note diagnoses the gap, not findability. Block primary-task readiness and propose a prerequisite before Connect plus the responsible admin's next action. Do not invent a self-service member path."
+    },
+    {
+      "id": 4,
+      "primary_question_indexes": [0],
+      "name": "browser-only-dead-end",
+      "expected_results": ["Partial"],
+      "readiness": "blocked",
+      "expected_retest_results": ["Clear"],
+      "retest_readiness": "ready",
+      "criteria": "V1 leaves the browser-only reader without recovery or an explicit limitation. Report a primary-task blocker, not proof that browser support is required. Retest the same question against fixture-v2: Clear for the documented limitation and next action, retaining V1's finding. Do not claim live product testing."
+    },
+    {
+      "id": 5,
+      "primary_question_indexes": [0],
+      "name": "broken-handoff",
+      "expected_results": ["Missing"],
+      "readiness": "blocked",
+      "criteria": "Record /setup -> /personal-auth and the mismatch between link promise and destination. No team procedure exists on the tested path despite HTTP 200. Block readiness, identify /setup's handoff as the fix location, and do not substitute personal credentials or claim the product lacks team credentials."
+    },
+    {
+      "id": 6,
+      "primary_question_indexes": [0],
+      "name": "conflicting-sibling-answer",
+      "expected_results": ["Conflicting"],
+      "readiness": "blocked",
+      "criteria": "Cite both passages and the permission conflict. Block readiness, request verification from the policy owner, and propose a narrow correction at the owning page with a link from its sibling. Do not guess which rule is true or treat this usability result as technical verification."
+    },
+    {
+      "id": 7,
+      "primary_question_indexes": [0],
+      "name": "unavailable-preview",
+      "expected_results": ["Not tested"],
+      "readiness": "pending acceptance",
+      "criteria": "Provide a source-only preliminary inspection and mark navigation Not tested. Do not substitute old published docs, source search, or HTTP status for changed-version evidence. Retain the draft, record the missing preview and next test, and state human acceptance is pending rather than fabricating acceptance or readiness."
+    },
+    {
+      "id": 8,
+      "primary_question_indexes": [0],
+      "name": "stale-published-escape",
+      "expected_results": ["Not tested"],
+      "readiness": "pending acceptance",
+      "criteria": "Record the absolute preview-v2 -> published-v1 escape and the apparently complete old answer. The changed destination is untested; a working anchor and HTTP 200 do not validate preview-v2. Keep acceptance pending and request a preview-v2 destination walkthrough. Do not call the old text a known content defect."
+    },
+    {
+      "id": 9,
+      "primary_question_indexes": [0],
+      "name": "correct-page-broken-anchor",
+      "expected_results": ["Found with friction"],
+      "readiness": "ready",
+      "criteria": "Record /setup -> /credentials#rotate, the missing rotate anchor, and the visible Replace a credential answer on fixture-v1. The complete answer remains reachable, so the anchor mismatch is non-blocking friction, not Clear or a primary-task blocker. Repair the link fragment and retest the landing."
+    },
+    {
+      "id": 10,
+      "primary_question_indexes": [0],
+      "name": "secondary-incomplete-answer",
+      "expected_results": ["Clear", "Partial"],
+      "readiness": "ready",
+      "criteria": "Report the primary URL-edit question as Clear and the secondary retention question as Partial. Cite the save confirmation and the undefined limited time. Record a non-blocking follow-up at /webhooks#history without inventing a duration. A secondary gap does not make the complete primary task blocked or erase the Partial result."
+    },
+    {
+      "id": 11,
+      "primary_question_indexes": [0],
+      "name": "primary-incomplete-answer",
+      "expected_results": ["Partial", "Clear"],
+      "readiness": "blocked",
+      "criteria": "Report the primary retention decision as Partial and the secondary URL-edit question as Clear. The same undefined limited time now prevents approval of the replacement. Block readiness, request a verified retention duration at /webhooks#history, and keep the task priorities from the prompt. The successful secondary procedure cannot cancel the blocker."
+    }
+  ]
+}

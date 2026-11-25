@@ -1,4 +1,4 @@
-[BEFORE HANDOFF: Replace every bracketed instruction, including this note. Use the canonical method in .agents/references/docs-usability-validation.md. Keep short records inline in the PR body or interactive handoff. Link longer evidence only when reviewers can access it durably. For reduced scope, retain the scope, checks performed, findings, and limitations without filling unused question scaffolds.]
+[BEFORE HANDOFF: Replace every bracketed instruction, including this note. Use the canonical method in .agents/references/docs-usability-validation.md and its linked worked record. Keep short records inline in the PR body or interactive handoff. Link longer evidence only when reviewers can access it durably. For reduced scope, retain the scope, checks performed, findings, and limitations without filling unused question scaffolds.]
 
 ## Usability validation
 

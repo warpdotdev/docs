@@ -63,11 +63,11 @@ Fix gaps at the page that owns the answer or at the task-local handoff. Link sha
 
 After authorized fixes, rerun the same affected questions and connected journeys on the new version. Retain the initial finding and append the retest result and evidence. Do not weaken a question or redefine a primary task to improve the outcome. Record a legitimate scope change separately with the requester's decision.
 
-Use the [validation record template](../templates/usability-validation.md) for a concise `## Usability validation` section in the PR body, or in the interactive handoff when no PR is requested. Include question-level evidence inline or link a durable record reviewers can access. Do not leave the only evidence in an unlinked temporary file or publish private support details, credentials, or internal source excerpts.
+Use the [validation record template](../templates/usability-validation.md) for a concise `## Usability validation` section in the PR body, or in the interactive handoff when no PR is requested. See the [worked record](docs-usability-worked-record.md) for a retained Partial finding and Clear retest. Include question-level evidence inline or link a durable record reviewers can access. Do not leave the only evidence in an unlinked temporary file or publish private support details, credentials, or internal source excerpts.
 
 The record identifies scope, tested version and method, question results, findings, retests, limitations, and any human acceptance. For reduced-scope changes, state the reason and the navigation or link checks actually performed. Preserve existing PR sections and independent-review output formats.
 
-V1 has no record-completeness checker, new required CI gate, or automated semantic grading. The [calibration fixtures](../skills/validate_docs_usability/evals/evals.json) describe expected judgments for synthetic journeys. They are not product facts or proof that an agent reliably makes those judgments.
+V1 has no record-completeness checker, new required CI gate, or automated semantic grading. Run [blind calibration](../skills/validate_docs_usability/evals/README.md) with evaluator-only inputs and a separate grader rubric to check actual reports. Fixture structure tests alone do not establish that an agent reliably makes those judgments.
 
 ## Related references
 

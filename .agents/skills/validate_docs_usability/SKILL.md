@@ -21,4 +21,4 @@ Return a concise `## Usability validation` record in the interactive handoff or 
 
 This skill does not itself authorize product mutations, public-doc edits, PR creation, review submission, reviewer notifications, or scheduling. Preserve the caller's output format. For independent PR review, place evidence and limitations in the review rationale and attach actionable findings to changed lines.
 
-Use `evals/evals.json` for synthetic calibration, not as a universal question bank or an automated usability score.
+For synthetic calibration, follow [the blind evaluation procedure](evals/README.md). Give fresh evaluators only exported inputs, not the grader rubric or worked example. Calibration is not a universal question bank, reader testing, or an automated usability score.
