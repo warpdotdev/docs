@@ -179,7 +179,7 @@ agentDefaults:
 
 Declares the workflow's stages, workers, transitions, and gates. See [Blueprints](/factories/blueprints/) for the model and [Running an issue-to-PR Blueprint](https://docs.warp.dev/guides/agent-workflows/running-an-issue-to-pr-blueprint/) for the complete exercise.
 
-The Blueprint derives worker delegation from stage assignments. Remove authored `spawnableBy` allowlists when adding it to an existing definition.
+The Blueprint derives worker delegation from stage assignments.
 
 | Field | Description |
 | --- | --- |
@@ -675,7 +675,7 @@ All frontmatter keys are optional.
 | `description` | What the agent does. |
 | `workerRole` or [`agentType`](#agenttype) | The agent's role. Set only one. |
 | `credentialStrategy` | Overrides the factory-level [`credentialStrategy`](#credentialstrategy). Omit it to keep the agent's current setting. |
-| `spawnableBy` | Agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list exact agent names. |
+| [`spawnableBy`](#spawnableby) | Workers allowed to start this worker, in addition to those permitted by the Blueprint. |
 | `networkPolicy` | Combines with the factory's [`networkPolicy`](#networkpolicy); denials at either scope take precedence over user-configured allowances. |
 | `model`, `harness` | Override the corresponding [`agentDefaults`](#agentdefaults). Set at most one. |
 | `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` | Override the corresponding [`agentDefaults`](#agentdefaults), subject to each field's inheritance rules. |
@@ -687,6 +687,30 @@ An agent's `harness` object is a sparse override of [`agentDefaults.harness`](#a
 
 **Optional.**
 The agent's role: `CUSTOM` (default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every factory has one foreman, which serves as its entry point and the default automation target. See [Factory workers](/factories/factory-agents/) for role behavior.
+
+### `spawnableBy`
+
+**Optional.**
+Lists exact worker names from the same factory that may start this worker.
+
+Without a Blueprint, omitting `spawnableBy` lets only the foreman start a non-foreman worker. An empty list (`spawnableBy: []`) allows none; an explicit list allows only the named workers.
+
+With a Blueprint, `spawnableBy` permits named workers to launch this worker as an *ad hoc subagent*: a separate run for a subtask that reports results to its parent. The permission applies across the caller's stages, not just one stage. Omitting the field or setting `[]` grants no ad hoc subagent permission, including to the foreman.
+
+Blueprint stage assignments and ad hoc subagent permissions are independent. An empty `spawnableBy` list doesn't block Blueprint stage delegation, and a stage assignment alone doesn't permit ad hoc subagent launches. Ad hoc subagents cannot advance the Blueprint, manage its gates, or complete the factory work item, even when the same worker is assigned a Blueprint stage.
+
+For example, if your factory declares an `implementer` worker, this researcher permits it to request research subtasks:
+
+```markdown title="workers/researcher/worker.md"
+---
+spawnableBy:
+  - implementer
+---
+
+Research the assigned question and return findings to your parent.
+```
+
+The researcher doesn't need a Blueprint stage assignment. To allow a worker to launch ad hoc subagents of itself, include its own name in its `spawnableBy` list.
 
 ## `automations/<name>/automation.md`
 
