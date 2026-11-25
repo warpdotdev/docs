@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Capabilities",
         "heading_anchor": "capabilities",
         "line_end": 27,
@@ -82,7 +82,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -130,7 +130,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -180,7 +180,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Warp app settings",
         "heading_anchor": "warp-app-settings",
         "line_end": 43,
@@ -224,7 +224,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "CLI",
         "heading_anchor": "cli",
         "line_end": 50,
@@ -268,7 +268,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "CLI",
         "heading_anchor": "cli",
         "line_end": 51,
@@ -312,7 +312,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -360,7 +360,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -408,7 +408,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "API",
         "heading_anchor": "api",
         "line_end": 56,
@@ -454,7 +454,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 84,
@@ -498,7 +498,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 86,
@@ -542,7 +542,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Setup and requirements",
         "heading_anchor": "setup-and-requirements",
         "line_end": 86,
@@ -590,7 +590,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Model selection",
         "heading_anchor": "model-selection",
         "line_end": 90,
@@ -638,7 +638,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Model selection",
         "heading_anchor": "model-selection",
         "line_end": 90,
@@ -682,7 +682,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Recording sessions",
         "heading_anchor": "recording-sessions",
         "line_end": 96,
@@ -725,7 +725,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Recording sessions",
         "heading_anchor": "recording-sessions",
         "line_end": 96,
@@ -768,7 +768,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+        "content_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
         "heading": "Web app",
         "heading_anchor": "web-app",
         "line_end": 76,
@@ -795,7 +795,7 @@
       }
     }
   ],
-  "page_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+  "page_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
   "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
   "schema_version": 1
 }

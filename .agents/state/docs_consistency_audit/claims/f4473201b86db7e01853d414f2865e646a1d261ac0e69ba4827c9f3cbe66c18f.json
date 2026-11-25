@@ -28,7 +28,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -72,7 +72,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "What gets attached",
         "heading_anchor": "what-gets-attached",
         "line_end": 14,
@@ -116,7 +116,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "What gets attached",
         "heading_anchor": "what-gets-attached",
         "line_end": 17,
@@ -160,7 +160,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
         "line_end": 23,
@@ -210,7 +210,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
         "line_end": 23,
@@ -256,7 +256,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
         "line_end": 28,
@@ -302,7 +302,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
         "line_end": 25,
@@ -346,7 +346,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Changing the attachment mode",
         "heading_anchor": "changing-the-attachment-mode",
         "line_end": 33,
@@ -394,7 +394,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
         "line_end": 41,
@@ -440,7 +440,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
         "line_end": 48,
@@ -486,7 +486,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
         "line_end": 49,
@@ -531,7 +531,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
         "line_end": 43,
@@ -576,7 +576,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Sharing captures outside pull requests",
         "heading_anchor": "sharing-captures-outside-pull-requests",
         "line_end": 43,
@@ -619,7 +619,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
         "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
-        "content_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+        "content_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
         "heading": "Attachment modes",
         "heading_anchor": "attachment-modes",
         "line_end": 21,
@@ -642,7 +642,7 @@
       }
     }
   ],
-  "page_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+  "page_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
   "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
   "schema_version": 1
 }

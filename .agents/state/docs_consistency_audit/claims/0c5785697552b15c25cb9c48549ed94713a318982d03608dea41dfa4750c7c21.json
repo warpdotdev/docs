@@ -29,7 +29,7 @@
       "quote": "Connect a ChatGPT subscription to use eligible OpenAI models with the Warp Agent in the Warp app.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -73,7 +73,7 @@
       "quote": "Connected requests count toward your ChatGPT limits instead of consuming Warp-provided inference usage.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -115,7 +115,7 @@
       "quote": "A saved OpenAI API key takes precedence over the ChatGPT connection.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Use your ChatGPT subscription",
         "heading_anchor": "use-your-chatgpt-subscription",
         "line_end": 44,
@@ -159,7 +159,7 @@
       "quote": "**Auto** models use Warp-provided inference and consume your available Warp usage.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Use your ChatGPT subscription",
         "heading_anchor": "use-your-chatgpt-subscription",
         "line_end": 45,
@@ -203,7 +203,7 @@
       "quote": "A ChatGPT subscription doesn't fund cloud agent runs.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Use your ChatGPT subscription",
         "heading_anchor": "use-your-chatgpt-subscription",
         "line_end": 46,
@@ -247,7 +247,7 @@
       "quote": "consumes Warp usage for the rest of that conversation.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Use your ChatGPT subscription",
         "heading_anchor": "use-your-chatgpt-subscription",
         "line_end": 50,
@@ -293,7 +293,7 @@
       "quote": "connected ChatGPT inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/#warp-terminal-and-local-agents) on Business and Enterprise plans, but not Free, Build, or Max plans.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Use your ChatGPT subscription",
         "heading_anchor": "use-your-chatgpt-subscription",
         "line_end": 48,
@@ -340,7 +340,7 @@
       "quote": "but not Free, Build, or Max plans.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Use your ChatGPT subscription",
         "heading_anchor": "use-your-chatgpt-subscription",
         "line_end": 48,
@@ -381,7 +381,7 @@
       "quote": "sign in to an existing account with the same verified email address.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Connect during sign-up or sign-in",
         "heading_anchor": "connect-during-sign-up-or-sign-in",
         "line_end": 16,
@@ -422,7 +422,7 @@
       "quote": "After you disconnect, eligible OpenAI requests use your saved OpenAI API key, if you have one. Otherwise, they use Warp-provided inference",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/chatgpt-subscription.mdx",
-        "content_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+        "content_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
         "heading": "Disconnect your subscription",
         "heading_anchor": "disconnect-your-subscription",
         "line_end": 56,
@@ -440,7 +440,7 @@
       }
     }
   ],
-  "page_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+  "page_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
   "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
   "schema_version": 1
 }

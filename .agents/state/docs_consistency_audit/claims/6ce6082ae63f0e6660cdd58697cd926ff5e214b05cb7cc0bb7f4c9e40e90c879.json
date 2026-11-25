@@ -25,7 +25,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Authenticating with API keys",
         "heading_anchor": "authenticating-with-api-keys",
         "line_end": 113,
@@ -69,7 +69,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Personal API key behavior",
         "heading_anchor": "personal-api-key-behavior",
         "line_end": 83,
@@ -115,7 +115,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Agent API key behavior",
         "heading_anchor": "agent-api-key-behavior",
         "line_end": 89,
@@ -161,7 +161,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Agent API key behavior",
         "heading_anchor": "agent-api-key-behavior",
         "line_end": 91,
@@ -205,7 +205,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Self-hosted worker API keys",
         "heading_anchor": "self-hosted-worker-api-keys",
         "line_end": 35,
@@ -247,7 +247,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "From the web app (recommended)",
         "heading_anchor": "from-the-web-app-recommended",
         "line_end": 63,
@@ -289,7 +289,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Deleting API keys",
         "heading_anchor": "deleting-api-keys",
         "line_end": 132,
@@ -331,7 +331,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Create a key",
         "heading_anchor": "create-a-key",
         "line_end": 156,
@@ -373,7 +373,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Personal vs. agent keys",
         "heading_anchor": "personal-vs-agent-keys",
         "line_end": 19,
@@ -417,7 +417,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Personal API key behavior",
         "heading_anchor": "personal-api-key-behavior",
         "line_end": 84,
@@ -459,7 +459,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Expire a key",
         "heading_anchor": "expire-a-key",
         "line_end": 173,
@@ -501,7 +501,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Personal vs. agent keys",
         "heading_anchor": "personal-vs-agent-keys",
         "line_end": 23,
@@ -544,7 +544,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Personal vs. agent keys",
         "heading_anchor": "personal-vs-agent-keys",
         "line_end": 20,
@@ -587,7 +587,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Self-hosted worker API keys",
         "heading_anchor": "self-hosted-worker-api-keys",
         "line_end": 37,
@@ -634,7 +634,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Self-hosted worker API keys",
         "heading_anchor": "self-hosted-worker-api-keys",
         "line_end": 37,
@@ -677,7 +677,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Creating an API key",
         "heading_anchor": "creating-an-api-key",
         "line_end": 41,
@@ -720,7 +720,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Creating an API key",
         "heading_anchor": "creating-an-api-key",
         "line_end": 41,
@@ -763,7 +763,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "From the web app (recommended)",
         "heading_anchor": "from-the-web-app-recommended",
         "line_end": 61,
@@ -806,7 +806,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Create a key",
         "heading_anchor": "create-a-key",
         "line_end": 155,
@@ -849,7 +849,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "An integration key for the target factory's foreman",
         "heading_anchor": "an-integration-key-for-the-target-factorys-foreman",
         "line_end": 169,
@@ -892,7 +892,7 @@
       "source": {
         "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
         "canonical_route": "/agents/cli/oz-cli/api-keys",
-        "content_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
         "heading": "Agent API key behavior",
         "heading_anchor": "agent-api-key-behavior",
         "line_end": 91,
@@ -911,7 +911,7 @@
       }
     }
   ],
-  "page_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+  "page_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
   "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
   "schema_version": 1
 }

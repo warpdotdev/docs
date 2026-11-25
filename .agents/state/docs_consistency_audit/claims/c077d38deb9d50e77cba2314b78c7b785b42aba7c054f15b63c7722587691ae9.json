@@ -24,7 +24,7 @@
       "quote": "Writing a file in the sandbox doesn't upload it.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
-        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "content_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
         "heading": "",
         "heading_anchor": "",
         "line_end": 15,
@@ -66,7 +66,7 @@
       "quote": "Print metadata for an artifact without downloading it.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
-        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "content_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
         "heading": "`oz artifact get`",
         "heading_anchor": "oz-artifact-get",
         "line_end": 29,
@@ -108,7 +108,7 @@
       "quote": "Use `--output-format json` for a structured response",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
-        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "content_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
         "heading": "`oz artifact get`",
         "heading_anchor": "oz-artifact-get",
         "line_end": 35,
@@ -150,7 +150,7 @@
       "quote": "**`--out <PATH>`** (`-o`) - Write the downloaded artifact to a specific file path.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
-        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "content_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
         "heading": "Flags",
         "heading_anchor": "flags",
         "line_end": 54,
@@ -192,7 +192,7 @@
       "quote": "When omitted, the file is written to the current directory using the artifact's stored file name.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
-        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "content_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
         "heading": "Flags",
         "heading_anchor": "flags",
         "line_end": 54,
@@ -234,7 +234,7 @@
       "quote": "Select the intended file's `data.artifact_uid` from its `FILE` entry",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/artifacts.mdx",
-        "content_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+        "content_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
         "heading": "Examples",
         "heading_anchor": "examples",
         "line_end": 70,
@@ -253,7 +253,7 @@
       }
     }
   ],
-  "page_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+  "page_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
   "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
   "schema_version": 1
 }

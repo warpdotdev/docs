@@ -1,6 +1,12 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
+    "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+    "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+    "src/content/docs/agents/inference/custom-routers.mdx",
+    "src/content/docs/agents/inference/model-choice.mdx",
+    "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+    "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
@@ -78,6 +84,7 @@
     "src/content/docs/factories/measure-and-improve/scorers.mdx",
     "src/content/docs/factories/measure-and-improve/self-improvement.mdx",
     "src/content/docs/factories/permissions.mdx",
+    "src/content/docs/factories/preview-urls.mdx",
     "src/content/docs/factories/quickstart.mdx",
     "src/content/docs/factories/runners.mdx",
     "src/content/docs/factories/secrets.mdx",
@@ -1295,13 +1302,13 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 681,
+          "character_count": 707,
           "heading": "Related pages",
           "line_end": 63,
           "line_start": 57
         }
       ],
-      "character_count": 4575,
+      "character_count": 4601,
       "extraction_status": "changed",
       "headings": [
         {
@@ -1343,7 +1350,7 @@
       "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
-      "source_sha256": "2b20fb0fd4747ebfea270a823172145bc52a9b4948162a64d56a73f742d82361",
+      "source_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
       "title": "Screenshots and videos in pull requests"
     },
     "src/content/docs/agents/capabilities/computer-use/browser-use.mdx": {
@@ -1526,13 +1533,13 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 650,
+          "character_count": 653,
           "heading": "Related pages",
           "line_end": 140,
           "line_start": 134
         }
       ],
-      "character_count": 8168,
+      "character_count": 8171,
       "extraction_status": "changed",
       "headings": [
         {
@@ -1624,7 +1631,7 @@
       "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/capabilities/computer-use/",
-      "source_sha256": "919f6f74f32fed93a445d6c6ddc6f2705ebbb9b4ec9765e0a8392f0fc24d6548",
+      "source_sha256": "9b5230849ca796b4211f58c1377c042b558c957f35f4d0c899b8139fbc413ae7",
       "title": "Computer Use for agents"
     },
     "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx": {
@@ -2279,20 +2286,20 @@
         },
         {
           "anchor": "using-plans-across-conversations",
-          "character_count": 716,
+          "character_count": 742,
           "heading": "Using plans across conversations",
-          "line_end": 111,
+          "line_end": 113,
           "line_start": 102
         },
         {
-          "anchor": "next-steps",
-          "character_count": 436,
-          "heading": "Next steps",
-          "line_end": 117,
-          "line_start": 112
+          "anchor": "related-pages",
+          "character_count": 429,
+          "heading": "Related pages",
+          "line_end": 119,
+          "line_start": 114
         }
       ],
-      "character_count": 6600,
+      "character_count": 6619,
       "extraction_status": "changed",
       "headings": [
         {
@@ -2331,15 +2338,15 @@
           "text": "Using plans across conversations"
         },
         {
-          "anchor": "next-steps",
-          "line_start": 112,
-          "text": "Next steps"
+          "anchor": "related-pages",
+          "line_start": 114,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/capabilities/planning.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/planning/",
-      "source_sha256": "68e4010f929d52fa944b53e54dbce71d5cca9f545bd3645d08f27a984806a80c",
+      "source_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
       "title": "Agent planning and execution"
     },
     "src/content/docs/agents/capabilities/rules.mdx": {
@@ -4712,13 +4719,13 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 353,
+          "character_count": 360,
           "heading": "Related pages",
           "line_end": 194,
           "line_start": 190
         }
       ],
-      "character_count": 12320,
+      "character_count": 12327,
       "extraction_status": "changed",
       "headings": [
         {
@@ -4835,7 +4842,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/api-keys/",
-      "source_sha256": "2b4ca16732d74f1248f039b3f9e552a2ed3f3085b0f4dee7d7f0551e380f2472",
+      "source_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
       "title": "Creating and managing API keys"
     },
     "src/content/docs/agents/cli/oz-cli/artifacts.mdx": {
@@ -4877,20 +4884,20 @@
         },
         {
           "anchor": "examples",
-          "character_count": 808,
+          "character_count": 831,
           "heading": "Examples",
-          "line_end": 73,
+          "line_end": 75,
           "line_start": 56
         },
         {
-          "anchor": "related",
-          "character_count": 254,
-          "heading": "Related",
-          "line_end": 77,
-          "line_start": 74
+          "anchor": "related-pages",
+          "character_count": 252,
+          "heading": "Related pages",
+          "line_end": 79,
+          "line_start": 76
         }
       ],
-      "character_count": 3566,
+      "character_count": 3587,
       "extraction_status": "changed",
       "headings": [
         {
@@ -4924,15 +4931,15 @@
           "text": "Examples"
         },
         {
-          "anchor": "related",
-          "line_start": 74,
-          "text": "Related"
+          "anchor": "related-pages",
+          "line_start": 76,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/artifacts.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/artifacts/",
-      "source_sha256": "e673c4ac177a9ba5359f1720558cf6d57843fa8bba7f938658c1fbc693880959",
+      "source_sha256": "08357bc4d92f635353a42ae58fc39f4a933730d0d76136d6f1eb1d4d557571da",
       "title": "Artifacts"
     },
     "src/content/docs/agents/cli/oz-cli/federate.mdx": {
@@ -5885,20 +5892,20 @@
         },
         {
           "anchor": "environment-variables-on-remote-machines",
-          "character_count": 1064,
+          "character_count": 1090,
           "heading": "Environment variables on remote machines",
-          "line_end": 133,
+          "line_end": 135,
           "line_start": 119
         },
         {
-          "anchor": "learn-more",
-          "character_count": 606,
-          "heading": "Learn more",
-          "line_end": 139,
-          "line_start": 134
+          "anchor": "related-pages",
+          "character_count": 628,
+          "heading": "Related pages",
+          "line_end": 141,
+          "line_start": 136
         }
       ],
-      "character_count": 6586,
+      "character_count": 6634,
       "extraction_status": "changed",
       "headings": [
         {
@@ -5947,15 +5954,15 @@
           "text": "Environment variables on remote machines"
         },
         {
-          "anchor": "learn-more",
-          "line_start": 134,
-          "text": "Learn more"
+          "anchor": "related-pages",
+          "line_start": 136,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/mcp-servers/",
-      "source_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+      "source_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
       "title": "MCP servers (CLI reference)"
     },
     "src/content/docs/agents/cli/oz-cli/quickstart.mdx": {
@@ -7330,14 +7337,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 889,
+          "character_count": 878,
           "heading": "Related pages",
           "line_end": 137,
           "line_start": 130
         }
       ],
-      "character_count": 10673,
-      "extraction_status": "unchanged",
+      "character_count": 10662,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7403,7 +7410,7 @@
       "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/bring-your-own-api-key/",
-      "source_sha256": "096cd4efabe5e9fa3fce77233f19928bb9692e176e29f19e66b89bddbc80a569",
+      "source_sha256": "289a46c24137df88cc14bc91e1dc578688ac646a46376a708fdd83ec1529dfeb",
       "title": "Bring Your Own API Key"
     },
     "src/content/docs/agents/inference/chatgpt-subscription.mdx": {
@@ -7445,14 +7452,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 337,
+          "character_count": 340,
           "heading": "Related pages",
           "line_end": 76,
           "line_start": 72
         }
       ],
-      "character_count": 4023,
-      "extraction_status": "unchanged",
+      "character_count": 4026,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7508,7 +7515,7 @@
       "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/chatgpt-subscription/",
-      "source_sha256": "1933d08f9485ee6ac353a4e9d1c5f8bd6b8b33ff20527b3bef6f2b0e2c4fa3bc",
+      "source_sha256": "757edb5796a5f4d35d4c5b60f139e416b942328b7338ee53e3d6befea18f1901",
       "title": "Connecting a ChatGPT subscription"
     },
     "src/content/docs/agents/inference/claude-platform-linked-billing.mdx": {
@@ -17006,6 +17013,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "7a7e436768dca1ad3a0129759e46f6b903896ec1"
+    "docs": "d3768f828ae0da90ec9eaf6ee1985f4bb681fa50"
   }
 }

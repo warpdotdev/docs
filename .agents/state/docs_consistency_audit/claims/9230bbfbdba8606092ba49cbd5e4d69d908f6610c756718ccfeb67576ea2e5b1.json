@@ -24,7 +24,7 @@
       "quote": "The `--mcp` flag accepts four formats:",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Using the `--mcp` flag",
         "heading_anchor": "using-the-mcp-flag",
         "line_end": 25,
@@ -70,7 +70,7 @@
       "quote": "You can repeat `--mcp` to include multiple servers.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Using the `--mcp` flag",
         "heading_anchor": "using-the-mcp-flag",
         "line_end": 32,
@@ -111,7 +111,7 @@
       "quote": "Warp recognizes these managed integration ids:\n\n* `linear` \u2014 the hosted [Linear](/factories/integrations/linear/) MCP server\n* `slack` \u2014 the hosted [Slack](/factories/integrations/slack/) MCP server\n* `jira` \u2014 the hosted [Jira](/factories/integrations/jira/) MCP server",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Passing Warp-managed integration servers by id",
         "heading_anchor": "passing-warp-managed-integration-servers-by-id",
         "line_end": 72,
@@ -158,7 +158,7 @@
       "quote": "These short IDs are not general aliases for a service in an ordinary standalone CLI run.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Passing Warp-managed integration servers by id",
         "heading_anchor": "passing-warp-managed-integration-servers-by-id",
         "line_end": 75,
@@ -199,7 +199,7 @@
       "quote": "If an integration reference can't be resolved in the run's context, the server is skipped.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Passing Warp-managed integration servers by id",
         "heading_anchor": "passing-warp-managed-integration-servers-by-id",
         "line_end": 78,
@@ -240,7 +240,7 @@
       "quote": "Warp syncs MCP server configuration between machines logged in with your Warp account, but **does not** sync the environment variables used in that configuration.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Environment variables on remote machines",
         "heading_anchor": "environment-variables-on-remote-machines",
         "line_end": 121,
@@ -281,7 +281,7 @@
       "quote": "The CLI does not start every configured MCP server for every run.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "",
         "heading_anchor": "",
         "line_end": 17,
@@ -322,7 +322,7 @@
       "quote": "A selected agent profile can start installed servers on its MCP allowlist",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "",
         "heading_anchor": "",
         "line_end": 17,
@@ -363,7 +363,7 @@
       "quote": "Explicit `--mcp` values start run-scoped servers.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "",
         "heading_anchor": "",
         "line_end": 17,
@@ -405,7 +405,7 @@
       "quote": "eligible file-based and global servers follow their own discovery path.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "",
         "heading_anchor": "",
         "line_end": 17,
@@ -447,7 +447,7 @@
       "quote": "Factory integration tools use the factory's declared and connected integrations.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
-        "content_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+        "content_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
         "heading": "Passing Warp-managed integration servers by id",
         "heading_anchor": "passing-warp-managed-integration-servers-by-id",
         "line_end": 78,
@@ -466,7 +466,7 @@
       }
     }
   ],
-  "page_sha256": "76c729383413268796a71b96e012fee51255d593449d9a2e496f5ea3e1f9203c",
+  "page_sha256": "62ceac5624ef242d1e98bf2bd84000bbeb90b55977e3ad1079142fe5d1dcb9a9",
   "path": "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx",
   "schema_version": 1
 }
