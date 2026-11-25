@@ -1,7 +1,7 @@
 ---
 title: Managing Enterprise teams
 description: >-
-  Organize teams inside a Warp Enterprise workspace, manage invitations and visibility, and distinguish team membership from workspace access.
+  Organize teams in a Warp Enterprise workspace, manage invitations and team visibility, and control membership and access.
 sidebar:
   label: Teams
 ---
@@ -19,16 +19,22 @@ For example, a workspace member can administer the Engineering team without rece
 
 <span id="creating-a-team" />
 
-Workspace admins create teams in the browser-based [Warp Admin Panel](https://app.warp.dev/admin/). Confirm the selected workspace before creating a team.
+You must be a workspace admin to create a team.
 
-Choose the visibility that matches how colleagues should join:
+1. Open the browser-based [Warp Admin Panel](https://app.warp.dev/admin/). Confirm the workspace name at the top of the page.
+2. Under "Workspace admin" in the sidebar, click **Teams**. Click **New** to open the "Create team" dialog.
+3. Enter a team name in the "Name & Color" field.
+4. Click the "Team visibility" dropdown and select how colleagues can find and join the team:
 
-* **Open** - Workspace members can discover the team and join it.
-* **Hidden** - The team does not appear in discovery; an admin adds members directly.
+   * **Open** - Workspace members can discover the team and join it.
+   * **Hidden** - The team does not appear in discovery. An admin adds members directly.
+
+5. Optionally, search for existing workspace members under "Invite members" and select the people to add.
+6. Click **Create team**. Confirm the "Team created" message appears and the team is listed on the Teams page.
+
+{/* VERIFY: Exercise this creation procedure in the production Admin Panel. Control labels and success behavior were checked against source; no live-account test was performed. */}
 
 Workspace admins can administer every team, including teams they do not personally belong to. Newly created Enterprise teams do not require a team owner; ownership belongs to the workspace.
-
-See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
 ## Inviting and joining members
 
@@ -41,11 +47,17 @@ See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-ins
 <span id="joining-a-team" />
 <span id="team-discoverability" />
 
-Membership charges and usage funding follow your [Enterprise agreement](/enterprise/support-and-resources/billing/). Review those terms before inviting colleagues.
+Choose an invitation method based on the access the recipient needs:
 
-Workspace admins use workspace invitations to add people to the account and let them choose an Open team. A team invitation can add someone to an Open team and its workspace. Use email invitations to add people directly, including to Hidden teams. Domain capture and SSO are workspace-level controls, not settings for an individual team.
+| Method | Access | When to use it |
+| --- | --- | --- |
+| Workspace invitation | Joins the workspace and lets the recipient select an Open team | Let colleagues select their team |
+| Team invite link | Joins an Open team and its workspace | Share access to a specific Open team |
+| Team email invitation | Joins the named team and its workspace | Invite specific people, including to Hidden teams |
 
-Follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team) for invitation types and discovery. Workspace membership alone does not make someone a member of every team. An unassigned user belongs to the workspace but cannot start cloud-agent or factory runs until they join a team.
+Review the [Enterprise membership and billing terms](/enterprise/support-and-resources/billing/) before inviting colleagues. To send invitations, follow [Inviting members by email](/enterprise/team-management/workspaces/#inviting-members-by-email), [Sharing a workspace invite link](/enterprise/team-management/workspaces/#sharing-a-workspace-invite-link), or [Sharing a team invite link](/enterprise/team-management/workspaces/#sharing-a-team-invite-link).
+
+To accept an invitation, follow [Joining through an invitation](/enterprise/team-management/workspaces/#joining-through-an-invitation). Workspace membership alone does not join every team. If you belong to the workspace but no team, follow [Joining an Open team after signing in](/enterprise/team-management/workspaces/#joining-an-open-team-after-signing-in).
 
 ## Managing team access
 
@@ -54,24 +66,36 @@ Follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joi
 <span id="multi-admin-support" />
 <span id="promoting-or-demoting-admins" />
 
-Workspace admins can assign team admins across the workspace. Team admins can add admins for their own team. Follow [Changing team admins](/enterprise/team-management/roles-and-permissions/#changing-team-admins).
+To add or remove team admins, follow [Changing team admins](/enterprise/team-management/roles-and-permissions/#changing-team-admins). Workspace admins can manage admins across the workspace. Team admins manage admins for their own team.
 
-Team membership does not determine factory configuration access by itself. Factory roles and inherited Admin access are covered by [Managing factory permissions](/factories/permissions/).
+To change who can run or configure a factory, follow [Managing factory permissions](/factories/permissions/). Team membership alone does not determine factory configuration access.
 
-## Removing members and transferring ownership
+<span id="removing-members-and-transferring-ownership" />
+
+## Removing members from a team
 
 <span id="purchased-usage-when-membership-changes" />
 
 <span id="leaving-and-deleting-teams" />
-<span id="transferring-team-admin" />
-<span id="transferring-team-ownership" />
 <span id="add-on-credit-consequences-when-leaving-or-removing-members" />
 
-In the Admin Panel, confirm whether you intend to remove someone from one team or from the entire workspace. Removing a workspace member also removes them from every team in it. Members cannot leave an Enterprise workspace themselves; a workspace admin removes them.
-
-Only the workspace owner can transfer workspace ownership. The previous owner becomes an Admin, and existing team roles do not change. Follow [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles), rather than the self-serve team-ownership procedure.
+You must be a team or workspace admin to remove a team member. Removing someone from one team keeps their workspace membership and their other team memberships. To remove access across the workspace instead, follow [Removing a workspace member](/enterprise/team-management/workspaces/#removing-a-workspace-member).
 
 Purchased team usage remains tied to its team when membership changes. Enterprise pools and allocation changes follow the [billing agreement](/enterprise/support-and-resources/billing/).
+
+1. In the browser-based [Admin Panel](https://app.warp.dev/admin/), confirm the workspace. Under "Team admin" in the sidebar, click the team name.
+2. Click **Members** and find the person to remove. Confirm the team name at the top of the page.
+3. Open the member's three-dots menu and click **Remove from team**.
+4. Confirm the email address and removal scope in the dialog. Click **Remove from team** and confirm the person no longer appears in the team's member list.
+
+{/* VERIFY: Exercise team removal in the production Enterprise Admin Panel, including the confirmation and preserved workspace membership. Labels and behavior were checked against source; no live-account test was performed. */}
+
+## Transferring workspace ownership
+
+<span id="transferring-team-admin" />
+<span id="transferring-team-ownership" />
+
+Only the workspace owner can transfer ownership. The previous owner becomes an Admin, and existing team roles do not change. Follow [Transferring workspace ownership](/enterprise/team-management/workspaces/#transferring-workspace-ownership), rather than the self-serve team-ownership procedure.
 
 <span id="related-resources" />
 

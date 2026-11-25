@@ -503,7 +503,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
 - ✅ In the sidebar, click **Platform**.
-- ✅ In the "Harness" dropdown, select **Claude Code** or **Codex**. ("Harness" labels the field but isn't itself clickable; the dropdown and its options are)
+- ✅ Click the "Harness" dropdown and select **Claude Code** or **Codex**. ("Harness" labels the field but isn't itself clickable; the dropdown and its options are)
 
 **Don't use:**
 - ❌ In the API Keys section, click `+ Create API Key`.
@@ -513,10 +513,10 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 
 #### Verbs for UI interactions
 Use consistent verbs that match the type of UI element:
-- **Click** — buttons, links, tabs, and menu items
+- **Click** — buttons, links, tabs, menu items, and dropdowns to open them
 - **Enter** — text fields and input boxes
-- **Select** — checkboxes, list items, and option choices within a grouped list
-- **Choose** — dropdowns, date pickers, and permission levels
+- **Select** — checkboxes, list items, and options within dropdowns or grouped lists
+- **Choose** — date pickers and conceptual choices, not dropdown interactions
 - **Toggle** — switches and toggle controls
 
 **Use:**
@@ -528,7 +528,7 @@ Use consistent verbs that match the type of UI element:
 
 **Don't use:**
 - ❌ Select **Save**. (use Click for buttons)
-- ❌ Set the **Repository** permission to **Read**. (use Choose for permission levels)
+- ❌ Choose **Read** from the "Repository" dropdown. (write: Click the "Repository" dropdown and select **Read**.)
 - ❌ Check **read_repository**. (use Select for checkboxes)
 
 ## Drafting by content type
@@ -641,7 +641,7 @@ When readers can combine procedures from this page and related pages, read and c
   - ❌ "Export your API key as an environment variable." (why?)
 - **Support existing configurations.** If the reader can reuse an agent or resource, show how to find and edit or select it as well as how to create a new one. For file-based setup, identify the existing file or agent directory to edit. Do not tell readers to create a duplicate or imply that a new resource takes over existing work.
 - **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
-  - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
+  - ✅ "Click the 'Harness' dropdown and select **Claude Code** or **Codex**."
   - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
 - After key steps, state what readers should see or how to verify the result before moving on.
 - Test all instructions for accuracy.

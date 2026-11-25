@@ -51,8 +51,8 @@ Rule-based routing routes each task using rules you write. Each rule pairs a cla
 2. Click **Add router** and enter a name.
 3. Under **Routing type**, choose **Complexity-based** or **Rule-based**.
 4. Configure the routing:
-   * **Complexity-based** - Select a **Default** model, then assign models to **Easy**, **Medium**, and **Hard**.
-   * **Rule-based** - Select a **Default model**, then click **Add rule** for each rule, write a **Classification prompt** describing when to use the model, and select the model. Rules are matched top to bottom, so order them by precedence.
+   * **Complexity-based** - Click the "Default" dropdown and select a model. Repeat for the "Easy", "Medium", and "Hard" dropdowns.
+   * **Rule-based** - Click the "Default model" dropdown and select a model. For each rule, click **Add rule** and write a "Classification prompt" describing when to use the model. Click the rule's model dropdown and select a model. Rules are matched top to bottom, so order them by precedence.
 5. Click **Save**.
 
 Your router now appears in the model picker. Saving also writes a file: use **Open file** to edit it directly, or **Delete** to remove the router.
@@ -96,8 +96,8 @@ If a file can't be parsed, Warp shows a non-blocking error identifying the file 
 
 ## Use a router
 
-1. In the prompt input, open the model picker by clicking the current model name.
-2. Choose your router from the list.
+1. In the prompt input, click the model dropdown showing the current model name.
+2. Select your router from the list.
 
 Your selection persists for future prompts, like any other model choice.
 
