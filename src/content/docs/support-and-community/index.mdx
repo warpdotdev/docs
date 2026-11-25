@@ -1,8 +1,8 @@
 ---
 title: Support & Community
 description: >-
-  Contact Warp support, join the community, and find help for bugs, billing,
-  and enterprise issues.
+  Contact Warp support, search the docs from an agent with MCP, join the
+  community, and find help for bugs, billing, and enterprise issues.
 ---
 
 ## Contact support
@@ -14,6 +14,29 @@ description: >-
 * **Enterprise** - Direct all feedback and issues to your designated Slack channel.
 
 For other ways to send feedback, gather logs, or file a bug report, see [Sending feedback and logs](/support-and-community/troubleshooting-and-support/sending-us-feedback/).
+
+## Search the docs from an agent
+
+Connect an MCP-compatible agent to Warp's documentation so it can search
+current docs while you work.
+
+In the Warp app, go to **Settings** > **Agents** > **MCP servers**, click
+**+ Add**, and paste:
+
+```json title="MCP configuration"
+{
+  "Warp Docs": {
+    "url": "https://warp.mcp.kapa.ai"
+  }
+}
+```
+
+For another MCP client, add `https://warp.mcp.kapa.ai` as a remote server URL.
+You don't need a Warp or Kapa API key in the configuration. The client may ask
+you to sign in when it connects.
+
+For MCP setup and client support, see
+[Model Context Protocol (MCP)](/agents/capabilities/mcp/).
 
 ## Plans and billing
 
@@ -67,9 +90,11 @@ We host [live events](https://luma.com/warpdotdev) year-round — product demos,
 We're building an Ambassador program for developers who want to lead and grow the Warp community. Join the [community Slack](https://go.warp.dev/join-preview) to hear when applications open.
 :::
 
-## More help
+<span id="more-help" />
+
+## Related pages
 
 * [Sending feedback and logs](/support-and-community/troubleshooting-and-support/sending-us-feedback/)
 * [Known issues](/support-and-community/troubleshooting-and-support/known-issues/)
 * [Plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/)
-* [Privacy](/support-and-community/privacy-and-security/privacy/)
+* [Privacy and data control](/support-and-community/privacy-and-security/privacy/)

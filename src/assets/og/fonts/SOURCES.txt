@@ -1,0 +1,31 @@
+These fonts are used only by the build-time PNG renderer. They are not
+downloaded by docs readers. The bundled fallback fonts use the SIL Open
+Font License; accompanying *-OFL.txt files contain the license notices.
+
+Inter is the docs site's primary typeface. Noto provides fallback glyphs
+for CJK, Arabic, and emoji without depending on Vercel's system fonts.
+
+Azeret SemiMono Regular and Medium are licensed brand fonts. Their WOFF2
+files are not redistributed here. The renderer downloads the existing
+public Warp marketing assets below, verifies pinned SHA-256 digests, and
+caches them in node_modules/.cache/warp-og-fonts. Decoded fonts live only
+in an OS temporary directory, never in git or the public build output.
+A cold build requires network access; a warm cache works offline. A
+download or checksum failure stops the build instead of replacing Azeret.
+
+https://www.warp.dev/fonts/AzeretSemiMono-Regular.woff2
+SHA-256: ec128d9217ae3efad5ddbea95d91b1484bdab1bcc31c81632203cc6848534498
+https://www.warp.dev/fonts/AzeretSemiMono-Medium.woff2
+SHA-256: f244c345ee26ef329bcba90dcca72191483d178e66b2dedea781c6af1f45a956
+
+Inter.ttf
+https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/inter/Inter%5Bopsz,wght%5D.ttf
+
+NotoSansArabic.ttf
+https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/notosansarabic/NotoSansArabic%5Bwdth,wght%5D.ttf
+
+NotoEmoji.ttf
+https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/notoemoji/NotoEmoji%5Bwght%5D.ttf
+
+NotoSansCJKsc-Regular.otf
+https://github.com/notofonts/noto-cjk/blob/f8d157532fbfaeda587e826d4cd5b21a49186f7c/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf

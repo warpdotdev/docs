@@ -107,7 +107,7 @@ Without a payload filter, an automation starts a run for every delivery from its
 }
 ```
 
-Use an operator object where an array isn't enough: `in` (the same as a bare array), `not_in`, and `exists`. Nest objects to reach nested fields. For the full matching rules, limits, and how filters behave on missing keys and arrays, see [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers).
+Use an operator object where an array isn't enough: `in` (the same as a bare array), `not_in`, `exists`, or `contains` for case-sensitive substring matching. Nest objects to reach nested fields. For the full matching rules, limits, and how filters behave on missing keys and arrays, see [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers).
 
 ## What the run receives
 
@@ -181,6 +181,6 @@ find the failing code path, and open a pull request with a fix and a test.
 * [Setting up a Vercel webhook](/factories/webhooks/vercel/) - The two-step setup for providers that issue their signing secret only after they have a URL
 * [Automations](/factories/automations/) - How triggers and filters decide which events start work, including the payload filter grammar
 * [Connect your factory](/factories/connect-your-factory/) - Every way work reaches a factory, alongside custom webhooks
-* [Definitions as code](/factories/factory-as-code/) - The full schema for `webhooks/<name>.yaml` and webhook triggers
+* [Factory definition as code](/factories/factory-as-code/) - The full schema for `webhooks/<name>.yaml` and webhook triggers
 * [Factory secrets](/factories/secrets/) - Create and rotate the managed secrets that file-defined webhooks reference
 * [Factory dashboard](/factories/factory-dashboard/) - Where the **Automations** page and its **Webhooks** tab live

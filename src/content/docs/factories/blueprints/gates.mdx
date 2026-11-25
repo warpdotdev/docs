@@ -1,0 +1,65 @@
+---
+title: Adding gates to a Blueprint
+description: >-
+  Require human involvement when a condition holds during or after a stage's work in a Warp Factories Blueprint.
+---
+
+A gate pauses a Blueprint stage so a person can answer a question before work continues. You define the question, the answers needed, and when the worker must ask. For example, a planning stage can draft a plan, ask you to approve it or request changes, and wait for your answer before implementation starts.
+
+{/* VERIFY: Observe end-of-stage and conditional gates in an applied definition, including unanswered questions, requested changes, renewed approval, and no implementation before approval. */}
+
+## Require plan approval
+
+In `factory.yaml`, add a named gate under the planning stage's `gates`. The question belongs beside the work that produces the plan, not only in a general foreman prompt.
+
+```yaml title="Stage under blueprint.stages"
+plan:
+  worker: foreman
+  inputs: The request and repository context.
+  prompt: Propose a short plan with scope and checks. Do not edit code.
+  outputs: The plan and the plan-review answer.
+  gates:
+    plan-review:
+      prompt: Review the plan. Approve it or describe the changes you want.
+      outputs: Approval of this plan, or requested changes to it.
+  to:
+    - stage: plan
+      when: The plan-review answer requests changes.
+    - stage: implement
+      when: The plan-review answer approves the current plan.
+```
+
+Choose a stable gate name, such as `plan-review`, so the transitions can refer to its answer. `prompt` states what to ask; `outputs` describes the answers needed to continue. Without `when`, the gate opens after the stage's work is done.
+
+The stage stays open while the question is unanswered. “Changes requested” satisfies the gate but selects the revision transition. An unrelated reply or a question back does not approve the plan. A revised plan is a new review matter and needs its own answer.
+
+## Ask when a condition arises
+
+For questions that depend on the work, add `when`. This gate can open during implementation when the worker discovers a migration:
+
+```yaml title="Gate under an implementation stage's gates"
+migration-review:
+  when: The proposed change adds or alters a database migration.
+  prompt: Ask the service owner to review the migration and its rollout plan.
+  outputs: Approval, requested changes, or a decision not to proceed.
+```
+
+Write `when` as a plain-language condition the worker can assess from the task and its results, not a code expression. The worker checks it during the work and again before finishing the stage. Other conditions can ask for clarification or a choice, not only approval:
+
+| Example `when` condition | What the gate asks |
+| --- | --- |
+| The request leaves the intended API behavior unresolved. | Ask the requester which behavior to implement before editing code. |
+| The proposed fix requires a breaking change to a public API. | Present the compatibility impact and ask the API owner to approve the change, request another approach, or decline. |
+| Verification cannot run because a required test environment is unavailable. | Explain which checks remain unverified and ask whether to provide access, change the verification plan, or stop. |
+
+Include the material and context a person needs to answer in the gate's `prompt`. If several gates open together, the worker asks them together; every open question must be answered before the stage finishes.
+
+For a leaf stage, the worker doing the work checks its gates and relays questions through the foreman. A gate on a delegated group is checked by the worker that dispatched the group, after the group's result returns.
+
+After [validating and applying](/factories/factory-as-code/#validate-a-definition) the definition, answer gate questions in the original conversation with the foreman. See [workflow decisions and repository permissions](/factories/blueprints/#gates-ask-for-answers-not-automatic-approval) for the boundary between gates and access controls.
+
+## Related pages
+
+* [Configuring Blueprint transitions](/factories/blueprints/routes/) - Choose what each answer does next
+* [Defining Blueprint stages](/factories/blueprints/stages/) - Put a question beside the work it pauses
+* [Blueprints](/factories/blueprints/) - Separate workflow decisions from permissions
