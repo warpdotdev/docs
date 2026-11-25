@@ -43,6 +43,15 @@
       ]
     },
     {
+      "source": "/retrieve",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/:directory(_astro|assets)/:path(.*)",
       "headers": [
         {

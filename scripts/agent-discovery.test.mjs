@@ -92,3 +92,30 @@ test('developer portal entry points resolve to the API and SDK overview', async 
 	// The more specific /developers/cli redirect must keep working (in either slash form).
 	assert.ok(redirects.some((entry) => /^\/developers\/cli(\(\/\?\))?$/.test(entry.source)));
 });
+
+// RFC 9309: the most specific (longest) matching rule wins; Allow wins ties.
+function robotsAllows(robots, path) {
+	const rules = robots
+		.split('\n')
+		.map((line) => line.trim().match(/^(Allow|Disallow):\s*(\S*)/i))
+		.filter(Boolean)
+		.map(([, kind, pattern]) => ({ allow: kind.toLowerCase() === 'allow', pattern }));
+	const toRegex = (pattern) =>
+		new RegExp(`^${pattern.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\\\$$/, '$')}`);
+	const matches = rules.filter((rule) => rule.pattern && toRegex(rule.pattern).test(path));
+	if (!matches.length) return true;
+	matches.sort((a, b) => b.pattern.length - a.pattern.length || Number(b.allow) - Number(a.allow));
+	return matches[0].allow;
+}
+
+test('robots.txt lets agents call the retrieval endpoint that llms.txt advertises', async () => {
+	const robots = await readFile(repoFile('public/robots.txt'), 'utf8');
+	assert.equal(robotsAllows(robots, '/retrieve?q=how%20do%20I%20install%20warp'), true);
+	// Search-style query strings on pages stay disallowed.
+	assert.equal(robotsAllows(robots, '/?q=warp'), false);
+	assert.equal(robotsAllows(robots, '/agents/?ask=hello'), false);
+	assert.equal(robotsAllows(robots, '/agents/'), true);
+	const { headers } = await readJson('vercel.json');
+	const retrieve = headers.find((entry) => entry.source === '/retrieve');
+	assert.ok(retrieve?.headers.some((h) => h.key === 'X-Robots-Tag' && h.value === 'noindex'));
+});
