@@ -128,6 +128,16 @@ uncertain answers: `factory-as-code`, `self-hosting`, `integrations`,
 `factory-mcp`, `how-factories-work`, `factory-agents`, and
 `infrastructure-and-security`.
 
+### Themes documented in the accuracy PR
+
+These high-traffic gaps now have verified public prose:
+
+- Alias immutability after creation → `/factories/factory-as-code/#alias`
+- Subscription vs API/team-managed factory inference →
+  `/factories/managing-plans-and-billing/#inference-for-factory-workers`
+- Empty/failed runs, GitHub setup/resume, continue after finish →
+  `/factories/troubleshooting/`
+
 ## Answering customer and SE questions
 
 - Lead with the shipped behavior and the canonical docs link.

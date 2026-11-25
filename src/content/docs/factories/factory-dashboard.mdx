@@ -128,7 +128,10 @@ To update the factory, push your changes to a separate branch, then review and m
 
 **Settings** holds the configuration the factory owns:
 
-* **Identity** - The factory's name, avatar, and ["Foreman name"](/factories/factory-as-code/#alias), the handle your team @-mentions.
+* **Identity** - The factory's name, avatar, and
+  ["Foreman name"](/factories/factory-as-code/#alias), the handle your team
+  @-mentions. You can rename the factory's display name. The foreman alias is
+  fixed after creation; use a new factory if you need a different handle.
 * **Repositories** - The repos the factory works in.
 * **Pull request authorship** - Whether pull requests are authored by the worker or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)).
 * **Analysis model** - The model [Self-improvement](/factories/measure-and-improve/self-improvement/) uses to analyze failed runs.

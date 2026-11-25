@@ -144,7 +144,13 @@ To change what the factory answers to, edit its mentions automation's handle and
 
 The factory posts progress and links in the originating issue, pull request, or review thread. Pushes and workflow runs report on the work item instead. New activity on an existing thread continues the same work item.
 
-Issues and pull requests the factory opens or adopts carry its `factory:<alias>` label. Warp removes it when you disconnect the repository or delete the factory. Delete old labels after renaming the alias.
+Issues and pull requests the factory opens or adopts carry its
+`factory:<alias>` label. Warp removes it when you disconnect the repository
+or delete the factory. The alias itself
+[cannot change after creation](/factories/factory-as-code/#alias). If you
+create a replacement factory with a new alias, remove unused
+`factory:<old-alias>` labels from repositories that no longer route to a live
+factory.
 
 Branches and pull requests the factory creates follow the repository's normal rules: branch protection, required reviews, and merge requirements all still apply.
 
@@ -197,7 +203,11 @@ By default, checks run only for pull requests targeting the factory's production
 
 Use a new **@warp** mention outside code blocks and add the factory's `factory:<alias>` label for explicit routing. For unlabeled mentions, see [mention routing](#mention-the-factory). For bot comments, check the [bot policy](#events-from-bots-dont-start-work).
 
-If you renamed the alias or changed repositories after creating the factory, the default automation's filters still use the original snapshot. Edit that automation so the label and repository filters match.
+If you changed repositories after creating the factory, the default
+automation's filters can still use the original repository snapshot. Edit
+that automation so the label and repository filters match the current setup.
+The foreman alias cannot be renamed after creation; see
+[factory alias](/factories/factory-as-code/#alias).
 
 ### A GitHub event doesn't start work
 

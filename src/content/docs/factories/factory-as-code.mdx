@@ -232,8 +232,23 @@ Retain the other required `factory.yaml` fields when adding the fragment, then [
 
 ### `alias`
 
-**Optional.**
-The handle used to @-mention the foreman on platforms such as Slack and Linear. The factory dashboard labels it "Foreman name". It accepts up to 60 letters, numbers, spaces, `.`, `_`, and `-`, and is case-insensitively unique in the workspace.
+**Optional at apply time for existing factories; required when the
+factory is created with an alias.**
+The handle used to @-mention the foreman on platforms such as Slack and
+Linear, and the value in the factory's `factory:<alias>` GitHub label. The
+factory dashboard labels it "Foreman name". It accepts up to 60 letters,
+numbers, spaces, `.`, `_`, and `-`, and is case-insensitively unique in the
+workspace.
+
+After creation, the alias is immutable. Changing `alias` in `factory.yaml`,
+the factory dashboard, or the API returns
+`factory alias cannot be changed after creation`. You can still change the
+factory's display [`name`](#name).
+
+To use a different alias, create a new factory with that handle, reconnect
+repositories and integrations, and retire the old factory when you're done.
+Existing automations, labels, and mention filters that hard-code the old
+alias keep working only on the original factory.
 
 ### `credentialStrategy`
 

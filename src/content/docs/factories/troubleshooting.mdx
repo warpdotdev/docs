@@ -100,6 +100,69 @@ If a new matching event still doesn't reach the factory, [contact support](https
 
 **Fix:** Inspect the run's stage and assigned worker. Confirm its Blueprint can transition to implementation, any required gate has an answer, and the worker has write access to the target repository. Branch protection rules apply to everything the factory pushes.
 
+### A run finishes without useful work
+
+**Cause:** The worker stopped early because of missing access, missing
+funding, a blocked host, a waiting gate, or instructions that ended the task
+without opening a change.
+
+**Fix:**
+
+1. Open the run on the factory's
+   [Runs page](/factories/factory-dashboard/#inspect-runs). Read the timeline
+   for auth errors, insufficient usage, blocked network hosts, or a stage
+   that never left planning.
+2. Confirm shared team usage covers the run. Factory runs do not use a
+   personal allowance. See
+   [funding factory runs](/support-and-community/plans-and-billing/plans-pricing-refunds/#funding-factory-runs)
+   and
+   [insufficient usage recovery](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/#factory-runs).
+3. Confirm the worker's harness can authenticate. Warp-hosted models need a
+   funded shared balance. Claude Code, Codex, and Pi need a valid
+   [team-owned auth secret](/factories/harnesses/authentication/). Consumer
+   AI subscriptions are not valid factory credentials.
+4. Confirm the GitHub App installation still covers the target repository and
+   can push branches and open pull requests. See
+   [GitHub push failures](/factories/integrations/github/#an-agent-cant-push-a-branch-or-open-a-pull-request).
+5. Open [Home](/factories/factory-home/) with **Waiting on you** selected.
+   Answer any pending question, spec review, or PR review, then start a new
+   request if the original run already ended.
+6. If the run shows `network/egress_blocked` diagnostics, follow
+   [network requests fail during a run](#network-requests-fail-during-a-run).
+
+### Setup or resume fails with a GitHub error
+
+**Cause:** The factory can't use the GitHub App installation for the selected
+repositories, or the definition sync can't read the connected repository.
+
+**Fix:**
+
+1. Confirm the Warp GitHub App installation covers every repository the
+   factory lists. Organization owners can extend or reinstall the app from
+   [GitHub's installation settings](https://github.com/settings/installations).
+2. Confirm your Warp account is linked when the flow asks for GitHub account
+   connection, and that you still belong to the factory's Warp team.
+3. For a GitHub-backed definition, confirm the production branch is reachable
+   and the latest apply or sync succeeded. Invalid definition changes keep
+   the last valid definition. See
+   [validate a definition](/factories/factory-as-code/#validate-a-definition).
+4. Retry the setup or resume action after fixing access. If it still fails,
+   [contact support](https://docs.warp.dev/support-and-community/troubleshooting-and-support/sending-us-feedback/)
+   with the factory link, repository names, and the exact error text.
+
+### You need to continue a finished or failed run
+
+**Cause:** A stopped, failed, or completed run does not keep accepting new
+work the way an open conversation might.
+
+**Fix:** Open the work item or source thread and send a follow-up that your
+automations accept, or start a new request with **New Chat** and the same
+factory selected. For an active sandbox, open **View worker** from the run
+page and steer the
+[shared agent session](/platform/viewing-cloud-agent-runs/) while it remains
+available. After the sandbox shuts down, use a new follow-up or new request
+rather than expecting the finished run to resume in place.
+
 ### A prompt change does not change the workflow
 
 **Cause:** The Blueprint's stage procedures and routing take precedence over stage lists in worker prompts.
