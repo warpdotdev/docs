@@ -7,7 +7,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-A Warp team groups people and resources so you can manage membership, access, and settings together. Team members can share factories, environments, secrets, and Warp Drive content. Teams are available on self-serve and Enterprise plans.
+A Warp team groups people and resources so you can manage membership, access, and settings. Team members can share factories, environments, secrets, and Warp Drive content. Teams are available on self-serve and Enterprise plans.
 
 On the {VARS.WARP_AUTOMATION_PLATFORM}, teams share configuration for agent workflows. For example, a team can use a shared environment and team-owned secrets for a scheduled repository check instead of relying on one developer's personal credentials.
 
@@ -17,47 +17,79 @@ Individual users can also start standalone cloud runs without a team. Membership
 
 A role defines what you can access and which actions you can take in Warp. Your effective permissions also depend on your plan, memberships, and applicable policies.
 
+These human team roles govern membership and shared settings:
+
 * **Team owner** - Owns a self-serve team and can transfer ownership. Each self-serve team has one owner.
 * **Team admin** - Manages the team's membership and configurable settings. Additional admins depend on the plan and are not Enterprise-only.
 * **Member** - Uses shared resources within the applicable policies. Membership alone does not grant administration.
 
-Warp Agent plans support additional admins on Build, Max, Business, and Enterprise, but not standard Free. This does not establish factory-plan entitlements. See [plans and pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/) for the separate plan families.
+Warp Agent plans support additional admins on Build, Max, Business, and Enterprise, but not Free. See [plans and pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/) for plan details. For factory-plan requirements, use [Warp Factories team administration](/factories/teams-and-admin-controls/#team-roles-and-factory-access).
 
 {/* VERIFY: Confirm legacy Warp Agent subscriptions and customer-facing treatment of account-specific admin entitlements before merge. */}
 
-An Enterprise workspace groups one or more teams under one account. Workspace owners and admins administer all of its teams; a team admin administers only their team. Workspace policies can lock team settings. See [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/).
+An Enterprise workspace groups one or more teams under one account. Workspace owners and admins administer all of its teams. A team admin administers only their team. Workspace policies can lock team settings. See [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/).
 
 Cloud agent accounts are execution accounts for automations, not human team roles. Creating or selecting one does not promote a teammate. See [Cloud agent accounts](/platform/agents/) for their configuration and API keys.
 
 ## Joining a team
 
-Ask a team owner or admin for an invitation. Open the invitation link in a browser, sign in with the invited account, and check the team name before clicking **Join team**. Complete domain verification if requested.
+Ask a team owner or admin for an invitation. For an email invitation, use the address that received it. Ask an admin to replace an expired or misaddressed invitation.
 
-For email invitations, use the invited email address and ask an admin to replace an expired invitation. Enterprise workspace membership does not automatically join every team; follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
+1. Open the invitation link and sign up or sign in to Warp.
+2. Confirm the team name and signed-in email address. Complete any required domain verification before joining.
+3. Click **Join team**.
+4. Confirm Warp reports that you've joined the intended team, or ask an admin to verify your email in the team's member list.
+
+Enterprise workspace membership does not automatically join every team. Follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team) for Enterprise invitations and discovery.
+
+{/* VERIFY: Exercise browser invitation acceptance and membership confirmation for standalone workflows in production, including domain verification and onboarding. The flow was checked against source; no live-account test was performed. */}
 
 ## Managing membership and admins
 
-Team owners and admins use the browser-based [Warp Admin Panel](https://app.warp.dev/admin/). Members who cannot open it should ask the person who invited them or a known admin for help. If no admin can be identified, [contact support](mailto:support@warp.dev).
+Team owners and admins use the [Warp Admin Panel](https://app.warp.dev/admin/). Members who cannot open it should ask the person who invited them or a known admin for help. If no admin can be identified, [contact support](mailto:support@warp.dev).
 
-Before inviting someone to a paid per-seat plan, review [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members). Adding an active member adds a prorated seat charge; Enterprise terms follow the contract.
+Before inviting someone to a paid per-seat plan, review [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members). Adding an active member adds a prorated seat charge. Enterprise terms follow the contract.
 
-1. Open the Admin Panel, confirm the intended team, and click **Teams**.
-2. Under **Invite by Email**, enter the addresses and click **Send**. Confirm they appear as pending invitations.
-3. To share a link instead, enable **Invite by Link** if needed. Copy the link and share it securely.
+### Inviting by email
 
-Use "Restrict by domain" to limit a self-serve invite link to approved domains. Enter a domain, click **Add**, and confirm it appears in the list. People outside those domains must verify an allowed address before joining.
+1. Open the Admin Panel and click **Teams**. Confirm the team name before inviting colleagues.
+2. Under "Invite by Email", enter email addresses separated by commas or spaces, then click **Send**. Confirm the invitations are pending.
 
-On a plan supporting additional admins, open the member's three-dots menu and click **Promote to team admin** or **Demote team admin**. Complete any confirmation and verify the updated role. If the member list uses an editable role column, click the member's role dropdown and select **Team Admin** to promote the member instead.
+### Inviting by link
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Toggle on **Invite by Link**.
+3. To restrict joining to approved email domains, enter a domain under "Restrict by domain", then click **Add**. Confirm the domain appears in the list. Repeat for any additional domains before sharing.
+4. Click **Copy invite link** and share the link securely.
+
+People signing in with an address outside the approved domains must verify an allowed address before joining.
+
+### Promoting or demoting admins
+
+You must be a team owner or admin to change team-admin roles. Your plan must support additional admins before you can promote a member.
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Next to the person you want to promote or demote, click the three dots, then click **Promote to team admin** or **Demote team admin**. If the list has an editable role column instead, click the member's role dropdown and select **Team Admin** to promote them.
+3. Complete any confirmation and verify the updated role.
 
 {/* VERIFY: Exercise the member-menu and editable-role-column paths in the production Admin Panel, including demotion and confirmation behavior. */}
 
-Only the current self-serve owner can transfer ownership. In the team's member list, use **Transfer ownership**, or click the member's role dropdown in an editable role column and select **Owner**. Confirm with **Transfer**. The previous owner becomes a Member; adding another admin does not transfer ownership. If the new owner's email is not on a work domain, Warp disables team discoverability.
+### Transferring team ownership
 
-For Enterprise team creation, removals, and workspace-wide role changes, use [Managing Enterprise teams](/enterprise/team-management/teams/) and [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/).
+Only the current self-serve team owner can transfer ownership. After the transfer, you become a Member and lose admin access. If the new owner's email is not on a work domain, Warp disables team discoverability. Adding an admin does not transfer ownership.
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Next to the member who will become the owner, click the three dots, then click **Transfer ownership**. If the list uses an editable role column instead, click the member's role dropdown and select **Owner**.
+3. Click **Transfer** in the confirmation.
+4. Ask the new owner to confirm their Owner role.
+
+If you still need admin access, ask the new owner or another admin to grant it separately, if your plan supports additional admins.
+
+For Enterprise administration, follow [Creating teams and choosing visibility](/enterprise/team-management/teams/#creating-teams-and-choosing-visibility), [Removing a workspace member](/enterprise/team-management/workspaces/#removing-a-workspace-member), [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles), or [Transferring workspace ownership](/enterprise/team-management/workspaces/#transferring-workspace-ownership).
 
 ## Configuring shared controls
 
-In the Admin Panel, confirm the team or workspace before opening the relevant section. The plan determines which controls are available; workspace policies can restrict team admins.
+In the Admin Panel, confirm the team or workspace before opening the relevant section. The plan determines which controls are available. Workspace policies can restrict team admins.
 
 ### GitHub authorization
 
@@ -73,7 +105,7 @@ Use **Models** for [team-managed provider keys and endpoints](/enterprise/enterp
 
 ### Artifacts and privacy
 
-Under **Platform**, "Agent artifact attachments" controls whether agents share captured screenshots and videos as links or embeds. Click the dropdown and select **Disabled**, **Link only**, or **Embed** after reviewing the [sharing and security implications](/agents/capabilities/computer-use/artifacts-in-prs/).
+Review the [sharing and security implications](/agents/capabilities/computer-use/artifacts-in-prs/) before changing how agents attach screenshots and videos. In the Admin Panel, open **Platform**. Click the "Agent artifact attachments" dropdown and select **Disabled**, **Link only**, or **Embed**.
 
 For organization-level content collection, provider retention, and storage distinctions, use the [Enterprise Admin Panel privacy guidance](/enterprise/team-management/admin-panel/#privacy-settings) and [Privacy and data control](/support-and-community/privacy-and-security/privacy/). Disabling personal Terminal conversation sync does not disable cloud-run storage.
 
@@ -81,7 +113,7 @@ For organization-level content collection, provider retention, and storage disti
 
 Use [cloud run access and billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) to determine the user or team billed for a standalone run. Schedules and agent API keys can draw from different balances. Check the balance for the billed account rather than assuming all team workflows use one personal allowance.
 
-Use the [cloud agent management surfaces](/platform/managing-cloud-agents/) to inspect runs. Enterprise workspace admins can manage team-owned runs across teams; that authority does not automatically grant access to personally owned runs. See [workspace run visibility](/enterprise/team-management/workspaces/#cloud-agent-run-visibility).
+Use the [cloud agent management surfaces](/platform/managing-cloud-agents/) to inspect runs. Enterprise workspace admins can manage team-owned runs across teams. That authority does not automatically grant access to personally owned runs. See [workspace run visibility](/enterprise/team-management/workspaces/#cloud-agent-run-visibility).
 
 ## Related pages
 

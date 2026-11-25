@@ -231,7 +231,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{ slug: 'knowledge-and-collaboration/teams', label: 'Teams and admin controls' },
-						{ slug: 'knowledge-and-collaboration/roles-and-permissions', label: 'Roles & permissions' },
+						{ slug: 'knowledge-and-collaboration/roles-and-permissions', label: 'Roles and permissions' },
 						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Admin Panel' },
 						{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session sharing' },
 					],
@@ -582,12 +582,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/teams-and-admin-controls', label: 'Teams' },
 						{ slug: 'factories/managing-plans-and-billing', label: 'Plans' },
-						'support-and-community/plans-and-billing/credits',
-						'support-and-community/plans-and-billing/add-on-credits',
-						{ slug: 'support-and-community/plans-and-billing/pricing-faqs', label: 'Pricing FAQs' },
 						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 						{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
-						{ label: 'Contact support', link: '/support-and-community/#contact-support' },
 					],
 				},
 				{
@@ -871,7 +867,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
 						{ slug: 'enterprise/team-management/teams', label: 'Teams' },
 						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin Panel' },
-						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles & permissions' },
+						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },
 					],
 				},
 				{
