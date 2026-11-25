@@ -28,8 +28,18 @@ assert.equal(websites.length, 1, 'Expected exactly one WebSite JSON-LD node');
 
 assert.equal(organizations[0]['@id'], ORGANIZATION_ID);
 assert.equal(organizations[0].url, WARP_ORIGIN);
+// Same description as the Organization node on www.warp.dev, so both hosts describe one entity.
+assert.equal(
+	organizations[0].description,
+	'Warp builds Warp Factories: open infrastructure for cloud software factories, defined in code.',
+);
+assert.ok(
+	organizations[0].sameAs.every((url) => !url.startsWith('https://go.warp.dev/')),
+	'sameAs lists identity profiles only, not signup links',
+);
 assert.equal(websites[0]['@id'], WEBSITE_ID);
 assert.equal(websites[0].url, DOCS_ORIGIN);
+assert.match(websites[0].description, /^Documentation for Warp\b/);
 assert.deepEqual(websites[0].publisher, { '@id': ORGANIZATION_ID });
 
 console.log('Homepage JSON-LD validation passed.');

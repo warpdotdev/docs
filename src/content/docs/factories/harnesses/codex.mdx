@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Codex is OpenAI's coding agent. Use it as a factory agent's harness for tasks such as codebase migrations or batch test generation. Select its harness, model, and team-owned auth secret in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
+Codex is OpenAI's coding agent. Use it as a factory agent's harness for tasks such as codebase migrations or batch test generation. Select its harness, model, and team-owned auth secret in [Configuring factory workers](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
 
 Codex also runs as a standalone cloud agent without a factory. To run the CLI locally in Warp, follow [Codex CLI in Warp](/agents/cli-agents/codex/); local authentication is separate from the cloud setup below.
 
@@ -34,7 +34,7 @@ Factory agents select team-scoped secrets. Standalone ad hoc runs can use person
 
 ## Starting a Codex run
 
-For a factory agent, follow [Configuring factory agents](/factories/factory-agents/configuration/). For a standalone cloud run:
+For a factory agent, follow [Configuring factory workers](/factories/factory-agents/configuration/). For a standalone cloud run:
 
 * **Warp app** - In the Warp app's Cloud Mode, open the "Agent harness" dropdown above the input and choose **Codex**.
 * **{VARS.WEB_APP}** - On the new run or new schedule pane, in the "Harness" dropdown, choose **Codex**. In the "Codex auth secret" field, select a stored OpenAI secret.

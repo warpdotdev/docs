@@ -1,0 +1,73 @@
+---
+title: Defining Blueprint stages
+description: >-
+  Define stages in a Warp Factories Blueprint, assign workers, and specify the instructions and results each handoff needs.
+---
+
+A stage is a named part of a Warp Factories Blueprint, such as investigating a bug, writing a plan, implementing a change, or reviewing a PR. It assigns that work to a worker, an agent configured for your factory, and defines what information the worker needs, what it must do, and what result it must return.
+
+For example, an implementation stage takes an approved plan, makes the change, and returns a PR with check results. A separate review stage takes that PR and tested head, checks the diff, and returns findings or acceptance of that head. Separating the stages lets you change review's instructions or assign a different reviewer without changing the implementation procedure.
+
+Edit the stages under `blueprint.stages` in your factory's `factory.yaml`. If your existing definition has no Blueprint, add the [Blueprint fragment](/factories/factory-as-code/#blueprint) and retain your factory settings and schema version.
+
+Use workers already declared in the definition, or [create a custom worker](/factories/factory-agents/creating-custom-agents/). Stage worker assignments determine Blueprint delegation. Use [`spawnableBy`](/factories/factory-as-code/#spawnableby) separately to let workers launch ad hoc subagents for subtasks without assigning those runs a Blueprint stage.
+
+{/* VERIFY: Apply the stage examples in a complete definition and observe worker selection, stage-specific instructions, and the implementation-to-review handoff before publication. */}
+
+## Choose the worker and instructions
+
+The stage says what work to do now. The worker configuration supplies the model, harness, tools, and general instructions that apply across all stages.
+
+1. In `factory.yaml`, find the stage to change under `blueprint.stages`, or add a new named stage. Choose a name for the work, such as `implement` or `review`, rather than for its model.
+2. Set `worker` to a declared worker. Find its file under the definition's [existing worker root](/factories/factory-as-code/#directory-structure): `workers/<name>/worker.md` or `agents/<name>/agent.md`. In this example, `implementer` makes the change and `reviewer` checks it independently. Configure their repository access and tools in their [worker settings](/factories/factory-agents/configuration/).
+3. Write `inputs`, `prompt`, and `outputs` so the next stage has the evidence it needs:
+
+   ```yaml title="Stages under blueprint.stages"
+   implement:
+     worker: implementer
+     inputs: The approved plan and repository context.
+     prompt: |
+       Implement the approved plan on the existing branch and PR, if any.
+       Run the repository checks and report failures honestly. Do not merge.
+     outputs: The PR URL, head commit, changed files, and check results.
+     to: review
+   review:
+     worker: reviewer
+     inputs: The PR URL, head commit, approved plan, and check results.
+     prompt: |
+       Review the diff against the plan and repository conventions.
+       Check the reported evidence. Return findings; do not edit or merge.
+     outputs: Findings with locations, or acceptance of the reviewed head.
+     to: end
+   ```
+
+   Keep the rest of your definition. To run these stages after an existing stage, change that stage's `to` from `end` to `implement`. For a workflow that starts with implementation, set `blueprint.start.to: implement`.
+
+Inputs and outputs are instructions, not typed schemas. “The checks passed” is less useful than the command, exit code, and tested commit. Put recurring check procedures in a [skill](/factories/factory-skills/), and name that skill in the stage prompt.
+
+## Reuse a worker across stages
+
+A stage name and a worker name serve different purposes. Two stages can use the same worker with different procedures. The worker receives the named stage's instructions; it does not decide which other stage to do next.
+
+When a stage uses the worker already driving its workflow, it runs in that conversation. A different worker receives a delegated stage. For later revisions, the coordinator continues that worker's existing conversation for the work item.
+
+Do not copy the Blueprint's full transition procedure into each worker's instructions. Keep communication rules and reusable behavior there; keep stage work in `prompt` and next-step decisions in [`to`](/factories/blueprints/routes/).
+
+## Group related stages
+
+A stage can contain its own `start` and `stages` instead of a leaf `prompt`. Its worker drives that group, runs stages assigned to itself, and delegates other stages. Reaching the group's `end` returns its declared outputs to the enclosing workflow; it does not finish the whole work item.
+
+Use a group when one worker needs to coordinate a subworkflow, such as implementation and review, before returning a single result. Stage names must be unique across the Blueprint. See [Blueprint syntax](/factories/factory-as-code/#blueprint) for the fields and constraints.
+
+## Apply and check the handoff
+
+1. [Validate and apply the complete definition](/factories/factory-as-code/#validate-a-definition), then start a new test request in a repository you control.
+2. Ask for one bounded change, such as fixing a broken README command. Inspect the stage's conversation and confirm the assigned worker used the intended prompt and returned the required outputs.
+3. Inspect review's inputs. Confirm it received the same PR and tested head, rather than a summary without the diff or check results.
+4. To add a revision loop, configure [review's outgoing transitions](/factories/blueprints/routes/). The unconditional `to: end` above finishes the workflow after review; it does not itself request another implementation pass.
+
+## Related pages
+
+* [Configuring Blueprint transitions](/factories/blueprints/routes/) - Return findings to implementation
+* [Adding gates to a Blueprint](/factories/blueprints/gates/) - Require an answer before work continues
+* [Worker configuration](/factories/factory-agents/configuration/) - Change worker resources and base instructions

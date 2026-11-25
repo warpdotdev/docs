@@ -54,7 +54,7 @@ Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) fo
 
 Set the run's host to the connected worker's ID.
 
-For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+As a best practice, use different credentials for worker authentication and run creation. Use a self-hosted worker key for the worker, and a short-lived personal key or an authorized agent's key for the run creator. For an external system submitting factory work, use the target factory's foreman key with [factory endpoints](/factories/factory-api/). See [Creating and managing API keys](/agents/cli/oz-cli/api-keys/) for the creation flow and team-wide worker authentication.
 
 From the {VARS.WARP_AGENT_CLI}:
 
@@ -137,8 +137,8 @@ View runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>. Workers can al
 ## Related pages
 
 * [Self-hosted agent data storage](/factories/self-hosting/data-storage/) - Store cloud agent run data in your own bucket
-* [Self-hosting quickstart](/factories/self-hosting/quickstart/) - Start a managed Docker worker and route a test run.
-* [External orchestrators](/factories/self-hosting/external-orchestrators/) - Choose and deploy the Command backend or one-shot Direct.
-* [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and backend configuration fields.
+* [Self-hosting quickstart](/factories/self-hosting/quickstart/) - Start a managed Docker worker and route a test run
+* [External orchestrators](/factories/self-hosting/external-orchestrators/) - Choose and deploy the Command backend or one-shot Direct
+* [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and backend configuration fields
 * [Deployment patterns for Warp Factories](/factories/deployment-patterns/) - Compare Warp-hosted and managed self-hosted execution
-* [Troubleshooting](/factories/self-hosting/troubleshooting/) - Diagnose worker startup, routing, and task failures.
+* [Troubleshooting](/factories/self-hosting/troubleshooting/) - Diagnose worker startup, routing, and task failures

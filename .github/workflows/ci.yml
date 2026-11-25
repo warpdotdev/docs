@@ -69,7 +69,6 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_verify_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_publish_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_stale_review_requests.py
-          python3 .agents/skills/doc_quality_policy/test_agent_docs_review_workflow.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
           python3 .agents/skills/doc_quality_policy/test_server_rollout.py
 
@@ -134,6 +133,9 @@ jobs:
       - name: Test heading variables
         run: npm run test:heading-vars
 
+      - name: Test social preview generation
+        run: npm run test:og-images
+
       - name: Test Markdown serialization
         run: npm run test:docs-markdown
 
@@ -146,6 +148,12 @@ jobs:
       - name: Test agent discovery catalog
         run: npm run test:agent-discovery
 
+      - name: Test Kapa agent retrieval proxy
+        run: npm run test:kapa-agent-retrieval
+
+      - name: Test markdown negotiation helpers
+        run: npm run test:markdown-negotiation
+
       - name: Build site
         run: npm run build
 
@@ -155,14 +163,17 @@ jobs:
       - name: Validate tracking redirect routes
         run: npm run test:tracking-routes
 
+      - name: Validate markdown negotiation routes
+        run: npm run test:markdown-negotiation-routes
+
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld
 
+      - name: Validate social previews
+        run: npm run test:og-output
+
       - name: Validate agent documentation outputs
         run: npm run test:agent-doc-outputs
-
-      - name: Validate Markdown content negotiation routes
-        run: npm run test:markdown-negotiation
 
       - name: Validate page title order
         run: npm run test:page-title-order

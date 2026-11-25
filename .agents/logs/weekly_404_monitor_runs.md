@@ -1,5 +1,17 @@
 # Weekly 404 monitor run log
 
+## 2026-11-23 — No data (blocked)
+- **Total 404s this week**: unavailable
+- **Total 404s last week**: unavailable
+- **Trend**: unavailable; no query completed and no baseline inferred
+- **Significant gaps (≥5 hits)**: unavailable
+- **Redirect candidates processed**: not run (automation threshold: hits ≥ 5)
+- **HIGH-confidence redirects**: not evaluated
+- **PR**: none for redirects; standing log branch `chore/404-monitor-log`
+- **Oz run**: https://staging.warp.dev/conversation/8c22b79d-1d26-4658-929c-8423bd56955d
+- **Validation**: Historical entries byte-preserved; `git diff --check` exit 0; internal-link check exit 0 (428 files, 5297 links, 0 broken). Ordered checks: typecheck exit 127 (`astro` unavailable), heading-vars exit 0 (5 tests), build exit 1 (`yaml` unavailable), heading-tocs and homepage-json-ld each exit 1 (`linkedom` unavailable; build output not produced). `trunk check` and `trunk fmt` each exit 127 (Trunk unavailable). No tooling repairs attempted; no public docs or redirects changed.
+- **Notes**: Scheduled cron-event guard exit 0: attached nominal fire time 2026-11-23T17:00:00Z is Monday 09:00 America/Los_Angeles. Python 3.13.5 and GitHub/connected Slack access verified; current main `7a7e436768dca1ad3a0129759e46f6b903896ec1` has 1426 redirects (sanity passed). `METABASE_API_KEY` is missing. The unchanged report script exited 1 before any Metabase request; stdout, stderr, and actual exit code are retained in run output. Audit incomplete, not zero 404s. No CSV fabricated or uploaded; Phase 2 blocked because report data and required artifacts are unavailable. Reporting and automation thresholds remain 5. Current main log and remote standing-branch availability were read before writing; the log branch and open log PR were absent after the previous PR merged, so the branch was recreated from current main in a separate worktree. Main is already up to date; no rebase or reset. No public docs, redirects, secrets, deployments, or schedules changed. Owner action: provision `METABASE_API_KEY` for this automation's execution environment, verify Metabase read access, and rerun. Final Slack delivery follows durable logging and a full Pacific-Monday history dedupe check; its receipt or delivery failure remains in run output.
+
 ## 2026-11-16 — No data (blocked)
 - **Total 404s this week**: unavailable
 - **Total 404s last week**: unavailable

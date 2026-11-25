@@ -1,6 +1,7 @@
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import config from 'virtual:starlight/user-config';
 import { getMarkdownPathFromHtmlPath } from './lib/docs-markdown.js';
+import { socialImageMeta } from './lib/social-image.js';
 
 /**
  * Per-page head augmentation.
@@ -31,8 +32,6 @@ export const onRequest = defineRouteMiddleware((context) => {
 	const pageTitle = route.entry?.data?.title ?? siteTitle;
 	const pageDescription = route.entry?.data?.description ?? config.description;
 	const brandedTitle = `${pageTitle} ${config.titleDelimiter} ${siteTitle}`;
-	const site = context.site ?? new URL('https://docs.warp.dev');
-	const ogImageUrl = new URL('/og-image.png', site).href;
 
 	// Drop Starlight's bare og:title before adding the branded one. Inline
 	// rather than a helper so we keep the exact `route.head` element type
@@ -47,14 +46,8 @@ export const onRequest = defineRouteMiddleware((context) => {
 
 	head.push(
 		{ tag: 'meta', attrs: { property: 'og:title', content: brandedTitle } },
-		{ tag: 'meta', attrs: { property: 'og:image', content: ogImageUrl } },
-		{ tag: 'meta', attrs: { property: 'og:image:secure_url', content: ogImageUrl } },
-		{ tag: 'meta', attrs: { property: 'og:image:type', content: 'image/png' } },
-		{ tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
-		{ tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
-		{ tag: 'meta', attrs: { property: 'og:image:alt', content: `${siteTitle} — ${pageTitle}` } },
+		...socialImageMeta('/og-image.png', pageTitle),
 		{ tag: 'meta', attrs: { name: 'twitter:title', content: brandedTitle } },
-		{ tag: 'meta', attrs: { name: 'twitter:image', content: ogImageUrl } },
 	);
 	if (pageDescription) {
 		head.push({

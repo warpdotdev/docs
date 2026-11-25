@@ -7,14 +7,15 @@
     "dev": "astro dev",
     "predev": "node scripts/generate-openapi-json.mjs",
     "build": "astro build",
-    "postbuild": "node scripts/build-tracking-middleware.mjs && node scripts/run-route-writers.mjs",
+    "postbuild": "node scripts/build-tracking-middleware.mjs",
     "prebuild": "node scripts/generate-openapi-json.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
     "lint": "trunk check",
     "fmt": "trunk fmt",
-    "og:api": "node scripts/generate-og-api.mjs",
+    "test:og-images": "node --test src/integrations/og-images.test.js",
+    "test:og-output": "node scripts/validate-og-images.mjs",
     "favicon:generate": "node scripts/generate-favicons.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "test:heading-tocs": "node scripts/validate-heading-tocs.mjs",
@@ -27,12 +28,14 @@
     "test:kapa-history": "node --test src/lib/kapa-conversation-history.test.mjs",
     "test:kapa-webmcp": "node --test src/lib/kapa-webmcp.test.mjs",
     "test:kapa-support-escalation": "node --test src/lib/kapa-support-escalation.test.mjs",
-    "test:markdown-negotiation": "node --test scripts/markdown-negotiation.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
     "test:platform-reference-migration": "node scripts/validate-platform-reference-migration.mjs",
     "test:article-retirements": "node scripts/validate-article-retirements.mjs",
     "test:page-title-order": "node scripts/validate-page-title-order.mjs",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "test:kapa-agent-retrieval": "node --test src/lib/kapa-agent-retrieval.test.mjs",
+    "test:markdown-negotiation": "node --test scripts/markdown-negotiation.test.mjs src/lib/docs-markdown-retrieve.test.mjs",
+    "test:markdown-negotiation-routes": "node scripts/validate-markdown-negotiation-routes.mjs"
   },
   "engines": {
     "node": "^20.19.0 || ^22.12.0 || ^24"
@@ -63,6 +66,7 @@
     "svg-toolbelt": "^0.7.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2",
+    "wawoff2": "2.0.1",
     "yaml": "^2.8.3"
   },
   "overrides": {

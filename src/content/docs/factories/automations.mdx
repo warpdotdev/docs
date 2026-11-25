@@ -2,12 +2,14 @@
 title: Factory automations
 description: >-
   Configure factory automations with triggers and filters to control which
-  events start runs and which agent handles the work.
+  events start runs and which worker handles the work.
 sidebar:
   label: Factory automations
 ---
 
-An **automation** starts factory runs from a trigger and routes them to an agent. Filters narrow which events start work. For example, an automation can send newly opened pull requests to a review agent, but only for one repository's `main` branch.
+An **automation** starts factory work from a trigger. Filters narrow which events start work, and the target selects a worker or a [Blueprint stage](/factories/blueprints/stages/). For example, send newly opened pull requests to review, but only for one repository's `main` branch.
+
+Automation filters decide whether an event enters the workflow. [Blueprint transitions](/factories/blueprints/routes/) decide what happens between stages after entry. Changing one does not replace the other.
 
 ## How matching works
 
@@ -21,7 +23,7 @@ One event can match more than one automation, and each match starts its own run.
 
 ## Filters don't control access
 
-Filters decide when work starts, not what an integration or running agent can access. To change an integration's access, change its permissions with the provider, not its filters.
+Filters decide when work starts, not what an integration or running worker can access. To change an integration's access, change its permissions with the provider, not its filters.
 
 Provider account requirements still apply. See [who can start work in Slack](/factories/integrations/slack/#who-can-start-work) and [account linking in Microsoft Teams](/factories/integrations/teams/#test-the-connection). Custom webhooks instead authenticate deliveries with a [token or signature](/factories/webhooks/#authentication-modes); filters aren't a substitute for that authentication.
 
@@ -37,7 +39,7 @@ The table summarizes filter categories. For exact provider and event strings, pe
 | [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
 | [Azure DevOps](/factories/integrations/azure-devops/) | Repository, branches, work item types, labels, and people |
 | [Linear](/factories/integrations/linear/) | Team, project, issue, labels, workflow state, and people |
-| [Jira](/factories/integrations/jira/) | Projects |
+| [Jira](/factories/integrations/jira/) | Projects, labels, statuses, and mention keywords, depending on the event |
 | [Custom webhooks](/factories/webhooks/) | Webhook and JSON payload |
 
 For webhook pattern syntax, see [Payload filters for webhook triggers](#payload-filters-for-webhook-triggers).
@@ -81,11 +83,19 @@ stop silently. Otherwise review it and post your findings and verdict on
 the PR.
 ```
 
-Plain lists include matching values; `not_in` excludes them. The [same matching rules](#how-matching-works) apply as in the editor. For complete definitions, see [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) and [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations).
+Plain lists include matching values; `not_in` excludes them. The [same matching rules](#how-matching-works) apply as in the editor. For complete definitions, see [`code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/code-review-only) and [`common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/484a8b431d79407a4623b57503be1dd983080cf5/examples/common-automations).
+
+### Target a Blueprint stage
+
+For an event that must enter a particular stage, replace `worker` (or its legacy alias `agent`) with `stage` in the automation's frontmatter. For example, `stage: review` enters a stage named `review` in your Blueprint. Keep the existing trigger filters and exclusions.
+
+The foreman receives the event and enters the named stage; that stage's worker supplies its execution settings. Do not combine `stage` with `worker`, `agent`, or [execution overrides](/factories/factory-as-code/#execution-overrides). Put the review procedure in the stage, not a competing workflow in the automation body.
+
+After applying the definition, send a new matching event and inspect its stage and worker. Also test an event outside the filters and one that could match another automation. Each matching automation can act; transition order inside the Blueprint does not deduplicate intake.
 
 ## Payload filters for webhook triggers
 
-A webhook trigger's optional `payload` filter matches the delivery's JSON body. Each key names a field that must match; an array lists allowed values. Use nested objects for nested fields and `in`, `not_in`, or `exists` for explicit conditions.
+A webhook trigger's optional `payload` filter matches the delivery's JSON body. Each key names a field that must match; an array lists allowed values. Use nested objects for nested fields and `in`, `not_in`, `exists`, or `contains` for explicit conditions.
 
 This trigger starts a run for opened or reopened pull requests from a GitHub webhook, skipping drafts and bot authors:
 
@@ -111,10 +121,19 @@ Replace `WEBHOOK_UID` with the webhook's UID. For selecting webhooks and testing
 * **Values match by type** - Strings match exactly and case-sensitively, numbers match numerically (`1` equals `1.0`), and booleans and `null` are matchable values.
 * **Missing keys** - A missing key fails `in` and passes `not_in`. For example, `{"env": {"not_in": ["dev"]}}` matches a delivery with no `env` field. A nested pattern object requires its key to be present.
 * **Arrays** - For an array of objects, a nested pattern matches if any element matches. For an array of scalars, `in` matches on any overlap and `not_in` requires none.
+* **Substring matching** - `contains` matches any listed case-sensitive, literal substring in a string or any string element of an array. Missing keys and non-string values don't match. Each substring must be a non-empty string.
 * **Combined operators** - Operators on the same field must all match. For example, combining `in` and `exists: true` requires both to hold.
 * **Limits** - A pattern nests up to 10 levels deep, holds up to 64 leaf fields, and lists up to 32 values per set.
-* **Validation** - Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in`.
+* **Validation** - Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in` or `contains`.
 * **Fail closed** - A filter that can't be evaluated never matches.
+
+For example, this `payload` filter matches `{"message": "upstream connection refused"}`, but not `{"message": "TIMEOUT"}`:
+
+```yaml
+payload:
+  message:
+    contains: [timeout, connection refused]
+```
 
 ## Troubleshooting
 
@@ -125,6 +144,6 @@ Replace `WEBHOOK_UID` with the webhook's UID. For selecting webhooks and testing
 
 * [Connect your factory](/factories/connect-your-factory/) - Set up sources of factory work
 * [Triggering automations with custom webhooks](/factories/webhooks/) - Configure senders and authentication
-* [Factory definition syntax](/factories/factory-as-code/) - Manage automations as version-controlled files
-* [Factory dashboard](/factories/factory-dashboard/) - Manage agents, automations, and runs
+* [Factory definition as code](/factories/factory-as-code/) - Manage automations as version-controlled files
+* [Factory dashboard](/factories/factory-dashboard/) - Manage workers, automations, and runs
 * [Scheduled agents](/platform/triggers/scheduled-agents/) - Run standalone cloud agents on a cron schedule outside a factory
