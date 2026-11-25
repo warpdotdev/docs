@@ -188,8 +188,9 @@ accounting only. Usability does not replace source verification, compliance
 approval, shipped-availability checks, or engineering review.
 
 The advisory [usability workflow](../../.github/workflows/docs-usability.yml)
-also covers human-authored PRs without requiring an agent label. See
-[activation, outcomes, and retries](docs-usability-automation.md) before
+records scope for human-authored PRs without requiring an agent label.
+Evaluator execution is disabled pending enforced isolation. See
+[prerequisites, outcomes, and retries](docs-usability-automation.md) before
 relying on it. A successful orchestration job is not a completed walkthrough.
 
 ## Feedback tags

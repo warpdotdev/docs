@@ -1,11 +1,13 @@
-"""Exercise orchestration boundaries, not the semantic quality of walkthroughs."""
+"""Exercise source ownership and disabled execution, not semantic usability judgments."""
 
 import copy
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
+import textwrap
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -17,11 +19,91 @@ REPO = "warpdotdev/docs"
 HEAD = "a" * 40
 BASE = "b" * 40
 WORKFLOW = "c" * 40
+TRUSTED = "d" * 40
+WORKFLOW_PATH = ".github/workflows/docs-usability.yml"
 ENV = {
     "GITHUB_REPOSITORY": REPO, "PR_NUMBER": "1090", "HEAD_SHA": HEAD,
-    "GITHUB_WORKFLOW_SHA": WORKFLOW, "GITHUB_RUN_ID": "500",
-    "GITHUB_RUN_ATTEMPT": "1", "GITHUB_EVENT_NAME": "pull_request_target",
+    "GITHUB_WORKFLOW_SHA": WORKFLOW, "TRUSTED_SOURCE_SHA": TRUSTED,
+    "GITHUB_RUN_ID": "500", "GITHUB_RUN_ATTEMPT": "1",
+    "GITHUB_EVENT_NAME": "pull_request_target",
 }
+
+
+class SourceSelectionTests(unittest.TestCase):
+    def guard(self, *, event="status", branch="main", ref=None, blob="reviewed", missing=False):
+        workflow = (usability.ROOT / WORKFLOW_PATH).read_text()
+        source_job = workflow.split("\n  plan:\n")[0]
+        code = textwrap.dedent(source_job.split("        run: |\n", 1)[1])
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            fixture = {
+                f"repos/{REPO}": {"default_branch": "main"},
+                f"repos/{REPO}/git/ref/heads/main": {"object": {"sha": TRUSTED}},
+                f"repos/{REPO}/contents/{WORKFLOW_PATH}?ref={TRUSTED}": {"sha": "reviewed"},
+                f"repos/{REPO}/contents/{WORKFLOW_PATH}?ref={WORKFLOW}": {"sha": blob},
+            }
+            if missing:
+                fixture.pop(f"repos/{REPO}/contents/{WORKFLOW_PATH}?ref={TRUSTED}")
+            (directory / "fixture.json").write_text(json.dumps(fixture))
+            gh = directory / "gh"
+            gh.write_text(
+                "#!" + sys.executable + "\n"
+                "import json, os, sys\n"
+                "from pathlib import Path\n"
+                "root = Path(os.environ['STUB_ROOT'])\n"
+                "path = sys.argv[2]\n"
+                "with (root / 'calls').open('a') as calls: calls.write(path + '\\n')\n"
+                "data = json.loads((root / 'fixture.json').read_text())\n"
+                "if path not in data: sys.exit(4)\n"
+                "print(json.dumps(data[path]))\n"
+            )
+            gh.chmod(0o755)
+            environment = {
+                **os.environ, **ENV, "PATH": f"{directory}:{os.environ['PATH']}",
+                "STUB_ROOT": str(directory), "GITHUB_EVENT_NAME": event,
+                "GITHUB_REF": ref or f"refs/heads/{branch}",
+                "GITHUB_WORKFLOW_REF": f"{REPO}/{WORKFLOW_PATH}@refs/heads/{branch}",
+                "GITHUB_OUTPUT": str(directory / "outputs"),
+                "GITHUB_SHA": HEAD,
+            }
+            result = subprocess.run(
+                [sys.executable, "-c", code], env=environment,
+                capture_output=True, text=True, check=False,
+            )
+            output = (directory / "outputs").read_text() if (directory / "outputs").exists() else ""
+            calls = (directory / "calls").read_text() if (directory / "calls").exists() else ""
+            return result, output, calls
+
+    def test_status_and_manual_events_pin_helpers_independently_to_default_branch(self):
+        for event in ("status", "repository_dispatch", "pull_request_target"):
+            with self.subTest(event=event):
+                result, output, calls = self.guard(event=event)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(output, f"sha={TRUSTED}\n")
+                self.assertNotIn(f"ref={HEAD}", calls)
+                self.assertNotEqual(TRUSTED, WORKFLOW)
+
+    def test_deployment_workflow_dispatch_and_topic_refs_are_rejected(self):
+        for event, branch in (
+            ("deployment_status", "topic"),
+            ("deployment_status", "main"),
+            ("workflow_dispatch", "topic"),
+            ("workflow_dispatch", "main"),
+            ("repository_dispatch", "topic"),
+            ("repository_dispatch", "main"),
+        ):
+            with self.subTest(event=event, branch=branch):
+                ref = "refs/tags/main" if (event, branch) == ("repository_dispatch", "main") else None
+                result, output, _ = self.guard(event=event, branch=branch, ref=ref)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(output, "")
+
+    def test_selected_definition_must_match_an_existing_default_branch_blob(self):
+        for kwargs in ({"blob": "pr-owned-yaml"}, {"missing": True}):
+            with self.subTest(kwargs=kwargs):
+                result, output, _ = self.guard(**kwargs)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(output, "")
 
 
 class UsabilityTests(unittest.TestCase):
@@ -39,17 +121,8 @@ class UsabilityTests(unittest.TestCase):
             "id": 42, "sha": HEAD, "environment": "Preview",
             "creator": {"login": "vercel[bot]"},
         }]
-        self.statuses = [{
-            "state": "success", "environment_url": "https://docs-test.vercel.app",
-        }]
+        self.statuses = [{"state": "success", "environment_url": "https://docs-test.vercel.app"}]
         self.checks = []
-        self.jobs = [{
-            "name": "Evaluate PR 1090", "conclusion": "success",
-            "steps": [{
-                "name": "Run the reader journey, not fixture calibration",
-                "conclusion": "success",
-            }],
-        }]
         self.posts = []
         self.api = patch.object(usability, "github", side_effect=self.github)
         self.api.start()
@@ -71,29 +144,18 @@ class UsabilityTests(unittest.TestCase):
         if "/statuses?" in path:
             return copy.deepcopy(self.statuses)
         if "/check-runs?" in path:
-            return {"check_runs": copy.deepcopy(self.checks)}
-        if "/attempts/1/jobs?" in path:
-            self.assertEqual(items_key, "jobs")
-            return copy.deepcopy(self.jobs)
+            self.assertEqual(items_key, "check_runs")
+            return copy.deepcopy(self.checks)
         if "/pulls?" in path:
-            self.assertTrue(paginate)
             return [copy.deepcopy(self.pr)]
         self.fail(f"Unexpected API call: {path}")
 
-    def prepare(self, has_key=True):
-        return usability.prepare(REPO, 1090, HEAD, has_key)
+    def prepare(self):
+        return usability.prepare(REPO, 1090, HEAD)
 
-    def artifact(self, directory, context=None, outcome="clear", agent_step="success"):
+    def artifact(self, directory, context=None):
         context = context or self.prepare()
         (directory / "request.json").write_text(json.dumps(context))
-        (directory / "execution.json").write_text(json.dumps({"agent_step": agent_step}))
-        signal = {
-            "head_sha": HEAD, "outcome": outcome,
-            "report": "Synthetic transport input, not a real usability walkthrough.",
-        }
-        (directory / "agent-output.txt").write_text(
-            "[USABILITY_RESULT]" + json.dumps(signal) + "[/USABILITY_RESULT]",
-        )
         return context
 
     def publish(self, directory):
@@ -105,47 +167,74 @@ class UsabilityTests(unittest.TestCase):
             {"pull_request": {"number": 1090}}, "pull_request_target", REPO,
         ), expected)
         self.assertEqual(usability.plan(
-            {"inputs": {"pr": "1090"}}, "workflow_dispatch", REPO,
+            {"action": "unrelated", "client_payload": {"pr": "1090"}},
+            "repository_dispatch", REPO,
+        ), [])
+        self.assertEqual(usability.plan(
+            {"action": "docs-usability-retry", "client_payload": {"pr": "1090"}},
+            "repository_dispatch", REPO,
         ), expected)
         self.pr["state"] = "closed"
         self.assertEqual(usability.plan(
-            {"inputs": {"pr": "1090"}}, "workflow_dispatch", REPO,
+            {"action": "docs-usability-retry", "client_payload": {"pr": "1090"}},
+            "repository_dispatch", REPO,
         ), [])
         with self.assertRaises(ValueError):
-            usability.plan({"inputs": {"pr": "1090; exit 0"}}, "workflow_dispatch", REPO)
+            usability.plan(
+                {"action": "docs-usability-retry", "client_payload": {"pr": "1090; exit 0"}},
+                "repository_dispatch", REPO,
+            )
+        with self.assertRaises(ValueError):
+            usability.plan({}, "deployment_status", REPO)
 
-    def test_only_successful_preview_events_retry_associated_current_heads(self):
-        event = {
-            "deployment": self.deployments[0], "deployment_status": {"state": "success"},
-        }
-        self.assertEqual(usability.plan(event, "deployment_status", REPO),
+    def test_default_branch_vercel_status_retries_only_its_current_head(self):
+        event = {"sha": HEAD, "state": "success", "context": "Vercel",
+                 "sender": {"login": "vercel[bot]"}}
+        self.assertEqual(usability.plan(event, "status", REPO),
                          [{"number": 1090, "head": HEAD}])
-        self.pr["head"]["sha"] = "d" * 40
-        self.assertEqual(usability.plan(event, "deployment_status", REPO), [])
-        event["deployment_status"]["state"] = "failure"
-        self.assertEqual(usability.plan(event, "deployment_status", REPO), [])
+        for key, value in (("state", "pending"), ("context", "other"),
+                           ("sender", {"login": "contributor"})):
+            with self.subTest(key=key):
+                self.assertEqual(usability.plan({**event, key: value}, "status", REPO), [])
+        self.pr["head"]["sha"] = BASE
+        self.assertEqual(usability.plan(event, "status", REPO), [])
+        associated = {**copy.deepcopy(self.pr), "head": {"sha": HEAD}}
+        original = self.github
 
-    def test_scope_includes_deleted_and_old_renamed_paths_and_rendering(self):
+        def github(path, **kwargs):
+            return [associated] if "/pulls?" in path else original(path, **kwargs)
+
+        self.api.stop()
+        with patch.object(usability, "github", side_effect=github):
+            self.assertEqual(usability.plan(event, "status", REPO), [])
+
+    def test_scope_includes_deleted_old_renamed_and_rendering_paths(self):
         self.assertEqual(usability.affected_paths([
             {"filename": "archive/old.md", "previous_filename": "src/content/docs/old.mdx"},
             {"filename": "src/content/docs/deleted.mdx", "status": "removed"},
             {"filename": "src/sidebar.ts"}, {"filename": "package-lock.json"},
             {"filename": "scripts/render.mjs"}, {"filename": ".agents/internal.md"},
-        ]), [
-            "package-lock.json", "scripts/render.mjs", "src/content/docs/deleted.mdx",
-            "src/content/docs/old.mdx", "src/sidebar.ts",
-        ])
+        ]), ["package-lock.json", "scripts/render.mjs", "src/content/docs/deleted.mdx",
+             "src/content/docs/old.mdx", "src/sidebar.ts"])
         self.files = [{"filename": ".agents/internal.md"}]
         self.assertEqual(self.prepare()["decision"], "not_applicable")
         self.files *= 3000
-        self.assertEqual(self.prepare()["decision"], "not_tested")
+        self.assertEqual(self.prepare()["state"], "file_limit")
 
-    def test_forks_drafts_stale_heads_and_missing_credentials_never_dispatch(self):
-        for field, value, decision in (
-            ("fork", "outside/docs", "not_tested"),
-            ("draft", True, "not_tested"),
-            ("head", "d" * 40, "superseded"),
-            ("key", False, "not_tested"),
+    def test_profile_or_key_availability_never_enables_execution(self):
+        with patch.dict(os.environ, {
+            "WARP_KEY_AVAILABLE": "true", "WARP_AGENT_PROFILE": "pretend-profile",
+            "DOCS_USABILITY_ENABLED": "true",
+        }):
+            context = self.prepare()
+            self.assertEqual(context["decision"], "not_tested")
+            self.assertEqual(context["state"], "isolation_required")
+            self.assertIn("credential-isolated", context["reason"])
+
+    def test_forks_drafts_and_stale_heads_remain_explicit(self):
+        for field, value, state in (
+            ("fork", "outside/docs", "untrusted_fork"),
+            ("draft", True, "draft"), ("head", BASE, "head_changed"),
         ):
             with self.subTest(field=field):
                 pr = copy.deepcopy(self.pr)
@@ -153,206 +242,137 @@ class UsabilityTests(unittest.TestCase):
                     self.pr["head"]["repo"]["full_name"] = value
                 elif field == "draft":
                     self.pr["draft"] = value
-                elif field == "head":
+                else:
                     self.pr["head"]["sha"] = value
-                self.assertEqual(self.prepare(field != "key")["decision"], decision)
+                self.assertEqual(self.prepare()["state"], state)
                 self.pr = pr
 
-    def test_preview_requires_exact_head_vercel_producer_success_and_https_origin(self):
-        self.assertEqual(self.prepare()["decision"], "run")
+    def test_preview_requires_exact_head_trusted_producer_and_https_origin(self):
+        self.assertEqual(self.prepare()["preview"]["sha"], HEAD)
         for field, value in (
-            ("sha", "d" * 40), ("environment", "Production"),
-            ("creator", {"login": "contributor"}),
+            ("sha", BASE), ("environment", "Production"), ("creator", {"login": "contributor"}),
         ):
-            with self.subTest(field=field):
-                original = self.deployments[0][field]
-                self.deployments[0][field] = value
-                self.assertEqual(self.prepare()["decision"], "not_tested")
-                self.deployments[0][field] = original
-        for url in (
-            "http://docs-test.vercel.app", "https://docs-test.vercel.app.evil.test",
-            "https://user@docs-test.vercel.app", "https://docs.warp.dev",
-        ):
-            with self.subTest(url=url):
-                self.statuses[0]["environment_url"] = url
-                self.assertEqual(self.prepare()["decision"], "not_tested")
+            original = self.deployments[0][field]
+            self.deployments[0][field] = value
+            self.assertEqual(self.prepare()["state"], "preview_unavailable")
+            self.deployments[0][field] = original
+        for url in ("http://docs-test.vercel.app", "https://docs-test.vercel.app.evil.test",
+                    "https://user@docs-test.vercel.app", "https://docs.warp.dev"):
+            self.statuses[0]["environment_url"] = url
+            self.assertEqual(self.prepare()["state"], "preview_unavailable")
         self.statuses = [{"state": "pending"}]
-        self.assertEqual(self.prepare()["decision"], "not_tested")
+        self.assertEqual(self.prepare()["state"], "preview_unavailable")
 
-    def test_duplicate_reports_are_reused_but_manual_dispatch_retries(self):
-        context = self.prepare()
-        self.checks = [{
-            "external_id": context["evaluation_key"],
-            "output": {"title": "Walkthrough reported: clear"},
-            "app": {"slug": "github-actions"}, "html_url": "https://github.com/check/1",
-        }]
-        self.assertEqual(self.prepare()["decision"], "duplicate")
-        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "workflow_dispatch"}):
-            self.assertEqual(self.prepare()["decision"], "run")
-        self.checks[0]["output"]["title"] = "Not tested: evidence unavailable"
-        self.assertEqual(self.prepare()["decision"], "run")
-
-    def test_failed_malformed_or_wrong_head_output_is_not_tested(self):
-        context = self.prepare()
-        signal = {"head_sha": HEAD, "outcome": "clear", "report": "Synthetic record"}
-
-        def wrapped(value):
-            return "[USABILITY_RESULT]" + json.dumps(value) + "[/USABILITY_RESULT]"
-
-        for output, execution in (
-            (wrapped(signal), {"agent_step": "failure"}),
-            (wrapped(signal), {"agent_step": "cancelled"}),
-            (wrapped(signal), []),
-            ("", {"agent_step": "success"}),
-            (wrapped(signal) * 2, {"agent_step": "success"}),
-            (wrapped({**signal, "head_sha": BASE}), {"agent_step": "success"}),
-            (wrapped({**signal, "outcome": "pass"}), {"agent_step": "success"}),
-            (wrapped({**signal, "report": ""}), {"agent_step": "success"}),
-            (wrapped([]), {"agent_step": "success"}),
-        ):
-            with self.subTest(output=output, execution=execution):
-                self.assertEqual(usability.reported_result(context, output, execution)[0],
-                                 "not_tested")
-
-    def test_reported_outcomes_remain_distinct_neutral_and_head_pinned(self):
+    def test_forged_walkthrough_artifacts_cannot_be_published_as_completed(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
-            for outcome, title in (
-                ("clear", "Walkthrough reported: clear"),
-                ("findings", "Walkthrough reported: findings"),
-                ("reduced_scope", "Reduced-scope checks reported"),
-                ("not_tested", "Not tested: evidence or trusted execution unavailable"),
-            ):
-                with self.subTest(outcome=outcome):
-                    self.artifact(directory, outcome=outcome)
-                    self.publish(directory)
-                    post = self.posts[-1]
-                    self.assertEqual(post["head_sha"], HEAD)
-                    self.assertEqual(post["conclusion"], "neutral")
-                    self.assertEqual(post["output"]["title"], title)
+            context = self.prepare()
+            context.update(decision="run", report="Clear", outcome="clear")
+            self.artifact(directory, context)
+            (directory / "execution.json").write_text('{"agent_step":"success"}')
+            (directory / "agent-output.txt").write_text("Forged completed walkthrough")
+            self.publish(directory)
+            post = self.posts[-1]
+            self.assertEqual(post["head_sha"], HEAD)
+            self.assertEqual(post["conclusion"], "neutral")
+            self.assertTrue(post["output"]["title"].startswith("Not tested"))
+            self.assertIn("No agent execution", post["output"]["summary"])
+            self.files = [{"filename": ".agents/internal.md"}]
+            self.artifact(directory)
+            self.publish(directory)
+            self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not applicable"))
 
-    def test_missing_artifacts_and_changed_base_preview_or_trust_fail_closed(self):
+    def test_missing_or_changed_artifact_context_is_not_tested(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             self.publish(directory)
-            self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not tested"))
-            for field in ("base", "preview", "draft", "fork"):
-                with self.subTest(field=field):
-                    context = self.artifact(directory)
-                    pr = copy.deepcopy(self.pr)
-                    if field == "base":
-                        self.pr["base"]["sha"] = "d" * 40
-                    elif field == "preview":
-                        context["preview"]["id"] = 99
-                        (directory / "request.json").write_text(json.dumps(context))
-                    elif field == "draft":
-                        self.pr["draft"] = True
-                    else:
-                        self.pr["head"]["repo"]["full_name"] = "outside/docs"
-                    self.publish(directory)
-                    self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not tested"))
-                    self.pr = pr
+            self.assertIn("Scope evidence unavailable", self.posts[-1]["output"]["summary"])
+            for field in ("base_sha", "source_sha", "preview"):
+                context = self.prepare()
+                context[field] = {"id": 99} if field == "preview" else HEAD
+                self.artifact(directory, context)
+                self.publish(directory)
+                self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not tested"))
 
     def test_stale_head_and_older_run_cannot_replace_current_evidence(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             self.artifact(directory)
-            self.pr["head"]["sha"] = "d" * 40
+            self.pr["head"]["sha"] = BASE
             self.publish(directory)
             self.assertEqual(self.posts, [])
             self.pr["head"]["sha"] = HEAD
-            self.checks = [{
-                "details_url": f"https://github.com/{REPO}/actions/runs/501",
-                "app": {"slug": "github-actions"},
-            }]
-            self.publish(directory)
-            self.assertEqual(self.posts, [])
+            for suffix in ("501", "500/attempts/2"):
+                self.checks = [{"details_url": f"https://github.com/{REPO}/actions/runs/{suffix}",
+                                "app": {"slug": "github-actions"}}]
+                self.publish(directory)
+                self.assertEqual(self.posts, [])
 
-    def test_dispatch_failure_cannot_be_forged_by_artifact_execution_status(self):
+    def test_duplicate_pending_records_reuse_only_matching_state_and_manual_retry_refreshes(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             self.artifact(directory)
-            self.jobs[0]["conclusion"] = "failure"
             self.publish(directory)
-            self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not tested"))
-            self.jobs[0]["conclusion"] = "success"
-            self.jobs[0]["steps"][0]["conclusion"] = "skipped"
+            check = {**self.posts[-1], "app": {"slug": "github-actions"}}
+            self.checks = [check]
             self.publish(directory)
-            self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not tested"))
+            self.assertEqual(len(self.posts), 1)
+            with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "repository_dispatch"}):
+                self.publish(directory)
+            self.assertEqual(len(self.posts), 2)
+            self.checks[0]["external_id"] = "unrelated-scope"
+            self.publish(directory)
+            self.assertEqual(len(self.posts), 3)
 
-    def test_publisher_recomputes_applicability_instead_of_trusting_artifact(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            directory = Path(temporary)
-            context = self.prepare()
-            context.update(decision="not_applicable", reason="Forged scope")
-            self.artifact(directory, context)
-            self.publish(directory)
-            self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not tested"))
-            self.files = [{"filename": ".agents/internal.md"}]
-            self.publish(directory)
-            self.assertTrue(self.posts[-1]["output"]["title"].startswith("Not applicable"))
-
-    def test_github_transport_passes_untrusted_data_as_json_stdin(self):
-        data = {"report": "$(exit 1) `rm bogus`"}
-        self.api.stop()
-        with patch.object(usability.subprocess, "run") as run:
-            run.return_value.stdout = "{}"
-            usability.github(f"repos/{REPO}/check-runs", data=data)
-            args, kwargs = run.call_args
-            self.assertEqual(args[0][-4:], ["--method", "POST", "--input", "-"])
-            self.assertEqual(json.loads(kwargs["input"]), data)
-            self.assertNotIn("shell", kwargs)
-            run.return_value.stdout = json.dumps([{"jobs": [self.jobs[0]]}, {"jobs": []}])
-            self.assertEqual(usability.github("jobs", paginate=True, items_key="jobs"), self.jobs)
-            self.assertIn("--slurp", run.call_args.args[0])
-
-    def test_cli_preserves_the_actual_prompt_request_and_execution_artifacts(self):
+    def test_cli_records_undispatched_instructions_without_running_an_agent(self):
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
             event = directory / "event.json"
             event.write_text(json.dumps({"pull_request": {"number": 1090}}))
             with patch.dict(os.environ, {
                 "GITHUB_EVENT_PATH": str(event), "GITHUB_OUTPUT": str(directory / "outputs"),
-                "GITHUB_STEP_SUMMARY": str(directory / "summary"),
-                "WARP_KEY_AVAILABLE": "true",
+                "GITHUB_STEP_SUMMARY": str(directory / "summary"), "WARP_KEY_AVAILABLE": "true",
             }):
-                with patch.object(sys, "argv", ["docs_usability.py", "plan"]):
-                    usability.main()
-                with patch.object(sys, "argv", [
-                    "docs_usability.py", "prepare", "--directory", str(directory),
-                ]):
-                    usability.main()
-                evidence = directory / "evidence"
-                context = json.loads((evidence / "request.json").read_text())
-                self.assertEqual(context["decision"], "run")
-                self.assertIn(HEAD, (evidence / "prompt.txt").read_text())
-                self.assertIn("run<<", (directory / "outputs").read_text())
-                self.artifact(evidence, context)
-                with patch.dict(os.environ, {
-                    "AGENT_OUTPUT": (evidence / "agent-output.txt").read_text(),
-                    "AGENT_OUTCOME": "success",
-                }), patch.object(sys, "argv", [
-                    "docs_usability.py", "collect", "--directory", str(directory),
-                ]):
-                    usability.main()
-                with patch.object(sys, "argv", [
-                    "docs_usability.py", "publish", "--directory", str(evidence),
-                ]):
-                    usability.main()
-                self.assertEqual(self.posts[-1]["head_sha"], HEAD)
-                self.assertIn("Walkthrough reported: clear", (directory / "summary").read_text())
+                for command in ("plan", "prepare", "publish"):
+                    args = ["docs_usability.py", command]
+                    if command != "plan":
+                        args += ["--directory", str(directory)]
+                    with patch.object(sys, "argv", args):
+                        usability.main()
+                self.assertIn(HEAD, (directory / "undispatched-prompt.txt").read_text())
+                self.assertIn(TRUSTED, (directory / "request.json").read_text())
+                self.assertIn("Not tested", (directory / "summary").read_text())
+                self.assertFalse((directory / "agent-output.txt").exists())
 
-    def test_workflow_uses_trusted_code_and_separate_write_only_publisher(self):
-        workflow = (usability.ROOT / ".github/workflows/docs-usability.yml").read_text()
-        evaluator, publisher = workflow.split("\n  publish:\n")
-        self.assertNotIn("checks: write", evaluator)
-        self.assertNotIn("WARP_API_KEY", publisher)
-        self.assertEqual(workflow.count("ref: ${{ github.workflow_sha }}"), 3)
-        self.assertNotIn("head.ref", workflow)
-        self.assertNotIn("warpy-factory", workflow)
-        self.assertIn("b0c640eb560d1f2fc283244c582830aa16cefd8c", workflow)
+    def test_github_transport_uses_json_stdin_and_paginates_collections(self):
+        self.api.stop()
+        with patch.object(usability.subprocess, "run") as run:
+            run.return_value.stdout = "{}"
+            data = {"report": "$(exit 1)"}
+            usability.github(f"repos/{REPO}/check-runs", data=data)
+            self.assertEqual(json.loads(run.call_args.kwargs["input"]), data)
+            self.assertNotIn("shell", run.call_args.kwargs)
+            run.return_value.stdout = '[{"check_runs":[{"id":1}]},{"check_runs":[]}]'
+            self.assertEqual(usability.github("checks", paginate=True, items_key="check_runs"),
+                             [{"id": 1}])
+
+    def test_workflow_has_no_evaluator_credentials_or_untrusted_checkout(self):
+        workflow = (usability.ROOT / WORKFLOW_PATH).read_text()
+        source, rest = workflow.split("\n  plan:\n", 1)
+        self.assertNotIn("uses:", source)
+        self.assertNotIn("deployment_status:", workflow)
+        self.assertNotIn("workflow_dispatch:", workflow)
+        self.assertIn("\n  status:\n", workflow)
+        self.assertIn("\n  repository_dispatch:\n", workflow)
+        self.assertNotIn("secrets.", workflow)
+        self.assertNotIn("oz-agent-action", workflow)
+        self.assertNotIn("WARP_KEY_AVAILABLE", workflow)
+        self.assertNotIn("ref: ${{ github.workflow_sha }}", workflow)
+        self.assertEqual(rest.count("ref: ${{ needs.source.outputs.sha }}"), 3)
+        self.assertIn("needs.source.result == 'success'", workflow.split("\n  publish:\n")[1])
+        allowed = {"actions/checkout@v4", "actions/upload-artifact@v4", "actions/download-artifact@v4"}
+        self.assertTrue(set(re.findall(r"uses: (\S+)", workflow)).issubset(allowed))
         names = re.findall(r"name: (docs-usability-[^\n]+)", workflow)
-        self.assertEqual(len(names), 2)
         self.assertEqual(names[0], names[1])
         self.assertIn("github.run_attempt", names[0])
 

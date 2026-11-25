@@ -1,37 +1,42 @@
-# Automatic docs usability validation
+# Docs usability automation status
 
-The [Docs usability workflow](../../.github/workflows/docs-usability.yml) dispatches a read-only agent to apply the [reader walkthrough method](docs-usability-validation.md). It reads the exact PR head as data and follows actual rendered links in a current-head Vercel preview. It does not run fixture calibration, approve PRs, fix content, or grade usability from record completeness.
+The [Docs usability workflow](../../.github/workflows/docs-usability.yml) is administratively disabled pending a reviewed default-branch definition. When enabled, it records applicability and missing evidence only. Evaluator execution remains disabled: applicable changes receive **Not tested**, even with a current preview. No API key, profile ID, or enable flag activates a walkthrough. Authors and independent reviewers still apply the [reader walkthrough method](docs-usability-validation.md).
 
-## Activation and coverage
+## Trusted entry points
 
-Automation starts only after the workflow and helper are merged onto the default branch. A repository administrator must make `WARP_API_KEY` available to Actions with access to run the Warp Agent CLI. Existing references to the secret do not prove that it is configured. No branch-protection change is required or included.
+The workflow must exist on the default branch before it can record scope. PR events inspect the default target branch without label filtering. Vercel's successful `status` event retries associated open PRs at the exact current head. Maintainer retries use `repository_dispatch` with type `docs-usability-retry`. GitHub selects default-branch definitions for these status and repository dispatch events.
 
-Open, synchronize, reopen, readiness, draft conversion, and edit events inspect every PR author without label filtering. Applicability includes changed, deleted, and previous renamed paths under `src/`, `public/`, `scripts/`, `plugins/`, and `developers/`, plus Astro, Vercel, package, and TypeScript configuration. The filter is conservative; the evaluator chooses a full walkthrough or the method's reduced navigation/link scope from the actual diff. Governance-only changes are explicitly not applicable to a public walkthrough and still need their relevant workflow tests.
+There is no `deployment_status` or `workflow_dispatch` trigger: those can select a topic-owned workflow definition. Before any checkout, a read-only provenance job verifies the workflow ref and run ref against the repository's actual default branch. It resolves an immutable default-branch commit independently of the event and workflow SHAs, then compares the selected workflow blob with that commit's blob. Every helper and instruction checkout, including the separate check-writing publisher, uses the verified commit. A missing or changed definition fails closed. Unmerged workflow changes cannot be tested through a privileged topic-branch dispatch.
 
-A draft or missing current-head preview records Not tested. A successful `Preview` deployment by `vercel[bot]` retries the associated open PRs. Preview selection requires an exact head SHA and an HTTPS `*.vercel.app` URL; an old published page is not substituted. A protected preview, unavailable renderer, absent CLI credentials, failed dispatch, cancellation, or invalid result leaves missing evidence explicit.
+No job checks out or runs PR code. Scope recording reads PR metadata through GitHub's API. It executes no evaluator, exposes no Warp credential, and treats filenames as data. Only the publisher has check-write permission. No branch-protection change is required or included.
 
-Fork PRs do not receive the API key or an evaluator run. A manual retry does not override that boundary. A maintainer must review the change and move it to a trusted repository branch before automatic evaluation. Do not execute fork code with privileged credentials to obtain a result. Same-repository PR code is also never checked out, built, or run by this workflow: the evaluator reads it as data with a read-only GitHub token. The separate publisher holds check-write permission and no Warp API key.
+## Coverage and results
 
-## Read the result
+Applicability includes changed, deleted, and previous renamed paths under `src/`, `public/`, `scripts/`, `plugins/`, and `developers/`, plus Astro, Vercel, package, and TypeScript configuration. Governance-only changes are **Not applicable** to a public walkthrough and still need their relevant workflow tests.
 
-Open **Docs usability validation** in the PR's checks. Each check is neutral and pinned to the tested head. Its title distinguishes:
+For applicable work, the scope record identifies a draft, untrusted fork, incomplete file list, or unavailable preview before recording the missing evaluator isolation. Preview selection requires a successful `Preview` deployment by `vercel[bot]`, an exact head SHA, and an HTTPS `*.vercel.app` origin. An old published page is not substituted. A manual retry does not bypass these checks.
 
-* **Walkthrough reported: clear** - The agent reports a completed walkthrough without unresolved findings.
-* **Walkthrough reported: findings** - The walkthrough reports friction or gaps; inspect question-level evidence and readiness.
-* **Reduced-scope checks reported** - The agent reports completed mechanical navigation/link checks, not a substantive walkthrough.
-* **Not applicable** - No public documentation or rendering path changed.
-* **Not tested** - Required evidence or trusted execution was unavailable.
+Open **Docs usability validation** in the PR's checks. Every result is neutral and pinned to the inspected head. The only supported outcomes are **Not applicable** and **Not tested**. There is no Clear result or completed walkthrough transport. Fabricated evaluator output cannot change the publisher's independently recomputed decision.
 
-The check includes the agent report, head and base SHAs, trusted workflow revision, selected preview, and run link. The run artifact retains the request, trusted prompt, raw output, and execution outcome for 90 days. Longer reports are truncated in the check; the artifact retains the raw output. Copy evidence needed beyond retention into the PR's validation record.
+The check records head, base, workflow and helper revisions, selected preview, and run link. The run artifact retains scope and undispatched instructions for 90 days, not an executed agent report. A green Actions job means scope recording completed, not that docs usability passed. Copy evidence needed beyond retention into the PR's validation record.
 
-A green Actions job only confirms orchestration. An agent-reported Clear is advisory evidence, not human acceptance, engineering review, or proof of evaluator reliability. Inspect its entry points, paths, answers, limitations, and primary-task readiness against the method. A transport test that publishes synthetic Clear text does not count as a real walkthrough.
+New commits require new evidence. Publication rechecks scope, head, base, and preview. Per-PR preparation cancels superseded jobs; serialized publication rejects older runs and attempts. Duplicate events reuse matching pending scope only for the same head, base, helper source, preview deployment, and outcome. Maintainer dispatch deliberately refreshes it.
 
-New commits require new evidence. Publication rechecks scope, trust, base, head, and preview; stale output stays in its original artifact rather than validating the new head. Per-PR evaluation concurrency cancels superseded jobs. A serialized publisher prevents older runs from replacing newer evidence. Duplicate events reuse an existing report only for the same head, base, preview deployment, and trusted workflow revision.
+## Retry scope recording
 
-## Retry and verify activation
+After a reviewed safe definition is merged, a repository administrator must re-enable the disabled workflow before scope recording can run. A maintainer with repository dispatch access can then retry an open PR. Replace `PR_NUMBER` with its number:
 
-After merge, confirm that the secret is available without displaying its value. Select **Actions** > **Docs usability** > **Run workflow** on the default branch and enter the open PR number, or run `gh workflow run docs-usability.yml --repo warpdotdev/docs --ref main -f pr=PR_NUMBER`. Replace `PR_NUMBER` with the PR number. Manual dispatch deliberately reevaluates the current head even when a prior report exists; it does not bypass draft, preview, or fork restrictions.
+```bash
+gh api repos/warpdotdev/docs/dispatches --method POST \
+  -f event_type=docs-usability-retry -F 'client_payload[pr]=PR_NUMBER'
+```
 
-Use a trusted substantive docs PR with an available current-head preview for the first activation check. Confirm that the action actually executed, inspect its raw report, follow a representative primary path, and verify that its SHA and preview match the final PR head. Also verify that a new commit invalidates old evidence and that absent preview or credentials yields Not tested. Event/dispatch unit tests do not prove deployed credentials, agent permissions, preview access, or semantic reliability.
+Repository dispatch has no branch selector. Confirm that the run used the default-branch definition and helper revision, that the check identifies the current PR head, and that applicable work remains Not tested. A new commit must not inherit evidence for an older head. Missing artifacts produce Not tested; failure before publication leaves only the failed Actions run, not a usability result. There is no scheduled reconciliation.
 
-If a run fails before it can publish a check, the failed Actions run is the evidence of failure; no usability result exists. Restore the missing service or permission, then dispatch again on the default branch. There is no automatic scheduled reconciliation, so existing PRs need a new listed event or manual retry after activation or recovery.
+## Prerequisite for evaluator activation
+
+Activation requires an approved, supported restrictive execution configuration and credential-isolated document access. Capabilities must be enforced outside the prompt: deny shell commands, writes, product mutations, arbitrary network access, and other tools beyond the approved read operations. The evaluator must not receive GitHub or Warp credentials through its environment, filesystem, or tools. A verified broker must constrain reads to the exact-head source, selected preview, and explicitly allowed linked destinations.
+
+The current local action's `--sandboxed` flag declares an already-sandboxed host; it does not establish read-only tool permissions. GitHub read permissions do not restrict an agent's shell, and instructions alone do not enforce a capability boundary. A profile ID without verified policy and credential isolation is insufficient.
+
+Keep execution disabled until the configuration owner supplies a supported contract that can be checked before launch. A separate implementation and verification must reject unavailable or over-permissive configuration and prove prompt-injected content cannot gain shell, write, or credential access. Then test an actual substantive current-head preview journey, retain its question-level report, and independently follow a representative primary path. Deterministic tests prove orchestration behavior, not deployed isolation or semantic evaluator reliability.
