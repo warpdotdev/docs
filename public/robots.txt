@@ -2,7 +2,8 @@ User-agent: *
 Allow: /
 # The retrieval endpoint advertised in llms.txt takes ?q=; the longer Allow
 # rule wins over the query-string Disallow below (RFC 9309 longest match).
-Allow: /retrieve
+# `?` is literal in robots.txt, so this exempts only queries to /retrieve itself.
+Allow: /retrieve?
 Disallow: /*?*q=*
 Disallow: /*?*ask=*
 Content-Signal: ai-train=yes, search=yes, ai-input=yes

@@ -115,6 +115,8 @@ test('robots.txt lets agents call the retrieval endpoint that llms.txt advertise
 	assert.equal(robotsAllows(robots, '/?q=warp'), false);
 	assert.equal(robotsAllows(robots, '/agents/?ask=hello'), false);
 	assert.equal(robotsAllows(robots, '/agents/'), true);
+	// The exception is scoped to the endpoint, not to every path that starts with /retrieve.
+	assert.equal(robotsAllows(robots, '/retrieve-something?q=x'), false);
 	const { headers } = await readJson('vercel.json');
 	const retrieve = headers.find((entry) => entry.source === '/retrieve');
 	assert.ok(retrieve?.headers.some((h) => h.key === 'X-Robots-Tag' && h.value === 'noindex'));
