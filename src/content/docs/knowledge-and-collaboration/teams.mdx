@@ -73,6 +73,8 @@ The following Admin Panel procedures require owner or admin access to a self-ser
 
 Non-admins can ask an owner or admin for an invite link. In the Warp app, the link is also available under **Settings** > **Teams**.
 
+To disable the link, toggle off **Invite by Link**. To replace it, click **Reset links**, then **Reset** in the confirmation. The old link no longer works.
+
 For Enterprise invitations, including adding people to hidden teams, follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
 
 ### Restricting team invites by domain
@@ -91,9 +93,11 @@ Someone joining through a link with an address outside the allowed domains must 
 For an email invitation, use the address that received it. Ask an admin to replace an expired or misaddressed invitation.
 
 1. Open the invitation link and sign up or sign in to Warp.
-2. Confirm the team name and signed-in email address. For a domain-restricted link, complete any requested email verification.
-3. Click **Join team**.
+2. Confirm the team name and signed-in email address.
+3. If the link requires domain verification, enter an address on an approved domain and click **Send Code**. Enter the emailed code in "Verification Code", then click **Join Team**. Otherwise, click **Join team**.
 4. Return to {VARS.WARP_TERMINAL}. In **Settings** > **Teams**, confirm the joined team appears.
+
+{/* VERIFY: Test invitation acceptance and domain verification in production, including Send Code, Join Team, and membership confirmation. The branching flow was source-checked; no live-account test was performed. */}
 
 Workspace membership does not automatically join every Enterprise team. For Enterprise invitations and discovery, follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
 
@@ -133,7 +137,9 @@ Only the current self-serve team owner can transfer ownership to another member.
 
 Enterprise workspace ownership is a different operation. Follow [Transferring workspace ownership](/enterprise/team-management/workspaces/#transferring-workspace-ownership).
 
-## Leaving and deleting teams
+## Removing members, leaving, and deleting teams
+
+<span id="leaving-and-deleting-teams" />
 
 These procedures apply to self-serve teams. Enterprise workspace membership is managed separately. To leave an Enterprise workspace, ask a workspace admin to [remove your membership](/enterprise/team-management/workspaces/#removing-a-workspace-member).
 
@@ -144,6 +150,17 @@ These procedures apply to self-serve teams. Enterprise workspace membership is m
 Purchased usage stays tied to the team that bought it. Leaving or being removed ends your access to that balance. Rejoining restores access to unused, unexpired usage. Rejoining a per-seat subscription also adds a prorated seat charge.
 
 See [usage when team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes). Enterprise pools follow your [billing agreement](/enterprise/support-and-resources/billing/).
+
+### Removing a member
+
+You must be a team owner or admin to remove a member. The owner must transfer ownership before they can be removed.
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/) and click **Teams**. Confirm the team name.
+2. Next to the person you want to remove, click the three dots, then click **Remove from team**.
+3. Check the email address and team in the confirmation. Click **Remove**.
+4. Confirm the person no longer appears in the member list.
+
+{/* VERIFY: Test self-serve member removal in the production Admin Panel, including the menu label, confirmation, and resulting access. Source was checked; no live-account test was performed. */}
 
 ### Leaving a team
 
@@ -156,7 +173,7 @@ Members and admins can leave a self-serve team. If you own the team, [transfer o
 
 ### Deleting a team
 
-Only the owner can delete a self-serve team. Remove the other members first. An active paid subscription or unused purchased usage blocks deletion. If **Delete team** is disabled, review the requirement shown beside it. Use [managing billing](/support-and-community/plans-and-billing/pricing-faqs/#how-do-i-manage-my-billing) for subscription changes or [contact support](mailto:support@warp.dev) for help with unused usage.
+Only the owner can delete a self-serve team. [Remove the other members](#removing-a-member) first. An active paid subscription or unused purchased usage blocks deletion. If **Delete team** is disabled, review the requirement shown beside it. Use [managing billing](/support-and-community/plans-and-billing/pricing-faqs/#how-do-i-manage-my-billing) for subscription changes or [contact support](mailto:support@warp.dev) for help with unused usage.
 
 Deletion is permanent and removes the team's related content. Review what the team contains before proceeding.
 
@@ -178,4 +195,4 @@ For browser-first setup, membership, and administration, use [Warp Factories tea
 * [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/) - Identify the role needed for an administrative task
 * [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Configure shared settings
 * [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
-* [Managing teams and admin controls in Warp Factories](/factories/teams-and-admin-controls/)
+* [Managing teams in Warp Factories](/factories/teams-and-admin-controls/)

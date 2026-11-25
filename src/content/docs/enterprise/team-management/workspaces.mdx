@@ -12,33 +12,55 @@ A workspace groups one or more teams under a single Enterprise account. Workspac
 
 ## Workspaces and teams
 
-A workspace provides company-wide administration. A [Warp team](/enterprise/team-management/teams/) groups people and resources so you can manage membership, access, and settings.
+A [Warp team](/enterprise/team-management/teams/) groups people and resources so you can manage membership, access, and settings.
 
-Workspaces and teams differ in scope, shared resources, and membership:
+Workspaces and teams differ in scope:
 
 * **Workspace level** - A workspace applies billing, SSO, domain capture, and organization-wide policies across its teams.
 * **Team level** - A team gives its members access to shared factories, cloud agent runs, environments, secrets, and Warp Drive content within their assigned roles and applicable policies.
 * **Membership** - Each user belongs to one workspace and can be a member of multiple teams within that workspace.
 
+<span id="teams-inside-a-workspace" />
+
+To create a team and set its visibility, follow [Creating teams and choosing visibility](/enterprise/team-management/teams/#creating-teams-and-choosing-visibility).
+
 <span id="workspace-admin-permissions" />
 
 ## Workspace roles
 
-Self-serve customers use [Warp Factories team roles](/factories/teams-and-admin-controls/#team-roles-and-factory-access) or [Warp Terminal team roles](/knowledge-and-collaboration/roles-and-permissions/#team-roles) instead of workspace roles.
-
 * **Member** - Uses Warp within their teams and the policies admins configure.
-* **Admin** - Manages workspace membership, [invitations](#joining-a-workspace-or-team), billing, [shared policies](#workspace-settings-and-team-settings), and [spending controls](#workspace-spending-authority). A workspace admin is an admin of every team in the workspace, including teams they don't belong to.
+* **Admin** - Manages membership, [invitations](#inviting-members), billing, [policies](#workspace-settings-and-team-settings), and [spending](#workspace-spending-authority). Administers every team, including teams they don't belong to.
 * **Owner** - Has every admin capability and can transfer ownership to another member. Each workspace has one owner.
 
 In team member lists, the **Workspace admin** and **Workspace owner** badges distinguish workspace roles from team roles.
 
 To assign team-level administration, follow [Changing team admins](/enterprise/team-management/roles-and-permissions/#changing-team-admins).
 
-## Teams inside a workspace
+## Unassigned users
 
-To create a team and set its visibility, follow [Creating teams and choosing visibility](/enterprise/team-management/teams/#creating-teams-and-choosing-visibility).
+An unassigned user belongs to the workspace but no team. Workspace admins manage their membership and per-user spend limits.
 
-## Joining a workspace or team
+Unassigned users cannot start cloud agent or factory runs until they join a team. Workspace-level billing and policies still apply to them.
+
+## Workspace settings and team settings
+
+Workspace admins configure company-wide policies in the [Admin Panel](/enterprise/team-management/admin-panel/). For supported settings, they can enforce a value across the workspace or select **Respect Team Setting** to let each team decide.
+
+[Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) and domain capture apply at the workspace level. Domain capture automatically adds users who sign up with a verified company domain. When a workspace admin enforces a setting, team admins see it as locked.
+
+<span id="workspace-spend-limits" />
+
+<span id="workspace-spending-authority" />
+
+For workspace, team, and unassigned-user spending controls, see [Enterprise spending limits](/enterprise/support-and-resources/billing/#monthly-spending-limits).
+
+## Cloud agent run visibility
+
+Workspace admins can view and manage each team-owned {VARS.PLATFORM_RUN} in the workspace, including runs that members of other teams started. Their access matches members of the team that owns the run.
+
+Workspace and team roles don't grant access to runs owned by an individual user. Only the user who owns a run can access it by default, though the owner can choose to [share the session](/platform/viewing-cloud-agent-runs/). Other members can access their own runs and runs owned by their teams.
+
+## Inviting members
 
 Compare [invitation methods](/enterprise/team-management/teams/#inviting-and-joining-members) and review your [Enterprise membership and billing terms](/enterprise/support-and-resources/billing/) before inviting colleagues.
 
@@ -50,7 +72,7 @@ Workspace admins can invite people to the workspace or a specific team, includin
 2. Under "Workspace admin" in the sidebar, click **Members**.
 3. Under "Invite by email", click the dropdown beside the email field and select a team or **Workspace only**.
    * A team invitation adds the recipient to that team.
-   * **Workspace only** lets the recipient select an open team when accepting.
+   * **Workspace only** lets the recipient select an open team when accepting. If no open teams are available, the recipient can join the workspace without a team.
 4. Enter email addresses separated by commas or spaces, then click **Send**. Confirm the invitations are pending.
 
 If you are a team admin but not a workspace admin:
@@ -79,14 +101,17 @@ You must be a team or workspace admin. Team invite links are available only for 
 
 To disable the link, turn off **Invite by Link**. To replace it, click **Reset links**, then **Reset** in the confirmation.
 
+## Joining a workspace or team
+
 ### Joining through an invitation
 
-1. Open the invitation link from your admin or invitation email.
+1. Open your invitation link.
 2. Sign in to Warp. For an email invitation, use the address that received it. For a domain-restricted workspace link, use an address on an approved domain.
 3. Confirm the workspace or team name and the signed-in email address before joining:
    * For a team invitation, click **Join team**.
    * For a workspace invitation, click **Join** beside the open team you want to join. If no open teams are listed, click **Join** beside the workspace name to join without a team.
-4. Complete any onboarding prompts. In the Warp app, open **Settings** > **Teams** and confirm the intended team appears. If you joined without a team, ask a workspace admin to add you to one.
+4. Complete any onboarding prompts.
+5. If you joined a team, open **Settings** > **Teams** in the Warp app and confirm the intended team appears. If you joined only the workspace, ask a workspace admin to confirm your workspace membership and add you to a team before starting cloud agent or factory runs.
 
 Ask an admin to replace expired or misaddressed email invitations. If you already belong to another Enterprise workspace, contact its admin before changing membership.
 
@@ -102,18 +127,6 @@ Alternatively, find open teams in the Warp app under **Settings** > **Teams**. I
 
 {/* VERIFY: Source-checked only. Test email invitations, invite links, domain restrictions, acceptance, and team discovery in a production account. */}
 
-## Unassigned users
-
-An unassigned user belongs to the workspace but no team. Workspace admins manage these users and their separate per-user spend limits in the Admin Panel.
-
-Unassigned users cannot start cloud agent or factory runs until they join a team. Workspace-level billing and policies still apply to them.
-
-## Cloud agent run visibility
-
-Workspace admins can view and manage each team-owned {VARS.PLATFORM_RUN} in the workspace, including runs that members of other teams started. Their access matches members of the team that owns the run.
-
-Workspace and team roles don't grant access to runs owned by an individual user. Only the user who owns a run can access it by default, though the owner can choose to [share the session](/platform/viewing-cloud-agent-runs/). Other members can access their own runs and runs owned by their teams.
-
 ## Changing workspace roles
 
 ### Promoting or demoting workspace admins
@@ -126,17 +139,6 @@ Workspace owners and admins can promote or demote workspace admins. Demotion rem
 
 Admins cannot change the workspace owner's role.
 
-### Removing a workspace member
-
-Workspace owners and admins can remove workspace members. Removal also removes the person from every team. To remove only one team membership, follow [Removing members from a team](/enterprise/team-management/teams/#removing-members-from-a-team).
-
-Members cannot leave a workspace themselves. Ask an admin to remove you. Owners must transfer ownership before they can be removed.
-
-1. In the Admin Panel, confirm the workspace. Under "Workspace admin", click **Members**.
-2. Next to the person you want to remove, click the three dots, then click **Remove from workspace**.
-3. Check the email address and workspace in the confirmation. Click **Remove from workspace**.
-4. Confirm the person no longer appears in the workspace's member list.
-
 ### Transferring workspace ownership
 
 Only the workspace owner can transfer ownership to another member. After the transfer, you become an Admin. Existing team roles do not change.
@@ -148,22 +150,21 @@ Only the workspace owner can transfer ownership to another member. After the tra
 
 {/* VERIFY: Source-checked only. Test workspace role changes, removal, and ownership transfer, including confirmations, memberships, and badges, in a production account. */}
 
-## Workspace settings and team settings
+## Removing a workspace member
 
-Workspace admins configure company-wide policies in the [Admin Panel](/enterprise/team-management/admin-panel/). For supported settings, they can enforce a value across the workspace or select **Respect Team Setting** to let each team decide.
+Workspace owners and admins can remove workspace members. Removal also removes the person from every team. To remove only one team membership, follow [Removing members from a team](/enterprise/team-management/teams/#removing-members-from-a-team).
 
-[Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) and domain capture apply at the workspace level. Domain capture automatically adds users who sign up with a verified company domain. When a workspace admin enforces a setting, team admins see it as locked.
+Members cannot leave a workspace themselves. Ask an admin to remove you. Owners must transfer ownership before they can be removed.
 
-<span id="workspace-spend-limits" />
-
-## Workspace spending authority
-
-Workspace owners and admins manage spending controls across their workspace and its teams, including limits for unassigned users. See [Enterprise spending limits](/enterprise/support-and-resources/billing/#monthly-spending-limits) for cap types and how limits interact.
+1. In the Admin Panel, confirm the workspace. Under "Workspace admin", click **Members**.
+2. Next to the person you want to remove, click the three dots, then click **Remove from workspace**.
+3. Check the email address and workspace in the confirmation. Click **Remove from workspace**.
+4. Confirm the person no longer appears in the workspace's member list.
 
 ## Related pages
 
-* [Team management](/enterprise/team-management/teams/) - Create and manage teams
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure settings enforced across a workspace or team
-* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Team-level roles and what each can do
+* [Managing Enterprise teams](/enterprise/team-management/teams/) - Create and manage teams
+* [Admin Panel for Enterprise workspaces](/enterprise/team-management/admin-panel/) - Enforce workspace policies or delegate settings to teams
+* [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/) - Compare authority across workspace, team, and factory roles
 * [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) - Configure authentication for a workspace
 * [Enterprise billing](/enterprise/support-and-resources/billing/) - Credit pools, spend limits, and billing management

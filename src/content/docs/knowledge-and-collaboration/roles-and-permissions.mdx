@@ -64,10 +64,13 @@ Account-specific access can differ. If a role control does not match your expect
 You must be a team owner or admin to promote or demote team admins. Your plan must support additional admins before you can promote a member.
 
 1. Open the [Warp Admin Panel](https://app.warp.dev/admin/) and click **Teams**. Confirm the team name at the top of the page.
-2. Next to the person you want to promote or demote, click the three dots, then click **Promote to team admin** or **Demote team admin**. If the list has an editable role column instead, click the member's role dropdown and select **Team Admin** to promote them.
-3. Complete any confirmation and check that the member's role updates.
+2. Use the controls shown in the member list:
+   * In the member-menu layout, next to the person you want to promote or demote, click the three dots. Click **Promote to team admin** or **Demote team admin**.
+   * In the editable "Role" column, click the member's role dropdown. Select **Team Admin** to promote them. To demote an admin, select **Factory Editor** or **Factory User** for the factory access they should retain. This removes team administration and assigns that team-wide factory role.
+3. If you're demoting yourself, review the confirmation and click **Demote to member**.
+4. Confirm the updated role in the member list. If you lost Admin Panel access, ask another admin to confirm it.
 
-These steps change team administration, not a factory role.
+For the difference between the factory roles offered during demotion, see [Managing factory permissions](/factories/permissions/#roles-and-capabilities).
 
 {/* VERIFY: Exercise both the member-menu and editable-role-column paths in the production Admin Panel before merge, including demotion and confirmation behavior. */}
 
@@ -130,7 +133,7 @@ Follow [Warp Factories team administration](/factories/teams-and-admin-controls/
 
 ## Related pages
 
-* [Managing team membership](/knowledge-and-collaboration/teams/)
-* [Admin Panel](/knowledge-and-collaboration/admin-panel/)
+* [Managing teams in Warp Terminal](/knowledge-and-collaboration/teams/)
+* [Admin Panel for Warp Terminal](/knowledge-and-collaboration/admin-panel/)
 * [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
 * [Managing factory permissions](/factories/permissions/)

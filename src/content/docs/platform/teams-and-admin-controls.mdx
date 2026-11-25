@@ -29,15 +29,15 @@ Warp Agent plans support additional admins on Build, Max, Business, and Enterpri
 
 An Enterprise workspace groups one or more teams under one account. Workspace owners and admins administer all of its teams. A team admin administers only their team. Workspace policies can lock team settings. See [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/).
 
-Cloud agent accounts are execution accounts for automations, not human team roles. Creating or selecting one does not promote a teammate. See [Cloud agent accounts](/platform/agents/) for their configuration and API keys.
+Cloud agent accounts are execution accounts for automations, not human team roles. See [Cloud agent accounts](/platform/agents/) for configuration and API keys.
 
 ## Joining a team
 
 Ask a team owner or admin for an invitation. For an email invitation, use the address that received it. Ask an admin to replace an expired or misaddressed invitation.
 
 1. Open the invitation link and sign up or sign in to Warp.
-2. Confirm the team name and signed-in email address. Complete any required domain verification before joining.
-3. Click **Join team**.
+2. Confirm the team name and signed-in email address.
+3. If the link requires domain verification, enter an address on an approved domain and click **Send Code**. Enter the emailed code in "Verification Code", then click **Join Team**. Otherwise, click **Join team**.
 4. Confirm Warp reports that you've joined the intended team, or ask an admin to verify your email in the team's member list.
 
 Enterprise workspace membership does not automatically join every team. Follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team) for Enterprise invitations and discovery.
@@ -64,13 +64,20 @@ Before inviting someone to a paid per-seat plan, review [member billing](/suppor
 
 People signing in with an address outside the approved domains must verify an allowed address before joining.
 
+To disable the link, toggle off **Invite by Link**. To replace it, click **Reset links**, then **Reset** in the confirmation. The old link no longer works.
+
 ### Promoting or demoting admins
 
 You must be a team owner or admin to change team-admin roles. Your plan must support additional admins before you can promote a member.
 
 1. In the Admin Panel, open **Teams** and confirm the team name.
-2. Next to the person you want to promote or demote, click the three dots, then click **Promote to team admin** or **Demote team admin**. If the list has an editable role column instead, click the member's role dropdown and select **Team Admin** to promote them.
-3. Complete any confirmation and verify the updated role.
+2. Use the controls shown in the member list:
+   * In the member-menu layout, next to the person you want to promote or demote, click the three dots. Click **Promote to team admin** or **Demote team admin**.
+   * In the editable "Role" column, click the member's role dropdown. Select **Team Admin** to promote them. To demote an admin, select **Factory Editor** or **Factory User** for the factory access they should retain. This removes team administration and assigns that team-wide factory role.
+3. If you're demoting yourself, review the confirmation and click **Demote to member**.
+4. Confirm the updated role. If you lost Admin Panel access, ask another admin to confirm it.
+
+See [factory role capabilities](/factories/permissions/#roles-and-capabilities) before choosing access during demotion.
 
 {/* VERIFY: Exercise the member-menu and editable-role-column paths in the production Admin Panel, including demotion and confirmation behavior. */}
 
@@ -86,6 +93,19 @@ Only the current self-serve team owner can transfer ownership. After the transfe
 If you still need admin access, ask the new owner or another admin to grant it separately, if your plan supports additional admins.
 
 For Enterprise administration, follow [Creating teams and choosing visibility](/enterprise/team-management/teams/#creating-teams-and-choosing-visibility), [Removing a workspace member](/enterprise/team-management/workspaces/#removing-a-workspace-member), [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles), or [Transferring workspace ownership](/enterprise/team-management/workspaces/#transferring-workspace-ownership).
+
+### Removing a member or leaving a team
+
+You must be a team owner or admin to remove a member from a self-serve team. The owner must transfer ownership before they can be removed. Removal ends access to team resources and the team's usage balance. Purchased usage stays with the team.
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Next to the person you want to remove, click the three dots, then click **Remove from team**.
+3. Check the email address and team in the confirmation. Click **Remove**.
+4. Confirm the person no longer appears in the member list.
+
+To leave a team from the browser, ask another admin to remove your membership. See [usage when team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) for balance access and per-seat billing consequences.
+
+{/* VERIFY: Test self-serve member removal in the production Admin Panel, including the menu label, confirmation, and resulting access. Source was checked; no live-account test was performed. */}
 
 ## Configuring shared controls
 
@@ -107,7 +127,7 @@ Use **Models** for [team-managed provider keys and endpoints](/enterprise/enterp
 
 Review the [sharing and security implications](/agents/capabilities/computer-use/artifacts-in-prs/) before changing how agents attach screenshots and videos. In the Admin Panel, open **Platform**. Click the "Agent artifact attachments" dropdown and select **Disabled**, **Link only**, or **Embed**.
 
-For organization-level content collection, provider retention, and storage distinctions, use the [Enterprise Admin Panel privacy guidance](/enterprise/team-management/admin-panel/#privacy-settings) and [Privacy and data control](/support-and-community/privacy-and-security/privacy/). Disabling personal Terminal conversation sync does not disable cloud-run storage.
+For workspace collection policies, use the [Enterprise Admin Panel](/enterprise/team-management/admin-panel/#privacy-settings). See [Privacy and data control](/support-and-community/privacy-and-security/privacy/) for retention and storage. Disabling personal Terminal conversation sync does not disable cloud-run storage.
 
 ## Usage and run visibility
 

@@ -25,22 +25,7 @@ Enterprise workspace roles apply across teams. Team roles govern administration 
 
 Workspace and team roles are additive. Demoting a workspace admin does not remove a separately assigned team-admin role. Workspace membership also does not join every team.
 
-See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles) for the canonical workspace definitions and [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles) for promotion, demotion, removal, and ownership transfer.
-
-## Changing team admins
-
-<span id="managing-admins" />
-<span id="promoting-or-demoting-admins" />
-
-Workspace admins can assign admins to any team. Team admins can add or remove admins within their own team.
-
-1. Open the [Warp Admin Panel](https://app.warp.dev/admin/). Confirm the workspace and open the relevant team under **Teams**.
-2. Next to the person you want to promote or demote, click the three dots, then click **Promote to team admin** or **Demote team admin**.
-3. Complete any confirmation and check the updated team role.
-
-If the member list uses an editable role column, click the member's role dropdown and select **Team Admin** to promote the member instead. This changes team administration, not an individual factory role. An inherited workspace-admin role cannot be reduced by changing a team or factory role.
-
-{/* VERIFY: Exercise both team-role layouts in the production Admin Panel, including demotion and confirmation behavior. Source was checked; no live-account test was performed. */}
+See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles) for workspace definitions and [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles) for promotion, demotion, and ownership transfer. To end workspace access, follow [Removing a workspace member](/enterprise/team-management/workspaces/#removing-a-workspace-member).
 
 ## Factory roles and team administration
 
@@ -50,29 +35,48 @@ An Editor can attach an existing shared integration. Establishing a new workspac
 
 Follow [Managing factory permissions](/factories/permissions/) for role capabilities, team defaults, and factory-specific assignments, and [Connecting your factory to external tools](/factories/connect-your-factory/) for setup.
 
-## Permission details
+<span id="permission-details" />
+<span id="what-admins-can-do" />
 
-### What admins can do
-
-Team admins manage membership and editable settings for their own team. Workspace admins additionally manage company-wide settings and billing. A team-admin role does not override an enforced workspace policy or a plan restriction.
+## Spending authority
 
 Team admins manage supported spending limits for their team and its members. Workspace owners and admins manage those limits across teams, including unassigned workspace users. See [Enterprise spending controls](/enterprise/support-and-resources/billing/#spending-controls).
 
 Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate actions. Do not infer billing-portal access from permission to change a team spending limit.
 
-### What members can do
+## Member access and policy limits
+
+<span id="what-members-can-do" />
 
 Members use shared resources and configure personal settings within the applicable policies. A Member role is not a promise of read-only access. A member can separately have factory Editor access.
 
-### Settings enforcement
+<span id="settings-enforcement" />
 
-Workspace admins can enforce supported values across teams or select **Respect Team Setting** to delegate the choice. Team admins cannot override enforced values. See [How settings enforcement works](/enterprise/team-management/admin-panel/#how-settings-enforcement-works).
+Team admins cannot override workspace-enforced policies. Follow [Enforcing or delegating workspace policies](/enterprise/team-management/admin-panel/#enforcing-or-delegating-workspace-policies) to change which scope controls a setting.
 
 ## Resource sharing controls
 
 Warp Drive sharing policies and cloud-run visibility are separate from role assignments. Use the [Admin Panel sharing settings](/enterprise/team-management/admin-panel/#sharing-settings) and [workspace run-visibility guidance](/enterprise/team-management/workspaces/#cloud-agent-run-visibility).
 
 Factory roles do not grant repository permissions or permission to merge pull requests.
+
+## Changing team admins
+
+<span id="managing-admins" />
+<span id="promoting-or-demoting-admins" />
+
+Workspace admins can assign admins to any team. Team admins can add or remove admins within their own team.
+
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/). Confirm the workspace. Under "Team admin" in the sidebar, click the team name, then **Members**. Confirm the team name.
+2. Use the controls shown in the member list:
+   * In the member-menu layout, next to the person you want to promote or demote, click the three dots. Click **Promote to team admin** or **Demote team admin**.
+   * In the editable "Role" column, click the member's role dropdown. Select **Team Admin** to promote them. To demote an admin, select **Factory Editor** or **Factory User** for the factory access they should retain. This removes team administration and assigns that team-wide factory role.
+3. If you're demoting yourself, review the confirmation and click **Demote to member**.
+4. Confirm the updated team role. If you lost Admin Panel access, ask another admin to confirm it.
+
+See [factory role capabilities](/factories/permissions/#roles-and-capabilities) before choosing access during demotion. An inherited workspace-admin role cannot be reduced by changing a team or factory role.
+
+{/* VERIFY: Exercise both team-role layouts in the production Admin Panel, including demotion and confirmation behavior. Source was checked; no live-account test was performed. */}
 
 <span id="related-resources" />
 
