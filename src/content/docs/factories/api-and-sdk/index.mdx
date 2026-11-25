@@ -30,6 +30,8 @@ For endpoint details, use the [**{VARS.WARP_PLATFORM_API} reference**](/api/). F
 
 To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/runs` with a foreman's `agent_identity_uid`. The follow-up, cancellation, and status endpoints still apply after a factory run is dispatched.
 
+Use a short-lived personal API key for ad hoc requests. For an external integration submitting factory work, use an agent key scoped to that factory's foreman, not a self-hosted worker key. See [Creating and managing API keys](/agents/cli/oz-cli/api-keys/#personal-vs-agent-keys) and [factory API permissions](/factories/factory-api/#permissions-and-attribution).
+
 ## Choose the SDK or raw REST
 
 Warp provides the official [`warp-platform-sdk` Python package](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` TypeScript package](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk). Both SDKs wrap the {VARS.WARP_PLATFORM_API} with:
@@ -70,6 +72,8 @@ An agent run represents a single execution of a cloud agent, created with a prom
 * Optional resolved configuration (`agent_config`)
 
 See the [**{VARS.WARP_PLATFORM_API} reference**](/api/) for details on how runs are created and listed.
+
+To select a run's plan, screenshot, recording, or uploaded report by artifact UID, follow [Finding and sharing artifacts](/factories/artifacts/#retrieving-an-artifact-with-the-api).
 
 ## Agent configuration
 
@@ -203,7 +207,7 @@ Import `WarpClient` from `@warp-dot-dev/warp-platform-sdk`. See the [**TypeScrip
 
 ## Related pages
 
-* [{VARS.WARP_PLATFORM_API} quickstart](/factories/api-and-sdk/quickstart/) - Create and monitor your first run in about five minutes.
-* [Factory endpoints](/factories/factory-api/) - Find a factory and dispatch work to it by UID.
-* [API errors](/factories/api-and-sdk/troubleshooting/errors/) - Error codes, response format, and how to resolve each one.
-* [{VARS.WARP_PLATFORM_API} reference](/api/) - Every endpoint, parameter, and schema.
+* [{VARS.WARP_PLATFORM_API} quickstart](/factories/api-and-sdk/quickstart/) - Create and monitor your first run in about five minutes
+* [Factory endpoints](/factories/factory-api/) - Find a factory and dispatch work to it by UID
+* [API errors](/factories/api-and-sdk/troubleshooting/errors/) - Error codes, response format, and how to resolve each one
+* [{VARS.WARP_PLATFORM_API} reference](/api/) - Every endpoint, parameter, and schema

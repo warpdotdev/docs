@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Authenticate [Claude Code](#connecting-claude-code-credentials), [Codex](#connecting-codex-credentials), or [Pi](#connecting-pi-credentials) with a provider credential stored as a Warp-managed secret. For a factory agent, select a compatible team-owned auth secret in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness). The Warp Agent does not need a third-party harness auth secret.
+Authenticate [Claude Code](#connecting-claude-code-credentials), [Codex](#connecting-codex-credentials), or [Pi](#connecting-pi-credentials) with a provider credential stored as a Warp-managed secret. For a factory agent, select a compatible team-owned auth secret in [Configuring factory workers](/factories/factory-agents/configuration/#configuring-a-third-party-harness). The Warp Agent does not need a third-party harness auth secret.
 
 Auth secrets can be scoped to a **team** or to your **personal** account. A factory agent can only select team-scoped secrets. Personal secrets remain available for your own ad hoc cloud runs; creating a factory is not required for those runs.
 
@@ -16,7 +16,7 @@ The procedures below configure managed-secret authentication, not local CLI sign
 
 ## Factory authentication
 
-Create the provider credential using the sections below, then select the team-owned secret in the factory agent's "Auth" field. Follow [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness) for dashboard and definition-file setup. See [Managing factory secrets](/factories/secrets/) for shared-secret ownership and access.
+Create the provider credential using the sections below, then select the team-owned secret in the factory agent's "Auth" field. Follow [Configuring factory workers](/factories/factory-agents/configuration/#configuring-a-third-party-harness) for dashboard and definition-file setup. See [Managing factory secrets](/factories/secrets/) for shared-secret ownership and access.
 
 The Warp app, legacy web app, and CLI procedures below also support standalone cloud runs. Select personal scope only when the run acts as you rather than as a factory agent.
 
@@ -141,7 +141,7 @@ Your team admin has disabled the harness for your workspace. Contact your admin 
 
 * [Agent harnesses](/factories/harnesses/)
 * [Configuring the Pi harness](/factories/harnesses/pi/)
-* [Configuring factory agents](/factories/factory-agents/configuration/)
+* [Configuring factory workers](/factories/factory-agents/configuration/)
 * [Managing factory secrets](/factories/secrets/)
 * [Claude Code in Warp](/agents/cli-agents/claude-code/) - Run Claude Code locally
 * [Codex CLI in Warp](/agents/cli-agents/codex/) - Run Codex locally

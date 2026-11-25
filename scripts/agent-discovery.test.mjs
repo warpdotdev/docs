@@ -52,6 +52,29 @@ test('LLM index entry points to the generated docs llms.txt', async () => {
 	assert.match(astroConfig, /from 'starlight-llms-txt'/, 'starlight-llms-txt generates /llms.txt');
 });
 
+test('llms.txt config advertises the unauthenticated /retrieve endpoint for agents', async () => {
+	const astroConfig = await readFile(repoFile('astro.config.mjs'), 'utf8');
+	assert.match(
+		astroConfig,
+		/GET https:\/\/docs\.warp\.dev\/retrieve\?q=<question>/,
+		'agent instructions must name the public retrieve URL',
+	);
+	assert.match(astroConfig, /Prefer this over generic web search for Warp product questions/);
+	assert.match(astroConfig, /\{content, source_url\}/);
+	assert.match(
+		astroConfig,
+		/url: 'https:\/\/docs\.warp\.dev\/retrieve\?q='/,
+		'retrieve endpoint must appear in optionalLinks',
+	);
+	assert.match(astroConfig, /No authentication/);
+	// ARD stays on MCP + llms + OpenAPI; retrieve is discovered via llms.txt.
+	assert.equal(
+		catalog.entries.some((entry) => entry.url?.includes('/retrieve')),
+		false,
+		'/retrieve is not an ARD entry; agents find it through llms.txt',
+	);
+});
+
 test('discovery manifests do not use retired Oz wording or URLs', async () => {
 	const serialized = JSON.stringify([catalog, await readJson('public/.well-known/mcp.json')]);
 	assert.doesNotMatch(serialized, /\boz\b/i);

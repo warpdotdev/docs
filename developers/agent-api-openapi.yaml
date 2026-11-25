@@ -1963,8 +1963,8 @@ paths:
     get:
       summary: Get raw third-party harness usage
       description: |
-        Return the latest cumulative raw usage snapshot retained for a
-        Claude Code or Codex run. Missing metrics are represented as an
+        Return the latest retained snapshot of raw usage for a
+        Claude Code, Codex, or Pi run. Missing metrics are represented as an
         unavailable result rather than zero. Access uses the same run view
         authorization as transcript reads.
       operationId: getRunHarnessUsage
@@ -4436,6 +4436,26 @@ paths:
           required: false
           schema:
             type: boolean
+        - name: agent_uid
+          in: query
+          description: |
+            Filter pass-rate and judge-run cost metrics by the evaluated agents.
+            Cost metrics are returned only when `include_cost=true`.
+            Omit the parameter to include all agents.
+            Send `agent_uid=` to select no agents: counts and costs are zero
+            and pass rates are null for every period and the range aggregate.
+            Inference cost is counted once per judge conversation within the
+            selected agents. Total cost remains all-time; period costs use
+            the requested date range.
+          required: false
+          allowEmptyValue: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              format: uuid
       responses:
         '200':
           description: The scorer's pass-rate series and range aggregate
@@ -7115,7 +7135,12 @@ components:
         - kind
         - created_at
         - recipients
+        - task
       properties:
+        task:
+          allOf:
+            - $ref: '#/components/schemas/FactoryTask'
+          description: The task this notification belongs to.
         notification_uid:
           type: string
           description: Identifier accepted by the dismiss endpoint.
@@ -8743,6 +8768,69 @@ components:
             $ref: '#/components/schemas/CodexAttributedUsage'
         toolCalls:
           $ref: '#/components/schemas/HarnessToolCalls'
+    PiHarnessUsagePayload:
+      type: object
+      additionalProperties: false
+      description: |
+        Earlier conversation usage retained through compaction still counts.
+        Summary-generation and nested-tool inference without provider/model identity
+        remains unpriced. Estimates cover recognized models on direct Anthropic and
+        OpenAI only, using server list prices without unrecorded tier, speed, or
+        geography modifiers. Unknown models contribute no estimated cost; available
+        priced buckets are retained and the estimate is marked incomplete.
+      required:
+        - attribution
+      properties:
+        attribution:
+          type: array
+          maxItems: 64
+          description: 'Disjoint usage buckets, separated by identity and field completeness.'
+          items:
+            $ref: '#/components/schemas/PiAttributedUsage'
+        toolCalls:
+          $ref: '#/components/schemas/HarnessToolCalls'
+    PiAttributedUsage:
+      type: object
+      additionalProperties: false
+      required:
+        - usage
+      properties:
+        provider:
+          type:
+            - string
+            - 'null'
+          minLength: 1
+          maxLength: 256
+        model:
+          type:
+            - string
+            - 'null'
+          minLength: 1
+          maxLength: 256
+        maxInputTokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+          description: Largest per-request input plus cache reads and writes in this bucket.
+        usage:
+          $ref: '#/components/schemas/PiTokenUsage'
+    PiTokenUsage:
+      type: object
+      additionalProperties: false
+      description: Pi-native counts. Input excludes cache reads and writes; reasoning is included in output.
+      properties:
+        input:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        output:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cacheRead:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cacheWrite:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cacheWrite1h:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        reasoning:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        totalTokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
     HarnessUsageCounter:
       type:
         - integer
@@ -8891,11 +8979,13 @@ components:
       oneOf:
         - $ref: '#/components/schemas/ClaudeHarnessUsageEnvelope'
         - $ref: '#/components/schemas/CodexHarnessUsageEnvelope'
+        - $ref: '#/components/schemas/PiHarnessUsageEnvelope'
       discriminator:
         propertyName: harness
         mapping:
           CLAUDE_CODE: '#/components/schemas/ClaudeHarnessUsageEnvelope'
           CODEX: '#/components/schemas/CodexHarnessUsageEnvelope'
+          PI: '#/components/schemas/PiHarnessUsageEnvelope'
     ClaudeHarnessUsageEnvelope:
       type: object
       additionalProperties: false
@@ -8976,6 +9066,46 @@ components:
               $ref: '#/components/schemas/RetainedHarnessUsageCoverage'
             payload:
               $ref: '#/components/schemas/CodexHarnessUsagePayload'
+    PiHarnessUsageEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+        - metricsVersion
+        - harness
+        - executionId
+        - captureSequence
+        - capturedAt
+        - snapshot
+      properties:
+        metricsVersion:
+          type: integer
+          enum:
+            - 1
+          description: 'Server-owned storage format metadata, not the producer''s parser version.'
+        harness:
+          type: string
+          enum:
+            - PI
+        executionId:
+          type: integer
+          format: int64
+        captureSequence:
+          type: integer
+          format: int64
+        capturedAt:
+          type: string
+          format: date-time
+        snapshot:
+          type: object
+          additionalProperties: false
+          required:
+            - coverage
+            - payload
+          properties:
+            coverage:
+              $ref: '#/components/schemas/RetainedHarnessUsageCoverage'
+            payload:
+              $ref: '#/components/schemas/PiHarnessUsagePayload'
     RetainedHarnessUsageCoverage:
       type: object
       additionalProperties: false
@@ -9217,6 +9347,11 @@ components:
           description: Human-readable title for the run
         state:
           $ref: '#/components/schemas/RunState'
+        waiting_on_run_ids:
+          type: array
+          items:
+            type: string
+          description: Runs that this run is waiting to receive messages from. Present only in WAITING state.
         execution_location:
           $ref: '#/components/schemas/RunExecutionLocation'
         prompt:
@@ -9770,6 +9905,9 @@ components:
           required:
             - status
           properties:
+            artifact_uid:
+              type: string
+              description: Artifact identifier for authenticated inline preview
             status:
               type: string
               description: |
@@ -10182,6 +10320,7 @@ components:
         - PENDING
         - CLAIMED
         - INPROGRESS
+        - WAITING
         - SUCCEEDED
         - FAILED
         - BLOCKED
@@ -10193,6 +10332,7 @@ components:
         - PENDING: Run is being prepared
         - CLAIMED: Run has been claimed by a worker
         - INPROGRESS: Run is actively being executed
+        - WAITING: Run is waiting for messages from waiting_on_run_ids
         - SUCCEEDED: Run completed successfully
         - FAILED: Run failed
         - BLOCKED: Run is blocked (e.g., awaiting user input or approval)
@@ -14411,7 +14551,7 @@ components:
       properties:
         cost_usd:
           type: string
-          description: 'public-rate estimated provider total, not a Warp-billed amount.'
+          description: 'Estimated inference total, not a Warp-billed amount.'
         incomplete:
           type: boolean
           description: existing signal that estimate inputs/pricing are incomplete.
@@ -14430,6 +14570,9 @@ components:
         model:
           type: string
           description: provider model identity used for this estimate.
+        provider:
+          type: string
+          description: 'Model provider identity reported by the harness, when available.'
         cost_usd:
           type: string
           description: estimate subtotal for this model.
@@ -15144,6 +15287,13 @@ components:
         page_info:
           $ref: '#/components/schemas/BenchmarkPageInfo'
   securitySchemes:
+    firebaseIDToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Firebase ID token
+      description: |
+        Authentication via a Firebase ID token in the Authorization header.
+        Checks token revocation and whether the account is disabled.
     bearerAuth:
       type: http
       scheme: bearer
