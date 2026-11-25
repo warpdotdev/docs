@@ -67,7 +67,7 @@ Use the [validation record template](../templates/usability-validation.md) for a
 
 The record identifies scope, tested version and method, question results, findings, retests, limitations, and any human acceptance. For reduced-scope changes, state the reason and the navigation or link checks actually performed. Preserve existing PR sections and independent-review output formats.
 
-V1 has no record-completeness checker, new required CI gate, or automated semantic grading. Run [blind calibration](../skills/validate_docs_usability/evals/README.md) with evaluator-only inputs and a separate grader rubric to check actual reports. Fixture structure tests alone do not establish that an agent reliably makes those judgments.
+The [advisory automation](docs-usability-automation.md) dispatches this method for applicable PR updates after activation. It does not replace the author's handoff record or independent review. There is no record-completeness checker, new required CI gate, or automated semantic grading. Run [blind calibration](../skills/validate_docs_usability/evals/README.md) with evaluator-only inputs and a separate grader rubric to check actual reports. Fixture structure tests alone do not establish that an agent reliably makes those judgments.
 
 ## Related references
 

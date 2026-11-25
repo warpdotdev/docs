@@ -216,6 +216,9 @@ jobs:
       - name: Test engineering-review request workflow
         run: python3 .github/workflows/test_request_engineering_review.py
 
+      - name: Test docs usability dispatch and evidence boundaries
+        run: python3 .github/scripts/test_docs_usability.py
+
       # Validate the validate_ui_refs snapshot and script invariants. Uses
       # a synthetic warp client fixture internally — no checkout required.
       - name: Self-test validate_ui_refs skill

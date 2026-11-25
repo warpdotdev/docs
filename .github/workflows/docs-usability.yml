@@ -1,0 +1,118 @@
+name: Docs usability
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft, edited]
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Open PR number to retry at its current head
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+  deployments: read
+  checks: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/docs_usability.py plan
+
+  validate:
+    name: Evaluate PR ${{ matrix.pr.number }}
+    needs: plan
+    if: needs.plan.outputs.matrix != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        pr: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    concurrency:
+      group: docs-usability-evaluate-${{ matrix.pr.number }}
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - name: Prepare trusted instructions and current-head context
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WARP_KEY_AVAILABLE: ${{ secrets.WARP_API_KEY != '' }}
+          PR_NUMBER: ${{ matrix.pr.number }}
+          HEAD_SHA: ${{ matrix.pr.head }}
+        run: python3 .github/scripts/docs_usability.py prepare --directory "$RUNNER_TEMP/usability"
+      - name: Run the reader journey, not fixture calibration
+        id: agent
+        if: steps.prepare.outputs.run == 'true'
+        uses: warpdotdev/oz-agent-action@b0c640eb560d1f2fc283244c582830aa16cefd8c
+        env:
+          GH_TOKEN: ${{ github.token }}
+        with:
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+          cwd: ${{ runner.temp }}/usability/evaluator
+          prompt: ${{ steps.prepare.outputs.prompt }}
+      - name: Preserve raw execution evidence
+        if: always()
+        env:
+          AGENT_OUTPUT: ${{ steps.agent.outputs.agent_output }}
+          AGENT_OUTCOME: ${{ steps.agent.outcome }}
+        run: |
+          python3 .github/scripts/docs_usability.py collect --directory "$RUNNER_TEMP/usability"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docs-usability-${{ matrix.pr.number }}-${{ matrix.pr.head }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/usability/evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+  publish:
+    needs: [plan, validate]
+    if: always() && needs.plan.result == 'success' && needs.plan.outputs.matrix != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        pr: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    concurrency:
+      group: docs-usability-publish-${{ matrix.pr.number }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      deployments: read
+      actions: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: docs-usability-${{ matrix.pr.number }}-${{ matrix.pr.head }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/usability-evidence
+      - name: Publish advisory evidence only if still current
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ matrix.pr.number }}
+          HEAD_SHA: ${{ matrix.pr.head }}
+        run: python3 .github/scripts/docs_usability.py publish --directory "$RUNNER_TEMP/usability-evidence"

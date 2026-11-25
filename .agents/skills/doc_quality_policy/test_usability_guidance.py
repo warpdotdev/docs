@@ -61,6 +61,7 @@ class UsabilityGuidanceTests(unittest.TestCase):
     def test_new_markdown_links_resolve_on_disk(self):
         for relative in (
             METHOD, SKILL, ".agents/references/docs-usability-worked-record.md",
+            ".agents/references/docs-usability-automation.md",
             ".agents/skills/validate_docs_usability/evals/README.md",
         ):
             path = ROOT / relative
