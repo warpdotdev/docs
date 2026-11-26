@@ -236,6 +236,12 @@ The agent will automatically carry out the task you gave it, printing out tool c
 
 By default, the agent runs in your current working directory. To run from a different directory, use the `-C/--cwd` flag.
 
+#### Git and GitHub authentication
+
+Local runs use the Git authentication and configuration already available on your machine. Configure repository access with your usual Git tooling before starting `oz agent run`.
+
+When the run includes a managed GitHub MCP server, the agent uses that server for GitHub API operations, such as creating a pull request. The managed MCP connection doesn't supply credentials to local Git commands. Working GitHub API access therefore doesn't establish that a local `git fetch` or `git push` can authenticate.
+
 ### Running agents remotely: \`oz agent run-cloud\`
 
 Cloud runs dispatch tasks to remote environments. Use cloud runs for:
