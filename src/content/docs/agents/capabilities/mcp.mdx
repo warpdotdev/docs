@@ -248,6 +248,23 @@ Below are examples for popular Model Context Protocol (MCP) servers.
 ### **Engineering & Ops**
 
 <Tabs>
+  <TabItem label="CodeRabbit">
+    Use the [CodeRabbit hosted MCP](https://docs.coderabbit.ai/api/mcp) to access your connected CodeRabbit organization. Add this Streamable HTTP server:
+
+    ```json
+    {
+      "CodeRabbit": {
+        "url": "https://mcp.coderabbit.ai/"
+      }
+    }
+    ```
+
+    For an EU organization, replace the URL with `https://mcp.eu.coderabbit.ai/`. Complete the browser sign-in when Warp starts the server, then check the organization and permissions on CodeRabbit's consent screen.
+
+    CodeRabbit requires OAuth with PKCE. A client that requests no scopes receives only `connection`, which lets it check the connection but does not grant review access. Check the granted scopes before requesting a review. Available tools also depend on your organization's permissions and plan.
+
+    Local code reviews require the [CodeRabbit CLI](https://docs.coderabbit.ai/cli) and a separate CLI sign-in. Adding the hosted server does not upload local files or start a review.
+  </TabItem>
   <TabItem label="GitHub">
     [GitHub MCP Docs](https://github.com/github/github-mcp-server)
 
