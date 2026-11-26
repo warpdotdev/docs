@@ -21,6 +21,13 @@ and add the `## Documentation risk` block
 description, and metadata fixes that preserve product meaning are typically
 `low` risk under the allowlist.
 
+## Usability validation
+
+For approved changes, apply `.agents/references/docs-usability-validation.md`
+after mechanical checks. Check affected navigation and links for metadata-only
+edits. Run `.agents/skills/validate_docs_usability/SKILL.md` if the change also
+alters substantive content. Include the scoped record before readiness for review.
+
 ## Running the audit
 
 From the docs repo root:

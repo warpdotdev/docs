@@ -1,0 +1,146 @@
+name: Docs usability
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft, edited]
+  status:
+  repository_dispatch:
+    types: [docs-usability-retry]
+
+permissions:
+  contents: read
+  pull-requests: read
+  deployments: read
+  checks: read
+
+jobs:
+  source:
+    if: >-
+      github.workflow_ref == format('{0}/.github/workflows/docs-usability.yml@refs/heads/{1}',
+      github.repository, github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - name: Verify default-branch provenance before checkout
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: python
+        run: |
+          import json
+          import os
+          import re
+          import subprocess
+          from urllib.parse import quote
+
+          def api(path):
+              return json.loads(subprocess.check_output(["gh", "api", path], text=True))
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          if repo != "warpdotdev/docs":
+              raise ValueError("Unexpected repository")
+          if os.environ["GITHUB_EVENT_NAME"] not in {"pull_request_target", "status", "repository_dispatch"}:
+              raise ValueError("Event does not have an approved source-selection contract")
+          branch = api(f"repos/{repo}")["default_branch"]
+          ref = f"refs/heads/{branch}"
+          path = ".github/workflows/docs-usability.yml"
+          if os.environ["GITHUB_WORKFLOW_REF"] != f"{repo}/{path}@{ref}":
+              raise ValueError("Workflow definition was not selected from the default branch")
+          if os.environ["GITHUB_REF"] != ref:
+              raise ValueError("Run ref is not the default branch")
+          definition = os.environ["GITHUB_WORKFLOW_SHA"]
+          trusted = api(f"repos/{repo}/git/ref/heads/{quote(branch, safe='')}")["object"]["sha"]
+          if not all(re.fullmatch("[0-9a-f]{40}", sha) for sha in (definition, trusted)):
+              raise ValueError("Invalid source revision")
+          current_blob = api(f"repos/{repo}/contents/{path}?ref={trusted}")["sha"]
+          selected_blob = api(f"repos/{repo}/contents/{path}?ref={definition}")["sha"]
+          if selected_blob != current_blob:
+              raise ValueError("Selected workflow differs from the current default-branch definition")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"sha={trusted}\n")
+
+  plan:
+    needs: source
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.source.outputs.sha }}
+          persist-credentials: false
+      - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/docs_usability.py plan
+
+  prepare:
+    name: Record scope for PR ${{ matrix.pr.number }}
+    needs: [source, plan]
+    if: needs.plan.outputs.matrix != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        pr: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    concurrency:
+      group: docs-usability-prepare-${{ matrix.pr.number }}
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.source.outputs.sha }}
+          persist-credentials: false
+      - name: Record applicability and missing evaluator isolation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRUSTED_SOURCE_SHA: ${{ needs.source.outputs.sha }}
+          PR_NUMBER: ${{ matrix.pr.number }}
+          HEAD_SHA: ${{ matrix.pr.head }}
+        run: python3 .github/scripts/docs_usability.py prepare --directory "$RUNNER_TEMP/usability"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docs-usability-${{ matrix.pr.number }}-${{ matrix.pr.head }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/usability/
+          if-no-files-found: error
+          retention-days: 90
+
+  publish:
+    needs: [source, plan, prepare]
+    if: >-
+      always() && needs.source.result == 'success' && needs.plan.result == 'success' &&
+      needs.plan.outputs.matrix != '[]' &&
+      github.workflow_ref == format('{0}/.github/workflows/docs-usability.yml@refs/heads/{1}',
+      github.repository, github.event.repository.default_branch)
+    strategy:
+      fail-fast: false
+      matrix:
+        pr: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    concurrency:
+      group: docs-usability-publish-${{ matrix.pr.number }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      deployments: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.source.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: docs-usability-${{ matrix.pr.number }}-${{ matrix.pr.head }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/usability
+      - name: Publish current scope without claiming a walkthrough
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRUSTED_SOURCE_SHA: ${{ needs.source.outputs.sha }}
+          PR_NUMBER: ${{ matrix.pr.number }}
+          HEAD_SHA: ${{ matrix.pr.head }}
+        run: python3 .github/scripts/docs_usability.py publish --directory "$RUNNER_TEMP/usability"

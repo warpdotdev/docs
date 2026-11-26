@@ -18,6 +18,12 @@ Claude Code also runs as a standalone cloud agent without a factory. To run the 
 * **Claude model picker** - Choose from the Claude Code models available in the model picker.
 * **Parent and child roles** - A Warp Agent parent can dispatch Claude Code children in [ad hoc orchestration](/platform/orchestration/). A factory foreman using Claude Code can dispatch named factory agents; those agents keep their configured harnesses and resources.
 
+## Background command execution
+
+The Claude Code cloud harness does not support background command execution, including background workflows started by skills. Workflows that depend on background completion or a timer waking the agent may stop progressing instead of resuming.
+
+In your agent instructions and skills, keep commands in the foreground and wait for their results before continuing. This limitation applies to factory agents and standalone cloud runs, not to running the Claude Code CLI locally in Warp.
+
 ## Available models
 
 Choose a model from the factory agent's "Model" dropdown. For standalone runs, use the model picker in the Warp app's Cloud Mode or the "Model" field on the {VARS.WEB_APP}'s new-run pane. Available model IDs and aliases can change; use the picker for the current catalog instead of assuming a pinned release is available to every account. See [Agent model choice](/agents/inference/model-choice/) for model-selection guidance.

@@ -26,6 +26,13 @@ contract in `.agents/references/doc-quality-policy.md`: apply the
 `## Unverified claims` (step 9.5 of `draft_docs`) current. A newly-drafted
 feature page is `engineering-review-required` by default per the allowlist.
 
+## Usability validation
+
+For substantive public drafts, run `.agents/skills/validate_docs_usability/SKILL.md`
+after mechanical checks and before readiness for review. Include the record
+and apply reduced scope for bookkeeping-only changes as defined in
+`.agents/references/docs-usability-validation.md`.
+
 ## Requirements
 
 The audit compares docs against code, so both source repos must be available:
