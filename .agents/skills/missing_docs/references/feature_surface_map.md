@@ -371,6 +371,11 @@ GET /teams -> internal
 # Recheck each method/path through the server publisher before documenting it.
 GET /agent/artifacts/{uid}/pull-request -> internal
 GET /agent/artifacts/{uid}/pull-request/files/{file_id} -> internal
+# Run debug archive operations are x-internal upstream, absent from the
+# released export, and gated by a server flag off in production at
+# warp-server c5bcdce8ef on 2026-11-26. Recheck publication and rollout.
+GET /agent/runs/{runId}/archive -> internal
+POST /agent/runs/{runId}/archive -> internal
 
 # OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
 GET /oauth/authorize -> internal
@@ -749,6 +754,11 @@ GET /factory/{uid}/source/branches -> internal
 # Recheck each operation's public publication and GA availability.
 POST /factory/validate -> internal
 POST /factory/{uid}/git-token -> internal
+# Shared factory object endpoints are x-internal upstream, absent from the
+# released export, and gated by a server flag off in production at
+# warp-server c5bcdce8ef on 2026-11-26. Recheck publication and rollout.
+GET /shared-factory-objects/warp -> internal
+GET /shared-factory-objects/warp/definition -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
@@ -1109,6 +1119,9 @@ FactorySkillReferences
 # Third-party computer-use MCP injection is dogfood at warp 4540015ee5.
 # Retain the added-flag delta and recheck GA plus stable inclusion.
 ComputerUseMcp
+# Session agent messages capability is dogfood at warp e3cc805ec.
+# Retain the added-flag delta and recheck GA plus stable inclusion.
+SessionAgentMessages
 # Preview process-liveness sampling, not a customer configuration surface
 # (execute/shell_command.rs); retain its status-change delta until GA.
 LrcActivitySignal
