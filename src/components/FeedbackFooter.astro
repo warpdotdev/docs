@@ -19,6 +19,14 @@ const pageUrl = Astro.url.href;
 <footer class="sl-flex">
   <DocsFeedbackLinks editUrl={editUrl?.toString()} pageUrl={pageUrl} />
   <Pagination />
+  {/* Company pages agents and crawlers look for to confirm who publishes
+      these docs (ora's trust-anchors check finds them as links). */}
+  <nav class="company-links" aria-label="Warp company pages">
+    <a href="https://www.warp.dev/about">About Warp</a>
+    <a href="https://www.warp.dev/pricing">Pricing</a>
+    <a href="https://www.warp.dev/contact">Contact</a>
+    <a href="https://www.warp.dev/legal/privacy-policy">Privacy policy</a>
+  </nav>
 
   {
     config.credits && (
@@ -48,6 +56,19 @@ const pageUrl = Astro.url.href;
          and matches the 1.5rem gap above it. */
       padding-top: 1.5rem;
       border-top: 1px solid var(--sl-color-hairline-light);
+    }
+    .company-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1rem;
+      font-size: var(--sl-text-xs);
+    }
+    .company-links a {
+      color: var(--sl-color-gray-3);
+      text-decoration: none;
+    }
+    .company-links a:hover {
+      color: var(--sl-color-white);
     }
     .kudos {
       align-items: center;

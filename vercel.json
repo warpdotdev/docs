@@ -43,6 +43,15 @@
       ]
     },
     {
+      "source": "/retrieve",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/:directory(_astro|assets)/:path(.*)",
       "headers": [
         {
@@ -53,6 +62,21 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/pricing(/?)",
+      "destination": "https://www.warp.dev/pricing",
+      "statusCode": 308
+    },
+    {
+      "source": "/about(/?)",
+      "destination": "https://www.warp.dev/about",
+      "statusCode": 308
+    },
+    {
+      "source": "/contact(/?)",
+      "destination": "https://www.warp.dev/contact",
+      "statusCode": 308
+    },
     {
       "source": "/factories/factory-inbox(/?)",
       "destination": "/factories/factory-home/",
@@ -6291,6 +6315,16 @@
     {
       "source": "/community/warp-preview-and-alpha-program#key-warp-preview-features",
       "destination": "/support-and-community/community/warp-preview-and-alpha-program/",
+      "statusCode": 308
+    },
+    {
+      "source": "/developer(/?)",
+      "destination": "/factories/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/developers(/?)",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {

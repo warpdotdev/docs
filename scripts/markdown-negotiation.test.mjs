@@ -74,3 +74,18 @@ test('continues for HTML clients, assets, APIs, retrieve, and direct .md URLs', 
 		assert.equal(response.headers.get('x-middleware-next'), '1');
 	}
 });
+
+test('eligible doc paths send Vary: Accept for both variants', () => {
+	for (const accept of ['text/markdown', 'text/html', '']) {
+		const response = markdownNegotiation(request('/quickstart/', { accept }));
+		assert.equal(response.headers.get('vary'), 'Accept', accept);
+	}
+	assert.equal(markdownNegotiation(request('/')).headers.get('vary'), 'Accept');
+});
+
+test('non-negotiated paths do not get Vary: Accept', () => {
+	for (const path of ['/quickstart.md', '/_astro/page.js', '/llms.txt', '/retrieve?q=hello']) {
+		const response = markdownNegotiation(request(path, { accept: 'text/markdown' }));
+		assert.equal(response.headers.get('vary'), null, path);
+	}
+});
