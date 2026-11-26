@@ -93,6 +93,24 @@ If factory setup commands need credentials, configure [factory secrets](/factori
 
 To use different setup profiles with one environment, [send the profile in run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task).
 
+### Preserve variables after setup
+
+To make values computed during setup available to the agent, append `KEY=VALUE` lines to the file at `$WARP_VARS_FILE`. Warp reads the file after setup and applies the values to the run, including follow-ups, harnesses, and MCP servers.
+
+1. In your environment's setup commands, append the variables you need. For example, if your setup installs an SDK at `/opt/project-sdk`, preserve its location and add its executables to `PATH`:
+
+   ```bash
+   printf '%s\n' \
+     'SDK_ROOT=/opt/project-sdk' \
+     'PATH=/opt/project-sdk/bin' >> "$WARP_VARS_FILE"
+   ```
+
+2. Start a new run with the updated environment. Ask the agent to run `printenv SDK_ROOT` and `printenv PATH`. Check that `SDK_ROOT` is `/opt/project-sdk` and that `PATH` includes `/opt/project-sdk/bin` before the existing entries.
+
+Values are literal, not shell code: Warp doesn't expand `$HOME` or run command substitutions from the file. Expand a value in the setup command before writing it when needed. Use variable names containing ASCII letters, digits, and underscores, with a letter or underscore first.
+
+Setup variables don't override variables supplied by the run or managed secrets, and names beginning with `WARP_` or `OZ_` are reserved. `PATH` is the exception: its entries are prepended to the existing path, with duplicates removed. Keep credentials in the secret configuration linked above.
+
 ## Configure container users
 
 Linux container runs use a non-root user by default. Configure your image and setup commands for the selected user.
