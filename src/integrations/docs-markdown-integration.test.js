@@ -5,6 +5,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { pathToFileURL } from 'node:url';
 import docsMarkdownIntegration, { convertHtmlToMarkdown } from './docs-markdown-integration.js';
+import { stripFrontmatter } from '../lib/docs-markdown.js';
 
 function createPage(content) {
 	return `
@@ -151,6 +152,77 @@ test('build hook writes Markdown without changing browser HTML or hidden tab sta
 	const markdown = await readFile(path.join(directory, 'example.md'), 'utf8');
 	assert.match(markdown, /## GitHub\n\nFirst\./);
 	assert.match(markdown, /## Jira\n\nHidden\./);
+});
+
+test('build hook points each twin\'s frontmatter at its HTML page', async (t) => {
+	const directory = await mkdtemp(path.join(os.tmpdir(), 'docs-markdown-canonical-'));
+	t.after(() => rm(directory, { recursive: true, force: true }));
+	await mkdir(path.join(directory, 'terminal', 'blocks'), { recursive: true });
+	const page = createPage('<p>Body.</p>');
+	await writeFile(path.join(directory, 'index.html'), page);
+	await writeFile(path.join(directory, 'terminal', 'blocks', 'index.html'), page);
+	await writeFile(path.join(directory, '404.html'), page);
+
+	await docsMarkdownIntegration().hooks['astro:build:generated']({
+		dir: pathToFileURL(`${directory}/`), logger: { info() {} },
+	});
+
+	const home = await readFile(path.join(directory, 'index.md'), 'utf8');
+	const nested = await readFile(path.join(directory, 'terminal', 'blocks.md'), 'utf8');
+	assert.ok(home.startsWith('---\ntitle: "Test page"\ndescription: "Test description."\ncanonical: "https://docs.warp.dev/"\n---\n\n> '));
+	assert.ok(nested.startsWith('---\n'));
+	assert.match(nested, /\ncanonical: "https:\/\/docs\.warp\.dev\/terminal\/blocks\/"\n---\n/);
+	await assert.rejects(readFile(path.join(directory, '404.md'), 'utf8'));
+});
+
+test('writes YAML frontmatter first, with values quoted and the body unchanged', () => {
+	const title = 'Rules: "AGENTS.md" #1 & more';
+	const description = "- Leading dash: it's a 'test' \\ with backslash";
+	const html = `<html><head>
+		<meta name="description" content="${description.replaceAll('"', '&quot;')}">
+		<link rel="canonical" href="https://docs.warp.dev/agents/rules/">
+		</head><body><main><h1 data-page-title>${title.replaceAll('&', '&amp;').replaceAll('"', '&quot;')}</h1>
+		<div class="sl-markdown-content"><p>Body text.</p></div></main></body></html>`;
+	const markdown = convertHtmlToMarkdown(html);
+
+	const match = markdown.match(/^---\n([\s\S]*?)\n---\n\n/);
+	assert.ok(match, 'frontmatter must be the first bytes');
+	// Each value is a JSON string, which YAML reads as a double-quoted scalar.
+	const fields = Object.fromEntries(match[1].split('\n').map((line) => {
+		const index = line.indexOf(': ');
+		return [line.slice(0, index), JSON.parse(line.slice(index + 2))];
+	}));
+	assert.deepEqual(fields, {
+		title,
+		description,
+		canonical: 'https://docs.warp.dev/agents/rules/',
+	});
+	assert.equal(
+		markdown.slice(match[0].length),
+		'> For the complete documentation index, see [llms.txt](https://docs.warp.dev/llms.txt).\n' +
+			'> Markdown versions of each page are available by appending .md to any URL.\n\n' +
+			`# ${title}\n\n${description}\n\nBody text.\n`,
+	);
+});
+
+test('omits frontmatter fields that have no value', () => {
+	const markdown = convertHtmlToMarkdown(
+		'<main><h1 data-page-title>No description</h1><div class="sl-markdown-content"><p>Body.</p></div></main>',
+		{ canonicalUrl: 'https://docs.warp.dev/example/' },
+	);
+	assert.ok(markdown.startsWith('---\ntitle: "No description"\ncanonical: "https://docs.warp.dev/example/"\n---\n\n'));
+});
+
+test('stripFrontmatter returns the body the Copy page button copies', () => {
+	const markdown = convertHtmlToMarkdown(createPage('<p>Body.</p>'), {
+		canonicalUrl: 'https://docs.warp.dev/example/',
+	});
+	const copied = stripFrontmatter(markdown);
+	assert.ok(copied.startsWith('> For the complete documentation index'));
+	assert.doesNotMatch(copied, /^---|canonical:/m);
+	// Markdown without frontmatter, such as the dev endpoint's output, is unchanged.
+	assert.equal(stripFrontmatter('# Title\n\n---\n\nBody\n'), '# Title\n\n---\n\nBody\n');
+	assert.equal(stripFrontmatter('---\r\ntitle: "A"\r\n---\r\n\r\n# A\r\n'), '# A\r\n');
 });
 
 test('includes inert agent-only templates in generated Markdown', () => {
