@@ -1,81 +1,88 @@
 ---
-title: Roles and permissions
+title: Enterprise roles and permissions
 description: >-
-  Understand user roles, permissions, and access controls for managing your
-  Warp Enterprise team.
+  Assign team admins in Warp Enterprise and understand which workspace, team, and factory roles control access and shared settings.
+sidebar:
+  label: Roles and permissions
 ---
 
-Warp uses a role-based access model to control what team members can do within your organization. Admins manage team settings and enforce policies, while members use Warp's features within the boundaries admins define.
+A role defines what you can access and which actions you can take in Warp. Your effective permissions also depend on your plan, memberships, and applicable policies.
 
-:::note
-The roles on this page apply to single-team workspaces. In multi-team workspaces, [workspace roles](/enterprise/team-management/workspaces/#workspace-roles) govern company-wide access.
-:::
+Enterprise workspace roles apply across teams. Team roles govern administration within one team. Factory roles govern running and configuring factories. For example, an Engineering team admin can administer that team's factories without receiving workspace-wide billing or integration-installation authority.
 
-## User roles
+## Workspace roles and team roles
 
-Warp has three user roles:
+<span id="user-roles" />
+<span id="team-roles" />
 
-* **Team Owner** - Has full access to the Admin Panel and can manage team settings, invite users, assign roles, and transfer ownership of the team. There can only be one Owner.
-* **Team Admin** - Same permissions as the Owner, except they can't transfer ownership of the team.
-* **Member** - Standard access to Warp features and team resources. Members can use agents, access shared Warp Drive resources, and configure personal settings within the limits set by admins.
+| Scope | Role | Authority |
+| --- | --- | --- |
+| Workspace | Owner | Workspace administration plus ownership transfer; exactly one owner |
+| Workspace | Admin | Workspace membership, billing, and supported policies; administration of every team, including teams they do not belong to |
+| Workspace | Member | Uses Warp through their memberships and applicable policies; no workspace-wide administration |
+| Team | Admin | Membership and configurable settings for their team; no automatic workspace authority |
+| Team | Member | Team resources within applicable policies and factory access |
 
-## Managing admins
+Workspace and team roles are additive. Demoting a workspace admin does not remove a separately assigned team-admin role. Workspace membership also does not join every team.
 
-Teams can have multiple admins. We recommend at least one admin in addition to the Team Owner to prevent access issues if one is unavailable.
+See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles) for workspace definitions and [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles) for promotion, demotion, and ownership transfer. To end workspace access, follow [Removing a workspace member](/enterprise/team-management/workspaces/#removing-a-workspace-member).
 
-### Promoting or demoting admins
+## Factory roles and team administration
 
-1. Navigate to **Settings** > **Teams** > **Team Members**.
-2. Find the user you want to modify.
-3. Click the three-dot menu icon next to their name.
-4. Select **Promote to Admin** or **Demote from Admin**.
-5. Confirm the change when prompted.
+Factory user and Editor are factory-access roles, not team membership roles. Workspace owners and admins inherit Admin access to factories across the workspace. Team admins inherit Admin only for their team's factories. Factory-specific assignments cannot reduce that inherited access.
 
-:::caution
-Team Admins cannot demote or modify the Team Owner role.
-:::
+An Editor can attach an existing shared integration. Establishing a new workspace-owned connection or initiating delegated setup requires a workspace owner or admin. Enterprise team-admin authority alone is not enough. Personal account linking and permissions in the external service are separate.
 
-## Permission details
+Follow [Managing factory permissions](/factories/permissions/) for role capabilities, team defaults, and factory-specific assignments, and [Connecting your factory to external tools](/factories/connect-your-factory/) for setup.
 
-### What admins can do
+<span id="permission-details" />
+<span id="what-admins-can-do" />
 
-* **Team management** - View members, invite users, remove users, and assign roles.
-* **Authentication** - Configure SSO and login requirements.
-* **Agent policies** - Set autonomy levels, command allowlists/denylists, and directory access controls.
-* **Security settings** - Configure secret redaction, telemetry controls, and data handling policies.
-* **Feature controls** - Enable or disable Codebase Context, BYOLLM, sharing, and other features.
-* **Billing** - Monitor credit usage, set spending limits, and manage subscriptions.
+## Spending authority
 
-### What members can do
+Team admins manage supported spending limits for their team and its members. Workspace owners and admins manage those limits across teams, including unassigned workspace users. See [Enterprise spending controls](/enterprise/support-and-resources/billing/#spending-controls).
 
-* **Use agents** - Run agents locally and in the cloud within the policies admins define.
-* **Access team resources** - Use shared Workflows, Notebooks, Prompts, Rules, and Environment Variables in Warp Drive.
-* **Configure personal settings** - Adjust settings where admins have selected "Respect User Setting."
-* **Share sessions** - Collaborate via session sharing (if enabled by admins).
-* **Index codebases** - Trigger Codebase Context indexing for repositories (if enabled by admins).
+Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate actions. Do not infer billing-portal access from permission to change a team spending limit.
 
-### Settings enforcement
+## Member access and policy limits
 
-Admin-configured settings follow a three-tier model:
+<span id="what-members-can-do" />
 
-* **Organization enforced** - Applies to all members. Users cannot override these settings. Use for security-critical policies (e.g., secret redaction, command denylists).
-* **Respect user setting** - Admins set a default, but individual users can customize. Use for preferences that don't impact security.
-* **Tier restricted** - Setting is locked based on billing plan and cannot be changed until the plan is upgraded.
+Members use shared resources and configure personal settings within the applicable policies. A Member role is not a promise of read-only access. A member can separately have factory Editor access.
 
-See the [Admin Panel](/enterprise/team-management/admin-panel/) documentation for details on configuring each setting.
+<span id="settings-enforcement" />
+
+Team admins cannot override workspace-enforced policies. Follow [Enforcing or delegating workspace policies](/enterprise/team-management/admin-panel/#enforcing-or-delegating-workspace-policies) to change which scope controls a setting.
 
 ## Resource sharing controls
 
-Admins control how team members collaborate and share Warp Drive resources:
+Warp Drive sharing policies and cloud-run visibility are separate from role assignments. Use the [Admin Panel sharing settings](/enterprise/team-management/admin-panel/#sharing-settings) and [workspace run-visibility guidance](/enterprise/team-management/workspaces/#cloud-agent-run-visibility).
 
-* **Direct link sharing** - Allow team members to share Notebooks, Workflows, Prompts, and other objects via direct links.
-* **Team-only links** - Restrict links so only team members can access them.
-* **Public link sharing** - Enable or disable access for anyone with the link (even non-team members).
+Factory roles do not grant repository permissions or permission to merge pull requests.
 
-For organizations with sensitive internal processes, disable public link sharing to prevent accidental exposure.
+## Changing team admins
 
-## Related resources
+<span id="managing-admins" />
+<span id="promoting-or-demoting-admins" />
 
-* [Workspaces](/enterprise/team-management/workspaces/) - How workspace and team roles work in multi-team accounts
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings and enforce policies
-* [Getting started for developers](/enterprise/getting-started/getting-started-developers/) - Developer onboarding guide
+Workspace admins can assign admins to any team. Team admins can add or remove admins within their own team.
+
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/). Confirm the workspace. Under "Team admin" in the sidebar, click the team name, then **Members**. Confirm the team name.
+2. Use the controls shown in the member list:
+   * In the member-menu layout, next to the person you want to promote or demote, click the three dots. Click **Promote to team admin** or **Demote team admin**.
+   * In the editable "Role" column, click the member's role dropdown. Select **Team Admin** to promote them. To demote an admin, select **Factory Editor** or **Factory User** for the factory access they should retain. This removes team administration and assigns that team-wide factory role.
+3. If you're demoting yourself, review the confirmation and click **Demote to member**.
+4. Confirm the updated team role. If you lost Admin Panel access, ask another admin to confirm it.
+
+See [factory role capabilities](/factories/permissions/#roles-and-capabilities) before choosing access during demotion. An inherited workspace-admin role cannot be reduced by changing a team or factory role.
+
+{/* VERIFY: Exercise both team-role layouts in the production Admin Panel, including demotion and confirmation behavior. Source was checked; no live-account test was performed. */}
+
+<span id="related-resources" />
+
+## Related pages
+
+* [Managing Enterprise teams](/enterprise/team-management/teams/)
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Admin Panel for Enterprise workspaces](/enterprise/team-management/admin-panel/)
+* [Managing factory permissions](/factories/permissions/)

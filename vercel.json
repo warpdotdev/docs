@@ -54,6 +54,16 @@
   ],
   "redirects": [
     {
+      "source": "/factories/teams(/?)",
+      "destination": "/factories/teams-and-admin-controls/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/teams.md",
+      "destination": "/factories/teams-and-admin-controls.md",
+      "statusCode": 308
+    },
+    {
       "source": "/factories/factory-inbox(/?)",
       "destination": "/factories/factory-home/",
       "statusCode": 308

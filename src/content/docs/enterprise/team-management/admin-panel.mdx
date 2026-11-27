@@ -1,89 +1,74 @@
 ---
-title: Admin Panel for teams
+title: Admin Panel for Enterprise workspaces
 description: >-
-  Centralized management for team administrators to configure Warp settings,
-  control agent behavior, and enforce security policies across your
-  organization.
+  Manage Enterprise workspace policies in the Warp Admin Panel, delegate settings to teams, and review access and billing controls.
 sidebar:
-  label: "Admin panel"
+  label: Admin Panel
 ---
 import { VARS } from '@data/vars';
 
-The Admin Panel provides administrators with centralized control over team settings in Warp. Configure agent behavior, security policies, codebase indexing, and collaboration features for your entire organization from a single interface.
+Use the Warp Admin Panel to enforce policies across an Enterprise workspace or delegate supported choices to team admins.
 
-## What is the Admin Panel?
+Your [Enterprise role](/enterprise/team-management/roles-and-permissions/) determines scope. For example, a workspace admin can enforce a policy across Engineering and Support, while an Engineering team admin configures their team within workspace policies and plan restrictions.
 
-The [Admin Panel](https://app.warp.dev/admin/) is your control center for managing Warp at scale. It allows IT admins, platform teams, and engineering managers to:
-
-* **Control agent behavior** - Set autonomy levels, command permissions, and safety guardrails organization-wide
-* **Enforce security policies** - Configure secret redaction, telemetry controls, and data handling
-* **Manage team resources** - Enable Codebase Context, configure BYOLLM, and control sharing permissions
-* **Monitor usage** - Track consumption and configure spending controls
-* **Maintain compliance** - Apply consistent policies that meet your organization's security requirements
-
-:::note
-Warp restricts Admin Panel access to team administrators. Regular team members can view settings that affect them but cannot modify organization-wide policies.
-:::
+<span id="what-is-the-admin-panel" />
 
 ## Accessing the Admin Panel
 
-### For team admins
+<span id="for-team-admins" />
 
-Access the Admin Panel in two ways:
+### For workspace and team admins
 
-**Option 1: Direct URL**
-1. Navigate to the [Warp Admin Panel](https://app.warp.dev/admin/).
-2. Sign in to your Warp account.
-3. The Admin Panel opens with all organization settings.
+1. Open the [Admin Panel](https://app.warp.dev/admin/) and sign in. Confirm the workspace name.
+2. To change a workspace policy, open its section under "Workspace admin" in the sidebar.
+3. To change a team's settings, click its name under "Team admin", then open the relevant section. Confirm the team name before making a change.
 
-**Option 2: From Warp Settings**
-1. Open Warp and click your profile icon in the top right.
-2. Click **Settings**.
-3. Navigate to the **Admin Panel** tab (visible only to team admins).
+In the {VARS.FACTORY_WEB_APP}, admins can also open the account menu and click **Admin panel**.
+
+For membership and role changes, use [workspace membership and roles](/enterprise/team-management/workspaces/) or [Changing team admins](/enterprise/team-management/roles-and-permissions/#changing-team-admins).
+
+<span id="multi-admin-functionality" />
+<span id="promoting-and-demoting-admins" />
 
 ### For team members
 
-Team members see organization-enforced settings in their personal Settings panel:
-
-* Settings controlled by admins appear grayed out
-* Indicated by message: "Your organization has configured this setting"
-* Users retain control over settings where admins have selected "Respect User Setting"
+Members see enforced settings in Warp Settings. Ask a team or workspace admin to review a locked control.
 
 ## How settings enforcement works
 
-The Admin Panel uses a three-tier enforcement model that keeps administrators in control while allowing appropriate flexibility.
+Workspace admins enforce supported policies across teams. Team admins configure their teams within those policies and plan restrictions. Some team controls, such as Models, have no workspace delegation setting.
 
-In multi-team workspaces, workspace admins can enforce supported settings across all teams or let each team decide. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
+<span id="toggleable-vs-fixed-settings" />
+<span id="setting-inheritance" />
+<span id="user-experience" />
+<span id="testing-before-enforcement" />
 
 ### Setting enforcement levels
 
-**Organization enforced**
-* Setting applies to all team members regardless of individual preferences
-* Users cannot override these settings
-* Use for security-critical policies (e.g., secret redaction, command denylists)
+| Setting state | What it means |
+| --- | --- |
+| Workspace enforced | Team admins and members cannot override the configured value |
+| Respect Team Setting | Each team controls the setting, subject to its plan |
+| Respect User Setting | On team controls that offer it, individual members control their preference |
+| Tier restricted | The plan does not permit changing the control |
 
-**Respect user setting**
-* Allows individual team members to control the setting themselves
-* Admins set a default, but users can customize
-* Use when members are allowed to choose their own preference; this doesn't restrict model availability
+Only controls offering **Respect Team Setting** support delegation.
 
-**Tier restricted**
-* Setting is locked based on billing plan
-* Cannot be changed until plan is upgraded
-* Indicated by message: "Configuring this setting is not available on your plan"
+### Enforcing or delegating workspace policies
 
-### Testing before enforcement
+You must be a workspace owner or admin. Before enforcing a value, test it with an approved team while the workspace control remains delegated.
 
-:::note
-Changes made in the Admin Panel take effect immediately for all team members. Test settings in your own Warp environment before applying organization-wide enforcement.
-:::
+To stop content collection for service improvement across the workspace or let teams decide:
 
-To safely roll out new policies:
+1. Open the [Admin Panel](https://app.warp.dev/admin/) and confirm the workspace name.
+2. Under "Workspace admin", click **Privacy**.
+3. Click the "UGC Data Collection" dropdown. Select **Disabled** to enforce collection off, or **Respect Team Setting** to delegate the choice. A plan-locked control is not editable.
+4. Wait for the update to complete. Reload the page and confirm the selected value persists.
+5. Under "Team admin", click an affected team's name, then **Privacy**. An enforced value shows "This setting is managed by your workspace." A delegated control remains subject to plan restrictions.
 
-1. Configure settings with "Respect User Setting" initially.
-2. Test with a small group of users.
-3. Gather feedback and adjust configuration.
-4. Switch to "Organization enforced" once validated.
+For Terminal team configuration, follow [Admin Panel for Warp Terminal](/knowledge-and-collaboration/admin-panel/). Factory and standalone controls are linked under [Platform settings](#platform-settings).
+
+{/* VERIFY: Test workspace policy enforcement and delegation in the production Admin Panel, including UGC Data Collection options, immediate saves, and the resulting team lock. Navigation, labels, and mutations were source-checked; no live-account test was performed. */}
 
 ## Plan limitations
 
@@ -91,290 +76,130 @@ To safely roll out new policies:
 <span id="business-plans" />
 <span id="enterprise-plans" />
 
-Available controls depend on your plan. A locked setting shows "Configuring this setting is not available on your plan." For plan guidance, see [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/); for current offerings, see [Warp pricing](https://www.warp.dev/pricing).
+A plan-locked setting shows "Configuring this setting is not available on your plan." Delegation does not remove plan restrictions. Contact your account manager if controls don't match your agreement.
 
-Enterprise usage pools and spending controls follow your [billing agreement](/enterprise/support-and-resources/billing/).
+Enterprise adds enforced secret redaction, a control restricting direct API inference to the US, and customer-hosted storage. The inference control is not an all-data residency guarantee.
 
-## Admin Panel sections
+<span id="admin-panel-sections" />
 
-The Admin Panel is organized into seven main areas:
+## AI settings
 
-### AI settings
+<span id="general-ai-settings" />
 
-Configure how agents behave across your organization, including autonomy levels and command permissions. This is where you balance agent productivity with organizational safety requirements.
+Under "Workspace admin", click **AI** for workspace policies. Open a team's **AI** section under "Team admin" for team controls. These govern supported Warp Agent behavior, not every harness.
 
-#### General AI settings
+### Autonomy settings
 
-**AI in remote sessions**
-* Controls whether agents are available during SSH sessions and remote connections
-* Enterprise plans can toggle this setting
-* Consider disabling for production servers or sensitive environments
+Under "Autonomy", workspace approval controls such as "Apply Code Diffs", "Create Plans", "Execute Commands", and "Read Files" offer **Agent Decides**, **Always Ask**, **Always Allow**, and **Respect Team Setting**. A delegated team's control can instead offer **Respect User Setting**.
 
-**Prompt summarization caching**
-* When conversations become long, the LLM provider caches summaries temporarily
-* Improves performance for extended agent interactions
-* Provider retention follows the selected model and inference configuration; see [model retention policies](/agents/inference/model-choice/#zero-data-retention-policies)
+Click the relevant dropdown and select the required value. Reload and confirm it persists. See [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) for permission behavior.
 
-#### Autonomy settings
+### Directory and command control
 
-Configure how much independence agents have when performing actions. Choose between:
-
-* **Agent Decides** - Agent acts autonomously when confident, asks when uncertain (recommended)
-* **Always Ask** - Require explicit approval for every action
-* **Always Allow** - Maximum autonomy without confirmations
-* **Respect User Setting** - Allow individual users to set their preference
-
-**Apply code diffs**
-Controls whether agents can apply code changes without approval. For production-critical codebases, consider "Always Ask" to maintain tight control.
-
-**Create plans**
-Whether agents can create structured task plans (`/plan` command) without user approval.
-
-**Execute commands**
-Manages the agent's ability to run terminal commands autonomously. Pair with command allowlists/denylists for granular control.
-
-**Read files**
-Controls agent access to reading files in the codebase. Enable for better context, restrict for sensitive repositories.
-
-#### Directory and command control
-
-**Directory allowlist**
-Specify directories where agents can read files without restriction. Use absolute paths:
-* `~/git/internal-tooling` - Grant access to specific projects
-* `/home/user/repos/public-*` - Use wildcards for patterns
-
-**Command allowlist**
-Regular expressions matching commands agents can execute without asking permission. Common patterns:
-* `grep .*` - Text search
-* `ls(\\s.*)?` - Directory listing
-* `git status` - Version control queries
-* `which .*` - Finding executables
-
-**Command denylist**
-Regular expressions for commands that **always** require explicit user approval, regardless of autonomy settings:
-* `rm -rf.*` - Recursive deletion
-* `sudo.*` - Administrative commands
-* `curl.*|wget.*` - Network requests
-* `docker rm.*` - Container operations
-* `.*production.*` - Commands containing "production"
+Under **AI** > "Autonomy", enter a path in "Directory Allowlist" or a regular expression in "Command Allowlist" or "Command Denylist", then press `Enter`. Reload and confirm the entry persists. Team admins see workspace entries as read-only under "Added by your workspace".
 
 :::caution
-Command denylist rules take precedence over allowlist rules and agent autonomy settings. Use denylists to prevent high-risk operations even in high-autonomy configurations.
+Autonomy denylist matches require explicit approval. The separate "Sandboxed Agents" denylist blocks matching commands. Autonomy settings do not apply to sandboxed agents.
 :::
 
-### Privacy settings
+## Privacy settings
 
-Manage data collection and security policies to meet your organization's compliance requirements.
+### Content collection for service improvement
 
-**Content collection for service improvement**
-The "UGC Data Collection" dropdown controls how Warp collects your team's content to improve the service:
-* **Disabled** - Warp doesn't collect team content for service improvement
-* **Enabled** - Allow data collection for service improvement
-* **Respect User Setting** - Let individual users decide
-
-Personal analytics and crash-report preferences are separate from team content collection. This team control doesn't change [provider retention requirements](/agents/inference/model-choice/#models-requiring-provider-retention) or disable product storage.
-
-**Cloud conversation storage**
-
-Controls cloud sync of personal Terminal conversations. Disabling it doesn't disable factory or other cloud agent run storage. See [product storage](/support-and-community/privacy-and-security/privacy/#product-storage) for run-data categories and storage options.
-
-**Enterprise secret redaction**
-Automatically detects and redacts sensitive information before sending data to LLM providers:
-* Enterprise plans enable this by default
-* Includes automatic detection of common secret patterns (API keys, passwords, certificates)
-* Supports custom regex patterns for organization-specific secrets
-* Applies unconditionally across all team members
-
-Configure custom patterns in the Admin Panel to match your organization's secret formats.
-
-{/* TODO(factory-plans): Revisit browser collection controls with the factory plans documentation update. Confirm plan eligibility, team-wide versus individual opt-out scope, and the browser route for customers without Terminal. Keep Factory plan names distinct from Terminal plan names. */}
+Follow [Enforcing or delegating workspace policies](#enforcing-or-delegating-workspace-policies) to change "UGC Data Collection". See [Privacy and data control](/support-and-community/privacy-and-security/privacy/) for the separate telemetry, provider-retention, and product-storage rules.
 
 <span id="changing-improvement-collection-in-a-browser" />
 <span id="changing-improvement-collection-in-the-admin-panel" />
+<span id="managing-team-content-collection-in-the-admin-panel" />
 
-#### Managing team content collection in the Admin Panel
+For delegated choices, use [Terminal team privacy settings](/knowledge-and-collaboration/admin-panel/#content-collection-for-service-improvement) or [factory data controls](/factories/teams-and-admin-controls/#changing-content-collection). A plan-locked value remains locked.
 
-Business and Enterprise team admins can configure content collection for service improvement without installing Warp Terminal:
+### Cloud conversation storage
 
-1. Open the [Admin Panel](https://app.warp.dev/admin/) for the team and go to **Privacy**.
-2. In the "UGC Data Collection" dropdown, choose **Disabled** to stop team content collection, or **Respect User Setting** to defer to individual preferences.
-3. After the update succeeds, reload the page and confirm the selected value persists.
+Under "Workspace admin" > **Privacy**, the "Cloud Conversation Storage" dropdown lets you enforce **Enabled** or **Disabled**, or select **Respect Team Setting**. Selection saves immediately. Reload the page and confirm the selected value persists.
 
-If the control is locked by a workspace policy, ask a workspace admin to review it. If your plan doesn't permit changes, or you need a personal browser-only opt-out, contact [privacy@warp.dev](mailto:privacy@warp.dev) to confirm the available options.
+This control applies to personal Terminal conversations. Disabling it does not disable factory or other cloud agent run storage. Review [product storage](/support-and-community/privacy-and-security/privacy/#product-storage) and configure [self-hosted data storage](/factories/self-hosting/data-storage/) separately.
 
-### Code settings
+### Enterprise secret redaction
 
-Control codebase indexing and agent code features for your team.
+Under "Workspace admin" > **Privacy**, configure "Enterprise Secret Redaction" and its patterns. Follow [Secret redaction](/support-and-community/privacy-and-security/secret-redaction/) for configuration and scope. Redaction does not set retention or storage policy.
 
-**Codebase Context**
-Determines whether Warp indexes your team's Git repositories to provide context for agents:
-* **Disabled** - No codebase indexing
-* **Enabled** - Index codebases for improved agent responses across large, multi-repo systems
-* **Respect User Setting** - Allow individual control
+## Code settings
 
-When enabled, agents understand your code patterns, architecture, and conventions across all indexed repositories. Enterprise plans support:
-* Unlimited repositories
-* Up to 200,000 files per repository
-* Team-wide indexing with centralized configuration
+Under "Workspace admin", click **Code**. Click the "Codebase Indexing" dropdown and select **Disabled**, **Enabled**, or **Respect Team Setting**. Reload the page and confirm the selected value persists.
 
-### Models settings
+Repository and file limits depend on the plan. See [Codebase Context](/agents/capabilities/codebase-context/) for indexing behavior and limits.
 
-Use the **Models** page for the controls included in your plan:
+<span id="models-settings" />
 
-* **Enterprise model restrictions** - Admins can enable or disable individual models and configure [BYOLLM routing](/enterprise/enterprise-features/bring-your-own-llm/). Self-serve plans don't include a team-wide model-blocking control.
-* **Business and Enterprise provider credentials** - Configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud Warp Agent runs. Sharing credentials isn't a model restriction.
+## Model settings
+
+Under "Team admin", click the team name, then **Models**. There is no workspace **Models** section. Available controls include:
+
+* **Enterprise model restrictions** - Enable or disable individual models and configure [BYOLLM routing](/enterprise/enterprise-features/bring-your-own-llm/).
+* **Shared provider credentials** - Configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on plans that include that control. Sharing credentials isn't a model restriction.
 * **Enterprise custom routers** - Share [routing rules](/agents/inference/custom-routers/#team-synced-routers) with the team. A router's choices are separate from enforced model availability.
 
-**Models with provider-specific data retention requirements**
+### Models with provider-specific data retention requirements
 
-Some models require provider retention and aren't covered by [Zero Data Retention (ZDR)](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr), even when team content collection is disabled. Review the complete [exception list on the model-choice page](/agents/inference/model-choice/#models-requiring-provider-retention). For Enterprise teams, these models are **disabled by default**. A workspace admin must explicitly enable them before team members can use them.
+Some models require provider retention even with content collection disabled. They are exceptions to [Zero Data Retention (ZDR)](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr) and are disabled by default for Enterprise teams. A workspace admin must enable them before use. Review the [model exception list](/agents/inference/model-choice/#models-requiring-provider-retention).
 
-Self-serve customers must review their selected models and overrides using the [Terminal procedure](/agents/inference/model-choice/#reviewing-inference-and-privacy-in-terminal) or [factory ZDR guidance](/factories/zero-data-retention/).
+For factory-specific model and retention choices, use [factory ZDR guidance](/factories/zero-data-retention/).
 
-### Billing settings
+## Billing settings
 
-On the Admin Panel's **Billing** page, review usage and configure the spending controls available for your plan.
+Under "Workspace admin", click **Billing** for workspace usage and controls. Open a team's **Billing** section under "Team admin" for that team's controls.
 
-Self-serve [spend limits and auto-reload](/support-and-community/plans-and-billing/add-on-credits/) control additional usage purchases. Enterprise [pools and spending controls](/enterprise/support-and-resources/billing/) follow your contract.
+Enterprise supports monthly workspace, team, and per-user spend caps, separate local and cloud spending limits, and usage alerts.
 
-Contact your account manager for Enterprise allocation changes. Multi-team workspaces can also use [workspace spend limits](/enterprise/team-management/workspaces/#workspace-spend-limits).
+See [Enterprise billing](/enterprise/support-and-resources/billing/) for pools, cap interactions, and contract changes. For factory funding, upgrade, and payment routes, use [Managing factory plans and billing](/factories/managing-plans-and-billing/).
 
-### Sharing settings
+## Sharing settings
 
-Control how team members collaborate and share Warp Drive resources.
+Workspace sharing values apply across every team. Team Sharing controls are read-only. Review [Warp Drive sharing](/knowledge-and-collaboration/warp-drive/) before changing access to existing resources.
 
-**Direct link sharing**
-Allow team members to share Notebooks, Workflows, Prompts, and other Warp Drive objects via direct links:
-* **Enabled** - Team members can generate shareable links
-* **Team only** - Links work only for team members
-* **Disabled** - No link sharing
+1. Under "Workspace admin" in the Admin Panel, click **Sharing**. Confirm the workspace name.
+2. Click the "Direct Link Sharing" or "Anyone with Link Sharing" dropdown and select **Enabled** or **Disabled**. These controls do not offer **Respect Team Setting**.
+3. Wait for the update to complete. Reload and verify both sharing values. Open an affected team's **Sharing** section and confirm its controls are locked.
 
-**Anyone with link sharing**
-Enable public access to shared objects:
-* **Enabled** - Anyone with the link can view content without being a team member
-* **Disabled** - Links require team membership to access
+"Direct Link Sharing" permits direct links to Warp Drive resources. "Anyone with Link Sharing" permits access outside the team. Factory roles and cloud-run visibility are [separate controls](/enterprise/team-management/roles-and-permissions/#resource-sharing-controls).
 
-For organizations with sensitive internal processes, disable "Anyone with link" sharing to prevent accidental exposure.
+{/* VERIFY: Test Enterprise AI, Privacy, Code, Models navigation, and Sharing controls in the production Admin Panel, including workspace versus team scope, saved values, and locked controls. Source was checked; no live-account test was performed. */}
 
-### Platform settings
+## Platform settings
 
-Configure cloud agent settings for your team, including GitHub authorization for automated workflows.
+For standalone cloud-agent authorization, team credentials, and artifact attachments, use [shared controls on the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/teams-and-admin-controls/#configuring-shared-controls). Review the [artifact sharing implications](/agents/capabilities/computer-use/artifacts-in-prs/) before allowing embedded screenshots or videos.
 
-**Agent artifact attachments**
-
-Controls how screenshots and video recordings captured with [Computer Use](/agents/capabilities/computer-use/) are shared in pull request descriptions and external destinations such as Slack, Linear, and issue comments. Choose **Disabled**, **Link only**, or **Embed**. For what each mode does and its security implications, see [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/).
-
-**Enabled GitHub Orgs**
-
-The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/agents/cli/oz-cli/api-keys/) clone repositories and open pull requests using the [Warp Factories](/factories/) GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@warp-agent` in those repositories.
-
-To configure:
-
-1. Navigate to the **Platform** section of the Admin Panel.
-2. Under **Enabled GitHub Orgs**, review the list of GitHub organizations where the Warp Factories GitHub App is installed.
-3. Select which organizations your team should have access to.
-
-<figure>
-![Enabled GitHub Orgs setting in the Admin Panel Platform section](../../../../assets/agent-platform/admin-panel-enabled-github-orgs.png)
-<figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
-</figure>
-
-The organizations and repository access shown here reflect the Warp Factories GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
-
-:::note
-This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@warp-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
-:::
-
-## Multi-admin functionality
-
-Warp supports multiple team administrators to prevent single points of failure and enable distributed management.
-
-### Promoting and demoting admins
-
-Team admins can grant or revoke admin privileges:
-
-1. Navigate to **Settings** > **Teams** > **Team Members**.
-2. Find the user you want to modify.
-3. Click the role dropdown next to their name.
-4. Select **Admin** or **Member**.
-5. Click **Save**.
-
-:::note
-We recommend at least one admin in addition to the Team Owner to prevent access issues if one is unavailable. The Team Owner has full access and can transfer ownership; Team Admins have the same permissions except they can't transfer ownership.
-:::
-
-## Common admin workflows
-
-### Initial enterprise setup
-
-After purchasing a Warp enterprise plan:
-
-1. **Configure SSO** - Set up authentication with your identity provider.
-2. **Enable Codebase Context** - Index your organization's repositories.
-3. **Set agent autonomy** - Configure initial safety levels.
-4. **Apply secret redaction** - Add custom patterns for your organization.
-5. **Configure BYOLLM** (optional) - Route inference through your cloud accounts.
-6. **Create shared resources** - Populate team Warp Drive with Workflows, Rules, and Prompts.
-
-See [Roles and permissions](/enterprise/team-management/roles-and-permissions/) for user roles and access controls. For accounts that manage multiple teams, see [Workspaces](/enterprise/team-management/workspaces/).
-
-### Adjusting policies for different teams
-
-For organizations with multiple teams (e.g., DevOps, Data, Frontend):
-
-1. Create separate Warp teams for each group.
-2. Assign team-specific admins.
-3. Configure different autonomy levels per team.
-4. Use directory allowlists to scope agent access to team repositories.
-
-### Responding to security incidents
-
-If an agent performs an unintended action:
-
-1. **Immediate:** Review agent action logs in the affected user's session.
-2. **Short-term:** Add specific commands to the command denylist.
-3. **Long-term:** Adjust autonomy settings to prevent similar incidents.
-4. **Review:** Check the Admin Panel settings for the affected user's team to confirm what autonomy levels, allowlists, and restrictions were in effect.
-
-Warp logs all agent actions with full context, making incident investigation straightforward.
+For factory administration, use [Warp Factories team controls](/factories/teams-and-admin-controls/#shared-settings-and-usage), [factory permissions](/factories/permissions/), and [shared connection setup](/factories/connect-your-factory/).
 
 ## Troubleshooting
 
 ### Users can't see new settings
 
-**Problem:** You changed a setting in the Admin Panel, but users report they don't see the change.
-
-**Solution:**
-1. Verify the setting is not set to "Respect User Setting".
-2. Ask users to restart Warp to force a settings refresh.
-3. Confirm users are members of the correct team.
-4. Check that users have logged in with SSO (not a personal account).
+Check the workspace, team, and affected user's membership. If the workspace delegates the setting, check the team's value. Reload the user's Settings before testing again.
 
 ### Setting is grayed out in Admin Panel
 
-**Problem:** A setting you want to configure appears grayed out or shows "Not available on your plan."
-
-**Solution:**
-* This setting is restricted to higher-tier plans
-* Review plan features on [Warp pricing](https://www.warp.dev/pricing)
-* Contact your account manager or [sales team](https://www.warp.dev/contact-sales) to upgrade
+For "This setting is managed by your workspace", change the workspace policy or delegate it where supported. For plan restrictions, contact your account manager.
 
 ### Command allowlist not working
 
-**Problem:** Agents still ask permission for commands that match your allowlist patterns.
+Check workspace-added rules as well as the team's rules. An Autonomy denylist match still requires approval. A sandboxed-agent denylist match blocks execution instead. For personal approval behavior, see [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/).
 
-**Solution:**
-1. Verify regex patterns are correct (test with a regex validator).
-2. Check that commands don't also match the denylist (denylist takes precedence).
-3. Confirm autonomy settings allow command execution.
-4. Remember: Some commands are always restricted regardless of allowlist.
+<span id="responding-to-security-incidents" />
 
 ## Support
 
-Enterprise customers have access to priority support:
+For access problems, contact [support@warp.dev](mailto:support@warp.dev) or your Enterprise support channel.
 
-* **Dedicated channels** - Private Slack or Teams channels with Warp engineers
-* **Account manager** - Direct contact for escalations and feature requests
-* **Technical support** - Help with Admin Panel configuration and troubleshooting
+## Related pages
 
-Reach out through your dedicated Slack/Teams channel or contact your account manager.
+<span id="common-admin-workflows" />
+<span id="initial-enterprise-setup" />
+<span id="adjusting-policies-for-different-teams" />
+
+* [Managing Enterprise teams](/enterprise/team-management/teams/)
+* [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/)
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Managing factory plans and billing](/factories/managing-plans-and-billing/)
+* [Getting started for admins](/enterprise/getting-started/getting-started-enterprise/) - Configure Enterprise SSO, membership, and policies

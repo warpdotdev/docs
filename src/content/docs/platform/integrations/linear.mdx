@@ -11,13 +11,11 @@ import { VARS } from '@data/vars';
 
 The Linear integration lets your team delegate development work directly to agents from inside Linear. When you tag @warp on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.
 
-Agents keep you updated inside Linear, generate pull requests using your GitHub account, and provide a link to join a live remote session so you can watch or steer the workflow in real time.
+Agents post updates inside Linear and provide a link to join the remote session. GitHub operations use the run's configured [execution identity](/platform/team-access-billing-and-identity/#personal-tokens-vs-github-app-tokens). Runs acting as you use your GitHub authorization.
 
 For event-driven factory workflows, use the [Linear trigger reference](https://docs.warp.dev/factories/automation-triggers/#linear) to select exact event names, filter keys, and label or comment subscriptions.
 
 <VideoEmbed url="https://youtu.be/FNefNmbSdmg?si=PxvDuW6OfNZBvhSl" title="Warp x Linear integration overview video" />
-
-This guide explains what the integration does, how it works end-to-end, and how to configure it for your Warp team.
 
 ---
 
@@ -25,12 +23,12 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 Tagging @warp on an issue or in a Linear comment starts an agent run. Warp clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
-Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](/platform/viewing-cloud-agent-runs/). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
+Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](/platform/viewing-cloud-agent-runs/). Open it in Warp or a browser to view output or provide further instructions. The agent posts its results in Linear, including a pull request link when it creates one.
 
 You can start an agent in two ways:
 
 * **Tag @warp in a comment** and describe what you want done.
-* **Assign the issue to @warp** as if it were a teammate.
+* **Assign the issue to @warp** to delegate the task.
 
 The agent will acknowledge the request directly in the Linear issue and begin working.
 
@@ -57,29 +55,33 @@ Selecting [**Open in Warp**](/platform/viewing-cloud-agent-runs/) (or the web op
 
 Any instructions you give will interrupt the agent, feed the new context, and resume work.
 
-When the task is complete:
+Results from code-changing tasks can include:
 
-* Warp commits the changes using your GitHub identity
-* A pull request is created through the GitHub CLI
-* The PR includes a clean title and description based on the Linear issue and the agent’s work
-* A summary and link to the PR appear in the Linear issue
+* Commits made using the run's configured GitHub authorization
+* A pull request opened using that authorization
+* A title and description based on the Linear issue and the agent's work
+* A summary and pull request link in the Linear issue
 
-Because PRs are created as _you_, this makes code review, auditing, and team collaboration straightforward.
+Pull request attribution follows the run's [execution identity](/platform/team-access-billing-and-identity/#personal-tokens-vs-github-app-tokens), not necessarily the requester.
 
 ---
 
 ### Requirements
 
-* **Team membership** - The Linear integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
+* **Team membership** - Join a [Warp team](/platform/teams-and-admin-controls/#joining-a-team), or [create your first team](/platform/teams-and-admin-controls/#creating-your-first-team). Team creation does not enable integration access on an ineligible plan.
 * **Plan access** - A team plan that supports [integrations](/platform/team-access-billing-and-identity/#requirements-for-integrations).
 * **Usage balance** - Available usage for integration-triggered runs. Add usage if needed. See [cloud agent billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs).
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/factories/self-hosting/) on their own infrastructure.
-* **Identity** - The first time you trigger an agent, Warp prompts you to connect your Linear identity to your Warp account.
-* **GitHub authorization** - You must authorize the Warp GitHub app the first time you trigger an agent.
+* **Identity** - Complete [first-use account linking](#first-use-account-linking) if prompted.
+* **GitHub authorization** - Complete any GitHub authorization requested for runs acting as you.
   * The repositories involved must be included in your environment and accessible to the Warp GitHub app.
   * You must have write access to the repo if you want Warp to create PRs on your behalf.
 
 ---
+
+### First-use account linking
+
+If Warp responds with a linking prompt instead of starting a run, follow [Linking your Linear account](/platform/team-access-billing-and-identity/#linking-your-linear-account). Linking does not automatically retry your original request. Reply to Warp in the original Linear session after linking, then confirm Warp acknowledges the request and provides run updates.
 
 ### How to configure the integration
 

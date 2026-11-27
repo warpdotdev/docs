@@ -1,11 +1,11 @@
 ---
 title: Custom routers
 description: >-
-  Define a custom router that automatically picks the right model for each task,
-  based on task complexity or rules you write, and use it from the model picker.
+  Define a custom router that selects a conversation's model using task complexity
+  or your routing rules.
 ---
 
-Custom routers automatically pick the right model for each task, using routing logic you define. Instead of committing to a single model up front, you set the logic once, and Warp resolves a concrete model each time you send a prompt, based on either task complexity or rules you write.
+Custom routers choose a model for a conversation using complexity mappings or rules you define. Select a router instead of choosing a model directly.
 
 ## Key features
 
@@ -20,12 +20,14 @@ Custom routers automatically pick the right model for each task, using routing l
 
 A custom router appears in the [model picker](/agents/inference/model-choice/#how-to-change-models) as its own entry, alongside Warp's built-in Auto models and individual models. You select it like any other model.
 
-When you send a prompt, the router resolves to a single concrete model and runs the task on it, just like Warp's built-in Auto models. You can always see which model actually ran.
+The router resolves to a concrete model when the conversation needs a selection. Warp normally reuses that choice for later prompts rather than routing every prompt independently.
 
-Warp chooses a model when you start a conversation and keeps using it for the rest of that conversation. Very short, trivial prompts (like a quick "hello") don't lock in the choice.
+Complexity-based routers can choose again after an easy prompt, such as a greeting or a short question. Rule-based routers keep their first selection while it remains available to the router. Check the conversation's model indicator to see which model ran.
+
+{/* VERIFY: Confirm custom-router model reuse, complexity-level fallbacks, model-policy enforcement, and the complexity-only easy-prompt exception in a production client. Client/server routing and checked-in production configuration were source-checked; no live-account test was performed. */}
 
 :::note
-A router always resolves to concrete models that you choose. It can't route to an Auto model or to another router.
+Router targets must be concrete models. A router can't target an Auto model or another router.
 :::
 
 ## Routing types
@@ -34,7 +36,7 @@ A router uses one of two routing types. You choose the type when you create the 
 
 ### Complexity-based routing
 
-Warp classifies each task as easy, medium, or hard and routes to the model you assigned to that level. You also set a default model, which Warp uses for any level you leave unset or when it can't determine complexity.
+Warp classifies each task as easy, medium, or hard and routes to the model you assigned to that level. An unset Easy or Hard level uses Medium. If Medium is unset, Warp uses Default. Default also applies when classification cannot select a level.
 
 Use complexity-based routing to put lower-cost models on simple work and more capable models on harder tasks, without describing tasks yourself.
 
@@ -51,8 +53,8 @@ Rule-based routing routes each task using rules you write. Each rule pairs a cla
 2. Click **Add router** and enter a name.
 3. Under **Routing type**, choose **Complexity-based** or **Rule-based**.
 4. Configure the routing:
-   * **Complexity-based** - Select a **Default** model, then assign models to **Easy**, **Medium**, and **Hard**.
-   * **Rule-based** - Select a **Default model**, then click **Add rule** for each rule, write a **Classification prompt** describing when to use the model, and select the model. Rules are matched top to bottom, so order them by precedence.
+   * **Complexity-based** - Click the "Default" dropdown and select a model. Repeat for the "Easy", "Medium", and "Hard" dropdowns.
+   * **Rule-based** - Click the "Default model" dropdown and select a model. For each rule, click **Add rule** and write a "Classification prompt" describing when to use the model. Click the rule's model dropdown and select a model. Rules are matched top to bottom, so order them by precedence.
 5. Click **Save**.
 
 Your router now appears in the model picker. Saving also writes a file: use **Open file** to edit it directly, or **Delete** to remove the router.
@@ -63,7 +65,7 @@ Custom routers are stored as YAML files in `~/.warp/custom_model_routers/`, with
 
 Routing targets use the same `model_id` values listed on the [Model choice](/agents/inference/model-choice/#available-models) page. Every target must be a concrete, Warp-supported model. You can't route to an Auto model, another router, or a model from a [custom inference endpoint](/agents/inference/custom-inference-endpoint/).
 
-A complexity router uses `type: complexity`. `default` is required and is used for any bucket you omit:
+A complexity router uses `type: complexity`. `default` is required. Unset levels follow the [complexity fallback rules](#complexity-based-routing).
 
 ```yaml title="~/.warp/custom_model_routers/cost-saver.yaml"
 name: Cost saver
@@ -96,8 +98,8 @@ If a file can't be parsed, Warp shows a non-blocking error identifying the file 
 
 ## Use a router
 
-1. In the prompt input, open the model picker by clicking the current model name.
-2. Choose your router from the list.
+1. In the prompt input, click the model dropdown showing the current model name.
+2. Select your router from the list.
 
 Your selection persists for future prompts, like any other model choice.
 
@@ -107,7 +109,7 @@ Team admins can create routers that are shared with the whole team, so everyone 
 
 To create one, an admin:
 
-1. Opens the [Admin Panel](https://app.warp.dev/admin/) and goes to **Models**.
+1. Opens the [Admin Panel](https://app.warp.dev/admin/). Under "Team admin", clicks the team name, then **Models**. If the panel opens directly on a team, confirms that team and clicks **Models**.
 2. Finds the **Custom Routers** section and clicks **New router**.
 3. Chooses **Complexity-based** or **Rule-based**, sets the models or rules, and clicks **Create**.
 
@@ -126,12 +128,12 @@ Custom routers work with [Bring Your Own API Key (BYOK)](/agents/inference/bring
 Warp's built-in Auto models use Warp-provided inference even when BYOK is configured.
 
 * **Covering all routed models** - Configure a provider key for every model the router references. Requests without a matching key use Warp-provided inference.
-* **Team-managed keys** - [Team-managed API keys](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) apply to custom routers the same way; a member's own key for a provider takes precedence over the team's.
+* **Team-managed keys** - Follow [member key precedence](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#member-key-precedence). A member's key can take precedence in local runs only when the admin permits personal keys. Keys stored on a member's device aren't copied to cloud runs.
 * **No custom inference endpoints** - Routing targets must be Warp-supported models, so a router can't resolve to a model from a [custom inference endpoint](/agents/inference/custom-inference-endpoint/) and never draws on your endpoint.
 
 ### Model availability and fallback
 
-If a router targets a model you don't have access to or that's disabled for your organization, Warp falls back to the router's default model. If no usable model remains, Warp falls back to a built-in default and tells you.
+If a router targets an unavailable model, Warp tries its default and then a built-in default, subject to your organization's model policies. If no permitted model is available, the request fails rather than using a disabled model.
 
 <span id="related-resources" />
 
@@ -141,4 +143,4 @@ If a router targets a model you don't have access to or that's disabled for your
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Use your own OpenAI, Anthropic, or Google API keys
 * [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) - Route Warp through any OpenAI-compatible endpoint
 * [Team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure shared provider keys and custom endpoints
-* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - Manage team-wide settings, including team-synced routers
+* [Admin Panel for Enterprise workspaces](/enterprise/team-management/admin-panel/#models-settings) - Manage team-wide settings, including team-synced routers

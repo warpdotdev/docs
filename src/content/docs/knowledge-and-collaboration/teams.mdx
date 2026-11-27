@@ -1,110 +1,198 @@
 ---
-title: Team management
+title: Managing teams in {{WARP_TERMINAL}}
+topic: terminal
+sidebar:
+  label: Teams and admin controls
 description: >-
-  Create or join a team to collaborate with others in Warp.
+  Create or join a team in {{WARP_TERMINAL}}, invite colleagues, and manage membership and access to shared Warp Drive resources.
 ---
-import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-A Warp team is a group of users who collaborate through a shared workspace in Warp Drive. Teams share Workflows, Notebooks, Prompts, Rules, and Environment Variables, with role-based permissions for admins and members.
+A Warp team groups people and resources so you can manage membership, access, and settings. Team members can share factories, environments, secrets, and [Warp Drive content](/knowledge-and-collaboration/warp-drive/). Teams are available on self-serve and Enterprise plans.
 
-## What is a team?
+In {VARS.WARP_TERMINAL}, teammates can maintain a shared Warp Drive runbook instead of each saving their own copy. Team roles govern membership and administration. Sharing controls govern access to the content. See [Roles and permissions in Warp Terminal](/knowledge-and-collaboration/roles-and-permissions/).
 
-A team is a group of Warp users who can collaborate on the command line together. Warp teams can share a dedicated workspace in Warp Drive. [Learn about pricing](https://www.warp.dev/pricing) and see our [Pricing FAQ](/support-and-community/plans-and-billing/pricing-faqs/).
+<span id="what-is-a-team" />
 
-:::note
-Users can belong to multiple teams when their Enterprise account uses a [multi-team workspace](/enterprise/team-management/workspaces/).
-:::
+## Teams and workspaces
 
-<VideoEmbed url="https://www.youtube.com/watch?v=8UmreUTTrkg&start=199s&end=277s" title="Teams Demo" />
+On self-serve plans, your team is the group you manage. It has one owner and, on supported plans, additional team admins. Some billing or shared-setting screens use "workspace" for that team's administrative scope. You do not manage a separate set of workspace roles.
+
+An Enterprise workspace groups one or more teams under a single Enterprise account. Workspace admins manage membership, billing, and company-wide policies across those teams. Team admins manage their own teams within those policies.
+
+See [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/) for workspace membership, roles, and team visibility.
 
 ## Creating a team
 
-You can create a new team in the following ways:
+To create a self-serve team in {VARS.WARP_TERMINAL}:
 
-* Warp Drive, + Create a team
-* **Settings** > **Teams**
+1. Open **Settings** > **Teams**, or open **Warp Drive** and click **+ Create a team**.
+2. In the "Team name" field, enter a name that colleagues will recognize, then click **Create**.
+3. Confirm the new team appears in **Settings** > **Teams**.
 
-Before you can invite team members, you will need to give your team a meaningful name. We suggest using a name to represent your organization, company, or project.
+The creator becomes the team owner. Adding an admin later does not transfer ownership.
 
-:::note
-You can rename the team by going to **Settings** > **Teams** and clicking on the team name, entering the new name, and pressing `Enter` to accept.
-:::
-
+<figure style={{ maxWidth: "375px" }}>
 ![Teams settings panel with a team name input field and Create button](../../../assets/terminal/team-creation-settings.png)
-
-If you create a team, you become the team’s admin and will be the only person who can delete the team. Reference [Team roles and permissions](/knowledge-and-collaboration/teams/#team-roles-and-permissions) for more info.
-
-### Inviting new team members
-
-Under **Settings** > **Teams** you can copy the invite link for your Warp team and paste it to your clipboard.
-
-### Warp Terminal and local agent teams
-
-Upgrading a team to a paid Warp Terminal and local agent subscription includes your own account and all active members in billing. New members also become paid seats. Charges are prorated for the time each member has access during the monthly or annual cycle; a member joining halfway through a monthly cycle incurs half of that seat's monthly fee.
-
-### Warp Factories teams
-
-The Scale plan for Warp Factories charges one team subscription rather than a subscription fee for each member. Factory runs use shared team or workspace funding, not each member's included personal allowance. Enterprise member billing follows your contract.
-
-Review [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members) before inviting members.
-
-<figure>
-![Teams settings panel](../../../assets/terminal/teams-invite-demo.png)
-<figcaption>Teams settings panel.</figcaption>
+<figcaption>Teams settings contains the team creation form.</figcaption>
 </figure>
 
-When you share this link with your teammates directly (we suggest using a secure channel like Slack or email), they can join your team in Warp.
+In an Enterprise workspace, a workspace admin creates teams from the Admin Panel. Follow [Creating teams and choosing visibility](/enterprise/team-management/teams/#creating-teams-and-choosing-visibility).
 
-## Restricting team invites by domain
+### Renaming a team
 
-You can restrict your team so that people can only join if they also authenticate with a specific email domain, such as your company’s email domain.
+You must be a team owner or admin to rename a self-serve team.
 
-Toggle on **Restrict by domain** to set an explicit allowlist.
+1. In the Warp app, open **Settings** > **Teams** and confirm the intended team.
+2. Click the team name, enter the new name, and press `Enter`.
+3. Confirm the updated name appears at the top of the page.
 
-If you share an invite link with somebody who’s using Warp with a domain that does not match your allowlist, they will be prompted to authenticate from an emailed link sent to a matching domain to join your team.
+## Inviting team members
+
+Before sharing an invitation, check the billing consequence. Paid per-seat plans include all active members. Adding a member adds a prorated seat charge. See [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members). Enterprise membership charges follow your [contract](/enterprise/support-and-resources/billing/).
+
+<span id="inviting-new-team-members" />
+<span id="warp-terminal-and-local-agent-teams" />
+<span id="warp-terminal-and-local-agent-subscriptions" />
+<span id="warp-factories-teams" />
+<span id="warp-factories-subscriptions" />
+
+The following Admin Panel procedures require owner or admin access to a self-serve team.
+
+### Inviting by email
+
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/) and click **Teams**. Confirm the team name before inviting colleagues.
+2. Under "Invite by Email", enter email addresses separated by commas or spaces, then click **Send**. Confirm the invitations are pending.
+
+### Inviting by link
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Toggle on **Invite by Link**.
+3. To limit joining to approved email domains, enter a domain under "Restrict by domain", then click **Add**. Confirm it appears in the list. Repeat for any additional domains before sharing.
+4. Click **Copy invite link** and share the link through a secure channel.
+
+Non-admins can ask an owner or admin for an invite link. In the Warp app, the link is also available under **Settings** > **Teams**.
+
+To disable the link, toggle off **Invite by Link**. To replace it, click **Reset links**, then **Reset** in the confirmation. The old link no longer works.
+
+For Enterprise invitations, including adding people to hidden teams, follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
+
+### Restricting team invites by domain
+
+To configure the same restrictions in {VARS.WARP_TERMINAL}, you must be a team owner or admin:
+
+1. Open **Settings** > **Teams** and confirm the team name.
+2. Under "Invite team members", toggle on invite links in the "By link" section.
+3. Enter the approved domains in the "Domains, comma separated" field, then click **Set**.
+4. Confirm the domains appear in the approved-domain list.
+
+Someone joining through a link with an address outside the allowed domains must verify access to an address on an allowed domain.
 
 ## Joining a team
 
-If you have received an invite link, you can use that link to sign up or log in and join your team in Warp. If your team is using domain restriction, you will need to authenticate you have access to a specific domain before you can join your team.
+For an email invitation, use the address that received it. Ask an admin to replace an expired or misaddressed invitation.
 
-## Leaving and deleting teams
+1. Open the invitation link and sign up or sign in to Warp.
+2. Confirm the team name and signed-in email address.
+3. If the link requires domain verification, enter an address on an approved domain and click **Send Code**. Enter the emailed code in "Verification Code", then click **Join Team**. Otherwise, click **Join team**.
+4. Return to {VARS.WARP_TERMINAL}. In **Settings** > **Teams**, confirm the joined team appears.
 
-If you’re a member of a team, you can visit **Settings** > **Teams** to leave a team at any time. Team admins (who created teams) may delete a team only after removing all team members.
+{/* VERIFY: Test invitation acceptance and domain verification in production, including Send Code, Join Team, and membership confirmation. The branching flow was source-checked; no live-account test was performed. */}
 
-:::caution
-A team can't be deleted while it has unused purchased usage. Before you can delete the team, that balance must be used or removed. Contact [support@warp.dev](mailto:support@warp.dev) if you need help removing unused usage.
-:::
-
-Purchased usage stays tied to the team that bought it. Leaving or being removed ends your access to that balance; rejoining restores access to unused, unexpired usage. On per-seat subscriptions, rejoining adds a prorated seat charge for the remaining billing cycle. See [usage when team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) and [member billing](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members).
+Workspace membership does not automatically join every Enterprise team. For Enterprise invitations and discovery, follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team).
 
 ## Team discoverability
 
-Team admins can make their teams discoverable to colleagues from the same email domain. This feature is available under **Settings** > **Teams** > **Make team discoverable**.
+For eligible self-serve teams, an owner or admin can let colleagues with the same email domain find and join the team without a direct invitation.
 
-:::note
-Users who join through discoverability follow the same [member billing rules](/support-and-community/plans-and-billing/pricing-faqs/#what-counts-as-a-team-member-and-how-does-billing-work-for-members) as invited members. Per-seat subscriptions add a prorated seat charge.
-:::
+People who join through discovery follow the same [member billing rules](#inviting-team-members) as invited members.
 
-## Transferring team admin
+To enable discovery in {VARS.WARP_TERMINAL}:
 
-Team admins can transfer their role to another team member by going to **Settings** > **Teams** > **Transfer admin** and selecting the member to whom you'd like to transfer the admin role.
+1. Open **Settings** > **Teams** and confirm the team name.
+2. Under "Invite team members", toggle on **By discovery**.
+3. Reopen **Settings** > **Teams** and confirm discovery remains on.
+
+To enable discovery in the Admin Panel:
+
+1. Open **Teams** and confirm the team name.
+2. Toggle on **Team Discovery** when the control is available.
+3. Reload the page and confirm discovery remains on.
 
 ## Team roles and permissions
 
-:::caution
-If you're a Team admin, and you choose to [delete your Warp](/support-and-community/privacy-and-security/privacy/#delete-your-account-and-data) account, the deletion flow will require that you assign a team member as the new admin.
-:::
+Team owners and admins manage membership and the settings available on their plan. Members use shared resources within the applicable policies.
 
-| Action | Admin | Member |
-| --- | --- | --- |
-| Description | The Warp user who created the team. There can only be one. | Team members who belong to the team. |
-| Create a team | ✓ | |
-| Restrict by domain | ✓ | |
-| Invite members | ✓ | ✓ |
-| Remove team members | ✓ | |
-| Leave a team | | ✓ |
-| Delete a team | ✓ | |
-| Transfer admin | ✓ | |
-| [Manage billing](/support-and-community/plans-and-billing/pricing-faqs/#how-do-i-manage-my-billing) | ✓ | |
+See [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/) for role definitions, multiple-admin availability, and changing a role. To configure shared settings, open the [Admin Panel](/knowledge-and-collaboration/admin-panel/).
 
-Multi-team workspaces use [workspace roles](/enterprise/team-management/workspaces/#workspace-roles) for company-wide administration.
+<span id="permissions-overview" />
+<span id="multi-admin-support" />
+<span id="promoting-or-demoting-admins" />
+
+### Transferring team ownership
+
+<span id="transferring-team-admin" />
+
+Only the current self-serve team owner can transfer ownership to another member. Follow [Transferring team ownership](/knowledge-and-collaboration/roles-and-permissions/#transferring-team-ownership). The previous owner becomes a Member.
+
+Enterprise workspace ownership is a different operation. Follow [Transferring workspace ownership](/enterprise/team-management/workspaces/#transferring-workspace-ownership).
+
+## Removing members, leaving, and deleting teams
+
+<span id="leaving-and-deleting-teams" />
+
+These procedures apply to self-serve teams. Enterprise workspace membership is managed separately. To leave an Enterprise workspace, ask a workspace admin to [remove your membership](/enterprise/team-management/workspaces/#removing-a-workspace-member).
+
+<span id="add-on-credit-consequences-when-leaving-or-removing-members" />
+
+### Purchased usage when membership changes
+
+Purchased usage stays tied to the team that bought it. Leaving or being removed ends your access to that balance. Rejoining restores access to unused, unexpired usage. Rejoining a per-seat subscription also adds a prorated seat charge.
+
+See [usage when team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes). Enterprise pools follow your [billing agreement](/enterprise/support-and-resources/billing/).
+
+### Removing a member
+
+You must be a team owner or admin to remove a member. The owner must transfer ownership before they can be removed.
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/) and click **Teams**. Confirm the team name.
+2. Next to the person you want to remove, click the three dots, then click **Remove from team**.
+3. Check the email address and team in the confirmation. Click **Remove**.
+4. Confirm the person no longer appears in the member list.
+
+{/* VERIFY: Test self-serve member removal in the production Admin Panel, including the menu label, confirmation, and resulting access. Source was checked; no live-account test was performed. */}
+
+### Leaving a team
+
+Members and admins can leave a self-serve team. If you own the team, [transfer ownership](/knowledge-and-collaboration/roles-and-permissions/#transferring-team-ownership) before leaving or [deleting your Warp account](/support-and-community/privacy-and-security/privacy/#delete-your-account-and-data).
+
+1. In the Warp app, open **Settings** > **Teams** and confirm the team name.
+2. Click **Leave team**.
+3. Review the access changes in the confirmation. Click **Yes, leave** or **Leave Team**, depending on the confirmation shown.
+4. Confirm the team is no longer shown as your active team in Settings.
+
+### Deleting a team
+
+Only the owner can delete a self-serve team. [Remove the other members](#removing-a-member) first. An active paid subscription or unused purchased usage blocks deletion. If **Delete team** is disabled, review the requirement shown beside it. Use [managing billing](/support-and-community/plans-and-billing/pricing-faqs/#how-do-i-manage-my-billing) for subscription changes or [contact support](mailto:support@warp.dev) for help with unused usage.
+
+Deletion is permanent and removes the team's related content. Review what the team contains before proceeding.
+
+1. In the Warp app, open **Settings** > **Teams** and confirm the team name.
+2. Click **Delete team**.
+3. Review the deletion warning and click **Yes, delete**.
+4. Confirm the team no longer appears in Settings.
+
+{/* VERIFY: Exercise native team creation and renaming, domain restrictions, discovery, leaving, and deletion in the production app. Control labels, deletion blockers, and confirmations were checked against source; no live-account test was performed. */}
+
+## Managing a team without Warp Terminal
+
+For browser-first setup, membership, and administration, use [Warp Factories team guidance](/factories/teams-and-admin-controls/) or [team guidance for standalone agents](/platform/teams-and-admin-controls/). You do not need to install {VARS.WARP_TERMINAL} to use the Admin Panel.
+
+<span id="related-resources" />
+
+## Related pages
+
+* [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/) - Identify the role needed for an administrative task
+* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Configure shared settings
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Managing teams in Warp Factories](/factories/teams-and-admin-controls/)

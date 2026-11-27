@@ -348,7 +348,7 @@ Pass the run ID of the run doing the spawning. Omit the flag for ordinary standa
 **When cloud runs fail**
 
 * Verify your environment has the correct repository and context.
-* Check that your profile allows the commands and MCP servers needed.
+* For missing MCP tools, review the run's [`--mcp` configuration](/agents/cli/oz-cli/mcp-servers/) and the server's required credentials.
 * Ensure environment variables are set in the environment, not your local shell.
 
 #### Reusing saved prompts and Warp Drive objects
@@ -394,7 +394,7 @@ See [Skills](/agents/cli/oz-cli/skills/) for supported spec formats and examples
 
 In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](/agents/local-agents/session-sharing/), use the `--share` flag.
 
-By default, the session is only accessible to the user running the CLI, but you can also share with [Teams](/knowledge-and-collaboration/teams/) or other Warp users:
+By default, the session is only accessible to the user running the CLI, but you can also share with [teams](/platform/teams-and-admin-controls/) or other Warp users:
 
 ```sh
 # Share the agent's session with yourself:
