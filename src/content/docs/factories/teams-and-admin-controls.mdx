@@ -1,0 +1,205 @@
+---
+title: Managing teams in Warp Factories
+description: >-
+  Manage team membership, assign admins, and configure factory access and shared settings in Warp Factories.
+sidebar:
+  label: Teams
+---
+import { VARS } from '@data/vars';
+
+A Warp team groups people and resources so you can manage membership, access, and settings. Team members can share factories, environments, secrets, and Warp Drive content. Teams are available on self-serve and Enterprise plans.
+
+An Editor can configure a factory but cannot manage team membership or shared settings. Factory access and team administration use different roles.
+
+## Team roles and factory access
+
+<span id="what-is-a-team" />
+<span id="teams-and-workspaces" />
+<span id="permissions-overview" />
+<span id="team-roles-and-permissions" />
+
+Team administration depends on your role, plan, and workspace policies:
+
+| Role | Administration scope |
+| --- | --- |
+| Team owner | The sole owner of a self-serve team. Can transfer ownership |
+| Team admin | Manages the team's members and configurable settings. Cannot transfer ownership |
+| Member | Uses shared resources within the applicable factory role and policies |
+
+Additional admins and non-admin factory access depend on your plan:
+
+| Plan | Additional team admins | Factory access for non-admin members |
+| --- | --- | --- |
+| Start | Not included | Editor |
+| Scale | The owner and existing admins can add admins | Editor |
+
+In Enterprise, workspace owners and admins inherit Admin access to factories across every team, including teams they don't belong to. Team admins inherit Admin access only to their team's factories. See [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/).
+
+See [Managing factory permissions](/factories/permissions/) for factory capabilities, assignments, defaults, and overrides. Account-specific access can differ. Ask your owner or [contact support](mailto:support@warp.dev) if controls don't match your plan.
+
+## Checking your role
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click your profile photo or initials at the bottom of the left sidebar to open the account menu. Confirm the selected team.
+2. Read your role badge: "Member," "Admin," or "Workspace admin." A self-serve owner's badge also shows "Admin," so the badge does not identify who owns the team.
+3. If you have admin access, click **Admin panel**. Find your entry in the team's member list to confirm your exact role.
+
+Without admin access, ask the person who invited you or a known admin to confirm your role. The Admin Panel is not a member directory. If you cannot identify an admin, [contact support](mailto:support@warp.dev).
+
+## Creating or joining a team
+
+<span id="creating-a-team" />
+<span id="joining-a-team" />
+
+To create or join your first self-serve team:
+
+1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
+2. If a list of existing teams displays:
+   * **Join a team** - Select an existing team.
+   * **Create a new team** - Click **Create a new team**, if offered. Enter a "Team name".
+3. Click **Build your first Factory** to create or join the team and start factory setup.
+
+If no existing teams are listed, click **Build your first Factory** to create a team with an automatically generated name. If the page instead says "Contact an admin to join a team," ask an admin for an invitation.
+
+If you create a team, you become its owner. The account menu's **New Team** control is for Enterprise workspace administration, not for self-serve team creation.
+
+To join by invitation:
+
+1. Open the invitation link in a browser. Sign in with the invited account.
+2. Check the team name and signed-in email address.
+3. If the link requires domain verification, enter an address on an approved domain and click **Send Code**. Enter the emailed code in "Verification Code", then click **Join Team**. Otherwise, click **Join team**.
+4. Return to the factory web app. Check the account menu for your team. Reload if needed.
+
+Ask an admin to replace expired invitations or invitations with incorrect email addresses.
+
+{/* VERIFY: Test invitation acceptance and domain verification in production, including Send Code, Join Team, and membership confirmation. The branching flow was source-checked; no live-account test was performed. */}
+
+## Inviting and removing members
+
+<span id="inviting-team-members" />
+<span id="inviting-new-team-members" />
+<span id="restricting-team-invites-by-domain" />
+<span id="team-discoverability" />
+<span id="warp-terminal-and-local-agent-teams" />
+<span id="warp-terminal-and-local-agent-subscriptions" />
+<span id="warp-factories-teams" />
+<span id="warp-factories-subscriptions" />
+<span id="add-on-credit-consequences-when-leaving-or-removing-members" />
+<span id="purchased-usage-when-membership-changes" />
+
+Before inviting colleagues, review how your plan bills membership and funds factory runs:
+
+| Plan | Subscription and shared funding |
+| --- | --- |
+| Start | No subscription. Factory runs use purchased usage. |
+| Scale | One team subscription rather than a subscription fee for each member. Factory runs draw from shared team usage. |
+| Enterprise | Membership charges and usage funding follow your [contract](/enterprise/support-and-resources/billing/). |
+
+Members' runs use shared funding, so additional activity can increase usage charges.
+
+Team owners and admins can invite colleagues to a self-serve team from the Admin Panel:
+
+### Inviting by email
+
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/) and click **Teams**. Confirm the team name at the top of the page before inviting colleagues.
+2. Under "Invite by Email", enter email addresses separated by commas or spaces. Click **Send** and confirm the invitations are pending.
+
+### Inviting by link
+
+1. In the Admin Panel, open **Teams**. Confirm the team name at the top of the page.
+2. Toggle on **Invite by Link**.
+3. To restrict joining by email domain, enter a domain under "Restrict by domain" and click **Add**. Confirm the domain is listed. People signing in with another domain must verify an address on an allowed domain before joining.
+4. Click **Copy invite link** and share it through a secure channel.
+
+To disable the link, toggle off **Invite by Link**. To replace it, click **Reset links**, then **Reset** in the confirmation. The old link no longer works.
+
+On eligible self-serve teams, **Team Discovery** lets colleagues with the same email domain find and join the team without an invitation.
+
+### Removing a member
+
+You must be a team owner or admin to remove a member. The owner must transfer ownership before they can be removed. Purchased usage stays with the team. Removing a member ends their access to that balance. See [usage when team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes).
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Next to the person you want to remove, click the three dots, then click **Remove from team**.
+3. Check the email address and team in the confirmation. Click **Remove**.
+4. Confirm the person no longer appears in the member list.
+
+{/* VERIFY: Test self-serve member removal in the production Admin Panel, including the menu label, confirmation, and resulting access. Source was checked; no live-account test was performed. */}
+
+For Enterprise workspace invitations, hidden teams, and removing someone from the entire workspace, follow [Managing Enterprise teams](/enterprise/team-management/teams/).
+
+## Managing admins and ownership
+
+<span id="multi-admin-support" />
+
+### Promoting or demoting admins
+
+You must be a team owner or admin to change team-admin roles. Your plan must support additional admins before you can promote a member. Buying usage does not enable additional admins.
+
+1. In the Admin Panel, open **Teams** and confirm the team name.
+2. Use the controls shown in the member list:
+   * In the member-menu layout, next to the person you want to promote or demote, click the three dots. Click **Promote to team admin** or **Demote team admin**.
+   * In the editable "Role" column, click the member's role dropdown. Select **Team Admin** to promote them. To demote an admin, select **Factory Editor** or **Factory User** for the factory access they should retain. This removes team administration and assigns that team-wide factory role.
+3. If you're demoting yourself, review the confirmation and click **Demote to member**.
+4. Confirm the updated role. If you lost Admin Panel access, ask another admin to confirm it.
+
+See [factory role capabilities](/factories/permissions/#roles-and-capabilities) before choosing access during demotion.
+
+{/* VERIFY: Exercise both role-management layouts in the production Admin Panel, including demotion and confirmation behavior. Source paths were checked; no live-account test was performed. */}
+
+<span id="transferring-team-admin" />
+
+### Transferring team ownership
+
+Only the current self-serve team owner can transfer ownership. After the transfer, you become a Member and lose admin access. If the new owner's email is not on a work domain, Warp disables team discoverability.
+
+1. In the Admin Panel, open **Teams**.
+2. Next to the member who will become the owner, click the three dots, then click **Transfer ownership**. If the list has an editable role column, click the member's role dropdown and select **Owner** instead.
+3. Click **Transfer** in the confirmation.
+4. Ask the new owner to confirm their Owner role.
+
+If you still need admin access, ask the new owner or another admin to grant it separately, if your plan supports additional admins.
+
+Enterprise workspace ownership is separate. Follow [Changing workspace roles](/enterprise/team-management/workspaces/#changing-workspace-roles).
+
+<span id="leaving-and-deleting-teams" />
+
+### Leaving a team
+
+If you own the team, transfer ownership before leaving or deleting your account. To leave a self-serve team from the browser, ask an admin to remove your membership. A self-serve team cannot be deleted while it has unused purchased usage. [Contact support](mailto:support@warp.dev) for help with that balance.
+
+## Shared settings and usage
+
+<span id="managing-a-team-without-warp-terminal" />
+
+### Configuring shared settings
+
+In the factory web app's account menu, admins click **Admin panel** to open team-wide settings. Confirm the selected team or workspace before changing a control.
+
+* **Models** - Configure [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on eligible plans. Provider credentials and factory [harness authentication](/factories/harnesses/authentication/) are separate.
+* **Privacy** - Review content collection and telemetry controls. Scale includes shared data controls that Start does not include.
+* **Enterprise policies** - Use the [Enterprise Admin Panel](/enterprise/team-management/admin-panel/) for workspace enforcement, delegation, redaction, and inference policies.
+
+### Changing content collection
+
+Plans that lock collection off keep it **Disabled** and prevent delegation to members. Ask a workspace admin about workspace-enforced values.
+
+1. In the Admin Panel, open **Privacy**.
+2. Click the "UGC Data Collection" dropdown and select **Disabled** to stop content collection for service improvement. To let members choose individually, select **Respect User Setting**, if available.
+3. Reload the page and confirm your selection is saved.
+
+Content collection, provider retention, and product storage are separate. The cloud conversation storage control applies to personal Terminal conversations. Turning it off does not stop Warp from storing factory runs. Follow [factory ZDR guidance](/factories/zero-data-retention/) and [self-hosted data storage](/factories/self-hosting/data-storage/) for factory-specific choices.
+
+### Reviewing usage and billing
+
+On the Scale plan, admins can see each member's usage totals with unlimited history. Members who aren't admins see only their own usage.
+
+Use [Managing factory plans and billing](/factories/managing-plans-and-billing/) to check shared balances, request an upgrade, or open billing. Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate permissions.
+
+## Related pages
+
+<span id="related-resources" />
+
+* [Managing factory permissions](/factories/permissions/)
+* [Managing factory plans and billing](/factories/managing-plans-and-billing/)
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Connecting your factory to external tools](/factories/connect-your-factory/) - Distinguish shared connection setup from attaching a connection

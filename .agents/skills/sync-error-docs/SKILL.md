@@ -19,6 +19,13 @@ contract in `.agents/references/doc-quality-policy.md`: apply the
 pages are `engineering-review-required` (new page, technical claims) unless
 generated verbatim from `platformerrors.go` with no invented prose.
 
+## Usability validation
+
+After generating pages and running mechanical checks, run
+`.agents/skills/validate_docs_usability/SKILL.md` before readiness for review.
+Test the reader's path from an error to recovery and include the record defined
+in `.agents/references/docs-usability-validation.md`. File existence is not recovery.
+
 ## Repos
 
 This skill requires two repos in the agent's environment:

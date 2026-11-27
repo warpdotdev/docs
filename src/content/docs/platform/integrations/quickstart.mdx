@@ -1,24 +1,22 @@
 ---
 title: Integrations quickstart
 description: >-
-  Trigger your first agent from Slack in ~15 minutes and get results
-  in-thread.
+  Connect Slack to the {{WARP_AUTOMATION_PLATFORM}}, trigger a cloud agent run,
+  and follow progress and results in the thread.
 sidebar:
   label: "Quickstart"
 ---
 import { VARS } from '@data/vars';
 
-{VARS.WARP_AUTOMATION_PLATFORM} integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting Warp to Slack. Once set up, anyone on your team can tag @warp in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
+Connect Slack to the {VARS.WARP_AUTOMATION_PLATFORM} to start cloud-agent tasks from a message or thread and receive updates in Slack.
 
-:::note
-**Want to connect with Linear instead?** The setup is the same — just substitute `slack` with `linear` in the CLI commands, or select Linear in the {VARS.WEB_APP}. See [Linear](/platform/integrations/linear/) for details.
-:::
+For Linear setup, follow [Linear integration](/platform/integrations/linear/).
 
 ---
 
 ## Prerequisites
 
-* **A Warp team** - Membership in a [Warp team](/knowledge-and-collaboration/teams/) with cloud agents enabled and a plan that supports [integrations](/platform/team-access-billing-and-identity/#requirements-for-integrations).
+* **A Warp team** - Join an existing team or [create your first team](/platform/teams-and-admin-controls/#creating-your-first-team). The team must have a plan that supports [integrations](/platform/team-access-billing-and-identity/#requirements-for-integrations).
 * **Usage balance** - Available usage for integration-triggered runs. Add usage if needed. See [cloud agent billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs).
 * **A cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have one yet, follow the [Cloud agents quickstart](/platform/quickstart/) or run `/create-environment` in Warp.
 * **GitHub authorization** - Warp needs access to your repos to clone code and open PRs. You'll be prompted to authorize the Warp GitHub app when you first create the integration.
@@ -27,13 +25,13 @@ import { VARS } from '@data/vars';
 
 ## 1. Connect the Slack integration
 
-The simplest way to set up the integration is **using the {VARS.WEB_APP}**:
+To connect Slack in the {VARS.WEB_APP}:
 
 1. Navigate to the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page in the {VARS.WEB_APP}</a>.
 2. Click **Slack**.
 3. Follow the guided flow to select your environment and authorize the Warp app in your Slack workspace.
 
-All members of your Warp team can now use the integration.
+The integration is now available to your Warp team. Each teammate completes any account-linking or authorization prompts on first use.
 
 **Using the {VARS.WARP_AGENT_CLI} instead:**
 
@@ -66,7 +64,9 @@ In any channel or thread in your Slack workspace, tag @warp with a task:
 
 > @warp scan the authentication module for security issues and summarize what you find
 
-Warp acknowledges the request immediately and starts an agent run in the cloud. You'll see progress updates appear in the thread as the agent works.
+If Warp asks you to connect your Slack account, follow the link and sign in, then mention **@warp** again with your request. Complete any GitHub authorization requested for a run acting as you. Installation by another teammate does not connect your personal GitHub account. See [Slack identity and team access](/platform/integrations/slack/#identity-mapping-and-team-access).
+
+After access is ready, confirm Warp acknowledges the request and posts run updates and a session link in the thread.
 
 You can also tag @warp inside an existing thread. Warp picks up the full thread history as context automatically, so you can tag it mid-discussion without repeating background.
 
@@ -79,12 +79,10 @@ While the agent works, progress updates appear directly in the Slack thread. To 
 
 When the task is complete, Warp posts a summary back to the original Slack thread.
 
-**Breaking it down:** Warp reads the Slack thread as context, runs the agent inside the environment you configured — with your repos cloned and Docker image running — and returns results where the conversation started, in Slack, without anyone leaving the thread.
-
 ---
 
 ## Next steps
 
-* **Customize agent behavior** - Use a [skill](/agents/capabilities/skills/#running-agents-from-skills) as the base prompt for your integration to give agents consistent, reusable instructions across every run.
-* **Trigger agents programmatically** - Use the [API & SDK](/factories/api-and-sdk/) to build custom automations and integrations on top of agents.
-* **Read the full Slack reference** - [Slack](/platform/integrations/slack/) covers identity mapping, team access, monitoring runs, troubleshooting, and uninstall instructions.
+* [Skills](/agents/capabilities/skills/#running-agents-from-skills) - Reuse instructions across integration runs
+* [API and SDK](/factories/api-and-sdk/) - Trigger agents programmatically
+* [Slack integration](/platform/integrations/slack/) - Configure identity, monitor runs, and troubleshoot access

@@ -87,7 +87,7 @@ See AWS's guide on [creating a bucket](https://docs.aws.amazon.com/AmazonS3/late
 
 ### 2. Open the connect dialog in the Admin Panel
 
-Self-hosted storage is configured in Warp's [Admin Panel](/enterprise/team-management/admin-panel/). The storage connection dialog generates the exact policies that your IAM role needs.
+Self-hosted storage is configured in Warp's [Admin Panel](/factories/teams-and-admin-controls/). The storage connection dialog generates the exact policies that your IAM role needs.
 Open it before creating the role, so you can copy those values directly. It can be reopened at any time.
 
 In the Admin Panel, go to the **Platform** settings tab. Under **Agent data storage**, click **Connect external storage** and choose **AWS S3**. Enter your bucket name and region in the "Bucket" and "Region" fields, and leave the dialog open — the next two steps use the policies it displays below the form.
@@ -249,7 +249,7 @@ Buckets encrypted with SSE-S3, the S3 default, need no further permissions. If y
 
 ### 5. Enter the role ARN and choose what to store
 
-Back in the connect dialog, paste your new role's ARN into the "Role ARN" field. In the "Data to store" dropdown, select **Artifacts**, **Conversation transcripts**, or **Prompt attachments** — whichever categories this bucket should store — then click **Connect**.
+Back in the connect dialog, paste your new role's ARN into the "Role ARN" field. Click the "Data to store" dropdown and select the categories this bucket should store: **Artifacts**, **Conversation transcripts**, or **Prompt attachments**. Then click **Connect**.
 
 Warp immediately assumes the role and checks that the bucket is reachable. If the trust policy or external ID don't match, or the permissions policy doesn't grant the required actions, the connection is rejected with an error describing which check failed. See [Troubleshooting](#troubleshooting).
 
@@ -259,7 +259,7 @@ Warp immediately assumes the role and checks that the bucket is reachable. If th
 
 Storage mappings can be changed at any time from **Manage connected storage**, under **Agent data storage** in the Admin Panel Platform section.
 
-* **Remap a category** - Choose a different bucket, or **Warp-hosted**, from that category's dropdown. Only new writes use the new target.
+* **Remap a category** - Click that category's dropdown and select a different bucket or **Warp-hosted**. Only new writes use the new target.
 * **Disconnect a bucket** - Remove the connection from the manage-storage drawer. A bucket must be unmapped from every category before it can be disconnected.
 
 :::caution
@@ -285,4 +285,4 @@ The bucket name or region is wrong, or the bucket doesn't exist. Confirm both ma
 * [Architecture](/platform/architecture/#data-security-and-boundaries) - How run data, control-plane data, and inference credentials flow through Warp's platform
 * [Self-hosting overview](/factories/self-hosting/) - Run agent compute on your own infrastructure instead of Warp-managed servers
 * [Cloud agent secrets](/platform/secrets/) - Store credentials agents use during a run
-* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - The full reference for team settings, including the Platform section
+* [Managing teams in Warp Factories](/factories/teams-and-admin-controls/) - Find team roles and shared administration controls

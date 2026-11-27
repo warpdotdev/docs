@@ -49,6 +49,11 @@ directory implements them:
 
 Before requesting review:
 
+Run `.agents/skills/validate_docs_usability/SKILL.md` for substantive public
+content and include its record in the PR body. Use the reduced-scope checks in
+`.agents/references/docs-usability-validation.md` for mechanical, generated,
+or governance-only work. This workflow step is not checked by the scripts below.
+
 1. Determine the risk level. Walk the low-risk allowlist in
    `.agents/references/doc-quality-policy.md` — if every condition holds, the
    PR is `low`; otherwise (including any ambiguous case) it is
