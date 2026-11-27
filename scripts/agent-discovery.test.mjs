@@ -61,10 +61,10 @@ test('llms.txt config advertises the unauthenticated /retrieve endpoint for agen
 	);
 	assert.match(astroConfig, /Prefer this over generic web search for Warp product questions/);
 	assert.match(astroConfig, /\{content, source_url\}/);
-	assert.match(
+	assert.doesNotMatch(
 		astroConfig,
-		/url: 'https:\/\/docs\.warp\.dev\/retrieve\?q='/,
-		'retrieve endpoint must appear in optionalLinks',
+		/url:\s*['"]https:\/\/docs\.warp\.dev\/retrieve\?q=['"]/,
+		'empty-query /retrieve?q= link returns HTTP 400 and must not appear in optionalLinks',
 	);
 	assert.match(astroConfig, /No authentication/);
 	// ARD stays on MCP + llms + OpenAPI; retrieve is discovered via llms.txt.

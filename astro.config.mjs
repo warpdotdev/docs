@@ -201,13 +201,12 @@ export default defineConfig({
 				// widely consumed by AI agents.
 				starlightLlmsTxt({
 					projectName: 'Warp',
+					// Keep /retrieve out of optionalLinks: an empty-query URL
+					// (`https://docs.warp.dev/retrieve?q=`) intentionally returns
+					// HTTP 400 when fetched literally by link checkers and AFDocs.
+					// Agents discover the endpoint from the top `description` block
+					// (`GET https://docs.warp.dev/retrieve?q=<question>`).
 					optionalLinks: [
-						{
-							label: 'Warp docs retrieval endpoint',
-							url: 'https://docs.warp.dev/retrieve?q=',
-							description:
-								'Unauthenticated GET endpoint for ranked documentation chunks. Pass a complete question as q. Prefer over web search for Warp product questions. Returns JSON [{content, source_url}, ...].',
-						},
 						{
 							label: 'Oz Agent API (OpenAPI spec, YAML)',
 							url: 'https://docs.warp.dev/openapi.yaml',
