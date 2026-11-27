@@ -920,7 +920,9 @@ The optional `workers` list, or its legacy alias `agents`, pins factory workers 
 | Field in `configurations[].agents[]` | Required | Description |
 | --- | --- | --- |
 | `agent` | Yes | The factory agent's name. List each agent once per configuration. |
-| `model` or `harness` | Exactly one | Model selection. A `harness` requires `type` and `model`; `type` accepts `oz`, `claude`, `claude-code`, or `codex`. Optional `auth` follows the [harness authentication rules](#agentdefaultsharness). |
+| `model` or `harness` | Exactly one | Model selection. A `harness` requires `type` and `model`; supported `type` values are `oz`, `claude`, `claude-code`, `codex`, and `pi`. Optional `auth` follows the [harness authentication rules](#agentdefaultsharness). |
+
+For Pi, use a `provider/model` identifier as described in [Configuring the Pi harness](/factories/harnesses/pi/).
 
 Omitted agents use their settings at launch time.
 

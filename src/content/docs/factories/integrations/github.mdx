@@ -97,7 +97,7 @@ This example admits third-party bots but skips Warp-owned bots. See [bot event t
 </table>
 
 
-For the exact `event` value each trigger uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
+For exact event strings and per-event filter keys, see the [GitHub trigger reference](/factories/automation-triggers/#github).
 
 ### Automation filters
 
@@ -122,7 +122,7 @@ Every trigger names the repository it watches. The remaining filters appear only
 
 On check suite and workflow run triggers, **Labels** and **Authors** match the pull request linked to the run rather than the run itself.
 
-Commit status triggers don't fire for pending statuses. In a definition file, use `event: commit_status` and filter with `repos`, `states`, `contexts`, and `skip_bots`. Branch, label, and author filters aren't supported for this event. See the [trigger filter reference](/factories/factory-as-code/#triggersfilter) for matching rules.
+Commit status triggers don't fire for pending statuses. In a definition file, use `event: commit_status` and filter with `repos`, `states`, `contexts`, and `skip_bots`. Branch, label, and author filters aren't supported for this event. See [Matchers and defaults](/factories/automation-triggers/#matchers-and-defaults) for matching rules.
 
 ## Mention the factory
 
