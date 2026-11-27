@@ -230,8 +230,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'knowledge-and-collaboration/warp-drive/agent-mode-context', label: 'Agent Mode context' },
 							],
 						},
-						{ slug: 'knowledge-and-collaboration/teams', label: 'Team management' },
-						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Team Admin Panel' },
+						{ slug: 'knowledge-and-collaboration/teams', label: 'Teams and admin controls' },
+						{ slug: 'knowledge-and-collaboration/roles-and-permissions', label: 'Roles and permissions' },
+						{ slug: 'knowledge-and-collaboration/admin-panel', label: 'Admin Panel' },
 						{ slug: 'knowledge-and-collaboration/session-sharing', label: 'Session sharing' },
 					],
 				},
@@ -579,13 +580,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Plans & support',
 					items: [
-						{ slug: 'factories/managing-plans-and-billing', label: 'Plans and administration' },
-						'support-and-community/plans-and-billing/credits',
-						'support-and-community/plans-and-billing/add-on-credits',
-						{ slug: 'support-and-community/plans-and-billing/pricing-faqs', label: 'Pricing FAQs' },
+						{ slug: 'factories/teams-and-admin-controls', label: 'Teams' },
+						{ slug: 'factories/managing-plans-and-billing', label: 'Plans' },
 						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 						{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
-						{ label: 'Contact support', link: '/support-and-community/#contact-support' },
 					],
 				},
 				{
@@ -695,7 +693,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'platform/handoff/snapshots', label: 'Snapshots' },
 							],
 						},
-						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
+						{ slug: 'platform/team-access-billing-and-identity', label: 'Cloud run access and billing' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 					],
@@ -757,6 +755,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
+					],
+				},
+				{
+					label: 'Teams and administration',
+					items: [
+						{ slug: 'platform/teams-and-admin-controls', label: 'Teams and admin controls' },
 					],
 				},
 			],
@@ -861,8 +865,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Team management',
 					items: [
 						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
-						'enterprise/team-management/teams',
-						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin panel' },
+						{ slug: 'enterprise/team-management/teams', label: 'Teams' },
+						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin Panel' },
 						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },
 					],
 				},

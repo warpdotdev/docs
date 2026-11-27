@@ -8,11 +8,13 @@ import { VARS } from '@data/vars';
 
 Purchase usage when your available balance won't cover your work. Buying usage is separate from subscribing to a plan.
 
-## Warp Terminal and local agents
+<span id="warp-terminal-and-local-agents" />
 
-On the Free plan for Warp Terminal and local agents, buy usage without subscribing from the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade). Purchases do not include a premium.
+## Warp Terminal
 
-On eligible paid Warp Terminal and local agent plans, open **Settings** > **Billing and usage** in the Warp app. Runs use the member's included allowance before drawing from eligible purchased usage.
+On the Free plan, buy usage without subscribing from the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade). Purchases do not include a premium.
+
+On eligible paid plans, open **Settings** > **Billing and usage** in the Warp app. Runs use the member's included allowance before drawing from eligible purchased usage.
 
 ## Warp Factories
 
@@ -44,13 +46,13 @@ Purchases charge the team's saved payment method, not a separate card for each m
 
 Eligible self-serve plans offer one-time usage purchases. See [Warp pricing](https://www.warp.dev/pricing) for current amounts and prices.
 
-Use the purchase path for [Warp Terminal and local agents](#warp-terminal-and-local-agents) or [Warp Factories](#warp-factories). Choose a one-time amount while auto-reload is off. If your account bills in credits, check the credit quantity and price displayed for your plan instead.
+Use the purchase path for [Warp Terminal](#warp-terminal-and-local-agents) or [Warp Factories](#warp-factories). Choose a one-time amount while auto-reload is off. If your account bills in credits, check the credit quantity and price displayed for your plan instead.
 
 ### 2. Enable auto-reload
 
 Auto-reload buys your selected usage amount when included usage is exhausted and the available purchased balance runs low. Reloaded usage enters the shared team balance and uses the same purchase prices as one-time purchases.
 
-Auto-reload is off by default. The purchase card for the Free plan for Warp Terminal and local agents only supports one-time purchases. A team admin can configure auto-reload when Billing and usage offers the controls:
+Auto-reload is off by default. The purchase card for the Free plan only supports one-time purchases. A team admin can configure auto-reload when Billing and usage offers the controls:
 
 1. For Warp Terminal and local agents, open **Settings** > **Billing and usage** in the Warp app. For Warp Factories, open **Settings** > **Billing and usage** in the factory web app, then click **Open billing** to reach the team's billing controls.
 2. Turn on **Auto-reload** and choose the usage amount to purchase each time.
@@ -64,10 +66,18 @@ Heavy usage by any member can trigger repeated reloads. Review the selected amou
 
 One-time purchases and auto-reloads count toward a single team-wide monthly spend limit. If a purchase is blocked, choose a smaller amount or ask an admin to raise the limit.
 
-In the Warp app, a team admin can adjust this limit in **Settings** > **Billing and usage**, even when auto-reload is off.
+Team owners and admins can change the purchase limit in a browser without enabling auto-reload:
 
-* **Paid Warp Terminal and local agent subscriptions** - The spend limit uses a monthly cycle, including on annual subscriptions. Its reset can differ from the included-usage reset.
-* **Free plan for Warp Terminal and local agents** - The spend limit resets at the start of each calendar month in UTC.
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/), confirm the intended team, and click **Billing**.
+2. In the "Additional usage" card, or "Add-on credits" on credit-billed accounts, find "Monthly spend limit" and click **Edit limit**.
+3. Enter the limit in the dialog and click **Save**. After "Updated monthly spend limit" appears, confirm the displayed limit has changed.
+
+If the card or edit control is unavailable, confirm the selected team and [contact support](mailto:support@warp.dev) about the plan's billing controls. Non-admin members must ask a team owner or admin to change the limit.
+
+In the Warp app, the alternative route is **Settings** > **Billing and usage**. This purchase cap is separate from [Enterprise usage spending limits](/enterprise/support-and-resources/billing/#spending-controls).
+
+* **Paid Warp Agent subscriptions** - The spend limit uses a monthly cycle, including on annual subscriptions. Its reset can differ from the included-usage reset.
+* **Free Warp Agent plan** - The spend limit resets at the start of each calendar month in UTC.
 
 The spend limit is not a guaranteed ceiling on the amount charged. Taxes can increase the payment total. Subscription payments and external provider bills are separate.
 

@@ -76,10 +76,7 @@ Next, you will need to set up an AWS IAM role with a trust policy that links it 
 
 You will need to replace:
 * `<oidc-provider-arn>` with the ARN of the OIDC provider added in Step 1.
-* `<team-uid>` with your Warp team UID. This is the last component of your
-  [Admin Panel](/enterprise/team-management/admin-panel/) URL. For example, if
-  the Admin Panel URL is `https://app.warp.dev/admin/abc123def456`, your team UID would be
-  `abc123def456`. You can also get your team UID from the `oz whoami` command.
+* `<team-uid>` with the ID of the Warp team whose runs should assume the role. Follow [Finding your team ID](/platform/teams-and-admin-controls/#finding-your-team-id), and confirm the team name before copying the ID. Do not use a workspace ID or the final section name from an Admin Panel URL.
 
 The example above uses `StringLike` with the `scoped_principal:<team-uid>/*` pattern to allow any
 user or automation on your team to assume the role. See [the subject claim](#subject-sub)
@@ -183,9 +180,7 @@ gcloud iam workload-identity-pools providers create-oidc \
 Replace `<pool-id>` with the ID you used above, and `<provider-id>` with the desired identifier
 for your provider, such as `oz-oidc-provider`.
 
-Replace `<team-uid>` with the UID of your Warp team. This is the last component of your
-[Admin Panel](/enterprise/team-management/admin-panel/) URL. For example, if the admin
-panel URL is `https://app.warp.dev/admin/abc123def456`, your team UID would be `abc123def456`.
+Replace `<team-uid>` with the ID of the Warp team whose runs should use the provider. Follow [Finding your team ID](/platform/teams-and-admin-controls/#finding-your-team-id). Confirm the team name before copying the ID, especially when your Enterprise workspace contains several teams.
 
 :::caution
 If you do not set an attribute condition, then _any cloud agent_ will be able to use your Workload

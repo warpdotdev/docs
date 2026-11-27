@@ -503,7 +503,7 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
 - ✅ In the sidebar, click **Platform**.
-- ✅ In the "Harness" dropdown, select **Claude Code** or **Codex**. ("Harness" labels the field but isn't itself clickable; the dropdown and its options are)
+- ✅ Click the "Harness" dropdown and select **Claude Code** or **Codex**. ("Harness" labels the field but isn't itself clickable; the dropdown and its options are)
 
 **Don't use:**
 - ❌ In the API Keys section, click `+ Create API Key`.
@@ -513,10 +513,10 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 
 #### Verbs for UI interactions
 Use consistent verbs that match the type of UI element:
-- **Click** — buttons, links, tabs, and menu items
+- **Click** — buttons, links, tabs, menu items, and dropdowns to open them
 - **Enter** — text fields and input boxes
-- **Select** — checkboxes, list items, and option choices within a grouped list
-- **Choose** — dropdowns, date pickers, and permission levels
+- **Select** — checkboxes, list items, and options within dropdowns or grouped lists
+- **Choose** — date pickers and conceptual choices, not dropdown interactions
 - **Toggle** — switches and toggle controls
 
 **Use:**
@@ -528,7 +528,7 @@ Use consistent verbs that match the type of UI element:
 
 **Don't use:**
 - ❌ Select **Save**. (use Click for buttons)
-- ❌ Set the **Repository** permission to **Read**. (use Choose for permission levels)
+- ❌ Choose **Read** from the "Repository" dropdown. (write: Click the "Repository" dropdown and select **Read**.)
 - ❌ Check **read_repository**. (use Select for checkboxes)
 
 ## Drafting by content type
@@ -641,7 +641,7 @@ When readers can combine procedures from this page and related pages, read and c
   - ❌ "Export your API key as an environment variable." (why?)
 - **Support existing configurations.** If the reader can reuse an agent or resource, show how to find and edit or select it as well as how to create a new one. For file-based setup, identify the existing file or agent directory to edit. Do not tell readers to create a duplicate or imply that a new resource takes over existing work.
 - **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
-  - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
+  - ✅ "Click the 'Harness' dropdown and select **Claude Code** or **Codex**."
   - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
 - After key steps, state what readers should see or how to verify the result before moving on.
 - Test all instructions for accuracy.
@@ -888,17 +888,23 @@ Use these terms consistently throughout all documentation. For the full canonica
 
 Product feature names retain their standard capitalization. Match the exact casing shown in the UI.
 
-- **Warp** (not "Warp Terminal" unless specifically distinguishing)
+- **Warp Terminal** for the terminal experience; **Warp** for the overall offering
 - **agent** / **agents** (lowercase) - the generic concept, covering any agent on any surface. See [Capitalizing "agent"](#capitalizing-agent) for the full rule.
 - **Agent Mode** (not "agent mode" or "Agent-mode")
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
 - **Warp Drive** - Shared workspace for saving and organizing commands, workflows, and environment variables across your team.
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help agents understand your code.
-- **Admin Panel** - Team management surface for controlling members, roles, and billing.
+- **Admin Panel** - Administration surface for a team or Enterprise workspace, including members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
 - **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
 - **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
+
+### Team and workspace terminology
+
+Use "team" by default for self-serve customers. Reserve "workspace" and workspace roles for Enterprise, except when matching a literal UI label or explaining an actual billing, permission, or policy scope. A self-serve team has one owner; additional admins depend on the plan and are not Enterprise-only. Adding an admin is not transferring ownership. Follow the [team and workspace glossary](.agents/references/terminology.md#team-and-workspace-terms) for scoped role definitions and literal-interface exceptions.
+
+Keep team and administration guidance scoped to the reader's product: Terminal collaboration, Automation Platform team controls, factory administration, or Enterprise workspace policies. Reuse the shared definitions, but link to the relevant product or setting rather than routing every reader through Terminal. Enterprise owns workspace-wide Admin Panel policy guidance.
 
 ### Capitalizing "agent"
 
@@ -1006,7 +1012,7 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
-- Qualify plans by product and keep their billing flows separate. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for Warp Terminal and local agent subscriptions versus Warp Factories plans.
+- Prefer named tiers such as "the Build plan" or "the Business and Enterprise plans" when the context is clear. Use "Warp Agent plans" and "Warp Factories plans" to establish scope or distinguish the two families, not as a qualifier on every reference. Keep their billing flows separate. Use "Warp Terminal" for the terminal experience and "the Warp Agent" for the built-in agent. Shortening a plan reference does not change local versus cloud eligibility or funding rules. Follow [Product-qualified plans](.agents/references/terminology.md#billing-and-credits) for eligibility and billing terminology.
 - **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. Explain the billing unit where it affects the reader's task, not in every paragraph. Name plans naturally: "Free," "Build," "Max," "Business," and "Enterprise," not "dollar-billed Free" or "self-serve dollar Max."
 - **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
 - **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
