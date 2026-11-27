@@ -24,7 +24,7 @@ Adapt the procedures and skills in [`sdlc-issue-to-pr`](https://github.com/warpd
 
 ## How the stages connect
 
-The foreman follows the Blueprint's transitions. A well-defined fix can go directly to implementation; unclear scope needs investigation, and unresolved product or technical decisions need planning. Each stage supplies its procedure and expected outputs to its assigned worker.
+The foreman follows the Blueprint's transitions. A well-defined fix can go directly to implementation. Use [research to establish facts and planning to resolve decisions](/factories/blueprints/stages/#separate-research-from-decisions) before building. Each stage supplies its procedure and expected outputs to its assigned worker.
 
 | Stage | Assigned work | Expected output |
 | --- | --- | --- |
@@ -54,6 +54,8 @@ For this workflow, add a plan-review gate and route implementation only from app
 
    * **Shared guidance** - Put test commands and repository conventions under `skills/`.
    * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `workers/<name>/skills/` in a `workers/` tree or `agents/<name>/skills/` in an `agents/` tree. Use the existing worker's directory name for `<name>`, keeping the same root. Require workers to return questions through the foreman and continue their existing conversation when answers arrive.
+
+   In the implementation stage's `prompt` and `outputs`, require a [merge-risk assessment](#assess-risk-before-handoff) for the delivered head. Have the foreman include the assessment with the PR link and verification results at handoff.
 
 5. For visual acceptance criteria, configure a verification worker on the Warp Agent harness with Warp-hosted execution. Add a verification stage that receives the PR head and criteria and returns observations and shareable media links from its own run. Require the foreman to post those links with the tested commit on the PR. If the head changes, mark the evidence stale. Report unavailable verification or sharing as a blocker, not a pass. Follow the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/) for app setup, sample data, and test accounts.
 6. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to the foreman's configured name; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
@@ -112,6 +114,11 @@ worker-scoped skills beside the worker file, without mixing roots.
   the same branch and PR. Relay questions through the foreman.
 - Keep the issue updated, report failed or unverified checks, and never
   approve or merge. Do not replace Blueprint transitions with an intake prompt.
+- In implementation's prompt and outputs, require a merge-risk assessment
+  of alignment, impact, verification, rollback cost, and error detection.
+  Mitigate gaps within the approved scope, or report them for a person to
+  decide. Include remaining risks and evidence for the delivered head in
+  the handoff. An assessment does not authorize approval or merging.
 - Validate the definition. If it's managed as code, open a pull request to
   the definition repository; otherwise tell me what to change in the
   factory dashboard.
@@ -129,7 +136,7 @@ Use fresh issues for initial-intake tests. If the factory already tracks an issu
 2. Apply `factory-intake` and inspect the resulting work item and issue comments. Confirm the foreman asks for the missing decision.
 3. In the originating GitHub issue, mention **@warp** with your answers. Follow the [factory-label and mention requirements](/factories/integrations/github/#mention-the-factory). Confirm the foreman links a specification PR and pauses before implementation.
 4. Review the specification, then approve it in the same issue with a new **@warp** mention and the specification PR's link. Confirm implementation continues on that specification's branch and PR.
-5. Inspect the implementation PR and source issue. Confirm the foreman coordinates independent review and posts the PR link and validation results to the issue without merging.
+5. Inspect the implementation PR and source issue. Confirm the foreman coordinates independent review and posts the PR link, validation results, and risk assessment to the issue without merging. Check that remaining risks name missing evidence or a decision, not only a low, medium, or high label.
 6. On the PR, submit review feedback requesting a revision, such as adding a missing migration test. Confirm the foreman continues the existing implementation conversation and updates the same PR.
 7. For a UI change, inspect the foreman's PR comment. Confirm it contains the verifier's tested commit, observations, and evidence links. Follow the [Computer Use verification tests](/factories/use-cases/computer-use-verification/) for detailed capture and sharing checks.
 8. After a maintainer reviews and merges the test PR, confirm the completion handler updates the linked issue and closes out the work item.
@@ -149,6 +156,24 @@ A GitHub issue requests a purchase-order number on invoices without defining whe
 The spec worker records the agreed behavior and validation criteria in a draft PR. The foreman obtains approval, then asks the implementation worker to update that same branch and PR. The review worker reports a missing migration test to the foreman, which sends the finding back to the implementation worker.
 
 After revision, the configured verifier exercises the invoice preview at a recorded commit and returns observations and media links. The foreman posts the evidence on the PR and validation results on the issue. A maintainer reviews and merges.
+
+## Assess risk before handoff
+
+A merge-risk assessment tells reviewers where to focus and what remains unresolved. In the implementation stage's instructions, ask the worker to assess the delivered head against these questions:
+
+| Category | Question to answer with evidence |
+| --- | --- |
+| Alignment | Does the diff match the approved scope, issue, and PR description? Identify assumptions and unrelated changes. |
+| Impact | Which users, shared components, and sensitive paths are affected, including authentication, permissions, or stored data? |
+| Verification | Which checks and observed interactions cover the changed behavior? Name failures, missing checks, and the tested commit. |
+| Rollback cost | Will reverting the code restore the previous behavior and data, or does recovery need additional work? |
+| Error detection | Which logs, monitoring, or alerts expose a failure? Identify failures that would remain silent. |
+
+For each gap, ask the worker to mitigate it within the approved scope before handoff, such as adding a missing regression test. Changes to agreed behavior or rollout need your decision. Require a short explanation per category, not only an overall risk label.
+
+For example, consider a hypothetical PR that changes how terminal tabs are saved per document. Its diff matches the spec, but the impact includes existing saved layouts. Fresh-install tests do not establish whether older layouts survive. Reverting the commit might not recover overwritten state, and a layout reset might produce no error log. The handoff needs compatibility-test evidence and a recovery decision, even if the diff is small.
+
+The assessment is advisory. It does not replace independent code review, configure a Scorer, or authorize approval or merging. See [Add verification and merge risk in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/add-verification-and-merge-risk) for a skill-based exercise.
 
 ## Scope across repositories
 

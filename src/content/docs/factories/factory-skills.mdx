@@ -79,7 +79,18 @@ To reuse skills without copying them, create a `.yaml` or `.yml` reference file 
 
 The source can be the repository containing your definition or an external repository. Pin it to a full commit SHA to keep using a particular version of the skill and its supporting files. See [Skill reference files](/factories/factory-as-code/#skill-reference-files) for same-repository, external-repository, and SHA-pinned examples.
 
-## Skills and self-improvement
+<span id="skills-and-self-improvement" />
+
+## Improve a skill from observed failures
+
+A useful skill records what another run needs to do differently, not only that the last run failed. For example, a verifier cannot start an app because a shared UI package has no build output. Once the run establishes that missing prerequisite, the correction belongs in the startup skill, not in every future request.
+
+1. Inspect the failed command and repository build instructions to confirm the cause.
+2. In the existing startup skill's `SKILL.md`, add the required package build before the app-start command and describe the ready state to check.
+3. Test the proposed instructions on another bounded request from a clean checkout. Confirm startup succeeds and the requested UI path is exercised, rather than only that the process launches.
+4. Review the instruction change and its evidence before applying it through the [definition's save or merge process](#add-or-edit-a-skill).
+
+Keep confirmed prerequisites and interaction-specific gotchas beside the steps they affect. An unavailable service may need restored access, not a permanent workaround in the skill.
 
 When a Scorer with [Self-improvement](/factories/measure-and-improve/self-improvement/) enabled flags a recurring failure, the factory can update the responsible skill in a follow-up run. Changes arrive as pull requests for your team to review in the web app or your Git host.
 

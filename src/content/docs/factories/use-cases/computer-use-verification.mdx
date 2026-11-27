@@ -27,7 +27,13 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 | Workers | Foreman coordinates a verification worker on the Warp Agent harness |
 | Skills | App startup steps, sample data, observable criteria, and capture requirements |
 | Runtime | A Warp-hosted runner with the app's toolchain and Computer Use available |
-| Output | A PR comment with the tested commit, observations, evidence links, and passed, failed, or unverified criteria |
+| Output | A PR comment with the tested commit, observations, evidence links, and passed, failed, or unverified criteria; see the [example report](#example-verification-report) |
+
+## Choose evidence for the behavior
+
+Choose captures that answer the acceptance criteria, not only show the app running. A focused screenshot can show that a 1px border gap is gone. A clipboard-paste fix needs a recording of copying a known URL, opening the link editor, pasting over the old value, and checking the saved result. A screenshot of the final URL alone does not establish that paste worked.
+
+Keep automated checks for cases the recorded flow does not exercise, such as persistence after restart or handling malformed data. State which criterion each check or capture covers. The [verification lesson in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/add-verification-and-merge-risk) applies this approach to a desktop app.
 
 ## Set up UI verification
 
@@ -63,7 +69,7 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
    * The working directory and commands to install dependencies, build, and start the app.
    * The local URL and how to confirm the app is ready.
    * Instructions for loading sample data and signing in with a test account, if needed.
-   * The visible states and interactions required by each acceptance criterion.
+   * The visible states and interactions required by each acceptance criterion, with the [evidence needed to establish them](#choose-evidence-for-the-behavior).
 
    Screenshots and recordings may show the sample data and account details to reviewers. See [factory skills](/factories/factory-skills/) for the file format.
 
@@ -123,11 +129,26 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 
 Pushing a new commit alone doesn't trigger this label automation. For a later revision, explicitly ask the foreman for another verification pass in the work item's existing conversation. Include the new commit and criteria.
 
-## Example workflow
+<span id="example-workflow" />
 
-A maintainer requests verification for a checkout-form change by applying `ui-verification`. The foreman records the PR's head commit and sends the invalid- and valid-postal-code criteria to the verifier.
+## Example verification report
 
-The verifier checks out that commit, builds the app, and records the validation message followed by the successful transition. It returns the recording's shareable link and its observations. The foreman posts a PR comment with the tested commit and evidence, leaving code review, approval, and merging to people.
+The following is an illustrative PR comment, not a report from an actual run. Assume the example app documents `pnpm build`, `pnpm check`, and `pnpm dev` as its build, check, and startup commands. `TESTED_SHA` stands for the checked-out commit. A real report includes the actual commands, results, and permission-checked evidence links from the verifier's run.
+
+> ### UI verification: clipboard paste
+>
+> Tested revision: `TESTED_SHA`. The PR head still matches this revision.
+>
+> Commands: `pnpm build` and `pnpm check` exited 0. `pnpm dev` started the app.
+>
+> * **Passed: replace an existing link** - Copied a known URL to the system clipboard, opened the link editor, pasted over the old URL, and saved. Reopening the editor showed the replacement.
+> * **Unverified: keyboard-only editing** - The recording covers mouse navigation. Keyboard activation and focus order were not exercised.
+>
+> Evidence: the recording follows the copy, paste, save, and reopen sequence. A final-state screenshot shows the complete saved URL. The real comment links both captures.
+>
+> The maintainer needs keyboard-only verification before accepting this change.
+
+The successful path does not turn the unverified criterion into a pass. If the PR head changes, the foreman marks this report stale and requests verification of the new revision.
 
 ## Related pages
 

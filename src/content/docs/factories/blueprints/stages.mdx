@@ -45,6 +45,20 @@ The stage says what work to do now. The worker configuration supplies the model,
 
 Inputs and outputs are instructions, not typed schemas. “The checks passed” is less useful than the command, exit code, and tested commit. Put recurring check procedures in a [skill](/factories/factory-skills/), and name that skill in the stage prompt.
 
+### Separate research from decisions
+
+In the triage or planning stage's `prompt`, distinguish missing facts from choices that need a person:
+
+* **Researchable facts** - Ask the worker to establish what the code does today, which callers are affected, and where a failure occurs. Require evidence rather than asking you to supply facts the repository already answers.
+* **Behavior choices** - Ask the worker to surface reasonable alternatives when the request leaves the desired behavior undefined. Pause dependent implementation until you decide.
+* **Approach choices** - Ask the worker to explain implementation trade-offs that affect compatibility, maintenance, or rollout. Routine choices already covered by repository conventions need no new approval.
+
+For example, “add a way to expand or collapse all folders” names a problem, but leaves decisions open. Should the action live in the sidebar or the application menu? Does it affect every folder or only a selected subtree? Should the open file's folder stay expanded? Research can find the current folder-tree code; it cannot establish which of those behaviors you want.
+
+Record the answers in the spec with checks for the agreed behavior. Configure a [plan-review gate](/factories/blueprints/gates/#require-plan-approval) before implementation. By contrast, a request to add YAML to an existing language picker, with matching syntax highlighting, can follow an established pattern if research finds no unresolved choices.
+
+For a worked exercise, follow [Route work with triage and specs in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/tackle-larger-features-with-specs).
+
 ## Reuse a worker across stages
 
 A stage name and a worker name serve different purposes. Two stages can use the same worker with different procedures. The worker receives the named stage's instructions; it does not decide which other stage to do next.

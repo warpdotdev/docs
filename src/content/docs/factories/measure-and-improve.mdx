@@ -9,6 +9,10 @@ sidebar:
 
 Warp Factories tracks what your factory produces and how well it performs, so you can spot a problem, test a fix, and decide whether to keep it.
 
+First distinguish the product from the workflow that builds it. Fixing clipboard paste changes your application. Correcting a verification skill so it builds a required package before starting the app changes how future work is checked. The first needs evidence that paste works; the second needs a comparison showing that the revised procedure resolves startup failures without skipping verification.
+
+For the workflow change, use the [practical improvement loop](#run-a-practical-improvement-loop) below: record the baseline failure, compare the candidate instructions on the same tasks, review the change, and monitor later results. See [improving a skill from observed failures](/factories/factory-skills/#improve-a-skill-from-observed-failures) for a concrete example.
+
 | Feature | What it tells you |
 | --- | --- |
 | Dashboard metrics | How much work the factory produced, and what it cost. |
