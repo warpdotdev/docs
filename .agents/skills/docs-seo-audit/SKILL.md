@@ -162,6 +162,8 @@ Some page titles are intentionally short or specific and must **not** be changed
 - **`src/content/docs/terminal/windows/tab-configs.mdx`** (`Tab Configs`) — Same rationale: the section header disambiguates the terminal context. Additionally, "Tab Configs" is a proper feature name and should not be prefixed. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal Tab Configs".
 - **`src/content/docs/terminal/sessions/index.mdx`** (`Sessions`) — The sidebar section header ("Sessions") already provides terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal sessions".
 - **`src/content/docs/agents/cli/oz-cli/artifacts.mdx`** (`Artifacts`) — The Agents > CLI section provides context, and "Artifacts" matches the `oz artifact` resource that the page documents. The `title_too_short` warning is intentionally suppressed.
+- **`src/content/docs/factories/blueprints.mdx`** (`Blueprints`) — The Factories section and Blueprints sidebar group provide context, and "Blueprints" is the concise feature name intentionally chosen in PR #1062. The `title_too_short` warning is intentionally suppressed.
+- **`src/content/docs/factories/benchmarks.mdx`** (`Benchmarks`) — The Factories > Measure & improve section provides context, and "Benchmarks" matches the product feature name intentionally kept in PR #1065. The `title_too_short` warning is intentionally suppressed.
 
 When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
 
