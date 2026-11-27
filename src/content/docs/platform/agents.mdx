@@ -60,7 +60,7 @@ When a team is over its plan limit (for example, after downgrading), the extra a
 * **Agents page** - The Agents page in the [{VARS.WEB_APP}](/platform/oz-web-app/) is where teams view, create, edit, and delete cloud agents.
 * **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default: runs execute as the calling user, and pull requests are authored by that person. Picking a cloud agent runs as that agent instead, so with [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) configured, pull requests are authored by the [Warp Factories](/factories/) GitHub App. Choose a cloud agent for any schedule that opens pull requests. See [Run identity and pull request authorship](/platform/triggers/scheduled-agents-quickstart/#run-identity-and-pull-request-authorship).
 * **Run filters and detail** - The Runs view lets you filter by cloud agent, and individual run detail pages show which agent executed the run.
-* **Admin Panel** - Billing usage in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) attributes usage consumed by cloud agent runs to the team rather than to a person.
+* **Admin Panel** - Billing usage in the [Admin Panel](/platform/teams-and-admin-controls/) attributes usage consumed by cloud agent runs to the team rather than to a person.
 
 ## Capabilities
 
@@ -80,4 +80,4 @@ Cloud agents — and individual runs — can also be granted specific capabiliti
 * [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
 * [Federated identity tokens](/agents/cli/oz-cli/federate/) - Issue OIDC tokens from inside a run.
 * [{VARS.WEB_APP}](/platform/oz-web-app/) - Manage cloud agents and inspect their runs in the web UI.
-* [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.
+* [Admin Panel](/platform/teams-and-admin-controls/) - Team-level billing and access controls.

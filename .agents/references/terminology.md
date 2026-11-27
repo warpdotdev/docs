@@ -41,11 +41,11 @@ Naming and formatting reviewed November 10, 2026 against `AGENTS.md` and the app
   *Usage note:* Use lowercase when contrasting with Agent Mode.
 
 - **Warp** — The agentic development environment for professional developers, built around a modern terminal and AI agents.
-  *Usage note:* Use "Warp" as the product name. Add "AI terminal" only when you need the positioning shorthand. Do not use "Warp Terminal" unless specifically distinguishing from the Automation Platform.
+  *Usage note:* Use "Warp" for the overall offering, "Warp Terminal" for the terminal experience, "the Warp Agent" for the built-in agent, and "Warp Agent plans" for the subscription family.
 
 ## Navigation and UI terms
 
-- **Admin Panel** — The team administration interface.
+- **Admin Panel** — The administration interface for a team or Enterprise workspace.
   *Usage note:* Capitalize as a UI name.
 
 - **Agent Management Panel** — The interface for managing agent configurations, permissions, and activity.
@@ -163,14 +163,48 @@ Use local versus cloud to describe where a run executes, and interactive versus 
 
 ## Team and workspace terms
 
-- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups teams under one company account with shared roles, billing, SSO, and settings. See [Workspaces](/enterprise/team-management/workspaces/).
-  *Usage note:* Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive** and a **Slack workspace**. If the context is unclear, write "Warp workspace" or "Slack workspace."
+Naming and role definitions reviewed November 19, 2026 against the team/workspace review supplied by the docs maintainer and Admin Panel source. HYC and Isaiah confirmed team-first self-serve terminology and the single-owner distinction; Jason confirmed standard factory-plan roles; Eugene confirmed factory-role definitions. This is not a live-account test or a review of unrelated glossary sections. Plan conditions and action-specific permissions belong in the linked references, not a second entitlement matrix here.
 
-- **Member** (workspace role) — The default workspace role: uses Warp within whatever teams they belong to and the settings admins configure. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+Documentation placement reviewed November 24, 2026 with HYC's feedback and docs-maintainer approval: keep shared definitions here, with product-specific guidance for [Warp Terminal](/knowledge-and-collaboration/teams/), [the Automation Platform](/platform/teams-and-admin-controls/), [Warp Factories](/factories/teams-and-admin-controls/), and [Enterprise administration](/enterprise/team-management/admin-panel/). This placement update does not create separate kinds of Warp teams or change role permissions.
 
-- **Admin** (workspace role) — Manages workspace membership, billing, and settings. Can view and manage every team in the workspace, including teams they don't belong to. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **role** — A role defines what you can access and which actions you can take in Warp.
+  *Usage note:* In team, workspace, and factory access guidance, describe roles in terms of both access and actions, not only administration. A person can have different roles at each scope. Effective permissions also depend on the plan, memberships, and applicable policies. Keep human access roles distinct from agent roles and agent execution permissions. See [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/).
 
-- **Owner** (workspace role) — The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. Exactly one per workspace. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **team** — A Warp team groups people and resources so you can manage membership, access, and settings. Team members can share factories, environments, secrets, and Warp Drive content. Teams are available on self-serve and Enterprise plans.
+  *Usage note:* Define teams by their organizational purpose: managing membership, access, and settings. Describe resource sharing as something members can do, not the whole definition. Use "team" as the default customer-facing term for self-serve accounts: "your team," "team members," "team owner," and "team admin." Teams also exist within Enterprise workspaces. Use "Choose your team" unless the task needs more context. See [Managing team membership](/knowledge-and-collaboration/teams/).
+
+- **self-serve** — Non-Enterprise access, including free access and paid subscriptions.
+  *Usage note:* Does not mean paid, individual, or per-seat billing. Name the product and plan when eligibility matters. Underlying team and workspace roles are always mirrored one-to-one on self-serve; the workspace is hidden from the customer. Do not qualify this as applying only to "supported accounts" or introduce independently managed workspace roles into self-serve instructions.
+
+- **team owner** — The single owner of a self-serve team. Has team-admin authority and can transfer ownership.
+  *Usage note:* Adding admins does not add or replace the owner. Use this term for self-serve ownership; do not imply every Enterprise team has an owner. Preserve a legacy Owner label when instructions must identify it.
+
+- **team admin** — Administers one team's membership and configurable settings.
+  *Usage note:* Additional admins depend on the plan; they are not Enterprise-only. A team admin cannot transfer ownership. In Enterprise, a team-admin role does not grant workspace-wide administration. See [Roles and permissions](/knowledge-and-collaboration/roles-and-permissions/).
+
+- **team member** — A person who belongs to a team and uses its shared resources within applicable policies.
+  *Usage note:* A Member role does not grant administration, but does not mean read-only. Factory access is a separate role.
+
+- **workspace** — A workspace groups one or more teams under a single Enterprise account. Workspace admins manage membership, billing, and company-wide policies across those teams. See [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/).
+  *Usage note:* Define workspaces by their Enterprise scope and administration across teams, including accounts with only one team. Keep individual controls such as SSO in the relevant settings explanation rather than the core definition. Reserve workspace and workspace-role terminology for Enterprise explanations. In self-serve instructions, retain "workspace" only to match a literal UI label or explain an actual billing, permission, or policy scope; do not imply it is a second group the customer manages. Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive**, an agent's execution workspace, and third-party workspaces such as a **Slack workspace**.
+
+- **Member** (workspace role) — An Enterprise workspace member without workspace-wide administrative authority.
+  *Usage note:* Team membership and roles are separate. A workspace member can administer a particular team without becoming a workspace admin, and is not automatically a member of every team.
+
+- **Admin** (workspace role) — Administers Enterprise workspace membership, billing, and supported settings, and is an admin of every team in that workspace.
+  *Usage note:* Includes teams they do not personally belong to. Multiple workspace admins are supported; a team admin administers only their team.
+
+- **Owner** (workspace role) — The single owner of an Enterprise workspace. Has workspace-admin authority and can transfer ownership.
+  *Usage note:* Exactly one owner, distinct from additional admins. Use "workspace owner" to distinguish it from a self-serve team owner. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Factory user** (factory role) — Can view a factory and run work without directly configuring it.
+  *Usage note:* Not a synonym for team member. Preserve the exact capitalization of UI labels.
+
+- **Editor** (factory role) — Can configure a factory and attach existing resources.
+  *Usage note:* Does not grant team or workspace administration. Distinguish a team-wide assignment from access to one factory.
+
+- **Admin** (inherited factory access) — Factory administration inherited from the applicable team or workspace owner/admin role.
+  *Usage note:* Not independently assigned alongside Factory user and Editor. A factory-role assignment cannot reduce inherited Admin access. See [Managing factory permissions](/factories/permissions/) for plan conditions, defaults, and overrides.
 
 - **Open** (team visibility) — A team any workspace member can see and join immediately. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
@@ -450,7 +484,11 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
-- **Product-qualified plans** — Warp Terminal and local agent subscriptions are separate from Warp Factories plans. Name the product whenever discussing eligibility, funding, upgrades, or membership charges. Use “the Build plan for Warp Terminal and local agents” and “the Scale plan for Warp Factories,” not “Warp Factories Scale.” Keep each product's plans in separate sections or table columns; never blend names such as “Business, Scale, and Enterprise” into one list. A clearly named product heading can establish scope for the plan names beneath it. Qualify Enterprise terms by product or contract, too.
+Plan-family naming reviewed November 24, 2026 against HYC's PR #1067 review and the pricing page, with docs-maintainer approval. This naming update does not change eligibility or funding rules.
+
+- **Warp Agent plans** — The Free, Build, Max, Business, and Enterprise plan family for agent usage and included product features. Keep local versus cloud eligibility explicit; factory plans are separate.
+- **Warp Factories plans** — Plans for factory workflows, separate from Warp Agent plans.
+- **Product-qualified plans** — Prefer named tiers such as “the Build plan” once the page, heading, or surrounding prose establishes the plan family. Use “Warp Agent plans” or “Warp Factories plans” to establish scope or distinguish the offerings; do not repeat the family on every eligibility, funding, upgrade, or membership reference. When context alone is ambiguous, write “the Enterprise plan for Warp Factories,” not “Warp Factories Enterprise.” Keep each family's plans in separate sections or table columns; never blend names such as “Business, Scale, and Enterprise” into one list. Keep Enterprise contract exceptions and local versus cloud eligibility and billing explicit; shortening a plan reference does not change those rules.
 - **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
 - **usage balance** — usage available to the user or team billed for the work, subject to the applicable billing rules.
   *Usage note:* Use "add usage" for the action of funding the balance, with "if needed" when an existing allowance may cover the work. Do not imply that every workflow uses a shared team balance or requires a new purchase.

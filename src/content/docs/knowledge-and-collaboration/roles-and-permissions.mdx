@@ -1,0 +1,139 @@
+---
+title: Roles and permissions in {{WARP_TERMINAL}}
+description: >-
+  Check your role in {{WARP_TERMINAL}}, promote or demote team admins, and transfer ownership of a self-serve team.
+---
+import { VARS } from '@data/vars';
+
+A role defines what you can access and which actions you can take in Warp. Your effective permissions also depend on your plan, memberships, and applicable policies.
+
+In {VARS.WARP_TERMINAL}, team roles govern membership and shared settings. For example, a team admin can manage invitations, while a member uses shared Warp Drive resources within the configured sharing policies.
+
+## Checking your role
+
+1. In {VARS.WARP_TERMINAL}, open **Settings** > **Teams**.
+2. Confirm the team name and find your email address in the member list.
+3. For a self-serve team, read the badge beside your email address. "OWNER" identifies the team owner, and "ADMIN" identifies a team admin. Members have neither badge.
+
+If the member list doesn't identify your role or you need help, ask the person who invited you or a known admin. If you cannot identify an admin, [contact support](mailto:support@warp.dev).
+
+## Team roles
+
+<span id="user-roles" />
+
+Team roles determine who can manage membership, change shared settings, and transfer ownership:
+
+| Role | Responsibilities | Limits |
+| --- | --- | --- |
+| Team owner | Administers a self-serve team and can transfer ownership to another member | Exactly one owner per self-serve team; plan restrictions still apply |
+| Team admin | Manages the team's membership, invitations, and configurable settings; can add admins on supported plans | Cannot transfer ownership or change the owner's role; does not automatically gain workspace administration |
+| Member | Uses team resources within the applicable policies | Membership alone does not grant team administration |
+
+Adding an admin does not add or replace the owner.
+
+<span id="workspace-roles-and-team-roles" />
+
+Workspace roles apply to Enterprise administration. Self-serve customers manage team roles instead. Enterprise ownership belongs to the workspace, so teams inside it do not require a team owner. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles) for ownership and [Enterprise roles and permissions](/enterprise/team-management/roles-and-permissions/) for authority across teams.
+
+## Managing admins
+
+Additional team-admin availability depends on your Warp Agent plan:
+
+<span id="warp-terminal-and-local-agents" />
+
+<span id="warp-terminal-plans" />
+
+<span id="warp-agent-plans" />
+
+| Plan | Additional team admins |
+| --- | --- |
+| Free | Not included |
+| Build, Max, and Business | Supported |
+| Enterprise | Supported, with separate workspace and team roles |
+
+<span id="warp-factories" />
+
+For factory-plan administration, use [Warp Factories team roles](/factories/teams-and-admin-controls/#team-roles-and-factory-access).
+
+Account-specific access can differ. If a role control does not match your expected access, confirm the selected team and plan with your owner or [contact support](mailto:support@warp.dev).
+
+{/* VERIFY: Confirm legacy Warp Agent subscriptions and customer-facing treatment of account-specific entitlements before merge. */}
+
+### Promoting or demoting admins
+
+You must be a team owner or admin to promote or demote team admins. Your plan must support additional admins before you can promote a member.
+
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/) and click **Teams**. Confirm the team name at the top of the page.
+2. Use the controls shown in the member list:
+   * In the member-menu layout, next to the person you want to promote or demote, click the three dots. Click **Promote to team admin** or **Demote team admin**.
+   * In the editable "Role" column, click the member's role dropdown. Select **Team Admin** to promote them. To demote an admin, select **Factory Editor** or **Factory User** for the factory access they should retain. This removes team administration and assigns that team-wide factory role.
+3. If you're demoting yourself, review the confirmation and click **Demote to member**.
+4. Confirm the updated role in the member list. If you lost Admin Panel access, ask another admin to confirm it.
+
+For the difference between the factory roles offered during demotion, see [Managing factory permissions](/factories/permissions/#roles-and-capabilities).
+
+{/* VERIFY: Exercise both the member-menu and editable-role-column paths in the production Admin Panel before merge, including demotion and confirmation behavior. */}
+
+## Permission details
+
+<span id="factory-roles-and-team-administration" />
+
+Factory access is separate from team administration in {VARS.WARP_TERMINAL}. To manage who can run or configure a factory, follow [Managing factory permissions](/factories/permissions/). To manage factory-team membership and admins, follow [Warp Factories team administration](/factories/teams-and-admin-controls/).
+
+### What admins can do
+
+The controls available to admins depend on the plan and any enforced workspace policies.
+
+Where the plan includes spending controls, team admins set limits for their team and its members. Enterprise workspace owners and admins manage those limits across teams. See [Enterprise spending controls](/enterprise/support-and-resources/billing/#spending-controls) for usage caps and [self-serve purchase limits](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit) for limits on additional purchases.
+
+Viewing usage, purchasing usage, changing payment details, and managing subscriptions are separate actions. See [usage visibility](/support-and-community/plans-and-billing/credits/#who-can-see-team-usage) for reporting access and [managing billing](/support-and-community/plans-and-billing/pricing-faqs/#how-do-i-manage-my-billing) for payment and subscription controls.
+
+### What members can do
+
+Members can configure personal settings where team and workspace policies permit. A Member role is not a promise of read-only access to shared resources.
+
+### Settings enforcement
+
+A team-admin role does not override a workspace policy or make a plan-locked setting editable. See [How settings enforcement works](/knowledge-and-collaboration/admin-panel/#how-settings-enforcement-works) for the difference.
+
+## Transferring team ownership
+
+This procedure applies to a self-serve team. Only the current owner can transfer ownership.
+
+After the transfer, you become a Member and lose admin access. If the new owner's email is not on a work domain, Warp disables team discoverability.
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/), confirm the team, and click **Teams**.
+2. Next to the member who will become the owner, click the three dots, then click **Transfer ownership**. If the list uses an editable role column instead, click that member's role dropdown and select **Owner**.
+3. In the confirmation, click **Transfer**. The page reloads with your updated access.
+4. Ask the new owner to confirm their Owner role.
+
+If you still need admin access, ask the new owner or another admin to grant it separately, if your plan supports additional admins.
+
+In the Warp app, open **Settings** > **Teams**. Next to the member who will become the owner, click the three dots, then click **Transfer ownership**.
+
+For Enterprise ownership, follow [Transferring workspace ownership](/enterprise/team-management/workspaces/#transferring-workspace-ownership). Transferring workspace ownership does not transfer team roles.
+
+## Resource sharing controls
+
+Team roles are distinct from the controls on shared resources. For Warp Drive sharing policies, see the [Admin Panel](/knowledge-and-collaboration/admin-panel/#sharing-settings).
+
+## Troubleshooting
+
+### The admin promotion option is missing
+
+Confirm the selected team and compare its plan with the [admin availability table](#managing-admins). The promotion option is not shown on Free accounts. Purchasing usage does not enable additional admins. Review [plans](/support-and-community/plans-and-billing/plans-pricing-refunds/) before changing a subscription.
+
+In an Enterprise workspace, check whether you are changing a team role or a workspace role. Ask a workspace admin to handle workspace-wide changes.
+
+### Factory settings work, but administration access is denied
+
+Follow [Warp Factories team administration](/factories/teams-and-admin-controls/#checking-your-role) to identify your role and the admin who can help. Factory Editor access does not grant team or workspace administration.
+
+<span id="related-resources" />
+
+## Related pages
+
+* [Managing teams in Warp Terminal](/knowledge-and-collaboration/teams/)
+* [Admin Panel for Warp Terminal](/knowledge-and-collaboration/admin-panel/)
+* [Workspaces for Enterprise teams](/enterprise/team-management/workspaces/)
+* [Managing factory permissions](/factories/permissions/)

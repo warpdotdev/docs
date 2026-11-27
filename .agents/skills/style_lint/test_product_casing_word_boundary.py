@@ -34,7 +34,9 @@ CASES = [
      "'A.I.' followed by a space still flagged despite ending in punctuation"),
     ("This uses A.I.s today", False,
      "'A.I.' must not match inside 'A.I.s'"),
-    ("I use Warp Terminal daily", True, "genuine 'Warp Terminal' still flagged"),
+    ("I use Warp Terminal daily", False, "approved terminal experience name"),
+    ("Compare Warp Agent plans", False, "approved subscription-family name"),
+    ("Configure the Warp Agent", False, "approved built-in agent name"),
     ("Uses MacOSX for testing", False, "'MacOS' must not match inside 'MacOSX'"),
     ("Uses MacOS for testing", True, "genuine 'MacOS' still flagged"),
 ]

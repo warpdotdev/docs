@@ -7,7 +7,9 @@ import { VARS } from '@data/vars';
 
 Give teammates **Factory user** access to run work without changing the factory, or **Editor** access to configure its workers, repositories, and automations.
 
-Assigning Factory user and Editor roles requires an Enterprise plan. On all other plans, team members have Editor access.
+Enterprise plans include Factory user and Editor role assignment. On Start and Scale plans, non-admin members have Editor access.
+
+If the available role controls don't match your plan, confirm the selected team and plan with an admin or [contact support](mailto:support@warp.dev).
 
 ## Team-wide roles and factory-specific access
 
@@ -40,20 +42,35 @@ Defaults apply to new and existing members without an assigned role. A workspace
 
 Permission to create factories depends on your team-wide factory role. Assigning someone Editor access to an individual factory does not let them create new factories.
 
-Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can’t grant or reduce that access through a factory’s role settings.
+Team and workspace admins and owners inherit Admin access within their team or workspace. You can’t grant or reduce that access through a factory’s role settings. See [team roles and factory access](/factories/teams-and-admin-controls/#team-roles-and-factory-access).
 
 Editors can attach existing team secrets, MCP servers, and integrations to a factory. Connecting new team-wide integrations and managing shared runners require separate team or workspace permissions.
 
 ## Changing a team-wide role
 
-You must be a team or workspace admin to change team-wide factory roles. Open your team’s [Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel/) to change roles directly, or follow the steps below to change roles from your factory settings.
+You must be a team or workspace admin, and your account must include factory role management. These steps assign factory access to a non-admin team member. If you select a factory role for a team admin in the Admin Panel, you also demote them to a member. Follow [Changing team admins](/enterprise/team-management/roles-and-permissions/#changing-team-admins) for Enterprise demotion or [self-serve admin management](/factories/teams-and-admin-controls/#promoting-or-demoting-admins).
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> sidebar, expand the factory and click **Settings**.
 2. Under **Settings**, click **Access**, then click **Manage team access**.
-3. In the teammate's row, click their current seat type.
-4. Choose **Factory user** or **Editor**, then click **Save**.
+3. In the Admin Panel, confirm the team name. Find the teammate in the member list.
+4. In the "Role" column, click the teammate's role dropdown and select **Factory User** or **Factory Editor**. The selection saves immediately.
+5. Wait for the update to complete. Reload the page and confirm the role persists.
 
-The role applies across the team's factories, except where the teammate has a factory-specific role.
+To open the member list directly, sign in to the [Admin Panel](https://app.warp.dev/admin/). For a self-serve team, click **Teams**. In an Enterprise workspace, under "Team admin", click the team name, then **Members**. Confirm the team name before assigning a role.
+
+The role applies across the team's factories, except where the teammate has a factory-specific role. The Admin Panel's **Factory Editor** and **Factory User** options correspond to Editor and Factory user access.
+
+## Changing the default factory role
+
+You must be a team or workspace admin, and your account must include factory role management. The default affects new and existing members without an assigned role. It does not replace explicit assignments or inherited Admin access.
+
+1. Open the team's member list in the Admin Panel using [the route above](#changing-a-team-wide-role). Confirm the team name.
+2. Under "Default Factory role", click the dropdown and select **Editor** or **Factory user**.
+3. Wait for the update to complete. Reload the page and confirm the selected default persists.
+
+If a workspace default controls the team's default, ask a workspace admin to review it. If the role controls are missing, confirm your plan and access with an admin or [contact support](mailto:support@warp.dev).
+
+{/* VERIFY: Test the production Admin Panel route, role-column assignments, immediate saves, and default factory role changes on an eligible account. Routes, frontend and backend gates, labels, and mutations were source-checked; no live-account test was performed. */}
 
 ## Changing a role for one factory
 
@@ -61,10 +78,10 @@ Team and workspace admins can change a teammate's role for one factory:
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> sidebar, expand the factory and click **Settings**.
 2. Under **Settings**, click **Access**.
-3. Find the teammate by name or email. In their role dropdown, choose **Factory user** or **Editor**.
+3. Find the teammate by name or email. Click their role dropdown and select **Factory user** or **Editor**.
 4. Click **Save changes**.
 
-The change applies only to this factory. The teammate keeps their existing role in other factories.
+Reload the factory settings and confirm the role persists. The change applies only to this factory. The teammate keeps their existing role in other factories.
 
 ## Factory permissions and external access
 
@@ -76,5 +93,5 @@ Factory roles don't determine who can approve specifications or merge pull reque
 
 * [Factory infrastructure and security](/factories/infrastructure-and-security/)
 * [Factory definition as code](/factories/factory-as-code/)
-* [Roles and permissions](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/) - Manage team roles
+* [Managing teams in Warp Factories](/factories/teams-and-admin-controls/) - Manage team roles
 * [Workspaces for Enterprise teams](https://docs.warp.dev/enterprise/team-management/workspaces/) - Manage workspace roles

@@ -163,7 +163,7 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
 - **Orient the reader before every Settings path, CLI command, or URL** — On first reference in the page, name the app or tool. ✅ `In the Warp app, go to **Settings** > **AI** > **Knowledge**.` ❌ `Go to **Settings** > **AI** > **Knowledge**.`
 - **Verify labels, flags, and defaults against source** — Before documenting a button name, Settings path, CLI flag, permission default, or eligibility rule, confirm it in `warp-internal` / `warp-server` or the live UI. ✅ `warp --auto-approve` after checking `TuiArgs` ❌ inventing `--fast-forward` from memory or an old PR description
-- **Qualify plans by product** — Follow the glossary's product-qualified plan rule. Separate Warp Terminal and local agent plans from Warp Factories plans before describing eligibility, balances, upgrades, or seat billing. Write “the Scale plan for Warp Factories,” not “Warp Factories Scale,” and never blend plan names from the two offerings into one list. Keep each product's billing path beside its instructions.
+- **Qualify plans by product** — Follow the glossary's product-qualified plan rule. Separate Warp Agent plans from Warp Factories plans before describing eligibility, balances, upgrades, or seat billing. Write “the Scale plan for Warp Factories,” not “Warp Factories Scale,” and never blend plan names from the two offerings into one list. Keep each product's billing path beside its instructions.
 - **Document durable behavior, not ephemeral chrome** — Prefer workflows, shortcuts, and outcomes that stay true when styling shifts. Drop glyph colors, pixel-level layout narration, and other pure presentation detail unless the reader must recognize them to succeed. ✅ "Press `Ctrl+C` once to stop the in-progress response." ❌ a full inventory of pending/running/failed glyph colors
 - **State availability honestly** — If a capability is preview-only, platform-limited, interactive-only, or not yet in cloud agents, say so next to the claim. Never describe limited-preview behavior as generally available. ✅ "Linux post-processing adds smart cut; macOS applies a uniform speedup." ❌ listing smart cut as a property of every recording
 - **Cover team-wide and admin effects** — For integrations and team features, state who can install, whether every teammate gets access immediately, and any per-user auth or admin steps on the external system. ✅ "A Jira admin must install the app; each teammate links their own account for run attribution." ❌ setup steps that only describe the installer's happy path
@@ -320,6 +320,19 @@ All redirects live in that one file, including redirects between top-level secti
 
 Always check the current list of redirects before adding a new one to avoid duplicates.
 
+### 11. Validate reader journeys
+
+After drafting, updating navigation, and running mechanical checks, run
+`.agents/skills/validate_docs_usability/SKILL.md` before presenting substantive
+content as ready for review. Use the audience and scenarios from the content
+design plan. Follow `.agents/references/docs-usability-validation.md` for
+scope, readiness, and evidence limits, including the browser fallback.
+
+Include the `## Usability validation` record in the interactive handoff and
+carry it into the PR body through `create_pr`. If a draft PR is needed to
+obtain a preview, record validation as pending until the walkthrough is done.
+After fixes, retest the same affected questions and connected journeys.
+
 ## Output
 
-Write the draft to its chosen path under `src/content/docs/`. Present the editorial verdict and unverified claims for review.
+Write the draft to its chosen path under `src/content/docs/`. Present the editorial verdict, unverified claims, and usability validation record for review.
