@@ -47,17 +47,23 @@ Inputs and outputs are instructions, not typed schemas. “The checks passed” 
 
 ### Separate research from decisions
 
-In the triage or planning stage's `prompt`, distinguish missing facts from choices that need a person:
+In the triage or planning stage's `prompt`, distinguish questions the worker can answer through research from decisions the requester must make. Give the worker these instructions:
 
-* **Researchable facts** - Ask the worker to establish what the code does today, which callers are affected, and where a failure occurs. Require evidence rather than asking you to supply facts the repository already answers.
-* **Behavior choices** - Ask the worker to surface reasonable alternatives when the request leaves the desired behavior undefined. Pause dependent implementation until you decide.
-* **Approach choices** - Ask the worker to explain implementation trade-offs that affect compatibility, maintenance, or rollout. Routine choices already covered by repository conventions need no new approval.
+* **Researchable facts** - Establish what the code does today, which callers are affected, and where a failure occurs. Provide evidence rather than asking the requester for facts the repository already answers.
+* **Behavior choices** - Present reasonable alternatives when the request leaves the desired behavior undefined. Pause dependent implementation until the requester decides.
+* **Approach choices** - Explain implementation trade-offs that affect compatibility, maintenance, or rollout. Routine choices already covered by repository conventions need no new approval.
 
-For example, “add a way to expand or collapse all folders” names a problem, but leaves decisions open. Should the action live in the sidebar or the application menu? Does it affect every folder or only a selected subtree? Should the open file's folder stay expanded? Research can find the current folder-tree code; it cannot establish which of those behaviors you want.
+For example, a request to “add a way to expand or collapse all folders” leaves several behavior choices open. The worker can research the existing folder-tree code, but needs the requester to resolve these questions before implementation:
 
-Record the answers in the spec with checks for the agreed behavior. Configure a [plan-review gate](/factories/blueprints/gates/#require-plan-approval) before implementation. By contrast, a request to add YAML to an existing language picker, with matching syntax highlighting, can follow an established pattern if research finds no unresolved choices.
+* Should the action live in the sidebar or the application menu?
+* Should it affect every folder or only a selected subtree?
+* Should the open file's folder stay expanded when other folders collapse?
 
-For a worked exercise, follow [Route work with triage and specs in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/tackle-larger-features-with-specs).
+Once the requester makes these decisions, tell the worker to write a spec describing the chosen behavior and how to test it. Configure a [plan-review gate](/factories/blueprints/gates/#require-plan-approval) so implementation waits for approval of that spec.
+
+Other requests need less clarification. Adding YAML to an existing language picker, with matching syntax highlighting, can follow an established pattern if research finds no unresolved choices.
+
+To practice this workflow, follow [Route work with triage and specs in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/tackle-larger-features-with-specs).
 
 ## Reuse a worker across stages
 
