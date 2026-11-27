@@ -14,6 +14,7 @@ import {
 	buildReport,
 	bulkElements,
 	extractContinuation,
+	probeNonHtmlSpecs,
 	toMarkdownUrl,
 } from './afdocs_audit.mjs';
 
@@ -106,7 +107,7 @@ test('uses the native CLI score after afdocs supplies every v0.6 check', () => {
 	assert.equal(report.score_method, 'native afdocs CLI score');
 });
 
-function runCli(t, { compatibility = false, partial = false, blocked = false } = {}) {
+function runCli(t, { compatibility = false, partial = false, blocked = false, specStatus = null } = {}) {
 	const directory = mkdtempSync(join(tmpdir(), 'afdocs-cli-'));
 	t.after(() => rmSync(directory, { recursive: true, force: true }));
 	const output = join(directory, 'report.json');
@@ -124,6 +125,7 @@ function runCli(t, { compatibility = false, partial = false, blocked = false } =
 			details: { fetchErrors: partial ? 1 : 0 },
 		})),
 	};
+	if (specStatus !== null) raw.results.push(specMissingMarkdown());
 	const preload = `
 		import childProcess from 'node:child_process';
 		import { syncBuiltinESMExports } from 'node:module';
@@ -138,6 +140,13 @@ function runCli(t, { compatibility = false, partial = false, blocked = false } =
 				status: ${blocked ? 429 : 200},
 				headers: ${JSON.stringify(blocked ? { 'x-vercel-mitigated': 'challenge' } : {})},
 			});
+			if (path === '/openapi.yaml') {
+				if (${specStatus} === 0) throw new Error('fetch failed');
+				return new Response('openapi: 3.1.0', {
+					status: ${specStatus ?? 200},
+					headers: { 'content-type': 'application/yaml' },
+				});
+			}
 			const bodies = {
 				'/sitemap-index.xml': '<urlset><url><loc>https://docs.example.com/page/</loc></url></urlset>',
 				'/page/': '<main><p>Reference content</p></main>',
@@ -241,8 +250,8 @@ test('treats rate limiting and discovery warnings as partial without interpretin
 	assert.equal(report.scan_reliability.status, 'complete');
 });
 
-test('does not mark a scan partial when fetchErrors only reflect missing markdown for non-HTML specs', () => {
-	const nonHtmlOnly = buildReport({
+test('does not mark a scan partial when missing markdown is independently verified as a non-HTML spec', async () => {
+	const raw = {
 		score: 90,
 		results: [{
 			id: 'llms-txt-directive-md',
@@ -258,7 +267,11 @@ test('does not mark a scan partial when fetchErrors only reflect missing markdow
 				],
 			},
 		}],
-	});
+	};
+	const probes = await probeNonHtmlSpecs(raw.results, async () =>
+		response({ headers: { 'content-type': 'application/yaml' }, body: 'openapi: 3.1.0' })
+	);
+	const nonHtmlOnly = buildReport(raw, [], probes);
 	assert.equal(nonHtmlOnly.scan_reliability.status, 'complete');
 
 	const htmlMissingMd = buildReport({
@@ -296,6 +309,127 @@ test('does not mark a scan partial when fetchErrors only reflect missing markdow
 		}],
 	});
 	assert.equal(networkErrorOnSpec.scan_reliability.status, 'partial');
+});
+
+// afdocs 0.23.0 uses this error for both absent Markdown and failed requests,
+// including when the other sampled HTML pages succeed.
+function specMissingMarkdown(url = 'https://docs.example.com/openapi.yaml') {
+	return {
+		id: 'llms-txt-directive-md',
+		category: 'content-discoverability',
+		status: 'pass',
+		message: 'llms.txt directive found in tested pages; 1 had no markdown version',
+		details: {
+			fetchErrors: 1,
+			pageResults: [
+				{ url: 'https://docs.example.com/page/', found: true },
+				{ url, found: false, error: 'No markdown version available' },
+			],
+		},
+	};
+}
+
+test('CLI probes canonical specs before discounting upstream-shaped errors', (t) => {
+	const healthy = runCli(t, { specStatus: 200 });
+	assert.equal(healthy.report.scan_reliability.status, 'complete');
+	assert.equal(healthy.report.non_html_spec_probes[0].verified, true);
+	for (const specStatus of [0, 404, 503]) {
+		const failed = runCli(t, { specStatus });
+		assert.equal(failed.report.scan_reliability.status, 'partial');
+		assert.equal(failed.report.non_html_spec_probes[0].verified, false);
+		assert.match(failed.stdout, /Reliability: partial/);
+	}
+});
+
+test('upstream-shaped spec errors remain partial without positive evidence', () => {
+	const result = specMissingMarkdown();
+	const report = buildReport({ results: [result] });
+	assert.equal(report.scan_reliability.status, 'partial');
+	assert.deepEqual(report.all_results[0].details, result.details);
+});
+
+test('canonical probes verify supported non-HTML representations and retain evidence', async () => {
+	for (const [extension, contentType, body] of [
+		['yaml', 'application/yaml', 'openapi: 3.1.0'],
+		['yml', 'text/plain; charset=utf-8', 'openapi: 3.1.0'],
+		['json', 'application/json', '{"openapi":"3.1.0"}'],
+		['xml', 'application/xml', '<spec/>'],
+		['txt', 'text/plain', 'Documentation index'],
+	]) {
+		const url = `https://docs.example.com/spec.${extension}`;
+		const raw = { results: [specMissingMarkdown(url)] };
+		const requested = [];
+		const probes = await probeNonHtmlSpecs(raw.results, async (target) => {
+			requested.push(target);
+			return response({ url, headers: { 'content-type': contentType }, body });
+		});
+		assert.deepEqual(requested, [url]);
+		assert.equal(probes[0].verified, true);
+		const report = buildReport(raw, [], probes);
+		assert.equal(report.scan_reliability.status, 'complete');
+		assert.deepEqual(report.non_html_spec_probes, probes);
+		assert.equal(raw.results[0].details.fetchErrors, 1);
+	}
+});
+
+test('ambiguous upstream errors stay partial on transport, HTTP, and representation failures', async () => {
+	const raw = { results: [specMissingMarkdown()] };
+	for (const overrides of [
+		{ status: null, error: 'fetch failed', body: '' },
+		{ status: null, timeout: true, body: '' },
+		{ status: 404 },
+		{ status: 429 },
+		{ status: 503 },
+		{ headers: { 'content-type': 'text/html' }, body: '<html>Error</html>' },
+		{ headers: { 'content-type': 'text/plain' }, body: '<!doctype html><html>Error</html>' },
+		{ headers: { 'content-type': 'text/plain' }, body: '404 Page not found' },
+		{ headers: { 'content-type': 'application/yaml' }, body: '' },
+		{ headers: { 'content-type': 'application/yaml', 'cf-mitigated': 'challenge' } },
+	]) {
+		const probes = await probeNonHtmlSpecs(raw.results, async () => response(overrides));
+		assert.equal(probes[0].verified, false, JSON.stringify(overrides));
+		assert.equal(buildReport(raw, [], probes).scan_reliability.status, 'partial');
+	}
+	const probes = await probeNonHtmlSpecs(raw.results, async () => { throw new Error('fetch failed'); });
+	assert.equal(probes[0].error, 'fetch failed');
+	assert.equal(buildReport(raw, [], probes).scan_reliability.status, 'partial');
+});
+
+test('verified specs do not hide HTML failures, unrelated checks, rate limits, or discovery warnings', async () => {
+	const result = specMissingMarkdown();
+	const probes = await probeNonHtmlSpecs([result], async () =>
+		response({ headers: { 'content-type': 'application/yaml' }, body: 'openapi: 3.1.0' })
+	);
+	for (const overrides of [
+		{ rateLimited: 1 },
+		{ discoveryWarnings: ['Sitemap fetch failed'] },
+		{ fetchErrors: 2, pageResults: [
+			...result.details.pageResults,
+			{ url: 'https://docs.example.com/other/', error: 'No markdown version available' },
+		] },
+	]) {
+		const mixed = { ...result, details: { ...result.details, ...overrides } };
+		assert.equal(buildReport({ results: [mixed] }, [], probes).scan_reliability.status, 'partial');
+	}
+	for (const other of [
+		{ ...result, id: 'markdown-content-parity' },
+		specMissingMarkdown('https://docs.example.com/other/'),
+	]) {
+		assert.deepEqual(await probeNonHtmlSpecs([other]), []);
+		assert.equal(buildReport({ results: [other] }, [], probes).scan_reliability.status, 'partial');
+	}
+});
+
+test('spec probes are deduplicated and bounded; unprobed failures remain partial', async () => {
+	const results = Array.from({ length: 9 }, (_, i) => specMissingMarkdown(`https://docs.example.com/spec-${i}.yaml`));
+	const requested = [];
+	const probes = await probeNonHtmlSpecs([results[0], ...results], async (url) => {
+		requested.push(url);
+		return response({ headers: { 'content-type': 'application/yaml' }, body: 'openapi: 3.1.0' });
+	});
+	assert.equal(requested.length, 8);
+	assert.equal(new Set(requested).size, 8);
+	assert.equal(buildReport({ results }, [], probes).scan_reliability.status, 'partial');
 });
 
 test('compatibility sampler skips non-HTML spec assets and parameterized query endpoints', () => {

@@ -672,20 +672,70 @@ function interactionEffects(results) {
 	return interactions;
 }
 
-function hasUnexpectedFetchErrors(result) {
-	const fetchErrors = result.details?.fetchErrors ?? 0;
-	if (fetchErrors <= 0) return false;
+function nonHtmlSpecErrors(result) {
+	if (result.id !== 'llms-txt-directive-md') return [];
 	const pageResults = result.details?.pageResults;
-	if (!Array.isArray(pageResults)) return true;
-	const expectedNonHtmlErrors = pageResults.filter(
+	if (!Array.isArray(pageResults)) return [];
+	return pageResults.filter(
 		(entry) =>
 			isNonHtmlSpecUrl(entry?.url) &&
 			entry?.error === 'No markdown version available'
+	);
+}
+
+export async function probeNonHtmlSpecs(results, fetcher = fetchResource) {
+	const urls = [...new Set(results.flatMap(nonHtmlSpecErrors).map((entry) => entry.url))];
+	const probes = [];
+	// Bound additional requests. Any unprobed URL keeps its fetch error.
+	for (const url of urls.slice(0, COMPATIBILITY_SAMPLE_LIMIT)) {
+		let response;
+		try {
+			response = await fetcher(url);
+		} catch (error) {
+			probes.push({ url, verified: false, error: String(error?.message ?? error) });
+			continue;
+		}
+		const contentType = (response.headers['content-type'] || '').split(';')[0].trim().toLowerCase();
+		const extension = new URL(url).pathname.split('.').pop().toLowerCase();
+		const expectedTypes = {
+			yaml: ['application/yaml', 'application/x-yaml', 'text/yaml', 'text/x-yaml', 'text/plain'],
+			yml: ['application/yaml', 'application/x-yaml', 'text/yaml', 'text/x-yaml', 'text/plain'],
+			json: ['application/json'],
+			xml: ['application/xml', 'text/xml'],
+			txt: ['text/plain'],
+		};
+		const expectedType = expectedTypes[extension].includes(contentType) ||
+			(extension === 'json' && /^application\/[^/]+\+json$/.test(contentType)) ||
+			(extension === 'xml' && /^application\/[^/]+\+xml$/.test(contentType));
+		const verified = response.status >= 200 && response.status < 300 &&
+			expectedType && response.body.trim().length > 0 &&
+			!/<(?:!doctype\s+html|html|head|body)\b/i.test(response.body) &&
+			!isChallenge(response) && !isSoft404(response);
+		probes.push({
+			url,
+			final_url: response.url,
+			status: response.status,
+			content_type: contentType || null,
+			timeout: response.timeout,
+			verified,
+			...(response.error ? { error: response.error } : {}),
+		});
+	}
+	return probes;
+}
+
+function hasUnexpectedFetchErrors(result, nonHtmlSpecProbes) {
+	const fetchErrors = result.details?.fetchErrors ?? 0;
+	if (fetchErrors <= 0) return false;
+	// Upstream uses this error for transport failures too. Only discount it
+	// when a separate canonical fetch confirms the expected representation.
+	const expectedNonHtmlErrors = nonHtmlSpecErrors(result).filter(
+		(entry) => nonHtmlSpecProbes.some((probe) => probe.url === entry.url && probe.verified)
 	).length;
 	return fetchErrors > expectedNonHtmlErrors;
 }
 
-function scanReliability(results) {
+function scanReliability(results, nonHtmlSpecProbes) {
 	const botProtection = results.find((result) => result.id === 'bot-protection-interference');
 	if (botProtection && ['warn', 'fail'].includes(botProtection.status)) {
 		return {
@@ -695,7 +745,7 @@ function scanReliability(results) {
 		};
 	}
 	const interruptedChecks = results.filter((result) =>
-		hasUnexpectedFetchErrors(result) ||
+		hasUnexpectedFetchErrors(result, nonHtmlSpecProbes) ||
 		result.details?.rateLimited > 0 ||
 		result.details?.discoveryWarnings?.length > 0
 	);
@@ -710,7 +760,7 @@ function scanReliability(results) {
 	return {
 		status: 'complete',
 		reason: null,
-		message: 'No bot-protection interference, fetch failures, rate limiting, or discovery warnings were reported during this scan.',
+		message: 'No unexpected fetch failures, bot-protection interference, rate limiting, or discovery warnings were reported; missing Markdown for independently verified non-HTML specs is excluded.',
 	};
 }
 
@@ -734,7 +784,7 @@ export async function runV06CompatibilityChecks(baseUrl, existingResults = []) {
 	};
 }
 
-export function buildReport(raw, supplementalResults = []) {
+export function buildReport(raw, supplementalResults = [], nonHtmlSpecProbes = []) {
 	const results = [...raw.results, ...supplementalResults];
 	const summary = statusSummary(results);
 	const nativeCliScore = raw.summary?.score ?? raw.score ?? null;
@@ -791,7 +841,8 @@ export function buildReport(raw, supplementalResults = []) {
 			message: r.message,
 			details: r.details ?? null,
 		})),
-		scan_reliability: scanReliability(results),
+		non_html_spec_probes: nonHtmlSpecProbes,
+		scan_reliability: scanReliability(results, nonHtmlSpecProbes),
 		interaction_effects: interactionEffects(results),
 	};
 }
@@ -901,9 +952,10 @@ async function main() {
 	console.log(`Running AFDocs check on ${args.url}...`);
 
 	const raw = runAfdocsCheck(args.url);
+	const nonHtmlSpecProbes = await probeNonHtmlSpecs(raw.results);
 	console.log(`Checking for missing v${SPEC_VERSION} checks; compatibility probes run only when needed...`);
 	const { results: supplementalResults } = await runV06CompatibilityChecks(args.url, raw.results);
-	const report = buildReport(raw, supplementalResults);
+	const report = buildReport(raw, supplementalResults, nonHtmlSpecProbes);
 
 	printSummary(report);
 
