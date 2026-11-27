@@ -498,6 +498,7 @@
         "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
         "repository": "warpdotdev/docs"
       },
+      "carried_forward_due_to_incomplete_run": true,
       "category": "permissions",
       "claims": [
         {
@@ -967,8 +968,8 @@
       "verdict": "contradiction"
     },
     "sha256:ad94d2b549d43b173263f9534c974a5725aabd91cd6e6576f81105bc6418ccf6": {
-      "audit_run_id": "01a213dd-5263-7b6a-8219-dec72b4b0aa6",
-      "authority_reason": "The full public procedure supplies plugin installation commands, and the current public client contains a feature-gated plugin implementation. Source presence does not establish which setup path has shipped; the integration owner must confirm release scope.",
+      "audit_run_id": "01a21e2a-0953-79a5-b1c3-eb35fc5b99e7",
+      "authority_reason": "The dedicated public setup page contains executable plugin installation and restart instructions. Public client source implements plugin installation and a feature-gated native fallback, so source presence does not establish the shipped default; the integration owner must confirm release scope.",
       "canonical_source": "src/content/docs/agents/cli-agents/codex.mdx#setting-up-notifications",
       "category": "product-behavior",
       "claims": [
@@ -1073,24 +1074,24 @@
       "finding_content_fingerprint": "sha256:0cde5e8c82bf99e484a70be7d25c7061eb8ded3a677164de407e4caf17984be1",
       "finding_id": "sha256:ad94d2b549d43b173263f9534c974a5725aabd91cd6e6576f81105bc6418ccf6",
       "first_seen_run": "01a1b204-7d29-7637-a3da-da71f6f712af",
-      "last_seen_run": "01a213dd-5263-7b6a-8219-dec72b4b0aa6",
+      "last_seen_run": "01a21e2a-0953-79a5-b1c3-eb35fc5b99e7",
       "lifecycle": "existing",
       "predicate": "setup-mechanism",
       "qualifier_status": "complete",
-      "rationale": "The overview describes a native Codex config change; the dedicated procedure requires adding the Warp plugin marketplace, installing the plugin, and restarting Codex. Both address the local CLI notification setup without a public version or rollout qualification explaining the difference.",
+      "rationale": "The overview says Codex notifications use a native config change, while the dedicated Codex page requires installing the Warp plugin and restarting Codex. Both describe local notification setup without public version or rollout scope distinguishing the two paths.",
       "rationale_class": "codex-notification-setup-scope-conflict",
       "reopened": false,
       "scope_quotes": [
         {
-          "quote": "import { VARS } from '@data/vars';\n\nCodex is OpenAI's open-source coding agent that runs in your terminal. It can write and edit code, execute commands, and navigate your codebase through natural language. For full documentation, see the [Codex GitHub repository](https://github.com/openai/codex).\n\nWarp auto-detects Codex when you run it, giving you access to rich input controls, code review, and other integrated features. For a product overview, see [Codex in Warp](https://www.warp.dev/agents/codex).\n\nFor installation, authentication, project configuration, and productivity tips, see the [How to set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) guide.\n\n:::note\nCodex is also a shared cloud-agent harness in the {VARS.WARP_AUTOMATION_PLATFORM}, used by factory agents and standalone workflows. The [Codex harness](/factories/harnesses/codex/) reference lives in the Factories docs and covers both; a factory isn't required for a standalone cloud run.\n:::\n\n## Setting up notifications\n\nWarp surfaces Codex activity as in-app and desktop alerts \u2014 such as when Codex completes a task, encounters an error, or needs your input. This is powered by the Warp plugin for Codex, published from the [warpdotdev/codex-warp](https://github.com/warpdotdev/codex-warp) plugin marketplace.\n\nWhen Warp detects a Codex session without the plugin, it shows an install chip in the terminal. Click the chip to install the plugin, then restart Codex. Warp shows an update chip the same way when a newer plugin version is required.\n\nTo install the plugin yourself, add the marketplace and the plugin:\n\n```bash\ncodex plugin marketplace add warpdotdev/codex-warp\ncodex plugin add warp@codex-warp\n```\n\nRestart Codex to activate the plugin. To update it later, upgrade the marketplace and reinstall the plugin:\n\n```bash\ncodex plugin marketplace upgrade codex-warp\ncodex plugin add warp@codex-warp\n```\n\n:::note\nIf you point `codex-warp` at a local (non-Git) marketplace source, Warp leaves that override alone and doesn't offer plugin updates for it.\n:::\n\n## Supported Warp features\n\nCodex supports Warp's full set of agent integration features:\n\n* **Agent notifications** - Receive in-app and desktop alerts when Codex needs your attention. Requires the Warp plugin for Codex (see [Setting up notifications](#setting-up-notifications)).\n* **Rich input editor** - Press `Ctrl-G` to open an expanded input editor for composing longer prompts.\n* **Code review** - Send inline review comments directly to the agent from Warp's code review panel.\n* **Attach code as context** - Select code and send it to the agent as context.\n* **Vertical tabs with agent metadata** - Monitor Codex sessions with status indicators in Warp's tab bar.\n* **Tab Configs** - Save and restore Codex session configurations.\n* **[Remote Control](/agents/cli-agents/remote-control/)** - Publish your Codex session so you can monitor and steer it from another device.\n",
+          "quote": "When Warp detects a Codex session without the plugin, it shows an install chip in the terminal. Click the chip to install the plugin, then restart Codex. Warp shows an update chip the same way when a newer plugin version is required.",
           "source": {
             "canonical_identity": "route:/agents/cli-agents/codex",
             "canonical_route": "/agents/cli-agents/codex",
             "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
             "heading": "Setting up notifications",
             "heading_anchor": "setting-up-notifications",
-            "line_end": 56,
-            "line_start": 9,
+            "line_end": 25,
+            "line_start": 25,
             "path": "src/content/docs/agents/cli-agents/codex.mdx",
             "repository": "warpdotdev/docs",
             "route": "/agents/cli-agents/codex/",
@@ -1098,15 +1099,15 @@
           }
         },
         {
-          "quote": "## Where third-party CLI agents appear\n\nThird-party CLI agents run inside a terminal pane. Warp detects the session and shows status on that pane and in [vertical tabs](/terminal/windows/vertical-tabs/), not as Warp Agent conversation threads.\n\n* **Conversation Panel** - Lists Warp Agent conversations and cloud agent runs. Claude Code, Codex, OpenCode, and other third-party CLI agents do **not** appear there.\n* **Agent Management Panel** - Manages Warp-managed agents and cloud runs. Third-party CLI agents do **not** appear there.\n* **Vertical tabs and the agent toolbelt** - Show live third-party CLI agent status while the process is running in a pane.\n* **Remote Control** - Publishes a running third-party session so you can monitor or steer it from another device. See [Remote Control](/agents/cli-agents/remote-control/).\n\nIf you expected a Claude Code session in the Conversation Panel, that is expected behavior today. Keep the session in its tab, use vertical-tab status, or publish it with Remote Control.\n\n## Feature support\n\nNot every feature is available for every agent. The table below shows current support.\n\n| Feature&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Claude Code | Codex | OpenCode | Amp | Auggie | Copilot CLI | Cursor | Gemini CLI | Droid | Pi |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Rich input editor (`Ctrl-G`) | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Agent notifications | \u2713 | \u2713 | \u2713 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 | \u2717 |\n| Code review comments | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Attach code as context | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Vertical tabs + metadata | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Tab Configs | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n| Remote Control | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 | \u2713 |\n\n**Goose**, **Hermes**, **Mistral Vibe**, **Grok Build** (`grok`), and **Kiro CLI** (`kiro-cli` or `kiro`) are also recognized. They get the same enhanced features as the agents above \u2014 rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control \u2014 but don't support agent notifications yet.\n\n**Antigravity** (`agy` or `antigravity`) also supports these features and can report task completion and requests for input when its CLI emits structured notifications.\n\nAgent notifications in Claude Code, OpenCode, and Codex require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.\n\n## Customizing the toolbelt\n\nThe chips and buttons on the CLI agent toolbelt can be reordered, hidden, or moved between the left and right sides. Your layout is saved and persists across app restarts.\n\nIn the Warp app, open the **Edit CLI agent toolbelt** modal in one of two ways:\n\n* Right-click the input area while a supported CLI coding agent is running and select **Edit CLI agent toolbelt**.\n* Go to **Settings** > **Agents** > **Third party CLI agents**, then click the **Toolbar layout** preview.\n",
+          "quote": "Agent notifications in Claude Code, OpenCode, and Codex require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.",
           "source": {
             "canonical_identity": "route:/agents/cli-agents/overview",
             "canonical_route": "/agents/cli-agents/overview",
             "content_sha256": "97711aa2f470e42d91ac2236b10e6ee9d778a3414d3a0d2d207f5f32e3665a71",
             "heading": "Feature support",
             "heading_anchor": "feature-support",
-            "line_end": 88,
-            "line_start": 49,
+            "line_end": 78,
+            "line_start": 78,
             "path": "src/content/docs/agents/cli-agents/overview.mdx",
             "repository": "warpdotdev/docs",
             "route": "/agents/cli-agents/overview/",
@@ -1115,9 +1116,9 @@
         }
       ],
       "severity": "medium",
-      "source_commit": "d3768f828ae0da90ec9eaf6ee1985f4bb681fa50",
+      "source_commit": "07590710824203d9fd149a90ae925b4d59256603",
       "status": "active",
-      "suggested_resolution": "Have the CLI integration owner confirm the shipped notification mechanism, then align or explicitly version-scope the overview and dedicated procedure.",
+      "suggested_resolution": "Ask the CLI integration owner to confirm the shipped setup mechanism, then align the overview and dedicated procedure or state the supported version and rollout scopes.",
       "suggested_resolution_class": "owner-review-notification-setup-scope",
       "title": "Codex notification setup conflicts between overview and setup guide",
       "topic": "product-behavior",

@@ -1,21 +1,22 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
     "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
     "src/content/docs/agents/inference/custom-routers.mdx",
     "src/content/docs/agents/inference/model-choice.mdx",
-    "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
     "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
+    "src/content/docs/enterprise/getting-started/getting-started-enterprise.mdx",
     "src/content/docs/enterprise/index.mdx",
     "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
     "src/content/docs/enterprise/security-and-compliance/sso.mdx",
     "src/content/docs/enterprise/support-and-resources/billing.mdx",
     "src/content/docs/enterprise/team-management/admin-panel.mdx",
+    "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
     "src/content/docs/enterprise/team-management/teams.mdx",
+    "src/content/docs/enterprise/team-management/workspaces.mdx",
     "src/content/docs/factories/api-and-sdk/index.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout.mdx",
     "src/content/docs/factories/api-and-sdk/troubleshooting/errors/insufficient-credits.mdx",
@@ -102,6 +103,7 @@
     "src/content/docs/factories/self-hosting/reference.mdx",
     "src/content/docs/factories/self-hosting/security-and-networking.mdx",
     "src/content/docs/factories/self-hosting/troubleshooting.mdx",
+    "src/content/docs/factories/teams-and-admin-controls.mdx",
     "src/content/docs/factories/troubleshooting.mdx",
     "src/content/docs/factories/use-cases/code-review.mdx",
     "src/content/docs/factories/use-cases/computer-use-verification.mdx",
@@ -190,6 +192,7 @@
     "src/content/docs/guides/index.mdx",
     "src/content/docs/index.mdx",
     "src/content/docs/knowledge-and-collaboration/admin-panel.mdx",
+    "src/content/docs/knowledge-and-collaboration/roles-and-permissions.mdx",
     "src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx",
     "src/content/docs/knowledge-and-collaboration/teams.mdx",
     "src/content/docs/knowledge-and-collaboration/warp-drive/agent-mode-context.mdx",
@@ -228,6 +231,7 @@
     "src/content/docs/platform/quickstart.mdx",
     "src/content/docs/platform/secrets.mdx",
     "src/content/docs/platform/team-access-billing-and-identity.mdx",
+    "src/content/docs/platform/teams-and-admin-controls.mdx",
     "src/content/docs/platform/transitioning-from-oz.mdx",
     "src/content/docs/platform/triggers/index.mdx",
     "src/content/docs/platform/triggers/scheduled-agents-quickstart.mdx",
@@ -1050,7 +1054,7 @@
         },
         {
           "anchor": "run-until-completion",
-          "character_count": 1314,
+          "character_count": 1334,
           "heading": "Run until completion",
           "line_end": 150,
           "line_start": 122
@@ -1063,8 +1067,8 @@
           "line_start": 151
         }
       ],
-      "character_count": 9668,
-      "extraction_status": "unchanged",
+      "character_count": 9688,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1115,7 +1119,7 @@
       "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/agent-profiles-permissions/",
-      "source_sha256": "521d8c61b8a46eefcf5ffe07fedd1bb280e22af144b4f55871ddfd02ff31e9e4",
+      "source_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
       "title": "Profiles & Permissions"
     },
     "src/content/docs/agents/capabilities/codebase-context.mdx": {
@@ -1281,7 +1285,7 @@
         },
         {
           "anchor": "changing-the-attachment-mode",
-          "character_count": 320,
+          "character_count": 334,
           "heading": "Changing the attachment mode",
           "line_end": 38,
           "line_start": 31
@@ -1302,13 +1306,13 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 707,
+          "character_count": 697,
           "heading": "Related pages",
           "line_end": 63,
           "line_start": 57
         }
       ],
-      "character_count": 4601,
+      "character_count": 4605,
       "extraction_status": "changed",
       "headings": [
         {
@@ -1350,7 +1354,7 @@
       "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
-      "source_sha256": "d7c6bec6f2a0a9c2a6553be8a0e9c764b61672773b393c0f9257191821f9f3d0",
+      "source_sha256": "ca04b5089557f0f15389f1519281b25802efad765609b39174dc3689bc45da28",
       "title": "Screenshots and videos in pull requests"
     },
     "src/content/docs/agents/capabilities/computer-use/browser-use.mdx": {
@@ -1540,7 +1544,7 @@
         }
       ],
       "character_count": 8171,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2300,7 +2304,7 @@
         }
       ],
       "character_count": 6619,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4726,7 +4730,7 @@
         }
       ],
       "character_count": 12327,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4898,7 +4902,7 @@
         }
       ],
       "character_count": 3587,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5188,7 +5192,7 @@
         },
         {
           "anchor": "starting-a-run-as-an-orchestration-child",
-          "character_count": 859,
+          "character_count": 927,
           "heading": "Starting a run as an orchestration child",
           "line_end": 353,
           "line_start": 334
@@ -5362,8 +5366,8 @@
           "line_start": 565
         }
       ],
-      "character_count": 25328,
-      "extraction_status": "unchanged",
+      "character_count": 25396,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5609,7 +5613,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/cli/oz-cli/",
-      "source_sha256": "863fa7ffcad29b7277652ce148e9ca30c5cbd4298ee50e25e0ab8be865585173",
+      "source_sha256": "65edca28636c4917ec67051aef289b7e8539e16fa8dbb4a51cb6a7d96f3b82ba",
       "title": "{{WARP_AGENT_CLI}} reference"
     },
     "src/content/docs/agents/cli/oz-cli/integration-setup.mdx": {
@@ -5735,7 +5739,7 @@
         }
       ],
       "character_count": 13768,
-      "extraction_status": "unchanged",
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5836,7 +5840,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/integration-setup/",
-      "source_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
+      "source_sha256": "70f11f0213db96494620f27768e2cde0b0a7bf87b254fb3dccae100f5cf8d225",
       "title": "Integration setup"
     },
     "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx": {
@@ -5906,7 +5910,7 @@
         }
       ],
       "character_count": 6634,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6466,7 +6470,7 @@
         },
         {
           "anchor": "auto-approve",
-          "character_count": 1322,
+          "character_count": 1323,
           "heading": "Auto-approve",
           "line_end": 49,
           "line_start": 31
@@ -6500,8 +6504,8 @@
           "line_start": 98
         }
       ],
-      "character_count": 6911,
-      "extraction_status": "unchanged",
+      "character_count": 6912,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -6547,7 +6551,7 @@
       "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/permissions-and-profiles/",
-      "source_sha256": "d2fb161547a8c04d0cadbaf7afc5cd730f358dcf3c9d80efd59507b2155b960b",
+      "source_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
       "title": "Permissions and profiles in the Warp Agent CLI"
     },
     "src/content/docs/agents/cli/quickstart.mdx": {
@@ -7002,7 +7006,7 @@
         },
         {
           "anchor": "can-i-use-my-own-llm-api-key",
-          "character_count": 873,
+          "character_count": 840,
           "heading": "Can I use my own LLM API key?",
           "line_end": 37,
           "line_start": 32
@@ -7023,7 +7027,7 @@
         },
         {
           "anchor": "warp-terminal-and-local-agents",
-          "character_count": 492,
+          "character_count": 418,
           "heading": "Warp Terminal and local agents",
           "line_end": 53,
           "line_start": 48
@@ -7050,8 +7054,8 @@
           "line_start": 91
         }
       ],
-      "character_count": 7476,
-      "extraction_status": "unchanged",
+      "character_count": 7369,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7132,7 +7136,7 @@
       "path": "src/content/docs/agents/getting-started/faqs.mdx",
       "role": "faq",
       "route": "/agents/getting-started/faqs/",
-      "source_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+      "source_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
       "title": "Frequently asked questions about agents"
     },
     "src/content/docs/agents/index.mdx": {
@@ -7260,14 +7264,14 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1200,
+          "character_count": 1132,
           "heading": "",
           "line_end": 20,
           "line_start": 7
         },
         {
           "anchor": "how-byok-differs-from-custom-inference-endpoints-and-byollm",
-          "character_count": 2463,
+          "character_count": 2358,
           "heading": "How BYOK differs from custom inference endpoints and BYOLLM",
           "line_end": 39,
           "line_start": 21
@@ -7316,34 +7320,34 @@
         },
         {
           "anchor": "zero-data-retention-zdr-and-byok",
-          "character_count": 1194,
+          "character_count": 1280,
           "heading": "Zero Data Retention (ZDR) and BYOK",
-          "line_end": 119,
+          "line_end": 123,
           "line_start": 106
         },
         {
-          "anchor": "warp-terminal-and-local-agent-teams",
-          "character_count": 352,
-          "heading": "Warp Terminal and local agent teams",
-          "line_end": 123,
-          "line_start": 120
-        },
-        {
-          "anchor": "warp-factories-teams",
-          "character_count": 427,
-          "heading": "Warp Factories teams",
+          "anchor": "teams-on-warp-agent-plans",
+          "character_count": 410,
+          "heading": "Teams on Warp Agent plans",
           "line_end": 129,
           "line_start": 124
+        },
+        {
+          "anchor": "teams-on-warp-factories-plans",
+          "character_count": 436,
+          "heading": "Teams on Warp Factories plans",
+          "line_end": 135,
+          "line_start": 130
         },
         {
           "anchor": "related-pages",
           "character_count": 878,
           "heading": "Related pages",
-          "line_end": 137,
-          "line_start": 130
+          "line_end": 143,
+          "line_start": 136
         }
       ],
-      "character_count": 10662,
+      "character_count": 10642,
       "extraction_status": "changed",
       "headings": [
         {
@@ -7392,25 +7396,25 @@
           "text": "Zero Data Retention (ZDR) and BYOK"
         },
         {
-          "anchor": "warp-terminal-and-local-agent-teams",
-          "line_start": 120,
-          "text": "Warp Terminal and local agent teams"
+          "anchor": "teams-on-warp-agent-plans",
+          "line_start": 124,
+          "text": "Teams on Warp Agent plans"
         },
         {
-          "anchor": "warp-factories-teams",
-          "line_start": 124,
-          "text": "Warp Factories teams"
+          "anchor": "teams-on-warp-factories-plans",
+          "line_start": 130,
+          "text": "Teams on Warp Factories plans"
         },
         {
           "anchor": "related-pages",
-          "line_start": 130,
+          "line_start": 136,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/bring-your-own-api-key/",
-      "source_sha256": "289a46c24137df88cc14bc91e1dc578688ac646a46376a708fdd83ec1529dfeb",
+      "source_sha256": "dd44db4e4f090b72c8788212f592ca777db7e7e163ba2f1a1170b2762d19708b",
       "title": "Bring Your Own API Key"
     },
     "src/content/docs/agents/inference/chatgpt-subscription.mdx": {
@@ -7459,7 +7463,7 @@
         }
       ],
       "character_count": 4026,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -7529,7 +7533,7 @@
         },
         {
           "anchor": "how-linked-billing-works",
-          "character_count": 252,
+          "character_count": 306,
           "heading": "How linked billing works",
           "line_end": 15,
           "line_start": 12
@@ -7592,14 +7596,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 383,
+          "character_count": 387,
           "heading": "Related pages",
           "line_end": 83,
           "line_start": 79
         }
       ],
-      "character_count": 4954,
-      "extraction_status": "unchanged",
+      "character_count": 5012,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7660,7 +7664,7 @@
       "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/claude-platform-linked-billing/",
-      "source_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+      "source_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
       "title": "Managing Claude linked billing"
     },
     "src/content/docs/agents/inference/custom-inference-endpoint.mdx": {
@@ -11766,7 +11770,7 @@
         }
       ],
       "character_count": 10015,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -17013,6 +17017,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "d3768f828ae0da90ec9eaf6ee1985f4bb681fa50"
+    "docs": "07590710824203d9fd149a90ae925b4d59256603"
   }
 }

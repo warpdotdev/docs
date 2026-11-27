@@ -1,7 +1,6 @@
 {
   "claims": [
     {
-      "category": "product-behavior",
       "claim_content_fingerprint": "sha256:89d542032bc2d0a5f0b835b4af2dbb0016900fcc9fd93cb3ed8660c4db59139a",
       "claim_id": "sha256:319808bc826d12eac0795c7d064d3b597121b41fde67ebae58e0b171ba1a8aa8",
       "entity": "claude-consumer-subscription",
@@ -26,7 +25,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Can I use a ChatGPT or Claude subscription with Warp?",
         "heading_anchor": "can-i-use-a-chatgpt-or-claude-subscription-with-warp",
         "line_end": 42,
@@ -44,7 +43,6 @@
       }
     },
     {
-      "category": "product-behavior",
       "claim_content_fingerprint": "sha256:b9c1fce523dce38f428a4dd49086aeee2514090466fc8137eed2324d8858b7da",
       "claim_id": "sha256:669f9fe92152489092672f4427bf919f809b1024f9bff0241d22877f99eab0d3",
       "entity": "message-token-limit",
@@ -69,7 +67,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "\"Message token limit exceeded\" error",
         "heading_anchor": "message-token-limit-exceeded-error",
         "line_end": 64,
@@ -115,7 +113,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Is my data used for model training?",
         "heading_anchor": "is-my-data-used-for-model-training",
         "line_end": 24,
@@ -163,7 +161,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Is my data used for model training?",
         "heading_anchor": "is-my-data-used-for-model-training",
         "line_end": 26,
@@ -205,7 +203,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "What data is sent and/or stored when using Agents in Warp?",
         "heading_anchor": "what-data-is-sent-andor-stored-when-using-agents-in-warp",
         "line_end": 16,
@@ -249,7 +247,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "What data is sent and/or stored when using Agents in Warp?",
         "heading_anchor": "what-data-is-sent-andor-stored-when-using-agents-in-warp",
         "line_end": 16,
@@ -302,7 +300,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Can I use my own LLM API key?",
         "heading_anchor": "can-i-use-my-own-llm-api-key",
         "line_end": 34,
@@ -349,7 +347,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Can I use my own LLM API key?",
         "heading_anchor": "can-i-use-my-own-llm-api-key",
         "line_end": 36,
@@ -393,7 +391,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Can I use my own LLM API key?",
         "heading_anchor": "can-i-use-my-own-llm-api-key",
         "line_end": 36,
@@ -439,7 +437,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Warp Terminal and local agents",
         "heading_anchor": "warp-terminal-and-local-agents",
         "line_end": 50,
@@ -487,7 +485,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Warp Terminal and local agents",
         "heading_anchor": "warp-terminal-and-local-agents",
         "line_end": 52,
@@ -531,7 +529,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Warp Factories",
         "heading_anchor": "warp-factories",
         "line_end": 56,
@@ -577,7 +575,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Warp Factories",
         "heading_anchor": "warp-factories",
         "line_end": 56,
@@ -623,7 +621,7 @@
       "source": {
         "canonical_identity": "route:/agents/getting-started/faqs",
         "canonical_route": "/agents/getting-started/faqs",
-        "content_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
         "heading": "Warp Factories",
         "heading_anchor": "warp-factories",
         "line_end": 56,
@@ -639,9 +637,99 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:5fc74c487b8b57cf984e962d8bb70186f4de9720f355d4fb1d74132b7b15acc9",
+      "claim_id": "sha256:304cd1b8bb3cecc8aef14d67fd3bd9db6922b0574953ca9d7bed2fe61ee8dab5",
+      "entity": "warp-agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "allowance-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local-terminal"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "build",
+          "business",
+          "max"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Build, Max, and Business plans have per-seat allowances.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
+        "heading": "Warp Terminal and local agents",
+        "heading_anchor": "warp-terminal-and-local-agents",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": "per-seat",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6d1b7f44fdb01056a90679eab4b64536639692b71123555385abc43d367031bd",
+      "claim_id": "sha256:524d4d0346955f867521aa1c5062a607b901988e18a967517673b3c87d76ddd0",
+      "entity": "warp-provided-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "pauses-on-exhausted-balance",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "you've exhausted your available usage balance, so Warp-provided inference pauses.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
+        "heading": "\"Monthly request limit exceeded\" or \"Monthly credit limit exceeded\" errors",
+        "heading_anchor": "monthly-request-limit-exceeded-or-monthly-credit-limit-exceeded-errors",
+        "line_end": 73,
+        "line_start": 73,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "0fa004e850d351459b77d941ca266b8bb0154557e28e9e7b0aac49e909d2cb01",
+  "page_sha256": "ded423c73ebbba42a6a07b2b8a5dbf5cb0dc2fc8c09007e7ac68af0b24c3f43e",
   "path": "src/content/docs/agents/getting-started/faqs.mdx",
   "schema_version": 1
 }

@@ -26,7 +26,7 @@
       "quote": "Claude linked billing is available only on Warp Enterprise, with an active agreement and access to the feature.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "",
         "heading_anchor": "",
         "line_end": 10,
@@ -67,7 +67,7 @@
       "quote": "No API key is needed.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "",
         "heading_anchor": "",
         "line_end": 8,
@@ -82,47 +82,6 @@
       "value": {
         "normalized": false,
         "type": "boolean"
-      }
-    },
-    {
-      "claim_content_fingerprint": "sha256:46d9e8e95867dd63ae980c8be2b1bc937584a84ee6eef3be5badb8756a83be88",
-      "claim_id": "sha256:7e3178e01107fd092b7f79abe21dcd2e3d69d869cc7a06dde1a367a35f4cf0cb",
-      "entity": "claude-linked-billing",
-      "extraction_confidence": "high",
-      "polarity": "affirmative",
-      "predicate": "link-scope",
-      "qualifiers": {
-        "actors": [],
-        "architectures": [],
-        "environments": [],
-        "exceptions": [],
-        "install_methods": [],
-        "legacy": false,
-        "operating_systems": [],
-        "plans": [],
-        "release_statuses": [],
-        "shells": [],
-        "time_scope": null,
-        "versions": []
-      },
-      "quote": "Your workspace shares one link to a Claude organization.",
-      "source": {
-        "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
-        "heading": "How linked billing works",
-        "heading_anchor": "how-linked-billing-works",
-        "line_end": 14,
-        "line_start": 14,
-        "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "repository": "warpdotdev/docs",
-        "route": "/agents/inference/claude-platform-linked-billing/",
-        "visibility": "public"
-      },
-      "source_class": "canonical-doc",
-      "topic": "product-behavior",
-      "value": {
-        "normalized": "workspace-claude-organization",
-        "type": "free-text"
       }
     },
     {
@@ -149,7 +108,7 @@
       "quote": "Each team opts in separately to charge its Claude usage to that organization instead of its Warp balance.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "How linked billing works",
         "heading_anchor": "how-linked-billing-works",
         "line_end": 14,
@@ -190,7 +149,7 @@
       "quote": "Linked billing covers the Warp Agent on desktop, CLI, web, and cloud, including subagents and factory runs billed to the team.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Supported Claude usage",
         "heading_anchor": "supported-claude-usage",
         "line_end": 18,
@@ -236,7 +195,7 @@
       "quote": "It doesn't apply to Claude Code or other tools that connect directly to Anthropic.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Supported Claude usage",
         "heading_anchor": "supported-claude-usage",
         "line_end": 18,
@@ -277,7 +236,7 @@
       "quote": "Linked billing uses Anthropic's API directly, not Amazon Bedrock, Vertex AI, or custom endpoints.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Supported Claude usage",
         "heading_anchor": "supported-claude-usage",
         "line_end": 20,
@@ -318,7 +277,7 @@
       "quote": "Your team's existing model access, data residency, and retention restrictions still apply.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Supported Claude usage",
         "heading_anchor": "supported-claude-usage",
         "line_end": 20,
@@ -359,7 +318,7 @@
       "quote": "Claude Pro, Max, Team, and Enterprise subscriptions and their included usage don't fund linked billing.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Before you link",
         "heading_anchor": "before-you-link",
         "line_end": 27,
@@ -400,7 +359,7 @@
       "quote": "Workspace owners and admins have this permission.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Before you link",
         "heading_anchor": "before-you-link",
         "line_end": 24,
@@ -444,7 +403,7 @@
       "quote": "You need an Owner, Admin, or Billing role to approve the link.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Before you link",
         "heading_anchor": "before-you-link",
         "line_end": 25,
@@ -489,7 +448,7 @@
       "quote": "Remove any custom Claude endpoint configuration.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Enabling a team",
         "heading_anchor": "enabling-a-team",
         "line_end": 40,
@@ -530,7 +489,7 @@
       "quote": "Members can't override this choice with personal Anthropic keys.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Enabling a team",
         "heading_anchor": "enabling-a-team",
         "line_end": 44,
@@ -573,7 +532,7 @@
       "quote": "If Anthropic declines a request for lack of linked funds, Warp can charge that request to your team's Warp balance.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "If linked funds run out",
         "heading_anchor": "if-linked-funds-run-out",
         "line_end": 52,
@@ -614,7 +573,7 @@
       "quote": "Problems with the link, rate limits, and other errors don't switch billing.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "If linked funds run out",
         "heading_anchor": "if-linked-funds-run-out",
         "line_end": 54,
@@ -655,7 +614,7 @@
       "quote": "Warp doesn't restart a response that has already begun.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "If linked funds run out",
         "heading_anchor": "if-linked-funds-run-out",
         "line_end": 54,
@@ -696,7 +655,7 @@
       "quote": "Anthropic and Warp don't both bill the same inference.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Other Warp charges",
         "heading_anchor": "other-warp-charges",
         "line_end": 58,
@@ -737,7 +696,7 @@
       "quote": "A spending limit in Claude Console doesn't limit these separate Warp charges.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Other Warp charges",
         "heading_anchor": "other-warp-charges",
         "line_end": 60,
@@ -778,7 +737,7 @@
       "quote": "Requests already in progress keep their original billing method.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Relinking or stopping linked billing",
         "heading_anchor": "relinking-or-stopping-linked-billing",
         "line_end": 73,
@@ -819,7 +778,7 @@
       "quote": "Unlinking in Warp doesn't revoke the authorization in Claude Console.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Relinking or stopping linked billing",
         "heading_anchor": "relinking-or-stopping-linked-billing",
         "line_end": 75,
@@ -860,7 +819,7 @@
       "quote": "After relinking, enable each team that should resume linked billing.",
       "source": {
         "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
-        "content_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
         "heading": "Relinking or stopping linked billing",
         "heading_anchor": "relinking-or-stopping-linked-billing",
         "line_end": 77,
@@ -876,9 +835,135 @@
         "normalized": true,
         "type": "boolean"
       }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0d1a78fc7ec6d10c57000ad791c5670ecbccc47e62cb241b04285dd53cbb4b6a",
+      "claim_id": "sha256:7e3178e01107fd092b7f79abe21dcd2e3d69d869cc7a06dde1a367a35f4cf0cb",
+      "entity": "claude-linked-billing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "link-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your [Enterprise workspace](/enterprise/team-management/workspaces/) shares one link to a Claude organization.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
+        "heading": "How linked billing works",
+        "heading_anchor": "how-linked-billing-works",
+        "line_end": 14,
+        "line_start": 14,
+        "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/claude-platform-linked-billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "enterprise-workspace",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:65fd2f1e0229fffffa2add01d7ca3fd0fc038d03e2ff5c134f765e7c6441d19c",
+      "claim_id": "sha256:01577b6317b980dea72b0d2d32ea83cc893e2ff19bfb4a2d567b73c8226d401c",
+      "entity": "claude-linked-billing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "team-enablement-roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A team or workspace admin can enable linked billing after the workspace is linked:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
+        "heading": "Enabling a team",
+        "heading_anchor": "enabling-a-team",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/claude-platform-linked-billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "team-admin",
+          "workspace-admin"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:fc71d6ef2d5025a6505e2f9bbe038d1ab3c164bf509c97ce6448ac13781c8420",
+      "claim_id": "sha256:9d6fdf2c141c78440f0a5d2863dfbebb79f97b13a0d6d00363a75fff5560301f",
+      "entity": "claude-linked-billing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "switching-removes-saved-anthropic-key",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You'll need to enter the key again to switch back.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+        "content_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
+        "heading": "Enabling a team",
+        "heading_anchor": "enabling-a-team",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/claude-platform-linked-billing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
     }
   ],
-  "page_sha256": "e3384e677726be7a13a9ab12b861f33bcce975f805d0f55c8cf5e22801656071",
+  "page_sha256": "9e5bbd8992513f1ee3663ca05c47924a24e14410b70b16eaf2e4d6cf0216afa9",
   "path": "src/content/docs/agents/inference/claude-platform-linked-billing.mdx",
   "schema_version": 1
 }
