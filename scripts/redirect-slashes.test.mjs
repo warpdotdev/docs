@@ -1,4 +1,4 @@
-// Every docs page has one URL: the trailing-slash form. vercel.json sets
+// Ordinary HTML page URLs canonicalize to the trailing-slash form. vercel.json sets
 // `trailingSlash: true`, so Vercel 308s `/page` to `/page/` before any
 // redirect runs. These tests compile vercel.json with @vercel/routing-utils
 // (the library Vercel uses to build the routing table) and replay requests
@@ -54,7 +54,10 @@ function substitute(template, match) {
 function follow(path) {
 	let current = path;
 	let hops = 0;
+	const seen = new Set();
 	while (hops < 6) {
+		assert.ok(!seen.has(current), `redirect loop from ${path} at ${current}`);
+		seen.add(current);
 		const next = step(current.split(/[?#]/)[0]);
 		if (next === null) break;
 		hops += 1;
@@ -137,7 +140,7 @@ test('files, well-known paths, and Markdown twins are never slash-redirected', (
 	}
 });
 
-test('every redirect source matches both slash forms and ends on a served page in at most 2 hops', () => {
+test('redirect sources match both slash forms; literal destinations are served within 2 hops', () => {
 	const failures = [];
 	for (const { source, destination } of redirects) {
 		if (isFragmentSource(source)) continue;
@@ -155,6 +158,39 @@ test('every redirect source matches both slash forms and ends on a served page i
 		}
 	}
 	expectNone(failures, 'redirect problems');
+});
+
+test('known underscore error aliases reach the final page within 2 hops', () => {
+	const aliases = redirects.filter(({ source }) =>
+		source.startsWith('/factories/api-and-sdk/troubleshooting/errors/') && source.includes('_'),
+	);
+	assert.ok(aliases.length > 10, 'missing underscore error fixtures');
+	for (const { source, destination } of aliases) {
+		const code = source.replace('(/?)', '').split('/').at(-1);
+		for (const form of slashForms(`/errors/${code}`)) {
+			const result = follow(form);
+			assert.equal(result.final, destination, form);
+			assert.ok(result.hops <= 2, `${form} takes ${result.hops} hops`);
+			assert.ok(isServed(result.final), result.final);
+		}
+	}
+});
+
+test('concrete wildcard migrations reach real pages within 2 hops', () => {
+	for (const [source, destination] of [
+		['/cli/oz-cli/api-keys', '/agents/cli/oz-cli/api-keys/'],
+		['/errors/authentication-required', '/factories/api-and-sdk/troubleshooting/errors/authentication-required/'],
+		['/guides/integrations/how-to-set-up-claude-code', '/guides/'],
+		['/reference/api-and-sdk/quickstart', '/factories/api-and-sdk/quickstart/'],
+		['/reference/cli/api-keys', '/agents/cli/oz-cli/api-keys/'],
+	]) {
+		for (const form of slashForms(source)) {
+			const result = follow(form);
+			assert.equal(result.final, destination, form);
+			assert.ok(result.hops <= 2, `${form} takes ${result.hops} hops`);
+			assert.ok(isServed(result.final), result.final);
+		}
+	}
 });
 
 test('fragment-only sources have a fragment-free redirect or page for their path', () => {

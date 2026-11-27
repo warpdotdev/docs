@@ -16,10 +16,17 @@ import {
 	shouldServeMarkdownProduction,
 } from './docs-markdown.js';
 
-export default function markdownNegotiation(request) {
+/**
+ * @param {Request} request
+ * @param {Set<string>} canonicalPages Pages with built HTML and Markdown twins.
+ */
+export default function markdownNegotiation(request, canonicalPages) {
 	const url = new URL(request.url);
 
-	if (!isEligibleDocHtmlPath(url.pathname) || !shouldServeMarkdownProduction(request)) {
+	// Only canonical, existing pages can negotiate. Let Vercel normalize
+	// slashless URLs and migrate legacy aliases before attempting a rewrite.
+	if (!isEligibleDocHtmlPath(url.pathname) || !canonicalPages.has(url.pathname)
+		|| !shouldServeMarkdownProduction(request)) {
 		return new Response(null, { headers: { 'x-middleware-next': '1' } });
 	}
 
