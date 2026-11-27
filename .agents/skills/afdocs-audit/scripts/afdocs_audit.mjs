@@ -251,9 +251,27 @@ function extractMarkdownLinks(markdown) {
 	return links;
 }
 
-function toMarkdownUrl(rawUrl) {
+const NON_HTML_SPEC_EXTENSION = /\.(?:ya?ml|json|xml|txt)$/i;
+
+export function isNonHtmlSpecUrl(rawUrl) {
+	if (typeof rawUrl !== 'string' || rawUrl.length === 0) return false;
+	try {
+		return NON_HTML_SPEC_EXTENSION.test(new URL(rawUrl).pathname);
+	} catch {
+		return false;
+	}
+}
+
+export function toMarkdownUrl(rawUrl) {
 	const url = new URL(rawUrl);
-	if (url.pathname.endsWith('.md') || url.pathname === '/') return null;
+	if (
+		url.pathname.endsWith('.md') ||
+		url.pathname === '/' ||
+		url.search.length > 0 ||
+		isNonHtmlSpecUrl(rawUrl)
+	) {
+		return null;
+	}
 	url.pathname = `${url.pathname.replace(/\/$/, '')}.md`;
 	return url.toString();
 }
@@ -654,6 +672,19 @@ function interactionEffects(results) {
 	return interactions;
 }
 
+function hasUnexpectedFetchErrors(result) {
+	const fetchErrors = result.details?.fetchErrors ?? 0;
+	if (fetchErrors <= 0) return false;
+	const pageResults = result.details?.pageResults;
+	if (!Array.isArray(pageResults)) return true;
+	const expectedNonHtmlErrors = pageResults.filter(
+		(entry) =>
+			isNonHtmlSpecUrl(entry?.url) &&
+			entry?.error === 'No markdown version available'
+	).length;
+	return fetchErrors > expectedNonHtmlErrors;
+}
+
 function scanReliability(results) {
 	const botProtection = results.find((result) => result.id === 'bot-protection-interference');
 	if (botProtection && ['warn', 'fail'].includes(botProtection.status)) {
@@ -664,7 +695,7 @@ function scanReliability(results) {
 		};
 	}
 	const interruptedChecks = results.filter((result) =>
-		result.details?.fetchErrors > 0 ||
+		hasUnexpectedFetchErrors(result) ||
 		result.details?.rateLimited > 0 ||
 		result.details?.discoveryWarnings?.length > 0
 	);

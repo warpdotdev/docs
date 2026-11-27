@@ -14,6 +14,7 @@ import {
 	buildReport,
 	bulkElements,
 	extractContinuation,
+	toMarkdownUrl,
 } from './afdocs_audit.mjs';
 
 const legacyResult = {
@@ -238,6 +239,74 @@ test('treats rate limiting and discovery warnings as partial without interpretin
 		}],
 	});
 	assert.equal(report.scan_reliability.status, 'complete');
+});
+
+test('does not mark a scan partial when fetchErrors only reflect missing markdown for non-HTML specs', () => {
+	const nonHtmlOnly = buildReport({
+		score: 90,
+		results: [{
+			id: 'llms-txt-directive-md',
+			category: 'content-discoverability',
+			status: 'pass',
+			message: 'llms.txt directive found in markdown of all 49 sampled pages; 1 had no markdown version',
+			details: {
+				fetchErrors: 1,
+				rateLimited: 0,
+				pageResults: [
+					{ url: 'https://docs.warp.dev/agents/capabilities/', found: true },
+					{ url: 'https://docs.warp.dev/openapi.yaml', found: false, error: 'No markdown version available' },
+				],
+			},
+		}],
+	});
+	assert.equal(nonHtmlOnly.scan_reliability.status, 'complete');
+
+	const htmlMissingMd = buildReport({
+		score: 90,
+		results: [{
+			id: 'llms-txt-directive-md',
+			category: 'content-discoverability',
+			status: 'pass',
+			message: '1 HTML doc page had no markdown version',
+			details: {
+				fetchErrors: 1,
+				rateLimited: 0,
+				pageResults: [
+					{ url: 'https://docs.warp.dev/agents/capabilities/', found: false, error: 'No markdown version available' },
+				],
+			},
+		}],
+	});
+	assert.equal(htmlMissingMd.scan_reliability.status, 'partial');
+
+	const networkErrorOnSpec = buildReport({
+		score: 90,
+		results: [{
+			id: 'llms-txt-directive-md',
+			category: 'content-discoverability',
+			status: 'pass',
+			message: 'Network error fetching spec',
+			details: {
+				fetchErrors: 1,
+				rateLimited: 0,
+				pageResults: [
+					{ url: 'https://docs.warp.dev/openapi.yaml', found: false, error: 'fetch failed' },
+				],
+			},
+		}],
+	});
+	assert.equal(networkErrorOnSpec.scan_reliability.status, 'partial');
+});
+
+test('compatibility sampler skips non-HTML spec assets and parameterized query endpoints', () => {
+	assert.equal(toMarkdownUrl('https://docs.warp.dev/openapi.yaml'), null);
+	assert.equal(toMarkdownUrl('https://docs.warp.dev/openapi.json'), null);
+	assert.equal(toMarkdownUrl('https://docs.warp.dev/llms.txt'), null);
+	assert.equal(toMarkdownUrl('https://docs.warp.dev/retrieve?q='), null);
+	assert.equal(
+		toMarkdownUrl('https://docs.warp.dev/agents/capabilities/'),
+		'https://docs.warp.dev/agents/capabilities.md'
+	);
 });
 
 test('treats a valid Link-header continuation as visible at the start of the response', async () => {
