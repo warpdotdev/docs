@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import markdownNegotiation from '../src/lib/markdown-negotiation.js';
+import negotiate from '../src/lib/markdown-negotiation.js';
+
+const pages = new Set(['/', '/quickstart/', '/support-and-community/', '/agents/capabilities/skills/']);
+const markdownNegotiation = (req) => negotiate(req, pages);
 
 function request(path, headers = {}) {
 	return new Request(`https://docs.warp.dev${path}`, { headers });
@@ -9,10 +12,9 @@ function request(path, headers = {}) {
 test('rewrites eligible paths when Accept prefers markdown', () => {
 	const cases = [
 		['/', '/index.md'],
-		['/quickstart', '/quickstart.md'],
 		['/quickstart/', '/quickstart.md'],
 		['/support-and-community/', '/support-and-community.md'],
-		['/agents/capabilities/skills', '/agents/capabilities/skills.md'],
+		['/agents/capabilities/skills/', '/agents/capabilities/skills.md'],
 	];
 
 	for (const [path, expected] of cases) {
@@ -50,7 +52,7 @@ test('production does not rewrite on text/plain or agent UA alone', () => {
 
 test('preserves query strings on rewrite', () => {
 	const response = markdownNegotiation(
-		request('/quickstart?utm_source=agent', { accept: 'text/markdown' }),
+		request('/quickstart/?utm_source=agent', { accept: 'text/markdown' }),
 	);
 	assert.equal(
 		response.headers.get('x-middleware-rewrite'),
@@ -65,6 +67,13 @@ test('continues for HTML clients, assets, APIs, retrieve, and direct .md URLs', 
 		request('/_astro/page.js', { accept: 'text/markdown' }),
 		request('/retrieve?q=hello', { accept: 'text/markdown' }),
 		request('/api/support-handoff', { accept: 'text/markdown' }),
+		request('/api/', { accept: 'text/markdown' }),
+		request('/api', { accept: 'text/markdown' }),
+		request('/agent-platform/', { accept: 'text/markdown' }),
+		request('/agent-platform', { accept: 'text/markdown' }),
+		request('/does-not-exist/', { accept: 'text/markdown' }),
+		request('/quickstart', { accept: 'text/markdown' }),
+		request('/agents/capabilities/skills', { accept: 'text/markdown' }),
 		request('/llms.txt', { accept: 'text/markdown' }),
 	];
 

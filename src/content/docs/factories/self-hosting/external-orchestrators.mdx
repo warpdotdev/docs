@@ -34,7 +34,7 @@ Use a unique worker ID for every job so another worker cannot claim the run.
 
 The agent process normally remains available for follow-up prompts for 45 minutes after a conversation completes. Timeout settings use this precedence:
 
-1. The task-level `config.idle_timeout_minutes` value, including defaults applied by the task creator. Runs created directly through the [Agent API](/api) use 10 minutes when this field is omitted.
+1. The task-level `config.idle_timeout_minutes` value, including defaults applied by the task creator. Runs created directly through the [Agent API](/api/) use 10 minutes when this field is omitted.
 2. The worker's `idle_on_complete` setting or `--idle-on-complete` flag when the task reaches the worker without a task-level value. Unlike a direct Agent API request, `oz agent run-cloud` uses the CLI task-creation path, which does not apply the API's 10-minute default and leaves this value unset.
 3. The 45-minute default when neither value is set.
 

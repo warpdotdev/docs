@@ -1,5 +1,8 @@
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { access, copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { STRIPPED_PARAMS } from '../src/lib/tracking-redirect.js';
+import { isEligibleDocHtmlPath } from '../src/lib/docs-markdown.js';
 
 // Astro's Vercel adapter serves prerendered pages before its own middleware.
 // Emit native routing middleware before the filesystem phase instead:
@@ -32,7 +35,36 @@ await installEdgeMiddleware(
 await installEdgeMiddleware(
 	'markdown-negotiation',
 	new URL('../src/lib/markdown-negotiation.js', import.meta.url),
-	[new URL('../src/lib/docs-markdown.js', import.meta.url)],
+	[
+		new URL('../src/lib/docs-markdown.js', import.meta.url),
+		new URL('../src/lib/markdown-negotiation.js', import.meta.url),
+	],
+);
+
+// Use deployed files, not URL guesses: aliases, unknown paths, and HTML-only
+// pages must reach normal redirects or the filesystem instead of a missing .md.
+const staticDir = new URL('static/', output);
+const canonicalPages = [];
+for (const entry of await readdir(staticDir, { recursive: true, withFileTypes: true })) {
+	if (!entry.isFile() || !entry.name.endsWith('.md')) continue;
+	const file = pathToFileURL(join(entry.parentPath, entry.name));
+	const relative = file.pathname.slice(staticDir.pathname.length);
+	const page = relative === 'index.md' ? '/' : `/${relative.slice(0, -3)}/`;
+	if (!isEligibleDocHtmlPath(page)) continue;
+	try {
+		await access(new URL(`${page.slice(1)}index.html`, staticDir));
+	} catch (error) {
+		if (error.code === 'ENOENT') continue;
+		throw error;
+	}
+	canonicalPages.push(page);
+}
+if (!canonicalPages.includes('/')) throw new Error('No homepage Markdown twin found');
+await writeFile(
+	new URL('functions/markdown-negotiation.func/index.js', output),
+	`import negotiate from './markdown-negotiation.js';\n`
+	+ `const pages = new Set(${JSON.stringify(canonicalPages.sort())});\n`
+	+ `export default (request) => negotiate(request, pages);\n`,
 );
 
 // Entries in `has` are AND-ed, so each stripped parameter gets its own route.
