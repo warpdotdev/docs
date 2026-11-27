@@ -18,12 +18,22 @@ Inventory the images used by each worker pool before blocking public-registry eg
 | Environment or default image | Main task filesystem and toolchain | Warp environment image or Kubernetes `defaultImage` |
 | `warpdotdev/warp-agent:latest` | Warp Agent runtime mounted at `/agent` | `sidecar_image` or Helm `kubernetesBackend.sidecarImage` |
 | `busybox:1.36` | Kubernetes startup preflight | `preflight_image` or Helm `kubernetesBackend.preflightImage` |
+| `warpdotdev/warp-claude-cli-sidecar:latest` | Claude Code CLI (PTY runs) | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
+| `warpdotdev/warp-claude-acp-sidecar:latest` | Claude Code over ACP | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
+| `warpdotdev/warp-codex-cli-sidecar:latest` | Codex CLI (PTY runs) | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
+| `warpdotdev/warp-codex-acp-sidecar:latest` | Codex over ACP | `sidecar_image_mappings` or Helm `kubernetesBackend.sidecarImageMappings` |
 
 Pin the worker image to the immutable timestamp tag or digest from the [worker release](https://github.com/warpdotdev/oz-agent-worker/releases). The supported self-hosted sidecar reference is `warpdotdev/warp-agent:latest`, listed on the [Warp Agent tags page](https://hub.docker.com/r/warpdotdev/warp-agent/tags). Refresh the mirror regularly. To pin the sidecar, set its private-registry override to a mirrored digest and update that digest when Warp publishes a new sidecar.
 
 :::caution
-These steps cover Warp Agent runs without Computer Use. Computer Use and third-party harnesses use additional images. Contact your Warp account team before enabling them in a worker pool that blocks public-registry access.
+These steps cover Warp Agent runs without Computer Use. Computer Use uses an additional image. Contact your Warp account team before enabling it in a worker pool that blocks public-registry access.
 :::
+
+Claude Code and Codex runs use the Agent Client Protocol (ACP) by default. Mirror their `-acp-sidecar` images and map the full source repository names, such as `docker.io/warpdotdev/warp-claude-acp-sidecar`, in `sidecar_image_mappings`. With Helm, use `kubernetesBackend.sidecarImageMappings`. See the [mapping fields](/factories/self-hosting/reference/#config-file-fields).
+
+Starting with worker release `v2026-11-05-20-19-00`, if you map a harness's `-cli-sidecar` repository but omit its `-acp-sidecar` mapping, the worker maps the ACP repository to the same mirrored CLI image. It preserves the destination's explicit tag or digest, or uses `latest` when neither is set. The agent then runs over a terminal (PTY), without native streaming or file attachments in follow-ups. This fallback happens when the worker loads its configuration, not after an image pull fails. Upgrade older workers to this release or newer before relying on CLI-only mappings.
+
+The legacy Kubernetes `coding_cli_sidecars` option also maps both repositories to the configured CLI image. To use ACP, replace that option with explicit ACP repository keys in `sidecar_image_mappings`.
 
 ## Copying images into the registry
 

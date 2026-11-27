@@ -137,6 +137,7 @@ Each release runs a single worker replica. To scale out, install more releases w
 * `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
 * `kubernetesBackend.preflightResources` — CPU and memory requests and limits for preflight containers.
 * `kubernetesBackend.sidecarImage` — Internal-registry override for the Warp agent sidecar image.
+* `kubernetesBackend.sidecarImageMappings` — Map of Warp sidecar repositories to mirrored image references, applied to every assigned sidecar. See [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
 * `kubernetesBackend.unschedulableTimeout` — How long a task Pod can stay unschedulable before the worker fails the task. Defaults to `10m`. Set to `0s` to disable.
 * `kubernetesBackend.setupCommand` — Shell command to run before each task.
 * `kubernetesBackend.teardownCommand` — Shell command to run after each task.
