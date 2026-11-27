@@ -44,6 +44,7 @@ The JSON report contains:
 - `categories` — Per-category scores and grades
 - `issues` — Array of failing and warning checks with details and fix guidance
 - `scan_reliability` — Object with `status` (`complete` or `partial`), `reason`, and `message`; partial scans must not establish a regression baseline
+- `non_html_spec_probes` — Canonical-URL fetch diagnostics used to verify missing-Markdown exceptions, including status, content type, and `verified`
 - `interaction_effects` — Non-scored combinations of findings that can degrade agent access more than an individual check suggests
 
 Each issue includes:
@@ -78,8 +79,16 @@ effect is recorded when multiple size, serialization, parity, or pagination sign
 co-occur; it is diagnostic and does not add another score penalty.
 
 Reported fetch errors, rate limiting, or discovery warnings also make the scan partial,
-even when bot protection passes. Exclude these results from regression comparisons and
-baselines, and inspect the retained check details before attempting remediation.
+even when bot protection passes. For `llms-txt-directive-md`, the wrapper excludes a
+missing-Markdown error on a `.yaml`, `.yml`, `.json`, `.xml`, or `.txt` URL only after
+a separate canonical-URL fetch returns a successful status, nonempty body, and expected
+non-HTML content type without a challenge or error page. Upstream uses the same error
+string for failed requests, so the extension and error text alone are not evidence.
+
+The wrapper deduplicates and bounds these sequential probes, using the same per-request
+timeout as compatibility probes. Failed or unprobed URLs retain their fetch errors.
+Inspect `non_html_spec_probes` alongside the original check details. Exclude partial
+scans from regression comparisons and baselines before attempting remediation.
 
 ### Known exceptions
 
