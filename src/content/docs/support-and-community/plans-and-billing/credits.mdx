@@ -110,17 +110,21 @@ Cloud runs on Warp-hosted compute incur compute charges, whether started from th
 
 Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/self-hosting/) do not incur Warp-hosted compute charges. Platform charges can still apply.
 
-### Hosted compute rates
+<span id="hosted-compute-rates" />
 
-The rates below apply to Free, Build, Max, and Business Warp Agent accounts billed in dollars, with no additional compute markup. They are configured compute rates, not a live lookup of a provider's invoice. Enterprise margins, discounts, and credit conversions follow your contract. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount you pay to buy usage, not these metered rates.
+### Hosted compute pricing and examples
 
-Match your [runner's operating system, architecture, and instance shape](/factories/runners/) to the rates below. Available shapes and default sizes depend on your plan.
+The Start and Scale plans for Warp Factories use passthrough pricing for Warp-hosted compute. Inference and platform usage are billed separately. See [Warp pricing](https://www.warp.dev/pricing) for current plan rates.
+
+Compute rates depend on the runner and hosting configuration. The US-dollar examples below illustrate configured rates for common shapes, not a universal quote for every hosted runner or provider. If your runner's rate is not available, confirm it with [billing@warp.dev](mailto:billing@warp.dev) before estimating spend. Enterprise margins, discounts, and credit conversions follow your contract.
+
+Match the operating system, architecture, and shape to your [runner configuration](/factories/runners/). Available shapes and defaults depend on your plan. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount paid to buy usage, not the compute rate.
 
 #### Linux and Windows
 
-Linux x86-64 and aarch64 use the same rate. Windows supports x86-64 and costs twice the Linux rate for the same shape.
+In these examples, Linux x86-64 and aarch64 use the same rate. Windows x86-64 costs twice the Linux rate for the same shape.
 
-To calculate the per-minute rate, take the greater of the vCPU count and half the memory in GB. Multiply that number by $0.0015 for Linux or $0.003 for Windows. For example, 4 vCPUs with 16 GB costs $0.012 per minute on Linux.
+To calculate these example per-minute rates, take the greater of the vCPU count and half the memory in GB. Multiply by $0.0015 for Linux or $0.003 for Windows. At those rates, 4 vCPUs with 16 GB costs $0.012 per minute on Linux.
 
 Example shapes:
 
@@ -133,7 +137,7 @@ Example shapes:
 
 #### macOS
 
-macOS runners use Apple Silicon and have fixed rates for each supported shape:
+These macOS examples use Apple Silicon with a fixed rate for each listed shape:
 
 | vCPUs | Memory | Per minute | Per hour |
 | --- | --- | --- | --- |
@@ -161,13 +165,13 @@ See [platform usage](/support-and-community/plans-and-billing/platform-credits/)
 
 ### Example cloud run
 
-For a Warp Agent run on a self-serve plan billed in dollars, suppose a 4 vCPU / 8 GB Linux sandbox exists for 10 minutes, with 6 billable agent minutes and $0.40 of Warp-provided inference:
+For a dollar-billed Warp Agent run, suppose a 4 vCPU / 8 GB Linux sandbox exists for 10 minutes, with 6 billable agent minutes and $0.40 of Warp-provided inference. Using illustrative rates of $0.006 per compute minute and $3 per agent hour:
 
 * **Compute** - 10 minutes × $0.006 = $0.06.
 * **Platform** - 6 minutes × $0.05 = $0.30.
 * **Inference** - $0.40.
 
-The run consumes $0.76 from the eligible usage balance. Subscription payments, usage purchase premiums, and bills from your own inference provider are separate.
+At those example rates, the run consumes $0.76 from the eligible usage balance. Use the actual compute and platform rates for your configuration when estimating your own run. Subscription payments, usage purchase premiums, and bills from your own inference provider are separate.
 
 ## Cloud agent runs on team plans
 

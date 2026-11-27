@@ -77,7 +77,7 @@ A [Warp team](/platform/teams-and-admin-controls/) groups people and resources s
 * **Self-hosting** - Run agents on your own infrastructure (Enterprise only)
 * **Team visibility** - Shared observability into agent runs and history
 
-Integrations are created at the team level, not per-user. Once a Slack or Linear integration is installed, everyone on your Warp team can use **@warp** in the connected workspace. The integration behaves the same way for all teammates, and everyone shares the same underlying environment configuration. The GitHub integration is team-level in the same way: once an admin enables the GitHub organization, any teammate with a connected GitHub account can start a run by mentioning **@warp-agent**.
+Integrations are created at the team level, not per-user. Installing Slack or Linear makes the integration available to the connected Warp team, but does not link every teammate's personal account. Each teammate completes any requested account linking before starting work. For the GitHub integration, a teammate connects their GitHub account before starting a run with **@warp-agent**.
 
 When someone triggers a cloud agent for the first time, Warp may prompt them to grant GitHub authorization so the agent can open pull requests or push branches under their identity. This allows each run to use the correct permissions without requiring additional setup from an admin.
 
@@ -100,13 +100,24 @@ If you're on an Enterprise plan, please reach out to [contact sales](https://www
 
 Warp needs a reliable way to know which person a cloud agent run is acting for, across Warp, Slack, Linear, and GitHub.
 
-* Slack uses a dedicated account-linking flow to map a Slack user to their Warp account. This is the recommended path for Slack-triggered agents, since it doesn’t rely on email matching.
-* Linear currently maps identities using email address matching. Your Linear email must match your Warp account email for Warp to correctly attribute and scope agent runs.
+* **Slack** - Follow the first-use link to connect your Slack account to your Warp account, then mention the bot again with your request. See [Slack identity and team access](/platform/integrations/slack/#identity-mapping-and-team-access).
+* **Linear** - Link your Linear account to the intended Warp account through the first-use prompt. Matching email addresses is not a substitute for this link. Follow [Linking your Linear account](#linking-your-linear-account) below.
 * The [GitHub integration](/platform/integrations/github/) maps the GitHub account that mentioned `@warp-agent` to the Warp account that connected it, rather than by email. Until a teammate connects their GitHub account, Warp replies in the thread with a link to connect instead of starting a run. That binding sets run attribution, team ownership, and billing; the run's GitHub access comes from the app installation instead.
-* Each teammate must authorize GitHub before an agent can write PRs or push branches on their behalf
-* For Slack-triggered, Linear-triggered, and locally triggered runs, agents operate using the GitHub permissions of the triggering user
+* **GitHub authorization for runs acting as you** - Complete any authorization Warp requests before the agent writes pull requests or pushes branches on your behalf. Another teammate's installation does not connect your GitHub account.
 
-This ensures runs are scoped to what the user is allowed to see and modify, and that ownership of PRs remains clear across teams and repositories. The two exceptions are agent API key runs with [team GitHub authorization](#team-github-authorization) and runs started from an `@warp-agent` mention, which both authenticate as the Warp Factories GitHub App installation.
+Account linking identifies the requester. Repository access also depends on the run's execution identity. Runs acting as a user use that user's GitHub authorization. Agent API key runs with [team GitHub authorization](#team-github-authorization) and GitHub integration runs use GitHub App installation access instead.
+
+#### Linking your Linear account
+
+For the standalone Linear integration:
+
+1. If Warp responds to your first request with an account-linking prompt, open that link and sign in to the intended Warp account.
+2. Confirm that account belongs to the Warp team connected to the Linear integration.
+3. Return to the original Linear session and reply to Warp to start the run. Linking alone does not resume the initial request.
+
+Complete any additional authorization requested for the run's execution identity.
+
+{/* VERIFY: Test standalone Linear account linking, team validation, and the reply required after linking in production. The standalone handler and account-binding flow were source-checked; factory-specific email resolution was not used as evidence. No live-account test was performed. */}
 
 ---
 
@@ -139,7 +150,7 @@ There are two places you may encounter this installation flow:
    <figcaption>Installing the Warp Factories GitHub App.</figcaption>
    </figure>
 
-2. **Enable the GitHub org for your Warp team.** A Warp team admin opens the Admin Panel in the Warp app (**Settings** > **Admin Panel** > **Platform**) and adds the GitHub organization under **Enabled GitHub Orgs**. This associates the GitHub App installation with your Warp team.
+2. **Enable the GitHub org for your Warp team.** A team admin opens the [Admin Panel](https://app.warp.dev/admin/), confirms the team, and clicks **Platform**. Under **Enabled GitHub Orgs**, add the GitHub organization. This associates the GitHub App installation with your Warp team.
 
    <figure>
    ![Enabled GitHub Orgs setting in the Admin Panel Platform section](../../../assets/agent-platform/admin-panel-enabled-github-orgs.png)
@@ -161,11 +172,11 @@ The environment configuration and the **Enabled GitHub Orgs** setting in the Adm
 
 Team GitHub authorization is complementary to the existing personal token flow:
 
-* **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates using the triggering user's personal token. PRs and commits are attributed to that user.
+* **Runs acting as a user** - The agent authenticates using that user's personal token. PRs and commits are attributed to that user. Check the configured execution identity for Slack or Linear rather than assuming every trigger acts as its requester.
 * **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. On GitHub, PRs and commits are attributed to the Warp Factories GitHub App rather than any individual user. In the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/), which controls run filtering and audit attribution on the Warp side.
 * **[GitHub integration](/platform/integrations/github/) runs** (an `@warp-agent` mention on an issue or pull request) - The agent authenticates as the installation that delivered the event, so its repository access and its GitHub attribution match the agent API key flow. In the {VARS.DASHBOARD} the run is still attributed to the teammate who wrote the mention, and their team is billed.
 
-These flows can coexist on the same team. Personal tokens are still used for user-triggered runs from a personal API key, Slack, Linear, and the Warp app, and the GitHub App installation token is used for agent API key runs and for GitHub integration runs.
+These flows can coexist on the same team. A trigger's requester, execution identity, and repository authorization are related but distinct choices.
 
 :::caution
 GitHub App installation tokens are scoped to a single GitHub organization at a time. If your team works across repos in multiple GitHub organizations, the agent can only use the installation token for the organization enabled in the Admin Panel. Repos in other organizations require user-triggered runs with a personal API key.
@@ -192,21 +203,14 @@ Warp stores only the content required for the agent to complete its task. You ca
 
 #### GitHub
 
-Warp’s behavior in GitHub is defined by two layers of control:
+GitHub access follows the run's configured execution identity:
 
-1. **The Warp GitHub App installation scope**
-   * Determines which organizations and repositories Warp can read and write to
-   * Can be edited at any time in GitHub settings
-2. **Permissions of the triggering user**
-   * Agents inherit the user’s read/write privileges
-   * Agents cannot elevate permissions, see additional repos, or write to repos the user cannot access
+* **Runs acting as a user** - Use that user's GitHub authorization and repository permissions.
+* **GitHub App runs** - Use the repositories selected for the app installation, rather than the requester's personal token.
 
-**In practice, agents can only operate on repositories that:**
+An environment's repository list specifies what to check out. It does not grant GitHub permissions. See [Personal tokens vs. GitHub App tokens](#personal-tokens-vs-github-app-tokens) before choosing credentials for a workflow.
 
-* Are included in the environment configuration
-* Are accessible to both the GitHub app and the triggering user.
-
-Runs triggered by an `@warp-agent` mention through the [GitHub integration](/platform/integrations/github/) follow the first layer only. Warp receives the content of the issue, pull request, or review thread that carried the mention, including the recent comments and the diff of a commented file, and the run authenticates with the GitHub App installation that delivered the event. Cloning, commits, branches, pull requests, and status comments all use that installation's access rather than the mentioning user's, so the installation's repository selection is the only boundary on what those runs can reach. The repository that triggered the mention is cloned alongside any repositories in the configured environment, and only the repositories that installation covers are available to the agent.
+Runs triggered by an `@warp-agent` mention through the [GitHub integration](/platform/integrations/github/) use installation access. Warp receives the content of the issue, pull request, or review thread that carried the mention, including the recent comments and the diff of a commented file, and the run authenticates with the GitHub App installation that delivered the event. Cloning, commits, branches, pull requests, and status comments all use that installation's access rather than the mentioning user's. The repository that triggered the mention is cloned alongside any repositories in the configured environment, and only the repositories that installation covers are available to the agent.
 
 ---
 

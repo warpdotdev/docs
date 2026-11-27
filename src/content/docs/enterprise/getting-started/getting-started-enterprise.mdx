@@ -7,7 +7,7 @@ sidebar:
   label: "Getting started for admins"
 ---
 
-This guide walks your IT or platform admin through initial Warp setup for your organization: configuring SSO, creating your team, inviting users, and setting Admin Panel policies.
+Set up Warp Enterprise for your organization: configure SSO, organize teams, invite colleagues, and apply workspace policies.
 
 ## Prerequisites
 
@@ -15,63 +15,55 @@ Before you begin:
 
 * You have an active Warp Enterprise subscription
 * You have admin access to your organization's identity provider (Okta, Microsoft Entra ID, Google Workspace, etc.)
-* You've identified which team members should have admin privileges in Warp
+* You have workspace admin access, or a workspace owner or admin will perform the workspace-wide steps
 
 ## Step 1: Configure Single Sign-On (SSO)
 
-Warp uses SSO to authenticate users and control access to your organization's Warp team. Warp supports Okta, Microsoft Entra ID, Google Workspace, OneLogin, and any SAML 2.0 or OIDC compatible provider through [WorkOS](https://workos.com).
+Warp uses SSO to authenticate users in your Enterprise workspace. Warp supports Okta, Microsoft Entra ID, Google Workspace, OneLogin, and SAML 2.0 or OIDC compatible providers through [WorkOS](https://workos.com).
 
-SSO setup is coordinated with Warp's team — contact your account team or [enterprise support](https://www.warp.dev/contact-sales) to get started. For the full setup process and supported providers, see [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/).
+Contact your account team or [Enterprise support](https://www.warp.dev/contact-sales) to coordinate SSO setup. Follow [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) for the setup process and supported providers.
 
-**Before rolling out to your team**, test SSO login in an incognito window to confirm it works. See [Testing SSO](/enterprise/security-and-compliance/sso/#testing-sso) for steps.
+Before rolling out SSO, [test login in an incognito window](/enterprise/security-and-compliance/sso/#testing-sso).
 
 :::note
 After enabling SSO, existing users who signed up with email or OAuth will need to [link their accounts to SSO](https://app.warp.dev/link_sso) before they can continue using Warp with your organization. See [troubleshooting SSO account linking](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/#i-logged-in-with-another-method-before-and-now-cant-use-sso) for details.
 :::
 
-## Step 2: Create and configure your team
+<span id="step-2-create-and-configure-your-team" />
 
-### Creating your team
+## Step 2: Set up your workspace and teams
 
-During Enterprise onboarding, Warp's team will work with you to set up your team. This typically happens in one of two ways:
+<span id="creating-your-team" />
 
-* **Warp provisions your team** - In most cases, Warp creates the team on your behalf and adds your admin so you can begin configuration right away.
-* **You create or bring your own team** - If you already have a Warp team, or prefer to create one yourself, Warp's team will apply the Enterprise plan to it during onboarding.
+### Initial Enterprise provisioning
 
-In either case, the Enterprise plan must be applied by Warp internally — this cannot be self-served. Your account team will coordinate this with you. To get started, contact your account manager.
+Your Warp account team coordinates initial setup, including provisioning a team or applying the Enterprise plan to an existing team. Applying the Enterprise plan is not self-service. Contact your account manager to confirm the account and initial administrators.
 
-### Team settings
+A workspace groups your Enterprise teams under one account. Once the workspace is ready, workspace admins can [create additional teams and choose their visibility](/enterprise/team-management/teams/#creating-teams-and-choosing-visibility).
 
-Some team settings are configured in different places:
+<span id="team-settings" />
 
-* **Team name** - Configured in **Settings** > **Teams** in the Warp app. Help users identify the right team to join.
-* **Domain restrictions** - Limit team invites to specific email domains (e.g., `@yourcompany.com`)
-* **Auto-join** - Automatically adds users to your team when they sign in via SSO from your configured domain. The domain must be configured by the Warp team during onboarding — contact your account team to set up or update your team domain.
-* **SSO** - Configured through WorkOS, not the Admin Panel. See [Step 1](#step-1-configure-single-sign-on-sso).
+### Workspace and team settings
+
+Configure each choice at its intended scope:
+
+* **Authentication and company domains** - Coordinate SSO and domain configuration with your account team. [Domain capture](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings) adds users to the workspace. Workspace membership does not automatically join every team.
+* **Team membership and visibility** - Use [Enterprise team management](/enterprise/team-management/teams/) to organize teams and choose how colleagues find and join them.
+* **Shared policies** - Use the [Enterprise Admin Panel](/enterprise/team-management/admin-panel/) to enforce supported workspace values or delegate choices to teams.
 
 ## Step 3: Invite and manage users
 
 ### Inviting users
 
-There are several ways to add users to your Warp team:
+Review your [Enterprise membership and billing terms](/enterprise/support-and-resources/billing/) before inviting colleagues. Workspace admins can invite people to the workspace or a specific team. Team admins invite people to their own team.
 
-**Option 1: Invite by email**
-1. Navigate to **Settings** > **Teams**.
-2. Enter email addresses in the **Invite by Email** field (comma-separated).
-3. Click **Invite**.
+Choose the invitation that matches the recipient's intended access:
 
-**Option 2: Share invite link**
-1. Navigate to **Settings** > **Teams**.
-2. Copy the team invite link.
-3. Share the link via email, Slack, or your preferred communication channel.
+* [Invite by email](/enterprise/team-management/workspaces/#inviting-members-by-email) to name specific recipients, including people joining hidden teams
+* [Share a workspace invite link](/enterprise/team-management/workspaces/#sharing-a-workspace-invite-link) to let recipients select an open team
+* [Share a team invite link](/enterprise/team-management/workspaces/#sharing-a-team-invite-link) for a specific open team
 
-**Option 3: Domain auto-join**
-
-:::note
-Domain configuration is set up by the Warp team during onboarding. Contact your Warp account team to configure or update your team domain.
-:::
-
-1. Once your team domain is configured, users who sign in via SSO from your domain are automatically added to your Warp team.
+Recipients follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team). For a workspace invitation, if no open team is available, the recipient can join only the workspace. Add that person to a team before they start cloud agent or factory runs.
 
 ### User roles and permissions
 
@@ -89,48 +81,41 @@ For team administration, follow [Promoting or demoting admins](/enterprise/team-
 
 ## Step 4: Configure the Admin Panel
 
-The Admin Panel gives you centralized control over Warp features, permissions, and usage across your team.
+The Admin Panel has separate workspace and team scopes. Confirm the scope before changing a policy.
 
 ### Accessing the Admin Panel
 
-1. In Warp, open **Settings**.
-2. Navigate to the **Billing and usage** section.
-3. Click **Open Admin Panel**.
+1. Open the [Warp Admin Panel](https://app.warp.dev/admin/) and sign in. Confirm the workspace name.
+2. Under "Workspace admin" in the sidebar, open the section for a workspace-wide policy.
+3. For a team setting, click the team's name under "Team admin", then open the relevant section.
 
-Alternatively, visit the [Warp Admin Panel](https://app.warp.dev/admin) directly.
+<span id="key-admin-panel-sections" />
 
-### Key Admin Panel sections
-
-* **Billing** - View your plan type and AI usage limit information
-* **Teams** - Manage team members, roles, and invites — the same controls available in **Settings** > **Teams** in the Warp app
-* **AI** - Configure general and AI autonomy settings for your team
-* **Models** - Configure which models are available to your team, plus BYOLLM routing through AWS Bedrock or Gemini Enterprise
-* **Code** - Enable Codebase Context for your team
-* **Platform** - Configure cloud agent settings
-* **Privacy** - Configure user-generated content data collection, cloud conversation storage, and enterprise secret redaction
-* **Sharing** - Configure direct link sharing and "anyone with link" sharing permissions
+Follow the [Enterprise Admin Panel guidance](/enterprise/team-management/admin-panel/) for policy controls, model configuration, billing, and sharing. The team's **Models** page is under "Team admin", not the workspace sections.
 
 ### How settings enforcement works
 
-Settings configured in the Admin Panel are enforced at the team level:
+For supported controls, a workspace admin can enforce a value or select **Respect Team Setting**. Team admins cannot override a workspace-enforced value. Delegated team controls remain subject to plan restrictions.
 
-* **Enforced settings** - Cannot be overridden by individual users (e.g., BYOLLM routing policies)
-* **Respect User Setting** - Defers to each user's own preference, letting individual team members configure that setting themselves
+Some team controls offer **Respect User Setting** so members can choose their own preference. Not every control supports delegation. Follow [Enforcing or delegating workspace policies](/enterprise/team-management/admin-panel/#enforcing-or-delegating-workspace-policies) to apply a value and check its effect on a team.
 
 ## Step 5: Set up team resources
 
 ### Enable Codebase Context
 
-Codebase Context indexes your Git repositories to help agents understand your code across large, multi-repo systems:
+Codebase Context indexes Git repositories for agent context. To enable it across the workspace:
 
-1. Navigate to **Admin Panel** > **Code**.
-2. Toggle **Codebase Indexing** to **Enabled**.
+1. In the Admin Panel, confirm the workspace. Under "Workspace admin", click **Code**.
+2. Click the "Codebase Indexing" dropdown and select **Enabled**.
+3. Reload the page and confirm the selected value persists.
 
-Warp prompts team members to index repositories when they navigate to a Git-tracked directory.
+To leave indexing under team control, select **Respect Team Setting** instead. See [Codebase Context](/agents/capabilities/codebase-context/) for repository indexing and limits.
+
+{/* VERIFY: Test Enterprise onboarding handoffs, workspace and team navigation, and the Codebase Indexing dropdown and saved value in a production account. The canonical procedures and implementation source were checked; no live-account test was performed. */}
 
 ### Create shared Warp Drive resources
 
-Populate your team's Warp Drive with shared resources to scale best practices and compound productivity gains:
+Create Warp Drive resources your team can reuse:
 
 * **Workflows** - Parameterized commands for common tasks (deployments, environment setup)
 * **Notebooks** - Interactive runbooks for onboarding and operational procedures
@@ -142,22 +127,11 @@ See [Warp Drive documentation](/knowledge-and-collaboration/warp-drive/) for det
 
 ### Configure MCP integrations
 
-Connect Warp to your team's tools for enhanced agent context. Navigate to **Settings** > **Agents** > **MCP servers** to get started. Some integrations (like Linear, GitHub, and Sentry) are available to enable with a single click, while you can also add any custom MCP server configuration your team needs.
+In the Warp app, open **Settings** > **Agents** > **MCP servers** to connect tools such as Linear, GitHub, or Sentry, or add a custom server.
 
 Once configured, click the share icon on a server to make it available to your team.
 
 See the [MCP documentation](/agents/capabilities/mcp/) for full configuration details.
-
-## Next steps
-
-Once your team is set up:
-
-* **For developers** - Share the [Getting started for developers](/enterprise/getting-started/getting-started-developers/) guide with your team
-* **Agent Profiles** - Configure default [Agent Profiles](/agents/capabilities/agent-profiles-permissions/) for different types of work to give teams appropriate autonomy and control
-* **BYOLLM** - Set up [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through your cloud infrastructure for data locality and cost control
-* **Team-managed API keys and endpoints** - Configure [shared provider API keys and custom endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for your team in the Admin Panel, available in both interactive sessions and cloud agents
-* **Monitor usage** - Review usage analytics in the Admin Panel to track adoption and measure engineering productivity gains
-* **Self-hosting** - Run agents on your own infrastructure to control where agents run and keep repository clones on your own machines. See [Self-hosting](/factories/self-hosting/) for setup instructions
 
 ## Troubleshooting
 
@@ -175,8 +149,19 @@ For common SSO problems (login failures, account linking, provider portal errors
 1. Generate a new invite link.
 2. Verify domain restrictions match user's email.
 
-## Support and resources
+<span id="support-and-resources" />
+
+## Support
 
 * [Admin Panel documentation](/enterprise/team-management/admin-panel/)
 * [Troubleshooting login issues](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/)
-* [Contact enterprise support](https://www.warp.dev/contact-sales) - Priority support via dedicated Slack/Teams channel
+* [Contact Enterprise support](https://www.warp.dev/contact-sales) - Coordinate support through your account team
+
+## Next steps
+
+* [Getting started for developers](/enterprise/getting-started/getting-started-developers/) - Share onboarding instructions with your team
+* [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) - Configure personal agent behavior and approvals within team policies
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - Configure inference through your cloud account
+* [Team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure shared inference for local and cloud Warp Agent runs
+* [Enterprise billing](/enterprise/support-and-resources/billing/) - Review usage reporting and spending controls
+* [Self-hosting](/factories/self-hosting/) - Run factory agents on your own compute

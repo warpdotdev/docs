@@ -56,6 +56,8 @@ For local runs, when the admin allows member-managed keys and endpoints, a membe
 * **First-party keys** - If a member has their own key for a provider, requests route through the member's key; otherwise the team key is used; otherwise Warp-managed inference is used (if allowed).
 * **Custom endpoints** - A member's own endpoint and a team endpoint never collide, even if they share a name. The member's endpoint is used when they select it; team endpoints resolve to the team's stored credential.
 
+These provider-key precedence rules do not override an enforced [Claude Platform linked-billing configuration](/agents/inference/claude-platform-linked-billing/).
+
 ### Cloud agents
 
 [Cloud Warp Agent runs](/platform/) can use your team's keys and endpoints when you select a configured provider model or endpoint. **Auto** uses Warp-provided inference; see [billing behavior](#billing-behavior). Personal keys and endpoints stored on a member's device aren't copied to cloud runs.
@@ -71,7 +73,7 @@ For local runs, when the admin allows member-managed keys and endpoints, a membe
 
 Configure team providers from the [Admin Panel](/enterprise/team-management/admin-panel/) **Models** page, where a **First-party API keys** card and a **Custom endpoints** card sit alongside the Direct API and AWS Bedrock cards.
 
-1. In the [Admin Panel](/enterprise/team-management/admin-panel/), go to the **Models** page.
+1. Open the [Admin Panel](https://app.warp.dev/admin/) and confirm the team. In an Enterprise workspace, under "Team admin", click the team name, then **Models**. For a self-serve team, open **Models** for that team.
 2. To add a team API key, use the **First-party API keys** card: enter the key for a provider (OpenAI, Anthropic, or Google) and save it. Each provider row shows whether a key is configured without revealing the stored value.
 3. To add a team custom endpoint, use the **Custom endpoints** card: enter a name, a base URL, an API key, and at least one model (a model name plus an optional alias), then save. An endpoint can't be saved without a name, a valid base URL, an API key, and at least one model.
 4. Choose whether members may add their own keys and endpoints. When this is off, Warp won't use any key or endpoint a member adds, even if they've saved one — their saved keys are preserved for when it's turned back on.

@@ -31,6 +31,19 @@ An Enterprise workspace groups one or more teams under one account. Workspace ow
 
 Cloud agent accounts are execution accounts for automations, not human team roles. See [Cloud agent accounts](/platform/agents/) for configuration and API keys.
 
+## Creating your first team
+
+If you don't belong to a team, you can create one for standalone integrations without setting up a factory:
+
+1. Sign in to the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page in the {VARS.WEB_APP}</a>.
+2. In "Integrations require a team", click **Create team**.
+3. Enter a name in "Team name" and click **Create team**.
+4. Confirm the message says your named team was created. Review the available integration controls.
+
+Creating a team does not enable integrations on an ineligible plan or fund runs. If the integration controls are unavailable, review [integration access requirements](/platform/team-access-billing-and-identity/#requirements-for-integrations) and [run funding](/platform/team-access-billing-and-identity/#usage-requirements).
+
+{/* VERIFY: Test first-team creation from the standalone Integrations page in production, including Create team, the named success message, and integration availability afterward. Client routes, the creation mutation, and server authorization were source-checked; no live-account test was performed. */}
+
 ## Joining a team
 
 Ask a team owner or admin for an invitation. For an email invitation, use the address that received it. Ask an admin to replace an expired or misaddressed invitation.
@@ -43,6 +56,17 @@ Ask a team owner or admin for an invitation. For an email invitation, use the ad
 Enterprise workspace membership does not automatically join every team. Follow [Joining a workspace or team](/enterprise/team-management/workspaces/#joining-a-workspace-or-team) for Enterprise invitations and discovery.
 
 {/* VERIFY: Exercise browser invitation acceptance and membership confirmation for standalone workflows in production, including domain verification and onboarding. The flow was checked against source; no live-account test was performed. */}
+
+## Finding your team ID
+
+Cloud-provider trust policies and other team-scoped configuration require the ID of the intended team, not its workspace.
+
+1. Open the [Admin Panel](https://app.warp.dev/admin/). In an Enterprise workspace, under "Team admin", click the team name, then **Members**. For a self-serve team, click **Teams**.
+2. Confirm the team name. Copy its ID from the URL:
+   * In `/admin/workspace/teams/TEAM_UID/members`, copy the value between `/teams/` and `/members`.
+   * In `/admin/TEAM_UID/teams`, copy the value immediately after `/admin/`.
+
+`TEAM_UID` represents your team's ID. The final URL component usually names the section, not the team. A workspace-wide URL such as `/admin/workspace/privacy` does not identify a team. If you cannot open the Admin Panel, ask a team or workspace admin for the ID.
 
 ## Managing membership and admins
 

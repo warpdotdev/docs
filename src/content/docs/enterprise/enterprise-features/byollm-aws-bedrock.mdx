@@ -79,7 +79,7 @@ Before configuring BYOLLM, confirm the following:
 
 In the [Admin Panel](/enterprise/team-management/admin-panel/), configure which models should route through AWS Bedrock:
 
-1. From the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the **Models** page.
+1. Open the [Admin Panel](https://app.warp.dev/admin/). Under "Team admin", click the team name, then **Models**. Confirm the team name before changing routing.
 2. Select which models should use your cloud provider (e.g., "Claude Opus 4.7 via AWS Bedrock").
 3. Optionally, disable direct API access to enforce provider-only routing.
 
@@ -197,7 +197,7 @@ This trust policy authorizes any cloud-hosted run from your team. The `sub` clai
 
 Replace the account ID, issuer host, and team UID with values for your environment.
 
-The `<team-uid>` is the Warp team UID for the team that will be allowed to assume this role. You can find it in your team's [Admin Panel](/enterprise/team-management/admin-panel/) URL as the path segment after `/admin/`. For example, in `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
+Replace `<team-uid>` with the ID of the team allowed to assume this role. Follow [Finding your team ID](/platform/teams-and-admin-controls/#finding-your-team-id), and confirm the intended team before copying it. A workspace-wide URL does not identify a team. In a URL such as `/admin/workspace/teams/TEAM_UID/models`, use the value between `/teams/` and `/models`, not `workspace`.
 
 #### Permissions policy
 
@@ -239,7 +239,7 @@ Attach the IAM role from Step 2 to your team or to a specific named agent.
 
 This applies the OIDC role to all cloud agent runs on the team.
 
-1. In the [Admin Panel](/enterprise/team-management/admin-panel/), navigate to the **Models** page.
+1. Open the [Admin Panel](https://app.warp.dev/admin/). Under "Team admin", click the team name, then **Models**. Confirm this is the team whose ID you used in the trust policy.
 2. Under the **AWS Bedrock** host configuration, paste the IAM role ARN from Step 2 into the **Role ARN** field.
 3. Select which models should route through AWS Bedrock.
 
@@ -306,7 +306,7 @@ Rates follow your [Enterprise contract](/enterprise/support-and-resources/billin
 
 ### Zero Data Retention (ZDR)
 
-Warp maintains **SOC 2 compliance** and has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers.
+For Warp-managed inference, review the [provider retention policy and model exceptions](/support-and-community/privacy-and-security/privacy/#zero-data-retention-zdr).
 
 However, when using BYOLLM:
 
