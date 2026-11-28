@@ -1,50 +1,43 @@
 ---
 title: Measure and improve a factory
 description: >-
-  Measure coding agent effectiveness and ROI in Warp Factories with
-  autonomy, cost per PR, and PR cycle time.
+  Assess coding agent effectiveness and inform ROI decisions in Warp Factories
+  with quality checks, cost, autonomy, and PR cycle time.
 sidebar:
   label: "Overview"
 ---
 
-Measure coding agent effectiveness and assess return on investment (ROI) in Warp Factories using autonomy, cost per PR, and PR cycle time. Establish a baseline, compare configurations on the same tasks, and use the results to decide which changes to keep.
+Use Warp Factories to assess coding agent effectiveness by comparing output quality, cost, and cycle time across configurations. Record results for the current configuration, test a proposed change on the same tasks, and compare the results before deciding what to keep. To assess return on investment (ROI), also consider the time people spend reviewing and correcting the output.
 
-First distinguish the product from the workflow that builds it. Fixing clipboard paste changes your application. Correcting a verification skill so it builds a required package before starting the app changes how future work is checked. The first needs evidence that paste works; the second needs a comparison showing that the revised procedure resolves startup failures without skipping verification.
-
-For the workflow change, use the [practical improvement loop](#run-a-practical-improvement-loop) below: record the baseline failure, compare the candidate instructions on the same tasks, review the change, and monitor later results. See [improving a skill from observed failures](/factories/factory-skills/#improve-a-skill-from-observed-failures) for a concrete example.
-
-| Feature | What it tells you |
-| --- | --- |
-| Dashboard metrics | How much work the factory produced, and what it cost. |
-| Scorers | Whether completed runs meet criteria you define. |
-| Benchmarks | How different configurations perform on the same tasks. |
-| Self-improvement | Which repeated failures get investigated and turned into follow-up work. |
+For example, suppose a verification run fails because its startup instructions omit a required build command. Revising those instructions changes how the factory verifies work, rather than changing the application. Compare the existing and revised instructions on the same tasks to check whether the revision resolves the startup failure without preventing the worker from completing the requested task. See [improving a skill from observed failures](/factories/factory-skills/#improve-a-skill-from-observed-failures).
 
 ## Read metrics on the Dashboard page
 
-The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
+Use the **Dashboard** page to identify changes in activity, cost, and cycle time that need investigation. Review the underlying runs before attributing a change to a particular configuration.
+
+:::caution
+**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require a connected code host - the GitHub App, or the GitLab webhook Warp installs when you [connect GitLab](/factories/integrations/gitlab/) - and only cover activity from after you connect it. A PR's cost, creator, source, and requested model come from the run itself, so those still show without that connection.
+:::
 
 | Metric | What it shows |
 | --- | --- |
 | **Total runs** | All agent runs, with breakdowns by agent type, status, source, model, and more. |
 | **PRs opened** | Pull requests created from factory work, counted once, in the period they were first observed. |
-| **PRs merged** | Of the PRs opened in a period, how many later merged. Opened and merged draw from different data sources, so a period's merged count can occasionally read higher than its opened count for that period. |
+| **PRs merged** | Pull requests opened in the selected period that later merged. Because opened and merged counts come from different data sources, the reported merged count can occasionally exceed the opened count for that period. |
 | **Autonomy** | The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous. |
 | **PR cycle time** | The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage. |
-| **Cost per PR** | The median cost of PRs opened in the range. Each run's cost includes its child runs and splits evenly across its PRs. View it by cost component or PR size (S/M/L/XL, split at 100/500/1,000 changed lines). |
+| **Cost per PR** | The median cost of pull requests opened in the selected period. Each run's cost includes its child runs and is divided evenly across its PRs. View breakdowns by cost component or PR size (S/M/L/XL, split at 100/500/1,000 changed lines). |
 | **Most expensive PRs** | The highest-cost pull requests. |
 | **Scorer cards** | Results from your Scorers. |
 | **Self-improvement PRs** | The three newest Self-improvement pull requests, regardless of the selected date range. |
 
 **Cost per PR** is a comparison metric, not a billing figure. Historical estimates and incomplete coverage of external inference can affect it. Inspect a run's [usage details](/factories/factory-dashboard/#inspect-runs) when investigating a cost.
 
-:::caution
-**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require a connected code host - the GitHub App, or the GitLab webhook Warp installs when you [connect GitLab](/factories/integrations/gitlab/) - and only cover activity from after you connect it. A PR's cost, creator, source, and requested model come from the run itself, so those still show without that connection.
-:::
+**Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
 
-Use the **Dashboard** page to pick which runs to investigate, not to conclude what caused a change. **Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
+<span id="configure-scorers" />
 
-## Configure Scorers
+## Evaluate runs with Scorers
 
 A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" See [Configuring Scorers](/factories/measure-and-improve/scorers/) for its fields and how automatic and on-demand scoring work.
 
@@ -52,32 +45,38 @@ A **Scorer** uses an LLM judge to classify completed runs against criteria you w
 
 A benchmark compares configurations for an agent or Blueprint stage on the same fixed tasks. Test model, harness, runner, or definition-branch changes before applying them to production. See [benchmarking factory configurations](/factories/benchmarks/) for the workflow.
 
-## Configure and review Self-improvement
+<span id="configure-and-review-self-improvement" />
 
-**Self-improvement** turns a Scorer's repeated failures into follow-up pull requests, against application code or the factory's own definition. See [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) for how to turn it on and review its pull requests.
+## Propose fixes with Self-improvement
+
+When enabled for a Scorer, **Self-improvement** investigates recurring failures and proposes changes to application code or the factory's own definition in pull requests. Review and test those proposals before applying them. See [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) for setup and review instructions.
 
 ## Run a practical improvement loop
 
-Change one measurable thing at a time:
+Test one configuration change at a time:
 
 ```mermaid
 flowchart LR
-  Define[Define a Scorer] --> Baseline[Collect a baseline]
-  Baseline --> Inspect[Inspect failures]
-  Inspect --> Benchmark[Benchmark a candidate]
-  Benchmark --> Adopt[Review and adopt]
-  Adopt --> Monitor[Keep monitoring]
+  Define[Create and check a Scorer] --> Baseline[Record a baseline]
+  Baseline --> Inspect[Investigate failures]
+  Inspect --> Prepare[Prepare one proposed change]
+  Prepare --> Benchmark[Compare configurations]
+  Benchmark --> Adopt[Review and apply]
+  Adopt --> Monitor[Monitor subsequent work]
   Monitor --> Inspect
-  Inspect -.->|Repeated failures| Improve[Self-improvement]
-  Improve -.-> Adopt
+  Inspect -.->|Recurring failures| Improve["Optional: Self-improvement<br/>configuration proposals"]
+  Improve -.-> Prepare
 ```
 
-1. **Define a Scorer.** Pick one agent and one failure mode you can observe. Write the judge instructions and classifications, then score a few runs manually and compare the judge's results against your own review.
-2. **Collect a baseline.** Let automatic scoring run until results reflect normal work. Record the Scorer settings, date range, and relevant costs.
-3. **Inspect failures.** Read the judge's reasoning and the underlying runs. Look for causes like missing context, unclear instructions, or missing tools. Turn on Self-improvement when the same failure keeps repeating.
-4. **Benchmark a candidate.** Compare configurations of that agent on the same tasks, with enough repetitions to trust the difference.
-5. **Review and adopt.** If the evidence supports the change, make it. Review Self-improvement pull requests with the same standards as human-authored ones.
-6. **Keep monitoring.** Leave the Scorer active and compare new results against your baseline. Revise the Scorer, or set its sample rate to 0, when its criteria no longer match what your team needs.
+1. **Create and check a Scorer.** Choose a worker and an observable requirement, such as building a required package before starting the app. [Create a Scorer](/factories/measure-and-improve/scorers/) for that requirement and score a few completed runs on demand. Inspect those runs yourself and compare your assessment with the Scorer's classifications and reasoning.
+2. **Record a baseline.** Collect results from the current configuration across the task types the worker normally handles. Record the configuration, Scorer settings, task sample, date range, and costs so you can compare later results with the same starting point.
+3. **Investigate failures.** Inspect runs the Scorer classified as failures. Confirm whether the cause is missing context, incorrect instructions, unavailable tools or access, or an unsuitable evaluation criterion before deciding what to change. If the Scorer's criteria are incorrect, revise and recheck the Scorer before using its results to compare configurations.
+4. **Prepare one proposed change.** Change the setting or instruction responsible for the confirmed problem. For the startup example, add the missing build command to the skill. Keep unrelated settings unchanged. Do not apply the change to the shared workflow yet.
+5. **Compare configurations.** Use a [benchmark](/factories/benchmarks/) to compare the current and proposed configurations on the same tasks with the same evaluation criteria. Repeat trials to check whether the difference persists. Check task completion and quality as well as cost.
+6. **Review and apply the change.** Review the proposed configuration and benchmark results, including cost. If the revised startup instructions resolve the failure and the worker still completes the requested tasks, [apply the accepted change](/factories/benchmarks/#apply-a-benchmark-result) through the relevant worker settings or factory definition.
+7. **Monitor subsequent work.** Keep the Scorer active and compare later runs on similar tasks with the baseline. If the Scorer's criteria no longer reflect your requirements, revise them or set its sample rate to 0.
+
+Self-improvement can provide the proposed change in step 4 when failures recur. Compare its factory-configuration proposals using the same process before applying them. Review and test application-code fixes through your normal code-review process.
 
 ## Related pages
 

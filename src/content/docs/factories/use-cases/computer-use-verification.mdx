@@ -31,9 +31,9 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 
 ## Choose evidence for the behavior
 
-Choose captures that answer the acceptance criteria, not only show the app running. A focused screenshot can show that a 1px border gap is gone. A clipboard-paste fix needs a recording of copying a known URL, opening the link editor, pasting over the old value, and checking the saved result. A screenshot of the final URL alone does not establish that paste worked.
+Choose evidence that shows whether the change meets its acceptance criteria. For a visual fix, such as removing a 1px border gap, a focused screenshot can show the result. For an interaction fix, such as pasting a URL over an existing link, record the sequence: copy a known URL to the clipboard, open the link editor, paste, save, and reopen the editor to confirm the replacement. A screenshot of the saved URL alone does not show how it was entered.
 
-Keep automated checks for cases the recorded flow does not exercise, such as persistence after restart or handling malformed data. State which criterion each check or capture covers. The [verification lesson in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/add-verification-and-merge-risk) applies this approach to a desktop app.
+A recording demonstrates only the path it shows. Use automated checks for cases that path does not cover, such as persistence after restart or handling malformed data. State which acceptance criterion each check or capture covers. The [verification lesson in Warp Learn](https://www.warp.dev/learn/build-a-self-improving-software-factory/add-verification-and-merge-risk) applies this approach to a desktop app.
 
 ## Set up UI verification
 

@@ -44,7 +44,7 @@ The Blueprint sends the pull request to a review [worker](/factories/factory-age
 
    See [factory skills](/factories/factory-skills/) for the file format.
 
-   If the author supplies a [merge-risk assessment](/factories/use-cases/end-to-end-sdlc-automation/#assess-risk-before-handoff), require the reviewer to check its claims against the current diff and evidence. Use the assessment to focus investigation, not as proof that the change is correct.
+   If the author supplies a [merge-risk assessment](/factories/use-cases/end-to-end-sdlc-automation/#assess-risk-before-handoff), require that the reviewer check the assessment's claims against the current diff and evidence. Use the assessment to focus investigation, not as proof that the change is correct.
 
 4. In `factory.yaml`, [define a stage](/factories/blueprints/stages/) named `review` with the review worker as `worker`. Set its `inputs` to the PR and current head SHA. In its `prompt`, require the review-policy skill, current-head validation, and a report returned to the coordinator, without editing, approving, or merging. Declare findings and check results as `outputs`.
 
