@@ -1,5 +1,174 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:7298fdc1c546115a49b4118461f83070d4ba97bb2645e221d3231ca29708b046",
+      "claim_id": "sha256:2f8823a86d8d3d9030560d85b91c4652d72ad43bb7c989e578ba9084f15b4837",
+      "entity": "integration_disabled",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `403 Forbidden`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "content_sha256": "059b157ca3e2418051a5da6108312fe1aab5b54706ed995b691879b7dce2cd21",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 403,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0c5097f507e1e21d10392a0085f6e47016957a00789fbb2036e3d2792c1c6181",
+      "claim_id": "sha256:a880cad9cd65c3984a6b29efd81238c03c5aed743d76a1b6bf75ef0c71850dc0",
+      "entity": "integration_disabled",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "content_sha256": "059b157ca3e2418051a5da6108312fe1aab5b54706ed995b691879b7dce2cd21",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b0d006a68cd6a7db75afbee0d4d1681dd1e4448b393dbacdb18ea27f8d098189",
+      "claim_id": "sha256:5c737fcd898567691e90f72b0a82267f4c93453be3dfe96f7d749708d4308e17",
+      "entity": "integration_disabled",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "content_sha256": "059b157ca3e2418051a5da6108312fe1aab5b54706ed995b691879b7dce2cd21",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "FAILED",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:48fdba6ab3f06c49168f4847c042ce0cae8466cd596ff7c9abd5f1273a97be5d",
+      "claim_id": "sha256:5ce581a269189ebdc0b6587df634a9088b1045a8b4d92428cfac2ba865052b77",
+      "entity": "integration_disabled",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "trigger",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `integration_disabled` error occurs when a task targets an integration that is currently disabled",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled",
+        "content_sha256": "059b157ca3e2418051a5da6108312fe1aab5b54706ed995b691879b7dce2cd21",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 10,
+        "line_start": 10,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "integration-disabled",
+        "type": "free-text"
+      }
+    }
+  ],
   "page_sha256": "059b157ca3e2418051a5da6108312fe1aab5b54706ed995b691879b7dce2cd21",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/integration-disabled.mdx",
   "schema_version": 1

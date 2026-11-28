@@ -1,5 +1,320 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:980595c4e8e9e245054ce6ad788df66e1a752c52cbc580ea39c6fa4499e0808b",
+      "claim_id": "sha256:7d43cb8717f93a24354111635345f8f3e1ac05016830468297df1bb4dbcbe1d8",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp has three user roles:\n\n* **Team Owner** - Has full access to the Admin Panel and can manage team settings, invite users, assign roles, and transfer ownership of the team. There can only be one Owner.\n* **Team Admin** - Same permissions as the Owner, except they can't transfer ownership of the team.\n* **Member** - Standard access to Warp features and team resources. Members can use agents, access shared Warp Drive resources, and configure personal settings within the limits set by admins.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "User roles",
+        "heading_anchor": "user-roles",
+        "line_end": 20,
+        "line_start": 16,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "owner",
+          "admin",
+          "member"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:091dcc7d6a5e371ad6a5ed29c4d5abcbb2f392b9b0c89a78fc9faaa4fcef8a42",
+      "claim_id": "sha256:83f7f48cb8bf161526d60a1e51f6be5b088d8cbed27907f7a0c25f38775ba55e",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "maximum-owners",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "There can only be one Owner.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "User roles",
+        "heading_anchor": "user-roles",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:5fe6648757e0fd5f31ed94fb4750e2b9307cd299d8d0e8d8b5f341dc5cbce9ed",
+      "claim_id": "sha256:62df5d4784f3191331ba5fedb038a8aeb658d06aba28da1d1784bc91cf08f6fa",
+      "entity": "team-admin",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-transfer-ownership",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Same permissions as the Owner, except they can't transfer ownership of the team.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "User roles",
+        "heading_anchor": "user-roles",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:5c87fec3ae73fed48a768014804f5120404cf1d6bd43b673614d9e299bab9b80",
+      "claim_id": "sha256:25c03d50d7b932aabcaddc419bb780b7108442dcf78d1b82da7881cb0edc1540",
+      "entity": "team-admin",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "can-modify-owner-role",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "single-team-workspace"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team Admins cannot demote or modify the Team Owner role.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "Promoting or demoting admins",
+        "heading_anchor": "promoting-or-demoting-admins",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:59891966bd0f841273beb248189e3a93c0ad7248ab6aad62ee0defe08503953b",
+      "claim_id": "sha256:f6b71e278cf6d982ffcd4554c94cb575c088067cbd83e170b988075d487ba099",
+      "entity": "team-enforced-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "user-override-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Applies to all members. Users cannot override these settings.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "Settings enforcement",
+        "heading_anchor": "settings-enforcement",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:64bde87a3e156bff51c4c1b99f777716b3c0d2eee94e82908b2965cae057e50a",
+      "claim_id": "sha256:2a882e24bbc5d13daf2614237fe16b257589e778ca547f28927095969fd6f1b5",
+      "entity": "member",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-agents-allowed",
+      "qualifiers": {
+        "actors": [
+          "member"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "admin-policies"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Run agents locally and in the cloud within the policies admins define.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "What members can do",
+        "heading_anchor": "what-members-can-do",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "permissions",
+      "claim_content_fingerprint": "sha256:61ecce993bd0ed8d307ea16fa5ce1a028312ee92d5355dfdb61d5fa5a4642fe1",
+      "claim_id": "sha256:70ef69ad40d60725ce7e66723754c1c5097f0d5715620b1574ea58c5ff0e5219",
+      "entity": "member",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "personal-settings-editable",
+      "qualifiers": {
+        "actors": [
+          "member"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "admin-enforced-settings"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Adjust settings where admins have selected \"Respect User Setting.\"",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "content_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
+        "heading": "What members can do",
+        "heading_anchor": "what-members-can-do",
+        "line_end": 53,
+        "line_start": 53,
+        "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/roles-and-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "c9a0959073430ad675e6b4f1a716bf5a52fd1c580a7111c1ea67d5f0c8da15c7",
   "path": "src/content/docs/enterprise/team-management/roles-and-permissions.mdx",
   "schema_version": 1

@@ -1,6 +1,185 @@
 {
-  "claims": [],
-  "page_sha256": "c966e4d36c3ed6934596db99b75651c522b6a42711afb5e9ea2b97ff0da052ea",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:1573abd4af932b8b0349e3b052463271a591b185240a2257eebd0a140af1d34f",
+      "claim_id": "sha256:08a2893284e8335f09c71dc9bb0275e75e0922eda3294e6ec108a4cfaba470c4",
+      "entity": "feature_not_available",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `403 Forbidden`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "content_sha256": "4f568ea251fdbe2ef83070b200e2c9a6a744829c9c08b7a50421e08e5b5c0629",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 403,
+        "raw": 403,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9458577d69d6492fbac35addcbac8a2da5aa42a8bcadf26a8c5eb4dfc76c2492",
+      "claim_id": "sha256:da5063fafe1d5e630e6520cedfbb5475860eeb7a0a9a602083317ccead0a3eaa",
+      "entity": "feature_not_available",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "content_sha256": "4f568ea251fdbe2ef83070b200e2c9a6a744829c9c08b7a50421e08e5b5c0629",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dc8ec9523921484ebf3d5bd98475079f2f61e1e98dd361ec5108ab410659f41",
+      "claim_id": "sha256:8f6744961496162108ba1206233d9a292152527f5a126eba4eefad3cd2cf27aa",
+      "entity": "feature_not_available",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "content_sha256": "4f568ea251fdbe2ef83070b200e2c9a6a744829c9c08b7a50421e08e5b5c0629",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ac4d50e8b04339d1bbbab84a8fb09a305dd32178ea19a573173d256c92642145",
+      "claim_id": "sha256:6ff80ebb602e930dbb4977fd497de35b7fee9329701d426a39862f1aeca0e2c3",
+      "entity": "feature_not_available",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "trigger",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `feature_not_available` error occurs when you attempt to use a feature or capability that is not included in your team's current plan.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available",
+        "content_sha256": "4f568ea251fdbe2ef83070b200e2c9a6a744829c9c08b7a50421e08e5b5c0629",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": "requested feature missing from team's plan",
+        "raw": "requested feature missing from team's plan",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "4f568ea251fdbe2ef83070b200e2c9a6a744829c9c08b7a50421e08e5b5c0629",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/feature-not-available.mdx",
   "schema_version": 1
 }

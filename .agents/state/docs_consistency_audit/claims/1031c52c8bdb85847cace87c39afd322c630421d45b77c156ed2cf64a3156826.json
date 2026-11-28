@@ -1,6 +1,181 @@
 {
-  "claims": [],
-  "page_sha256": "f5229c8e5bc034e1044637e89ff9fb4b78cf327ccbc8eb76152e078f7444d459",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:e0209587d3d79a77521af58c8a812390d6194a5a4d56b37bcdd1ca6241cd089a",
+      "claim_id": "sha256:312af504bfb1a789e5167c1ade0ac26d7219034e6e152fc3595da59d8ef9ac27",
+      "entity": "conflict",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `409 Conflict`",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "content_sha256": "ca43ad5eb339cecd47e78497fa39cad7f05bcd593412afae2616983382122ed1",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/conflict/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 409,
+        "raw": 409,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:019d45e7ab5c86f3f7e4c5cf21aaa4b3b722b1b251f002b0380c60037c09cc98",
+      "claim_id": "sha256:d42b8ccf343f746ba3b8ad8ad8ccd0fe518b013f0158c8535a8c7973e2aa7e09",
+      "entity": "conflict",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** Yes",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "content_sha256": "ca43ad5eb339cecd47e78497fa39cad7f05bcd593412afae2616983382122ed1",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/conflict/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dc8ec9523921484ebf3d5bd98475079f2f61e1e98dd361ec5108ab410659f41",
+      "claim_id": "sha256:813e186a9f91345565ec926546e35daf5e8f61a8e60c74de4a3aca57b04cbdf1",
+      "entity": "conflict",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "content_sha256": "ca43ad5eb339cecd47e78497fa39cad7f05bcd593412afae2616983382122ed1",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/conflict/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8799b447ee318e2694113e165ffe3454a1bbd57a2f0c9246bdf138b7f6ac3f58",
+      "claim_id": "sha256:c9777bb3549b28319f4e2a743b1c70e54301837f381ed12f8b8ebbc19b0c1e24",
+      "entity": "agent-run-cancellation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "supports-pending-runs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You attempt to cancel a task that is still in the **pending** state (the task has not yet been claimed by a worker)",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "content_sha256": "ca43ad5eb339cecd47e78497fa39cad7f05bcd593412afae2616983382122ed1",
+        "heading": "When does this occur?",
+        "heading_anchor": "when-does-this-occur",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/conflict/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "ca43ad5eb339cecd47e78497fa39cad7f05bcd593412afae2616983382122ed1",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/conflict.mdx",
   "schema_version": 1
 }

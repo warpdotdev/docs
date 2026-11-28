@@ -1,6 +1,496 @@
 {
-  "claims": [],
-  "page_sha256": "2cbc44fe4c66aa8774232bb28e74947a138616ba8c81993acb8f4250d2fa1026",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:2cb3ed6f53b8ac9c5e5489edf778b0946ffe6f49a45c21c2d53b43626c817034",
+      "claim_id": "sha256:b74974b6848e3b165042e1fc80da3a49bd4df8b6b909c2db474a94d224830b95",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "creation-methods",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can generate a plan using the `/plan` [slash command](/agents/capabilities/slash-commands/) or by asking the agent in natural language.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Creating a plan",
+        "heading_anchor": "creating-a-plan",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "slash-plan",
+          "natural-language"
+        ],
+        "raw": [
+          "slash-plan",
+          "natural-language"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:650505245cd0e542790f13f2d8f00a6db455d26f929a902d43863c7344066a50",
+      "claim_id": "sha256:dc099478d7ebc363907349cb0e57f604a50c7e2c1074eb6d6a444d9c2d9b9de3",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "manually-editable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can edit the document manually or ask the agent to revise sections for you.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Reviewing and editing",
+        "heading_anchor": "reviewing-and-editing",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:03b475b362f9feff6f2e33bb5460f3a69e3a4efde82532c05d0953abad31b2b9",
+      "claim_id": "sha256:a477688bbd3db0aa6af892826f8f7600da3621df1e2020f1c80c4e3274e8ea09",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "agent-update-creates-version",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Any update made by the agent **creates a new version**.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Reviewing and editing",
+        "heading_anchor": "reviewing-and-editing",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dfb0d101eb1197e9f66747dfc7f2379a0d2b1fd8c3b7a7eeb3262c70a8482f7",
+      "claim_id": "sha256:35540384693a9e77c42f545380ed8c7bf14dc2bdd2edd0461d73d20cb3e9e962",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "previous-version-restorable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Version history lets you compare past iterations and restore an older version if you want to revert your approach",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Reviewing and editing",
+        "heading_anchor": "reviewing-and-editing",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:457d6cc65dee6ce08c26064d48a01b167251817837a4b4da937e1fec1dd59c49",
+      "claim_id": "sha256:c75eca1a31932fbf4d53617a30ba1b50d90815894b826cf1435c5bd991db2772",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "partial-execution-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can ask it to execute the full set of steps or only a specific section",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Executing a plan",
+        "heading_anchor": "executing-a-plan",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:64e76ddeae6cad46826f1ce04e7bde39ed101a62d5a59635a626a682bc51ddb6",
+      "claim_id": "sha256:fad17cd28eafff20ea801b13c0114dca2bb1507d72daf0d7f3c1622ab7f63b37",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "mid-run-revision",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If you revise the plan while the agent is running, you can notify it directly; the agent will adjust its execution based on your updates.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Executing a plan",
+        "heading_anchor": "executing-a-plan",
+        "line_end": 55,
+        "line_start": 55,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "notify-agent-to-adjust-execution",
+        "raw": "notify-agent-to-adjust-execution",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:88f03ba631dec5e1fc083e24d4a75d5c6117d5c935e75fd3ae71f4891fa50323",
+      "claim_id": "sha256:e13cf1b12847ffe4be9644b78ccbb32079fe44d14fb6b904d983b08cccd03cf2",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "automatic-save-location",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "automatic-sync-can-be-configured-in-agent-profiles"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp automatically saves all plans in the _Plans_ folder in [Warp Drive](/knowledge-and-collaboration/warp-drive/).",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Saving and sharing",
+        "heading_anchor": "saving-and-sharing",
+        "line_end": 75,
+        "line_start": 75,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "Plans folder in Warp Drive; configurable in Agent Profiles",
+        "raw": "Plans folder in Warp Drive; configurable in Agent Profiles",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e4bdb28b3e80ff84d141a05857af63591bf6a35624a844eaf77bfaf7515ba80c",
+      "claim_id": "sha256:d75df650f203ff762a574f09441a533073bc9b677ba0ef7dd2f5695259b91efd",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "sharing-methods",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can export any plan as Markdown, check it into your repository, or share a link",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Saving and sharing",
+        "heading_anchor": "saving-and-sharing",
+        "line_end": 82,
+        "line_start": 82,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "markdown-export",
+          "repository",
+          "link"
+        ],
+        "raw": [
+          "markdown-export",
+          "repository",
+          "link"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:24b90e610503cb8978eb92180a05e334ede1331913e2b52cecc15514548d72ec",
+      "claim_id": "sha256:521570c4e2876a062aeecc3703e0b1de447a2f37620b0ef4b34ee0643efef5d1",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "automatic-sync-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can configure whether your plans will be automatically added and synced to Warp Drive in your [Agent Profiles & Permissions](/agents/capabilities/agent-profiles-permissions/) under **Settings** > **Agents** > **Profiles**.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Saving and sharing",
+        "heading_anchor": "saving-and-sharing",
+        "line_end": 98,
+        "line_start": 98,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cac7ca958acfd1413f58af339da659157ee69b84cc50201b39c13b2c0c615044",
+      "claim_id": "sha256:7f378ab9892965071e047459173a64c0a133da022a02e1ae30568e10e84c0176",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "reusable-across-conversations",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Plans are reusable across tasks and sessions.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Using plans across conversations",
+        "heading_anchor": "using-plans-across-conversations",
+        "line_end": 104,
+        "line_start": 104,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:32db3439557d99367111f2f60a004cfa95e4310aee54f20bdebfc613d2bd9ac5",
+      "claim_id": "sha256:0ab8e7121a7ed6d107dd0a02c3b3919af9ada2e314df9fc112307d484dd36740",
+      "entity": "agent-plans",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "search-reference",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The **@plans** command helps you quickly search for and reopen previously saved plans",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/planning",
+        "canonical_route": "/agents/capabilities/planning",
+        "content_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
+        "heading": "Using plans across conversations",
+        "heading_anchor": "using-plans-across-conversations",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/agents/capabilities/planning.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/planning/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "@plans",
+        "raw": "@plans",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "2f11262994a849cd06ea42595c0520a3841e84953fc53e4980321fc6a2f344d8",
   "path": "src/content/docs/agents/capabilities/planning.mdx",
   "schema_version": 1
 }

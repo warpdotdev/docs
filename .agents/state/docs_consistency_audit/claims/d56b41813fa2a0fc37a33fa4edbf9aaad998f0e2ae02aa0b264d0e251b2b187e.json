@@ -1,6 +1,499 @@
 {
-  "claims": [],
-  "page_sha256": "521d8c61b8a46eefcf5ffe07fedd1bb280e22af144b4f55871ddfd02ff31e9e4",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:ddd2dc33b413bc0eee30bf445a0ceb38620052ea927646351f6ffaa3dd805aaa",
+      "claim_id": "sha256:92a5ebb4cb7c0a41e1890a244644ae875b1d95f42d4465cdb5320207241abd83",
+      "entity": "desktop-agent-profiles",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "new-profile-inherits-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "new profiles will copy its settings as a starting point.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Agent Profiles",
+        "heading_anchor": "agent-profiles",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6179550875720da5297e78a6142d26a85edc575196c587f157135dd56216dba5",
+      "claim_id": "sha256:b38b345d9da6027e0d4330f5ca54539a7745f029992eef59151ad3031ba842e7",
+      "entity": "command-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "overrides-always-allow",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [
+          "auto-approve-bypass-unless-disabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "any denylist rules will still override these settings.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Agent Permissions",
+        "heading_anchor": "agent-permissions",
+        "line_end": 60,
+        "line_start": 60,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c75f986b71dff01d8e204831564e504fc050e02382c7ab386520bcbee34a68c3",
+      "claim_id": "sha256:ee4744250aa43725bfeedc47236bb78fb63f4377d777f8116275414517da45d0",
+      "entity": "file-edits-agent-decides",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-approval",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`Agent decides` currently behaves the same as `Always ask`",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Agent Permissions",
+        "heading_anchor": "agent-permissions",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d42e4c4eb99ef25a2ceace4f79d87fdbe0ec08862e607cbe04633ef8c9857e77",
+      "claim_id": "sha256:2c71fd4eb3b282205eecb9a545b6f731ea32263fae90bab6d99fd0ecbaccf319",
+      "entity": "ask-user-question",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "permission-values",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Never ask** - The Agent does not pause for clarifying questions and continues with its best judgment.\n* **Ask unless auto-approve** - The Agent can ask during normal conversations, but questions are skipped while auto-approve is on.\n* **Always ask** - The Agent can pause for your answer even when auto-approve is on.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Ask questions",
+        "heading_anchor": "ask-questions",
+        "line_end": 71,
+        "line_start": 69,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "never",
+          "ask_except_in_auto_approve",
+          "always_ask"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b66a6b6891fe0804448abc0f3ab182173ae1782d8780b25cc38fae5fd30171f3",
+      "claim_id": "sha256:ba3d9b0f3839ef94155a144a929c15fb284db875159308e5c978a3ca3c51b3c6",
+      "entity": "command-allowlist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "empty-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It\u2019s empty by default",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Command allowlist",
+        "heading_anchor": "command-allowlist",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b2bf0704040af615166436705aa271a96187f8f02e00f887b5bca1c951dc3900",
+      "claim_id": "sha256:4779cf9392809767f4502521932b7a8d9e2d73b1ec2ee5c8da17cb5375c11830",
+      "entity": "command-allowlist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "accepts-regular-expressions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can add your own regular expressions to this list",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Command allowlist",
+        "heading_anchor": "command-allowlist",
+        "line_end": 85,
+        "line_start": 85,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:79a5b33342cfe744be69dcaf5a6f0ce06a0a9ec9e93a30d7970a822bf41adf3d",
+      "claim_id": "sha256:507e82e275f973657466a3bc3566f17a7e570696f624cce504a192243db10c81",
+      "entity": "command-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "overrides-allowlist",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [
+          "auto-approve-bypass-unless-disabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The denylist takes precedence over both the allowlist and `Agent decides`",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Command denylist",
+        "heading_anchor": "command-denylist",
+        "line_end": 101,
+        "line_start": 101,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:669d04a33af1daf72d36bcd0e007aa973db20e0bffeccd99d7c540c9f0226203",
+      "claim_id": "sha256:3df26b238184af076a3f8c821cf96eb3a9afc6d04a2d510ab1f3c98980669f14",
+      "entity": "mcp-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "overrides-allowlist",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "even if they\u2019re also in the allowlist.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "MCP permissions",
+        "heading_anchor": "mcp-permissions",
+        "line_end": 110,
+        "line_start": 110,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:00f2af845bf9c9397808ccbfd3f0e34c8f59da2c84ef71c5bb5711eaadd76031",
+      "claim_id": "sha256:1936f707a8add5c1be6dfe0e88a521fc8f8273c0341d4303ac0f7958b96392f1",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bypasses-personal-command-denylist-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "by default it also runs commands that match your command denylist.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Run until completion",
+        "heading_anchor": "run-until-completion",
+        "line_end": 144,
+        "line_start": 144,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a98f2b639144d741145d1300f7625c8750a5666adcf1f5b77332f6f93103ab45",
+      "claim_id": "sha256:20a0fce21a838bd8e5389d2d3db7fbed8ca99a4f27ffd15e006a7aa5a429349f",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bypasses-team-command-denylist",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Denylist rules your team enforces through the [Admin Panel](/knowledge-and-collaboration/admin-panel/) always require approval and are never bypassed.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Run until completion",
+        "heading_anchor": "run-until-completion",
+        "line_end": 146,
+        "line_start": 146,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:728d1eaf526abed8da61cb57b7ed13668e9f7d9b371d711f112b2b71771f8213",
+      "claim_id": "sha256:bba464a470fede8f8e2e2d77f9dff129b0ed13e1cfa774b904d1769ccac75448",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "personal-denylist-bypass-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "desktop"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Turn off **Allow auto-approve to bypass command denylist**.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/agent-profiles-permissions",
+        "canonical_route": "/agents/capabilities/agent-profiles-permissions",
+        "content_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
+        "heading": "Run until completion",
+        "heading_anchor": "run-until-completion",
+        "line_end": 146,
+        "line_start": 146,
+        "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/agent-profiles-permissions/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "2557bb00ae56964166290af49c1638f5d1101ce63e54c58c47fae96e82704b0f",
   "path": "src/content/docs/agents/capabilities/agent-profiles-permissions.mdx",
   "schema_version": 1
 }

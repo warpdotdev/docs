@@ -1,6 +1,178 @@
 # Docs consistency audit run log
 
 Scheduled and manual runs prepend one compact entry through the standing state branch.
+## 2026-11-27 — partial
+- Run: https://staging.warp.dev/conversation/d96798cc-d54e-48c4-8856-d0eff2ab63b7
+- Source commits: docs 07590710824203d9fd149a90ae925b4d59256603; public client 1c7fda1191bdfcd727c76b39a2c783a46d080d61; private authority revision retained transiently
+- Coverage: partial; 8/424 pages extracted, not fully audited; 89 unchanged pages reused; 327 deferred; 85 candidate pairs (30 current-context decisions; 55 deferred cached pairs unverified)
+- Findings: 0 new; 0 changed; 0 resolved; 7 unchanged active; Codex setup reverified; 6 saved findings carried forward, not rechecked (3 retention-scope findings, training wording, cloud-profile guidance, self-hosted data transit)
+- Suppressed: 0 rules; expired: 0; 27 compatible pairs; 1 intentional exception; 1 matching compliance pair without current approval evidence
+- Cost: 83392 extraction characters; 145 freshly extracted claims; 85 candidates; 2 bounded inline model passes; no additional model API calls (inline usage unmetered)
+- Sources unavailable / blocker: no blocker; released CLI help not collected (public source fallback); 65 audit and 35 coverage tests, 24 benchmark cases and 6 controls passed; 379 unprocessed shards, deferred manifest hashes and absences, and all 21 receipts preserved byte-for-byte; style/UI signals delegated; no actionable change, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-25 — partial
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a213dd-5263-7b6a-8219-dec72b4b0aa6
+- Source commits: docs d3768f828ae0da90ec9eaf6ee1985f4bb681fa50; public client e3525c726d885830a66474fd468ac8014dbf2ec8; private authority revision retained transiently
+- Coverage: partial; 8/421 pages extracted, not fully audited; 90 unchanged pages reused; 323 deferred; 86 candidate pairs considered (32 complete current-context decisions; 54 deferred cached pairs unverified)
+- Findings: 0 new; 0 changed; 0 resolved; 7 unchanged active; 2 reverified; 5 saved findings carried forward, not rechecked
+- Suppressed: 0 rules; expired: 0; 28 compatible pairs; 1 intentional exception; 55 insufficient-evidence pairs (54 deferred; 1 matching compliance statement without current approval evidence)
+- Cost: 56627 extraction characters; 109 freshly extracted claims; 86 candidates; 2 bounded inline model passes; no additional model API calls (inline usage unmetered)
+- Sources unavailable / blocker: no blocker; released CLI help not collected (public source fallback); 65 audit and 34 coverage tests passed; 24 benchmark cases and 6 negative controls passed; 379 unprocessed shards, deferred manifest hashes, and all 20 receipts preserved byte-for-byte; style/UI signals delegated; no actionable change, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-23 — partial
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a20990-99eb-7ccd-8c68-b79180c82860
+- Source commits: docs 7a7e436768dca1ad3a0129759e46f6b903896ec1; public client 75f8808a1c94ee54840f517cfff54595589c32a5; private authority revision retained transiently
+- Coverage: partial; 8/420 pages extracted, not fully audited; 96 unchanged pages reused; 316 deferred; 87 candidate pairs reviewed (38 complete current-context decisions; 49 deferred cached pairs unverified)
+- Findings: 0 new; 0 changed; 0 resolved; 7 unchanged active; 2 reverified; 5 saved findings carried forward, not rechecked
+- Suppressed: 0 rules; expired: 0; 34 compatible pairs; 1 intentional exception; 50 insufficient-evidence pairs (49 deferred; 1 matching compliance statement without current approval evidence)
+- Cost: 59354 extraction characters; 116 freshly extracted claims; 87 candidates; 2 bounded inline model passes; no additional model API calls (inline usage unmetered)
+- Sources unavailable / blocker: no blocker; released CLI help not collected (public source fallback); 65 audit and 34 coverage tests passed; 379 unprocessed shards, deferred manifest hashes, and all 19 receipts preserved byte-for-byte after restoring deferred empty-shard hashes; style/UI findings delegated; no actionable change, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-20 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1fa1d-85a9-7b09-9335-a28da30deae4
+- Source commits: docs 0074ba82260ecbbbd762e31fb3bb1730e13691ea; public client fdb20a15f82305fad7c0b1ff784b3299518903e7; private authority revision retained transiently
+- Coverage: blocked; 0/419 pages extracted; prior manifest hashes, backlog, claim shards, findings, and all schedule receipts preserved
+- Findings: no new results; 7 previously active, not rechecked
+- Suppressed: unknown; expired: unknown
+- Cost: 0 extraction characters; 0 candidates; 0 extraction or adjudication model calls
+- Sources unavailable / blocker: preflight; source-unavailable; required read-only authority checkouts do not match current remote default revisions; restore access to current required sources, then rerun the audit; adjacent style and UI signals remain delegated
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-18 — partial
+- Run: https://staging.warp.dev/conversation/3d5a5c23-7087-4c17-9518-b41be2013bc4
+- Source commits: docs 73cd669db86143156a24d0865e8816f6bdc863cb; public client 02d525eeba8b41ea9768279258febf6a8022113d; private authority revision retained transiently
+- Coverage: partial; 12/414 pages extracted, not fully audited; 92 unchanged pages reused; 310 deferred; 87 candidates reviewed (43 complete context adjudications; 44 deferred cached pairs unverified)
+- Findings: 0 new; 0 changed; 0 resolved; 7 unchanged active; 2 reverified; 5 saved findings carried forward, not rechecked
+- Suppressed: 0 rules; expired: 0; 40 compatible pairs; 1 intentional exception; 44 insufficient-evidence pairs
+- Cost: 89682 extraction characters; 87 candidates; 2 bounded inline model passes; no additional model API calls (inline usage unmetered)
+- Sources unavailable / blocker: no blocker; released CLI help not collected (public source fallback); 65 audit and 34 coverage tests passed; 375 unprocessed shards, deferred manifest hashes, and all 17 receipts preserved byte-for-byte; no actionable change, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-16 — partial
+- Run: https://staging.warp.dev/conversation/9924e22c-3ea1-4c1a-aaf7-34e99e9e4c95
+- Source commits: docs f47b54c52fbc616e85fdb0429145a9908a31df4f; public client 3741d2b74728c9ba13520e7ba476ec193e3dd86c; private authority revision retained transiently
+- Coverage: partial; 12/410 pages extracted, not fully audited; 100 unchanged pages reused; 298 deferred; all 101 candidates context-adjudicated
+- Findings: 0 new; 0 changed; 0 resolved; 7 unchanged active; 4 reverified; 3 saved findings carried forward, not confirmed (universal retention, enterprise retention exceptions, training wording)
+- Suppressed: 0 rules; expired: 0; 91 compatible pairs; 3 intentional exceptions; 3 insufficient-evidence pairs; 0 unverified
+- Cost: 46104 extraction characters; 101 candidates; 0 additional model API calls (inline reasoning unmetered)
+- Sources unavailable / blocker: no blocker; released CLI help not collected (public source fallback); 65 audit and 34 coverage tests passed; 374 unprocessed shards, deferred manifest hashes, and all 16 receipts preserved byte-for-byte; no actionable change, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-13 — partial
+- Run: https://staging.warp.dev/conversation/57bfd68f-05f9-492d-818a-6c2c55a06018
+- Source commits: docs f47b54c52fbc616e85fdb0429145a9908a31df4f; public client 829f3958813ba177b00c5905b26b43a1024c7752; private authority revision retained transiently
+- Coverage: partial; 8/410 pages extracted, not fully audited; 92 unchanged pages reused; 310 deferred; all 91 candidates context-adjudicated
+- Findings: 0 new; 0 changed; 0 resolved; 7 unchanged active; 4 reverified; 3 saved findings carried forward, not confirmed (universal retention, enterprise retention exceptions, training wording)
+- Suppressed: 0 rules; expired: 0; 81 compatible pairs; 3 intentional exceptions; 3 insufficient-evidence pairs; 0 unverified
+- Cost: 58564 extraction characters; 91 candidates; 0 additional model API calls (inline reasoning unmetered)
+- Sources unavailable / blocker: no blocker; generated CLI help not collected; 378 unprocessed shards, deferred manifest entries and hashes, and all 15 receipts preserved byte-for-byte; unchanged result, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-11 — partial
+- Run: https://staging.warp.dev/conversation/d259fce6-ba81-40da-bac5-af3d34ca41c7
+- Source commits: docs bb1d0e5daaca849adebaadfaea37863ffce549a4; public client 4fe3af1be644f3bf00aed1bd10212ad7e148d876; private authority revision retained transiently
+- Coverage: partial; 4/410 pages extracted, not fully audited; 90 unchanged pages reused; 316 deferred; all 68 candidates context-adjudicated
+- Findings: 1 new; 0 changed; 0 resolved; 6 unchanged active; 7 active total; 3 existing rechecked; 3 saved findings carried forward, not confirmed (universal retention, enterprise retention exceptions, training wording)
+- Suppressed: 0 rules; expired: 0; 61 compatible pairs; 2 intentional exceptions; 1 insufficient-evidence training-actor pair
+- Cost: 37396 extraction characters; 68 candidates; 0 additional model API calls (inline reasoning unmetered)
+- Sources unavailable / blocker: no blocker; generated CLI help unavailable; 382 unprocessed shards, deferred manifest entries and hashes, and all 14 receipts preserved byte-for-byte; privacy review needed for new Trust Center retention-scope finding
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-09 — partial
+- Run: https://staging.warp.dev/conversation/10cfc0fd-1e77-4ac4-aab9-baf39e0926cf
+- Source commits: docs 399611aa3b4da0d8573001c71f8ae9bbc3bd21bd; public client abb3fe33e004f7b1de540fecd6e3eec20dbc1883; private authority revision retained transiently
+- Coverage: partial; 12/399 pages extracted, not fully audited; 80 unchanged pages reused; 307 deferred; all 61 candidate pairs context-adjudicated
+- Findings: 0 new; 0 changed; 0 resolved; 6 unchanged active; 5 rechecked; 1 saved finding carried forward, not rechecked (universal AI retention omits Claude Fable exception)
+- Suppressed: 0 rules; expired: 0; 53 compatible pairs; 3 intentional exceptions; 0 unverified candidates
+- Cost: 116203 extraction characters; 61 candidates; 0 additional model API calls (inline reasoning unmetered)
+- Sources unavailable / blocker: no blocker; generated CLI help unavailable (public source fallback); 374 cached shards, deferred manifest entries and hashes, and all 13 receipts preserved byte-for-byte; actionable-only no-change result, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-06 — partial
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1b204-7d29-7637-a3da-da71f6f712af
+- Source commits: docs 403d5d626153a8d4ee5dc37effddc86ce2f9d4aa; public client f7fc2f2a08a3aa446baa23960710e630c5defd6e; private authority revision retained transiently
+- Coverage: partial; 12/399 pages extracted, not fully audited; 68 unchanged pages reused; 319 deferred; 41 candidate pairs reviewed, 2 incomplete due stale source hashes
+- Findings: 1 new; 0 changed; 0 resolved; 5 unchanged active; 6 active total; self-hosted code transit reverified; 4 saved findings carried forward, not rechecked (universal retention, enterprise retention exceptions, cloud Agent Profile, training claims)
+- Suppressed: 0 rules; expired: 0; 32 not-related pairs, 3 intentional exceptions, 4 insufficient-evidence pairs
+- Cost: 99591 extraction characters; 41 candidates; 10 bounded model passes
+- Sources unavailable / blocker: no blocker; generated CLI help unavailable (public source fallback); deferred shards, manifest entries, and schedule receipts preserved byte-for-byte; style and UI findings delegated to their owning checks
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-04 — partial (manual rerun)
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1a885-518a-79d2-81b1-d2ae8ab83dfb
+- Source commits: docs 90535b6cf719a2b32843ca75a65bc06583353645; public client 974ad511596c4099b8dab743cb33b3ce63a947b8; private authority revision retained transiently
+- Coverage: partial; 8/402 pages extracted, not fully audited; 76 unchanged pages reused; 318 deferred; 38 candidate pairs across 30 pages freshly compared
+- Findings: 2 new; 0 changed; 0 resolved; 3 existing active (CLI reverified; 2 saved privacy findings carried forward, not freshly confirmed: retention exception and training-policy wording); 5 active total
+- Suppressed: 0 rules; expired: 0; 31 agreeing pairs, 3 intentional exceptions, 1 insufficient-evidence training-policy pair; 0 missing adjudications
+- Cost: 95569 extraction characters; 38 candidates; 2 model JSON generations
+- Sources unavailable / blocker: no blocker; generated CLI help not collected (public source fallback); preserved 302 deferred shards and all deferred manifest absences; 11 receipts unchanged, no scheduled receipt created
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-04 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1a7b7-c4e5-721a-8e7b-18f215dad262
+- Source commits: docs d882e294e3a0005a5b49f83f6152eed93058911e; public client d6b50252cb18118fa13af3cf006a4e6be64b3bf9; private authority revision retained transiently
+- Coverage: blocked; 8/402 pages extracted, not fully audited; prior manifest, claim shards, backlog, findings, and schedule receipts preserved
+- Findings: no new results; 3 previously active, not rechecked by a completed comparison
+- Suppressed: unknown; expired: unknown
+- Cost: 95569 characters; 49 initial candidates; 4 model JSON generations
+- Sources unavailable / blocker: comparison; comparison-failed; inspect the comparison failure in the run details, correct it, then rerun; generated CLI help not collected (public source fallback used)
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-11-02 — partial
+- Run: https://staging.warp.dev/conversation/4c3cc9bc-dc38-47b7-b85e-077f56d019a9
+- Source commits: docs 80115f22c37507e41d0991de80f585ce308f429e; public client 0eca80f4c1256d0bb883aafa2eabb6473d731d3b; private authority revision retained transiently
+- Coverage: partial; 8/400 pages extracted; 69 unchanged pages reused; 323 deferred with prior manifest hashes and claim shards preserved
+- Findings: 0 new; 0 changed; 0 resolved; 3 unchanged active; cloud-run profile guidance rechecked; 2 saved privacy findings carried forward, not rechecked (retention exception and training-policy wording)
+- Suppressed: 0; expired: 0; all 30 candidates reviewed; 6 remain unverified pending deferred source refresh
+- Cost: 58985 characters; 30 candidates; 3 model JSON generations
+- Sources unavailable / blocker: generated CLI help not collected (public source fallback used); no blocker; actionable-only notification false, no Slack post
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-10-30 — partial
+- Run: https://staging.warp.dev/conversation/9774d58d-c11f-4ebe-93ec-652abf6cb0cc
+- Source commits: docs 232cf27943a1fbbc11eead43792cf224e4b5f226; warp b17a2ed0207a4aaf5e2481e1da1d4460e0852e42; private authority revision retained transiently
+- Coverage: partial; 8/400 pages extracted; 61 unchanged pages reused; 331 deferred with prior manifest hashes and shards preserved
+- Findings: 1 new; 0 changed; 0 resolved; 3 active; 2 saved privacy findings carried forward, not rechecked (retention exception and training-policy wording)
+- Suppressed: 0; expired: 0; 16 candidates unverified pending fresh extraction or additional scope evidence
+- Cost: 87687 characters; 29 candidates; 3 model JSON generations
+- Sources unavailable / blocker: generated CLI help not collected (public source fallback used); no blocker
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-10-28 — partial
+- Run: https://staging.warp.dev/conversation/50454ccd-1ed3-4373-96bc-37cb88a3741e
+- Source commits: docs 17b29842c15b738de6febb400b13ae9d08e9d9e2; warp 23adf48cf4e4c57416dcb078b25bcb04472e575c; private authority revision retained transiently
+- Coverage: partial; 8/392 pages extracted; 53 unchanged pages reused; 331 deferred with prior manifest hashes and shards preserved
+- Findings: 0 new; 0 changed; 0 resolved; 2 saved active carried forward, not rechecked (retention exception and training-policy wording)
+- Suppressed: 0; expired: 0; 17 candidates unverified pending fresh extraction
+- Cost: 70912 characters; 26 candidates; 2 model JSON generations
+- Sources unavailable / blocker: generated CLI help not collected (public source parsing used); no blocker
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-10-21 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a15f67-d1a4-7180-a751-cfb4cf077bfb
+- Source commits: docs 1bec888607558cd9c727fc324058bfbcce86eab4; warp 96d816ad2b3881418b56d946e70bfb004e89bd03; private authority revision retained transiently
+- Coverage: blocked; 0/390 pages extracted; 30 redirect-normalization cycle errors across 718 routes
+- Findings: 0 new; 0 changed; 0 resolved; 2 active (unchanged)
+- Suppressed: 0; expired: 0
+- Cost: 0 characters; 0 candidates; 0 model calls
+- Sources unavailable: authorities not refreshed after normalization blocker; prior manifest, shards, backlog, findings, and receipts preserved
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-10-19 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1551b-199b-7a92-8522-9ca4250507e1
+- Source commits: docs 87e5182b9a0c2e6d6c5a2f206a620b3d02796b35; warp d5667a308e5d1000554097db1d18e9132872cb75; private authority revision retained transiently
+- Coverage: blocked; 0/390 pages extracted; 30 redirect-normalization cycle errors across 549 routes, including /agents
+- Findings: 0 new; 0 changed; 0 resolved; 2 active (unchanged)
+- Suppressed: 0; expired: 0
+- Cost: 0 characters; 0 candidates; 0 model calls
+- Sources unavailable: authorities not refreshed after normalization blocker; prior manifest, shards, backlog, findings, and receipts preserved
+- State PR: https://github.com/warpdotdev/docs/pull/876
+## 2026-10-16 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a145a8-058e-7318-8016-1047a48522e3
+- Source commits: docs 756982e49a28058e6657616d262660b333aed779; warp a38e4416db8ab94953f6e780b1996cfd9bca7e8e; private authority revision retained transiently
+- Coverage: blocked; 0/388 pages extracted; 30 redirect-normalization cycles, first at /agents
+- Findings: 0 new; 0 changed; 0 resolved; 2 active (unchanged)
+- Suppressed: 0; expired: 0
+- Cost: 0 characters; 0 candidates; 0 model calls
+- Sources unavailable: authorities not refreshed after normalization blocker; prior manifest, shards, backlog, findings, and receipts preserved
+- State PR: https://github.com/warpdotdev/docs/pull/876
+
+## 2026-10-14 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a13b5b-4e26-7614-a96d-c65e1b73194a
+- Source commits: docs 2756ce2feecfec803f356fb90b945408a4adb114; warp 9e57f4f6a5c521f62ddacfa1413b66b9c162440f; private authority revision retained transiently
+- Coverage: blocked; 8/388 pages extracted; comparison unavailable
+- Findings: 0 new; 0 changed; 0 resolved; 2 active
+- Suppressed: 0; expired: 0
+- Cost: 63535 characters; 0 candidates (prepass blocked); 2 model JSON generations
+- Sources unavailable: generated CLI help; blocker: trailing-slash redirect normalization
+- State PR: https://github.com/warpdotdev/docs/pull/876
 
 ## 2026-10-07 — partial
 - Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1174e-c87a-7dd8-b072-61ac8c8cbab5

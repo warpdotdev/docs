@@ -1,6 +1,372 @@
 {
-  "claims": [],
-  "page_sha256": "31acfaf2b81ab497df3027d074bfcf7702134e02072799f952e5a68479b581ca",
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:7e403876f355834e10549339649f87863b896b1d3bc6326e2e58194d13a2219a",
+      "claim_id": "sha256:aaa522a99a69b89be729949e200176ff8254bfefdaf2b700db0a64459dc4ec77",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [
+          "contracted-model-providers"
+        ],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No customer data is retained, stored, or used for training by contracted LLM providers",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Security and compliance",
+        "heading_anchor": "security-and-compliance",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:7e403876f355834e10549339649f87863b896b1d3bc6326e2e58194d13a2219a",
+      "claim_id": "sha256:9ce8ab04be16a0eba08bf5ad3395eda10d93f65e4ea9a821ab7b8a71e34560f4",
+      "entity": "customer-ai-data",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [
+          "contracted-model-providers"
+        ],
+        "architectures": [],
+        "environments": [
+          "warp-managed-inference"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No customer data is retained, stored, or used for training by contracted LLM providers",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Security and compliance",
+        "heading_anchor": "security-and-compliance",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:1f7026866fdbeff73ca8dec1365c82fc01ebac760c885131066b59bddb2c85ed",
+      "claim_id": "sha256:9ddfb40c42b83b82b882d61154fa877e314f7f094367246e59f86180e6a2366c",
+      "entity": "team-managed-inference",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "business",
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Share provider API keys and custom endpoints across your Business or Enterprise team for both interactive sessions and cloud agents",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Security and compliance",
+        "heading_anchor": "security-and-compliance",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:6ac313f9ae7dbaf2c43dbbcc863896e5388c84cf51de9e5313cc73867363b04c",
+      "claim_id": "sha256:889a7d5eccd435ca65c754559b1ee40a8f95aa89ad4fc11b6a31ac5bb2b87bce",
+      "entity": "enterprise-plan",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "contract-period",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp Enterprise is available through annual contracts.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Getting started",
+        "heading_anchor": "getting-started",
+        "line_end": 68,
+        "line_start": 68,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": [
+          "annual"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:b9ae207ef6f8fae4eee6975106e208daca8f0804bb396d299d88ca7bfa637c52",
+      "claim_id": "sha256:84431b23504ed518b2ac3c7c9c138103e64fc2e95e0bebdda54f969d1441e3b6",
+      "entity": "warp-client",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "source-license",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL)",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Security and compliance",
+        "heading_anchor": "security-and-compliance",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "agpl-v3"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:d036548cb36bf84b9f03b32ff5c0936c4837f943c5d38ac171ce9a5b108b03fb",
+      "claim_id": "sha256:ce89bc1b97283024aab6299fca0c64761d5c247047dcc6e2c6a77dc1265a5ee9",
+      "entity": "team",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Control access with Team Owner, Team Admin, and Member roles",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Enterprise administration",
+        "heading_anchor": "enterprise-administration",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "owner",
+          "admin",
+          "member"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:effff0103aa73eb8ae993be5aa83162238ce42ce6b9cfd9c955fb7c0812726b3",
+      "claim_id": "sha256:fe305ecfbdb8115de0ad184fd34a91dc61c6020bd42a73979715cf4d5f6aaedb",
+      "entity": "enterprise-support",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "dedicated-channels",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise customers receive priority support via dedicated Slack/Teams channels",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Support and resources",
+        "heading_anchor": "support-and-resources",
+        "line_end": 91,
+        "line_start": 91,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "slack",
+          "teams"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:0ef462e49e7821e65364e935cd87edd32cffeb6fea721e60ea3583777bbe75da",
+      "claim_id": "sha256:50f94ec3f2e93214e1fc31d551a97c7ed278ef9ef43bf0e644afa8db6b316d9a",
+      "entity": "byollm",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cloud-providers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Route inference through your own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise)",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/index.mdx",
+        "content_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
+        "heading": "Security and compliance",
+        "heading_anchor": "security-and-compliance",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/enterprise/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "aws-bedrock",
+          "gemini-enterprise"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "page_sha256": "0d5e9d056ec8b441cfa71de0a239944c910c38a2c5a2d573f324185c04b24f74",
   "path": "src/content/docs/enterprise/index.mdx",
   "schema_version": 1
 }

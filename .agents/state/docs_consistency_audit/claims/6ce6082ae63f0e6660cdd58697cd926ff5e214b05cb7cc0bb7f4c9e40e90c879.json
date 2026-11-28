@@ -1,6 +1,917 @@
 {
-  "claims": [],
-  "page_sha256": "e70359ef8aeafed7078337dafaae4342650c337848424ff44a40f393183e0d52",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:e9e37f206dbdc5f35e19c9e22bac37433bfbb017a3008e2624d0abc8c01ae363",
+      "claim_id": "sha256:258a605756c0ffc4c4436dbdcce047b01544104a11c8d348172b0cd908e32951",
+      "entity": "oz-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "prefix",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "API keys start with the prefix `wk-`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Authenticating with API keys",
+        "heading_anchor": "authenticating-with-api-keys",
+        "line_end": 113,
+        "line_start": 113,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": "wk-",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d8bc22f779a879df29d592291c80e2b9835a986bbdb4a2c32f2f2ab3def2795e",
+      "claim_id": "sha256:9f17ea5349e98a5aee7ac5a5be4d4831a6cb6e149a3a9e4b35a4f67806e1f12c",
+      "entity": "oz-personal-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "run-as",
+      "qualifiers": {
+        "actors": [
+          "personal-api-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Run as you.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Personal API key behavior",
+        "heading_anchor": "personal-api-key-behavior",
+        "line_end": 83,
+        "line_start": 83,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "user"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ba76712a5bc53a40b274f0e5b1e8af2fd00bc94ebb68a754f61622d3b63a891c",
+      "claim_id": "sha256:622a5bfa4d29fe58b8c32d52e3522f527a5ae9f426b55e4855ad2ae020839c10",
+      "entity": "oz-agent-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "run-as",
+      "qualifiers": {
+        "actors": [
+          "agent-api-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Run as a cloud agent on your team.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Agent API key behavior",
+        "heading_anchor": "agent-api-key-behavior",
+        "line_end": 89,
+        "line_start": 89,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "team-cloud-agent"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:969bf67edf0a8cd444b9e7d0b5bbf72ce83f0f76a49c08522d53f56429771006",
+      "claim_id": "sha256:061d2d6d7c2012a2264b6b21d81c64a88efa2628567c78d0784e0268e0237489",
+      "entity": "oz-agent-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "github-authentication",
+      "qualifiers": {
+        "actors": [
+          "agent-api-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use the [Warp Factories](/factories/) GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Agent API key behavior",
+        "heading_anchor": "agent-api-key-behavior",
+        "line_end": 91,
+        "line_start": 91,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": "GitHub App when team GitHub authorization configured",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9efbe44f40aa2d764047c17ec7419782d2c7a001033374d5696b101d9110778b",
+      "claim_id": "sha256:adaf3529cb4620000971aed2179c5fc2abc456bc7dd8922ab755a59997e8bdb1",
+      "entity": "self-hosted-worker-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-agent-selection",
+      "qualifiers": {
+        "actors": [
+          "self-hosted-worker"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You don't need to select an agent when creating one.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Self-hosted worker API keys",
+        "heading_anchor": "self-hosted-worker-api-keys",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e7976d94dc9e3d1d5a1dfbb0bb892a8b7c33d8e472c9ea34440d96ec4006add4",
+      "claim_id": "sha256:c8dc2113b43bccb46ee5f229e7115f7636d4d04422f8f408e81e614497a8d78a",
+      "entity": "oz-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "raw-key-shown-once",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You won't be able to see it again after closing the dialog.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "From the web app (recommended)",
+        "heading_anchor": "from-the-web-app-recommended",
+        "line_end": 63,
+        "line_start": 63,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cd7790f83919cf659dc165aba2ad3bd517294c8daef3c8937278233001878262",
+      "claim_id": "sha256:0a381951f652d1a0f8f3a75f3a0fafd4b6f8d20fd645e6de303e575a9ffe974a",
+      "entity": "oz-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "delete-immediately-invalidates",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Deleted keys are immediately invalidated and cannot be recovered.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Deleting API keys",
+        "heading_anchor": "deleting-api-keys",
+        "line_end": 132,
+        "line_start": 132,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:486e9be268f40526f11fde3a57874a5fc077c2558050386ee0d93c955bb1b13b",
+      "claim_id": "sha256:8a1e0f80be2ddcdd23c3061cd13bd35284397928e4983e3af901db6d0701ef4b",
+      "entity": "oz-api-key-create",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-expiration-choice",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "One expiration choice is required: `--expires-in <DURATION>` (for example, `30d`, `12h`, or `90m`), `--expires-at <RFC3339>` (an exact timestamp), or `--no-expiration`.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Create a key",
+        "heading_anchor": "create-a-key",
+        "line_end": 156,
+        "line_start": 156,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2f97719efc93b3f5887efcad9142e5bcc285714a63ff4aca5e30cb1f99a731f1",
+      "claim_id": "sha256:bd2399779f3a904425e1d49bc9c021d72cf911f1568b55534670572ec72d6a56",
+      "entity": "enterprise-analytics-api",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "accepts-agent-api-key",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/) accepts only personal keys.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Personal vs. agent keys",
+        "heading_anchor": "personal-vs-agent-keys",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cd3e3ec611400798f72564a6430c891369f9a29f52c7c66b33a329a6bf26c3eb",
+      "claim_id": "sha256:ed6dba254ca8dab01abecab86a3faaf297d4271932c04e0efe2cde0be63f2d63",
+      "entity": "oz-personal-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "eligible-balances",
+      "qualifiers": {
+        "actors": [
+          "personal-api-key"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use your eligible included and purchased usage on the team. Enterprise billing follows your contract.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Personal API key behavior",
+        "heading_anchor": "personal-api-key-behavior",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": "eligible included and purchased usage; Enterprise contract applies",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b945c202afdf723411555b0625b0ad79901e3e48f16d9898e4100235cc17a08d",
+      "claim_id": "sha256:9c2d2bac46fba526660f26de95791b382095991f44cceeb9b1cd4cf46131affc",
+      "entity": "oz-api-key-expire",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "delete-alias",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "also available as `oz api-key delete`",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Expire a key",
+        "heading_anchor": "expire-a-key",
+        "line_end": 173,
+        "line_start": 173,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4c72f5fdd846d584bfdcd0e59ac16f3cca1a2e7b2f30bdabbcee9d382bffaf48",
+      "claim_id": "sha256:37642c1799ac974a16d4a49d379305018c210c9fc26125f149306df28429717d",
+      "entity": "oz-agent-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "authenticates-as",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "An agent key authenticates as the selected agent, not as the person who created the key.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Personal vs. agent keys",
+        "heading_anchor": "personal-vs-agent-keys",
+        "line_end": 23,
+        "line_start": 23,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "selected-agent-not-key-creator",
+        "raw": "selected-agent-not-key-creator",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b9d2dc80efd4fd465660d053474ea6a830ba718c11b1e87e3613f9d5331dda97",
+      "claim_id": "sha256:63ed6a8cb2ae78dde2b19b38222c0b71fd121fab03a4d8211bc753cf269b18f4",
+      "entity": "factory-submission-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "required-agent",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use an agent API key scoped to the target factory's foreman agent.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Personal vs. agent keys",
+        "heading_anchor": "personal-vs-agent-keys",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "target-factory-foreman",
+        "raw": "target-factory-foreman",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4d2df9e7e8ecb88f75788e275d8da31af031749194f56d0b4b2315ffc278af93",
+      "claim_id": "sha256:900fafea624fbd7e383ae3bc2673874af72990dee86a7dffd5ae076f084a3877",
+      "entity": "self-hosted-worker-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "authentication-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Worker authentication is team-wide, not specific to a factory or agent, and does not require separate keys.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Self-hosted worker API keys",
+        "heading_anchor": "self-hosted-worker-api-keys",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "team"
+        ],
+        "raw": [
+          "team"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:44f968723455f4b5483428f9f1141a3093208a3e4ce336f156788b194ddf5f47",
+      "claim_id": "sha256:d5843783261cdc1e5f96342463b4113e68b0ab0381f1db4858ab7b98621ce6ba",
+      "entity": "self-hosted-worker-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "grants-submission-permission",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Connecting a worker does not grant the caller permission to submit factory work.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Self-hosted worker API keys",
+        "heading_anchor": "self-hosted-worker-api-keys",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:27e18122f11ad7b62ddcc5acf07af7c9456ed68532e4fe1c867670d0c912dd87",
+      "claim_id": "sha256:df3b1d38d4e660ccd2528747760e86e572debaa19a34bebe85b293a8a693229c",
+      "entity": "team-api-key-creation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "requires-team-key-management-permission",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Creating team-owned agent or worker keys requires permission to manage team API keys.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Creating an API key",
+        "heading_anchor": "creating-an-api-key",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d869717afdc2ed3ac6e5fe765247d06ac595c19fc7de648c2b13f32ef07550be",
+      "claim_id": "sha256:8ed28611155284c9fc9ee1bc77507da85178cb066318b3ab9f03bb1a1690c0fc",
+      "entity": "oz-agent-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "creation-requires-act-as-permission",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For an agent key, you also need permission to act as the selected agent.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Creating an API key",
+        "heading_anchor": "creating-an-api-key",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:673668dfed903f10f48b536fd524ad2d9acf3f238ffcff23741c7b1402e5c041",
+      "claim_id": "sha256:31160dd1b8e1c239b84ba1ce1d7cf683b2e22aa9226ae455cd6702eb952221b6",
+      "entity": "oz-api-keys-web-create",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "default-expiration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The default is **90 days**",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "From the web app (recommended)",
+        "heading_anchor": "from-the-web-app-recommended",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": 7776000,
+        "raw": "90 days",
+        "type": "duration"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7634119a99a1c6d0839e82715fe15649a89589c8122b05e06cc6b2661645c001",
+      "claim_id": "sha256:84a23e0e6d72a612818618d1a5b7b2938c883ceaa3d2d3898684d1d8d1234f57",
+      "entity": "oz-api-key-create",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "agent-selection-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`--agent <UID>` \u2014 Create an agent key that runs as the given cloud agent, instead of a personal key.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Create a key",
+        "heading_anchor": "create-a-key",
+        "line_end": 155,
+        "line_start": 155,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--agent",
+        "raw": "--agent",
+        "type": "flag"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:941089cbe7fced720941609a162cddcada42de19b12d0dd8813a88ad996d4626",
+      "claim_id": "sha256:9616a9aff2131dc1f58ac73b1d87643dabc3dfc9d9e30ba7d2991748d53fa917",
+      "entity": "agent-identities-query",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "factory-filter-selects-active-team",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Personal-key callers on multiple teams need this header; the factory filter does not select the active team.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "An integration key for the target factory's foreman",
+        "heading_anchor": "an-integration-key-for-the-target-factorys-foreman",
+        "line_end": 169,
+        "line_start": 169,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4b28b17d4a22c371a4e7ad600415ee0bc21b82efe3251ef751f582ff7ef526f4",
+      "claim_id": "sha256:67adb0b58ef88ae45c8cedec8c828a5d841b4133b752a92d0e48b719423a1e16",
+      "entity": "oz-agent-api-keys",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "github-required-for-all-tasks",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/api-keys",
+        "canonical_route": "/agents/cli/oz-cli/api-keys",
+        "content_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
+        "heading": "Agent API key behavior",
+        "heading_anchor": "agent-api-key-behavior",
+        "line_end": 91,
+        "line_start": 91,
+        "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/api-keys/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "428617dee138c2a948b82381c19259a9ca7c00cdc8c8f6063da0638886e21e54",
   "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
   "schema_version": 1
 }

@@ -1,5 +1,421 @@
 {
-  "claims": [],
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:06959a0476ac0414154ba5af5dd53717dcd8d2d0703e5a51248592e19146583f",
+      "claim_id": "sha256:1499f00b489c2af159cb974e5b8199a94ee57b2ecc8cdfed24e3c94cd90e8b2b",
+      "entity": "sso-login",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported-protocols",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Any SAML 2.0 or OpenID Connect (OIDC) compatible provider",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "Supported identity providers",
+        "heading_anchor": "supported-identity-providers",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "saml-2.0",
+          "oidc"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1ccc14ca4d27f1259f273999343cbe0bce9864beaa2dc252c016c679282ebda6",
+      "claim_id": "sha256:5bd4571299c11ff45181cfd9de09a7935e8231b1bb5447cc59781c48a679d293",
+      "entity": "sso-setup",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-warp-coordination",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "SSO is configured through [WorkOS](https://workos.com) in coordination with Warp's team",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "Setting up SSO",
+        "heading_anchor": "setting-up-sso",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b57ba713d058953a94b18c6ab4c1fb2cd3a0687a0e02a37c487ae408c4eac351",
+      "claim_id": "sha256:441901716b021bfaa8a03f33584e37d39cb2bf16b9cf032bd16c541e64b3e4ca",
+      "entity": "sso-existing-accounts",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "linking-required",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "existing users who signed up with email or OAuth need to link their accounts.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "Setting up SSO",
+        "heading_anchor": "setting-up-sso",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a29afcea993a76783daebdf5b98673251f6f36a2791126345aaeb22f8a19ead8",
+      "claim_id": "sha256:5c6eca8c77468cd604ce12b1da7cc9244f9fde46ba37a6ac0bbcb08934a73d37",
+      "entity": "sso-login",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "idp-initiated-login-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp cannot be launched directly from your SSO provider's app portal (e.g., Okta dashboard).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "Testing SSO",
+        "heading_anchor": "testing-sso",
+        "line_end": 49,
+        "line_start": 49,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0e71caa6515cef6e5d43decd30178eb292f85a08e93ec8b938f5d0ba21d85f79",
+      "claim_id": "sha256:734ab7671929f2a8ce842fe91c1ce18806f20e7b96152b6fc0701b4afdf418bb",
+      "entity": "sso-user-provisioning",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "creation-time",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "users appear in your Warp workspace after their first SSO login, not at the time they are assigned in your identity provider.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "SCIM provisioning",
+        "heading_anchor": "scim-provisioning",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "first-sso-login"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a00f27e0a93cd1d6a998cd147a7d81409be994cfe8b2972ff086c17b462c809b",
+      "claim_id": "sha256:bd8a3159314beef83e0519aa4c665388258042bf66cdae2ea4fcf04b0592cf3a",
+      "entity": "sso-deprovisioning",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "immediately-revokes-existing-sessions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Existing sessions are not immediately revoked.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "SCIM provisioning",
+        "heading_anchor": "scim-provisioning",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b9279d673717f783ea3839f15dcb327a4db9cead86cc34a1a4c6807c9dcc3d78",
+      "claim_id": "sha256:0b6bbc6080a54183733033eaaf29779c1f00c69846e3283d14275f9eb3cee950",
+      "entity": "sso-scim",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "group-sync-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp does not currently support SCIM group sync.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "SCIM provisioning",
+        "heading_anchor": "scim-provisioning",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d05a89a0d82f93fc06ad6b2392570e5b23dfd7091cd9d2fe8bacd6893a3d9661",
+      "claim_id": "sha256:d9a2f5d9360fabaf1dc903bf099ee550bac99a74861d657927addcae110cad42",
+      "entity": "sso-domain-auto-join",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-warp-domain-configuration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Domain configuration is set up by the Warp team during onboarding.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "Domain auto-join",
+        "heading_anchor": "domain-auto-join",
+        "line_end": 77,
+        "line_start": 77,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2654b17ea5acee3976ee033226cf45971953aeef6d434332d84bdbdf415b97f9",
+      "claim_id": "sha256:27c8a36ec1c734747f9e12ee0d21812ff054a56b0fa91ef4269772e30c01f7a1",
+      "entity": "sso-enforcement",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "blocks-other-login-methods",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Workspace admins can require SSO for all workspace members, preventing login via other methods.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "SSO enforcement and session management",
+        "heading_anchor": "sso-enforcement-and-session-management",
+        "line_end": 22,
+        "line_start": 22,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8602c299c26a39e56f09c21bc887afdd4fb5a6ea4165e8413a44fbb15c949e5d",
+      "claim_id": "sha256:ef5751c8932bc552c9c97652618b49c7b2983299ce8ec9fb8627a99f39fb7566",
+      "entity": "sso-mfa",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enforced-by-idp",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "MFA is enforced through your identity provider's policies.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "content_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
+        "heading": "SSO enforcement and session management",
+        "heading_anchor": "sso-enforcement-and-session-management",
+        "line_end": 23,
+        "line_start": 23,
+        "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/sso/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
   "page_sha256": "3f44898b5913707252fa6ddbd333ee727dc9b719e6aa86b466e0092da985d44a",
   "path": "src/content/docs/enterprise/security-and-compliance/sso.mdx",
   "schema_version": 1

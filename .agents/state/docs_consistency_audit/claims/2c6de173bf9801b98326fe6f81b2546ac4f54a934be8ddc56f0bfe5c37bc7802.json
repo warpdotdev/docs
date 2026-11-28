@@ -1,6 +1,269 @@
 {
-  "claims": [],
-  "page_sha256": "ba108b20332fd566ae0837fabacb278f57708500a7ff6599bd2d97fc01307251",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:ee208ff49962c22293a780e3643b5949be43bc11c7c96968c3807046153f8376",
+      "claim_id": "sha256:a0a71ce52b33dfd205f5083ebaaeaa00c6c095b4262b03046257c59bc534a717",
+      "entity": "codex-integration",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "automatically-detected",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp auto-detects Codex when you run it",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/codex",
+        "canonical_route": "/agents/cli-agents/codex",
+        "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/agents/cli-agents/codex.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/codex/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f7ce5413be7782587ce5c48a5bb1466fcd4aeafd89df7acc822fc8277f2727cc",
+      "claim_id": "sha256:56d5a86cd0e3b44237bded0e7279ab95864f7b061da72858c96429ff3ad8b0af",
+      "entity": "codex-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "setup-mechanism",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "This is powered by the Warp plugin for Codex, published from the [warpdotdev/codex-warp](https://github.com/warpdotdev/codex-warp) plugin marketplace.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/codex",
+        "canonical_route": "/agents/cli-agents/codex",
+        "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 23,
+        "line_start": 23,
+        "path": "src/content/docs/agents/cli-agents/codex.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/codex/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "warp-plugin"
+        ],
+        "raw": [
+          "warp-plugin"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:16c0d66a465fdc1286f6a3239135b82d65dc98f46cf2985da4aaa74f34334832",
+      "claim_id": "sha256:1b3f6f3211eb217fbef8e729ccbbf90e4fc36b29cae01f41e5fca78e1936fc97",
+      "entity": "codex-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "activation-requires-restart",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Restart Codex to activate the plugin.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/codex",
+        "canonical_route": "/agents/cli-agents/codex",
+        "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 34,
+        "line_start": 34,
+        "path": "src/content/docs/agents/cli-agents/codex.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/codex/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:78c16e153d36430bed1dafe8402e392b77de6ad1f509ee0552f982ef3cad5ff3",
+      "claim_id": "sha256:3fcbbaba74e2c11cdf6000b1db2ce8d9163379d7ec73d3a45790fb2577053aa6",
+      "entity": "codex-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "auto-install-chip",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When Warp detects a Codex session without the plugin, it shows an install chip in the terminal.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/codex",
+        "canonical_route": "/agents/cli-agents/codex",
+        "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/agents/cli-agents/codex.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/codex/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7d81d74776e9b5963656b446fbd0b52d5c81ea58d5c17f9c9fa505a5f6b199a4",
+      "claim_id": "sha256:2c9c36b37f8b1c9cddebf421877aa9f07204a88edf4d8b84d69df06c7680376d",
+      "entity": "codex-notifications",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "updates-local-marketplace",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If you point `codex-warp` at a local (non-Git) marketplace source, Warp leaves that override alone and doesn't offer plugin updates for it.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/codex",
+        "canonical_route": "/agents/cli-agents/codex",
+        "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/cli-agents/codex.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/codex/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f34ebcf952efe9463f38170d890de2937e50d45c0123d2a183f2d436a0bc84fa",
+      "claim_id": "sha256:35302bde8472d3f7d7456fe2375f0746da9a4522e662548665baa582e05aee5d",
+      "entity": "codex-integration",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "remote-control-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**[Remote Control](/agents/cli-agents/remote-control/)** - Publish your Codex session so you can monitor and steer it from another device.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/codex",
+        "canonical_route": "/agents/cli-agents/codex",
+        "content_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
+        "heading": "Supported Warp features",
+        "heading_anchor": "supported-warp-features",
+        "line_end": 55,
+        "line_start": 55,
+        "path": "src/content/docs/agents/cli-agents/codex.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/codex/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "e2273e8b963d6193798816e19b11df015bfb08049c359b20480b8b6f97b34abc",
   "path": "src/content/docs/agents/cli-agents/codex.mdx",
   "schema_version": 1
 }

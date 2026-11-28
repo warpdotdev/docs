@@ -1,6 +1,133 @@
 {
-  "claims": [],
-  "page_sha256": "00b8a912490b1c2a5b1a120702439426727648a269b33417383d4591cf7749ac",
+  "claims": [
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:d3bd5514f044a996c5a86e3280e7adff7efcb6979f38a506ff489ceb7e112bea",
+      "claim_id": "sha256:8d1791273a182eb8111d478da80f6c162c51ca8c1657160451e43b91b8cbb3f0",
+      "entity": "soc-2-reports",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-upon-request",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Enterprise customers can request SOC 2 reports directly through the [Trust Center portal](https://trust.warp.dev), through their account manager, or by emailing [security@warp.dev](mailto:security@warp.dev).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "3d6b581b4d10586f4d74414d2963e40f8ac4d4898c7c7585190939f8a273112d",
+        "heading": "SOC 2 Type II",
+        "heading_anchor": "soc-2-type-ii",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:120db8006d45c3edee0de199ed48cbe3c0f606d0a8c5bf1ed80784c412aac7d0",
+      "claim_id": "sha256:15da65074de68713d1a4f6bb452993299f061b9469342579a2e8c2072bd3d43c",
+      "entity": "warp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "soc-2-type-2-attestation-claimed",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp has obtained a [SOC 2 Type 2 attestation](https://www.warp.dev/legal/security).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "3d6b581b4d10586f4d74414d2963e40f8ac4d4898c7c7585190939f8a273112d",
+        "heading": "SOC 2 Type II",
+        "heading_anchor": "soc-2-type-ii",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7bf01fbbd9555d1975146bc2dccb212eac848514772eb222eccfa0ce81f3af2e",
+      "claim_id": "sha256:94c5bd274f1fffe8677b8f33a1a2e50ec3ec515a23b699201fb6e892314eabd2",
+      "entity": "provider-retention",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "has-model-exceptions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "for model exceptions. Factory customers can review",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "content_sha256": "3d6b581b4d10586f4d74414d2963e40f8ac4d4898c7c7585190939f8a273112d",
+        "heading": "Subprocessors",
+        "heading_anchor": "subprocessors",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/security-and-compliance/trust-center/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "3d6b581b4d10586f4d74414d2963e40f8ac4d4898c7c7585190939f8a273112d",
   "path": "src/content/docs/enterprise/security-and-compliance/trust-center.mdx",
   "schema_version": 1
 }

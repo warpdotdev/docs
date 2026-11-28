@@ -1,6 +1,353 @@
 {
-  "claims": [],
-  "page_sha256": "df49a0038cf1a8313a13d3d706c9fe6e2db6d2447e1897fed15c0666647b2377",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:0fdb3e1b37f670a583798882a0a05b46f679a4b594aef80b58aa3bc454260543",
+      "claim_id": "sha256:58740f37123649a0c3f3b99e74a9b0efd7f2078efcbd74b76ac9799b8015d731",
+      "entity": "agent-run-api",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "requires-desktop-app",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "without the Warp desktop app.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9f160dd21a2305fbdec90998b58a74fc11cf5f9b510c155da9982a2b35a2050c",
+      "claim_id": "sha256:41cca686a5d57dc889e12584b2360102880c2e31254de7130eb20717dd1cedc1",
+      "entity": "create-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "returns-run-id-immediately",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The API returns a `run_id` immediately.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "2. Create your first run",
+        "heading_anchor": "2-create-your-first-run",
+        "line_end": 59,
+        "line_start": 59,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0bfe3c0c9cabb713bd5317bbd15b30b315b853f0095a9c200d02455065fc0167",
+      "claim_id": "sha256:ea59061df64f3a20b8de2af7a377d940e655443726e39ff471d8871b13cad68c",
+      "entity": "create-agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "execution-asynchronous",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The agent starts asynchronously \u2014 you can check its status at any time using the run ID.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "2. Create your first run",
+        "heading_anchor": "2-create-your-first-run",
+        "line_end": 59,
+        "line_start": 59,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:df9f335cb2b1a0b659070a1e1e002e2432de8588c47d9b6ff6b869a2aae7af93",
+      "claim_id": "sha256:0b24ace3d48a0cbdcf15a88f5551fa945ad1668890c9f3811d33fc97a785bb5d",
+      "entity": "agent-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "common-states",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "## 3. Check run status\n\nFetch the current state of the run with the following command. Replace `<RUN_ID>` with the `run_id` from step 2.\n\n```bash\ncurl \"https://app.warp.dev/api/v1/agent/runs/<RUN_ID>\" \\\n  -H \"Authorization: Bearer $WARP_API_KEY\"\n```\n\nThe `state` has the following possible values:\n\n* `QUEUED` - The run is waiting to start.\n* `INPROGRESS` - The agent is actively running.\n* `SUCCEEDED` - The run completed successfully.\n* `FAILED` - The run encountered an error. Check the `status_message` field in the response for details, then use the [API error reference](/factories/api-and-sdk/troubleshooting/errors/) to interpret the error code.\n\nThese are the most common states. See the [Agent & run endpoints](/factories/api-and-sdk/) and [{VARS.WARP_PLATFORM_API} reference](/api) for all possible values.\n\nTo list all recent runs:\n\n```bash\ncurl \"https://app.warp.dev/api/v1/agent/runs\" \\\n  -H \"Authorization: Bearer $WARP_API_KEY\"\n```\n",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "3. Check run status",
+        "heading_anchor": "3-check-run-status",
+        "line_end": 85,
+        "line_start": 61,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "QUEUED",
+          "INPROGRESS",
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "raw": [
+          "QUEUED",
+          "INPROGRESS",
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c18f249c4dc150d4fa71b6237232c6d99194c87ab18dbad02c02068e250e1264",
+      "claim_id": "sha256:916a0a36038e1ccb993371ed7f5c904557f4f0ca7aed7583e218fd4068c7fca8",
+      "entity": "api-key",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "attributes-run-to",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Use a personal key to attribute runs to you, or an agent key to attribute them to a [cloud agent](/platform/agents/).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "1. Set your API key",
+        "heading_anchor": "1-set-your-api-key",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": "personal key to user; agent key to cloud agent",
+        "raw": "personal key to user; agent key to cloud agent",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3c9eff6ec93f4381196c4c9f61dee40065d1693ea4ea5071c1754509ec32f1fa",
+      "claim_id": "sha256:7a5af4604ae83ebe6dc6630aa0bfedec686121c66db9ec86ca4799092e12e3b2",
+      "entity": "succeeded-run",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "includes-session-link",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Once the run reaches `SUCCEEDED`, the response includes a `session_link` \u2014 a direct URL to the full run transcript, including commands executed, files changed, and agent output.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "4. View the results",
+        "heading_anchor": "4-view-the-results",
+        "line_end": 88,
+        "line_start": 88,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4a17a5565edf4a7611c073daf5efb86ea509380a96f1f81a1e23a71f26a48fed",
+      "claim_id": "sha256:972a3401adac4b250a137402ea60a4e4cdc9b0674a94a455d2846f9c3239a512",
+      "entity": "python-sdk",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "package-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "[`warp-platform-sdk` Python package]",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "2. Create your first run",
+        "heading_anchor": "2-create-your-first-run",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "warp-platform-sdk",
+        "raw": "warp-platform-sdk",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:45e6a4c6c38469e703a2612c49191dcce8756d3e1488f2a2cc43c664d8d2ff29",
+      "claim_id": "sha256:bc7f85c0d538c1fafc92f1dadf00dc25acad016fa5d07e67fdbfeaced5527d9e",
+      "entity": "typescript-sdk",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "package-name",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "[`@warp-dot-dev/warp-platform-sdk` TypeScript package]",
+      "source": {
+        "canonical_identity": "path:src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "content_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
+        "heading": "2. Create your first run",
+        "heading_anchor": "2-create-your-first-run",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "@warp-dot-dev/warp-platform-sdk",
+        "raw": "@warp-dot-dev/warp-platform-sdk",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "40869512b3c00636beac87a3b0a26b6ccef335ace0d23a5e482f28f6b051292a",
   "path": "src/content/docs/factories/api-and-sdk/quickstart.mdx",
   "schema_version": 1
 }

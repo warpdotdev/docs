@@ -1,6 +1,794 @@
 {
-  "claims": [],
-  "page_sha256": "d2fb161547a8c04d0cadbaf7afc5cd730f358dcf3c9d80efd59507b2155b960b",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:37728cf4fe907b17a485476ce16972d830aaebbea0dd612b56008f34fc5c1350",
+      "claim_id": "sha256:74e406830bb542af3ddc3e0251768c69faddf69fce78c092c36a2c099e117470",
+      "entity": "warp-cli-permissions",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-agent-decides-actions",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Shell commands, file edits, file reads, MCP tool calls** - `agent_decides`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "How permissions work",
+        "heading_anchor": "how-permissions-work",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "execute_commands",
+          "apply_code_diffs",
+          "read_files",
+          "mcp_permissions"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f2bc48aee4d4c32b3fea5e4f1492db0bb48bbdaad57b8ad183bad94f9e036427",
+      "claim_id": "sha256:b228c1cf1283b496d870b4e5a2e18ad0a65675f1eb5dc7f278974d9b33428141",
+      "entity": "file-edits-agent-decides",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-approval",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "For file edits, `agent_decides` still prompts every time",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "How permissions work",
+        "heading_anchor": "how-permissions-work",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:29091a1db59b75e7a33f35ee2b21530998d0a19cbf3313cacabe6ece3aa8eeb7",
+      "claim_id": "sha256:8b35b7ae323ca667c9e84e57049f41354e34de9c51f17058851199bdc764d013",
+      "entity": "command-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "overrides-always-allow",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [
+          "auto-approve-bypass-unless-disabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Matching commands require approval even when `execute_commands` is `always_allow`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "How permissions work",
+        "heading_anchor": "how-permissions-work",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2a7db089db4a97f5e1376b1aad2bfd9dfad5ee85ae884362a90c1ff392d2354d",
+      "claim_id": "sha256:d79c576d8edceb6eeb6e1864926f805b4a09b7b9caf5dd1ca484c62cdb302c32",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "conversation-scoped",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Auto-approve is scoped to a single conversation",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Auto-approve",
+        "heading_anchor": "auto-approve",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8ccecf99320bde91e480ca60da60ba3f62b720125d7558d5a658f5b2f22c305c",
+      "claim_id": "sha256:2e9c1abd19c8394f1b11079ca702c0524bc169bd5bb85910795d099ea5851055",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "enabled-in-new-conversations-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [
+          "session-started-with-auto-approve-flag"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "new conversations start with it off.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Auto-approve",
+        "heading_anchor": "auto-approve",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:6ad9d90ae3e78924f4fcf8fad74bbd1958d6d98e9f92e5459c3a2affacabcbd6",
+      "claim_id": "sha256:8c9d465e8fe720ddd0ea4b4e27d0becf57e9ee7e2f211bee841ca114f0adb441",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bypasses-personal-command-denylist-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "including commands that match your own command denylist.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Auto-approve",
+        "heading_anchor": "auto-approve",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:33147a81a0e6a47ca250ff4ae20bb99e10a4cc2a3c96e780ebf0cceb786e0655",
+      "claim_id": "sha256:26b330715a9942187cb635dac0496f8ffc8d8d735bf8cdc6febb3927d30a7044",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "bypasses-team-command-denylist",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "always require approval and are never bypassed, regardless of this setting.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Auto-approve",
+        "heading_anchor": "auto-approve",
+        "line_end": 48,
+        "line_start": 48,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bf50de117c538604152a3f466250b3a002871f14c41938163499759a50eecb4a",
+      "claim_id": "sha256:98eca3ab2a9ac1c7c2f1c1d8eb3e7e63393da296bbbfa29ada23559520c74073",
+      "entity": "auto-approve",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "personal-denylist-bypass-configurable",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "auto_approve_bypasses_command_denylist = false",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Auto-approve",
+        "heading_anchor": "auto-approve",
+        "line_end": 45,
+        "line_start": 45,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:de15dff5e88d5b780afc04d5d9fd7181734398a3efa2b9e9ea7dbecda5570ae6",
+      "claim_id": "sha256:e40f5aaaa767f5f35e1e7b861bba7214d2728fb178eca41a6ec8743e35dd8fe5",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "active-profile-key",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the CLI always runs with the profile under the reserved `default` key:",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Execution profiles",
+        "heading_anchor": "execution-profiles",
+        "line_end": 52,
+        "line_start": 52,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "default",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:4b69d0ab1aac4c9437cea246f264817fe4bf3c8ba96c55c0468f110f15489e15",
+      "claim_id": "sha256:a1b8318e4130d9e223e86e3e82fa40f064a771a1f8e28eda2479f30b579ed9b7",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "syncs-to-cloud",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "They never sync to the cloud",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Execution profiles",
+        "heading_anchor": "execution-profiles",
+        "line_end": 69,
+        "line_start": 69,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c65303107fd1eaee50d0a404eae83789b13438a8220438ff210a49c6a2651f89",
+      "claim_id": "sha256:e482d21a106c9d4996f3d1f7b4c0e3e4439fd6cbf266172ce354c5eced20835c",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "shared-with-desktop",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "they are separate from the Agent Profiles you configure in the Warp app.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Execution profiles",
+        "heading_anchor": "execution-profiles",
+        "line_end": 69,
+        "line_start": 69,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:dd575500191a7e2ba08fd6cac0a21b5f7f7d0969397bfcc34f276c395c3cd29e",
+      "claim_id": "sha256:35d7d695046322b74c1b47f7dd92a4cdfd04a0bcf8d7ec78344791c953c115af",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "reloads-saved-settings",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI picks up saved changes automatically.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Execution profiles",
+        "heading_anchor": "execution-profiles",
+        "line_end": 67,
+        "line_start": 67,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:061820cda12aa44331fe1a57ec9bf54a9617e6801e517bca9befeb3c8a832c64",
+      "claim_id": "sha256:8d7e87aff6818ef119c49c06abd0fa2dcb95a1bc1bfbeda185078ef9f658f614",
+      "entity": "warp-cli-command-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "setting-replaces-defaults",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Setting `command_denylist` replaces the built-in default denylist",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Execution profiles",
+        "heading_anchor": "execution-profiles",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:788eec7249d5e84af5af74fed843d5fc4b88ed0063629307bacf6adfdaf897de",
+      "claim_id": "sha256:991df54bf930f39ff1b48c8485414d60f9c5c76607b7ea264e02dad34f0357ea",
+      "entity": "warp-cli-command-denylist",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "omitting-preserves-defaults",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Omitting the field keeps the defaults.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Execution profiles",
+        "heading_anchor": "execution-profiles",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:81d6ed07a9926f04d962a91a351595d6827d6d9b4a6ecaed9c530c6284e67cb3",
+      "claim_id": "sha256:c309a0bdeff4658c9bbebd1f56e8a28358977a6ed6a9eb7929c920dd55cd8df2",
+      "entity": "ask-user-question",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "permission-values",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`always_ask`, `ask_except_in_auto_approve`, or `never`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Profile fields",
+        "heading_anchor": "profile-fields",
+        "line_end": 86,
+        "line_start": 86,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": [
+          "always_ask",
+          "ask_except_in_auto_approve",
+          "never"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d75d9abc91300050d9679c0a8a9c97b11af5d5ccefa99675506cd59c4bb72e97",
+      "claim_id": "sha256:853d874f003773701ced0a03bc9aff99d67aaf8dc5b94261363e5e2b91db2cbd",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "invalid-config-runtime-fallback",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the CLI keeps the last valid configuration while it's running",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Profile fields",
+        "heading_anchor": "profile-fields",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "last-valid-profile",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c1b9d3b854bff393245d4f3c3be8958a6b0ec826178aaee10a70888ad50a2ee8",
+      "claim_id": "sha256:bd4a060ca609f4c7042b72b542b92661e423f9181c48cae346f97ad3616a8ff3",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "invalid-config-startup-fallback",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "falls back to the built-in default profile on the next launch",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Profile fields",
+        "heading_anchor": "profile-fields",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "built-in-default-profile",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:3a5a8c9c6db346531f72c5937639bece4f43d647cc81dd6c985bfe5abbf63dc2",
+      "claim_id": "sha256:4a890f559a0838c35b406f62ff8e585fa12658c7e914d4b04b735b3605d1a569",
+      "entity": "warp-cli-profile",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "validation-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The profile collection is validated as a whole.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "content_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
+        "heading": "Profile fields",
+        "heading_anchor": "profile-fields",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/permissions-and-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": "entire-profile-collection",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "7f133f13f70ce536cb923792918e969f0ce6628339dd4da7975ae0e85055e1b8",
   "path": "src/content/docs/agents/cli/permissions-and-profiles.mdx",
   "schema_version": 1
 }

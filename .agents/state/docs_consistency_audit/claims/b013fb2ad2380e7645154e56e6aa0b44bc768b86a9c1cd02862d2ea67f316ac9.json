@@ -1,6 +1,185 @@
 {
-  "claims": [],
-  "page_sha256": "6140ef4b752853779d6933004e647b3e4b0aa7c423f32d5712e93a6d60ebc85b",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:1573abd4af932b8b0349e3b052463271a591b185240a2257eebd0a140af1d34f",
+      "claim_id": "sha256:351483a5d9de30d24eee93d0e813ee7a7932c6794a1c7ba1309508086c5f0fd3",
+      "entity": "budget_exceeded",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "http-status",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **HTTP Status:** `403 Forbidden`",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "content_sha256": "5c1b8e894b539293730d2d6fd319b110aa859fd9eee5e724184049105d20c45d",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 403,
+        "raw": 403,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9458577d69d6492fbac35addcbac8a2da5aa42a8bcadf26a8c5eb4dfc76c2492",
+      "claim_id": "sha256:7996a068ee65ad71efb4e6af22804b5df9804c4d9ff8699ad5dab7ae607b6ca6",
+      "entity": "budget_exceeded",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "retryable",
+      "qualifiers": {
+        "actors": [
+          "automatic-retry"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Retryable:** No",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "content_sha256": "5c1b8e894b539293730d2d6fd319b110aa859fd9eee5e724184049105d20c45d",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 16,
+        "line_start": 16,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0dc8ec9523921484ebf3d5bd98475079f2f61e1e98dd361ec5108ab410659f41",
+      "claim_id": "sha256:de3baf3fe4c010e618d2317ea2953c559b2b68e9fef09ae879c66fb493cc0086",
+      "entity": "budget_exceeded",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **Task State:** FAILED",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "content_sha256": "5c1b8e894b539293730d2d6fd319b110aa859fd9eee5e724184049105d20c45d",
+        "heading": "Details",
+        "heading_anchor": "details",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0bd0e2ffc8462156b5f3cb6cdf9ca916d03fe96d051727df0b416176d595c099",
+      "claim_id": "sha256:42016986da54a57d4fd317ed6096e7ddb38848505c9d4d50decef65e70076af8",
+      "entity": "budget_exceeded",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "trigger",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The `budget_exceeded` error occurs when your team has reached the spending budget limit configured in team settings.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded",
+        "content_sha256": "5c1b8e894b539293730d2d6fd319b110aa859fd9eee5e724184049105d20c45d",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": "configured team budget exhausted",
+        "raw": "configured team budget exhausted",
+        "type": "free-text"
+      }
+    }
+  ],
+  "page_sha256": "5c1b8e894b539293730d2d6fd319b110aa859fd9eee5e724184049105d20c45d",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/budget-exceeded.mdx",
   "schema_version": 1
 }

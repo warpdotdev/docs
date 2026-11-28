@@ -1,6 +1,911 @@
 {
-  "claims": [],
-  "page_sha256": "b56118f0f50f01942b4a581f7f3457909b08a0ffce7fd3b3c7ec76ada85e2436",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:89d2b78a9602514c082df9a064c747a0f357104ece781131cdbe07db6bd50794",
+      "claim_id": "sha256:3ef69de8e8234554b926e9b4df0d068bd9e2d44bf1d40e6bdf6b3e341bce2b96",
+      "entity": "enterprise-workspace",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "contains-teams",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A workspace groups one or more teams under a single Enterprise account.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "one or more teams under one account",
+        "raw": "one or more teams under one account",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:446e4b2318226ec44e6fec247c02ce94728073ffd4975ced34cf6acbb697ede6",
+      "claim_id": "sha256:faf8fd308489fd6f96ec41d7c10f90d0724c9191a28a2c2febedf0efdeb7e53a",
+      "entity": "workspace-sso",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "configuration-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Single Sign-On (SSO) is configured at the workspace level.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "workspace"
+        ],
+        "raw": [
+          "workspace"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b7e92430f989627198206a747e38e398d195d0050b11bb2caff591023dc83fd8",
+      "claim_id": "sha256:69bfbb298d19ff87d8dab12a43aa2bddc1e9cb9f9576c901ae6e13c4ed7a877a",
+      "entity": "workspace-membership",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "workspaces-per-user",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A user belongs to one workspace and can belong to multiple teams within it.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspaces and teams",
+        "heading_anchor": "workspaces-and-teams",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": 1,
+        "raw": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b57afd6470d371af293b3553a2c30b6de4003d245d231be69212ceee37277d1b",
+      "claim_id": "sha256:f3bf16d8ff10ae919d4ddda57628d0dab96bf7bf394fbebd588f19c5d1a3bb6e",
+      "entity": "workspace-roles",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "available-roles",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "## Workspace roles\n\nEvery workspace member has one of three roles:\n\n* **Member** - Uses Warp within their teams and the policies admins configure.\n* **Admin** - Manages workspace membership, billing, and settings, with admin-level permissions on every team, including teams they don't belong to. Team admins who aren't workspace admins have admin permissions only on their teams.\n* **Owner** - Has every admin capability and can transfer ownership to another member. Each workspace has one owner.\n\nIn team member lists, the **Workspace admin** and **Workspace owner** badges distinguish workspace roles from team roles.\n",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace roles",
+        "heading_anchor": "workspace-roles",
+        "line_end": 30,
+        "line_start": 21,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "member",
+          "admin",
+          "owner"
+        ],
+        "raw": [
+          "member",
+          "admin",
+          "owner"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c46f3ab2926fda96b467a05b000d8a8e7bf121db457091dcd5fb2af5228b0fe1",
+      "claim_id": "sha256:6d6aa82db6d68e7909c6ad605c5560d2aef2096fb095a1bc839006d6325c0ae1",
+      "entity": "workspace-admin",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "team-admin-scope",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Manages workspace membership, billing, and settings, with admin-level permissions on every team, including teams they don't belong to.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace roles",
+        "heading_anchor": "workspace-roles",
+        "line_end": 26,
+        "line_start": 26,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": "all workspace teams including nonmembers",
+        "raw": "all workspace teams including nonmembers",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e657dbb36bc6455b5ac4b233095071152e3ab8150ad51cf413566a14fafb3559",
+      "claim_id": "sha256:ca1231f4eb4b61def6dd6bd406df2022673793b4263988fff5edcf2c492c96d3",
+      "entity": "workspace-owner",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "owners-per-workspace",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Each workspace has one owner.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace roles",
+        "heading_anchor": "workspace-roles",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": 1,
+        "raw": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:38f9201b6bc293b129a0587fc946b4c2046d7221dbd8b5be53eb53a97f1c7158",
+      "claim_id": "sha256:2077ae5dde17e5e0a619606b6abc420a3f39421d040bd4ff16668e30011fa7a9",
+      "entity": "workspace-member-removal",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "removes-all-team-memberships",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Removing a member also removes them from every team in the workspace.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace admin permissions",
+        "heading_anchor": "workspace-admin-permissions",
+        "line_end": 35,
+        "line_start": 35,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c6d56c67560bf3fb645f361ed015364b86aecee79260ccad1f7339a4b98711c9",
+      "claim_id": "sha256:2c473469ce61f35a1b463d44b4e9e2b7c8baae000fe714ca726d1b6920e4a58f",
+      "entity": "workspace-open-team",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "workspace-members-can-join",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Any workspace member can see the team and join it immediately.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Teams inside a workspace",
+        "heading_anchor": "teams-inside-a-workspace",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:30da54436dd0247bc4ab3ddf0238f3c82cf2c5df0151dc13d8ca58f4426aaed0",
+      "claim_id": "sha256:1b9841f8ce85cb99e9210062d4e5ae70706006e239af3eaef4ad38883a34a0fd",
+      "entity": "workspace-hidden-team",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "visible-in-discovery",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The team doesn't appear in team discovery; an admin adds members directly.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Teams inside a workspace",
+        "heading_anchor": "teams-inside-a-workspace",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f5406b7b8c1782a34bd510050b9150344ecbe9dadab4a9910bb5988a094dd275",
+      "claim_id": "sha256:1b35343a5a954a3c51b9695de447bf0dc4349d13fa2ed0deefacb5ac9dcd5649",
+      "entity": "workspace-domain-capture",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "joins-new-domain-users",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Automatically adds users who sign up with a verified company domain.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Joining a workspace or team",
+        "heading_anchor": "joining-a-workspace-or-team",
+        "line_end": 54,
+        "line_start": 54,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:a6f8518268a31f70cf940eff909df9020a8bfb5be4178c898d5ee9547d089921",
+      "claim_id": "sha256:2ad0d790664b52307eed557e7d8dbe55b48e0c5acecb731267302227eab54b97",
+      "entity": "workspace-unassigned-users",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "can-start-cloud-or-factory-runs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Unassigned users cannot start cloud agent or factory runs until they join a team.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Unassigned users",
+        "heading_anchor": "unassigned-users",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9cec3103900770000b0add4865c1a2a4969a36c3fbe90db98e94b68d91e61ae6",
+      "claim_id": "sha256:e9e31a6f2da59b2c3596570483b18f30f436a5c8d32b23f474e8266bd9422a58",
+      "entity": "workspace-admin",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "can-access-team-owned-runs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Workspace admins can view and manage each team-owned {VARS.PLATFORM_RUN} in the workspace, including runs that members of other teams started.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Cloud agent run visibility",
+        "heading_anchor": "cloud-agent-run-visibility",
+        "line_end": 65,
+        "line_start": 65,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:47eaac2ba6598ff3ba0a8d661d389f32f40332f5c9b41d41b00be497cabfa844",
+      "claim_id": "sha256:2dcaae9d99759fabd522e95b35033917c522732097e92b0d7b95d3b935544879",
+      "entity": "workspace-admin",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "role-grants-individual-run-access",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Workspace and team roles don't grant access to runs owned by an individual user.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Cloud agent run visibility",
+        "heading_anchor": "cloud-agent-run-visibility",
+        "line_end": 67,
+        "line_start": 67,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:44511e2581c2d6b22fbc9785eca67eceb4a39adc9a54bb7c76490f80ba72ba15",
+      "claim_id": "sha256:f088ef150ed02bfbd9eeac24133ee36af4e91b21f277250dab85a65ce2f076e8",
+      "entity": "workspace-role-change",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "changes-team-role",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Changing a workspace role never changes a member's team roles.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Changing workspace roles",
+        "heading_anchor": "changing-workspace-roles",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:704afa035accfd6070c62078f2512741e0c9d17547384c208f38dc31998d4faf",
+      "claim_id": "sha256:f711946df168ab27cf0c3a97a32b2dcae8840248120f2f40c33ab08fcc8ad48d",
+      "entity": "workspace-admin-demotion",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "revokes-workspace-admin-immediately",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "An admin who is demoted loses workspace admin access immediately but keeps any team admin role they already had.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Changing workspace roles",
+        "heading_anchor": "changing-workspace-roles",
+        "line_end": 78,
+        "line_start": 78,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:16b301eefc177ca65fa3945eb2f10b3404ffb478ac34801ef6290fa06caf31bf",
+      "claim_id": "sha256:6837b4a8a1192c662aca9430d75f95648e98d8a5d4790ae9920eea64bb9eb437",
+      "entity": "workspace-ownership-transfer",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "previous-owner-role",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The previous owner becomes an Admin.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Changing workspace roles",
+        "heading_anchor": "changing-workspace-roles",
+        "line_end": 79,
+        "line_start": 79,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": [
+          "admin"
+        ],
+        "raw": [
+          "admin"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ddba28bae5319056e8a762aa6f1c343ad108d9dcc7022cba431255bd422ee30c",
+      "claim_id": "sha256:ec541169fa2f65b531009ed9c0e0a726b83c30cf6cdb13f9bc50f2373f645881",
+      "entity": "workspace-members",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "can-leave-workspace-themselves",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Members can't leave an Enterprise workspace themselves.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Changing workspace roles",
+        "heading_anchor": "changing-workspace-roles",
+        "line_end": 81,
+        "line_start": 81,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9dccb01ffbeb0d03c43deca0c25da2a33bddfa14db6b19b920d920725d202be8",
+      "claim_id": "sha256:e293c7cc4c59eaf9aec48dab79d5e82fed14d50507a13446e6ff06e57397d596",
+      "entity": "workspace-policy-enforcement",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "locks-team-control",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When a workspace admin enforces a setting, team admins see it as locked.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace settings and team settings",
+        "heading_anchor": "workspace-settings-and-team-settings",
+        "line_end": 87,
+        "line_start": 87,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f2b3238d5a791a1a469f89e00f94c14a50eb673273f304394def3a7d983f129b",
+      "claim_id": "sha256:83be60faf1e3f4d32c773487f9dcb0b8fdab90eb923ee64f53f65796655741d5",
+      "entity": "workspace-spend-limits",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "supported-limit-types",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Workspace admins can set monthly limits for total, local agent, and cloud agent spending.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace spend limits",
+        "heading_anchor": "workspace-spend-limits",
+        "line_end": 91,
+        "line_start": 91,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "total",
+          "local-agent",
+          "cloud-agent"
+        ],
+        "raw": [
+          "total",
+          "local-agent",
+          "cloud-agent"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:584a2cbb9ce5ae3f839753a6bb3773dc29a631e96808c6eb9e5051dc22201553",
+      "claim_id": "sha256:6e6e007a16eea5e8a206e09bbb87cbe2662c9aba45d13beb29a5323cbf0c5896",
+      "entity": "workspace-spend-limits",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "first-limit-reached-blocks-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Team and individual limits remain independent, and the first applicable limit reached blocks further usage within its scope.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/team-management/workspaces.mdx",
+        "content_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
+        "heading": "Workspace spend limits",
+        "heading_anchor": "workspace-spend-limits",
+        "line_end": 91,
+        "line_start": 91,
+        "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/team-management/workspaces/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "6f83e912f7e3eca0d942a8cb6f4cfa09ac5f1494dce1a92a52a26d09969f40dd",
   "path": "src/content/docs/enterprise/team-management/workspaces.mdx",
   "schema_version": 1
 }

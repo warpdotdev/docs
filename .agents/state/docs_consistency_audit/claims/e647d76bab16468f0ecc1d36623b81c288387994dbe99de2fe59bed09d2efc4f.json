@@ -1,6 +1,573 @@
 {
-  "claims": [],
-  "page_sha256": "df1d05d8a5b7405642018f0080eb6b3c46a08f22492fc6ab966951a1283547d0",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:c433da49498ca4bd6c25092732a215fcc7382c6b846f568cca6a50b656af359d",
+      "claim_id": "sha256:df3a98094b1f1327d9a5458b9c2f664d15ae78a5123cc67d1837c7b94377e6c0",
+      "entity": "api-errors",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "response-content-type",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Error responses use the `application/problem+json` content type per RFC 7807.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "Response format",
+        "heading_anchor": "response-format",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "application/problem+json"
+        ],
+        "raw": [
+          "application/problem+json"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:950f42fdb4a5438ba68252ccde6836b7bb4ea3b405a48726fb281f38cc641abe",
+      "claim_id": "sha256:7b396da7c31cd7ab8b8236789d497fcc4dd5c1cbc0ed63933e81b379b7a75d4a",
+      "entity": "api-errors",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "standard-response-fields",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "## Response format\n\nAll error responses share this structure:\n\n```json\n{\n  \"type\": \"/factories/api-and-sdk/troubleshooting/errors/invalid-request/\",\n  \"title\": \"The request contains invalid or missing parameters.\",\n  \"status\": 400,\n  \"detail\": \"schedule_id is required\",\n  \"instance\": \"/api/v1/agent/tasks\",\n  \"error\": \"The request contains invalid or missing parameters. (schedule_id is required)\",\n  \"retryable\": false,\n  \"trace_id\": \"abc123def456...\"\n}\n```\n\nError responses use the `application/problem+json` content type per RFC 7807.\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "Response format",
+        "heading_anchor": "response-format",
+        "line_end": 31,
+        "line_start": 13,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "type",
+          "title",
+          "status",
+          "detail",
+          "instance",
+          "error",
+          "retryable",
+          "trace_id"
+        ],
+        "raw": [
+          "type",
+          "title",
+          "status",
+          "detail",
+          "instance",
+          "error",
+          "retryable",
+          "trace_id"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7b14a786de1b6d470babdc2477c95ebf5b43905e635f8b64a6ab2c621130aaf0",
+      "claim_id": "sha256:8577f1bcfbae568cbcb733e49e4e37b6840ff2c37bfca5c5bd6fdb89c133b68a",
+      "entity": "api-errors",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "detail-is-optional",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **`detail`** \u2014 Additional context specific to this occurrence of the error. Not always present.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "Field reference",
+        "heading_anchor": "field-reference",
+        "line_end": 37,
+        "line_start": 37,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:d3e9bd08fe263c49be1259ac2a9de2edeadc1174717ecced2de891d2a649d18c",
+      "claim_id": "sha256:5001437192736a47375b7aa3e54623f0e3fb0696ae9d5b12ac8f950bf0493c75",
+      "entity": "api-errors",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "trace-id-is-optional",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "* **`trace_id`** \u2014 An OpenTelemetry trace ID, included when available. Reference this when contacting support.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "Field reference",
+        "heading_anchor": "field-reference",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:e6951e769b25120b5f90f5ca4342145e002beff208abb9fa24dc5a1e4b9f01b7",
+      "claim_id": "sha256:bd027ecb985df338b8b646ea544f9fcccdcadbde84f143468282baf624d8c83f",
+      "entity": "api-errors",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "legacy-error-field-format",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When `detail` is present, formatted as `\"title (detail)\"`.",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "Field reference",
+        "heading_anchor": "field-reference",
+        "line_end": 39,
+        "line_start": 39,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "title (detail)",
+        "raw": "title (detail)",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1677562431551eea61e41da37df341104390dca777329a42fda058ba3f1b338e",
+      "claim_id": "sha256:734bf7ceb4eed036de6dcee862cd974dff20bd2917c910b508a39fbdd40d72d9",
+      "entity": "agent_process_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### Platform errors\n\nThese indicate a Warp-side issue. When a cloud agent task encounters a platform error, the task transitions to the **ERROR** state. Retryable errors are automatically retried before the task is marked as failed.\n\n* [`authentication_required`](/factories/api-and-sdk/troubleshooting/errors/authentication-required/) \u2014 Invalid or expired API key\n* [`resource_unavailable`](/factories/api-and-sdk/troubleshooting/errors/resource-unavailable/) \u2014 Transient infrastructure issue (retryable)\n* [`internal_error`](/factories/api-and-sdk/troubleshooting/errors/internal-error/) \u2014 Unexpected server-side error (retryable)\n* [`infrastructure_timeout`](/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/) \u2014 Task terminated after exceeding the maximum allowed runtime\n* [`agent_process_failed`](/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/) \u2014 Agent process exited unexpectedly during task execution\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "Platform errors",
+        "heading_anchor": "platform-errors",
+        "line_end": 76,
+        "line_start": 67,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "ERROR"
+        ],
+        "raw": [
+          "ERROR"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:97fc69c35131406e71480b871ccc08d656319c93b7dbfd063fc48fcaff300cc2",
+      "claim_id": "sha256:e5f06f0fa22ed96fac72c140b8ba65db79401da1fcf4403ddb027c744df1c4b8",
+      "entity": "budget_exceeded",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### User errors\n\nThese indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.\n\n* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) \u2014 The billed account has insufficient eligible usage\n* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) \u2014 Feature not included in your current plan\n* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) \u2014 External service authorization needed\n* [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) \u2014 Insufficient permissions for the operation\n* [`invalid_request`](/factories/api-and-sdk/troubleshooting/errors/invalid-request/) \u2014 Malformed request or invalid parameters\n* [`resource_not_found`](/factories/api-and-sdk/troubleshooting/errors/resource-not-found/) \u2014 Referenced resource does not exist\n* [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) \u2014 Spending budget limit reached\n* [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/) \u2014 Integration is disabled\n* [`integration_not_configured`](/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/) \u2014 Integration setup is incomplete\n* [`operation_not_supported`](/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/) \u2014 Operation not supported for this resource or state\n* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) \u2014 Cloud agent environment failed to initialize\n* [`content_policy_violation`](/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/) \u2014 Task flagged by content policy checks\n* [`conflict`](/factories/api-and-sdk/troubleshooting/errors/conflict/) \u2014 Request conflicts with the current resource state (retryable)\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "User errors",
+        "heading_anchor": "user-errors",
+        "line_end": 66,
+        "line_start": 49,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:97fc69c35131406e71480b871ccc08d656319c93b7dbfd063fc48fcaff300cc2",
+      "claim_id": "sha256:66ec5d73a4a99c7494da7c7ecb34cb72fb423db845886a44cae0a94f82d077f3",
+      "entity": "conflict",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### User errors\n\nThese indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.\n\n* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) \u2014 The billed account has insufficient eligible usage\n* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) \u2014 Feature not included in your current plan\n* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) \u2014 External service authorization needed\n* [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) \u2014 Insufficient permissions for the operation\n* [`invalid_request`](/factories/api-and-sdk/troubleshooting/errors/invalid-request/) \u2014 Malformed request or invalid parameters\n* [`resource_not_found`](/factories/api-and-sdk/troubleshooting/errors/resource-not-found/) \u2014 Referenced resource does not exist\n* [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) \u2014 Spending budget limit reached\n* [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/) \u2014 Integration is disabled\n* [`integration_not_configured`](/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/) \u2014 Integration setup is incomplete\n* [`operation_not_supported`](/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/) \u2014 Operation not supported for this resource or state\n* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) \u2014 Cloud agent environment failed to initialize\n* [`content_policy_violation`](/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/) \u2014 Task flagged by content policy checks\n* [`conflict`](/factories/api-and-sdk/troubleshooting/errors/conflict/) \u2014 Request conflicts with the current resource state (retryable)\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "User errors",
+        "heading_anchor": "user-errors",
+        "line_end": 66,
+        "line_start": 49,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:97fc69c35131406e71480b871ccc08d656319c93b7dbfd063fc48fcaff300cc2",
+      "claim_id": "sha256:e726c6a92f790edac49f2761b255948ff52a19e6a6575e7f90a55f3da03cd6d8",
+      "entity": "content_policy_violation",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### User errors\n\nThese indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.\n\n* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) \u2014 The billed account has insufficient eligible usage\n* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) \u2014 Feature not included in your current plan\n* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) \u2014 External service authorization needed\n* [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) \u2014 Insufficient permissions for the operation\n* [`invalid_request`](/factories/api-and-sdk/troubleshooting/errors/invalid-request/) \u2014 Malformed request or invalid parameters\n* [`resource_not_found`](/factories/api-and-sdk/troubleshooting/errors/resource-not-found/) \u2014 Referenced resource does not exist\n* [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) \u2014 Spending budget limit reached\n* [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/) \u2014 Integration is disabled\n* [`integration_not_configured`](/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/) \u2014 Integration setup is incomplete\n* [`operation_not_supported`](/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/) \u2014 Operation not supported for this resource or state\n* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) \u2014 Cloud agent environment failed to initialize\n* [`content_policy_violation`](/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/) \u2014 Task flagged by content policy checks\n* [`conflict`](/factories/api-and-sdk/troubleshooting/errors/conflict/) \u2014 Request conflicts with the current resource state (retryable)\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "User errors",
+        "heading_anchor": "user-errors",
+        "line_end": 66,
+        "line_start": 49,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:97fc69c35131406e71480b871ccc08d656319c93b7dbfd063fc48fcaff300cc2",
+      "claim_id": "sha256:d604a6d7493cd2e2f82541a30aa4c102d08349448e3c26858d327ae9ac2759b2",
+      "entity": "environment_setup_failed",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### User errors\n\nThese indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.\n\n* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) \u2014 The billed account has insufficient eligible usage\n* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) \u2014 Feature not included in your current plan\n* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) \u2014 External service authorization needed\n* [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) \u2014 Insufficient permissions for the operation\n* [`invalid_request`](/factories/api-and-sdk/troubleshooting/errors/invalid-request/) \u2014 Malformed request or invalid parameters\n* [`resource_not_found`](/factories/api-and-sdk/troubleshooting/errors/resource-not-found/) \u2014 Referenced resource does not exist\n* [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) \u2014 Spending budget limit reached\n* [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/) \u2014 Integration is disabled\n* [`integration_not_configured`](/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/) \u2014 Integration setup is incomplete\n* [`operation_not_supported`](/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/) \u2014 Operation not supported for this resource or state\n* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) \u2014 Cloud agent environment failed to initialize\n* [`content_policy_violation`](/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/) \u2014 Task flagged by content policy checks\n* [`conflict`](/factories/api-and-sdk/troubleshooting/errors/conflict/) \u2014 Request conflicts with the current resource state (retryable)\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "User errors",
+        "heading_anchor": "user-errors",
+        "line_end": 66,
+        "line_start": 49,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:97fc69c35131406e71480b871ccc08d656319c93b7dbfd063fc48fcaff300cc2",
+      "claim_id": "sha256:5225b2b4ebedca95859e87c50c021d20f22d7df708a44695d2c2458536c11791",
+      "entity": "external_authentication_required",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### User errors\n\nThese indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.\n\n* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) \u2014 The billed account has insufficient eligible usage\n* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) \u2014 Feature not included in your current plan\n* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) \u2014 External service authorization needed\n* [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) \u2014 Insufficient permissions for the operation\n* [`invalid_request`](/factories/api-and-sdk/troubleshooting/errors/invalid-request/) \u2014 Malformed request or invalid parameters\n* [`resource_not_found`](/factories/api-and-sdk/troubleshooting/errors/resource-not-found/) \u2014 Referenced resource does not exist\n* [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) \u2014 Spending budget limit reached\n* [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/) \u2014 Integration is disabled\n* [`integration_not_configured`](/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/) \u2014 Integration setup is incomplete\n* [`operation_not_supported`](/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/) \u2014 Operation not supported for this resource or state\n* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) \u2014 Cloud agent environment failed to initialize\n* [`content_policy_violation`](/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/) \u2014 Task flagged by content policy checks\n* [`conflict`](/factories/api-and-sdk/troubleshooting/errors/conflict/) \u2014 Request conflicts with the current resource state (retryable)\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "User errors",
+        "heading_anchor": "user-errors",
+        "line_end": 66,
+        "line_start": 49,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:97fc69c35131406e71480b871ccc08d656319c93b7dbfd063fc48fcaff300cc2",
+      "claim_id": "sha256:64b4573a18d09a39be03968a41e195b2a0c4cf032db17293b5594ed6b65dba45",
+      "entity": "feature_not_available",
+      "extraction_confidence": "high",
+      "polarity": "positive",
+      "predicate": "task-terminal-state",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "### User errors\n\nThese indicate something the caller needs to fix. When a cloud agent task encounters a user error, the task transitions to the **FAILED** state.\n\n* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) \u2014 The billed account has insufficient eligible usage\n* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) \u2014 Feature not included in your current plan\n* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) \u2014 External service authorization needed\n* [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) \u2014 Insufficient permissions for the operation\n* [`invalid_request`](/factories/api-and-sdk/troubleshooting/errors/invalid-request/) \u2014 Malformed request or invalid parameters\n* [`resource_not_found`](/factories/api-and-sdk/troubleshooting/errors/resource-not-found/) \u2014 Referenced resource does not exist\n* [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) \u2014 Spending budget limit reached\n* [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/) \u2014 Integration is disabled\n* [`integration_not_configured`](/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/) \u2014 Integration setup is incomplete\n* [`operation_not_supported`](/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/) \u2014 Operation not supported for this resource or state\n* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) \u2014 Cloud agent environment failed to initialize\n* [`content_policy_violation`](/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/) \u2014 Task flagged by content policy checks\n* [`conflict`](/factories/api-and-sdk/troubleshooting/errors/conflict/) \u2014 Request conflicts with the current resource state (retryable)\n",
+      "source": {
+        "canonical_identity": "route:/factories/api-and-sdk/troubleshooting/errors",
+        "canonical_route": "/factories/api-and-sdk/troubleshooting/errors",
+        "content_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
+        "heading": "User errors",
+        "heading_anchor": "user-errors",
+        "line_end": 66,
+        "line_start": 49,
+        "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/factories/api-and-sdk/troubleshooting/errors/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": [
+          "FAILED"
+        ],
+        "raw": [
+          "FAILED"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "page_sha256": "533bf15b20644ea9a417b96f1185d2bcc596c360ec6b79b40392c2839374874e",
   "path": "src/content/docs/factories/api-and-sdk/troubleshooting/errors/index.mdx",
   "schema_version": 1
 }
