@@ -66,6 +66,7 @@ For example, a missing assertion for a required fallback is a test gap. Choosing
 #### Handoff
 
 * The foreman returns the pull request, verification evidence, review summary, and remaining questions.
+* The handoff includes a [merge-risk assessment](/factories/use-cases/end-to-end-sdlc-automation/#assess-risk-before-handoff) explaining remaining verification gaps, potential impact, and what recovery would require.
 * The pull request remains unmerged.
 
 ### Check cost and quality
@@ -78,7 +79,7 @@ A [Scorer](/factories/measure-and-improve/scorers/) evaluates completed runs aga
 
 ## Tune one setting
 
-Test prompt and model changes separately.
+Use the table below to choose an adjustment based on a gap you found in the output. Keep required approvals and review in place while testing an adjustment. Compare prompt and model changes separately.
 
 | Observation | Adjustment to test | Stage or worker |
 | --- | --- | --- |
@@ -88,6 +89,8 @@ Test prompt and model changes separately.
 | Review reports irrelevant style findings | Narrow the blocking criteria without removing correctness checks | Review stage |
 | Review misses defects | Add the missed failure mode to the instructions | Review stage |
 | A worker skips a required check | Name the repository's exact check command | The worker that skipped it |
+| A UI result is described but not demonstrated | Require a capture of the changed interaction, not only the final screen | Verification stage |
+| A PR omits how to recover if the change fails | Require rollback cost and unresolved recovery decisions in the risk assessment | Implementation handoff |
 
 1. Edit the configuration that controls the result you want to change. For stage procedures, transitions, or gates, edit the Blueprint in `factory.yaml`. For shared procedures, edit the attached skill. For a worker's model or instructions shared across stages, open that worker on **Workers** and edit its "Model" setting or **Prompt**. In a GitHub-backed factory, edit the existing file under [`workers/` or `agents/`](/factories/factory-as-code/#directory-structure). Keep its directory and filename.
 2. Apply a definition-file change by saving **Factory definition** for a Warp-managed factory, or merging the definition pull request into its production branch for a GitHub-backed factory. Confirm validation passes. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
@@ -130,8 +133,12 @@ this spec, even if a previous test was approved.
 After approval, implement on the spec's branch and pull request, run the
 documented checks, and run independent review. Correct actionable findings
 on the same PR, then independently review the revised head. Ask me about
-contract changes and get fresh approval of the revised spec. Return the pull request,
-verification results, and unresolved questions. Never merge. Report a
+contract changes and get fresh approval of the revised spec.
+Before handoff, assess alignment, impact, verification, rollback cost,
+and error detection for the delivered head. Mitigate gaps within the
+approved scope. Ask me about changes to behavior or rollout.
+Return the pull request, verification results, risk assessment, and
+unresolved questions. Never merge. Report a
 missing tool or permission rather than claiming an unrun check passed.
 ```
 

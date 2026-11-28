@@ -79,9 +79,19 @@ To reuse skills without copying them, create a `.yaml` or `.yml` reference file 
 
 The source can be the repository containing your definition or an external repository. Pin it to a full commit SHA to keep using a particular version of the skill and its supporting files. See [Skill reference files](/factories/factory-as-code/#skill-reference-files) for same-repository, external-repository, and SHA-pinned examples.
 
-## Skills and self-improvement
+<span id="skills-and-self-improvement" />
 
-When a Scorer with [Self-improvement](/factories/measure-and-improve/self-improvement/) enabled flags a recurring failure, the factory can update the responsible skill in a follow-up run. Changes arrive as pull requests for your team to review in the web app or your Git host.
+## Improve a skill from observed failures
+
+A failed run can reveal a missing instruction in a skill. For example, a startup skill tells the worker to launch an app but omits a command to build a UI package the app depends on. The worker follows the instructions, but the app fails to start.
+
+1. Inspect the failed command and repository build instructions to confirm the cause. If the instructions are correct but a required service or permission is unavailable, address that problem instead of changing the skill.
+2. In the existing startup skill file, add the missing build command before the app-start command. Describe how to confirm that the app is ready.
+3. Manually follow the revised startup instructions from a clean checkout of the application repository. Once the app loads, complete a small task, such as verifying that a button copies the expected URL.
+4. Review the changed instructions and test results. Apply the approved change through the [definition's save or merge process](#add-or-edit-a-skill).
+5. Start a new factory run with the same small task. Check that the worker loads the revised skill, follows the added build step, and completes the task.
+
+Apply the same testing and review to automated proposals. When a Scorer with [Self-improvement](/factories/measure-and-improve/self-improvement/) enabled flags a recurring failure, a follow-up run can propose a skill change in a pull request for your review.
 
 ## Related pages
 

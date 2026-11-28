@@ -25,6 +25,8 @@ A new factory starts with these workers. Reassign stages or [add custom workers]
 
 Triage, planning, implementation, and review are stage responsibilities, not a requirement to create a separate worker for each one. A Blueprint can assign several stages to one worker or separate work that needs different tools or independent review.
 
+For example, you ask “What's the status of the pull request?” while an implementation worker builds a change. The foreman handles the status question and relays any new decision to that worker. This keeps status exchanges with the foreman and implementation context with the assigned worker.
+
 ### Foreman
 
 The foreman passes your request and prior decisions to the worker assigned by the top-level Blueprint. It gathers the stage's inputs, runs stages assigned to itself, and delegates other stages to their workers. It reads the returned outputs and follows the matching transition, rather than repeating the worker's investigation or implementation.
@@ -48,6 +50,8 @@ Choose a worker for each stage in the Blueprint. These responsibilities describe
 ### Triage
 
 The assigned worker researches the codebase and related issues, reproducing problems when research doesn't establish the cause. It reports scope, complexity, and open questions so the foreman can choose clarification, planning, or implementation.
+
+Use the [distinction between research and decisions](/factories/blueprints/stages/#separate-research-from-decisions) in its stage instructions so it investigates missing facts but asks you about unresolved behavior.
 
 <span id="spec" />
 
